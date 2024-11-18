@@ -1,10 +1,12 @@
 //menu.tsx
 import './menu.less'
-
-const AppMenu : React.FC = () => {
+interface AppSiderProps {
+    collapsed: boolean;
+}
+const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
   return (
     // display 控制div的显示隐藏none,block
-    <div className="ant-drawer-content-wrapper" style={{display:'block'}}>
+    <div className="ant-drawer-content-wrapper" style={{display:collapsed?'block':'none'}}>
         <div className="ant-drawer-content">
             <div style={{overflow: 'auto', height:'100%'}}>
                 <div className="ant-drawer-body">
@@ -12,7 +14,7 @@ const AppMenu : React.FC = () => {
                         <div className="sider domain-group-container">
                             <div className="result-group-list">
                                 {/* collapsed样式 控制卡片显示和隐藏 */}
-                                <div className="wb-card-item field-card">
+                                <div className='wb-card-item field-card'>
                                     <div className="wb-card-head">
                                         <div className="wb-card-head-wrapper">
                                             <div className="wb-card-head-title">

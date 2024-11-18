@@ -1,15 +1,27 @@
 //header.tsx
 import './head.less'
+import { useAppDispatch } from '@/hooks/use_global.hooks';
+import { setCollapsed } from "@/store/reducers/global";
 
-const AppHeader  : React.FC = () => {
+interface AppSiderProps {
+    collapsed: boolean;
+}
+const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
+    const dispatch = useAppDispatch();
+    const handleCollapsed = () => {
+      //更新全局状态  collapsed
+      dispatch(setCollapsed());
+    };
+  
+
   return (
     <div className="nc-workbench-top-container height-72">
         <nav className="nc-workbench-nav">
             <div className="nav-left n-left n-v-middle flex-fixed">
                 <div className="n-v-middle">
-                    <div className="nc-workbench-allAppsBtn nc-workbench-icon-close">
+                    <div className="nc-workbench-allAppsBtn nc-workbench-icon-close" onClick={handleCollapsed}>
                         {/* 处理左上角图标变化切换 nc-workbench-icon-new nc-workbench-icon-open */}
-                        <div className="nc-workbench-icon-new">
+                        <div className={collapsed?'nc-workbench-icon-open':'nc-workbench-icon-new'}>
                             <i className="iconfont icon-logo1"></i>
                         </div>
                     </div>
