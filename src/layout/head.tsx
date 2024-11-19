@@ -1,5 +1,5 @@
 //header.tsx
-import './head.less'
+import './layout_less/head.less'
 import { useAppDispatch } from '@/hooks/use_global.hooks';
 import { setCollapsed } from "@/store/reducers/global";
 

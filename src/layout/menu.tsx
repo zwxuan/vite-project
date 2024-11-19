@@ -1,9 +1,18 @@
 //menu.tsx
-import './menu.less'
+import './layout_less/menu.less'
+import { Link } from "react-router-dom"
+import { useAppDispatch } from '@/hooks/use_global.hooks';
+import { setCollapsed } from "@/store/reducers/global";
 interface AppSiderProps {
     collapsed: boolean;
 }
 const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
+    //处理点击具体二级菜单时跳转到详细页面要将菜单隐藏
+    const dispatch = useAppDispatch();
+    const handleCollapsed = () => {
+        //更新全局状态  collapsed
+        dispatch(setCollapsed());
+    };
   return (
     // display 控制div的显示隐藏none,block
     <div className="ant-drawer-content-wrapper" style={{display:collapsed?'block':'none'}}>
@@ -141,7 +150,7 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="domain-apps-wrapper" id="domain-apps-wrapper">
+                        <div className="domain-apps-wrapper" id="domain-apps-wrapper" onClick={handleCollapsed}>
                             <div className="content domain-apps-container" id="domain-apps-container">
                                 <div className="content-wrap" id="content-wrap">
                                     <div className="content-item">
@@ -149,7 +158,7 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
                                             <span>组织结构定义</span>
                                         </div>
                                         <div className="content-item-content">
-                                            <div className="item-app" grp-index="0" item-index="0" open-type="tab">集团<i className="iconfont icon-open app-open" grp-index="0" item-index="0" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="0" item-index="0" open-type="tab"><Link to="/home">集团</Link><i className="iconfont icon-open app-open" grp-index="0" item-index="0" open-type="newtab"></i></div>
                                             <div className="item-app" grp-index="0" item-index="1" open-type="tab">管控范围<i className="iconfont icon-open app-open" grp-index="0" item-index="1" open-type="newtab"></i></div>
                                             <div className="item-app" grp-index="0" item-index="2" open-type="tab">业务单元<i className="iconfont icon-open app-open" grp-index="0" item-index="2" open-type="newtab"></i></div>
                                         </div>

@@ -1,6 +1,7 @@
 //main.tsx
 import React from 'react';
 import { Layout } from "antd";
+import {Outlet}  from 'react-router-dom'
 import AppMenu from './menu';
 const { Content } = Layout;
 interface AppSiderProps {
@@ -11,10 +12,12 @@ const AppContent : React.FC<AppSiderProps> = ({collapsed}) => {
     position: 'relative',
     overflow: 'hidden',
   };
+  
   return (
     <Content style={containerStyle}>
       <AppMenu collapsed={collapsed}></AppMenu>
       {/* <div style={{height:'900px',width:'1200px',background:'red'}}>123</div> */}
+      <Outlet />
     </Content>
   );
 };
