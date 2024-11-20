@@ -49,8 +49,39 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                                         </svg>
                                     </i>
                                 </span>
+                                
                             </div>
                         </div>
+                    </div>
+                    <span className="block-span"></span>
+                    <div className='nav-left-item'>
+                        <span>
+                            <span className="ant-breadcrumb-link">首页</span>
+                            <span className="ant-breadcrumb-separator">
+                                <i className="iconfont icon-mianbaoxie font-size-12"></i>
+                            </span>
+                        </span>
+                        <span>
+                            <span className="ant-breadcrumb-link">动态建模平台</span>
+                            <span className="ant-breadcrumb-separator">
+                                <i className="iconfont icon-mianbaoxie font-size-12"></i>
+                            </span>
+                        </span>
+                        <span>
+                            <span className="ant-breadcrumb-link">组织管理</span>
+                            <span className="ant-breadcrumb-separator">
+                                <i className="iconfont icon-mianbaoxie font-size-12"></i>
+                            </span>
+                        </span>
+                        <span>
+                            <span className="ant-breadcrumb-link">组织结构定义</span>
+                            <span className="ant-breadcrumb-separator">
+                                <i className="iconfont icon-mianbaoxie font-size-12"></i>
+                            </span>
+                        </span>
+                        <span>
+                            <span className="ant-breadcrumb-link ">业务单元</span>
+                        </span>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,9 @@
     height: auto;
     padding: 1px;
 }
-
+.font-size-12 {
+    font-size: 12px !important
+}
 .nccwb-header-info {
     width: 100%;
     height: 28px;
@@ -51,6 +53,11 @@
             color: #9aa1bc;
             background-color: #495264
         }
+        .block-span {
+            width: 1px;
+            height: 12px;
+            background: #c1c1c1
+        }
     }
 }
 
@@ -63,7 +70,14 @@
         .flex-fixed {
             flex: 0 0 500px
         }
-
+        .margin-right-14 {
+            margin-right: 14px
+        }
+        .nav-left-item {
+            white-space: nowrap;
+            margin-left: 10px;
+            padding-bottom: 4px;
+        }
         .nc-workbench-allAppsBtn {
             width: 54px;
             height: 44px;
@@ -509,16 +523,11 @@
 
 .ant-select-selection {
     outline: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     box-sizing: border-box;
     display: block;
     background-color: #fff;
-    border-radius: 4px;
-    border: 1px solid #d9d9d9;
-    border-top: 1.02px solid #d9d9d9;
+    border-radius: 5px;
+    border: 1px solid #848884;
     transition: all .3s cubic-bezier(.645, .045, .355, 1)
 }
 
@@ -542,7 +551,8 @@
     margin-left: 0px;
     margin-right: 15px;
     position: relative;
-    line-height: 32px
+    line-height: 32px;
+    padding-left: 5px;
 }
 
 .ant-select-selection-rendered:after {
@@ -673,4 +683,10 @@
 .ant-select-search-field-wrap {
     width: 100%;
     height: 100%
+}
+.ant-breadcrumb-link>.anticon+span {
+    margin-left: 4px
+}
+.ant-breadcrumb-separator {
+    margin: 0 8px;
 }
