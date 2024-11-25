@@ -1,8 +1,9 @@
 import '../page_list.less'
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal } from 'antd';
-import type { TableColumnsType } from 'antd';
-import type { MenuProps } from 'antd';
+import type { TableColumnsType,MenuProps } from 'antd';
+import { CurrencyItemProps } from "@/types/currency/currency";
+import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
 import {
     Form,
     Input,
@@ -13,92 +14,87 @@ import {
     RedoOutlined,
     DownOutlined
   } from '@ant-design/icons';
+import currency from '@/mock/currency';
 const Currency = ()=>{
-    interface DataType {
-        key: React.Key;
-        name: string;
-        age: number;
-        address: string;
-      }
+
+    // 币制数据
+    const [currentyList, setCurrencyList] = useState([] as CurrencyItemProps[]);
+    // 获取币制数据
+    useEffect(() => {
+        // 获取币制数据
+        const getData = async () => {
+            const res = await getCurrencyList();
+            const currencyData = res?.data as CurrencyItemProps[];
+            // 设置币制台账数据
+            setCurrencyList([...currencyData]);
+        };
+        getData();
+    }, []);
       
-      const columns: TableColumnsType<DataType> = [
+      const columns: TableColumnsType<CurrencyItemProps> = [
         {
-          title: 'Full Name',
+          title: '编号',
           width: 100,
-          dataIndex: 'name',
-          key: 'name',
+          dataIndex: 'Code',
           sorter: true,
           fixed: 'left',
           align: 'center',
           
         },
         {
-          title: 'Age',
+          title: '币制名称',
           width: 100,
-          dataIndex: 'age',
-          key: 'age',
+          dataIndex: 'CurrencyFullName',
           sorter: true,
           fixed: 'left',
+          align: 'left',
+        },
+        {
+          title: '币制简称',
+          dataIndex: 'CurrencyShortName',
+          sorter: true,
+          width: 150,
+        },
+        {
+          title: '币制符号',
+          dataIndex: 'CurrencyMark',
+          sorter: true,
+          width: 150,
+        },
+        {
+          title: '价格精度',
+          dataIndex: 'PricePrecision',
+          sorter: true,
           align: 'right',
+          width: 150,
         },
         {
-          title: 'Column 1',
-          dataIndex: 'address',
-          key: '1',
+          title: '价格舍入规则',
+          dataIndex: 'PriceRoundingRule',
           sorter: true,
           width: 150,
         },
         {
-          title: 'Column 2',
-          dataIndex: 'address',
-          key: '2',
+          title: '金额精度',
+          dataIndex: 'AmountPrecision',
+          sorter: true,
+          align: 'right',
+          width: 150,
+        },
+        {
+          title: '金额舍入规则',
+          dataIndex: 'AmountRoundingRule',
           sorter: true,
           width: 150,
         },
         {
-          title: 'Column 3',
-          dataIndex: 'address',
-          key: '3',
+          title: '备注',
+          dataIndex: 'Remark',
           sorter: true,
           width: 150,
         },
         {
-          title: 'Column 4',
-          dataIndex: 'address',
-          key: '4',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: 'Column 5',
-          dataIndex: 'address',
-          key: '5',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: 'Column 6',
-          dataIndex: 'address',
-          key: '6',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: 'Column 7',
-          dataIndex: 'address',
-          key: '7',
-          sorter: true,
-          width: 150,
-        },
-        { title: 'Column 8', dataIndex: 'address', key: '8' ,width: 150,sorter: true},
-        { title: 'Column 9', dataIndex: 'address', key: '9' ,width: 150,sorter: true},
-        { title: 'Column 10', dataIndex: 'address', key: '10' ,width: 150,sorter: true},
-        { title: 'Column 11', dataIndex: 'address', key: '11' ,width: 150,sorter: true},
-        { title: 'Column 12', dataIndex: 'address', key: '12' ,width: 150,sorter: true},
-        { title: 'Column 13', dataIndex: 'address', key: '13' ,width: 150,sorter: true},
-        
-        {
-          title: 'Action',
+          title: '操作',
           key: 'operation',
           fixed: 'right',
           width: 100,
@@ -112,12 +108,7 @@ const Currency = ()=>{
         },
       ];
       
-      const dataSource = Array.from({ length: 100 }).map<DataType>((_, i) => ({
-        key: i,
-        name: `姓名 ${i}`,
-        age: 32,
-        address: `地址. ${i}`,
-      }));
+      
       const items: MenuProps['items'] = [
         {
           label: '启用',
@@ -203,21 +194,21 @@ const Currency = ()=>{
                     <Form.Item label="币种简称" name="CurrencyShortName" rules={[{ required: true,message:''}]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item label="币种符号" name="CurrencyCode">
+                    <Form.Item label="币种符号" name="CurrencyMark">
                         <Input />
                     </Form.Item>
 
                     <Form.Item label="单价精度" name="PricePrecision" rules={[{ required: true,message: '' }]}>
                         <InputNumber />
                     </Form.Item>
-                    <Form.Item label="单价舍入规则" name="RoundingRule" rules={[{ required: true,message: '' }]}>
+                    <Form.Item label="单价舍入规则" name="PriceRoundingRule" rules={[{ required: true,message: '' }]}>
                         <Select />
                     </Form.Item>
                     <Form.Item label="金额精度" name="AmountPrecision" rules={[{ required: true,message: '' }]}>
                         <InputNumber />
                         <div style={{color:'red'}}>警告:金额精度会影响财务报表。多数国家/地区财务报表金额和发票金额一般最多2位，如要超过2位，请确保财务部门认可。</div>
                     </Form.Item>
-                    <Form.Item label="金额舍入规则" name="RoundingRule" rules={[{ required: true,message: '' }]}>
+                    <Form.Item label="金额舍入规则" name="AmountRoundingRule" rules={[{ required: true,message: '' }]}>
                         <Select />
                     </Form.Item>
                 </Form>
@@ -226,7 +217,7 @@ const Currency = ()=>{
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title">
-                        <i className="iconfont icon-logo1 page-title-Icon" style={{color:'red'}}></i>业务单元
+                        <i className="iconfont icon-ncc-pt-jssj page-title-Icon" style={{color:'red'}}></i>币制
                         </span>
                         <span className="bill-info-code">
                             
@@ -350,10 +341,10 @@ const Currency = ()=>{
                 </div>
             </div>
             <div className='nc-bill-table-area'>
-                <Table<DataType>
+                <Table<CurrencyItemProps>
                     rowSelection={{type: 'checkbox'}}
                     columns={columns}
-                    dataSource={dataSource}
+                    dataSource={currentyList}
                     pagination={
                         {
                             size:'small',
