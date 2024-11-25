@@ -1,15 +1,15 @@
 //router/index.tsx
 import { createBrowserRouter} from "react-router-dom";
 import AppLayout from "@/layout/index";
-import Home from "@/pages/home";
+import Currency from "@/pages/currency";
 const routers = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
     children: [
       {
-        path: "/home",
-        element: <Home />,
+        path: "/currency",
+        element: <Currency />,
       },
 
     ], // 如果需要子路由，可以在这里添加

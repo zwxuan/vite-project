@@ -3,13 +3,14 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(),
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, './src') // 路径别名
+      "@": path.resolve(__dirname, './src'), // 路径别名
     }
   },
   server:{
-    host:'0.0.0.0'
+    host:'0.0.0.0',
   }
 })

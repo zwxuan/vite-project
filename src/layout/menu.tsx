@@ -38,14 +38,14 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
                                         <div className="field-app-list">
                                             <div className="app-col">
                                                 <div className="list-item">
-                                                    <div className="list-item-content active">
+                                                    <div className="list-item-content">
                                                         <div className="title"><span>组织管理</span></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="app-col">
                                                 <div className="list-item">
-                                                    <div className="list-item-content">
+                                                    <div className="list-item-content active">
                                                         <div className="title"><span>基础数据</span></div>
                                                     </div>
                                                 </div>
@@ -155,22 +155,35 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
                                 <div className="content-wrap" id="content-wrap">
                                     <div className="content-item">
                                         <div className="content-item-header">
-                                            <span>组织结构定义</span>
+                                            <span>财务基础数据</span>
                                         </div>
                                         <div className="content-item-content">
-                                            <div className="item-app" grp-index="0" item-index="0" open-type="tab"><Link to="/home">集团</Link><i className="iconfont icon-open app-open" grp-index="0" item-index="0" open-type="newtab"></i></div>
-                                            <div className="item-app" grp-index="0" item-index="1" open-type="tab">管控范围<i className="iconfont icon-open app-open" grp-index="0" item-index="1" open-type="newtab"></i></div>
-                                            <div className="item-app" grp-index="0" item-index="2" open-type="tab">业务单元<i className="iconfont icon-open app-open" grp-index="0" item-index="2" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="0" item-index="0" open-type="tab"><Link to="/currency">币制</Link><i className="iconfont icon-open app-open" grp-index="0" item-index="0" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="0" item-index="1" open-type="tab">费用科目<i className="iconfont icon-open app-open" grp-index="0" item-index="1" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="0" item-index="2" open-type="tab">科目账套<i className="iconfont icon-open app-open" grp-index="0" item-index="2" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="0" item-index="2" open-type="tab">税率管理<i className="iconfont icon-open app-open" grp-index="0" item-index="2" open-type="newtab"></i></div>
                                         </div>
                                     </div>
                                     <div className="content-item">
                                         <div className="content-item-header">
-                                            <span>业务委托关系定义</span>
+                                            <span>供应商管理</span>
                                         </div>
                                         <div className="content-item-content">
-                                            <div className="item-app" grp-index="1" item-index="0" open-type="tab">采购业务委托关系<i className="iconfont icon-open app-open" grp-index="1" item-index="0" open-type="newtab"></i></div>
-                                            <div className="item-app" grp-index="1" item-index="1" open-type="tab">销售业务委托关系<i className="iconfont icon-open app-open" grp-index="1" item-index="1" open-type="newtab"></i></div>
-                                            <div className="item-app" grp-index="1" item-index="2" open-type="tab">质检业务委托关系<i className="iconfont icon-open app-open" grp-index="1" item-index="2" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="0" open-type="tab">合同管理<i className="iconfont icon-open app-open" grp-index="1" item-index="0" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="1" open-type="tab">基本信息<i className="iconfont icon-open app-open" grp-index="1" item-index="1" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="2" open-type="tab">商品管理<i className="iconfont icon-open app-open" grp-index="1" item-index="2" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="2" open-type="tab">商品价格<i className="iconfont icon-open app-open" grp-index="1" item-index="2" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="2" open-type="tab">绩效管理<i className="iconfont icon-open app-open" grp-index="1" item-index="2" open-type="newtab"></i></div>
+                                        </div>
+                                    </div>
+                                    <div className="content-item">
+                                        <div className="content-item-header">
+                                            <span>客户管理</span>
+                                        </div>
+                                        <div className="content-item-content">
+                                            <div className="item-app" grp-index="1" item-index="0" open-type="tab">合同管理<i className="iconfont icon-open app-open" grp-index="1" item-index="0" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="1" open-type="tab">基本信息<i className="iconfont icon-open app-open" grp-index="1" item-index="1" open-type="newtab"></i></div>
+                                            <div className="item-app" grp-index="1" item-index="2" open-type="tab">绩效管理<i className="iconfont icon-open app-open" grp-index="1" item-index="2" open-type="newtab"></i></div>
                                         </div>
                                     </div>
                                 </div>
