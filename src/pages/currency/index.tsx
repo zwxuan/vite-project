@@ -14,7 +14,7 @@ import {
     RedoOutlined,
     DownOutlined
   } from '@ant-design/icons';
-import currency from '@/mock/currency';
+
 const Currency = ()=>{
 
     // 币制数据
