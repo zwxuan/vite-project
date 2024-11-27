@@ -9,4 +9,6 @@ export interface CurrencyItemProps {
     AmountPrecision:number;
     AmountRoundingRule:string;
     Remark:string;
+    //0 启用，1 禁用 2 删除
+    Status:number;
 }

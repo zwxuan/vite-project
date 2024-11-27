@@ -1,7 +1,7 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal } from 'antd';
-import type { TableColumnsType,MenuProps } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag } from 'antd';
+import type { TableColumnsType,MenuProps,TableProps } from 'antd';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
 import {
@@ -9,12 +9,13 @@ import {
     Input,
     InputNumber,
     Select,
-  } from 'antd';
+} from 'antd';
 import {
     RedoOutlined,
     DownOutlined
-  } from '@ant-design/icons';
+} from '@ant-design/icons';
 
+type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency = ()=>{
 
     // 币制数据
@@ -31,136 +32,176 @@ const Currency = ()=>{
         getData();
     }, []);
       
-      const columns: TableColumnsType<CurrencyItemProps> = [
-        {
-          title: '编号',
-          width: 100,
-          dataIndex: 'Code',
-          sorter: true,
-          fixed: 'left',
-          align: 'center',
-          
-        },
-        {
-          title: '币制名称',
-          width: 100,
-          dataIndex: 'CurrencyFullName',
-          sorter: true,
-          fixed: 'left',
-          align: 'left',
-        },
-        {
-          title: '币制简称',
-          dataIndex: 'CurrencyShortName',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: '币制符号',
-          dataIndex: 'CurrencyMark',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: '价格精度',
-          dataIndex: 'PricePrecision',
-          sorter: true,
-          align: 'right',
-          width: 150,
-        },
-        {
-          title: '价格舍入规则',
-          dataIndex: 'PriceRoundingRule',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: '金额精度',
-          dataIndex: 'AmountPrecision',
-          sorter: true,
-          align: 'right',
-          width: 150,
-        },
-        {
-          title: '金额舍入规则',
-          dataIndex: 'AmountRoundingRule',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: '备注',
-          dataIndex: 'Remark',
-          sorter: true,
-          width: 150,
-        },
-        {
-          title: '操作',
-          key: 'operation',
-          fixed: 'right',
-          width: 100,
-          render: () => (
-            <>
-                <a href='1'>启用</a>
-                <a href='2'>编辑</a>
-                <a href='3'>删除</a>
-            </>
-          ),
-        },
-      ];
-      
-      
-      const items: MenuProps['items'] = [
-        {
-          label: '启用',
-          key: '1',
-        },
-        {
-          label: '停用',
-          key: '2',
-        },
-      ];
-      const itemsInput: MenuProps['items'] = [
-        {
-          label: '新增导入',
-          key: '1',
-        },
-        {
-          label: '下载新增模板',
-          key: '2',
-        },
-        {
-            label: '更新导入',
-            key: '3',
-        },
-        {
-            label: '下载更新模板',
-            key: '4',
-        },
-        {
-            label: '查看导入日志',
-            key: '5',
-        },
-      ];
-      const itemsOutput: MenuProps['items'] = [
-        {
-          label: 'Excel导出',
-          key: '1',
-        },
-        {
-          label: '查看导出日志',
-          key: '2',
-        },
-      ];
+    const columnsType: TableColumnsType<CurrencyItemProps> = [
+    {
+        title: '编号',
+        width: 100,
+        dataIndex: 'Code',
+        sorter: true,
+        fixed: 'left',
+        align: 'center',
+        
+    },
+    {
+        title: '币制名称',
+        width: 100,
+        dataIndex: 'CurrencyFullName',
+        sorter: true,
+        fixed: 'left',
+        align: 'left',
+    },
+    {
+        title: '币制简称',
+        dataIndex: 'CurrencyShortName',
+        sorter: true,
+        width: 150,
+    },
+    {
+        title: '币制符号',
+        dataIndex: 'CurrencyMark',
+        sorter: true,
+        width: 150,
+    },
+    {
+        title: '价格精度',
+        dataIndex: 'PricePrecision',
+        sorter: true,
+        align: 'right',
+        width: 150,
+    },
+    {
+        title: '价格舍入规则',
+        dataIndex: 'PriceRoundingRule',
+        sorter: true,
+        width: 150,
+    },
+    {
+        title: '金额精度',
+        dataIndex: 'AmountPrecision',
+        sorter: true,
+        align: 'right',
+        width: 150,
+    },
+    {
+        title: '金额舍入规则',
+        dataIndex: 'AmountRoundingRule',
+        sorter: true,
+        width: 150,
+    },
+    {
+        title: '备注',
+        dataIndex: 'Remark',
+        sorter: true,
+        width: 150,
+    },
+    {
+        title: '状态',
+        dataIndex: 'Status',
+        sorter: true,
+        align: 'center',
+        width: 40,
+        render: (text) => {
+            if (text === 0) {
+                return <Tag color='green'>启用</Tag>;
+            } else if (text === 1) {
+                return <Tag>禁用</Tag>;
+            } else {
+                return <Tag color='red'>删除</Tag>;
+            }
+        }    
+        ,
+    },
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+        render: (_, record) => (
+        <>
+            <a href='#'>启用</a>
+            <a href='#' onClick={()=>handleEdit(record.Code)}>编辑</a>
+            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record.Code)}>
+                <a href='#'>删除</a>
+            </Popconfirm>
+            
+        </>
+        ),
+    },
+    ];
+    
+    const handleDelete = (key: React.Key) => {
+        alert(key);
+    };
+    const handleEdit = (key: React.Key) => {
+        const newData = currentyList.filter((item) => item.Code === key);
+        setFormData(newData[0]);
+        showModal();
+    };
+    
+    const items: MenuProps['items'] = [
+    {
+        label: '启用',
+        key: '1',
+    },
+    {
+        label: '停用',
+        key: '2',
+    },
+    ];
+    const itemsInput: MenuProps['items'] = [
+    {
+        label: '新增导入',
+        key: '1',
+    },
+    {
+        label: '下载新增模板',
+        key: '2',
+    },
+    {
+        label: '更新导入',
+        key: '3',
+    },
+    {
+        label: '下载更新模板',
+        key: '4',
+    },
+    {
+        label: '查看导入日志',
+        key: '5',
+    },
+    ];
+    const itemsOutput: MenuProps['items'] = [
+    {
+        label: 'Excel导出',
+        key: '1',
+    },
+    {
+        label: '查看导出日志',
+        key: '2',
+    },
+    ];
     const [open, setOpen] = useState(false);
 
     const showModal = () => {
+        console.log(formData);
         setOpen(true);
     };
+    const initFormData = {} as CurrencyItemProps;
+    const [formData, setFormData] = useState({ CurrencyFullName: '', CurrencyShortName: '' });
+    
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
     const handleOk = () => {
+        setFormData(initFormData);
         setOpen(false);
+        
     };
 
     const handleCancel = () => {
+        setFormData(initFormData);
         setOpen(false);
     };
     const formItemLayout = {
@@ -173,26 +214,41 @@ const Currency = ()=>{
           sm: { span: 14 },
         },
     };
+    //表格选中和取消时触发的函数
+    const rowSelection: TableRowSelection<CurrencyItemProps> = {
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log('onchange');
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        onSelect: (record, selected, selectedRows) => {
+            console.log('onselect');
+            console.log(record, selected, selectedRows);
+        },
+        onSelectAll: (selected, selectedRows, changeRows) => {
+            console.log('onallselect');
+            console.log(selected, selectedRows, changeRows);
+        },
+        type: 'checkbox',
+    };
+
     return (
         <div>
             <Modal open={open} title="币种"
-                onOk={handleOk}
                 onCancel={handleCancel}
-                width={680}
+                width={600}
+                destroyOnClose={true}
+                maskClosable={false}
                 footer={(_) => (
                 <>
-                    <Button onClick={handleCancel}>取消</Button>
-                    <Button>保存并新增</Button>
-                    <Button type="primary" danger>保存</Button>
                 </>
                 )}
             >
-                <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={{ variant: 'filled' }}>
+                <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData}>
                     <Form.Item label="币种" name="CurrencyFullName" rules={[{ required: true,message: '' }]}>
-                        <Input />
+                        <Input onChange={handleChange} />
                     </Form.Item>
                     <Form.Item label="币种简称" name="CurrencyShortName" rules={[{ required: true,message:''}]}>
-                        <Input />
+                        <Input onChange={handleChange}/>
                     </Form.Item>
                     <Form.Item label="币种符号" name="CurrencyMark">
                         <Input />
@@ -206,11 +262,22 @@ const Currency = ()=>{
                     </Form.Item>
                     <Form.Item label="金额精度" name="AmountPrecision" rules={[{ required: true,message: '' }]}>
                         <InputNumber />
-                        <div style={{color:'red'}}>警告:金额精度会影响财务报表。多数国家/地区财务报表金额和发票金额一般最多2位，如要超过2位，请确保财务部门认可。</div>
                     </Form.Item>
+                    <div style={{color:'red',paddingLeft:'100px',paddingRight:'20px'}}>警告:金额精度会影响财务报表。多数国家/地区财务报表金额和发票金额一般最多2位，如要超过2位，请确保财务部门认可。</div>
+                    
                     <Form.Item label="金额舍入规则" name="AmountRoundingRule" rules={[{ required: true,message: '' }]}>
                         <Select />
                     </Form.Item>
+                    <Form.Item wrapperCol={{ offset: 14 }}>
+                        
+                    </Form.Item>
+                    <div style={{textAlign:'right'}}>
+                        <Space>
+                            <Button onClick={handleCancel}>取消</Button>
+                            <Button>保存并新增</Button>
+                            <Button type="primary" onClick={handleOk} danger>保存</Button>
+                        </Space>
+                    </div>
                 </Form>
             </Modal>
             <div className="nc-bill-header-area">
@@ -300,29 +367,22 @@ const Currency = ()=>{
                             <div className="condition-contant">
                                 <span className="search-dom">
                                     <div className="u-form-control-wrapper">
-                                        <input placeholder="编码" type="text" className="nc-input u-form-control" defaultValue={''}/>
+                                        <input placeholder="编号" type="text" className="nc-input u-form-control" defaultValue={''}/>
                                     </div>
                                 </span>
                             </div>
                             <div className="condition-contant">
                                 <span className="search-dom">
                                     <div className="u-form-control-wrapper">
-                                        <input placeholder="负责人" maxLength={20} type="text" className="nc-input u-form-control"defaultValue={''} />
+                                        <input placeholder="币制名称" maxLength={20} type="text" className="nc-input u-form-control"defaultValue={''} />
                                     </div>
                                 </span>
                             </div>
                             <div className="condition-contant">
                                 <span className="search-dom">
                                     <div className="u-form-control-wrapper">
-                                        <input placeholder="名称" type="text" className="nc-input u-form-control"defaultValue={''} />
+                                        <input placeholder="币制简称" type="text" className="nc-input u-form-control"defaultValue={''} />
                                         <span className="multi-lang-suffix">ZH</span>
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="condition-contant">
-                                <span className="search-dom">
-                                    <div className="u-form-control-wrapper">
-                                        <input placeholder="所属公司" maxLength={20} type="text" className="nc-input u-form-control"defaultValue={''} />
                                     </div>
                                 </span>
                             </div>
@@ -342,8 +402,10 @@ const Currency = ()=>{
             </div>
             <div className='nc-bill-table-area'>
                 <Table<CurrencyItemProps>
-                    rowSelection={{type: 'checkbox'}}
-                    columns={columns}
+                    columns={columnsType}
+                    rowSelection={{ ...rowSelection}}
+                    rowKey={(record) => record.Code}
+                    
                     dataSource={currentyList}
                     pagination={
                         {

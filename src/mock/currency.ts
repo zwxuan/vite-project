@@ -12,6 +12,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -23,6 +24,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:1,
   },
   {
     Code: Mock.mock("@id"),
@@ -34,6 +36,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:2,
   },
   {
     Code: Mock.mock("@id"),
@@ -45,6 +48,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -56,6 +60,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -67,6 +72,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -78,6 +84,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -89,6 +96,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -100,6 +108,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -111,6 +120,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -122,6 +132,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -133,6 +144,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -144,6 +156,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
   {
     Code: Mock.mock("@id"),
@@ -155,6 +168,7 @@ const currencyItems:CurrencyItemProps[] = [
     AmountPrecision: 2,
     AmountRoundingRule: "四舍五入",
     Remark: "备注",
+    Status:0,
   },
 ];
  
