@@ -1,6 +1,9 @@
 //main.tsx
 import React from 'react';
 import { Layout } from "antd";
+import { useAppSelector} from '@/hooks/use_global.hooks';
+import { selectUserState } from "@/store/reducers/user";
+import type { UserLoginState } from '@/store/reducers/global_state';
 import {Outlet}  from 'react-router-dom'
 import AppMenu from './menu';
 const { Content } = Layout;
@@ -12,11 +15,12 @@ const AppContent : React.FC<AppSiderProps> = ({collapsed}) => {
     position: 'relative',
     overflow: 'hidden',
   };
-  
+  const userLoginState:UserLoginState = useAppSelector(selectUserState);
+  console.log(userLoginState);
   return (
     <Content style={containerStyle}>
       <AppMenu collapsed={collapsed}></AppMenu>
-      {/* <div style={{height:'900px',width:'1200px',background:'red'}}>123</div> */}
+      <div>{userLoginState.UserName}</div>
       <Outlet />
     </Content>
   );

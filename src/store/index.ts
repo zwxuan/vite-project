@@ -2,11 +2,13 @@
  
 import { configureStore } from "@reduxjs/toolkit";
 import globalReducer from "./reducers/global.ts";
+import userReducer from "./reducers/user.ts";
 //处理eslint报错
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const store = configureStore({
   reducer: {
-    global: globalReducer,
+    globalStatus: globalReducer,
+    userStatus: userReducer,
   },
 });
  
