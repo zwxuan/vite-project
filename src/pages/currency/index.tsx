@@ -16,7 +16,7 @@ import {
 } from '@ant-design/icons';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const Currency = ()=>{
+const Currency : React.FC = () => {
 
     // 币制数据
     const [currentyList, setCurrencyList] = useState([] as CurrencyItemProps[]);

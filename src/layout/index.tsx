@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout} from 'antd';
 import { useAppSelector} from '@/hooks/use_global.hooks';
 import { selectGlobalState } from "@/store/reducers/global";
-import { selectUserState } from "@/store/reducers/user";
 import type { GlobalState } from '@/store/reducers/global_state';
 import AppHead from './head';
 import AppContext from './content';

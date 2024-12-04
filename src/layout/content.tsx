@@ -20,7 +20,7 @@ const AppContent : React.FC<AppSiderProps> = ({collapsed}) => {
   return (
     <Content style={containerStyle}>
       <AppMenu collapsed={collapsed}></AppMenu>
-      <div>{userLoginState.UserName}</div>
+      {/* <div>{userLoginState.UserName}</div> */}
       <Outlet />
     </Content>
   );
