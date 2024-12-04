@@ -3,10 +3,17 @@ import { MenuProps,MenuGroup } from '@/types/menu/menu';
 interface AppSiderProps {
     collapsed: boolean;
     menudatas: MenuProps;
+    selectkey?:string;
     activeMenudatas: MenuGroup[];
     onClick?: () => void;
+    selectMenu?: (key:string) => void;
 }
-const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onClick }) => {
+const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onClick,selectMenu,selectkey }) => {
+    const handleClick = (key: string) => {
+        if (selectMenu) {
+            selectMenu(key);
+        }
+    };
     return (
         <div className="ant-drawer-content-wrapper" style={{ display: collapsed ? 'block' : 'none' }}>
             <div className="ant-drawer-content">
@@ -33,8 +40,8 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                                                         return (
                                                             <div className="app-col" key={i}>
                                                                 <div className="list-item">
-                                                                    <div className={`list-item-content ${app.active ? 'active' : ''}`}>
-                                                                        <div className="title">
+                                                                    <div className={`list-item-content ${app.key === selectkey ? 'active' : ''}`}>
+                                                                        <div className="title" onClick={() => handleClick(app.key)}>
                                                                             <span>{app.name}</span>
                                                                         </div>
                                                                     </div>
@@ -60,7 +67,11 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                                             {item.apps.map((app) => {
                                                 return (
                                                     <div className="item-app" grp-index="0" item-index="0" open-type="tab">
-                                                        {app.name}
+                                                        {app.path ? (
+                                                            <a href={app.path}>{app.name}</a>
+                                                        ) : (
+                                                            <span>{app.name}</span>
+                                                        )}
                                                         <i className="iconfont icon-open app-open" grp-index="0" item-index="0" open-type="newtab"></i>
                                                     </div>
                                                 )

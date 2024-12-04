@@ -1,4 +1,4 @@
-
+import type { MenuGroup } from "@/types/menu/menu.d";
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
 const menuData: MenuGroup[] = [
     {
@@ -9,7 +9,7 @@ const menuData: MenuGroup[] = [
                 name: "组织管理", key: "org",
             },
             {
-                name: "基础数据", active: true,key: "basic",
+                name: "基础数据",key: "basic",
             },
             {
                 name: "流程管理",key: "flow",
@@ -107,7 +107,24 @@ const childrenMenuData: MenuGroup[] = [{
             name: "绩效管理", key: "performance",
         },
     ]
-}]
+},
+{
+    title: "测试",
+    key : "test",
+    parentkey: "org",
+    apps: [
+        {
+            name: "测试菜单一", key: "1",
+        },
+        {
+            name: "测试菜单二", key: "2",
+        },
+        {
+            name: "测试菜单三", key: "3",
+        },
+    ]
+}
+]
  
 export default [
   // 用户登录
