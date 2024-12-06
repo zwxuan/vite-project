@@ -23,7 +23,7 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
         const filterMenuData = submenuData.filter((item) => {
             return item.parentkey === key;
         });
-        // 设置币制台账数据
+        // 设置子菜单数据
         setSubMenuList([...filterMenuData]);
         setSelectkey(key);
     };
@@ -33,21 +33,22 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
     const [mainmenuList, setMainMenuList] = useState([] as MenuGroup[]);
     const [submenuList, setSubMenuList] = useState([] as MenuGroup[]);
     const [selectkey, setSelectkey] = useState('basic');
-    // 获取币制数据
+    // 获取菜单数据
     useEffect(() => {
         // 获取币制数据
         const getData = async () => {
             const res = await getMainMenuList();
             const menuData = res?.data as MenuGroup[];
-            // 设置币制台账数据
+            // 设置主菜单数据
             setMainMenuList([...menuData]);
 
             const resSub = await getSubMenuList();
             const submenuData = resSub?.data as MenuGroup[];
+            // 设置子菜单数据
             const filterMenuData = submenuData.filter((item) => {
                 return item.parentkey === 'basic';
             });
-            // 设置币制台账数据
+            // 设置菜单数据
             setSubMenuList([...filterMenuData]);
 
         };

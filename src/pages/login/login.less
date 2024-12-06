@@ -1,0 +1,296 @@
+html,
+body {
+    /** 清除浏览器默认样式*/
+    margin: 0 auto;
+    padding: 0;
+}
+a {
+    color: #1677ff;
+}
+
+/* 清除浮动 */
+.clearfix::after {
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    content: "";
+}
+
+//全局滚动条样式
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: fade(#660f0f, 60%);
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
+    opacity: 0.2;
+}
+
+::-webkit-scrollbar-track {
+    background: fade(#550e0e, 30%);
+    border-radius: 0;
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 20%);
+}
+
+/**去除浏览器自动填充input输入框带背景色*/
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px rgb(153, 35, 35) inset;
+    border: 0px solid #520808!important;
+}
+
+/************************* 重置ant ui 组件样式 **********************************/
+
+/**重置ant样式*/
+.ant-input{
+    height: 35px;
+}
+/**表单下边距，默认24太大修改为16px*/
+.ant-form-item{
+    margin-bottom:16px;
+}
+.user-form {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 370px;
+}
+
+.user-form .form-header {
+    height: 26px;
+    display: flex;
+    /**底部对齐*/
+    align-items: flex-end;
+    /**两端对齐，项目之间的间隔都相等*/
+    justify-content: space-between;
+    margin: 0px 0px 24px;
+}
+
+.user-form .form-header .form-header-title {
+    color: #40485b;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 26px;
+}
+
+.form-header-title-tip {
+    color: #40485b;
+    font-size: 14px;
+    line-height: 26px;
+    a {
+        color: #1677ff;
+    }
+}
+
+/**记住我所在的行级元素样式*/
+.remember-checked {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-end;
+}
+
+/**登录按钮*/
+.login-form-button {
+    width: 100%;
+    height: 40px;
+    border-radius: 0;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+/**已有账号，忘记密码*/
+.login-form-forgot {
+    text-align: center;
+    margin-top: 8px;
+}
+
+/**使用OSChina账号登录*/
+.use-oschina-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span{
+        margin-left: 20px;
+        font-size: 16px;
+    }
+    .anticon {
+        font-size: 32px;
+        &:hover{
+            cursor: pointer
+        }
+    }
+    margin-top: 5px;
+}
+
+/**其他登录方式*/
+.other-login-mode {
+    height: 30px;
+    h4 {
+        /**设置为块级元素会独占一行形成上下居中的效果*/
+        display: block;
+        color: gray;
+        position: relative;
+        text-align: center;
+    }
+    /**h4标签选择器前后添加伪元素线*/
+    h4::before,
+    h4::after {
+        content: "";
+        /**定位背景横线的位置*/
+        position: absolute;
+        top: 45%;
+        width: 35%;
+        background: #494949;
+        height: 1px;
+    }
+    h4::before {
+        /**调整背景横线的左距离*/
+        left: 2%;
+        /**背景色渐变*/
+        background:linear-gradient(to left,#12d122,#981313);
+    }
+    h4::after {
+        /**调整背景横线的左距离*/
+        right: 2%;
+        /**背景色渐变*/
+        background:linear-gradient(to left,#c91818,#0cec9d);
+    }
+}
+.login-icon-list {
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    span {
+        font-size: 32px;
+        &:hover{
+            cursor: pointer
+        }
+    }
+}
+.login-others{
+    width: 260px;
+    height: 80px;
+    display: flex;
+    /**支持换行*/
+    flex-wrap: wrap; 
+    .custom-icon{
+        margin-left: 20px;
+        width: 16%;
+    }
+}
+.container-footer {
+    margin-top: 50px;
+    text-align: center;
+    /** +号表示从第二个元素开始使用设定的样式，第一个不生效 */
+    .user-footer-item,.user-footer-item+.user-footer-item{
+        a{
+            color:#8C92A4;
+        }
+        a:hover{
+            color: red;
+        }
+    }
+    .user-footer-item+.user-footer-item{
+        margin-left: 8px;
+    }
+}
+
+/**伪元素,在整个包装器之前添加一个元素*/
+.user-session-wrapper::before{
+    width: 394px;
+    height: 468px;
+    background-image: url(@/assets/images/background/bg-left.png);
+    left: 0;
+}
+
+/**伪元素,在整个包装器之后添加一个元素*/
+.user-session-wrapper::after{
+    width: 487px;
+    height: 412px;
+    background-image: url(@/assets/images/background/bg-right.png);
+    right: 0;
+}
+
+.user-session-wrapper::before,.user-session-wrapper::after{
+    content: "";
+    bottom: 0;
+    position:fixed;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+  /**为左边div容器添加两个伪元素，主要放背景图片*/
+// .session-left-box::before{
+//     // background: url(@/assets/images/background/box-left.png) no-repeat 0 0;
+    
+// }
+.session-left-box::after{
+    background: url(@/assets/images/background/box-right.png) no-repeat right bottom;
+}
+/**这两个伪元素公用的样式部分*/
+.session-left-box::before,.session-left-box::after{
+    content: "";
+    /**
+      * 如果当前伪元素的定位设置为absolute，则其相对的是第一个非static的元素
+      * 如果没有找到,那就是相对于浏览器
+      */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.user-session-wrapper {
+    /**登录和注册的form表单的最新高宽一定要满足如下的，不然随着浏览器缩放会挤压元素造成布局混乱*/
+    min-width: 1040px;
+    min-height: 99.9vh;
+    position: relative;
+    background-color: #fffffa;
+    z-index: 1;
+    .wrapper-container {
+        position:absolute;
+        top: 50%;
+        left: 50%;
+        width: 1000px;
+        margin:0 auto;
+        /**左移和上移自身元素的50%长宽使得元素水平垂直居中*/
+        transform: translate(-50%, -50%);
+        padding: 0;
+        z-index: 1;
+    }
+
+}
+
+/**如果页面样式布局不是太复杂，不建议把子样式套在父样式里面写，不利于阅读*/
+.container-body {
+    display: flex;
+    position: relative;
+    margin: auto;
+    width: inherit;
+    box-shadow: 0px 20px 80px 0px rgba(0, 0, 0, 0.3);
+    .session-left-box {
+        position: relative;
+        color:#fff;
+        background: url(@/assets/images/login_bg.jpg) no-repeat 0 0;
+        background-size: cover; /* 或者使用 cover */
+        background-position: center; /* 使背景图片居中 */
+        /**背景渐变色*/
+        // background: linear-gradient(0deg, #3a485a 0%, #607089 100%);
+        width: 50%;
+        min-height: 564px;
+        margin: 0 auto;
+    }
+    .session-right-form {
+        background: #fff;
+        width: 50%;
+        min-height: 564px;
+        margin: 0 auto;
+    }
+}
