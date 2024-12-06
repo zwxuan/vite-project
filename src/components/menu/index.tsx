@@ -6,12 +6,12 @@ interface AppSiderProps {
     selectkey?:string;
     activeMenudatas: MenuGroup[];
     onClick?: () => void;
-    selectMenu?: (key:string) => void;
+    selectMenu?: (keyCode:string) => void;
 }
 const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onClick,selectMenu,selectkey }) => {
-    const handleClick = (key: string) => {
+    const handleClick = (keyCode: string) => {
         if (selectMenu) {
-            selectMenu(key);
+            selectMenu(keyCode);
         }
     };
     return (
@@ -40,7 +40,7 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                                                         return (
                                                             <div className="app-col" key={i}>
                                                                 <div className="list-item">
-                                                                    <div className={`list-item-content ${app.key === selectkey ? 'active' : ''}`}>
+                                                                    <div key={i} className={`list-item-content ${app.key === selectkey ? 'active' : ''}`}>
                                                                         <div className="title" onClick={() => handleClick(app.key)}>
                                                                             <span>{app.name}</span>
                                                                         </div>

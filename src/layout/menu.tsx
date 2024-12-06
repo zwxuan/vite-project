@@ -17,15 +17,15 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
         dispatch(setCollapsed());
     };
 
-    const selectMenu = async (key:string) => {
+    const selectMenu = async (keyCode:string) => {
         const resSub = await getSubMenuList();
         const submenuData = resSub?.data as MenuGroup[];
         const filterMenuData = submenuData.filter((item) => {
-            return item.parentkey === key;
+            return item.parentkey === keyCode;
         });
         // 设置子菜单数据
         setSubMenuList([...filterMenuData]);
-        setSelectkey(key);
+        setSelectkey(keyCode);
     };
 
     

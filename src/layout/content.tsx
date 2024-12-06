@@ -15,8 +15,7 @@ const AppContent : React.FC<AppSiderProps> = ({collapsed}) => {
     position: 'relative',
     overflow: 'hidden',
   };
-  const userLoginState:UserLoginState = useAppSelector(selectUserState);
-  console.log(userLoginState);
+
   return (
     <Content style={containerStyle}>
       <AppMenu collapsed={collapsed}></AppMenu>

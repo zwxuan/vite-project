@@ -2,7 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "@/store/index.ts";
 import type { UserLoginState} from "./global_state.d";
-import { Random } from "mockjs";
 // 定义初始 state 的类型
 
 // 使用该类型定义初始 state
@@ -18,9 +17,11 @@ export const userSlice = createSlice({
   initialState:initialUser,// 初始 state
   reducers: {
     // 定义 reducer 函数，该函数接受 state 和 action 作为参数
-    setUserState: (state) => {
+    setUserState: (state,action) => {
       // 更新 state
-      state.UserName = "天涯轩"+Random.datetime();
+      const userInfo = action.payload;
+      state.UserName = userInfo.UserName;
+      state.Token = userInfo.Token;
     },
   },
 });

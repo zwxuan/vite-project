@@ -2,7 +2,6 @@
 import './layout_less/head.less'
 import { useAppDispatch } from '@/hooks/use_global.hooks';
 import { setCollapsed } from "@/store/reducers/global";
-import { setUserState } from "@/store/reducers/user";
 import { Breadcrumb } from 'antd';
 import { Location, useLocation } from 'react-router-dom';
 interface AppSiderProps {
@@ -15,8 +14,6 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
     const handleCollapsed = () => {
         //更新全局状态  collapsed
         dispatch(setCollapsed());
-        //测试多redux的调用
-        dispatch(setUserState());
     };
     const breadcrumbItems =[
         {

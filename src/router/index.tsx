@@ -1,5 +1,5 @@
 //router/index.tsx
-import { createBrowserRouter,Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import Currency from "@/pages/currency";
 import Login from "@/pages/login";

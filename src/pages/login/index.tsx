@@ -3,18 +3,35 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useState } from "react";
 import { LockOutlined, UserOutlined,createFromIconfontCN  } from "@ant-design/icons";
 import "./login.less";
+import { getUserList } from "@/api/golbal/user_service";
+import { UserLogin } from "@/types/user";
+import { useAppDispatch,useAppSelector } from '@/hooks/use_global.hooks';
+import { setUserState,selectUserState } from "@/store/reducers/user";
+import type { UserLoginState } from '@/store/reducers/global_state';
 const UserSignIn = () => {
     const title = '登录';
     const bLogin = true;
     const IconFont = createFromIconfontCN({
         scriptUrl: '//at.alicdn.com/t/c/font_4108710_4qayguv5weh.js',
     });
+    const dispatch = useAppDispatch();
+    
     const [checked, setChecked] = useState<boolean>(false);
     const onCheckRememberMe = (e: CheckboxChangeEvent) => {
         setChecked(e.target.checked);
     };
     const onFinish = async (values: any) => {
-        console.log("Received values of form: ", values);
+        const res = await getUserList();
+        const userList = res?.data as UserLogin[];
+        const userInfo = userList.find(item => item.UserEmail === values.useremail && item.UserPassword === values.password);
+        if(userInfo) {
+            sessionStorage.setItem('userlogin', JSON.stringify(userInfo));
+            dispatch(setUserState(userInfo));
+            window.location.href = '/';
+            return;
+        }else {
+            alert('账号或密码错误');
+        }
     };
     const [form] = Form.useForm();
     return (
@@ -43,10 +60,10 @@ const UserSignIn = () => {
                                 initialValues={{ remember: true }}
                                 onFinish={onFinish}
                             >
-                                <Form.Item name="username">
+                                <Form.Item name="useremail">
                                     <Input
                                         prefix={<UserOutlined className="site-form-item-icon" />}
-                                        placeholder="用户名"
+                                        placeholder="邮箱"
                                     />
                                 </Form.Item>
                                 <Form.Item name="password">
