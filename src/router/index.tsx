@@ -3,14 +3,21 @@ import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import Currency from "@/pages/currency";
 import Login from "@/pages/login";
+import RouterGuard from "@/components/router_guard";
 const routers = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: (
+      <RouterGuard>
+        <AppLayout />
+      </RouterGuard>),
     children: [
       {
         path: "/currency",
-        element: <Currency />,
+        element: (
+          <RouterGuard>
+            <Currency />
+          </RouterGuard>),
       },
     ], // 如果需要子路由，可以在这里添加
   },
