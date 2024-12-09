@@ -2,7 +2,8 @@
 import './layout_less/head.less'
 import { useAppDispatch } from '@/hooks/use_global.hooks';
 import { setCollapsed } from "@/store/reducers/global";
-import { Breadcrumb,Dropdown,MenuProps,Badge,Avatar } from 'antd';
+import { Breadcrumb,Dropdown,MenuProps,Badge,Avatar,Select } from 'antd';
+import dayjs from 'dayjs';
 import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined } from '@ant-design/icons';
 import { Location, useLocation } from 'react-router-dom';
 interface AppSiderProps {
@@ -16,6 +17,16 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
         //更新全局状态  collapsed
         dispatch(setCollapsed());
     };
+    const handleChange = (value: string) => {
+        console.log(`selected ${value}`);
+    };
+
+    const exitSystem = () => {
+        sessionStorage.removeItem('userlogin');
+        window.location.href = '/login';
+    };
+
+    const currentDate = dayjs().format('YYYY-MM-DD');
     const breadcrumbItems =[
         {
             title: '首页',
@@ -42,18 +53,18 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
         {
           key: '2',
           label: (
-            <a target="_blank" rel="noopener noreferrer" href="#">
+            <span>
               个人信息
-            </a>
+            </span>
           ),
           icon: <InfoCircleOutlined />
         },
         {
           key: '3',
           label: (
-            <a target="_blank" rel="noopener noreferrer" href="#">
+            <span>
               设置中心
-            </a>
+            </span>
           ),
           icon:<SettingOutlined />
         },
@@ -61,7 +72,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
           key: '4',
           danger: true,
           label: (
-            <a rel="noopener noreferrer" href="/login">
+            <a rel="noopener noreferrer" href="#" onClick={exitSystem}>
               退出登录
             </a>
           ),
@@ -92,7 +103,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                         <div className="nc-workbench-group-switch">
                             <div className="fieldid_group ant-select" style={{display: "block"}}>
                                 <div className="ant-select-selection ant-select-selection-single" tabIndex={0}>
-                                    <div className="ant-select-selection-rendered">
+                                    {/* <div className="ant-select-selection-rendered">
                                         <div className="ant-select-selection-selected-value" title="集团公司" style={{display: "block", opacity: 1}}>
                                             集团公司
                                         </div>
@@ -105,7 +116,28 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                                                 </path>
                                             </svg>
                                         </i>
-                                    </span>
+                                    </span> */}
+                                    <Select
+                                        defaultValue="集团公司"
+                                        style={{height: 32, width: 120,textAlign:"left" }}
+                                        onChange={handleChange}
+                                        options={[
+                                        {
+                                            label: <span>集团公司一</span>,
+                                            options: [
+                                            { label: <span>分公司一</span>, value: 'Jack' },
+                                            { label: <span>分公司二</span>, value: 'Lucy' },
+                                            ],
+                                        },
+                                        {
+                                            label: <span>集团公司二</span>,
+                                            options: [
+                                            { label: <span>分公司一</span>, value: 'Chloe' },
+                                            { label: <span>分公司二</span>, value: 'Lucas' },
+                                            ],
+                                        },
+                                        ]}
+                                    />
                                     
                                 </div>
                             </div>
@@ -158,7 +190,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                         </div>
                         <span className="block-span"></span>
                         <span className="block-span2">
-                            2023-12-12
+                            {currentDate}
                         </span>
                         <div className="avatar_container">
                             <div className="nc-workbench-hp margin-right-10 margin-left-10">
