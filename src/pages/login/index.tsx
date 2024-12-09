@@ -5,9 +5,8 @@ import { LockOutlined, UserOutlined,createFromIconfontCN  } from "@ant-design/ic
 import "./login.less";
 import { getUserList } from "@/api/golbal/user_service";
 import { UserLogin } from "@/types/user";
-import { useAppDispatch,useAppSelector } from '@/hooks/use_global.hooks';
-import { setUserState,selectUserState } from "@/store/reducers/user";
-import type { UserLoginState } from '@/store/reducers/global_state';
+import { useAppDispatch } from '@/hooks/use_global.hooks';
+import { setUserState} from "@/store/reducers/user";
 const UserSignIn = () => {
     const title = '登录';
     const bLogin = true;

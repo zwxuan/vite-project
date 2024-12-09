@@ -2,7 +2,8 @@
 import './layout_less/head.less'
 import { useAppDispatch } from '@/hooks/use_global.hooks';
 import { setCollapsed } from "@/store/reducers/global";
-import { Breadcrumb } from 'antd';
+import { Breadcrumb,Dropdown,MenuProps,Badge,Avatar } from 'antd';
+import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined } from '@ant-design/icons';
 import { Location, useLocation } from 'react-router-dom';
 interface AppSiderProps {
     collapsed: boolean;
@@ -30,6 +31,44 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
         },
     ]
 
+    const items: MenuProps['items'] = [
+        {
+          key: '1',
+          label: (
+              <span>天涯轩</span>
+          ),
+          icon:<CrownOutlined />
+        },
+        {
+          key: '2',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="#">
+              个人信息
+            </a>
+          ),
+          icon: <InfoCircleOutlined />
+        },
+        {
+          key: '3',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="#">
+              设置中心
+            </a>
+          ),
+          icon:<SettingOutlined />
+        },
+        {
+          key: '4',
+          danger: true,
+          label: (
+            <a rel="noopener noreferrer" href="/login">
+              退出登录
+            </a>
+          ),
+          icon:<LogoutOutlined />
+        },
+      ];
+
     return (
         <div className="nc-workbench-top-container height-72">
             <nav className="nc-workbench-nav">
@@ -41,13 +80,15 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                                 <i className="iconfont icon-logo1"></i>
                             </div>
                         </div>
-                        <div className="nc-workbench-allAppsBtn nc-workbenchRecent">
+                        {/* <div className="nc-workbench-allAppsBtn nc-workbenchRecent">
                             <div className="nc-workbench-icon">
                                 <div className="iconContainer">
-                                    <i className="iconfont icon-zuijinfangwen1"></i>
+                                    <Badge dot size='small'>
+                                        <i className="iconfont icon-luzhizhong"></i>
+                                    </Badge>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="nc-workbench-group-switch">
                             <div className="fieldid_group ant-select" style={{display: "block"}}>
                                 <div className="ant-select-selection ant-select-selection-single" tabIndex={0}>
@@ -96,22 +137,37 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{marginRight: "10px" }}>
+                            <div style={{marginRight: "25px" }}>
                                 <div className="iconContainer">
-                                    <i className="iconfont icon-xiaoxi2"></i>
+                                    {/* <i className="iconfont icon-xiaoxi2"></i> */}
+                                    {/* <Badge dot size='small'>
+                                        <i className="iconfont icon-xiaoxi2"></i> 
+                                    </Badge> */}
+                                    <Badge count={9} size="small" offset={[-10, 15]}>
+                                        <Avatar shape="square" size={44}  icon={<MessageOutlined />} />
+                                    </Badge>
                                 </div>
                             </div>
                             <div>
                                 <div className="iconContainer">
-                                    <i className="iconfont icon-luzhi1"></i>
+                                    <Badge count={9} size="small" offset={[-10, 15]}>
+                                        <Avatar size={44} icon={<BarsOutlined />} />
+                                    </Badge>
                                 </div>
                             </div>
                         </div>
                         <span className="block-span"></span>
-                        <span className="block-span2">2023-12-12</span>
+                        <span className="block-span2">
+                            2023-12-12
+                        </span>
                         <div className="avatar_container">
                             <div className="nc-workbench-hp margin-right-10 margin-left-10">
-                                <img src="/红衣男子.png" alt="logo" />
+                                <Dropdown menu={{ items }}>
+                                    <a onClick={(e) => e.preventDefault()}>
+                                        <img src="/man.png" alt="logo" />
+                                    </a>
+                                </Dropdown>
+                                
                             </div>
                         </div>
                     </div>

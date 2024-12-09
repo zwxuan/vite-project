@@ -1,7 +1,19 @@
-import { useLocation } from "react-router-dom";
+/**
+ * 路由守卫，判断用户是否登录，是否具有访问当前路由的权限
+ */
+import { UserLogin } from "@/types/user";
+import { useLocation,Navigate } from "react-router-dom";
 const RouterGuard = ({ children }: { children: JSX.Element }) => {
-     const ss = useLocation();
-     console.log(ss);
+    const locationPath = useLocation();
+    const userLoginString =  sessionStorage.getItem('userlogin')
+                || JSON.stringify({Token: '',
+                                    UserCode: '',
+                                    UserName: '',
+                                    UserEmail: ''});
+    const userLogin:UserLogin = JSON.parse(userLoginString);
+    if (!userLogin.Token && locationPath.pathname !== '/login') {
+        return <Navigate to="/login" replace/>;
+    }
      
     
     // // const {message} = App.useApp();

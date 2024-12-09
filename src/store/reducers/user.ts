@@ -1,14 +1,15 @@
 //global.ts
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/store/index.ts";
 import type { UserLoginState} from "./global_state.d";
+import { UserLogin } from "@/types/user.d"
 // 定义初始 state 的类型
 
 // 使用该类型定义初始 state
 const initialUser: UserLoginState = {
     Token: "",
     UserCode: "",
-    UserName: "天涯轩",
+    UserName: "",
     UserEmail: "",
 };
 // 创建 slice
@@ -17,11 +18,11 @@ export const userSlice = createSlice({
   initialState:initialUser,// 初始 state
   reducers: {
     // 定义 reducer 函数，该函数接受 state 和 action 作为参数
-    setUserState: (state,action) => {
+    setUserState: (state:UserLoginState,action:PayloadAction<UserLogin>) => {
       // 更新 state
       const userInfo = action.payload;
-      state.UserName = userInfo.UserName;
-      state.Token = userInfo.Token;
+      // state = { ...state, ...userInfo };
+      Object.assign(state, { ...userInfo });
     },
   },
 });

@@ -22,7 +22,7 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                         <div className="all-apps-layout">
                             <div className="sider domain-group-container">
                                 {menudatas.data.map((group, index) => (
-                                    <div className="result-group-list" key={index}>
+                                    <div className="result-group-list" key={group.key + index}>
                                         <div className="wb-card-item field-card">
                                             <div className="wb-card-head">
                                                 <div className="wb-card-head-wrapper">
@@ -38,7 +38,7 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                                                 <div className="field-app-list">
                                                     {group.apps.map((app, i) => {
                                                         return (
-                                                            <div className="app-col" key={i}>
+                                                            <div className="app-col" key={app.key+i}>
                                                                 <div className="list-item">
                                                                     <div key={i} className={`list-item-content ${app.key === selectkey ? 'active' : ''}`}>
                                                                         <div className="title" onClick={() => handleClick(app.key)}>
@@ -58,15 +58,15 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                             <div className="domain-apps-wrapper" id="domain-apps-wrapper" onClick={onClick}>
                                 <div className="content domain-apps-container" id="domain-apps-container">
                                     <div className="content-wrap" id="content-wrap">
-                                    {activeMenudatas.map((item) => (
-                                        <div className="content-item">
+                                    {activeMenudatas.map((item,i) => (
+                                        <div className="content-item" key={item.key + i}>
                                             <div className="content-item-header">
                                                 <span>{item.title}</span>
                                             </div>
                                             <div className="content-item-content">
-                                            {item.apps.map((app) => {
+                                            {item.apps.map((app,i) => {
                                                 return (
-                                                    <div className="item-app" grp-index="0" item-index="0" open-type="tab">
+                                                    <div className="item-app" grp-index="0" item-index="0" open-type="tab" key={app.key + i}>
                                                         {app.path ? (
                                                             <a href={app.path}>{app.name}</a>
                                                         ) : (
