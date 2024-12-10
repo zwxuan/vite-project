@@ -4,14 +4,16 @@ import { useAppDispatch } from '@/hooks/use_global.hooks';
 import { setCollapsed } from "@/store/reducers/global";
 import { Breadcrumb,Dropdown,MenuProps,Badge,Avatar,Select } from 'antd';
 import dayjs from 'dayjs';
-import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined,TranslationOutlined } from '@ant-design/icons';
 import { Location, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 interface AppSiderProps {
     collapsed: boolean;
 }
 const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
     const dispatch = useAppDispatch();
     const location:Location = useLocation();
+    const { t, i18n } = useTranslation();
     console.log('当前路径:', location.pathname);
     const handleCollapsed = () => {
         //更新全局状态  collapsed
@@ -19,6 +21,15 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
     };
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
+    };
+    const handleChangeLanguage = (value: string) => {
+        console.log(`selected ${value}`);
+        if(value === 'zh-CN'){
+            i18n.changeLanguage('en-US');
+        }else{
+            i18n.changeLanguage('zh-CN');
+        }
+        window.location.reload();
     };
 
     const exitSystem = () => {
@@ -154,21 +165,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                 <div className="nav-middle"></div>
                 <div className="nav-right n-right n-v-middle">
                     <div className="n-v-middle n-right right-block">
-                        <div className="container">
-                            <div className="margin-right-10 search-item">
-                                <div className="ant-select-selection ant-select-selection-single">
-                                    <div className="ant-select-selection-rendered">
-                                        <div>
-                                            <input className="ant-select-search-field" placeholder="请输入应用名称" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="iconContainer">
-                                        <i className="iconfont icon-sousuo1"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
                             <div style={{marginRight: "25px" }}>
                                 <div className="iconContainer">
                                     {/* <i className="iconfont icon-xiaoxi2"></i> */}
@@ -180,11 +177,16 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                                     </Badge>
                                 </div>
                             </div>
-                            <div>
+                            <div style={{marginRight: "25px" }}>
                                 <div className="iconContainer">
                                     <Badge count={9} size="small" offset={[-10, 15]}>
                                         <Avatar size={44} icon={<BarsOutlined />} />
                                     </Badge>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="iconContainer">
+                                    <TranslationOutlined style={{fontSize: "22px"}} onClick={() => handleChangeLanguage(i18n.language)} />
                                 </div>
                             </div>
                         </div>

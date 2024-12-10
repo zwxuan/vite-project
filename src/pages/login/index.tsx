@@ -1,7 +1,8 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useState } from "react";
-import { LockOutlined, UserOutlined,createFromIconfontCN  } from "@ant-design/icons";
+import { LockOutlined, UserOutlined  } from "@ant-design/icons";
+import CustomIcon from "@/components/custom-icon";
 import "./login.less";
 import { getUserList } from "@/api/golbal/user_service";
 import { UserLogin } from "@/types/user";
@@ -10,9 +11,6 @@ import { setUserState} from "@/store/reducers/user";
 const UserSignIn = () => {
     const title = '登录';
     const bLogin = true;
-    const IconFont = createFromIconfontCN({
-        scriptUrl: '//at.alicdn.com/t/c/font_4108710_4qayguv5weh.js',
-    });
     const dispatch = useAppDispatch();
     
     const [checked, setChecked] = useState<boolean>(false);
@@ -114,7 +112,7 @@ const UserSignIn = () => {
                                 </Form.Item>
                                 <Form.Item>
                                     <div className="use-oschina-login">
-                                        <IconFont type="icon-icon-oschina-circle" />
+                                        <CustomIcon type="icon-icon-oschina-circle" />
                                         <span>使用 OSChina 账号登录</span>
                                     </div>
                                 </Form.Item>
@@ -123,10 +121,10 @@ const UserSignIn = () => {
                                 </Form.Item>
                                 <Form.Item>
                                     <div className="login-icon-list">
-                                        <IconFont type="icon-aliyun" title="使用阿里云账号登录" href="#" />
-                                        <IconFont type="icon-logo-gitlab" title="使用GitLab账号登录" />
-                                        <IconFont type="icon-ic_login_huawei" title="使用华为账号登录" />
-                                        <IconFont type="icon-GitHub" title="使用GitHub账号登录" />
+                                        <CustomIcon type="icon-aliyun" title="使用阿里云账号登录" href="#" />
+                                        <CustomIcon type="icon-logo-gitlab" title="使用GitLab账号登录" />
+                                        <CustomIcon type="icon-ic_login_huawei" title="使用华为账号登录" />
+                                        <CustomIcon type="icon-GitHub" title="使用GitHub账号登录" />
                                     </div>
                                 </Form.Item>
                             </Form>

@@ -285,7 +285,7 @@ label.u-checkbox.u-checkbox-info.is-checked .u-checkbox-label:after {
 
 .u-checkbox-label-middle {
     vertical-align: middle;
-    margin-left: 10px;
+    margin-left: 3px;
 }
 
 .u-checkbox-middle {
@@ -1221,6 +1221,17 @@ input.u-form-control {
 .ant-table-wrapper .ant-table-tbody .ant-table-row.ant-table-row-selected>.ant-table-cell-row-hover {
     background: #D3D3D3;
 }
+
+.ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >thead>tr >.ant-table-cell-fix-right-first::after {
+    border-inline-end: 0px solid #d9d9d9;
+}
+
+.ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-body >table >tbody>tr >.ant-table-cell-fix-right-first::after {
+    border-inline-end: 1px solid #d9d9d9;
+}
+.ant-table-wrapper .ant-table-cell-scrollbar:not([rowspan]) {
+    box-shadow: 0 1px 0 1px #d9d9d9;
+}
 .ant-table-cell-fix-right>a {
     color: #000;
     background-color: #f3f4f6;
@@ -1233,6 +1244,7 @@ input.u-form-control {
 .ant-table-cell-fix-right>a:hover {
     font-weight: bolder;
 }
+
 .ant-table-wrapper .ant-table-pagination.ant-pagination {
     margin: 2px 0;
 }
@@ -1252,11 +1264,14 @@ input.u-form-control {
     border-inline-end: 1px solid #d1d5db;
     border-bottom: 1px solid #d1d5db;
 }
+.ant-table-wrapper .ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > tbody > tr:last-child > td {
+    border-bottom: none; /* 去掉最后一行的底部边框 */
+}
 .ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >thead>tr>th {
     border-inline-end: 1px solid #d1d5db;
 }
 .ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >thead>tr>th:last-child {
-    border-right: 0;
+    border-right: 0;   
 }
 .ant-btn {
     min-width: 60px;

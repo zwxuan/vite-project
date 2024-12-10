@@ -1,19 +1,13 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select } from 'antd';
 import type { TableColumnsType,MenuProps,TableProps } from 'antd';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
-import {
-    Form,
-    Input,
-    InputNumber,
-    Select,
-} from 'antd';
-import {
-    RedoOutlined,
-    DownOutlined
-} from '@ant-design/icons';
+import {RedoOutlined,DownOutlined} from '@ant-design/icons';
+import CustomIcon from "@/components/custom-icon";
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency : React.FC = () => {
@@ -34,7 +28,7 @@ const Currency : React.FC = () => {
       
     const columnsType: TableColumnsType<CurrencyItemProps> = [
     {
-        title: '编号',
+        title: i18n.t(LocaleHelper.getCode()),
         width: 100,
         dataIndex: 'Code',
         sorter: true,
@@ -104,7 +98,7 @@ const Currency : React.FC = () => {
             if (text === 0) {
                 return <Tag color='green'>启用</Tag>;
             } else if (text === 1) {
-                return <Tag>禁用</Tag>;
+                return <Tag>停用</Tag>;
             } else {
                 return <Tag color='red'>删除</Tag>;
             }
@@ -283,14 +277,11 @@ const Currency : React.FC = () => {
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-                        <span className="bill-info-title">
-                        <i className="iconfont icon-ncc-pt-jssj page-title-Icon" style={{color:'red'}}></i>币制
-                        </span>
-                        <span className="bill-info-code">
-                            
+                        <span className="bill-info-title" style={{marginLeft: "10px"}}>
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 币制
                         </span>
                     </div>
-                    <span className="orgunit-customize-showOff" style={{marginLeft: "20px"}}>
+                    <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
                         <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
                                 <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
@@ -303,7 +294,6 @@ const Currency : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                {/* <button type="button" className="u-button button-primary nc-button-wrapper button-weishabushezhiyigemoren">新增</button> */}
                                 <Button type="primary" danger onClick={showModal}>新增</Button>
                                 <Button>修改</Button>
                                 <Button>删除</Button>
