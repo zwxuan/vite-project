@@ -4,7 +4,7 @@ import { createFromIconfontCN } from "@ant-design/icons";
 const icon = createFromIconfontCN({
   scriptUrl: [
     "//at.alicdn.com/t/c/font_4108710_4qayguv5weh.js",
-    "//at.alicdn.com/t/c/font_3804794_xvuw4re6azk.js"
+    "//at.alicdn.com/t/c/font_3804794_h30ni4zpjfe.js"
   ],
 });
 

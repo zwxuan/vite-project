@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined,TranslationOutlined } from '@ant-design/icons';
 import { Location, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import CustomIcon from "@/components/custom-icon";
 interface AppSiderProps {
     collapsed: boolean;
 }
@@ -23,12 +24,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
         console.log(`selected ${value}`);
     };
     const handleChangeLanguage = (value: string) => {
-        console.log(`selected ${value}`);
-        if(value === 'zh-CN'){
-            i18n.changeLanguage('en-US');
-        }else{
-            i18n.changeLanguage('zh-CN');
-        }
+        i18n.changeLanguage(value);
         window.location.reload();
     };
 
@@ -53,7 +49,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
         },
     ]
 
-    const items: MenuProps['items'] = [
+    const itemsMenu: MenuProps['items'] = [
         {
           key: '1',
           label: (
@@ -88,6 +84,25 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
             </a>
           ),
           icon:<LogoutOutlined />
+        },
+      ];
+      
+      const itemsLanguage: MenuProps['items'] = [
+        {
+          key: '1',
+          danger: true,
+          className:'ant-drowndown-custom',
+          label:(
+            <CustomIcon type="icon-ICON-297" style={{fontSize:'24px'}} onClick={()=>{handleChangeLanguage('zh-CN')}} />
+          )
+        },
+        {
+          key: '2',
+          danger: true,
+          className:'ant-drowndown-custom',
+          label:(
+            <CustomIcon type="icon-English" style={{fontSize:'24px'}} onClick={()=>{handleChangeLanguage('en-US')}} />
+          )
         },
       ];
 
@@ -180,13 +195,15 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                             <div style={{marginRight: "25px" }}>
                                 <div className="iconContainer">
                                     <Badge count={9} size="small" offset={[-10, 15]}>
-                                        <Avatar size={44} icon={<BarsOutlined />} />
+                                        <Avatar shape="square" size={44} icon={<BarsOutlined />} />
                                     </Badge>
                                 </div>
                             </div>
                             <div>
                                 <div className="iconContainer">
-                                    <TranslationOutlined style={{fontSize: "22px"}} onClick={() => handleChangeLanguage(i18n.language)} />
+                                    <Dropdown menu={{ items:itemsLanguage }}>
+                                        <TranslationOutlined style={{fontSize: "22px"}} />
+                                    </Dropdown>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +213,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                         </span>
                         <div className="avatar_container">
                             <div className="nc-workbench-hp margin-right-10 margin-left-10">
-                                <Dropdown menu={{ items }}>
+                                <Dropdown menu={{ items:itemsMenu }}>
                                     <a onClick={(e) => e.preventDefault()}>
                                         <img src="/man.png" alt="logo" />
                                     </a>
