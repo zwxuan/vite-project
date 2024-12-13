@@ -8,7 +8,7 @@ import {RedoOutlined,DownOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
-
+import AdvancedSearchForm,{AdvancedSearchFormProps} from "@/components/search-form";
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency : React.FC = () => {
 
@@ -225,6 +225,42 @@ const Currency : React.FC = () => {
         type: 'checkbox',
     };
 
+    const fields:AdvancedSearchFormProps["fields"] =
+    [
+        {
+            type: 'input',
+            label: '币种',
+            key: 'CurrencyFullName',
+        },
+        {
+            type: 'input',
+            label: '币种简称',
+            key: 'CurrencyShortName',
+            suffix: 'ZH',
+        },
+        {
+            type: 'input',
+            label: '币种符号',
+            key: 'CurrencyMark',
+        },
+        { 
+            type: 'select', 
+            key: 'PriceRoundingRule',
+            label: '舍入规则', 
+            selectOptions: [{ value: '1', label: '四舍五入' }, { value: '2', label: '向上舍入' }, { value: '3', label: '向下舍入' }] 
+        },
+        {
+            type: 'date',
+            label: '日期',
+            key: 'CreateDate',
+        },
+        {
+            type: 'rangedata',
+            label: '日期范围',
+            key: 'RangeDate',
+        },
+    ]
+
     return (
         <div>
             <Modal open={open} title="币种"
@@ -335,61 +371,7 @@ const Currency : React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="nc-bill-search-area">
-                <div className="search-area-contant">
-                    <div className="search-top">
-                        <div className="search-edit">
-                            <div className="search-name-wrapper">
-                                <span className="search-plan-name">快速查询</span>
-                                <i className="iconfont icon-bottom"></i>
-                            </div>
-                            <span className="search-super">高级</span>
-                        </div>
-                        <div className="search-open">
-                            <span className="search-open-icon">
-                                <i className="label">收起</i>
-                                <i className="down iconfont icon-chaxunmoren"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="item-contant" style={{display:"block"}}>
-                        <div className="item-rows">
-                            <div className="condition-contant">
-                                <span className="search-dom">
-                                    <div className="u-form-control-wrapper">
-                                        <input placeholder="编号" type="text" className="nc-input u-form-control" defaultValue={''}/>
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="condition-contant">
-                                <span className="search-dom">
-                                    <div className="u-form-control-wrapper">
-                                        <input placeholder="币制名称" maxLength={20} type="text" className="nc-input u-form-control"defaultValue={''} />
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="condition-contant">
-                                <span className="search-dom">
-                                    <div className="u-form-control-wrapper">
-                                        <input placeholder="币制简称" type="text" className="nc-input u-form-control"defaultValue={''} />
-                                        <span className="multi-lang-suffix">ZH</span>
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="search-button">
-                                <div className="search-component-rowArea">
-                                    <span className="search-component-searchBtn">
-                                        <i className="iconfont icon-sousuo"></i>
-                                    </span>
-                                    <span className="clearBtn">
-                                        <i className="iconfont icon-qingkong1"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <AdvancedSearchForm fields={fields} />
             <div className='nc-bill-table-area'>
                 <Table<CurrencyItemProps>
                     columns={columnsType}

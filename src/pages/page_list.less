@@ -824,8 +824,14 @@ div .bt-icon {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    padding-right: 10px;
 }
-
+.item-rows-right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-end;
+}
 .condition-contant {
     padding: 0 10px 0 0;
     position: relative;
@@ -1073,14 +1079,15 @@ input.u-form-control {
 }
 
 .search-button {
-    width: 100px;
+    width: 100%;
 }
 
 .search-component-rowArea {
-    padding: 0;
+    padding-right: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    justify-content: flex-end;
     height: 26px;
 }
 
@@ -1415,6 +1422,29 @@ input.u-form-control {
 .ant-modal .ant-modal-close {
     top: 5px;
 }
-.ant-form-item {
+div>.ant-form-item {
     margin-bottom: 2px;
+}
+.ant-input-affix-wrapper {
+    padding: 0px 5px;
+}
+.ant-input-suffix {
+    color: #b9b5b6;
+}
+div>.ant-input-number{
+    height: 30px;
+}
+input.ant-input{
+    height: 30px;
+    min-height: 30px;
+}
+
+.ant-select-single {
+    height: 30px;
+}
+.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+    border: 1px solid #e5e7eb;
+}
+.ant-row {
+    padding-right: 5px;
 }
