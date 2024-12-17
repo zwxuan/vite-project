@@ -128,7 +128,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                         </div> */}
                         <div className="nc-workbench-group-switch">
                             <div className="fieldid_group ant-select" style={{display: "block"}}>
-                                <div className="ant-select-selection ant-select-selection-single" tabIndex={0}>
+                                <div id="headSelect" className="ant-select-selection ant-select-selection-single" tabIndex={0}>
                                     {/* <div className="ant-select-selection-rendered">
                                         <div className="ant-select-selection-selected-value" title="集团公司" style={{display: "block", opacity: 1}}>
                                             集团公司
@@ -145,7 +145,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                                     </span> */}
                                     <Select
                                         defaultValue="集团公司"
-                                        style={{height: 32, width: 120,textAlign:"left" }}
+                                        style={{height: 32, width: 120,textAlign:"left",color:"#9aa1bc" }}
                                         onChange={handleChange}
                                         options={[
                                         {

@@ -1,6 +1,6 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select,Checkbox } from 'antd';
 import type { TableColumnsType,MenuProps,TableProps } from 'antd';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
@@ -223,6 +223,7 @@ const Currency : React.FC = () => {
             console.log(selected, selectedRows, changeRows);
         },
         type: 'checkbox',
+        columnWidth: '20px',
     };
 
     const fields:AdvancedSearchFormProps["fields"] =
@@ -259,7 +260,38 @@ const Currency : React.FC = () => {
             label: '日期范围',
             key: 'RangeDate',
         },
+        {
+            type: 'input',
+            label: '自定义测试1',
+            key: 'CurrencyShortName1',
+            suffix: 'ZH',
+        },
+        {
+            type: 'input',
+            label: '自定义测试2',
+            key: 'CurrencyMark1',
+        },
+        { 
+            type: 'select', 
+            key: 'PriceRoundingRule1',
+            label: '自定义测试3', 
+            selectOptions: [{ value: '1', label: '四舍五入' }, { value: '2', label: '向上舍入' }, { value: '3', label: '向下舍入' }] 
+        },
+        {
+            type: 'date',
+            label: '自定义测试4',
+            key: 'CreateDate1',
+        },
+        {
+            type: 'rangedata',
+            label: '自定义测试5',
+            key: 'RangeDate1',
+        },
     ]
+
+    const handleSearch = (values:any) => {
+        console.log('handleSearch',values);
+    };
 
     return (
         <div>
@@ -371,7 +403,7 @@ const Currency : React.FC = () => {
                     </div>
                 </div>
             </div>
-            <AdvancedSearchForm fields={fields} />
+            <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
                 <Table<CurrencyItemProps>
                     columns={columnsType}

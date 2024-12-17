@@ -61,12 +61,14 @@ const UserSignIn = () => {
                                     <Input
                                         prefix={<UserOutlined className="site-form-item-icon" />}
                                         placeholder="邮箱"
+                                        style={{ minHeight: "35px",padding:"4px 11px",marginBottom:"10px" }}
                                     />
                                 </Form.Item>
                                 <Form.Item name="password">
                                     <Input
                                         prefix={<LockOutlined className="site-form-item-icon" />}
                                         type="password"
+                                        style={{ minHeight: "35px",padding:"4px 11px",marginBottom:"10px" }}
                                         placeholder="密码"
                                         autoComplete="off"
                                     />
@@ -76,6 +78,7 @@ const UserSignIn = () => {
                                         <Input
                                             prefix={<LockOutlined className="site-form-item-icon" />}
                                             type="password"
+
                                             placeholder="ConfirmPassword"
                                             autoComplete="off"
                                         />
