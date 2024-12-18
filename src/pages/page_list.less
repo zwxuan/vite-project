@@ -1500,12 +1500,16 @@ input.ant-input{
     }
     .ant-col.ant-tranfer-col-left > ul {
         padding-left:2px;
+        li {
+            vertical-align: middle;
+        }
     }
     .ant-col.ant-tranfer-col-right {
         border-left: 1px solid #b9b5b6;
     }
     .tranfer-col-left-item {
         width: 100%;
+        font-size: 12px;
         color: #333;
         display: flex;
         justify-content: space-between;
@@ -1513,16 +1517,42 @@ input.ant-input{
     }
     .tranfer-col-left-item-disabled {
         color: #b9b5b6;
+        font-size: 12px;
     }
     .tranfer-col-left-item:hover {
         background-color: #f0f0f0;
     }
     .tranfer-col-left-item > i{
         display: none;
+        font-size: 12px;
         padding-right: 2px;
     }
     .tranfer-col-left-item:hover > i {
         display: block;
+    }
+    .ant-card {
+        border: 0;
+        .ant-card-body {
+            padding: 0px;
+            padding-top: 2px;
+            padding-left: 2px;
+        }
+        .ant-card-body:hover {
+            background-color: #f0f0f0;
+        }
+    }
+    .ant-col > i {
+        display: none;
+    }
+    .ant-row:hover>div> i {
+        display: block;
+    }
+    .ant-col:hover>i::before {
+        cursor: pointer;
+    }
+    .ant-modal-footer {
+        margin-top: 0px;
+        padding: 5px;
     }
 }
 

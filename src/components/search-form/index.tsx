@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import { Col, Form, Input, Row, Select, DatePicker, Modal, Button } from 'antd';
-import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import type { DragEndEvent } from '@dnd-kit/core';
-import {
-    arrayMove,
-    horizontalListSortingStrategy,
-    verticalListSortingStrategy,
-    SortableContext,
-    useSortable,
-  } from '@dnd-kit/sortable';
-  import { Flex, Card } from 'antd';
+import { Col, Form, Input, Row, Select, DatePicker, Modal, Button, Space } from 'antd';
+import {Item} from './draggable';
+import TranferRight from './tranfer_right';
 import zhCN from 'antd/es/date-picker/locale/zh_CN';
-import type { TransferProps,GetProp } from 'antd';
+import type { TransferProps } from 'antd';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 type Field = {
@@ -31,47 +23,7 @@ export type AdvancedSearchFormProps = {
     onSearch: (values: any) => void;// 查询事件
 };
 
-interface Item {
-    id: number;
-    text: string;
-  }
-  
-  interface DraggableTagProps {
-    tag: Item;
-  }
-  
-  const commonStyle: React.CSSProperties = {
-    cursor: 'move',
-    transition: 'unset', // Prevent element from shaking after drag
-  };
-  
-  const DraggableTag: React.FC<DraggableTagProps> = (props) => {
-    const { tag } = props;
-    const { listeners, transform, transition, isDragging, setNodeRef } = useSortable({ id: tag.id });
-  
-    const style = transform
-      ? {
-          transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-          transition: isDragging ? 'unset' : transition,
-        }
-      : commonStyle;
-  
-    return (
-      <Card style={style} ref={setNodeRef} {...listeners}>
-        <Row gutter={[2,2]}>
-            <Col>
-                <Input value={tag.text} />
-            </Col>
-            <Col>
-                <Button>{tag.text}</Button>
-            </Col>
-            <Col>
-                <Button>{tag.text}</Button>
-            </Col>
-        </Row>
-      </Card>
-    );
-  };
+
 
 const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 4, onSearch }) => {
 
@@ -162,72 +114,26 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
     };
 
     //高级方案
-    interface RecordType {
-        key: string;
-        title: string;
-        description: string;
-    }
-
-    const mockData = Array.from({ length: 20 }).map<RecordType>((_, i) => ({
+    const mockData = Array.from({ length: 20 }).map<Item>((_, i) => ({
+        id: i,
         key: i.toString(),
-        title: `字段${i + 1}`,
-        description: `内容描述${i + 1}`,
+        type: 'input',
+        text: `字段 ${i + 1}`,
     }));
 
     const initialTargetKeys = mockData.filter((item) => Number(item.key) > 10).map((item) => item.key);
 
 
     const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargetKeys);
-    const [selectedKeys, setSelectedKeys] = useState<TransferProps['targetKeys']>([]);
-
-    const onChange: TransferProps['onChange'] = (nextTargetKeys, direction, moveKeys) => {
-        console.log('targetKeys:', nextTargetKeys);
-        console.log('direction:', direction);
-        console.log('moveKeys:', moveKeys);
-        setTargetKeys(nextTargetKeys);
-    };
-
-    const onSelectChange: TransferProps['onSelectChange'] = (
-        sourceSelectedKeys,
-        targetSelectedKeys,
-    ) => {
-        console.log('sourceSelectedKeys:', sourceSelectedKeys);
-        console.log('targetSelectedKeys:', targetSelectedKeys);
-        setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
-    };
-
-    const onScroll: TransferProps['onScroll'] = (direction, e) => {
-        console.log('direction:', direction);
-        console.log('target:', e.target);
-    };
-
-    const onItemChange = (checkedValues:React.Key[]) => {
-        console.log('checkedValues:', checkedValues);
-        setSelectedKeys([...checkedValues]);
-    };
-
-
-    const [items, setItems] = useState<Item[]>([
-        { id: 1, text: 'Tag 1' },
-        { id: 2, text: 'Tag 2' },
-        { id: 3, text: 'Tag 3' },
-      ]);
     
-      const sensors = useSensors(useSensor(PointerSensor));
-    
-      const handleDragEnd = (event: DragEndEvent) => {
-        const { active, over } = event;
-        if (!over) {
-          return;
-        }
-        if (active.id !== over.id) {
-          setItems((data) => {
-            const oldIndex = data.findIndex((item) => item.id === active.id);
-            const newIndex = data.findIndex((item) => item.id === over.id);
-            return arrayMove(data, oldIndex, newIndex);
-          });
-        }
+    const leftItemOnClick = (itemKey:string) => {
+        setTargetKeys([...targetKeys || [], itemKey]);
     };
+
+    const rightRemoveItemKey = (itemKey:string) => {
+        setTargetKeys(targetKeys?.filter((item) => item !== itemKey));
+    };
+
     return (
         <div>
             <Form form={form} name="advanced_search" labelCol={{ span: 7 }}>
@@ -271,50 +177,43 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                 destroyOnClose={true}
                 maskClosable={false}
                 footer={(_) => (
-                    <div style={{paddingBottom:"10px"}}>
-                        <Button>测试</Button>
+                    <div style={{ textAlign: 'right' }}>
+                        <Space>
+                            <Button onClick={handleCancel}>取消</Button>
+                            <Button type="primary">保存</Button>
+                        </Space>
                     </div>
                 )}
             >
                 <Row className='ant-tranfer-row' wrap={false}>
                     <Col span={6} className='ant-tranfer-col-left'>
                         <ul>
-                        {mockData.map((item) => {             
-                            return targetKeys?.includes(item.key) ? 
-                                (
-                                    <li>
-                                        <div className='tranfer-col-left-item'>
-                                            {item.title}
-                                            <i className="iconfont icon-xinzengfenzu"></i>
-                                        </div>
-                                        
-                                    </li>
-                                )
-                                :
-                                (
-                                    <li>
-                                        <div className='tranfer-col-left-item-disabled'>
-                                            {item.title}
-                                        </div>
-                                    </li>
-                                )
-                        })
-                        }
-                        </ul>   
+                            {mockData.map((item) => {
+                                return targetKeys?.includes(item.key) ?
+                                    (
+                                        <li key={item.key}>
+                                            <div className='tranfer-col-left-item-disabled'>
+                                                {item.text}
+                                            </div>
+                                        </li>
+                                    )
+                                    :
+                                    (
+                                        <li key={item.key}>
+                                            <div className='tranfer-col-left-item'>
+                                                {item.text}
+                                                <i className="iconfont icon-xinzengfenzu" onClick={()=>leftItemOnClick(item.key)}></i>
+                                            </div>
+                                        </li>
+                                    )
+                            })
+                            }
+                        </ul>
                     </Col>
                     <Col span={18} className='ant-tranfer-col-right'>
-                        222
-                        <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
-                            <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                                
-                                {items.map<React.ReactNode>((item) => (
-                                    <DraggableTag tag={item} key={item.id} />
-                                ))}
-                                
-                            </SortableContext>
-                            </DndContext>
+                        <TranferRight drapItems={mockData} selectKeyItmes={targetKeys?.map((key)=>key.toString())} onRemoveItem={rightRemoveItemKey}/> 
                     </Col>
-                </Row> 
+                </Row>
             </Modal>
         </div>
     );
