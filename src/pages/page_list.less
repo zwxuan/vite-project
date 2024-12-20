@@ -171,19 +171,19 @@ label.u-checkbox input[type="checkbox"] {
 }
 
 label.u-checkbox input[type="checkbox"]:hover {
-    border-color: #8cc6ff;
+    border-color: #ff1648;
 }
 
 label.u-checkbox input[type="checkbox"]:focus {
-    border-color: #007ace;
+    border-color: #ff1648;
 }
 
 label.u-checkbox input[type="checkbox"]:focus+label.u-checkbox-label:before {
-    border-color: #007ace !important;
+    border-color: #ff1648 !important;
 }
 
 label.u-checkbox input[type="checkbox"]:focus+label.u-checkbox-label:after {
-    border-color: #007ace !important;
+    border-color: #ff1648 !important;
 }
 
 label.u-checkbox.u-checkbox-indeterminate:disabled,
@@ -1253,7 +1253,7 @@ input.u-form-control {
 }
 
 .ant-table-wrapper .ant-table-pagination.ant-pagination {
-    margin: 2px 0;
+    margin: 5px 0;
 }
 .ant-table-wrapper .ant-table-footer {
     padding: 2px 0;
@@ -1422,7 +1422,6 @@ input.u-form-control {
 .ant-modal-header {
     border-bottom: #b9b5b6 solid 2px !important;
     padding: 5px !important;
-    padding-left: 10px !important;
 }
 .ant-modal .ant-modal-close {
     top: 5px;
@@ -1498,48 +1497,93 @@ input.ant-input{
         border-top: 1px solid #b9b5b6;
         border-bottom: 1px solid #b9b5b6;
     }
-    .ant-col.ant-tranfer-col-left > ul {
-        padding-left:2px;
+    .ant-col.ant-tranfer-col-left {
+        padding-left:5px;
+        ::-webkit-scrollbar {
+            width: 3px; /* 定义滚动条宽度 */
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: darkgrey; /* 滚动条颜色 */
+            border-radius: 10px; /* 圆角 */
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; /* 滚动条背景颜色 */
+        }
+        ul {
+            scrollbar-width: thin;
+        }
         li {
             vertical-align: middle;
+            padding-left: 5px;
         }
     }
     .ant-col.ant-tranfer-col-right {
         border-left: 1px solid #b9b5b6;
+        padding-left: 5px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #333;
     }
     .tranfer-col-left-item {
         width: 100%;
         font-size: 12px;
+        font-weight: 400;
         color: #333;
         display: flex;
         justify-content: space-between;
         cursor: pointer;
+        padding: 4px 8px;
+        line-height: 22px;
     }
     .tranfer-col-left-item-disabled {
         color: #b9b5b6;
         font-size: 12px;
+        font-weight: 400;
+        padding: 4px 8px;
+        line-height: 22px;
     }
     .tranfer-col-left-item:hover {
-        background-color: #f0f0f0;
+        background-color: #edf1f7;
     }
     .tranfer-col-left-item > i{
         display: none;
-        font-size: 12px;
+        font-size: 16px;
         padding-right: 2px;
     }
     .tranfer-col-left-item:hover > i {
         display: block;
     }
+    .ant-tranfer-col-right-draggable {
+        ::-webkit-scrollbar {
+            width: 3px; /* 定义滚动条宽度 */
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: darkgrey; /* 滚动条颜色 */
+            border-radius: 10px; /* 圆角 */
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; /* 滚动条背景颜色 */
+        }
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
     .ant-card {
         border: 0;
+        margin-top: 3px;
         .ant-card-body {
             padding: 0px;
             padding-top: 2px;
             padding-left: 2px;
         }
         .ant-card-body:hover {
-            background-color: #f0f0f0;
+            background-color: #edf1f7;
+            border-radius: 0;
         }
+        
     }
     .ant-col > i {
         display: none;
@@ -1554,5 +1598,117 @@ input.ant-input{
         margin-top: 0px;
         padding: 5px;
     }
+    input,.spanDraggable {
+        height: 24px;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+    .ant-select-single .ant-select-selector {
+        font-size: 12px;
+    }
+}
+.ant-modal .ant-modal-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+.ant-modal .ant-modal-close {
+    top:5px;
+    right: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 24px;
+    height: 24px;
+}
+.modal-body-left-commons-title-text {
+    border-left: 2px solid #e60012;
+    font-weight: 700;
+    padding-left: 5px;
+    font-size: 12px;
+}
+.excel_step {
+    margin:15px;
+    .ant-steps-item-title {
+        font-size: 14px;
+    }
+}
+.excel_desc {
+    margin: 15px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    p {
+        color: #666666;
+        padding-left: 10px;
+    }
+}
+.excel_rule {
+    margin: 15px;
+    padding: 10px;
+    background-color: #edf1f7;
+    height: 60px;
+    vertical-align: middle;
+    line-height: 60px;
+    display: flex;
+    justify-content: space-between;
+    .rule_tilte_info {
+        color: #666666;
+        margin-right: 15px;
+        margin-left: 10px;
+        .ant-radio-wrapper .ant-radio-disabled .ant-radio-inner {
+            background-color: #edf1f7;
+        }
+    };
+}
+.excel_upload {
+    padding: 15px;
+}
+// .ant-radio-wrapper .ant-radio-disabled .ant-radio-inner {
+//     background-color: #edf1f7;
+// }
+.ant-radio-wrapper .ant-radio-disabled .ant-radio-inner::after {
+    background-color: #ff959d;
 }
 
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    background-color: #ff1648;
+    border-color: #ff1648;
+}
+
+// .ant-checkbox-checked .ant-checkbox-inner:after {
+//     opacity: 1;
+//     transform: rotate(45deg) scale(1) translate(-50%, -50%);
+//     transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+// }
+.ant-radio-checked:hover {
+    background-color: #ff4040;
+    // z-index: -1;
+}
+// checkbox不可用时样式
+.ant-radio-disabled .ant-radio-inner {
+    border: 1px solid #b9b5b6;
+    color: #000;
+    background-color: #F0F4FB;
+}
+
+.ant-radio:not(.ant-radio-disabled):hover .ant-radio-inner {
+    border-color: #ff1616;
+}
+
+.ant-radio-wrapper:not(.ant-radio-wrapper-disabled):hover .ant-radio-checked:not(.ant-radio-disabled) .ant-radio-inner {
+    background-color: #ff1648;
+}
+.ant-radio-wrapper-checked:not(.ant-radio-wrapper-disabled):hover .ant-radio-inner, :where(.css-dev-only-do-not-override-tpassh).ant-radio-checked:not(.ant-radio-disabled):hover .ant-checkbox-inner {
+    background-color: #ff1648;
+}
+
+.ant-radio-indeterminate .ant-radio-inner:after {
+    background-color: #ff1648;
+    border: 1px solid #ff1648;
+}
+
+.ant-radio-indeterminate:hover .ant-radio-inner {
+    // background-color: #ff1616 !important;
+    // !important 是一个特殊的声明，可以用来提高某个样式的优先级
+    border: 1px solid #ff1648 !important;
+}

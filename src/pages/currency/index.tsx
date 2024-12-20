@@ -9,6 +9,9 @@ import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm,{AdvancedSearchFormProps} from "@/components/search-form";
+import ExcelImport from '@/components/excel/import';
+import ExcelImportTemplate from '@/components/excel/import_template';
+
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency : React.FC = () => {
 
@@ -164,6 +167,20 @@ const Currency : React.FC = () => {
         key: '5',
     },
     ];
+
+    const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
+        console.log(`Click on item ${key}`);
+        if(key==='1'){
+            setExcelOpen(true);
+        }else if(key==='2'){
+            setExcelTemplateOpen(true);
+        }else{
+            setExcelOpen(true);
+        }
+        
+        
+    };
+
     const itemsOutput: MenuProps['items'] = [
     {
         label: 'Excel导出',
@@ -175,6 +192,8 @@ const Currency : React.FC = () => {
     },
     ];
     const [open, setOpen] = useState(false);
+    const [openExcel, setExcelOpen] = useState(false);
+    const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
 
     const showModal = () => {
         console.log(formData);
@@ -197,6 +216,12 @@ const Currency : React.FC = () => {
     const handleCancel = () => {
         setFormData(initFormData);
         setOpen(false);
+    };
+    const handleExcelCancel = () => {
+        setExcelOpen(false);
+    };
+    const handleExcelTemplateCancel = () => {
+        setExcelTemplateOpen(false);
     };
     const formItemLayout = {
         labelCol: {
@@ -342,6 +367,39 @@ const Currency : React.FC = () => {
                     </div>
                 </Form>
             </Modal>
+
+            <Modal open={openExcel} title="导入工作台"
+                onCancel={handleExcelCancel}
+                width={'75%'}
+                destroyOnClose={true}
+                maskClosable={false}
+                footer={(_) => (
+                <>
+                    <div style={{ textAlign: 'right' }}>
+                        <Space>
+                            <Button onClick={handleExcelCancel}>取消</Button>
+                            <Button type="primary">导入</Button>
+                        </Space>
+                    </div>
+                </>
+                )}
+            >
+                <ExcelImport />
+            </Modal>     
+
+            <Modal open={openExcelTemplate} title="下载/制作模板"
+                onCancel={handleExcelTemplateCancel}
+                width={'75%'}
+                destroyOnClose={true}
+                maskClosable={false}
+                footer={(_) => (
+                <>
+                </>
+                )}
+            >
+                <ExcelImportTemplate />
+            </Modal>  
+
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
@@ -380,7 +438,7 @@ const Currency : React.FC = () => {
                                     </Space>
                                 </Button>   
                             </Dropdown>
-                            <Dropdown menu={{items:itemsInput}}>
+                            <Dropdown menu={{items:itemsInput,onClick:excelImportOnClick}}>
                                 <Button>
                                     <Space>
                                         导入

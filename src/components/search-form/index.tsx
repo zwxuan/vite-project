@@ -187,7 +187,8 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
             >
                 <Row className='ant-tranfer-row' wrap={false}>
                     <Col span={6} className='ant-tranfer-col-left'>
-                        <ul>
+                        <span className="modal-body-left-commons-title-text">候选条件</span>
+                        <ul style={{height:'400px',overflowY:'auto'}}>
                             {mockData.map((item) => {
                                 return targetKeys?.includes(item.key) ?
                                     (
@@ -202,7 +203,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                         <li key={item.key}>
                                             <div className='tranfer-col-left-item'>
                                                 {item.text}
-                                                <i className="iconfont icon-xinzengfenzu" onClick={()=>leftItemOnClick(item.key)}></i>
+                                                <i className="iconfont icon-xinzengzijiedian" onClick={()=>leftItemOnClick(item.key)}></i>
                                             </div>
                                         </li>
                                     )
@@ -211,7 +212,10 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         </ul>
                     </Col>
                     <Col span={18} className='ant-tranfer-col-right'>
-                        <TranferRight drapItems={mockData} selectKeyItmes={targetKeys?.map((key)=>key.toString())} onRemoveItem={rightRemoveItemKey}/> 
+                        <span className="modal-body-left-commons-title-text">目标结果</span>
+                        <div className='ant-tranfer-col-right-draggable' style={{height:'400px'}}>
+                            <TranferRight drapItems={mockData} selectKeyItmes={targetKeys?.map((key)=>key.toString())} onRemoveItem={rightRemoveItemKey}/> 
+                        </div>
                     </Col>
                 </Row>
             </Modal>

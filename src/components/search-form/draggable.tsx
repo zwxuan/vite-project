@@ -37,11 +37,12 @@ const DraggableTag: React.FC<DraggableTagProps> = (props) => {
     return (
         <Card style={style} ref={setNodeRef} {...listeners}>
             <Row>
-                <Col flex="100px" style={{ textAlign: "center" }}>
-                    <Input defaultValue={tag.text} disabled />
+                <Col flex="40px" style={{ textAlign: "left" }}>
+                    <span className='spanDraggable' style={{whiteSpace: 'nowrap'}}>{tag.text}</span>
                 </Col>
                 <Col flex="120px" style={{ textAlign: "center" }}>
                     <Select labelInValue style={{ textAlign: 'left', width: '90%' }}
+                        defaultValue = '包含'
                         options={[
                             { label: '包含', value: 'like' },
                             { label: '在列表中', value: 'in' },
@@ -53,9 +54,12 @@ const DraggableTag: React.FC<DraggableTagProps> = (props) => {
                     </Select>
                 </Col>
                 <Col flex="240px" style={{ textAlign: "center" }}>
-                    <Input placeholder={tag.text} onFocus={(event) => { event?.target.select() }} />
+                    <Input placeholder={'请输入'} onFocus={(event) => { event?.target.select() }} />
                 </Col>
                 <Col flex='auto'></Col>
+                <Col flex="20px" style={{ textAlign: "right" }}>
+                    <i className="iconfont icon-shezhi1"></i>
+                </Col>
                 <Col flex="20px" style={{ textAlign: "right" }}>
                     <i className="iconfont icon-shanchu" style={{ color: "#ff1648" }} onClick={() => { handleRemoveItemKey(tag.key) }}></i>
                 </Col>
