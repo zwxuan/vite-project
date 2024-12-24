@@ -1,11 +1,5 @@
 /**
- * 描述： 导入模板台账
- * 作者： freesky
- * 创建日期： 2024-12-08
- * 修改人: freesky
- * 修改日期: 2024-12-08
- * 修改记录:
- * 版本： 1.0.0
+ * @description excel自定义模板
 */
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Tooltip,Tag } from 'antd';
@@ -15,7 +9,7 @@ import { getImportTemplateList } from "@/api/financial_basic_data/currency_servi
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const ExcelImportTemplate : React.FC = () => {
+const CustomeExcelTemplate : React.FC = () => {
 
     // 模板数据
     const [importTemplateList, setTemplateList] = useState([] as ImportTemplateProps[]);
@@ -203,4 +197,4 @@ const ExcelImportTemplate : React.FC = () => {
         
     )
 }
-export default ExcelImportTemplate;
+export default CustomeExcelTemplate;

@@ -11,6 +11,7 @@ import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm,{AdvancedSearchFormProps} from "@/components/search-form";
 import ExcelImport from '@/components/excel/import';
 import ExcelImportTemplate from '@/components/excel/import_template';
+import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency : React.FC = () => {
@@ -105,8 +106,7 @@ const Currency : React.FC = () => {
             } else {
                 return <Tag color='red'>删除</Tag>;
             }
-        }    
-        ,
+        },
     },
     {
         title: '操作',
@@ -174,6 +174,7 @@ const Currency : React.FC = () => {
             setExcelOpen(true);
         }else if(key==='2'){
             setExcelTemplateOpen(true);
+            console.log(openExcelTemplate)
         }else{
             setExcelOpen(true);
         }
@@ -387,18 +388,7 @@ const Currency : React.FC = () => {
                 <ExcelImport />
             </Modal>     
 
-            <Modal open={openExcelTemplate} title="下载/制作模板"
-                onCancel={handleExcelTemplateCancel}
-                width={'75%'}
-                destroyOnClose={true}
-                maskClosable={false}
-                footer={(_) => (
-                <>
-                </>
-                )}
-            >
-                <ExcelImportTemplate />
-            </Modal>  
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel} />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
