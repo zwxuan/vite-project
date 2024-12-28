@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Table, Button, Tooltip, Tag,Space } from 'antd';
+import { Modal, Table, Button, Tooltip, Tag,Space,Radio } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
+import { FundViewOutlined } from '@ant-design/icons';
 import { ImportTemplateItem } from "@/types/excel/import_template";
 import { getImportTemplateList } from "@/api/financial_basic_data/currency_service";
 import CustomeExcelTemplate from './custom_template';
@@ -10,7 +11,7 @@ interface ModelExcelImportTemplateProps {
     onCancel: () => void;
 }
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const ModelExcelImportTemplate: React.FC<ModelExcelImportTemplateProps> = ({ open, onCancel, businessType }) => {
+const ModelExcelImportTemplateUpdate: React.FC<ModelExcelImportTemplateProps> = ({ open, onCancel, businessType }) => {
     console.log(businessType);
     const handleExcelTemplateCancel = () => {
         onCancel();
@@ -170,26 +171,57 @@ const ModelExcelImportTemplate: React.FC<ModelExcelImportTemplateProps> = ({ ope
                     )
                 }
             >
-                <CustomeExcelTemplate title='币制详情' readonly={readOnlyCustom} formType='add' />
+                <CustomeExcelTemplate title='币制详情' readonly={readOnlyCustom} formType='update' />
             </Modal>
-            <Modal open={open} title="下载/制作模板"
+            <Modal open={open} title="导出工作台"
                 onCancel={handleExcelTemplateCancel}
                 width={'75%'}
                 destroyOnClose={true}
                 maskClosable={false}
                 footer={(_) => (
                     <>
+                        <div style={{ textAlign: 'right' }}>
+                            <Space>
+                                <Button>导出日志</Button>
+                                <Button onClick={handleExcelTemplateCancel}>取消</Button>
+                                <Button type="primary">导出</Button>
+                            </Space>
+                        </div>
                     </>
                 )}
             >
                 <div style={{ minHeight: 'calc(100vh - 280px)' }}>
                     <div className="nc-bill-header-area">
+                        <div className="header-title-search-area" style={{width:'300px'}}>
+                            <span style={{marginLeft:'10px',marginRight:'10px'}}>导出类型</span>
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000'}}>
+                                        <ol style={{ color: '#666666', fontSize: '12px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>更新导入的导出</b></span>此导出用于修改后再覆盖更新导入，导出为文本格式，遵循导入模板形式。若表单存在“表头”与“表头+明细”两种模式时，不受切换影响，但“表头+明细”模式下，当子表多行时导致表头重复，也不受是否勾选影响，会自动去重。</li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>列表导出</b></span>是获取列表的导出模型，若表单存在“表头”与“表头+明细”两种模式时，查看模板时，“是否列入模板”数量会根据两种模式切换。 “时间、日期、数值”按自定义格式导出，而“文本、枚举、参照”等则采用文本格式，其余空白处采用常规格式。</li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>详情导出</b></span>是获取详情的导出模型，不受“表头、表头+明细”模式切换影响，但“表头+明细”模式下，当子表多行时导致表头重复，则会自动去重。 格式同【列表导出】。</li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>按列表设置导出</b></span>根据列表界面设置导出，包括列表项的显示/隐藏、字段顺序等，支持“表头”与“表头+明细”两种模式切换。格式同【列表导出】。</li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'
+                                placement='rightBottom'
+                                overlayInnerStyle={{ width: '300px' }}
+                            >
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer',fontSize:'14px' }}></i>
+                            </Tooltip>
+                            <span className='rule_tilte_info' style={{marginLeft:'10px',marginRight:'10px'}}>
+                                <Radio.Group name="radiogroup" defaultValue={1}>
+                                    <Radio value={1}>更新导入的导出</Radio>
+                                </Radio.Group>
+                            </span> 
+                        </div>
                         <div className="header-button-area">
                             <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                             <div style={{ display: "flex" }}>
                                 <div className="buttonGroup-component">
-                                    <Button type="primary" danger >下载模板</Button>
-                                    <Button style={{ margin: "0px 5px" }}>设置默认</Button>
+                                    <Button type="primary" danger >从导入模板添加</Button>
                                     <Button style={{ margin: "0px 5px" }} onClick={()=>{handOnOpenCustom(false);}}>自定义模板</Button>
                                     <Tooltip
                                         title={
@@ -240,4 +272,4 @@ const ModelExcelImportTemplate: React.FC<ModelExcelImportTemplateProps> = ({ ope
         </>
     )
 }
-export default ModelExcelImportTemplate;
+export default ModelExcelImportTemplateUpdate;

@@ -15,3 +15,10 @@ export const getImportTemplateList = () => {
     url: '/excel/import_template/list'
   })
 }
+
+export const getTemplateFieldList = () => {
+  return request({
+    method: 'GET',
+    url: '/excel/template_field/list'
+  })
+}

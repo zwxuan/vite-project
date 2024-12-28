@@ -3,8 +3,10 @@ import { Row, Col,Steps,Button,Upload,message,Tooltip,Radio } from 'antd';
 import { FundViewOutlined,InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 const { Dragger } = Upload;
-
-const ExcelImport: React.FC = () => {
+interface ExcelImportProps {
+    importType: number;// 1 新增，2 覆盖更新，3 覆盖更新和新增
+}
+const ExcelImport: React.FC<ExcelImportProps> = ({ importType }) => {
     const [current, setCurrent] = useState(1);
 
     const onChange = (value: number) => {
@@ -84,7 +86,7 @@ const ExcelImport: React.FC = () => {
                                 </Tooltip>
                             </span>
                             <span className='rule_tilte_info'>
-                                <Radio.Group name="radiogroup" defaultValue={1} disabled>
+                                <Radio.Group name="radiogroup" defaultValue={importType} disabled>
                                     <Radio value={1}>新增</Radio>
                                     <Radio value={2}>覆盖更新</Radio>
                                     <Radio value={3}>覆盖更新和新增</Radio>

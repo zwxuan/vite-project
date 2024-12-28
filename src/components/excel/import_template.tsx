@@ -8,30 +8,32 @@
  * 版本： 1.0.0
 */
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Tooltip,Tag } from 'antd';
+import { Table,Button,Tooltip,Tag, Modal } from 'antd';
 import type { TableColumnsType,TableProps } from 'antd';
-import { ImportTemplateProps } from "@/types/excel/import_template";
+import { ImportTemplateItem } from "@/types/excel/import_template";
 import { getImportTemplateList } from "@/api/financial_basic_data/currency_service";
+import CustomeExcelTemplate from './custom_template';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ExcelImportTemplate : React.FC = () => {
 
     // 模板数据
-    const [importTemplateList, setTemplateList] = useState([] as ImportTemplateProps[]);
+    const [importTemplateList, setTemplateList] = useState([] as ImportTemplateItem[]);
+    const [currencyKey,setCurrencyKey] = useState('MB10002')
     // 获取模板数据
     useEffect(() => {
         // 获取模板数据
         const getData = async () => {
             const res = await getImportTemplateList();
-            const templateData = res?.data as ImportTemplateProps[];
+            const templateData = res?.data as ImportTemplateItem[];
             // 设置模板台账数据
             setTemplateList([...templateData]);
         };
         getData();
     }, []);
       
-    const columnsType: TableColumnsType<ImportTemplateProps> = [
+    const columnsType: TableColumnsType<ImportTemplateItem> = [
     {
         title: '序号',
         dataIndex: 'SerialNo',
@@ -127,13 +129,14 @@ const ExcelImportTemplate : React.FC = () => {
     ];
     
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<ImportTemplateProps> = {
+    const rowSelection: TableRowSelection<ImportTemplateItem> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         },
         onSelect: (record, selected, selectedRows) => {
             console.log('onselect');
+            setCurrencyKey(record.TemplateCode);
             console.log(record, selected, selectedRows);
         },
         onSelectAll: (selected, selectedRows, changeRows) => {
@@ -142,11 +145,24 @@ const ExcelImportTemplate : React.FC = () => {
         },
         type: 'radio',
         columnWidth: '20px',
-        selectedRowKeys: ['MB10002'],
+        selectedRowKeys: [currencyKey],
     };
-
+    const [open, setOpen] = useState(false);
+    const handleOnCancel = () => {
+        setOpen(false);
+    };
     return (
-        <div style={{minHeight:'calc(100vh - 280px)'}}>   
+        <>
+        <div style={{minHeight:'calc(100vh - 280px)'}}>
+            <Modal  open={open} title="自定义模板"
+                onCancel={handleOnCancel}
+                width={'75%'}
+                destroyOnClose={true}
+                maskClosable={false}
+                footer={(_) => (<></>)}
+            >
+                <CustomeExcelTemplate title='币制详情' />
+            </Modal>
             <div className="nc-bill-header-area">
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
@@ -154,7 +170,7 @@ const ExcelImportTemplate : React.FC = () => {
                         <div className="buttonGroup-component">
                             <Button type="primary" danger >下载模板</Button>
                             <Button style={{margin:"0px 5px"}}>设置默认</Button>
-                            <Button style={{margin:"0px 5px"}}>自定义模板</Button>
+                            <Button style={{margin:"0px 5px"}} onClick={()=>{setOpen(true);}}>自定义模板</Button>
                             <Tooltip
                                 title={
                                     <div className='rul_title_tooltip' style={{backgroundColor:'#fff',color:'#000'}}>
@@ -175,7 +191,7 @@ const ExcelImportTemplate : React.FC = () => {
                 </div>
             </div>
             <div className='nc-bill-table-area'>
-                <Table<ImportTemplateProps>
+                <Table<ImportTemplateItem>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
                     rowKey={(record) => record.TemplateCode}
@@ -196,10 +212,11 @@ const ExcelImportTemplate : React.FC = () => {
                     scroll={{x: 'max-content', y: 'calc(100vh - 280px)' }}
                     footer={() => ''}
                     bordered={true}
+                    showSorterTooltip={false}
                 />
             </div>
         </div>
-        
+        </>
         
     )
 }

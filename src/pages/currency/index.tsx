@@ -1,6 +1,6 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select,Checkbox } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select } from 'antd';
 import type { TableColumnsType,MenuProps,TableProps } from 'antd';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
@@ -9,15 +9,16 @@ import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm,{AdvancedSearchFormProps} from "@/components/search-form";
-import ExcelImport from '@/components/excel/import';
-import ExcelImportTemplate from '@/components/excel/import_template';
+import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
+import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency : React.FC = () => {
 
     // 币制数据
     const [currentyList, setCurrencyList] = useState([] as CurrencyItemProps[]);
+    const [uploadImportType,setUploadImportType] = useState(1);
     // 获取币制数据
     useEffect(() => {
         // 获取币制数据
@@ -171,11 +172,18 @@ const Currency : React.FC = () => {
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
         if(key==='1'){
+            setUploadImportType(1);
             setExcelOpen(true);
         }else if(key==='2'){
             setExcelTemplateOpen(true);
             console.log(openExcelTemplate)
-        }else{
+        }else if(key==='3'){
+            setUploadImportType(2);
+            setExcelOpen(true);
+        }else if(key==='4'){
+            setExcelTemplateOpenUpdate(true);
+        }
+        else{
             setExcelOpen(true);
         }
         
@@ -195,6 +203,7 @@ const Currency : React.FC = () => {
     const [open, setOpen] = useState(false);
     const [openExcel, setExcelOpen] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
+    const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
 
     const showModal = () => {
         console.log(formData);
@@ -223,6 +232,9 @@ const Currency : React.FC = () => {
     };
     const handleExcelTemplateCancel = () => {
         setExcelTemplateOpen(false);
+    };
+    const handleExcelTemplateUpdateCancel = () => {
+        setExcelTemplateOpenUpdate(false);
     };
     const formItemLayout = {
         labelCol: {
@@ -369,26 +381,10 @@ const Currency : React.FC = () => {
                 </Form>
             </Modal>
 
-            <Modal open={openExcel} title="导入工作台"
-                onCancel={handleExcelCancel}
-                width={'75%'}
-                destroyOnClose={true}
-                maskClosable={false}
-                footer={(_) => (
-                <>
-                    <div style={{ textAlign: 'right' }}>
-                        <Space>
-                            <Button onClick={handleExcelCancel}>取消</Button>
-                            <Button type="primary">导入</Button>
-                        </Space>
-                    </div>
-                </>
-                )}
-            >
-                <ExcelImport />
-            </Modal>     
-
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel} />
+            
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='currency' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='currency' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='currency' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
@@ -457,7 +453,7 @@ const Currency : React.FC = () => {
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
                     rowKey={(record) => record.Code}
-                    
+                    showSorterTooltip={false}
                     dataSource={currentyList}
                     pagination={
                         {

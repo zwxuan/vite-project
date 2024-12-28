@@ -1,5 +1,5 @@
-// 菜单项属性
-export interface ImportTemplateProps {
+// excel模板实体
+export interface ImportTemplateItem {
     SerialNo: number;
     Version: string;
     TemplateCode: string;
@@ -13,4 +13,13 @@ export interface ImportTemplateProps {
     Country:string;
     //0 否，1 是
     IsDefault:number;
+}
+export interface ImportTemplateFieldItem {
+    SerialNo: number;
+    FieldCode: string;
+    FieldName:string;
+    IsSystemRequired :boolean
+    IsSetRequired :boolean
+    IsInclude :boolean
+    ComponentType:string   
 }
