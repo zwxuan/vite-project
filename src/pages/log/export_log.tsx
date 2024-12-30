@@ -11,15 +11,15 @@ import LocaleHelper from '@/utils/localeHelper';
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ExportLog : React.FC = () => {
 
-    // 币制数据
+    // 导出日志数据
     const [currentyList, setCurrencyList] = useState([] as CurrencyItemProps[]);
-    // 获取币制数据
+    // 获取日志数据
     useEffect(() => {
-        // 获取币制数据
+        // 获取日志数据
         const getData = async () => {
             const res = await getCurrencyList();
             const currencyData = res?.data as CurrencyItemProps[];
-            // 设置币制台账数据
+            // 设置日志台账数据
             setCurrencyList([...currencyData]);
         };
         getData();
