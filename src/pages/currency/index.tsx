@@ -1,10 +1,11 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select,Progress } from 'antd';
 import type { TableColumnsType,MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
+import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
@@ -207,6 +208,8 @@ const Currency : React.FC = () => {
     const [openExcel, setExcelOpen] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [showProgress, setShowProgress] = useState(false);
 
     const showModal = () => {
         console.log(formData);
@@ -220,10 +223,30 @@ const Currency : React.FC = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleOk = () => {
-        setFormData(initFormData);
-        setOpen(false);
-        
+    const handleOk = async () => {
+        setShowProgress(true);
+        setUploadProgress(0);
+        try {
+            const response = await requestWithProgress({
+                method: 'POST',
+                url: '/currency/save',
+                data: formData,
+                onUploadProgress: (progress) => {
+                    console.log('Progress:', progress);
+                    setUploadProgress(progress);
+                }
+            });
+            
+            // 只有在请求完全完成后才关闭模态框
+            if (response?.success) {
+                setFormData(initFormData);
+                // setOpen(false);
+                // setShowProgress(false);
+            }
+        } catch (error) {
+            console.error('Save failed:', error);
+            setShowProgress(false);
+        }
     };
 
     const handleCancel = () => {
@@ -374,6 +397,11 @@ const Currency : React.FC = () => {
                     <Form.Item wrapperCol={{ offset: 14 }}>
                         
                     </Form.Item>
+                    {showProgress && (
+                        <Form.Item label="上传进度">
+                            <Progress percent={uploadProgress} status="active" />
+                        </Form.Item>
+                    )}
                     <div style={{textAlign:'right'}}>
                         <Space>
                             <Button onClick={handleCancel}>取消</Button>

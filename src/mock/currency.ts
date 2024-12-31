@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 import { CurrencyItemProps } from "@/types/currency/currency.d";
+
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
 const currencyItems:CurrencyItemProps[] = [
   {
@@ -184,6 +185,56 @@ export default [
         message: "请求成功。",
         data: currencyItems,
       };
+    },
+  },
+  {
+    url: "/api/currency/save",
+    method: "POST",
+    timeout: false,
+    response: ({ body }: { body: CurrencyItemProps }) => {
+      console.log('Received form data:', body);
+      
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        start(controller) {
+          let progress = 0;
+          
+          function push() {
+            const data = {
+              code: 200,
+              success: true,
+              message: progress >= 100 ? "保存成功" : "处理中...",
+              data: {
+                progress: progress,
+                status: progress >= 100 ? 'completed' : 'processing',
+                result: progress >= 100 ? body : null
+              }
+            };
+            
+            // 确保每个数据包都是完整的JSON
+            const jsonString = JSON.stringify(data);
+            console.log('Sending data:', jsonString);
+            controller.enqueue(encoder.encode(jsonString));
+            
+            if (progress >= 100) {
+              controller.close();
+              return;
+            }
+            
+            progress += 10;
+            setTimeout(push, 1000);
+          }
+          
+          push();
+        }
+      });
+      
+      return new Response(stream, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Transfer-Encoding': 'chunked'
+        }
+      });
     },
   },
 ];
