@@ -1,4 +1,5 @@
-import { ImportTemplateItem,ImportTemplateFieldItem } from "@/types/excel/import_template.d";
+import Mock from "mockjs";
+import { ImportTemplateItem,ImportTemplateFieldItem,ImportLogItem } from "@/types/excel/import_template.d";
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
 const importTemplateItems:ImportTemplateItem[] = [
   {
@@ -113,6 +114,61 @@ const templateFieldItems:ImportTemplateFieldItem[] = [
   },
 ];
 
+const importLogItems:ImportLogItem[] = [
+  {
+    SerialNo: 1,
+    BatchNo: Mock.mock("@id"),
+    ServiceName: "币制详情",
+    TemplateName: "币制详情测试模板一",
+    ImportType: "",
+    SuccessCount: "98",
+    ErrorCount: "2",
+    ImportStartDate: Mock.mock("@datetime"),
+    ImportEndDate: Mock.mock("@datetime"),
+    Status: 0,
+    Operator: "admin",
+  },
+  {
+    SerialNo: 2,
+    BatchNo: Mock.mock("@id"),
+    ServiceName: "币制详情",
+    TemplateName: "币制详情测试模板一",
+    ImportType: "",
+    SuccessCount: "100",
+    ErrorCount: "0",
+    ImportStartDate: Mock.mock("@datetime"),
+    ImportEndDate: Mock.mock("@datetime"),
+    Status: 1,
+    Operator: "admin",
+  }, 
+  {
+    SerialNo: 3,
+    BatchNo: Mock.mock("@id"),
+    ServiceName: "币制详情",
+    TemplateName: "币制详情测试模板一",
+    ImportType: "",
+    SuccessCount: "97",
+    ErrorCount: "3",
+    ImportStartDate: Mock.mock("@datetime"),
+    ImportEndDate: Mock.mock("@datetime"),
+    Status: 0,
+    Operator: "admin",
+  },
+  {
+    SerialNo: 4,
+    BatchNo: Mock.mock("@id"),
+    ServiceName: "币制详情",
+    TemplateName: "币制详情测试模板一",
+    ImportType: "",
+    SuccessCount: "0",
+    ErrorCount: "100",
+    ImportStartDate: Mock.mock("@datetime"),
+    ImportEndDate: Mock.mock("@datetime"),
+    Status: 2,
+    Operator: "admin",
+  },
+];
+
 export default [
   // 模板列表
   {
@@ -136,6 +192,18 @@ export default [
         success: true,
         message: "请求成功。",
         data: templateFieldItems,
+      };
+    },
+  },
+  {
+    url: "/api/excel/import_log/list",
+    method: "GET",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        message: "请求成功。",
+        data: importLogItems,
       };
     },
   },

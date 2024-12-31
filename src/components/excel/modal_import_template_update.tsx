@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Table, Button, Tooltip, Tag,Space,Radio } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
-import { FundViewOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { ImportTemplateItem } from "@/types/excel/import_template";
 import { getImportTemplateList } from "@/api/financial_basic_data/currency_service";
 import CustomeExcelTemplate from './custom_template';
@@ -12,7 +12,7 @@ interface ModelExcelImportTemplateProps {
 }
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ModelExcelImportTemplateUpdate: React.FC<ModelExcelImportTemplateProps> = ({ open, onCancel, businessType }) => {
-    console.log(businessType);
+    const navigate = useNavigate();
     const handleExcelTemplateCancel = () => {
         onCancel();
     };
@@ -182,7 +182,8 @@ const ModelExcelImportTemplateUpdate: React.FC<ModelExcelImportTemplateProps> = 
                     <>
                         <div style={{ textAlign: 'right' }}>
                             <Space>
-                                <Button>导出日志</Button>
+                                
+                                <Button onClick={()=>{navigate('/exportlog');handleExcelTemplateCancel();}}>导出日志</Button>
                                 <Button onClick={handleExcelTemplateCancel}>取消</Button>
                                 <Button type="primary">导出</Button>
                             </Space>

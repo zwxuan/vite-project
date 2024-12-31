@@ -2,31 +2,31 @@ import '../page_list.less'
 import React, { useState,useEffect } from 'react';
 import { Table,Tag } from 'antd';
 import type { TableColumnsType,TableProps } from 'antd';
-import { ExportOutlined } from '@ant-design/icons';
-import { ExportLogItem } from "@/types/excel/export_template";
-import { getExportLogList } from "@/api/financial_basic_data/excel_service";
+import { ImportOutlined } from '@ant-design/icons';
+import { ImportLogItem } from "@/types/excel/import_template";
+import { getImportLogList } from "@/api/financial_basic_data/excel_service";
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const ExportLog : React.FC = () => {
+const ImportLog : React.FC = () => {
 
     // 导出日志数据
-    const [exportLogList, setExportLogList] = useState([] as ExportLogItem[]);
+    const [exportLogList, setExportLogList] = useState([] as ImportLogItem[]);
     // 获取日志数据
     useEffect(() => {
         // 获取日志数据
         const getData = async () => {
-            const res = await getExportLogList();
-            const exportLogData = res?.data as ExportLogItem[];
+            const res = await getImportLogList();
+            const importLogData = res?.data as ImportLogItem[];
             // 设置日志台账数据
-            setExportLogList([...exportLogData]);
+            setExportLogList([...importLogData]);
         };
         getData();
     }, []);
       
-    const columnsType: TableColumnsType<ExportLogItem> = [
+    const columnsType: TableColumnsType<ImportLogItem> = [
     {
         title: '序号',
         width: 40,
@@ -51,25 +51,31 @@ const ExportLog : React.FC = () => {
         width: 150,
     },
     {
-        title: '导出类型',
-        dataIndex: 'ExportType',
+        title: '导入类型',
+        dataIndex: 'ImportType',
         width: 150,
     },
     {
-        title: '导出数量',
-        dataIndex: 'ExportCount',
+        title: '成功数量',
+        dataIndex: 'SuccessCount',
         align: 'right',
         width: 150,
     },
     {
-        title: '导出开始时间',
-        dataIndex: 'ExportStartDate',
+        title: '失败数量',
+        dataIndex: 'ErrorCount',
+        align: 'right',
+        width: 150,
+    },
+    {
+        title: '导入开始时间',
+        dataIndex: 'ImportStartDate',
         align: 'center',
         width: 150,
     },     
     {
-        title: '导出结束时间',
-        dataIndex: 'ExportEndDate',
+        title: '导入结束时间',
+        dataIndex: 'ImportEndDate',
         align: 'center',
         width: 150,
     },
@@ -94,33 +100,21 @@ const ExportLog : React.FC = () => {
         align: 'center',
         width: 100,
     },
-    {
-        title: '',
-        key: 'operation',
-        fixed: 'right',
-        width: 100,
-        render: (_, record) => (
-        <>
-            <a href='#' title={record.ExportFile}>导出文件</a>
-        </>
-        ),
-    },
     ];
     
-
     return (
         <div>
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <ExportOutlined  style={{color:'red',fontSize:'20px',marginRight:'5px'}} />导出日志
+                            <ImportOutlined  style={{color:'red',fontSize:'20px',marginRight:'5px'}} />导入日志
                         </span>
                     </div>
                 </div>
             </div>
             <div className='nc-bill-table-area'>
-                <Table<ExportLogItem>
+                <Table<ImportLogItem>
                     columns={columnsType}
                     rowKey={(record) => record.BatchNo}
                     showSorterTooltip={false}
@@ -148,4 +142,4 @@ const ExportLog : React.FC = () => {
         
     )
 }
-export default ExportLog;
+export default ImportLog;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MenuProps,MenuGroup } from '@/types/menu/menu';
+import { NavLink } from 'react-router-dom';
 interface AppSiderProps {
     collapsed: boolean;
     menudatas: MenuProps;
@@ -68,7 +69,8 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                                                 return (
                                                     <div className="item-app" grp-index="0" item-index="0" open-type="tab" key={app.key + i}>
                                                         {app.path ? (
-                                                            <a href={app.path}>{app.name}</a>
+                                                            // <a href={app.path}>{app.name}</a>
+                                                            <NavLink to={app.path}>{app.name}</NavLink>
                                                         ) : (
                                                             <span>{app.name}</span>
                                                         )}

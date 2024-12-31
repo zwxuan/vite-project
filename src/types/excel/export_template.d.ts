@@ -1,15 +1,14 @@
-export interface ImportTemplateItem {
+export interface ExportLogItem {
     SerialNo: number;
-    Version: string;
-    TemplateCode: string;
+    BatchNo: string;
+    ServiceName: string;
     TemplateName:string;
-    TemplateSource:string;
-    CreatDate:string;
-    LastDate:string;
-    Operator:string;
-    //0 未发布，1已发布
+    ExportType:string;
+    ExportCount:string;
+    ExportStartDate:string;
+    ExportEndDate:string;
+    //0 异常，1成功,2失败
     Status:number;
-    Country:string;
-    //0 否，1 是
-    IsDefault:number;
+    Operator:string;
+    ExportFile:string;
 }

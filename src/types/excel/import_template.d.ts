@@ -23,3 +23,17 @@ export interface ImportTemplateFieldItem {
     IsInclude :boolean
     ComponentType:string   
 }
+export interface ImportLogItem {
+    SerialNo: number;
+    BatchNo: string;
+    ServiceName: string;
+    TemplateName:string;
+    ImportType:string;
+    SuccessCount:string;
+    ErrorCount:string;
+    ImportStartDate:string;
+    ImportEndDate:string;
+    //0 异常，1成功,2失败
+    Status:number;
+    Operator:string;
+}

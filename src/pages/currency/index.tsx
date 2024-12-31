@@ -2,6 +2,7 @@ import '../page_list.less'
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select } from 'antd';
 import type { TableColumnsType,MenuProps,TableProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
 import {RedoOutlined,DownOutlined} from '@ant-design/icons';
@@ -19,6 +20,7 @@ const Currency : React.FC = () => {
     // 币制数据
     const [currentyList, setCurrencyList] = useState([] as CurrencyItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const navigate = useNavigate();
     // 获取币制数据
     useEffect(() => {
         // 获取币制数据
@@ -168,7 +170,7 @@ const Currency : React.FC = () => {
         key: '5',
     },
     ];
-
+    
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
         if(key==='1'){
@@ -184,7 +186,8 @@ const Currency : React.FC = () => {
             setExcelTemplateOpenUpdate(true);
         }
         else{
-            setExcelOpen(true);
+            
+            navigate('/importlog');
         }
         
         
