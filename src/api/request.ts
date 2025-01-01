@@ -55,58 +55,47 @@ interface ProgressData {
 
 // 带进度的请求函数
 export const requestWithProgress = async <T>(config: ProgressConfig) => {
-  const { onUploadProgress, onDownloadProgress, ...axiosConfig } = config;
+  const { onUploadProgress, ...axiosConfig } = config;
   
-  const response = await fetch(`${instance.defaults.baseURL}${config.url}`, {
-    method: config.method,
+  // 首先发送 POST 请求
+  const postResponse = await fetch(`${instance.defaults.baseURL}${config.url}`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
     },
     body: JSON.stringify(config.data)
   });
 
-  if (!response.ok || !response.body) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  if (!postResponse.ok) {
+    throw new Error(`HTTP error! status: ${postResponse.status}`);
   }
 
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let lastResponse: ApiRes<T> | null = null;
-
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      console.log('done:', done, 'value:', value);
-      
-      if (done) break;
-      if (!value || value.length === 0) continue;
-
+  // 使用 GET 请求来获取进度更新
+  const progressUrl = `${instance.defaults.baseURL}${config.url}/progress`;
+  const eventSource = new EventSource(progressUrl);
+  
+  return new Promise<ApiRes<T>>((resolve, reject) => {
+    eventSource.onmessage = (event) => {
       try {
-        const chunk = decoder.decode(value);
-        console.log('Decoded chunk:', chunk);
-        
-        const data = JSON.parse(chunk) as ApiRes<ProgressData>;
-        console.log('Parsed data:', data);
+        const data = JSON.parse(event.data) as ApiRes<ProgressData>;
+        console.log('Received stream data:', data);
         
         if (data.data?.progress !== undefined) {
           onUploadProgress?.(data.data.progress);
         }
         
         if (data.data?.status === 'completed') {
-          lastResponse = data as unknown as ApiRes<T>;
+          eventSource.close();
+          resolve(data as ApiRes<T>);
         }
       } catch (e) {
-        console.error('Failed to parse chunk:', e);
+        console.error('Failed to parse event data:', e);
       }
-    }
+    };
 
-    return lastResponse || {
-      code: 500,
-      success: false,
-      message: "No valid response received"
-    } as ApiRes<T>;
-  } finally {
-    reader.releaseLock();
-  }
+    eventSource.onerror = (error) => {
+      eventSource.close();
+      reject(new Error('EventSource failed: ' + error));
+    };
+  });
 };
