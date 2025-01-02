@@ -73,6 +73,7 @@ export const requestWithProgress = async <T>(config: ProgressConfig) => {
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let lastResponse: ApiRes<T> | null = null;
+  let accumulatedData = '';
 
   try {
     while (true) {
@@ -82,19 +83,27 @@ export const requestWithProgress = async <T>(config: ProgressConfig) => {
       if (done) break;
       if (!value || value.length === 0) continue;
 
+      accumulatedData += decoder.decode(value, { stream: !done });
+
       try {
-        const chunk = decoder.decode(value);
-        console.log('Decoded chunk:', chunk);
-        
-        const data = JSON.parse(chunk) as ApiRes<ProgressData>;
-        console.log('Parsed data:', data);
-        
-        if (data.data?.progress !== undefined) {
-          onUploadProgress?.(data.data.progress);
-        }
-        
-        if (data.data?.status === 'completed') {
-          lastResponse = data as unknown as ApiRes<T>;
+        // 尝试解析完整的JSON字符串
+        while (accumulatedData) {
+          const jsonEndIndex = accumulatedData.indexOf('}');
+          if (jsonEndIndex === -1) break; // 如果没有找到完整的JSON字符串，继续等待更多数据
+
+          const chunk = accumulatedData.slice(0, jsonEndIndex + 1);
+          accumulatedData = accumulatedData.slice(jsonEndIndex + 1);
+
+          const data = JSON.parse(chunk) as ApiRes<ProgressData>;
+          console.log('Parsed data:', data);
+          
+          if (data.data?.progress !== undefined) {
+            onUploadProgress?.(data.data.progress);
+          }
+          
+          if (data.data?.status === 'completed') {
+            lastResponse = data as unknown as ApiRes<T>;
+          }
         }
       } catch (e) {
         console.error('Failed to parse chunk:', e);
