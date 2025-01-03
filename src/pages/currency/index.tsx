@@ -1,19 +1,23 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Popconfirm,Tag,Form,Input,InputNumber,Select,Progress } from 'antd';
-import type { TableColumnsType,MenuProps,TableProps } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList } from "@/api/financial_basic_data/currency_service";
 import { requestWithProgress } from "@/api/request";
-import {RedoOutlined,DownOutlined} from '@ant-design/icons';
+import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
-import AdvancedSearchForm,{AdvancedSearchFormProps} from "@/components/search-form";
+import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
+import { getColumns } from './columns';
+import { statusItems, importItems, exportItems } from './menu-items';
+import { fields } from './search-fields';
+import CurrencyModal from './currency-modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const Currency : React.FC = () => {
@@ -34,143 +38,17 @@ const Currency : React.FC = () => {
         getData();
     }, []);
       
-    const columnsType: TableColumnsType<CurrencyItemProps> = [
-    {
-        title: i18n.t(LocaleHelper.getCode()),
-        width: 100,
-        dataIndex: 'Code',
-        sorter: true,
-        fixed: 'left',
-        align: 'center',
-        
-    },
-    {
-        title: '币制名称',
-        width: 100,
-        dataIndex: 'CurrencyFullName',
-        sorter: true,
-        fixed: 'left',
-        align: 'left',
-    },
-    {
-        title: '币制简称',
-        dataIndex: 'CurrencyShortName',
-        sorter: true,
-        width: 150,
-    },
-    {
-        title: '币制符号',
-        dataIndex: 'CurrencyMark',
-        sorter: true,
-        width: 150,
-    },
-    {
-        title: '价格精度',
-        dataIndex: 'PricePrecision',
-        sorter: true,
-        align: 'right',
-        width: 150,
-    },
-    {
-        title: '价格舍入规则',
-        dataIndex: 'PriceRoundingRule',
-        sorter: true,
-        width: 150,
-    },
-    {
-        title: '金额精度',
-        dataIndex: 'AmountPrecision',
-        sorter: true,
-        align: 'right',
-        width: 150,
-    },
-    {
-        title: '金额舍入规则',
-        dataIndex: 'AmountRoundingRule',
-        sorter: true,
-        width: 150,
-    },
-    {
-        title: '备注',
-        dataIndex: 'Remark',
-        sorter: true,
-        width: 150,
-    },
-    {
-        title: '状态',
-        dataIndex: 'Status',
-        sorter: true,
-        align: 'center',
-        width: 40,
-        render: (text) => {
-            if (text === 0) {
-                return <Tag color='green'>启用</Tag>;
-            } else if (text === 1) {
-                return <Tag>停用</Tag>;
-            } else {
-                return <Tag color='red'>删除</Tag>;
-            }
-        },
-    },
-    {
-        title: '操作',
-        key: 'operation',
-        fixed: 'right',
-        width: 100,
-        render: (_, record) => (
-        <>
-            <a href='#'>启用</a>
-            <a href='#' onClick={()=>handleEdit(record.Code)}>编辑</a>
-            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record.Code)}>
-                <a href='#'>删除</a>
-            </Popconfirm>
-            
-        </>
-        ),
-    },
-    ];
-    
     const handleDelete = (key: React.Key) => {
         alert(key);
     };
     const handleEdit = (key: React.Key) => {
         const newData = currentyList.filter((item) => item.Code === key);
         setFormData(newData[0]);
+        setModalFlag('edit');
         showModal();
     };
     
-    const items: MenuProps['items'] = [
-    {
-        label: '启用',
-        key: '1',
-    },
-    {
-        label: '停用',
-        key: '2',
-    },
-    ];
-    const itemsInput: MenuProps['items'] = [
-    {
-        label: '新增导入',
-        key: '1',
-    },
-    {
-        label: '下载新增模板',
-        key: '2',
-    },
-    {
-        label: '更新导入',
-        key: '3',
-    },
-    {
-        label: '下载更新模板',
-        key: '4',
-    },
-    {
-        label: '查看导入日志',
-        key: '5',
-    },
-    ];
+    const columnsType = getColumns(handleEdit, handleDelete);
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -187,34 +65,28 @@ const Currency : React.FC = () => {
             setExcelTemplateOpenUpdate(true);
         }
         else{
-            
             navigate('/importlog');
         }
-        
-        
     };
 
-    const itemsOutput: MenuProps['items'] = [
-    {
-        label: 'Excel导出',
-        key: '1',
-    },
-    {
-        label: '查看导出日志',
-        key: '2',
-    },
-    ];
+    
     const [open, setOpen] = useState(false);
     const [openExcel, setExcelOpen] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState(0);
-    const [showProgress, setShowProgress] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
 
     const showModal = () => {
-        console.log(formData);
         setOpen(true);
     };
+
+    const handleAdd = () => {
+        setModalFlag('add');
+        setFormData(initFormData);
+        showModal();
+    };
+
     const initFormData = {} as CurrencyItemProps;
     const [formData, setFormData] = useState({ CurrencyFullName: '', CurrencyShortName: '' });
     
@@ -224,34 +96,64 @@ const Currency : React.FC = () => {
     };
 
     const handleOk = async () => {
-        setShowProgress(true);
-        setUploadProgress(0);
+        setSaving(true);
+        
+        // 打开通知
+        const key = `progress_${Date.now()}`;
+        notification.open({
+            key,
+            message: '提示',
+            placement:'bottomRight',
+            description: <Progress type='circle' percent={0} size={60} />,
+            duration: 0,
+            icon: <HourglassOutlined />,
+            style: {
+                width: 200,
+            },
+        });
+
         try {
             const response = await requestWithProgress({
                 method: 'POST',
                 url: '/currency/save',
                 data: formData,
                 onUploadProgress: (progress) => {
-                    console.log('Progress:', progress);
-                    setUploadProgress(progress);
+                    // 更新通知中的进度条
+                    notification.open({
+                        key,
+                        message: '提示',
+                        description: <Progress type='circle' percent={progress} strokeColor={progress === 100 ? "" : "#ff1648"}  size={60} />,
+                        duration: 0,
+                        placement:'bottomRight',
+                        icon: <HourglassOutlined />,
+                        style: {
+                            width: 200,
+                        },
+                    });
+                    
                 }
             });
             
-            // 只有在请求完全完成后才关闭模态框
             if (response?.success) {
                 setFormData(initFormData);
-                // setOpen(false);
-                // setShowProgress(false);
+                // 等待1秒
+                await new Promise(resolve => setTimeout(resolve, 500));
+                notification.destroy(key);
+                setOpen(false);
             }
         } catch (error) {
             console.error('Save failed:', error);
-            setShowProgress(false);
+            notification.destroy(key);
+        } finally {
+            setSaving(false);
         }
     };
 
     const handleCancel = () => {
-        setFormData(initFormData);
-        setOpen(false);
+        if (!saving) {
+            setFormData(initFormData);
+            setOpen(false);
+        }
     };
     const handleExcelCancel = () => {
         setExcelOpen(false);
@@ -261,16 +163,6 @@ const Currency : React.FC = () => {
     };
     const handleExcelTemplateUpdateCancel = () => {
         setExcelTemplateOpenUpdate(false);
-    };
-    const formItemLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 6 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 14 },
-        },
     };
     //表格选中和取消时触发的函数
     const rowSelection: TableRowSelection<CurrencyItemProps> = {
@@ -290,128 +182,21 @@ const Currency : React.FC = () => {
         columnWidth: '20px',
     };
 
-    const fields:AdvancedSearchFormProps["fields"] =
-    [
-        {
-            type: 'input',
-            label: '币种',
-            key: 'CurrencyFullName',
-        },
-        {
-            type: 'input',
-            label: '币种简称',
-            key: 'CurrencyShortName',
-            suffix: 'ZH',
-        },
-        {
-            type: 'input',
-            label: '币种符号',
-            key: 'CurrencyMark',
-        },
-        { 
-            type: 'select', 
-            key: 'PriceRoundingRule',
-            label: '舍入规则', 
-            selectOptions: [{ value: '1', label: '四舍五入' }, { value: '2', label: '向上舍入' }, { value: '3', label: '向下舍入' }] 
-        },
-        {
-            type: 'date',
-            label: '日期',
-            key: 'CreateDate',
-        },
-        {
-            type: 'rangedata',
-            label: '日期范围',
-            key: 'RangeDate',
-        },
-        {
-            type: 'input',
-            label: '自定义测试1',
-            key: 'CurrencyShortName1',
-            suffix: 'ZH',
-        },
-        {
-            type: 'input',
-            label: '自定义测试2',
-            key: 'CurrencyMark1',
-        },
-        { 
-            type: 'select', 
-            key: 'PriceRoundingRule1',
-            label: '自定义测试3', 
-            selectOptions: [{ value: '1', label: '四舍五入' }, { value: '2', label: '向上舍入' }, { value: '3', label: '向下舍入' }] 
-        },
-        {
-            type: 'date',
-            label: '自定义测试4',
-            key: 'CreateDate1',
-        },
-        {
-            type: 'rangedata',
-            label: '自定义测试5',
-            key: 'RangeDate1',
-        },
-    ]
-
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
 
     return (
         <div>
-            <Modal open={open} title="币种"
+            <CurrencyModal 
+                open={open}
+                modalFlag={modalFlag}
+                saving={saving}
+                formData={formData}
                 onCancel={handleCancel}
-                width={600}
-                destroyOnClose={true}
-                maskClosable={false}
-                footer={(_) => (
-                <>
-                </>
-                )}
-            >
-                <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData}>
-                    <Form.Item label="币种" name="CurrencyFullName" rules={[{ required: true,message: '' }]}>
-                        <Input onChange={handleChange} />
-                    </Form.Item>
-                    <Form.Item label="币种简称" name="CurrencyShortName" rules={[{ required: true,message:''}]}>
-                        <Input onChange={handleChange}/>
-                    </Form.Item>
-                    <Form.Item label="币种符号" name="CurrencyMark">
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item label="单价精度" name="PricePrecision" rules={[{ required: true,message: '' }]}>
-                        <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="单价舍入规则" name="PriceRoundingRule" rules={[{ required: true,message: '' }]}>
-                        <Select />
-                    </Form.Item>
-                    <Form.Item label="金额精度" name="AmountPrecision" rules={[{ required: true,message: '' }]}>
-                        <InputNumber />
-                    </Form.Item>
-                    <div style={{color:'red',paddingLeft:'100px',paddingRight:'20px'}}>警告:金额精度会影响财务报表。多数国家/地区财务报表金额和发票金额一般最多2位，如要超过2位，请确保财务部门认可。</div>
-                    
-                    <Form.Item label="金额舍入规则" name="AmountRoundingRule" rules={[{ required: true,message: '' }]}>
-                        <Select />
-                    </Form.Item>
-                    <Form.Item wrapperCol={{ offset: 14 }}>
-                        
-                    </Form.Item>
-                    {showProgress && (
-                        <Form.Item label="上传进度">
-                            <Progress percent={uploadProgress} status="active" />
-                        </Form.Item>
-                    )}
-                    <div style={{textAlign:'right'}}>
-                        <Space>
-                            <Button onClick={handleCancel}>取消</Button>
-                            <Button>保存并新增</Button>
-                            <Button type="primary" onClick={handleOk} danger>保存</Button>
-                        </Space>
-                    </div>
-                </Form>
-            </Modal>
-
+                onOk={handleOk}
+                onChange={handleChange}
+            />
             
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='currency' importType={uploadImportType} />
             <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='currency' />
@@ -437,7 +222,7 @@ const Currency : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={showModal}>新增</Button>
+                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
                                 <Button>修改</Button>
                                 <Button>删除</Button>
                                 <Button>复制</Button>
@@ -447,7 +232,7 @@ const Currency : React.FC = () => {
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:items}}>
+                            <Dropdown menu={{items:statusItems}}>
                                 <Button>
                                     <Space>
                                         启用
@@ -455,7 +240,7 @@ const Currency : React.FC = () => {
                                     </Space>
                                 </Button>   
                             </Dropdown>
-                            <Dropdown menu={{items:itemsInput,onClick:excelImportOnClick}}>
+                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
                                 <Button>
                                     <Space>
                                         导入
@@ -463,7 +248,7 @@ const Currency : React.FC = () => {
                                     </Space>
                                 </Button>   
                             </Dropdown>
-                            <Dropdown menu={{items:itemsOutput}}>
+                            <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>
                                         导出
