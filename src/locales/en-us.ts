@@ -14,4 +14,5 @@ export const en = {
         fieldManagement: "Field",
         templateManagement: "Template",
     },
+    
 };

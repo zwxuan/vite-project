@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space } from 'antd';
 import { CurrencyItemProps } from "@/types/currency/currency";
 
-interface CurrencyModalProps {
+interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
     saving: boolean;
@@ -23,7 +23,7 @@ const formItemLayout = {
     },
 };
 
-const CurrencyModal: React.FC<CurrencyModalProps> = ({
+const DetailModal: React.FC<DetailModalProps> = ({
     open,
     modalFlag,
     saving,
@@ -81,4 +81,4 @@ const CurrencyModal: React.FC<CurrencyModalProps> = ({
     );
 };
 
-export default CurrencyModal; 
+export default DetailModal; 

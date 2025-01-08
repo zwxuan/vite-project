@@ -1,0 +1,161 @@
+<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="Text" Src="" Inherits="" Debug="TRUE" Description="Template description here." %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+
+<%@ Property Name="Tables" Type="SchemaExplorer.TableSchemaCollection" Default="" Optional="False" Category=""%>
+<%@ Register Name="page_index" Template="page_index.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="page_column" Template="page_column.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="page_detail_modal" Template="page_detail_modal.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="page_menu_items" Template="page_menu_items.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="page_search_fields" Template="page_search_fields.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="type_items_props" Template="type_items_props.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="mock_js" Template="mock_js.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="api_service" Template="api_service.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="local_language" Template="local_language.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="local_helper" Template="local_helper.cst" MergeProperties="False" ExcludeProperties="" %>
+<script runat="template">
+private string _path;
+[Editor(typeof(System.Windows.Forms.Design.FolderNameEditor),typeof(System.Drawing.Design.UITypeEditor))]
+public string FilePath
+{
+	get
+	{
+	return _path;
+	}
+	set
+	{
+	_path = value;
+	}
+}
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+<%
+foreach(TableSchema ts in Tables)
+{
+	//page_index
+	string dirPageIndex = this.FilePath + "\\pages\\" + ts.Name.ToLower() + "\\";
+	if(!Directory.Exists(dirPageIndex)) Directory.CreateDirectory(dirPageIndex);	
+	page_index m = new page_index();
+    m.SourceTable = ts;
+    m.OutputFile = dirPageIndex  + "index.tsx";
+    m.Render(this.Response);
+	
+	//page_column
+	string dirPageColumn = this.FilePath + "\\pages\\" + ts.Name.ToLower() + "\\";
+	if(!Directory.Exists(dirPageColumn)) Directory.CreateDirectory(dirPageColumn);	
+	page_column mp = new page_column();
+    mp.SourceTable = ts;
+    mp.OutputFile = dirPageColumn + "columns.tsx";
+    mp.Render(this.Response);
+	
+	//page_detail_modal
+	string dirPageDetailModal = this.FilePath + "\\pages\\" + ts.Name.ToLower() + "\\";
+	if(!Directory.Exists(dirPageDetailModal)) Directory.CreateDirectory(dirPageDetailModal);	
+	page_detail_modal r = new page_detail_modal();
+    r.SourceTable = ts;
+    r.OutputFile = dirPageDetailModal + "detail_modal.tsx";
+    r.Render(this.Response);
+	
+	//page_menu_items
+	string dirPageMenuItems = this.FilePath + "\\pages\\" + ts.Name.ToLower() + "\\";
+	if(!Directory.Exists(dirPageMenuItems)) Directory.CreateDirectory(dirPageMenuItems);	
+	page_menu_items ir = new page_menu_items();
+    ir.SourceTable = ts;
+    ir.OutputFile = dirPageMenuItems  + "menu_items.ts";
+    ir.Render(this.Response);
+	
+    //page_search_fields
+	string dirPageSearchFields = this.FilePath + "\\pages\\"+ ts.Name.ToLower() + "\\";
+	if(!Directory.Exists(dirPageSearchFields)) Directory.CreateDirectory(dirPageSearchFields);	
+	page_search_fields rr = new page_search_fields();
+    rr.SourceTable = ts;
+    rr.OutputFile = dirPageSearchFields + "search_fields.ts";
+    rr.Render(this.Response);
+	
+	//type_items_props
+	string dirTypeItemsProps = this.FilePath + "\\types\\" + ts.Name.ToLower() + "\\" ;
+	if(!Directory.Exists(dirTypeItemsProps)) Directory.CreateDirectory(dirTypeItemsProps);	
+	type_items_props irr = new type_items_props();
+    irr.SourceTable = ts;
+    irr.OutputFile = dirTypeItemsProps + ts.Name.ToLower() + ".d.ts";
+    irr.Render(this.Response);
+    
+    //mock_js
+	string dirMockJs = this.FilePath + "\\mock\\";
+	if(!Directory.Exists(dirMockJs)) Directory.CreateDirectory(dirMockJs);	
+	mock_js mockjs = new mock_js();
+    mockjs.SourceTable = ts;
+    mockjs.OutputFile = dirMockJs + ts.Name.ToLower() + ".ts";
+    mockjs.Render(this.Response);
+    
+	//api_service
+	string dirApiService = this.FilePath + "\\api\\financial_basic_data\\";
+	if(!Directory.Exists(dirApiService)) Directory.CreateDirectory(dirApiService);	
+	api_service apiservice = new api_service();
+    apiservice.SourceTable = ts;
+    apiservice.OutputFile = dirApiService + ts.Name.ToLower() + "_service.ts";
+    apiservice.Render(this.Response);
+}
+    //local_language
+	string dirLocalLanguage = this.FilePath + "\\locales\\";
+	if(!Directory.Exists(dirLocalLanguage)) Directory.CreateDirectory(dirLocalLanguage);	
+	local_language localLanguage = new local_language();
+    localLanguage.Tables = Tables;
+    localLanguage.OutputFile = dirLocalLanguage + "language_all.ts";
+    localLanguage.Render(this.Response);
+    //local_helper
+	string dirLocalHelper = this.FilePath + "\\utils\\";
+	if(!Directory.Exists(dirLocalHelper)) Directory.CreateDirectory(dirLocalHelper);	
+	local_helper localHelper = new local_helper();
+    localHelper.Tables = Tables;
+    localHelper.OutputFile = dirLocalHelper + "languageHelper.ts";
+    localHelper.Render(this.Response);
+%>

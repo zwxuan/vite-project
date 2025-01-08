@@ -1,0 +1,79 @@
+<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
+
+<script runat="template">
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+
+import request, { requestWithProgress } from '../request'
+import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
+
+// 获取币制信息
+export const get<%= PascalCase(this.SourceTable.Name) %>List = () => {
+  return request({
+    method: "GET",
+    url: "/<%= this.SourceTable.Name.ToLower() %>"
+  })
+}
+
+export const save<%= PascalCase(this.SourceTable.Name) %> = (data:<%= PascalCase(this.SourceTable.Name) %>ItemProps,onUploadProgress: (progress: number) => void) => {
+  return requestWithProgress({
+    method: 'POST',
+    url: "/<%= this.SourceTable.Name.ToLower() %>/save",
+    data:data,
+    onUploadProgress: (progress) => {
+        onUploadProgress(progress);
+    }
+  })
+}
+

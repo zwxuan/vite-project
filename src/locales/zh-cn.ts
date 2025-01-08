@@ -14,4 +14,5 @@ export const cn = {
         fieldManagement: "字段管理",
         templateManagement: "模板管理",
     },
+    
 };

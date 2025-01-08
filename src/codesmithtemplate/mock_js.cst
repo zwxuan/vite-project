@@ -1,0 +1,156 @@
+<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
+
+<script runat="template">
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+import Mock from "mockjs";
+import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
+import { IncomingMessage, ServerResponse } from 'http';
+
+// 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
+const <%= CamelCase(this.SourceTable.Name) %>Items:<%= PascalCase(this.SourceTable.Name) %>ItemProps[] = [
+<% 
+    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
+    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
+    string[] typeNamesString = new string[]{"string"};
+    string[] typeNamesDate = new string[]{"DateTime"};
+%>
+<% for(int i = 1;i<20;i++) {%>
+    {
+    <% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
+        <% if(columnSchema.IsPrimaryKeyMember) {%>    
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock("@id"),
+        <%} %>
+        <% else if(typeNamesDecimal.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@float(60, 100, 0, 2)'),
+        <%} %>
+        <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@datetime()'),
+        <%} %>
+        <% else if(typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@string("number", 1, 3)'),
+        <%} %>
+        <% else { %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@ctitle(5)'),
+        <%} %>
+    <%}%>
+    },  
+<%} %>
+];
+ 
+export default [
+  // <%= DbHelpter.GetClassDescription(this.SourceTable) %>台账
+  {
+    url: "/api/<%= this.SourceTable.Name.ToLower() %>",
+    method: "GET",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        message: "请求成功。",
+        data: <%= CamelCase(this.SourceTable.Name) %>Items,
+      };
+    },
+  },
+  {
+    url: "/api/<%= this.SourceTable.Name.ToLower() %>/save",
+    method: "POST",
+    response: ({ body }: { body: <%= PascalCase(this.SourceTable.Name) %>ItemProps }) => {
+      return {
+        code: 200,
+        success: true,
+        message: "开始处理",
+        data: body
+      };
+    }
+  },
+  {
+    url: "/api/<%= this.SourceTable.Name.ToLower() %>/save/progress",
+    method: "GET",
+    rawResponse: async (req: IncomingMessage, res: ServerResponse) => {
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.setHeader('X-Accel-Buffering', 'no');
+
+      let progress = 0;
+      
+      const sendProgress = () => {
+        const data = {
+          code: 200,
+          success: true,
+          message: progress >= 100 ? "保存成功" : "处理中...",
+          data: {
+            progress: progress,
+            status: progress >= 100 ? 'completed' : 'processing',
+            result: progress >= 100 ? null : null
+          }
+        };
+
+        res.write(`data: ${JSON.stringify(data)}\n\n`);
+        console.log('Sending progress:', progress);
+
+        if (progress >= 100) {
+          res.end();
+          return;
+        }
+
+        progress += 10;
+        setTimeout(sendProgress, 1000);
+      };
+
+      sendProgress();
+    }
+  }
+];

@@ -1,0 +1,99 @@
+<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
+
+<script runat="template">
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+import { AdvancedSearchFormProps } from "@/components/search-form";
+
+export const fields: AdvancedSearchFormProps["fields"] = [
+
+<% 
+    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
+    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
+    string[] typeNamesString = new string[]{"string"};
+    string[] typeNamesDate = new string[]{"DateTime"};
+%>
+<% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
+    <% if(typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema))) {%>
+    {
+        type: 'select',
+        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
+        key: '<%= PascalCase(columnSchema.Name) %>',
+        selectOptions: [{ value: '1', label: 'Value1' }, { value: '2', label: 'Value2' }, { value: '3', label: 'Value3' }]
+    },
+    <% } %>
+    <% else if(typeNamesString.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+    {
+        type: 'input',
+        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
+        key: '<%= PascalCase(columnSchema.Name) %>',
+    },
+    <%} %>
+    <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+    {
+        type: 'date',
+        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
+        key: '<%= PascalCase(columnSchema.Name) %>',
+    },
+    <%} %>
+    <% else { %>
+    {
+        type: 'input',
+        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
+        key: '<%= PascalCase(columnSchema.Name) %>',
+    },
+    <%} %>
+<% } %>
+    
+]; 

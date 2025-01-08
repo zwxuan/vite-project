@@ -1,0 +1,117 @@
+<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
+
+<script runat="template">
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+
+import { TableColumnsType, Tag, Popconfirm } from 'antd';
+import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
+
+
+
+export const getColumns = (handleEdit: (record: <%= PascalCase(this.SourceTable.Name) %>ItemProps) => void, handleDelete: (record: <%= PascalCase(this.SourceTable.Name) %>ItemProps) => void): TableColumnsType<<%= PascalCase(this.SourceTable.Name) %>ItemProps> => [
+
+<% 
+    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
+    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
+    string[] typeNamesString = new string[]{"string"};
+    string[] typeNamesDate = new string[]{"DateTime"};
+%>
+<% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
+    <% if(typeNamesDecimal.Contains(DbHelpter.GetPropertyType(columnSchema)) || typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema)) ) {%>
+    {
+        title: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
+        width: 100,
+        dataIndex: '<%= PascalCase(columnSchema.Name) %>',
+        sorter: true,
+        align: 'right',
+    },
+    <% } %>
+    <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))) {%>
+    {
+        title: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
+        width: 100,
+        dataIndex: '<%= PascalCase(columnSchema.Name) %>',
+        sorter: true,
+        align: 'center',
+    },
+    <% } %>
+    <% else { %>
+    {
+        title: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
+        width: 100,
+        dataIndex: '<%= PascalCase(columnSchema.Name) %>',
+        sorter: true,
+        align: 'left',
+    },
+    <%} %>
+<% } %>
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+        render: (_, record) => (
+        <>
+            <a>启用</a>
+            <a onClick={()=>handleEdit(record)}>编辑</a>
+            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
+                <a>删除</a>
+            </Popconfirm>
+        </>
+        ),
+    },
+]; 

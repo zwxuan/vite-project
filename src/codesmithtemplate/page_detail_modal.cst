@@ -1,0 +1,152 @@
+<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
+
+<script runat="template">
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+
+import React from 'react';
+import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
+import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
+import dayjs from 'dayjs';
+interface DetailModalProps {
+    open: boolean;
+    modalFlag: 'add' | 'edit';
+    saving: boolean;
+    formData: Partial<<%= PascalCase(this.SourceTable.Name) %>ItemProps>;
+    onCancel: () => void;
+    onOk: (values: any) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onDateChange: (name: string, value: string | Array<string>) => void;
+}
+
+const formItemLayout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 14 },
+    },
+};
+
+const DetailModal: React.FC<DetailModalProps> = ({
+    open,
+    modalFlag,
+    saving,
+    formData,
+    onCancel,
+    onOk,
+    onChange,
+    onDateChange,
+}) => {
+    return (
+        <Modal 
+            open={open} 
+            title={modalFlag === 'add' ? '新增'<%= DbHelpter.GetClassDescription(this.SourceTable) %> : '编辑'<%= DbHelpter.GetClassDescription(this.SourceTable) %>}
+            onCancel={onCancel}
+            width={600}
+            destroyOnClose={true}
+            maskClosable={false}
+            closable={!saving}
+            footer={null}
+        >
+            <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
+                <% 
+                    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
+                    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
+                    string[] typeNamesString = new string[]{"string"};
+                    string[] typeNamesDate = new string[]{"DateTime"};
+                %>
+                <% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
+                    <% if(typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema))) {%>
+                        <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>" name="<%= PascalCase(columnSchema.Name) %>" <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
+                            <Select onChange={onChange} />
+                        </Form.Item>
+                    <% } %>
+                    <% else if(typeNamesDecimal.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+                        <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>" name="<%= PascalCase(columnSchema.Name) %>" <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
+                            <InputNumber onChange={onChange} />
+                        </Form.Item>
+                    <%} %>
+                    <% else if(typeNamesString.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+                        <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>" name="<%= PascalCase(columnSchema.Name) %>" <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                    <%} %>
+                    <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+                        <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>"  <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
+                            <DatePicker name="<%= PascalCase(columnSchema.Name) %>" style={{ display: 'block' }} defaultValue={dayjs(formData.<%= PascalCase(columnSchema.Name) %>)}  onChange={(_, dateStrings) => {onDateChange("<%= PascalCase(columnSchema.Name) %>", dateStrings) }} />
+                        </Form.Item>
+                    <%} %>
+                    <% else { %>
+                        <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>" name="<%= PascalCase(columnSchema.Name) %>" <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                    <%} %>
+                <% } %>
+                <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>
+                <div style={{ textAlign: 'right' }}>
+                    <Space>
+                        <Button onClick={onCancel} disabled={saving}>取消</Button>
+                        {modalFlag === 'add' && <Button disabled={saving}>保存并新增</Button>}
+                        <Button type="primary" htmlType='submit' danger disabled={saving}>保存</Button>
+                    </Space>
+                </div>
+            </Form>
+        </Modal>
+    );
+};
+
+export default DetailModal;

@@ -2,9 +2,8 @@ import { TableColumnsType, Tag, Popconfirm } from 'antd';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
-import React from 'react';
 
-export const getColumns = (handleEdit: (key: React.Key) => void, handleDelete: (key: React.Key) => void): TableColumnsType<CurrencyItemProps> => [
+export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, handleDelete: (record: CurrencyItemProps) => void): TableColumnsType<CurrencyItemProps> => [
     {
         title: i18n.t(LocaleHelper.getCode()),
         width: 100,
@@ -89,8 +88,8 @@ export const getColumns = (handleEdit: (key: React.Key) => void, handleDelete: (
         render: (_, record) => (
         <>
             <a href='#'>启用</a>
-            <a href='#' onClick={()=>handleEdit(record.Code)}>编辑</a>
-            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record.Code)}>
+            <a href='#' onClick={()=>handleEdit(record)}>编辑</a>
+            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
                 <a href='#'>删除</a>
             </Popconfirm>
         </>
