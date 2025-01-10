@@ -87,10 +87,10 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         width: 100,
         render: (_, record) => (
         <>
-            <a href='#'>启用</a>
-            <a href='#' onClick={()=>handleEdit(record)}>编辑</a>
+            <a>启用</a>
+            <a onClick={()=>handleEdit(record)}>编辑</a>
             <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
-                <a href='#'>删除</a>
+                <a>删除</a>
             </Popconfirm>
         </>
         ),

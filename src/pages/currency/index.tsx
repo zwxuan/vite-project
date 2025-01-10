@@ -1,15 +1,15 @@
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CurrencyItemProps } from "@/types/currency/currency";
 import { getCurrencyList,saveCurrency } from "@/api/financial_basic_data/currency_service";
-import { requestWithProgress } from "@/api/request";
+// import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
-import i18n from '@/i18n';
-import LocaleHelper from '@/utils/localeHelper';
+// import i18n from '@/i18n';
+// import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';

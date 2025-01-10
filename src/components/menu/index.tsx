@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuProps,MenuGroup } from '@/types/menu/menu';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useLocation } from 'react-router-dom';
 interface AppSiderProps {
     collapsed: boolean;
     menudatas: MenuProps;
@@ -15,6 +15,7 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
             selectMenu(keyCode);
         }
     };
+    const location = useLocation();
     return (
         <div className="ant-drawer-content-wrapper" style={{ display: collapsed ? 'block' : 'none' }}>
             <div className="ant-drawer-content">
@@ -70,7 +71,11 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
                                                     <div className="item-app" grp-index="0" item-index="0" open-type="tab" key={app.key + i}>
                                                         {app.path ? (
                                                             // <a href={app.path}>{app.name}</a>
-                                                            <NavLink to={app.path}>{app.name}</NavLink>
+                                                            <NavLink to={app.path} 
+                                                                style={{
+                                                                fontWeight: location.pathname === app.path ? 'bold' : 'normal',
+                                                                color: location.pathname === app.path ? '#ff1648' : 'black'
+                                                              }}>{app.name}</NavLink>
                                                         ) : (
                                                             <span>{app.name}</span>
                                                         )}
