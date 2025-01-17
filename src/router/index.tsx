@@ -2,6 +2,7 @@
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import Currency from "@/pages/currency";
+import PermissionManagement from "@/pages/identity/permission";
 import ExportLog from "@/pages/log/export_log";
 import ImportLog from "@/pages/log/import_log";
 import Login from "@/pages/login";
@@ -20,6 +21,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <Currency />
+          </RouterGuard>),
+      },
+      {
+        path: "/identity/permission",
+        handle: { title: '权限分配' },
+        element: (
+          <RouterGuard>
+            <PermissionManagement />
           </RouterGuard>),
       },
       {
