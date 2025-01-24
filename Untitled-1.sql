@@ -1,0 +1,118 @@
+-- ... existing code ...
+CREATE TABLE business_table (
+    business_number NVARCHAR(255),
+    main_order_number NVARCHAR(255),
+    carrier NVARCHAR(255),
+    ship_name NVARCHAR(255),
+    voyage_number NVARCHAR(255),
+    customer NVARCHAR(255),
+    business_date DATE,
+    contract_status NVARCHAR(255),
+    port_of_loading NVARCHAR(255),
+    port_of_discharge NVARCHAR(255),
+    sailing_date DATE,
+    customer_service NVARCHAR(255),
+    air_freight_billing_weight DECIMAL(18, 2),
+    air_freight_booking_weight DECIMAL(18, 2),
+    booking_change_window NVARCHAR(255),
+    project_number NVARCHAR(255),
+    operation NVARCHAR(255),
+    sales NVARCHAR(255),
+    sales_department NVARCHAR(255),
+    overseas_customer_service NVARCHAR(255),
+    status NVARCHAR(255),
+    business_type NVARCHAR(255),
+    actual_billing_weight DECIMAL(18, 2),
+    number_of_pieces_commissioned INT,
+    container_number NVARCHAR(255),
+    gross_weight_commissioned DECIMAL(18, 2),
+    volume_commissioned DECIMAL(18, 2),
+    actual_number_of_pieces INT,
+    actual_gross_weight DECIMAL(18, 2),
+    actual_volume DECIMAL(18, 2),
+    payable_reconciliation_status NVARCHAR(255),
+    receivable_reconciliation_status NVARCHAR(255),
+    purchase_price DECIMAL(18, 2),
+    selling_price DECIMAL(18, 2),
+    arrival_date DATE,
+    designated_freight_agent NVARCHAR(255),
+    final_destination NVARCHAR(255),
+    local_service NVARCHAR(255),
+    creation_date DATE,
+    custom_business_type NVARCHAR(255),
+    business_reference_number NVARCHAR(255),
+    delivery_date DATE,
+    shipping_company_reservation_number NVARCHAR(255),
+    internal_reservation_number NVARCHAR(255),
+    quotation_number NVARCHAR(255),
+    route NVARCHAR(255),
+    teu DECIMAL(18, 2),
+    custom_field_1 NVARCHAR(255),
+    custom_field_2 NVARCHAR(255),
+    custom_field_3 NVARCHAR(255),
+    custom_field_4 NVARCHAR(255),
+    booking_sales NVARCHAR(255),
+    operation_date DATE,
+    actual_sailing_date_atd DATE,
+    actual_arrival_date_ata DATE,
+    consignee NVARCHAR(255),
+    shipper NVARCHAR(255),
+    receivable_invoicing_status NVARCHAR(255),
+    payable_invoicing_status NVARCHAR(255),
+    customer_contact NVARCHAR(255),
+    sop_status NVARCHAR(255),
+    sop_template_name NVARCHAR(255),
+    cargo_type NVARCHAR(255),
+    actual_pickup_time DATETIME,
+    actual_return_time DATETIME,
+    sub_order_number NVARCHAR(255),
+    customer_level NVARCHAR(255),
+    actual_delivery_time DATETIME,
+    customer_service_department NVARCHAR(255),
+    documentation_department NVARCHAR(255),
+    is_receivable_fee_entered BIT,
+    is_payable_fee_entered BIT,
+    feeder_sailing_date DATE,
+    feeder_arrival_date DATE,
+    barge_departure_date DATE,
+    barge_arrival_date DATE,
+    marks_and_numbers NVARCHAR(255),
+    entry_time DATETIME,
+    booking_type NVARCHAR(255),
+    profit DECIMAL(18, 2),
+    revenue DECIMAL(18, 2),
+    expenses DECIMAL(18, 2)
+);
+-- ... existing code ...
+
+-- 添加表注释
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'业务表', 
+    @level0type = N'Schema', @level0name = N'dbo', 
+    @level1type = N'Table', @level1name = N'business_table';
+
+-- 添加字段注释
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'业务编号', 
+    @level0type = N'Schema', @level0name = N'dbo', 
+    @level1type = N'Table', @level1name = N'business_table', 
+    @level2type = N'Column', @level2name = N'business_number';
+
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'主单号', 
+    @level0type = N'Schema', @level0name = N'dbo', 
+    @level1type = N'Table', @level1name = N'business_table', 
+    @level2type = N'Column', @level2name = N'main_order_number';
+
+-- ... existing code ...
+
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'费用', 
+    @level0type = N'Schema', @level0name = N'dbo', 
+    @level1type = N'Table', @level1name = N'business_table', 
+    @level2type = N'Column', @level2name = N'expenses';
+-- ... existing code ...

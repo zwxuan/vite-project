@@ -1472,6 +1472,11 @@ input.ant-input{
 }
 .ant-form-item .ant-form-item-label >label {
     height: 24px;
+    font-size: 12px;
+    font-weight: 550;
+}
+.ant-form-vertical .ant-form-item:not(.ant-form-item-horizontal) .ant-col-24.ant-form-item-label {
+    padding: 0 0 1px;
 }
 :where(.css-dev-only-do-not-override-tpassh).ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
     height: 24px;
@@ -1733,7 +1738,7 @@ input.ant-input{
     background-color: #f9fbff
 }
 .ant-col .ant-form-item-label {
-    width: 100px;
+    width: 100%;
 }
 .ant-notification {
     font-size: 12px;
@@ -1781,4 +1786,12 @@ input.ant-input{
   .ant-tree .ant-tree-checkbox:hover::after,
   .ant-tree .ant-tree-checkbox-wrapper:hover .ant-tree-checkbox::after {
     border-color: #ff1648;
+  }
+  .ant-descriptions.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-row >.ant-descriptions-item-content,
+  .ant-descriptions.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-row >.ant-descriptions-item-label {
+    padding: 2px 2px;
+    font-size: 12px;
+  }
+  .ant-card .ant-card-body{
+    padding: 2px;
   }

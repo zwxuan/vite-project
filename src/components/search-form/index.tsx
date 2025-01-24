@@ -25,7 +25,7 @@ export type AdvancedSearchFormProps = {
 
 
 
-const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 4, onSearch }) => {
+const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 3, onSearch }) => {
 
     const [form] = Form.useForm();
     const [expand, setExpand] = useState(false);
@@ -52,6 +52,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         <Form.Item
                             name={config.key}
                             label={config.label}
+                            labelCol={{ span: 24 }}
                         >
                             <Input name={config.key} placeholder={config.label} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
                         </Form.Item>
@@ -59,6 +60,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         <Form.Item
                             name={config.key}
                             label={config.label}
+                            labelCol={{ span: 24 }}
                         >
                             <Select labelInValue style={{ textAlign: 'left' }} placeholder={config.label} prefix={config.prefix} onChange={(value) => { handleSelectChange(config.key, value) }}  >
                                 {config.selectOptions?.map((option, index) => (
@@ -72,6 +74,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         <Form.Item
                             name={config.key}
                             label={config.label}
+                            labelCol={{ span: 24 }}
                         >
                             <DatePicker style={{ display: 'block' }} placeholder={config.label} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                         </Form.Item>
@@ -81,6 +84,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <Form.Item
                                 name={config.key}
                                 label={config.label}
+                                labelCol={{ span: 24 }}
                             >
                                 <RangePicker locale={zhCN} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                             </Form.Item>
@@ -136,7 +140,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
 
     return (
         <div>
-            <Form form={form} name="advanced_search" labelCol={{ span: 7 }}>
+            <Form form={form} name="advanced_search" labelCol={{ span: 7 }} layout='vertical'>
                 <div className="nc-bill-search-area">
                     <div className="search-area-contant">
                         <div className="search-top">

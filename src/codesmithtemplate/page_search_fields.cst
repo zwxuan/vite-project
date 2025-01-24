@@ -55,7 +55,8 @@ public string PascalCase(string name)
 }
 </script>
 import { AdvancedSearchFormProps } from "@/components/search-form";
-
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
 export const fields: AdvancedSearchFormProps["fields"] = [
 
 <% 
@@ -68,7 +69,7 @@ export const fields: AdvancedSearchFormProps["fields"] = [
     <% if(typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema))) {%>
     {
         type: 'select',
-        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
+        label: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
         key: '<%= PascalCase(columnSchema.Name) %>',
         selectOptions: [{ value: '1', label: 'Value1' }, { value: '2', label: 'Value2' }, { value: '3', label: 'Value3' }]
     },

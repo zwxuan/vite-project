@@ -1,67 +1,11 @@
-<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
-
-<%@ Assembly Name="SchemaExplorer" %>
-<%@ Import Namespace="SchemaExplorer" %>
-<%@ Assembly Name="CodeSmith.BaseTemplates" %>
-<%@ Import Namespace="CodeSmith.BaseTemplates" %>
-<%@ Assembly Name="CodeSmith.CustomProperties" %>
-<%@ Import Namespace="CodeSmith.CustomProperties" %>
-<%@ Assembly Name="mysql.data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
-<%@ Assembly src="DbHelper.cs" %>
-<%@ Import Namespace="Common" %>
-<%@ Import Namespace="System.Text.RegularExpressions" %>
-<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
-
-<script runat="template">
-private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
-private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
-
-public string CleanName(string name)
-{
-	return cleanRegEx.Replace(name, "");
-}
-
-public string CamelCase(string name)
-{
-	string property = name;
-	string[] arrCols = property.Split('_');
-	string strName = "";
-	int i = 1;
-	foreach(string colName in arrCols)
-	{
-		if(i==1)
-		{
-			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
-		}
-		else
-		{
-			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
-		}
-		i++;
-	}
-	return strName;	
-}
-public string PascalCase(string name)
-{	
-	string property = name.Replace("_INFO","");
-	string[] arrCols = property.Split('_');
-	string strName = "";
-	foreach(string colName in arrCols)
-	{
-		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
-	}
-	return strName;	
-}
-</script>
 
 import '../page_list.less'
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
-import { get<%= PascalCase(this.SourceTable.Name) %>List,save<%= PascalCase(this.SourceTable.Name) %> } from "@/api/financial_basic_data/<%= this.SourceTable.Name.ToLower() %>_service";
+import { OrdersItemProps } from "@/types/orders/orders";
+import { getOrdersList,saveOrders } from "@/api/financial_basic_data/orders_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -77,28 +21,28 @@ import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
+const Orders : React.FC = () => {
 
-    // <%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
-    const [<%= CamelCase(this.SourceTable.Name) %>List, set<%= PascalCase(this.SourceTable.Name) %>List] = useState([] as <%= PascalCase(this.SourceTable.Name) %>ItemProps[]);
+    // 订单管理表，存储与业务相关的订单信息数据
+    const [ordersList, setOrdersList] = useState([] as OrdersItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const navigate = useNavigate();
-    // 获取<%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
+    // 获取订单管理表，存储与业务相关的订单信息数据
     useEffect(() => {
         const getData = async () => {
-            const res = await get<%= PascalCase(this.SourceTable.Name) %>List();
-            const <%= CamelCase(this.SourceTable.Name) %>Data = res?.data as <%= PascalCase(this.SourceTable.Name) %>ItemProps[];
-            // 设置<%= DbHelpter.GetClassDescription(this.SourceTable) %>台账数据
-            set<%= PascalCase(this.SourceTable.Name) %>List([...<%= CamelCase(this.SourceTable.Name) %>Data]);
+            const res = await getOrdersList();
+            const ordersData = res?.data as OrdersItemProps[];
+            // 设置订单管理表，存储与业务相关的订单信息台账数据
+            setOrdersList([...ordersData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:<%= PascalCase(this.SourceTable.Name) %>ItemProps) => {
+    const handleDelete = (record:OrdersItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:<%= PascalCase(this.SourceTable.Name) %>ItemProps) => {
-        const newData = <%= CamelCase(this.SourceTable.Name) %>List.filter((item) => <% int j=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(j==1) {%>`${item.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${item.<%= PascalCase(columnSchema.Name) %>}<% } %><% j++; %><% } %><% } %>` === <% int p=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(p==1) {%>`${record.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${record.<%= PascalCase(columnSchema.Name) %>}<% } %><% p++; %><% } %><% } %>`);
+    const handleEdit = (record:OrdersItemProps) => {
+        const newData = ordersList.filter((item) => `${item.BusinessId}` === `${record.BusinessId}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -143,8 +87,8 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as <%= PascalCase(this.SourceTable.Name) %>ItemProps;
-    const [formData, setFormData] = useState<<%= PascalCase(this.SourceTable.Name) %>ItemProps>(initFormData);
+    const initFormData = {} as OrdersItemProps;
+    const [formData, setFormData] = useState<OrdersItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -174,7 +118,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         });
 
         try {
-            const response = await save<%= PascalCase(this.SourceTable.Name) %>(formData, (progress) => {
+            const response = await saveOrders(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -220,7 +164,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<<%= PascalCase(this.SourceTable.Name) %>ItemProps> = {
+    const rowSelection: TableRowSelection<OrdersItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -255,15 +199,15 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='<%= this.SourceTable.Name.ToLower() %>' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='<%= this.SourceTable.Name.ToLower() %>' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='<%= this.SourceTable.Name.ToLower() %>' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='orders' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='orders' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='orders' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> <%= DbHelpter.GetClassDescription(this.SourceTable) %>
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 订单管理
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -322,12 +266,12 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<<%= PascalCase(this.SourceTable.Name) %>ItemProps>
+                <Table<OrdersItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => <% int o=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(o==1) {%>`${record.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${record.<%= PascalCase(columnSchema.Name) %>}<% } %><% o++; %><% } %><% } %>`}
+                    rowKey={(record) => `${record.BusinessId}`}
                     showSorterTooltip={false}
-                    dataSource={<%= CamelCase(this.SourceTable.Name) %>List}
+                    dataSource={ordersList}
                     pagination={
                         {
                             size:'small',
@@ -351,4 +295,4 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         
     )
 }
-export default <%= PascalCase(this.SourceTable.Name) %>;
+export default Orders;

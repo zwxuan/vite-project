@@ -68,6 +68,7 @@ interface DetailModalProps {
     onOk: (values: any) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDateChange: (name: string, value: string | Array<string>) => void;
+    onNumberChange: (name:string,value: number | null) => void;
 }
 
 const formItemLayout = {
@@ -90,11 +91,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
     onOk,
     onChange,
     onDateChange,
+    onNumberChange,
 }) => {
     return (
         <Modal 
             open={open} 
-            title={modalFlag === 'add' ? '新增'<%= DbHelpter.GetClassDescription(this.SourceTable) %> : '编辑'<%= DbHelpter.GetClassDescription(this.SourceTable) %>}
+            title={modalFlag === 'add' ? "新增<%= DbHelpter.GetClassDescription(this.SourceTable) %>" : "编辑<%= DbHelpter.GetClassDescription(this.SourceTable)"%>}
             onCancel={onCancel}
             width={600}
             destroyOnClose={true}
@@ -117,7 +119,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                     <% } %>
                     <% else if(typeNamesDecimal.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
                         <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>" name="<%= PascalCase(columnSchema.Name) %>" <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
-                            <InputNumber onChange={onChange} />
+                            <InputNumber onChange={(value)=>onNumberChange("<%= PascalCase(columnSchema.Name) %>", value as number)} />
                         </Form.Item>
                     <%} %>
                     <% else if(typeNamesString.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>

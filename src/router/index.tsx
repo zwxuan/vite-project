@@ -2,6 +2,8 @@
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import Currency from "@/pages/currency";
+import Orders from "@/pages/orders";
+import OrderDetail from "@/pages/orders/detail";
 import PermissionManagement from "@/pages/identity/permission";
 import ExportLog from "@/pages/log/export_log";
 import ImportLog from "@/pages/log/import_log";
@@ -21,6 +23,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <Currency />
+          </RouterGuard>),
+      },
+      {
+        path: "/orders",
+        handle: { title: '订单管理' },
+        element: (
+          <RouterGuard>
+            <Orders />
+          </RouterGuard>),
+      },
+      {
+        path: "/orders/detail",
+        handle: { title: '订单明细' },
+        element: (
+          <RouterGuard>
+            <OrderDetail />
           </RouterGuard>),
       },
       {

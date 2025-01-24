@@ -410,7 +410,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "business_manage",
     apps: [
         {
-            name: "订单管理", key: "order",
+            name: "订单管理", key: "order",path:"/orders",
         },
         {
             name: "海运服务", key: "sea_service",

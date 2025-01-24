@@ -14,6 +14,7 @@ interface TreeNode extends DataNode {
     key: string;
     children?: TreeNode[];
     checked?: boolean;
+    // indeterminate?:boolean;
 }
 
 interface Function_Permission {
@@ -82,13 +83,24 @@ const mockDataMap: DataType[] =
                 { key: 'platform.basic.currency.disable', name: '禁用', checked: false },
             ],
         },
+        {
+            name: '订单管理',
+            key: 'fms.business.order',
+            parentKey: 'fms.business',
+            checked: false,
+            function_names: [
+                { key: 'fms.business.order.query', name: '查看', checked: false },
+                { key: 'fms.business.order.import', name: '导入', checked: false },
+                { key: 'fms.business.order.export', name: '导出', checked: false },
+                { key: 'fms.business.order.add', name: '新增', checked: false },
+                { key: 'fms.business.order.edit', name: '编辑', checked: false },
+                { key: 'fms.business.order.delete', name: '删除', checked: false },
+                { key: 'fms.business.order.enable', name: '启用', checked: false },
+                { key: 'fms.business.order.disable', name: '禁用', checked: false },
+            ],
+        },
     ];
-
-const PermissionManagement: React.FC = () => {
-    const [tableData, setTableData] = useState<DataType[]>(mockDataMap);
-    const [checkedKeys, setCheckedKeys] = useState<Record<string, Key[]>>({});
-    const [halfCheckedKeys, setHalfCheckedKeys] = useState<Key[]>([]);
-    const treeData: TreeNode[] = [
+    const initTreeData: TreeNode[] = [
         {
             title: '动态建模平台',
             key: 'platform',
@@ -151,28 +163,100 @@ const PermissionManagement: React.FC = () => {
             ],
         },
     ];
+const PermissionManagement: React.FC = () => {
+    const [tableData, setTableData] = useState<DataType[]>(mockDataMap);
+    const [parentKey,setParentKey] = useState<string>('');
+    const [treeData,setTreeData] = useState<TreeNode[]>(initTreeData);
+    const [treeCheckedKeys, setCheckedKeys] = useState<Key[]>([]);
+    const [treeHalfCheckedKeys, setHalfCheckedKeys] = useState<Key[]>([]);
+    
     // Handle menu selection
     const onSelect = (selectedKeys: Key[],info:any) => {
         const key = selectedKeys[0] as string;
         const filterDataMap = mockDataMap.filter(n=>n.parentKey===info.node.key);
         setTableData(filterDataMap);
+        setParentKey(info.node.key);
     };
 
     //
     const onCheck = (checkedKeys:Key[] | {checked: Key[];halfChecked: Key[]}, info: any) => {
-        const newTreeData = treeData.flatMap(n => n.children || []);
-        newTreeData.forEach(item => {
-            if(item.key === info.node.key){
-                item.checked = info.checked;
-            }
-        });
         
-        console.log(newTreeData);
+        // let checkedKeysArray = Array.isArray(checkedKeys) ? checkedKeys : checkedKeys.checked;
+        // const halfCheckedKeysArray = Array.isArray(checkedKeys) ? [] : checkedKeys.halfChecked;
         
+        // treeData.forEach(node => {
+        //     // 检查当前节点是否是被选中的节点
+        //     if (node.key === info.node.key) {
+        //         node.checked = info.checked;
+        //         // 选择当前节点时，选中所有子节点
+        //         node.children?.forEach(child=>{
+        //             child.checked = info.checked;
+        //         });
+        //     }else{
+        //         node.children?.forEach(element => {
+        //             if(element.key === info.node.key){
+        //                 element.checked = info.checked;
+        //             }
+        //         });
+        //         let allCheck:boolean = node.children?.every(n=>n.checked)||false;
+        //         let allNotCheck:boolean = node.children?.every(n=>!n.checked)||false;
+        //         if((allCheck || allNotCheck) && info.node.key.startsWith(node.key)){
+        //             node.checked = info.checked;
+        //         }
+        //     }
+            
+        // });
+
+        // setTreeData(treeData);
+
+        // const fatherKey = treeData.filter(n=>n.checked).map(n=>n.key);
+        // const childrenKey = treeData.filter(n => n.children?.some(m => m.checked))
+        //                             .flatMap(m => m.children?.filter(n=>n.checked).map(item => item.key) || []);
+
+        // const fatherHalfKey1 = treeData.filter(n=>n.children?.every(m=>m.checked)).map(n=>n.key);
+        // const fatherHalfKey2 = treeData.filter(n=>n.children?.every(m=>!m.checked)).map(n=>n.key);
+        // const fatherHalfKey = treeData.map(n=>n.key).filter(n=>!fatherHalfKey1.includes(n) && !fatherHalfKey2.includes(n));
+
+        
+        // const allCheckKeys = [...fatherKey,...childrenKey].filter(n=>!fatherHalfKey.includes(n));
+
+        // setCheckedKeys(allCheckKeys);
+        // setHalfCheckedKeys(fatherHalfKey);
+
+
+        // mockDataMap.forEach(item => {
+        //     if(allCheckKeys.includes(item.parentKey)){
+        //         item.checked = true;
+        //         item.function_names.forEach(item_function=>{
+        //             item_function.checked = true;
+        //         });
+        //     }else{
+        //         item.checked = false;
+        //         item.function_names.forEach(item_function=>{
+        //             item_function.checked = false;
+        //         });
+        //     }
+        //     item.indeterminate = false;
+        // });
+        
+        // const filterDataMap = mockDataMap.filter(n=>(n.parentKey == parentKey && n.key.startsWith(info.node.key+'.')) || n.parentKey.startsWith(info.node.key+'.'));
+        
+        // setTableData(filterDataMap);
     };
 
     const handleSelectAll = (e: CheckboxChangeEvent) => {
-
+        
+        mockDataMap.forEach(item => {
+            if(parentKey==='' || parentKey == item.parentKey){
+                item.checked = e.target.checked;
+                item.function_names.forEach(item_function=>{
+                    item_function.checked = e.target.checked;
+                });
+                item.indeterminate = false;
+            }
+        });
+        const filterDataMap = mockDataMap.filter(n=>n.parentKey === parentKey || parentKey==='');
+        setTableData(filterDataMap);
     };
 
     const handleServiceCheck = (record: DataType, e: CheckboxChangeEvent) => {
@@ -186,7 +270,9 @@ const PermissionManagement: React.FC = () => {
                 item.indeterminate = false;
             }
         });
-        const filterDataMap = mockDataMap.filter(n=>n.parentKey === record.parentKey);
+        const hasCheckParentKey = tableData.map(n=>n.parentKey);
+        
+        const filterDataMap = mockDataMap.filter(n=>hasCheckParentKey.includes(n.parentKey));
         setTableData(filterDataMap);
     };
 
@@ -215,8 +301,26 @@ const PermissionManagement: React.FC = () => {
                 return;
             }
         });
+        const hasCheckParentKey = tableData.map(n=>n.parentKey);
+        let cancelParentKeys:string[] = [];
+        // 全部取消
+        if(tableData.every(n=>!n.checked)){
+            cancelParentKeys = tableData.map(m=>m.parentKey);
+        }
+        const filterDataMap = mockDataMap.filter(n=>hasCheckParentKey.includes(n.parentKey));
+        // // 同步处理tree的checkbox半选中状态
+        // const halfParentKey1 = filterDataMap.filter(n=>n.indeterminate).map(m=>m.parentKey)||[];
+        // const halfParentKey2 = treeData.filter(n => n.children?.some(m => halfParentKey1.includes(m.key) || cancelParentKeys.includes(m.key))).map(item=>item.key)||[];
+        // const allHalfCheckedKeys = [...halfParentKey1,...halfParentKey2];
+        // console.log(halfParentKey1);
+        // console.log(halfParentKey2);
+        // const fatherKey = treeData.filter(n=>n.checked).map(n=>n.key);
+        // const childrenKey = treeData.filter(n => n.children?.some(m => m.checked))
+        //                             .flatMap(m => m.children?.filter(n=>n.checked).map(item => item.key) || []);
+        // const allCheckedKeys = [...fatherKey,...childrenKey].filter(n=>!allHalfCheckedKeys.includes(n) && !cancelParentKeys.includes(n));
+        // setCheckedKeys(allCheckedKeys);
+        // setHalfCheckedKeys(allHalfCheckedKeys);
 
-        const filterDataMap = mockDataMap.filter(n=>n.parentKey === record.parentKey);
         setTableData(filterDataMap);
         
     };
@@ -227,7 +331,7 @@ const PermissionManagement: React.FC = () => {
                 <div>
                     <Checkbox
                         checked={tableData.every(n => !n.checked)?false:true}
-                        indeterminate={tableData.some(n=>n.indeterminate)?true:false}
+                        indeterminate={tableData.some(n=>n.indeterminate) || (!tableData.every(n=>n.checked) && !tableData.every(n=>!n.checked))?true:false}
                         onChange={handleSelectAll}
                     >
                         菜单名称
@@ -277,13 +381,13 @@ const PermissionManagement: React.FC = () => {
                     <div className="nc-bill-table-area">
                         <Tree
                             showLine
-                            checkable
-                            defaultExpandedKeys={['sub1']}
+                            // checkable
                             onSelect={onSelect}
                             onCheck={onCheck}
+                            defaultExpandAll={true}
                             // checkedKeys={{
-                            //     checked: checkedKeys,
-                            //     halfChecked: halfCheckedKeys,
+                            //     checked: treeCheckedKeys,
+                            //     halfChecked: treeHalfCheckedKeys,
                             // }}
                             // checkStrictly={true}
                             treeData={treeData}
