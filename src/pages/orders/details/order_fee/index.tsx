@@ -1,47 +1,44 @@
 
-import '../page_list.less'
+import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Progress,notification, Checkbox } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { OrdersItemProps } from "@/types/orders/orders";
-import { getOrdersList,saveOrders } from "@/api/financial_basic_data/orders_service";
-import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
-import CustomIcon from "@/components/custom-icon";
+import { OrderFeeItemProps } from "@/types/order_fee/order_fee";
+import { getOrderFeeList,saveOrderFee } from "@/api/financial_basic_data/order_fee_service";
+import {DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
-import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems, importItems, exportItems } from './menu_items';
-import { fields } from './search_fields';
+import { statusItems,statusCheckItems, importItems, exportItems } from './menu_items';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const Orders : React.FC = () => {
+const OrderFee : React.FC = () => {
 
-    // 订单管理表，存储与业务相关的订单信息数据
-    const [ordersList, setOrdersList] = useState([] as OrdersItemProps[]);
+    // order_fee数据
+    const [orderFeeList, setOrderFeeList] = useState([] as OrderFeeItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const navigate = useNavigate();
-    // 获取订单管理表，存储与业务相关的订单信息数据
+    // 获取order_fee数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrdersList();
-            const ordersData = res?.data as OrdersItemProps[];
-            // 设置订单管理表，存储与业务相关的订单信息台账数据
-            setOrdersList([...ordersData]);
+            const res = await getOrderFeeList();
+            const orderFeeData = res?.data as OrderFeeItemProps[];
+            // 设置order_fee台账数据
+            setOrderFeeList([...orderFeeData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:OrdersItemProps) => {
+    const handleDelete = (record:OrderFeeItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:OrdersItemProps) => {
-        const newData = ordersList.filter((item) => `${item.BusinessId}` === `${record.BusinessId}`);
+    const handleEdit = (record:OrderFeeItemProps) => {
+        const newData = orderFeeList.filter((item) => `${item.FeeId}` === `${record.FeeId}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -86,8 +83,8 @@ const Orders : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as OrdersItemProps;
-    const [formData, setFormData] = useState<OrdersItemProps>(initFormData);
+    const initFormData = {} as OrderFeeItemProps;
+    const [formData, setFormData] = useState<OrderFeeItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -117,7 +114,7 @@ const Orders : React.FC = () => {
         });
 
         try {
-            const response = await saveOrders(formData, (progress) => {
+            const response = await saveOrderFee(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -163,7 +160,7 @@ const Orders : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<OrdersItemProps> = {
+    const rowSelection: TableRowSelection<OrderFeeItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -180,12 +177,8 @@ const Orders : React.FC = () => {
         columnWidth: '20px',
     };
 
-    const handleSearch = (values:any) => {
-        console.log('handleSearch',values);
-    };
-
     return (
-        <div>
+        <div style={{overflowY: 'auto', height: 'calc(100vh - 80px)'}}>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}
@@ -198,24 +191,13 @@ const Orders : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='orders' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='orders' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='orders' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='order_fee' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='order_fee' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='order_fee' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-                        <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 订单管理
-                        </span>
-                    </div>
-                    <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
-                            <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
-                            </label>
-                        </div>
-                    </span>
+                    
                 </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
@@ -226,16 +208,27 @@ const Orders : React.FC = () => {
                                 <Button>修改</Button>
                                 <Button>删除</Button>
                                 <Button>复制</Button>
+                                <Button>创建账单</Button>
+                                <Button>费用方案</Button>
+                                <Button>受控</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
+                            <Dropdown menu={{items:statusCheckItems}}>
+                                <Button>
+                                    <Space>
+                                        对账
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
                             <Dropdown menu={{items:statusItems}}>
                                 <Button>
                                     <Space>
-                                        启用
+                                        财务处理
                                     <DownOutlined />
                                     </Space>
                                 </Button>   
@@ -257,41 +250,55 @@ const Orders : React.FC = () => {
                                 </Button>   
                             </Dropdown>
                         </div>
-                        <span className="u-button">
-                            <RedoOutlined className='iconfont' />
-                        </span>
                     </div>
                 </div>
             </div>
-            <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
+            
             <div className='nc-bill-table-area'>
-                <Table<OrdersItemProps>
+                <Table<OrderFeeItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.BusinessId}`}
+                    rowKey={(record) => `${record.FeeId}`}
                     showSorterTooltip={false}
-                    dataSource={ordersList}
-                    pagination={
-                        {
-                            size:'small',
-                            pageSize:50,showTotal: (total) => `总共 ${total} 条`,
-                            showQuickJumper:true,
-                            locale:
-                            {
-                                items_per_page: '/页',
-                                jump_to: '跳至',
-                                page: '页',
-                            }
-                        }
-                    }
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
-                    footer={() => '底部汇总信息'}
+                    dataSource={orderFeeList}
+                    pagination={false}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
+                    title={() => '应收 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00'}
                     bordered={true}
                 />
+            </div>
+
+            
+            <div className='nc-bill-table-area'>
+                <Table<OrderFeeItemProps>
+                    columns={columnsType}
+                    rowSelection={{ ...rowSelection}}
+                    rowKey={(record) => `${record.FeeId}`}
+                    showSorterTooltip={false}
+                    dataSource={orderFeeList}
+                    pagination={false}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
+                    title={() => '应付 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00'}
+                    bordered={true}
+                />
+            </div>
+
+            <div className='nc-bill-header-area'>
+                <div style={{display:'flex',alignItems:'center',paddingLeft:'10px'}}>
+                    <Space size={10}>
+                        <span className='rule_tilte_info' style={{fontSize:'14px',fontWeight:'bold'}}>
+                            利润 USD:1,000.00 RMB:24,540.00 折合RMB:31,640.00 毛利率: 69.02 %
+                        </span>
+                        <span className='rule_tilte_info'>
+                            <Checkbox checked  value="1">显示分票费用</Checkbox>
+                            <Checkbox checked  value="2">显示红冲费用</Checkbox>
+                        </span>
+                    </Space> 
+                </div>
             </div>
         </div>
         
         
     )
 }
-export default Orders;
+export default OrderFee;

@@ -4,6 +4,8 @@ import { Tabs, Card } from 'antd';
 import { AppleOutlined, AndroidOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
 import BaseBusiness from './details/base_business.tsx';
+import Fee from './details/order_fee';
+import FeeQuickInput from './details/fee_quick_input.tsx';
 const Detail: React.FC = () => {
     //获取路由参数
     const location = useLocation();
@@ -20,9 +22,15 @@ const Detail: React.FC = () => {
                         icon: <AppleOutlined />,
                     },
                     {
-                        label: '费用',
+                        label: '费用快速录入',
+                        key: '22',
+                        children: <FeeQuickInput />,
+                        icon: <AppleOutlined />,
+                    },
+                    {
+                        label: '费用相关',
                         key: '2',
-                        children: `Tab ${businessId}`,
+                        children: <Fee />,
                         icon: <AppleOutlined />,
                     },
                     {
@@ -38,6 +46,12 @@ const Detail: React.FC = () => {
                         icon: <AndroidOutlined />,
                     },
                     {
+                        label: '代收代付',
+                        key: '24',
+                        children: <Fee />,
+                        icon: <AppleOutlined />,
+                    },
+                    {
                         label: '业务状态',
                         key: '5',
                         children: `Tab ${businessId}`,
@@ -46,6 +60,12 @@ const Detail: React.FC = () => {
                     {
                         label: '文档',
                         key: '6',
+                        children: `Tab ${businessId}`,
+                        icon: <AndroidOutlined />,
+                    },
+                    {
+                        label: '利润分配',
+                        key: '7',
                         children: `Tab ${businessId}`,
                         icon: <AndroidOutlined />,
                     },

@@ -332,6 +332,237 @@ class LocaleHelper {
     static getOrdersExpenditure() {
       return "orders.expenditure";
     }
+    static getOrderFeeSettlementCompany() {
+      return "order_fee.settlementcompany";
+    }
+    // 费用名称
+    static getOrderFeeFeeName() {
+      return "order_fee.feename";
+    }
+    // 结算类型
+    static getOrderFeeSettlementType() {
+      return "order_fee.settlementtype";
+    }
+    // 结算对象
+    static getOrderFeeSettlementObject() {
+      return "order_fee.settlementobject";
+    }
+    // 开票抬头
+    static getOrderFeeInvoiceTitle() {
+      return "order_fee.invoicetitle";
+    }
+    // 国内国外
+    static getOrderFeeDomesticForeign() {
+      return "order_fee.domesticforeign";
+    }
+    // 是否需要开票
+    static getOrderFeeNeedInvoice() {
+      return "order_fee.needinvoice";
+    }
+    // 币种
+    static getOrderFeeCurrency() {
+      return "order_fee.currency";
+    }
+    // 汇率
+    static getOrderFeeExchangeRate() {
+      return "order_fee.exchangerate";
+    }
+    // 单位
+    static getOrderFeeUnit() {
+      return "order_fee.unit";
+    }
+    // 数量
+    static getOrderFeeQuantity() {
+      return "order_fee.quantity";
+    }
+    // 单价
+    static getOrderFeeUnitPrice() {
+      return "order_fee.unitprice";
+    }
+    // 含税价
+    static getOrderFeeTaxIncludedPrice() {
+      return "order_fee.taxincludedprice";
+    }
+    // 不含税价
+    static getOrderFeeTaxExcludedPrice() {
+      return "order_fee.taxexcludedprice";
+    }
+    // 税率
+    static getOrderFeeTaxRate() {
+      return "order_fee.taxrate";
+    }
+    // 税额
+    static getOrderFeeTaxAmount() {
+      return "order_fee.taxamount";
+    }
+    // 折合RMB
+    static getOrderFeeRmbEquivalent() {
+      return "order_fee.rmbequivalent";
+    }
+    // 本位币币种
+    static getOrderFeeLocalCurrency() {
+      return "order_fee.localcurrency";
+    }
+    // 审核人
+    static getOrderFeeReviewer() {
+      return "order_fee.reviewer";
+    }
+    // 备注
+    static getOrderFeeRemarks() {
+      return "order_fee.remarks";
+    }
+    // 联系人
+    static getOrderFeeContactPerson() {
+      return "order_fee.contactperson";
+    }
+    // 关联提单号
+    static getOrderFeeAssociatedBillNumber() {
+      return "order_fee.associatedbillnumber";
+    }
+    // 关联箱号
+    static getOrderFeeAssociatedContainerNumber() {
+      return "order_fee.associatedcontainernumber";
+    }
+    // 预付到付
+    static getOrderFeePrepaidCollect() {
+      return "order_fee.prepaidcollect";
+    }
+    // 状态
+    static getOrderFeeStatus() {
+      return "order_fee.status";
+    }
+    // 是否确认
+    static getOrderFeeIsConfirmed() {
+      return "order_fee.isconfirmed";
+    }
+    // 代理分成账单号
+    static getOrderFeeAgentSplitBillNumber() {
+      return "order_fee.agentsplitbillnumber";
+    }
+    // 账单号
+    static getOrderFeeBillNumber() {
+      return "order_fee.billnumber";
+    }
+    // 计提日期
+    static getOrderFeeAccrualDate() {
+      return "order_fee.accrualdate";
+    }
+    // 发票号
+    static getOrderFeeInvoiceNumber() {
+      return "order_fee.invoicenumber";
+    }
+    // 开票日期
+    static getOrderFeeInvoiceDate() {
+      return "order_fee.invoicedate";
+    }
+    // 对方账单号
+    static getOrderFeeCounterpartBillNumber() {
+      return "order_fee.counterpartbillnumber";
+    }
+    // 付款申请号
+    static getOrderFeePaymentApplicationNumber() {
+      return "order_fee.paymentapplicationnumber";
+    }
+    // 核销金额
+    static getOrderFeeWriteOffAmount() {
+      return "order_fee.writeoffamount";
+    }
+    // 未销金额
+    static getOrderFeeUnadjustedAmount() {
+      return "order_fee.unadjustedamount";
+    }
+    // 核销日期
+    static getOrderFeeWriteOffDate() {
+      return "order_fee.writeoffdate";
+    }
+    // 收付日期
+    static getOrderFeePaymentDate() {
+      return "order_fee.paymentdate";
+    }
+    // 财务日期
+    static getOrderFeeFinancialDate() {
+      return "order_fee.financialdate";
+    }
+    // 业务编号
+    static getOrderFeeBusinessNumber() {
+      return "order_fee.businessnumber";
+    }
+    // 创建人
+    static getOrderFeeCreator() {
+      return "order_fee.creator";
+    }
+    // 创建时间
+    static getOrderFeeCreateTime() {
+      return "order_fee.createtime";
+    }
+    // 更改人
+    static getOrderFeeModifier() {
+      return "order_fee.modifier";
+    }
+    // 更改时间
+    static getOrderFeeModifyTime() {
+      return "order_fee.modifytime";
+    }
+    // 销账流水号
+    static getOrderFeeWriteOffSerialNumber() {
+      return "order_fee.writeoffserialnumber";
+    }
+    // 是否已生成凭证
+    static getOrderFeeIsVoucherGenerated() {
+      return "order_fee.isvouchergenerated";
+    }
+    // 分摊
+    static getOrderFeeAllocation() {
+      return "order_fee.allocation";
+    }
+    // 锁定状态
+    static getOrderFeeLockStatus() {
+      return "order_fee.lockstatus";
+    }
+    // 锁定时间
+    static getOrderFeeLockTime() {
+      return "order_fee.locktime";
+    }
+    // 数据来源
+    static getOrderFeeDataSource() {
+      return "order_fee.datasource";
+    }
+    // 是否调整费用
+    static getOrderFeeIsAdjustedFee() {
+      return "order_fee.isadjustedfee";
+    }
+    // 费用变更人
+    static getOrderFeeFeeModifier() {
+      return "order_fee.feemodifier";
+    }
+    // 结算代理
+    static getOrderFeeSettlementAgent() {
+      return "order_fee.settlementagent";
+    }
+    // 费用同步状态
+    static getOrderFeeFeeSyncStatus() {
+      return "order_fee.feesyncstatus";
+    }
+    // 更改费用申请进度
+    static getOrderFeeModifyFeeApplicationProgress() {
+      return "order_fee.modifyfeeapplicationprogress";
+    }
+    // 分摊关联业务
+    static getOrderFeeAllocationRelatedBusiness() {
+      return "order_fee.allocationrelatedbusiness";
+    }
+    // 分摊类型
+    static getOrderFeeAllocationType() {
+      return "order_fee.allocationtype";
+    }
+    // 关联费用ID
+    static getOrderFeeRelatedFeeId() {
+      return "order_fee.relatedfeeid";
+    }
+    // 费用ID
+    static getOrderFeeFeeId() {
+      return "order_fee.feeid";
+    }
   }
   
   export default LocaleHelper;

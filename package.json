@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@ant-design/pro-components": "^2.8.2",
+    "@handsontable/react-wrapper": "^15.0.1",
     "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.22.0",
     "axios": "^1.7.7",
+    "handsontable": "^15.0.1",
     "i18next": "^24.0.5",
     "i18next-browser-languagedetector": "^8.0.2",
     "less": "^4.2.0",
