@@ -563,6 +563,110 @@ class LocaleHelper {
     static getOrderFeeFeeId() {
       return "order_fee.feeid";
     }
+    // 账单号
+    static getOrderBillBillNumber() {
+      return "order_bill.billnumber";
+    }
+    // 结算对象
+    static getOrderBillSettlementObject() {
+      return "order_bill.settlementobject";
+    }
+    // 结算代理
+    static getOrderBillSettlementAgent() {
+      return "order_bill.settlementagent";
+    }
+    // 开票抬头
+    static getOrderBillInvoiceTitle() {
+      return "order_bill.invoicetitle";
+    }
+    // 币种
+    static getOrderBillCurrency() {
+      return "order_bill.currency";
+    }
+    // 金额
+    static getOrderBillAmount() {
+      return "order_bill.amount";
+    }
+    // 分币种合计
+    static getOrderBillCurrencyTotal() {
+      return "order_bill.currencytotal";
+    }
+    // 收支类型
+    static getOrderBillIncomeExpenseType() {
+      return "order_bill.incomeexpensetype";
+    }
+    // 状态
+    static getOrderBillStatus() {
+      return "order_bill.status";
+    }
+    // 开票状态
+    static getOrderBillInvoiceStatus() {
+      return "order_bill.invoicestatus";
+    }
+    // 核销状态
+    static getOrderBillVerificationStatus() {
+      return "order_bill.verificationstatus";
+    }
+    // 对账单号
+    static getOrderBillReconciliationNumber() {
+      return "order_bill.reconciliationnumber";
+    }
+    // 对方账单号
+    static getOrderBillCounterpartBillNumber() {
+      return "order_bill.counterpartbillnumber";
+    }
+    // 发票类型
+    static getOrderBillInvoiceType() {
+      return "order_bill.invoicetype";
+    }
+    // 发票种类
+    static getOrderBillInvoiceCategory() {
+      return "order_bill.invoicecategory";
+    }
+    // 创建人
+    static getOrderBillCreator() {
+      return "order_bill.creator";
+    }
+    // 账单确认时间
+    static getOrderBillBillConfirmationTime() {
+      return "order_bill.billconfirmationtime";
+    }
+    // 账单到期日
+    static getOrderBillBillDueDate() {
+      return "order_bill.billduedate";
+    }
+    // 账单确认人
+    static getOrderBillBillConfirmer() {
+      return "order_bill.billconfirmer";
+    }
+    // 是否确认
+    static getOrderBillIsConfirmed() {
+      return "order_bill.isconfirmed";
+    }
+    // 账单复核状态
+    static getOrderBillBillReviewStatus() {
+      return "order_bill.billreviewstatus";
+    }
+    // 账单复核人
+    static getOrderBillBillReviewer() {
+      return "order_bill.billreviewer";
+    }
+    // 账单复核时间
+    static getOrderBillBillReviewTime() {
+      return "order_bill.billreviewtime";
+    }
+    // 账单结算类型
+    static getOrderBillBillSettlementType() {
+      return "order_bill.billsettlementtype";
+    }
+    // 审批状态
+    static getOrderBillApprovalStatus() {
+      return "order_bill.approvalstatus";
+    }
+    // 是否作废
+    static getOrderBillIsVoid() {
+      return "order_bill.isvoid";
+    }
   }
   
   export default LocaleHelper;

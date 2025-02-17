@@ -116,4 +116,9 @@ export interface OrderFeeItemProps {
     RelatedFeeId:string;
     // 费用ID
     FeeId:string;
-}
+};
+export interface FeeNameItemProps {
+    FeeName:string;
+    FeeId:string;
+    FeeDisplayName:string;
+};

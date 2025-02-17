@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { OrderFeeItemProps } from "@/types/order_fee/order_fee";
+import { OrderFeeItemProps,FeeNameItemProps } from "@/types/order_fee/order_fee";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
@@ -1145,9 +1145,62 @@ const orderFeeItems:OrderFeeItemProps[] = [
         FeeId:Mock.mock("@id"),
     },  
 ];
- 
+const feeNameItems:FeeNameItemProps[] = [
+  {
+    FeeName:'海运费',
+    FeeId:'F00001',
+    FeeDisplayName:'[F00001]海运费',
+  },
+  {
+    FeeName:'空运费',
+    FeeId:'F00002',
+    FeeDisplayName:'[F00002]空运费',
+  },
+  {
+    FeeName:'铁运费',
+    FeeId:'F00003',
+    FeeDisplayName:'[F00003]铁运费',
+  },
+  {
+    FeeName:'杂费',
+    FeeId:'F00004',
+    FeeDisplayName:'[F00004]杂费',
+  },
+  {
+    FeeName:'仓储费',
+    FeeId:'F00005',
+    FeeDisplayName:'[F00005]仓储费',
+  },
+  {
+    FeeName:'报关费',
+    FeeId:'F00004',
+    FeeDisplayName:'[F00004]报关费',
+  },
+  {
+    FeeName:'仓储费',
+    FeeId:'F00005',
+    FeeDisplayName:'[F00005]仓储费',
+  },
+  {
+    FeeName:'陆运费',
+    FeeId:'F00006',
+    FeeDisplayName:'[F00006]陆运费',
+  },
+];
 export default [
   // order_fee台账
+  {
+    url: "/api/fee_names",
+    method: "GET",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        message: "请求成功。",
+        data: feeNameItems,
+      };
+    },
+  },
   {
     url: "/api/order_fee",
     method: "GET",

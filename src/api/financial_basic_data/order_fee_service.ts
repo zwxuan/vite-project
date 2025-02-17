@@ -10,6 +10,13 @@ export const getOrderFeeList = () => {
   })
 }
 
+export const getFeeNameList = () => {
+  return request({
+    method: "GET",
+    url: "/fee_names"
+  })
+}
+
 export const saveOrderFee = (data:OrderFeeItemProps,onUploadProgress: (progress: number) => void) => {
   return requestWithProgress({
     method: 'POST',

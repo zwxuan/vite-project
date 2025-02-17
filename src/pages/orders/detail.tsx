@@ -5,6 +5,7 @@ import { AppleOutlined, AndroidOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
 import BaseBusiness from './details/base_business.tsx';
 import Fee from './details/order_fee';
+import OrderBill from './details/order_bill/index.tsx';
 import FeeQuickInput from './details/fee_quick_input.tsx';
 const Detail: React.FC = () => {
     //获取路由参数
@@ -36,7 +37,7 @@ const Detail: React.FC = () => {
                     {
                         label: '国内账单',
                         key: '3',
-                        children: `Tab ${businessId}`,
+                        children: <OrderBill />,
                         icon: <AndroidOutlined />,
                     },
                     {
@@ -72,7 +73,7 @@ const Detail: React.FC = () => {
                 ]}
             />
         </Card>
-
+        
     );
 };
 
