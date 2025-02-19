@@ -13,7 +13,7 @@ export interface OrderBillItemProps {
     // 金额
     Amount:number;
     // 分币种合计
-    CurrencyTotal:number;
+    CurrencyTotal:string;
     // 收支类型
     IncomeExpenseType:string;
     // 状态
@@ -39,7 +39,7 @@ export interface OrderBillItemProps {
     // 账单确认人
     BillConfirmer:string;
     // 是否确认
-    IsConfirmed:number;
+    IsConfirmed:string;
     // 账单复核状态
     BillReviewStatus:string;
     // 账单复核人
@@ -51,12 +51,12 @@ export interface OrderBillItemProps {
     // 审批状态
     ApprovalStatus:string;
     // 是否作废
-    IsVoid:number;
+    IsVoid:string;
 }
 
-export interface ExpandedDataType {
-    key: React.Key;
-    date: string;
-    name: string;
-    upgradeNum: string;
-  }
+// export interface ExpandedDataType {
+//     key: React.Key;
+//     date: string;
+//     name: string;
+//     upgradeNum: string;
+//   }

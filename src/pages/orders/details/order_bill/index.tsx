@@ -1,12 +1,14 @@
 
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { OrderBillItemProps,ExpandedDataType } from "@/types/order_bill/order_bill";
-import { getOrderBillList,saveOrderBill } from "@/api/financial_basic_data/order_bill_service";
+import { OrderBillItemProps } from "@/types/order_bill/order_bill";
+import {OrderFeeItemProps} from "@/types/order_fee/order_fee";
+import { getOrderBillList } from "@/api/financial_basic_data/order_bill_service";
+import { getOrderFeeList } from "@/api/financial_basic_data/order_fee_service";
 import { requestWithProgress } from "@/api/request";
-import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
+import {DownOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
@@ -14,7 +16,7 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns,expandColumns } from './columns';
-import { statusItems, importItems, exportItems } from './menu_items';
+import { importItems, exportItems } from './menu_items';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const OrderBill : React.FC = () => {
@@ -22,6 +24,7 @@ const OrderBill : React.FC = () => {
     // order_bill数据
     const [orderBillList, setOrderBillList] = useState([] as OrderBillItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const [expandDataSource, setExpandDataSource] = useState([] as OrderFeeItemProps[]);
     const navigate = useNavigate();
     // 获取order_bill数据
     useEffect(() => {
@@ -40,25 +43,10 @@ const OrderBill : React.FC = () => {
     const handleEdit = (record:OrderBillItemProps) => {
         const newData = orderBillList.filter((item) => `${item.BillNumber}` === `${record.BillNumber}`);
     };
-    
-    const expandDataSource = Array.from({ length: 3 }).map<ExpandedDataType>((_, i) => ({
-        key: i.toString(),
-        date: '2014-12-24 23:12:00',
-        name: 'This is production name',
-        upgradeNum: 'Upgraded: 56',
-      }));
 
     const columnsType = getColumns(handleEdit, handleDelete);
 
-    const expandedRowRender = () => (
-        <div className='nc-bill-table-area'>
-            <Table<ExpandedDataType>
-            columns={expandColumns}
-            dataSource={expandDataSource}
-            pagination={false}
-            />
-        </div>
-      );
+    
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
         if(key==='1'){
@@ -108,7 +96,20 @@ const OrderBill : React.FC = () => {
         type: 'checkbox',
         columnWidth: '20px',
     };
-
+    const handExpand  = async (expanded: boolean, record: OrderBillItemProps) => {
+            const res = await getOrderFeeList();
+            const orderBillData = res?.data as OrderFeeItemProps[];
+            setExpandDataSource([...orderBillData]);
+    }
+    const expandedRowRender = () => (
+        <div className='nc-bill-table-area nc-bill-table-area-expand'>
+            <Table<OrderFeeItemProps>
+            columns={expandColumns}
+            dataSource={expandDataSource}
+            pagination={false}
+            />
+        </div>
+      );
     return (
         <div>
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='order_bill' importType={uploadImportType} />
@@ -172,7 +173,7 @@ const OrderBill : React.FC = () => {
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
                     rowKey={(record) => `${record.BillNumber}`}
-                    expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
+                    expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}
                     dataSource={orderBillList}
                     pagination={false}

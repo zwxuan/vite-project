@@ -1290,6 +1290,52 @@ input.u-form-control {
 .ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-header >table >thead>tr>th:last-child {
     border-right: 0;   
 }
+:where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-row-expand-icon {
+    border-radius:1px;
+    border: 1px solid #d1d5db;
+    color: #EE0F39;
+}
+:where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-row-expand-icon:focus {
+    border-radius:1px;
+    border: 1px solid #d1d5db;
+    color: #EE0F39;
+}
+:where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-row-expand-icon-collapsed::before{
+    top: 7px;
+    left: 2px;
+    right: 2px;
+    height: 2px;
+}
+.ant-table-wrapper .ant-table-row-expand-icon::before{
+    height: 2px;
+}
+:where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-row-expand-icon-collapsed::after {
+    top: 2x;
+    bottom: 2px;
+    inset-inline-start: 6px;
+    inset-inline-end: 6px;
+    width: 2px;
+}
+
+.nc-bill-table-area-expand .ant-table-tbody > tr:not(.sumrow):nth-child(2n-1) td{
+    background-color: #fff;
+}
+
+.nc-bill-table-area-expand .ant-table-tbody > tr td {
+    border-inline-end: 1px solid #d1d5db;
+    border-bottom: 1px solid #d1d5db;
+}
+.nc-bill-table-area-expand .ant-table-thead > tr th {
+    border-inline-end: 1px solid #d1d5db;
+    border-bottom: 1px solid #d1d5db;
+}
+.nc-bill-table-area-expand .ant-table-content {
+    border-left: 1px solid #d1d5db;
+    border-top: 1px solid #d1d5db;
+}
+.nc-bill-table-area-expand .ant-table-container table>thead>tr:first-child >*:last-child{
+    border-start-end-radius: 0px;
+}
 .ant-btn {
     min-width: 60px;
     height: 26px;
@@ -1809,3 +1855,29 @@ input.ant-input{
   .handsontable.listbox table td.htDimmed {
     text-align: left;
   }
+  .htCore > tbody > tr > td {
+    font-size: 12px;
+  }
+  .htCore > tbody > tr > th:first-child {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+  .handsontable thead tr th .relative .colHeader  {
+    font-weight: bolder;
+    font-size: 12px;
+  }
+  .handsontable td, .handsontable th {
+    border: 1px solid #d9d9d9;
+    border-inline-end-color: #d9d9d9;
+    border-inline-end-width: 1px;
+    border-inline-start-color:#d9d9d9;
+    border-color: #d9d9d9 !important;
+  }
+  .handsontable tbody td, .handsontable thead th {
+    border-bottom: 1px solid #d9d9d9;
+    border-inline-end-color: #d9d9d9;
+    border-inline-end-width: 1px;
+    border-inline-start-color:#d9d9d9;
+    border-color: #d9d9d9 !important;
+  }
+  

@@ -32,7 +32,6 @@ const FeeQuickInput: React.FC = () => {
         Handsontable.renderers.TextRenderer(instance, TD, row, col, prop, value, cellProperties);
             // 获取单元格元数据
         const cellMeta = instance.getCellMeta(row, col);
-        console.log(cellMeta);
         // 如果单元格被修改过
         if (cellMeta.isModified) {
             TD.style.color = '#ff1648'; // 修改后的前景色
@@ -129,6 +128,7 @@ const FeeQuickInput: React.FC = () => {
                             },
                         },
                     }}
+                    rowHeaderWidth={35}
                     multiColumnSorting={false}
                     filters={false}
                     rowHeaders={true}

@@ -34,6 +34,12 @@ const Detail: React.FC = () => {
                         children: <Fee />,
                         icon: <AppleOutlined />,
                     },
+                    // {
+                    //     label: '关联交易',
+                    //     key: '242',
+                    //     children: 'Tab ${businessId}',
+                    //     icon: <AppleOutlined />,
+                    // },
                     {
                         label: '国内账单',
                         key: '3',
