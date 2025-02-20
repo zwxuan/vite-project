@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { HotTable, HotColumn,HotRendererProps} from '@handsontable/react-wrapper';
-import { Button } from 'antd';
+import { Button,Tooltip } from 'antd';
 import Handsontable from "handsontable";
 import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';
@@ -22,12 +22,14 @@ const FeeQuickInput: React.FC = () => {
 
         getData();
     }, []);
-
+    
     const yellowRenderer: React.FC<HotRendererProps> = ({ instance,TD, row, col, prop, value, cellProperties }) => {
         Handsontable.renderers.TextRenderer(instance, TD, row, col, prop, value, cellProperties);
         TD.style.backgroundColor = '#ffffbb';
         return null;
     };
+
+
     const customerRenderer: React.FC<HotRendererProps> = ({ instance,TD, row, col, prop, value, cellProperties }) => {
         Handsontable.renderers.TextRenderer(instance, TD, row, col, prop, value, cellProperties);
             // 获取单元格元数据
@@ -40,6 +42,14 @@ const FeeQuickInput: React.FC = () => {
         // 如果单元格是新增的
         if (cellMeta.isNew) {
             TD.style.color = '#007ace'; // 新增的前景色
+        }
+        if (cellProperties.type === 'autocomplete') {
+            // 手动添加自动完成箭头元素
+            const arrowDiv = document.createElement('div');
+            arrowDiv.className = 'htAutocompleteArrow';
+            arrowDiv.setAttribute('aria-hidden', 'true');
+            arrowDiv.textContent = '▼';
+            TD.appendChild(arrowDiv);
         }
         return null;
     };
@@ -76,18 +86,33 @@ const FeeQuickInput: React.FC = () => {
         <div className="ht-theme-main">
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    支持excle数据直接复制粘贴
                 </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{ display: "flex" }}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button>保存</Button>
+                                <Button type="primary" danger >保存</Button>
                             </div>
                         </div>
-                        <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
-                            <div className="u-button-group"></div>
+                        <div className="buttonGroup-component" style={{ marginLeft: "5px" }}>
+                            <div className="u-button-group">
+                            <Tooltip
+                                    title={
+                                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000'}}>
+                                            <ol style={{ color: '#666666', fontSize: '12px' }}>
+                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>复制</b></span>支持excle数据直接复制粘贴。</li>
+                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>下拉</b></span>支持下拉复制当前行数据填充。</li>
+                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>右键</b></span>支持右键菜单功能。</li>
+                                            </ol>
+                                        </div>
+                                    }
+                                    color='white'
+                                    placement='leftTop'
+                                >
+                                    <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer',fontSize:'14px' }}></i>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,11 +170,11 @@ const FeeQuickInput: React.FC = () => {
                     <HotColumn
                         data="FeeName"
                         title="费用名称"
-                        className="htLeft"
+                        className="htLeft ellipsis-cell"
                         type="autocomplete"
                         strict={true}
                         language="zh-cn"
-                        width={160}
+                        width={120}
                         // renderer={yellowRenderer}
                         source={async (query: string, process: (data: string[]) => void) => {
                             // 解决单元格输入中文时，将输入法的英文拼音传入导致检索异常
@@ -157,24 +182,23 @@ const FeeQuickInput: React.FC = () => {
                                 console.log('Delayed query:', query); // 打印延迟后的 query
                                 const res = await getFeeNameList();
                                 const orderFeeData = res?.data as FeeNameItemProps[];
-                    
                                 // 过滤数据（根据 query）
                                 const filteredData = orderFeeData.filter((item) =>
                                     item.FeeDisplayName.toLowerCase().includes(query.toLowerCase())
                                 );
-                    
                                 // 处理数据并传递给 Handsontable
                                 const uniqueFeeNames = [...new Set(filteredData.map((item) => item.FeeDisplayName))];
                                 process(uniqueFeeNames);
                             }, 200); // 延迟 2 秒
                         }}
                     />
-                    <HotColumn data="CreditDebit" title='收|支' className="htLeft" renderer={customerRenderer}  />
-                    <HotColumn data="SettlementObject" title='结算对象' className="htLeft" />
-                    <HotColumn data="SettlementType" title='结算类型' className="htLeft" />
-                    <HotColumn data="InvoiceTitle" title='开票抬头' className="htLeft" />
-                    <HotColumn data="SettlementCompany" title='开票主体' className="htLeft" />
-                    <HotColumn data="Currency" title='币制' className="htLeft" />
+                    <HotColumn data="CreditDebit" title='收|支' type='autocomplete' width={80} source={['[1]收','[2]付']} className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="DomesticForeign" title='国内|国外' type='autocomplete' source={['[1]国内','[2]国外']} className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="SettlementObject" title='结算对象' className="htLeft" width={160} renderer={customerRenderer}  />
+                    <HotColumn data="SettlementType" title='结算类型' className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="InvoiceTitle" title='开票抬头' className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="SettlementCompany" title='开票主体'  width={160}  className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="Currency" title='币制' className="htLeft" renderer={customerRenderer}  />
                     <HotColumn 
                         data="ExchangeRate" 
                         title='汇率' 
@@ -184,41 +208,41 @@ const FeeQuickInput: React.FC = () => {
                             pattern: '0.000000',
                             culture: 'zh-CN'
                         }} 
-                        readOnly={true} 
+                        renderer={customerRenderer} 
                         width={100} 
                     />
-                    <HotColumn data="UnitPrice" title='单价' type='numeric'  
+                    <HotColumn data="UnitPrice" title='单价' type='numeric'   renderer={customerRenderer} 
                         numericFormat={{
                             pattern: '0.0000',
                             culture: 'zh-CN'
                         }} className="htRight" width={100} />
-                    <HotColumn data="Quantity" title='数量' type='numeric'  
+                    <HotColumn data="Quantity" title='数量' type='numeric'   renderer={customerRenderer} 
                         numericFormat={{
                             pattern: '0.0000',
                             culture: 'zh-CN'
                         }} className="htRight" width={100} />
-                    <HotColumn data="TaxRate" title='税率' type='numeric'  
+                    <HotColumn data="TaxRate" title='税率' type='numeric'   renderer={customerRenderer} 
                         numericFormat={{
                             pattern: '0.000000',
                             culture: 'zh-CN'
                         }} className="htRight" width={100} />
-                    <HotColumn data="TaxAmount" title='税额' type='numeric'  
+                    <HotColumn data="TaxAmount" title='税额' type='numeric'   renderer={customerRenderer} 
                         numericFormat={{
                             pattern: '0.00',
                             culture: 'zh-CN'
                         }} className="htRight" width={100} />
-                    <HotColumn data="TaxExcludedPrice" title='不含税金额' type='numeric'  
+                    <HotColumn data="TaxExcludedPrice" title='不含税金额' type='numeric'   renderer={customerRenderer} 
                         numericFormat={{
                             pattern: '0.00',
                             culture: 'zh-CN'
                         }} className="htRight" width={100} />
-                    <HotColumn data="TaxIncludedPrice" title='含税金额' type='numeric'  
+                    <HotColumn data="TaxIncludedPrice" title='含税金额' type='numeric'   renderer={customerRenderer} 
                         numericFormat={{
                             pattern: '0.00',
                             culture: 'zh-CN'
                         }} className="htRight" width={100} />
-                    <HotColumn data="Remarks" title='备注' className="htLeft" width={200} />
-                    <HotColumn data="FeeId" title='费用编号' className="htLeft" readOnly={true} />
+                    <HotColumn data="Remarks" title='备注' className="htLeft" width={200}  renderer={customerRenderer} />
+                    <HotColumn data="FeeId" title='费用编号' className="htLeft" readOnly={true}  renderer={customerRenderer} />
                 </HotTable>
             </div>
         </div>

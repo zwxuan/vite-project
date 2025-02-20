@@ -63,6 +63,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -123,6 +124,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -183,6 +185,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -243,6 +246,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -303,6 +307,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -363,6 +368,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -423,6 +429,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -483,6 +490,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -543,6 +551,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -603,6 +612,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -663,6 +673,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -723,6 +734,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -783,6 +795,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -843,6 +856,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -903,6 +917,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -963,6 +978,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -1023,6 +1039,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -1083,6 +1100,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
     {
         SettlementCompany:`${Object.values(Mock.mock({"object|1": {"青岛子公司": "青岛子公司","上海子公司": "上海子公司","深圳子公司": "深圳子公司","西安子公司": "西安子公司"}}).object)[0]}`,
@@ -1143,6 +1161,7 @@ const orderFeeItems:OrderFeeItemProps[] = [
         AllocationType:`${Object.values(Mock.mock({"object|1": {"平均分配": "平均分配","按体积": "按体积","按重量": "按重量"}}).object)[0]}`,
         RelatedFeeId:Mock.mock("@id"),
         FeeId:Mock.mock("@id"),
+        CreditDebit:`${Object.values(Mock.mock({"object|1": {"收": "收","支": "支"}}).object)[0]}`,
     },  
 ];
 const feeNameItems:FeeNameItemProps[] = [

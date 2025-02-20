@@ -1300,6 +1300,10 @@ input.u-form-control {
     border: 1px solid #d1d5db;
     color: #EE0F39;
 }
+:where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-row-expand-icon:hover {
+    border-color: #EE0F39;
+    color: #EE0F39;
+}
 :where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-row-expand-icon-collapsed::before{
     top: 7px;
     left: 2px;
@@ -1536,6 +1540,12 @@ input.ant-input{
 }
 :where(.css-dev-only-do-not-override-tpassh).ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
     height: 24px;
+}
+.ant-tabs .ant-tabs-tab + .ant-tabs-tab{
+    padding-left: 15px;
+}
+:where(.css-dev-only-do-not-override-tpassh).ant-tabs .ant-tabs-tab-btn .ant-tabs-tab-icon:not(:last-child){
+    margin-inline-end: 5px;
 }
 .ant-col .ant-select-selection-item {
     color: #000008;
@@ -1872,6 +1882,12 @@ input.ant-input{
     border-inline-end-width: 1px;
     border-inline-start-color:#d9d9d9;
     border-color: #d9d9d9 !important;
+    padding: 2px 3px 2px 3px;
+    // 设置文本溢出省略号
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* 根据需要调整 */
   }
   .handsontable tbody td, .handsontable thead th {
     border-bottom: 1px solid #d9d9d9;
@@ -1879,5 +1895,13 @@ input.ant-input{
     border-inline-end-width: 1px;
     border-inline-start-color:#d9d9d9;
     border-color: #d9d9d9 !important;
+    padding: 2px 3px 2px 3px;
+    // 设置文本溢出省略号
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* 根据需要调整 */
   }
-  
+  .handsontableInputHolder .handsontableInput {
+    font-size: 12px;
+  }

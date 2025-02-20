@@ -6,7 +6,7 @@ import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrderFeeItemProps } from "@/types/order_fee/order_fee";
 import { getOrderFeeList,saveOrderFee } from "@/api/financial_basic_data/order_fee_service";
-import {DownOutlined,HourglassOutlined} from '@ant-design/icons';
+import {DownOutlined,HourglassOutlined,RedoOutlined} from '@ant-design/icons';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import ModelExcelImport from '@/components/excel/modal_import';
@@ -250,6 +250,9 @@ const OrderFee : React.FC = () => {
                                 </Button>   
                             </Dropdown>
                         </div>
+                        <span className="u-button">
+                            <RedoOutlined className='iconfont' />
+                        </span>
                     </div>
                 </div>
             </div>
@@ -263,7 +266,13 @@ const OrderFee : React.FC = () => {
                     dataSource={orderFeeList}
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
-                    title={() => '应收 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00'}
+                    title={() => (
+                        <div style={{marginLeft: '10px'}}>
+                            <span className="modal-body-left-commons-title-text">
+                                应收 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00
+                            </span>
+                        </div>
+                    )}
                     bordered={true}
                 />
             </div>
@@ -278,15 +287,21 @@ const OrderFee : React.FC = () => {
                     dataSource={orderFeeList}
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
-                    title={() => '应付 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00'}
+                    title={() => (
+                        <div style={{marginLeft: '10px'}}>
+                            <span className="modal-body-left-commons-title-text">
+                                应付 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00
+                            </span>
+                        </div>
+                    )}
                     bordered={true}
                 />
             </div>
 
             <div className='nc-bill-header-area'>
-                <div style={{display:'flex',alignItems:'center',paddingLeft:'10px'}}>
+                <div style={{display:'flex',alignItems:'center',paddingLeft:'15px'}}>
                     <Space size={10}>
-                        <span className='rule_tilte_info' style={{fontSize:'14px',fontWeight:'bold'}}>
+                        <span className="modal-body-left-commons-title-text">
                             利润 USD:1,000.00 RMB:24,540.00 折合RMB:31,640.00 毛利率: 69.02 %
                         </span>
                         <span className='rule_tilte_info'>

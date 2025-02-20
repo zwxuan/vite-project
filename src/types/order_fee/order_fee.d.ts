@@ -116,6 +116,8 @@ export interface OrderFeeItemProps {
     RelatedFeeId:string;
     // 费用ID
     FeeId:string;
+    // 收支类型
+    CreditDebit:string;
 };
 export interface FeeNameItemProps {
     FeeName:string;

@@ -1,6 +1,7 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { OrderBillItemProps,ExpandedDataType } from "@/types/order_bill/order_bill";
+import { OrderBillItemProps } from "@/types/order_bill/order_bill";
+import {OrderFeeItemProps} from "@/types/order_fee/order_fee";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
@@ -208,7 +209,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
 ]; 
 
 
-export const expandColumns: TableColumnsType<ExpandedDataType> = [
+export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrdersBusinessId()),
         width: '200px',

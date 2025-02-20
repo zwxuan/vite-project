@@ -19,7 +19,7 @@ import { getColumns,expandColumns } from './columns';
 import { importItems, exportItems } from './menu_items';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const OrderBill : React.FC = () => {
+const OrderBillForeign : React.FC = () => {
 
     // order_bill数据
     const [orderBillList, setOrderBillList] = useState([] as OrderBillItemProps[]);
@@ -190,4 +190,4 @@ const OrderBill : React.FC = () => {
         
     )
 }
-export default OrderBill;
+export default OrderBillForeign;
