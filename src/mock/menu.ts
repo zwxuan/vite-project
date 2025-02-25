@@ -445,10 +445,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "对账", key: "settlement", path: "/fee_reconciliation",
         },
         {
-            name: "账单", key: "bill",
+            name: "账单", key: "bill", path: "/bill_manage",
         },
         {
-            name: "对账单", key: "settlement_bill",
+            name: "对账单", key: "settlement_bill",path: "/statement_of_account",
         },
         {
             name: "关联交易", key: "related_transaction",

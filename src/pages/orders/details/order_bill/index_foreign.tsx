@@ -134,6 +134,7 @@ const OrderBillForeign : React.FC = () => {
                             <div className="u-button-group">
                                 <Button type="primary" danger>新增应收</Button>
                                 <Button type="primary" danger>新增应付</Button>
+                                <Button type="primary" danger>代理分成账单</Button>
                                 <Button>确认</Button>
                                 <Button>取消确认</Button>
                                 <Button>复核</Button>

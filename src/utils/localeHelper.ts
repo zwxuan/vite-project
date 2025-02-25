@@ -1270,6 +1270,298 @@ class LocaleHelper {
     static getFeeReconciliationGrossWeightActual() {
       return "fee_reconciliation.grossweightactual";
     }
+    // 账单号
+    static getBillManageBillNumber() {
+      return "bill_manage.billnumber";
+    }
+    // 对账单号
+    static getBillManageStatementNumber() {
+      return "bill_manage.statementnumber";
+    }
+    // 对方账单号
+    static getBillManageCounterpartBillNumber() {
+      return "bill_manage.counterpartbillnumber";
+    }
+    // 账单类型
+    static getBillManageBillType() {
+      return "bill_manage.billtype";
+    }
+    // 收支类型
+    static getBillManagePaymentType() {
+      return "bill_manage.paymenttype";
+    }
+    // 账单日期
+    static getBillManageBillDate() {
+      return "bill_manage.billdate";
+    }
+    // 账单到期日
+    static getBillManageDueDate() {
+      return "bill_manage.duedate";
+    }
+    // 发票抬头
+    static getBillManageInvoiceTitle() {
+      return "bill_manage.invoicetitle";
+    }
+    // 开票要求
+    static getBillManageInvoiceRequirements() {
+      return "bill_manage.invoicerequirements";
+    }
+    // 结算对象
+    static getBillManageSettlementParty() {
+      return "bill_manage.settlementparty";
+    }
+    // 揽货类型
+    static getBillManageCargoType() {
+      return "bill_manage.cargotype";
+    }
+    // ETD
+    static getBillManageEtd() {
+      return "bill_manage.etd";
+    }
+    // ETA
+    static getBillManageEta() {
+      return "bill_manage.eta";
+    }
+    // 账单确认时间
+    static getBillManageBillConfirmationTime() {
+      return "bill_manage.billconfirmationtime";
+    }
+    // 业务编号
+    static getBillManageBusinessNumber() {
+      return "bill_manage.businessnumber";
+    }
+    // 主单号
+    static getBillManageMasterBillNumber() {
+      return "bill_manage.masterbillnumber";
+    }
+    // 船名航次
+    static getBillManageVesselVoyage() {
+      return "bill_manage.vesselvoyage";
+    }
+    // 起运港
+    static getBillManagePortOfLoading() {
+      return "bill_manage.portofloading";
+    }
+    // 目的港
+    static getBillManagePortOfDischarge() {
+      return "bill_manage.portofdischarge";
+    }
+    // 创建人
+    static getBillManageCreatedBy() {
+      return "bill_manage.createdby";
+    }
+    // 账单状态
+    static getBillManageBillStatus() {
+      return "bill_manage.billstatus";
+    }
+    // 开票状态
+    static getBillManageInvoiceStatus() {
+      return "bill_manage.invoicestatus";
+    }
+    // 核销状态
+    static getBillManageWriteOffStatus() {
+      return "bill_manage.writeoffstatus";
+    }
+    // 币种
+    static getBillManageCurrency() {
+      return "bill_manage.currency";
+    }
+    // 金额
+    static getBillManageAmount() {
+      return "bill_manage.amount";
+    }
+    // 账龄（天）
+    static getBillManageAgingDays() {
+      return "bill_manage.agingdays";
+    }
+    // 核销金额
+    static getBillManageWriteOffAmount() {
+      return "bill_manage.writeoffamount";
+    }
+    // 分币种合计
+    static getBillManageCurrencyTotal() {
+      return "bill_manage.currencytotal";
+    }
+    // 备注
+    static getBillManageRemarks() {
+      return "bill_manage.remarks";
+    }
+    // 订舱编号
+    static getBillManageBookingNumber() {
+      return "bill_manage.bookingnumber";
+    }
+    // 标记时间
+    static getBillManageMarkTime() {
+      return "bill_manage.marktime";
+    }
+    // 标记人
+    static getBillManageMarkedBy() {
+      return "bill_manage.markedby";
+    }
+    // 标记状态
+    static getBillManageMarkStatus() {
+      return "bill_manage.markstatus";
+    }
+    // 未核销金额
+    static getBillManageUnwriteOffAmount() {
+      return "bill_manage.unwriteoffamount";
+    }
+    // 操作
+    static getBillManageOperation() {
+      return "bill_manage.operation";
+    }
+    // 账单确认人
+    static getBillManageBillConfirmedBy() {
+      return "bill_manage.billconfirmedby";
+    }
+    // 是否作废
+    static getBillManageIsVoid() {
+      return "bill_manage.isvoid";
+    }
+    // 是否确认
+    static getBillManageIsConfirmed() {
+      return "bill_manage.isconfirmed";
+    }
+    // 业务参考号
+    static getBillManageBusinessReferenceNumber() {
+      return "bill_manage.businessreferencenumber";
+    }
+    // 账单复核人
+    static getBillManageBillReviewedBy() {
+      return "bill_manage.billreviewedby";
+    }
+    // 账单复核时间
+    static getBillManageBillReviewTime() {
+      return "bill_manage.billreviewtime";
+    }
+    // 承运人
+    static getBillManageCarrier() {
+      return "bill_manage.carrier";
+    }
+    // 收/发货地
+    static getBillManageShippingLocation() {
+      return "bill_manage.shippinglocation";
+    }
+    // 拖车实际提货时间
+    static getBillManageTrailerPickupTime() {
+      return "bill_manage.trailerpickuptime";
+    }
+    // 操作日期
+    static getBillManageOperationDate() {
+      return "bill_manage.operationdate";
+    }
+    // 项目编号
+    static getBillManageProjectNumber() {
+      return "bill_manage.projectnumber";
+    }
+    // 送货完成时间
+    static getBillManageDeliveryCompletionTime() {
+      return "bill_manage.deliverycompletiontime";
+    }
+    // 账单结算类型
+    static getBillManageBillSettlementType() {
+      return "bill_manage.billsettlementtype";
+    }
+    // 母公司
+    static getBillManageParentCompany() {
+      return "bill_manage.parentcompany";
+    }
+    // 业务日期
+    static getBillManageBusinessDate() {
+      return "bill_manage.businessdate";
+    }
+    // 对账单号
+    static getStatementOfAccountStatementNumber() {
+      return "statement_of_account.statementnumber";
+    }
+    // 结算对象
+    static getStatementOfAccountSettlementObject() {
+      return "statement_of_account.settlementobject";
+    }
+    // 对方对账单号
+    static getStatementOfAccountCounterpartyStatementNumber() {
+      return "statement_of_account.counterpartystatementnumber";
+    }
+    // 创建人
+    static getStatementOfAccountCreator() {
+      return "statement_of_account.creator";
+    }
+    // 账单类型
+    static getStatementOfAccountStatementType() {
+      return "statement_of_account.statementtype";
+    }
+    // 发票抬头
+    static getStatementOfAccountInvoiceTitle() {
+      return "statement_of_account.invoicetitle";
+    }
+    // 收支类型
+    static getStatementOfAccountTransactionType() {
+      return "statement_of_account.transactiontype";
+    }
+    // 确认状态
+    static getStatementOfAccountConfirmationStatus() {
+      return "statement_of_account.confirmationstatus";
+    }
+    // 开票状态
+    static getStatementOfAccountInvoicingStatus() {
+      return "statement_of_account.invoicingstatus";
+    }
+    // 对账单核销状态
+    static getStatementOfAccountStatementWriteoffStatus() {
+      return "statement_of_account.statementwriteoffstatus";
+    }
+    // 币种
+    static getStatementOfAccountCurrency() {
+      return "statement_of_account.currency";
+    }
+    // 金额
+    static getStatementOfAccountAmount() {
+      return "statement_of_account.amount";
+    }
+    // 已销金额
+    static getStatementOfAccountWrittenOffAmount() {
+      return "statement_of_account.writtenoffamount";
+    }
+    // 开票信息
+    static getStatementOfAccountInvoicingInfo() {
+      return "statement_of_account.invoicinginfo";
+    }
+    // 备注
+    static getStatementOfAccountRemarks() {
+      return "statement_of_account.remarks";
+    }
+    // 分币种合计
+    static getStatementOfAccountCurrencyTotal() {
+      return "statement_of_account.currencytotal";
+    }
+    // 对账单确认时间
+    static getStatementOfAccountConfirmationTime() {
+      return "statement_of_account.confirmationtime";
+    }
+    // 对账单确认人
+    static getStatementOfAccountConfirmationPerson() {
+      return "statement_of_account.confirmationperson";
+    }
+    // 业务参考号
+    static getStatementOfAccountBusinessReferenceNumber() {
+      return "statement_of_account.businessreferencenumber";
+    }
+    // 承运人
+    static getStatementOfAccountCarrier() {
+      return "statement_of_account.carrier";
+    }
+    // 收/发货地
+    static getStatementOfAccountPickupDeliveryLocation() {
+      return "statement_of_account.pickupdeliverylocation";
+    }
+    // 拖车实际提货时间
+    static getStatementOfAccountActualPickupTime() {
+      return "statement_of_account.actualpickuptime";
+    }
+    // 母公司
+    static getStatementOfAccountParentCompany() {
+      return "statement_of_account.parentcompany";
+    }
   }
   
   export default LocaleHelper;

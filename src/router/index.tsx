@@ -1,7 +1,7 @@
 //router/index.tsx
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login } from "./imports";
+import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login } from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -37,10 +37,26 @@ const routers = createMemoryRouter([
       },
       {
         path: "/fee_reconciliation",
-        handle: { title: '费用对账' },
+        handle: { title: '对账' },
         element: (
           <RouterGuard>
             <FeeReconciliation />
+          </RouterGuard>),
+      },
+      {
+        path: "/bill_manage",
+        handle: { title: '账单' },
+        element: (
+          <RouterGuard>
+            <BillManage />
+          </RouterGuard>),
+      },
+      {
+        path: "/statement_of_account",
+        handle: { title: '对账单' },
+        element: (
+          <RouterGuard>
+            <StatementOfAccount />
           </RouterGuard>),
       },
       {
