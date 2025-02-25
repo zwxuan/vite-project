@@ -12,6 +12,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillNumber',
         sorter: true,
         align: 'left',
@@ -20,6 +21,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillSettlementObject()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SettlementObject',
         sorter: true,
         align: 'left',
@@ -27,6 +29,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillSettlementAgent()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SettlementAgent',
         sorter: true,
         align: 'left',
@@ -34,6 +37,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillInvoiceTitle()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceTitle',
         sorter: true,
         align: 'left',
@@ -41,6 +45,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillCurrency()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Currency',
         sorter: true,
         align: 'left',
@@ -48,6 +53,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillAmount()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Amount',
         sorter: true,
         align: 'right',
@@ -55,6 +61,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillCurrencyTotal()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CurrencyTotal',
         sorter: true,
         align: 'left',
@@ -62,6 +69,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillIncomeExpenseType()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IncomeExpenseType',
         sorter: true,
         align: 'left',
@@ -69,6 +77,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Status',
         sorter: true,
         align: 'left',
@@ -76,6 +85,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillInvoiceStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceStatus',
         sorter: true,
         align: 'left',
@@ -83,6 +93,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillVerificationStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'VerificationStatus',
         sorter: true,
         align: 'left',
@@ -90,6 +101,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillReconciliationNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ReconciliationNumber',
         sorter: true,
         align: 'left',
@@ -97,6 +109,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillCounterpartBillNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CounterpartBillNumber',
         sorter: true,
         align: 'left',
@@ -104,6 +117,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillInvoiceType()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceType',
         sorter: true,
         align: 'left',
@@ -111,6 +125,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillInvoiceCategory()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceCategory',
         sorter: true,
         align: 'left',
@@ -118,6 +133,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillCreator()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Creator',
         sorter: true,
         align: 'left',
@@ -125,6 +141,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillConfirmationTime()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillConfirmationTime',
         sorter: true,
         align: 'center',
@@ -132,6 +149,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillDueDate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillDueDate',
         sorter: true,
         align: 'center',
@@ -139,6 +157,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillConfirmer()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillConfirmer',
         sorter: true,
         align: 'left',
@@ -146,6 +165,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillIsConfirmed()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IsConfirmed',
         sorter: true,
         align: 'center',
@@ -153,6 +173,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillReviewStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillReviewStatus',
         sorter: true,
         align: 'left',
@@ -160,6 +181,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillReviewer()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillReviewer',
         sorter: true,
         align: 'left',
@@ -167,6 +189,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillReviewTime()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillReviewTime',
         sorter: true,
         align: 'center',
@@ -174,6 +197,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillBillSettlementType()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillSettlementType',
         sorter: true,
         align: 'left',
@@ -181,6 +205,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillApprovalStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ApprovalStatus',
         sorter: true,
         align: 'left',
@@ -188,6 +213,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
     {
         title: i18n.t(LocaleHelper.getOrderBillIsVoid()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IsVoid',
         sorter: true,
         align: 'center',
@@ -197,6 +223,7 @@ export const getColumns = (handleEdit: (record: OrderBillItemProps) => void, han
         key: 'operation',
         fixed: 'right',
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         render: (_, record) => (
         <>
             <a onClick={()=>handleEdit(record)}>编辑</a>
@@ -213,18 +240,21 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrdersBusinessId()),
         width: '200px',
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BusinessId',
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getOrderFeeFeeName()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FeeName',
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getOrderBillIncomeExpenseType()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IncomeExpenseType',
         sorter: true,
         align: 'left',
@@ -232,6 +262,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeCurrency()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Currency',
         sorter: true,
         align: 'left',
@@ -239,6 +270,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeExchangeRate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ExchangeRate',
         sorter: true,
         align: 'right',
@@ -246,6 +278,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeUnit()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Unit',
         sorter: true,
         align: 'left',
@@ -253,6 +286,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeQuantity()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Quantity',
         sorter: true,
         align: 'right',
@@ -260,6 +294,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeUnitPrice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'UnitPrice',
         sorter: true,
         align: 'right',
@@ -267,6 +302,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxIncludedPrice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxIncludedPrice',
         sorter: true,
         align: 'right',
@@ -274,6 +310,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxExcludedPrice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxExcludedPrice',
         sorter: true,
         align: 'right',
@@ -281,6 +318,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxRate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxRate',
         sorter: true,
         align: 'right',
@@ -288,6 +326,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxAmount()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxAmount',
         sorter: true,
         align: 'right',

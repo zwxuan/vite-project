@@ -1200,6 +1200,7 @@ input.u-form-control {
     // border-right: #c6ccd7 solid 1px;
     // border-bottom: #c6ccd7 solid 1px;
     font-weight: bolder;
+    font-size: 12px;
 }
 
 .ant-table-head .ant-table-thead .ant-table-wrapper .ant-table-column-sorters {
@@ -1242,8 +1243,8 @@ input.u-form-control {
 .ant-table-wrapper .ant-table-cell-scrollbar:not([rowspan]) {
     box-shadow: 0 1px 0 1px #d9d9d9;
 }
-.ant-table-cell-fix-right>a {
-    color: #000;
+.ant-table-cell-fix-right > a {
+    // color: #000;
     background-color: #f3f4f6;
     border: #d9d9d9 solid 1px;
     padding: 1px 5px 1px 5px;
@@ -1251,7 +1252,7 @@ input.u-form-control {
     margin-left: 2px;
     font-size: 12px;
 }
-.ant-table-cell-fix-right>a:hover {
+.ant-table-cell-fix-right > a:hover {
     font-weight: bolder;
 }
 
@@ -1340,12 +1341,17 @@ input.u-form-control {
 .nc-bill-table-area-expand .ant-table-container table>thead>tr:first-child >*:last-child{
     border-start-end-radius: 0px;
 }
+:where(.css-dev-only-do-not-override-tpassh).ant-table-wrapper .ant-table-expand-icon-col{
+    width: 20px;
+}
+
+
 .ant-btn {
     min-width: 60px;
     height: 26px;
     padding: 0 12px;
     color: #2B2C42;
-    background-color: #fff;
+    background-color: #f9fbff;
     border-radius: 3px;
     font-size: 14px;
     display: inline-flex;
@@ -1413,7 +1419,7 @@ input.u-form-control {
 
 .ant-btn-color-default {
     color: #ff4d4f;
-    box-shadow: none;
+    // box-shadow: none;
 }
 
 .ant-btn-color-default.ant-btn-variant-outlined {
@@ -1502,6 +1508,9 @@ div>.ant-input-number .ant-input-number-input .ant-picker .ant-select-selector .
     padding-top: 1px !important;
     padding-bottom: 1px !important;
 }
+.ant-select-dropdown .ant-select-item {
+    font-size: 12px;
+}
 .ant-input-number-input {
     height: 24px;
     line-height: 24px;
@@ -1546,6 +1555,9 @@ input.ant-input{
 }
 :where(.css-dev-only-do-not-override-tpassh).ant-tabs .ant-tabs-tab-btn .ant-tabs-tab-icon:not(:last-child){
     margin-inline-end: 5px;
+}
+.ant-tabs .ant-tabs-tab-remove{
+    font-size: 10px;
 }
 .ant-col .ant-select-selection-item {
     color: #000008;
@@ -1678,6 +1690,9 @@ input.ant-input{
     .ant-select-single .ant-select-selector {
         font-size: 12px;
     }
+}
+.ant-select-single .ant-select-selector {
+    font-size: 12px;
 }
 .ant-modal .ant-modal-title {
     font-size: 14px;

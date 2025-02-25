@@ -7,6 +7,7 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getCode()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Code',
         sorter: true,
         fixed: 'left',
@@ -15,6 +16,7 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
     {
         title: '币制名称',
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CurrencyFullName',
         sorter: true,
         fixed: 'left',
@@ -25,12 +27,14 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         dataIndex: 'CurrencyShortName',
         sorter: true,
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '币制符号',
         dataIndex: 'CurrencyMark',
         sorter: true,
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '价格精度',
@@ -38,12 +42,14 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         sorter: true,
         align: 'right',
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '价格舍入规则',
         dataIndex: 'PriceRoundingRule',
         sorter: true,
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '金额精度',
@@ -51,18 +57,21 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         sorter: true,
         align: 'right',
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '金额舍入规则',
         dataIndex: 'AmountRoundingRule',
         sorter: true,
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '备注',
         dataIndex: 'Remark',
         sorter: true,
         width: 150,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '状态',
@@ -70,6 +79,7 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         sorter: true,
         align: 'center',
         width: 40,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         render: (text) => {
             if (text === 0) {
                 return <Tag color='green'>启用</Tag>;
@@ -85,6 +95,7 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         key: 'operation',
         fixed: 'right',
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         render: (_, record) => (
         <>
             <a>启用</a>

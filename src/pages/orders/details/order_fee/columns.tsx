@@ -11,6 +11,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeSettlementCompany()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SettlementCompany',
         sorter: true,
         align: 'left',
@@ -19,6 +20,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeFeeName()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FeeName',
         sorter: true,
         align: 'left',
@@ -27,6 +29,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeSettlementType()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SettlementType',
         sorter: true,
         align: 'left',
@@ -34,6 +37,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeSettlementObject()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SettlementObject',
         sorter: true,
         align: 'left',
@@ -41,6 +45,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeInvoiceTitle()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceTitle',
         sorter: true,
         align: 'left',
@@ -48,6 +53,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeDomesticForeign()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'DomesticForeign',
         sorter: true,
         align: 'left',
@@ -55,6 +61,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeNeedInvoice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'NeedInvoice',
         sorter: true,
         align: 'right',
@@ -62,6 +69,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeCurrency()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Currency',
         sorter: true,
         align: 'left',
@@ -69,6 +77,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeExchangeRate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ExchangeRate',
         sorter: true,
         align: 'right',
@@ -76,6 +85,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeUnit()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Unit',
         sorter: true,
         align: 'left',
@@ -83,6 +93,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeQuantity()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Quantity',
         sorter: true,
         align: 'right',
@@ -90,6 +101,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeUnitPrice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'UnitPrice',
         sorter: true,
         align: 'right',
@@ -97,6 +109,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxIncludedPrice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxIncludedPrice',
         sorter: true,
         align: 'right',
@@ -104,6 +117,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxExcludedPrice()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxExcludedPrice',
         sorter: true,
         align: 'right',
@@ -111,6 +125,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxRate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxRate',
         sorter: true,
         align: 'right',
@@ -118,6 +133,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeTaxAmount()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TaxAmount',
         sorter: true,
         align: 'right',
@@ -125,6 +141,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeRmbEquivalent()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'RmbEquivalent',
         sorter: true,
         align: 'right',
@@ -132,6 +149,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeLocalCurrency()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'LocalCurrency',
         sorter: true,
         align: 'left',
@@ -139,6 +157,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeReviewer()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Reviewer',
         sorter: true,
         align: 'left',
@@ -146,6 +165,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeRemarks()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Remarks',
         sorter: true,
         align: 'left',
@@ -153,6 +173,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeContactPerson()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ContactPerson',
         sorter: true,
         align: 'left',
@@ -160,6 +181,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAssociatedBillNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'AssociatedBillNumber',
         sorter: true,
         align: 'left',
@@ -167,6 +189,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAssociatedContainerNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'AssociatedContainerNumber',
         sorter: true,
         align: 'left',
@@ -174,6 +197,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeePrepaidCollect()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'PrepaidCollect',
         sorter: true,
         align: 'left',
@@ -181,6 +205,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Status',
         sorter: true,
         align: 'left',
@@ -188,6 +213,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeIsConfirmed()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IsConfirmed',
         sorter: true,
         align: 'right',
@@ -195,6 +221,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAgentSplitBillNumber()),
         width: 160,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'AgentSplitBillNumber',
         sorter: true,
         align: 'left',
@@ -202,6 +229,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeBillNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BillNumber',
         sorter: true,
         align: 'left',
@@ -209,6 +237,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAccrualDate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'AccrualDate',
         sorter: true,
         align: 'center',
@@ -216,6 +245,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeInvoiceNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceNumber',
         sorter: true,
         align: 'left',
@@ -223,6 +253,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeInvoiceDate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'InvoiceDate',
         sorter: true,
         align: 'center',
@@ -230,6 +261,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeCounterpartBillNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CounterpartBillNumber',
         sorter: true,
         align: 'left',
@@ -237,6 +269,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeePaymentApplicationNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'PaymentApplicationNumber',
         sorter: true,
         align: 'left',
@@ -244,6 +277,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeWriteOffAmount()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'WriteOffAmount',
         sorter: true,
         align: 'right',
@@ -251,6 +285,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeUnadjustedAmount()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'UnadjustedAmount',
         sorter: true,
         align: 'right',
@@ -258,6 +293,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeWriteOffDate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'WriteOffDate',
         sorter: true,
         align: 'center',
@@ -265,6 +301,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeePaymentDate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'PaymentDate',
         sorter: true,
         align: 'center',
@@ -272,6 +309,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeFinancialDate()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FinancialDate',
         sorter: true,
         align: 'center',
@@ -279,6 +317,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeBusinessNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BusinessNumber',
         sorter: true,
         align: 'left',
@@ -286,6 +325,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeCreator()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Creator',
         sorter: true,
         align: 'left',
@@ -293,6 +333,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeCreateTime()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CreateTime',
         sorter: true,
         align: 'center',
@@ -300,6 +341,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeModifier()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Modifier',
         sorter: true,
         align: 'left',
@@ -307,6 +349,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeModifyTime()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ModifyTime',
         sorter: true,
         align: 'center',
@@ -314,6 +357,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeWriteOffSerialNumber()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'WriteOffSerialNumber',
         sorter: true,
         align: 'left',
@@ -321,6 +365,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeIsVoucherGenerated()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IsVoucherGenerated',
         sorter: true,
         align: 'right',
@@ -328,6 +373,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAllocation()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Allocation',
         sorter: true,
         align: 'left',
@@ -335,6 +381,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeLockStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'LockStatus',
         sorter: true,
         align: 'left',
@@ -342,6 +389,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeLockTime()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'LockTime',
         sorter: true,
         align: 'center',
@@ -349,6 +397,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeDataSource()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'DataSource',
         sorter: true,
         align: 'left',
@@ -356,6 +405,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeIsAdjustedFee()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IsAdjustedFee',
         sorter: true,
         align: 'right',
@@ -363,6 +413,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeFeeModifier()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FeeModifier',
         sorter: true,
         align: 'left',
@@ -370,6 +421,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeSettlementAgent()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SettlementAgent',
         sorter: true,
         align: 'left',
@@ -377,6 +429,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeFeeSyncStatus()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FeeSyncStatus',
         sorter: true,
         align: 'left',
@@ -384,6 +437,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeModifyFeeApplicationProgress()),
         width: 160,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ModifyFeeApplicationProgress',
         sorter: true,
         align: 'left',
@@ -391,6 +445,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAllocationRelatedBusiness()),
         width: 120,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'AllocationRelatedBusiness',
         sorter: true,
         align: 'left',
@@ -398,6 +453,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeAllocationType()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'AllocationType',
         sorter: true,
         align: 'left',
@@ -405,6 +461,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeRelatedFeeId()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'RelatedFeeId',
         sorter: true,
         align: 'left',
@@ -412,6 +469,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
     {
         title: i18n.t(LocaleHelper.getOrderFeeFeeId()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FeeId',
         sorter: true,
         align: 'left',
@@ -421,6 +479,7 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
         key: 'operation',
         fixed: 'right',
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         render: (_, record) => (
         <>
             <a onClick={()=>handleEdit(record)}>编辑</a>

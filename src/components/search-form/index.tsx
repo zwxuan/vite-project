@@ -54,7 +54,20 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             label={config.label}
                             labelCol={{ span: 24 }}
                         >
+                            <Space style={{width: '100%'}}>
+                            <Select labelInValue style={{ textAlign: 'left', width: '140'}}
+                                defaultValue = '等于'
+                                options={[
+                                    { label: '包含', value: 'like' },
+                                    { label: '在列表中', value: 'in' },
+                                    { label: '不在列表', value: 'not_in' },
+                                    { label: '等于', value: 'equal' },
+                                    { label: '大于', value: 'than' },
+                                    { label: '小于', value: 'less' },
+                                ]} >
+                            </Select>
                             <Input name={config.key} placeholder={config.label} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
+                            </Space>
                         </Form.Item>
                     ) : config.type === 'select' ? (
                         <Form.Item
@@ -62,6 +75,18 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             label={config.label}
                             labelCol={{ span: 24 }}
                         >
+                            <Space style={{width: '100%'}}>
+                            <Select labelInValue style={{ textAlign: 'left', width: '140'}}
+                                defaultValue = '等于'
+                                options={[
+                                    { label: '包含', value: 'like' },
+                                    { label: '在列表中', value: 'in' },
+                                    { label: '不在列表', value: 'not_in' },
+                                    { label: '等于', value: 'equal' },
+                                    { label: '大于', value: 'than' },
+                                    { label: '小于', value: 'less' },
+                                ]} >
+                            </Select>
                             <Select labelInValue style={{ textAlign: 'left' }} placeholder={config.label} prefix={config.prefix} onChange={(value) => { handleSelectChange(config.key, value) }}  >
                                 {config.selectOptions?.map((option, index) => (
                                     <Option key={index} value={option.value}>
@@ -69,6 +94,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Option>
                                 ))}
                             </Select>
+                            </Space>
                         </Form.Item>
                     ) : config.type === 'date' ? (
                         <Form.Item
@@ -76,7 +102,20 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             label={config.label}
                             labelCol={{ span: 24 }}
                         >
+                            <Space style={{width: '100%'}}>
+                            <Select labelInValue style={{ textAlign: 'left', width: '140'}}
+                                defaultValue = '等于'
+                                options={[
+                                    { label: '包含', value: 'like' },
+                                    { label: '在列表中', value: 'in' },
+                                    { label: '不在列表', value: 'not_in' },
+                                    { label: '等于', value: 'equal' },
+                                    { label: '大于', value: 'than' },
+                                    { label: '小于', value: 'less' },
+                                ]} >
+                            </Select>
                             <DatePicker style={{ display: 'block' }} placeholder={config.label} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                            </Space>
                         </Form.Item>
                     ) :
                         (

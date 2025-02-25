@@ -667,6 +667,609 @@ class LocaleHelper {
     static getOrderBillIsVoid() {
       return "order_bill.isvoid";
     }
+    // 文件名
+    static getOrderDocumentFileName() {
+      return "order_document.filename";
+    }
+    // 版本
+    static getOrderDocumentVersion() {
+      return "order_document.version";
+    }
+    // 文件类型
+    static getOrderDocumentFileType() {
+      return "order_document.filetype";
+    }
+    // 文件格式
+    static getOrderDocumentFileFormat() {
+      return "order_document.fileformat";
+    }
+    // 文件大小
+    static getOrderDocumentFileSize() {
+      return "order_document.filesize";
+    }
+    // 创建人
+    static getOrderDocumentCreatedBy() {
+      return "order_document.createdby";
+    }
+    // 创建日期
+    static getOrderDocumentCreatedDate() {
+      return "order_document.createddate";
+    }
+    // 文件来源
+    static getOrderDocumentFileSource() {
+      return "order_document.filesource";
+    }
+    // 属性详情
+    static getOrderDocumentAttributeDetails() {
+      return "order_document.attributedetails";
+    }
+    // 同步状态
+    static getOrderDocumentSyncStatus() {
+      return "order_document.syncstatus";
+    }
+    // 外部文件类型
+    static getOrderDocumentExternalFileType() {
+      return "order_document.externalfiletype";
+    }
+    // 最后同步时间
+    static getOrderDocumentLastSyncTime() {
+      return "order_document.lastsynctime";
+    }
+    // 操作
+    static getOrderDocumentOperation() {
+      return "order_document.operation";
+    }
+    static getFeeReconciliationId() {
+      return "fee_reconciliation.id";
+    }
+    // 船公司约号
+    static getFeeReconciliationShippingCompany() {
+      return "fee_reconciliation.shippingcompany";
+    }
+    // 约价性质
+    static getFeeReconciliationPricingNature() {
+      return "fee_reconciliation.pricingnature";
+    }
+    // 实际进港日期
+    static getFeeReconciliationActualPortEntryDate() {
+      return "fee_reconciliation.actualportentrydate";
+    }
+    // 业务模式
+    static getFeeReconciliationBusinessModel() {
+      return "fee_reconciliation.businessmodel";
+    }
+    // 业务编号
+    static getFeeReconciliationBusinessNumber() {
+      return "fee_reconciliation.businessnumber";
+    }
+    // 进仓编号
+    static getFeeReconciliationWarehouseEntryNumber() {
+      return "fee_reconciliation.warehouseentrynumber";
+    }
+    // 订舱编号
+    static getFeeReconciliationBookingNumber() {
+      return "fee_reconciliation.bookingnumber";
+    }
+    // 截单日期
+    static getFeeReconciliationCutoffDate() {
+      return "fee_reconciliation.cutoffdate";
+    }
+    // 项目编号
+    static getFeeReconciliationProjectNumber() {
+      return "fee_reconciliation.projectnumber";
+    }
+    // SONO
+    static getFeeReconciliationSono() {
+      return "fee_reconciliation.sono";
+    }
+    // 箱号
+    static getFeeReconciliationContainerNumber() {
+      return "fee_reconciliation.containernumber";
+    }
+    // 海外客服
+    static getFeeReconciliationOverseasCustomerService() {
+      return "fee_reconciliation.overseascustomerservice";
+    }
+    // 现场操作
+    static getFeeReconciliationSiteOperation() {
+      return "fee_reconciliation.siteoperation";
+    }
+    // 付款申请单号
+    static getFeeReconciliationPaymentApplicationNumber() {
+      return "fee_reconciliation.paymentapplicationnumber";
+    }
+    // 预计到港时间
+    static getFeeReconciliationEta() {
+      return "fee_reconciliation.eta";
+    }
+    // 预计开船时间
+    static getFeeReconciliationEtd() {
+      return "fee_reconciliation.etd";
+    }
+    // 实际开船时间
+    static getFeeReconciliationAtd() {
+      return "fee_reconciliation.atd";
+    }
+    // 实际到港时间
+    static getFeeReconciliationAta() {
+      return "fee_reconciliation.ata";
+    }
+    // 汇率
+    static getFeeReconciliationExchangeRate() {
+      return "fee_reconciliation.exchangerate";
+    }
+    // 账单号
+    static getFeeReconciliationBillNumber() {
+      return "fee_reconciliation.billnumber";
+    }
+    // 结算对象
+    static getFeeReconciliationSettlementObject() {
+      return "fee_reconciliation.settlementobject";
+    }
+    // 揽货类型
+    static getFeeReconciliationCargoType() {
+      return "fee_reconciliation.cargotype";
+    }
+    // 主单号
+    static getFeeReconciliationMasterWaybillNumber() {
+      return "fee_reconciliation.masterwaybillnumber";
+    }
+    // 分单号
+    static getFeeReconciliationHouseWaybillNumber() {
+      return "fee_reconciliation.housewaybillnumber";
+    }
+    // 委托单位
+    static getFeeReconciliationConsignor() {
+      return "fee_reconciliation.consignor";
+    }
+    // 业务类型
+    static getFeeReconciliationBusinessType() {
+      return "fee_reconciliation.businesstype";
+    }
+    // 业务日期
+    static getFeeReconciliationBusinessDate() {
+      return "fee_reconciliation.businessdate";
+    }
+    // 是否FBA
+    static getFeeReconciliationIsFba() {
+      return "fee_reconciliation.isfba";
+    }
+    // 亚马逊仓库编码
+    static getFeeReconciliationAmazonWarehouseCode() {
+      return "fee_reconciliation.amazonwarehousecode";
+    }
+    // 目的地配送方式
+    static getFeeReconciliationDestinationDeliveryMethod() {
+      return "fee_reconciliation.destinationdeliverymethod";
+    }
+    // 快递单号
+    static getFeeReconciliationCourierNumber() {
+      return "fee_reconciliation.couriernumber";
+    }
+    // 是否偏远仓
+    static getFeeReconciliationIsRemoteWarehouse() {
+      return "fee_reconciliation.isremotewarehouse";
+    }
+    // 船名航次
+    static getFeeReconciliationShipNameAndVoyage() {
+      return "fee_reconciliation.shipnameandvoyage";
+    }
+    // 起运港
+    static getFeeReconciliationPortOfLoading() {
+      return "fee_reconciliation.portofloading";
+    }
+    // 目的港
+    static getFeeReconciliationPortOfDestination() {
+      return "fee_reconciliation.portofdestination";
+    }
+    // 订舱代理
+    static getFeeReconciliationBookingAgent() {
+      return "fee_reconciliation.bookingagent";
+    }
+    // 始发站
+    static getFeeReconciliationOriginStation() {
+      return "fee_reconciliation.originstation";
+    }
+    // 目的站
+    static getFeeReconciliationDestinationStation() {
+      return "fee_reconciliation.destinationstation";
+    }
+    // 过境站
+    static getFeeReconciliationTransitStation() {
+      return "fee_reconciliation.transitstation";
+    }
+    // 目的港代理
+    static getFeeReconciliationDestinationAgent() {
+      return "fee_reconciliation.destinationagent";
+    }
+    // 销售
+    static getFeeReconciliationSalesPerson() {
+      return "fee_reconciliation.salesperson";
+    }
+    // 操作
+    static getFeeReconciliationOperationPerson() {
+      return "fee_reconciliation.operationperson";
+    }
+    // 客服
+    static getFeeReconciliationCustomerServicePerson() {
+      return "fee_reconciliation.customerserviceperson";
+    }
+    // 单证
+    static getFeeReconciliationDocumentPerson() {
+      return "fee_reconciliation.documentperson";
+    }
+    // 业务参考号
+    static getFeeReconciliationBusinessReferenceNumber() {
+      return "fee_reconciliation.businessreferencenumber";
+    }
+    // 已计提
+    static getFeeReconciliationAccrualAmount() {
+      return "fee_reconciliation.accrualamount";
+    }
+    // 财务日期
+    static getFeeReconciliationFinancialDate() {
+      return "fee_reconciliation.financialdate";
+    }
+    // 国内/国外
+    static getFeeReconciliationDomesticOrForeign() {
+      return "fee_reconciliation.domesticorforeign";
+    }
+    // 收支类型
+    static getFeeReconciliationRevenueOrExpenditureType() {
+      return "fee_reconciliation.revenueorexpendituretype";
+    }
+    // 费用状态
+    static getFeeReconciliationFeeStatus() {
+      return "fee_reconciliation.feestatus";
+    }
+    // 审核人
+    static getFeeReconciliationAuditor() {
+      return "fee_reconciliation.auditor";
+    }
+    // 确认状态
+    static getFeeReconciliationConfirmationStatus() {
+      return "fee_reconciliation.confirmationstatus";
+    }
+    // 费用名称
+    static getFeeReconciliationFeeName() {
+      return "fee_reconciliation.feename";
+    }
+    // 单位
+    static getFeeReconciliationUnit() {
+      return "fee_reconciliation.unit";
+    }
+    // 币种
+    static getFeeReconciliationCurrency() {
+      return "fee_reconciliation.currency";
+    }
+    // 数量
+    static getFeeReconciliationQuantity() {
+      return "fee_reconciliation.quantity";
+    }
+    // 单价
+    static getFeeReconciliationUnitPrice() {
+      return "fee_reconciliation.unitprice";
+    }
+    // 含税价
+    static getFeeReconciliationTaxInclusivePrice() {
+      return "fee_reconciliation.taxinclusiveprice";
+    }
+    // 不含税价
+    static getFeeReconciliationTaxExclusivePrice() {
+      return "fee_reconciliation.taxexclusiveprice";
+    }
+    // 税额
+    static getFeeReconciliationTaxAmount() {
+      return "fee_reconciliation.taxamount";
+    }
+    // 税率
+    static getFeeReconciliationTaxRate() {
+      return "fee_reconciliation.taxrate";
+    }
+    // 核销金额
+    static getFeeReconciliationWriteOffAmount() {
+      return "fee_reconciliation.writeoffamount";
+    }
+    // 未销金额
+    static getFeeReconciliationUnwrittenAmount() {
+      return "fee_reconciliation.unwrittenamount";
+    }
+    // 联系人
+    static getFeeReconciliationContactPerson() {
+      return "fee_reconciliation.contactperson";
+    }
+    // 创建人
+    static getFeeReconciliationCreator() {
+      return "fee_reconciliation.creator";
+    }
+    // 备注
+    static getFeeReconciliationRemark() {
+      return "fee_reconciliation.remark";
+    }
+    // 往来关联号
+    static getFeeReconciliationRelatedNumber() {
+      return "fee_reconciliation.relatednumber";
+    }
+    // 委托关联号
+    static getFeeReconciliationConsignmentRelatedNumber() {
+      return "fee_reconciliation.consignmentrelatednumber";
+    }
+    // 承运人
+    static getFeeReconciliationCarrier() {
+      return "fee_reconciliation.carrier";
+    }
+    // 确认日期
+    static getFeeReconciliationConfirmationDate() {
+      return "fee_reconciliation.confirmationdate";
+    }
+    // 费用确认人
+    static getFeeReconciliationFeeConfirmationPerson() {
+      return "fee_reconciliation.feeconfirmationperson";
+    }
+    // 航线负责人
+    static getFeeReconciliationRouteManager() {
+      return "fee_reconciliation.routemanager";
+    }
+    // 开票日期
+    static getFeeReconciliationInvoiceDate() {
+      return "fee_reconciliation.invoicedate";
+    }
+    // 发票号码
+    static getFeeReconciliationInvoiceNumber() {
+      return "fee_reconciliation.invoicenumber";
+    }
+    // 开票抬头
+    static getFeeReconciliationInvoiceTitle() {
+      return "fee_reconciliation.invoicetitle";
+    }
+    // 是否需要开票
+    static getFeeReconciliationIsInvoiceRequired() {
+      return "fee_reconciliation.isinvoicerequired";
+    }
+    // 销账日期
+    static getFeeReconciliationWriteOffDate() {
+      return "fee_reconciliation.writeoffdate";
+    }
+    // 业务状态
+    static getFeeReconciliationBusinessStatus() {
+      return "fee_reconciliation.businessstatus";
+    }
+    // 驳船开航日期
+    static getFeeReconciliationBargeSailingDate() {
+      return "fee_reconciliation.bargesailingdate";
+    }
+    // 驳船船名
+    static getFeeReconciliationBargeName() {
+      return "fee_reconciliation.bargename";
+    }
+    // 驳船航次
+    static getFeeReconciliationBargeVoyage() {
+      return "fee_reconciliation.bargevoyage";
+    }
+    // 驳船起运港(POL)
+    static getFeeReconciliationBargePortOfLoading() {
+      return "fee_reconciliation.bargeportofloading";
+    }
+    // 收付日期
+    static getFeeReconciliationPaymentDate() {
+      return "fee_reconciliation.paymentdate";
+    }
+    // 销售部门
+    static getFeeReconciliationSalesDepartment() {
+      return "fee_reconciliation.salesdepartment";
+    }
+    // 送货时间
+    static getFeeReconciliationDeliveryTime() {
+      return "fee_reconciliation.deliverytime";
+    }
+    // 确认备注
+    static getFeeReconciliationConfirmationRemark() {
+      return "fee_reconciliation.confirmationremark";
+    }
+    // 费用核销状态
+    static getFeeReconciliationFeeWriteOffStatus() {
+      return "fee_reconciliation.feewriteoffstatus";
+    }
+    // 操作日期
+    static getFeeReconciliationOperationDate() {
+      return "fee_reconciliation.operationdate";
+    }
+    // 预计装箱日期
+    static getFeeReconciliationEstimatedLoadingDate() {
+      return "fee_reconciliation.estimatedloadingdate";
+    }
+    // 实际还空时间
+    static getFeeReconciliationActualReturnEmptyTime() {
+      return "fee_reconciliation.actualreturnemptytime";
+    }
+    // 箱量描述
+    static getFeeReconciliationContainerQuantityDescription() {
+      return "fee_reconciliation.containerquantitydescription";
+    }
+    // 费用创建日期
+    static getFeeReconciliationFeeCreationDate() {
+      return "fee_reconciliation.feecreationdate";
+    }
+    // 客户级别
+    static getFeeReconciliationCustomerLevel() {
+      return "fee_reconciliation.customerlevel";
+    }
+    // 送货完成时间
+    static getFeeReconciliationDeliveryCompletionTime() {
+      return "fee_reconciliation.deliverycompletiontime";
+    }
+    // 费用变更人
+    static getFeeReconciliationFeeChanger() {
+      return "fee_reconciliation.feechanger";
+    }
+    // 结算代理
+    static getFeeReconciliationSettlementAgent() {
+      return "fee_reconciliation.settlementagent";
+    }
+    // 是否调整费用
+    static getFeeReconciliationIsFeeAdjusted() {
+      return "fee_reconciliation.isfeeadjusted";
+    }
+    // 航线
+    static getFeeReconciliationRoute() {
+      return "fee_reconciliation.route";
+    }
+    // 费用修改时间
+    static getFeeReconciliationFeeModificationTime() {
+      return "fee_reconciliation.feemodificationtime";
+    }
+    // 费用修改人
+    static getFeeReconciliationFeeModifier() {
+      return "fee_reconciliation.feemodifier";
+    }
+    // 账单日期
+    static getFeeReconciliationBillDate() {
+      return "fee_reconciliation.billdate";
+    }
+    // 账单到期日
+    static getFeeReconciliationInvoiceDueDate() {
+      return "fee_reconciliation.invoiceduedate";
+    }
+    // 对方账单号
+    static getFeeReconciliationCounterpartyInvoiceNumber() {
+      return "fee_reconciliation.counterpartyinvoicenumber";
+    }
+    // 应收核销状态
+    static getFeeReconciliationReceivableWriteOffStatus() {
+      return "fee_reconciliation.receivablewriteoffstatus";
+    }
+    // 指定货代理
+    static getFeeReconciliationDesignatedForwarder() {
+      return "fee_reconciliation.designatedforwarder";
+    }
+    // 实际装箱日期
+    static getFeeReconciliationActualLoadingDate() {
+      return "fee_reconciliation.actualloadingdate";
+    }
+    // 对方对账单号
+    static getFeeReconciliationCounterpartyCounterNumber() {
+      return "fee_reconciliation.counterpartycounternumber";
+    }
+    // 费用到期日
+    static getFeeReconciliationFeeDueDate() {
+      return "fee_reconciliation.feeduedate";
+    }
+    // 关联费用ID
+    static getFeeReconciliationRelatedFeeId() {
+      return "fee_reconciliation.relatedfeeid";
+    }
+    // 费用ID
+    static getFeeReconciliationFeeId() {
+      return "fee_reconciliation.feeid";
+    }
+    // 数据来源
+    static getFeeReconciliationDataSource() {
+      return "fee_reconciliation.datasource";
+    }
+    // 费用箱号
+    static getFeeReconciliationFeeContainerNumber() {
+      return "fee_reconciliation.feecontainernumber";
+    }
+    // 收/发货地
+    static getFeeReconciliationPickupDeliveryLocation() {
+      return "fee_reconciliation.pickupdeliverylocation";
+    }
+    // 拖车实际提货时间
+    static getFeeReconciliationActualPickupTime() {
+      return "fee_reconciliation.actualpickuptime";
+    }
+    // 销账银行
+    static getFeeReconciliationWriteOffBank() {
+      return "fee_reconciliation.writeoffbank";
+    }
+    // 母公司
+    static getFeeReconciliationParentCompany() {
+      return "fee_reconciliation.parentcompany";
+    }
+    // 结算部门
+    static getFeeReconciliationSettlementDepartment() {
+      return "fee_reconciliation.settlementdepartment";
+    }
+    // 揽货销售
+    static getFeeReconciliationCargoSales() {
+      return "fee_reconciliation.cargosales";
+    }
+    // 销售分公司
+    static getFeeReconciliationSalesBranch() {
+      return "fee_reconciliation.salesbranch";
+    }
+    // 操作分公司
+    static getFeeReconciliationOperationBranch() {
+      return "fee_reconciliation.operationbranch";
+    }
+    // 费用同步状态
+    static getFeeReconciliationFeeSyncStatus() {
+      return "fee_reconciliation.feesyncstatus";
+    }
+    // 换单代理
+    static getFeeReconciliationExchangeAgent() {
+      return "fee_reconciliation.exchangeagent";
+    }
+    // 对账金额
+    static getFeeReconciliationReconciliationAmount() {
+      return "fee_reconciliation.reconciliationamount";
+    }
+    // 差额
+    static getFeeReconciliationDifference() {
+      return "fee_reconciliation.difference";
+    }
+    // 是否确认
+    static getFeeReconciliationIsConfirmed() {
+      return "fee_reconciliation.isconfirmed";
+    }
+    // 结算对象账期
+    static getFeeReconciliationSettlementObjectTerm() {
+      return "fee_reconciliation.settlementobjectterm";
+    }
+    // 结算方式
+    static getFeeReconciliationSettlementMethod() {
+      return "fee_reconciliation.settlementmethod";
+    }
+    // 审核日期
+    static getFeeReconciliationAuditDate() {
+      return "fee_reconciliation.auditdate";
+    }
+    // GP说明
+    static getFeeReconciliationGpDescription() {
+      return "fee_reconciliation.GPdescription";
+    }
+    // 计费重量(实)
+    static getFeeReconciliationChargeableWeightActual() {
+      return "fee_reconciliation.chargeableweightactual";
+    }
+    // 计费重量(委)
+    static getFeeReconciliationChargeableWeightCommission() {
+      return "fee_reconciliation.chargeableweightcommission";
+    }
+    // 件数(实)
+    static getFeeReconciliationNumberOfPiecesActual() {
+      return "fee_reconciliation.numberofpiecesactual";
+    }
+    // 件数(委)
+    static getFeeReconciliationNumberOfPiecesCommission() {
+      return "fee_reconciliation.numberofpiecescommission";
+    }
+    // 体积(实)
+    static getFeeReconciliationVolumeActual() {
+      return "fee_reconciliation.volumeactual";
+    }
+    // 体积(委)
+    static getFeeReconciliationVolumeCommission() {
+      return "fee_reconciliation.volumecommission";
+    }
+    // 毛重(委)
+    static getFeeReconciliationGrossWeightCommission() {
+      return "fee_reconciliation.grossweightcommission";
+    }
+    // 毛重(实)
+    static getFeeReconciliationGrossWeightActual() {
+      return "fee_reconciliation.grossweightactual";
+    }
   }
   
   export default LocaleHelper;

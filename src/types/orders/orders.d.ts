@@ -2,6 +2,8 @@
 export interface OrdersItemProps {
     // 业务编号
     BusinessId:string;
+    // 服务类型
+    ServiceType:string;
     // 主单号
     MainOrderNumber:string;
     // 承运人名称

@@ -75,6 +75,7 @@ export const getColumns = (handleEdit: (record: <%= PascalCase(this.SourceTable.
     {
         title: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: '<%= PascalCase(columnSchema.Name) %>',
         sorter: true,
         align: 'right',
@@ -84,6 +85,7 @@ export const getColumns = (handleEdit: (record: <%= PascalCase(this.SourceTable.
     {
         title: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: '<%= PascalCase(columnSchema.Name) %>',
         sorter: true,
         align: 'center',
@@ -93,6 +95,7 @@ export const getColumns = (handleEdit: (record: <%= PascalCase(this.SourceTable.
     {
         title: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
         width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: '<%= PascalCase(columnSchema.Name) %>',
         sorter: true,
         align: 'left',

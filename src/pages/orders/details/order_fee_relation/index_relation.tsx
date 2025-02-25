@@ -13,10 +13,9 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems,statusCheckItems, importItems, exportItems } from './menu_items';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const OrderFeeCAP : React.FC = () => {
+const OrderFeeRelation : React.FC = () => {
 
     // order_fee数据
     const [orderFeeList, setOrderFeeList] = useState([] as OrderFeeItemProps[]);
@@ -29,7 +28,7 @@ const OrderFeeCAP : React.FC = () => {
             const orderFeeData = res?.data as OrderFeeItemProps[];
             // 设置order_fee台账数据
             // 填充5个空白行
-            setOrderFeeList([...orderFeeData.splice(0,1),...Array(Math.max(0, 5)).fill({})]);
+            setOrderFeeList([...Array(Math.max(0, 5)).fill({})]);
         };
         getData();
     }, []);
@@ -93,9 +92,7 @@ const OrderFeeCAP : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button  type="primary" danger>垫付生成代收</Button>
                                 <Button type="primary" danger>新增</Button>
-                                <Button type="primary" danger>同时新增</Button>
                                 <Button>修改</Button>
                                 <Button>删除</Button>
                             </div>
@@ -117,52 +114,13 @@ const OrderFeeCAP : React.FC = () => {
                     rowKey={(record) => `${record.FeeId}`}
                     showSorterTooltip={false}
                     dataSource={orderFeeList}
-                    pagination={false}
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
-                    title={() => (
-                        <div style={{marginLeft: '10px'}}>
-                            <span className="modal-body-left-commons-title-text">
-                                垫付 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00
-                            </span>
-                        </div>
-                    )}
-                    bordered={true}
-                />
-            </div>
-
-            <div className='nc-bill-table-area'>
-                <Table<OrderFeeItemProps>
-                    columns={columnsType}
-                    rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.FeeId}`}
-                    showSorterTooltip={false}
-                    dataSource={orderFeeList}
                     loading={orderFeeList.length === 0}
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
-                    title={() => (
-                        <div style={{marginLeft: '10px'}}>
-                            <span className="modal-body-left-commons-title-text">
-                            代收 USD:3,000.00 RMB:24,540.00 折合RMB:45,840.00
-                            </span>
-                        </div>
-                    )}
                     bordered={true}
                 />
             </div>
-
-            <div className='nc-bill-header-area'>
-                <div style={{display:'flex',alignItems:'center',paddingLeft:'15px'}}>
-                    <Space size={10}>
-                        <span className="modal-body-left-commons-title-text">
-                            差额 USD:1,000.00 RMB:24,540.00 折合RMB:31,640.00
-                        </span>
-                    </Space> 
-                </div>
-            </div>
         </div>
-        
-        
     )
 }
-export default OrderFeeCAP;
+export default OrderFeeRelation;

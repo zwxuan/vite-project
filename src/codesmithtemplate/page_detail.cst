@@ -1,0 +1,115 @@
+﻿<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="CodeSmith.BaseTemplates" %>
+<%@ Import Namespace="CodeSmith.BaseTemplates" %>
+<%@ Assembly Name="CodeSmith.CustomProperties" %>
+<%@ Import Namespace="CodeSmith.CustomProperties" %>
+<%@ Assembly Name="mysql.data" %>
+<%@ Import Namespace="MySql.Data.MySqlClient" %>
+<%@ Assembly src="DbHelper.cs" %>
+<%@ Import Namespace="Common" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
+
+<script runat="template">
+private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
+private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
+
+public string CleanName(string name)
+{
+	return cleanRegEx.Replace(name, "");
+}
+
+public string CamelCase(string name)
+{
+	string property = name;
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	int i = 1;
+	foreach(string colName in arrCols)
+	{
+		if(i==1)
+		{
+			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
+		}
+		else
+		{
+			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+		}
+		i++;
+	}
+	return strName;	
+}
+public string PascalCase(string name)
+{	
+	string property = name.Replace("_INFO","");
+	string[] arrCols = property.Split('_');
+	string strName = "";
+	foreach(string colName in arrCols)
+	{
+		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
+	}
+	return strName;	
+}
+</script>
+
+import React from 'react';
+import { Descriptions,Collapse } from 'antd';
+import type { DescriptionsProps} from 'antd';
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
+<% 
+    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
+    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
+    string[] typeNamesString = new string[]{"string"};
+    string[] typeNamesDate = new string[]{"DateTime"};
+%>
+const Detail: React.FC = () => {
+    const borderedItems: DescriptionsProps['items'] = [
+    
+    <% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
+    <% if(typeNamesDecimal.Contains(DbHelpter.GetPropertyType(columnSchema)) || typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema)) ) {%>
+    {
+        key: '<%= PascalCase(columnSchema.Name) %>',
+        label: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
+        labelStyle: { width: '120px', textAlign: 'right' },
+        contentStyle: {textAlign: 'right' },
+        children: '',
+        span: 2,
+    },
+    <% } %>
+    <% else { %>
+    {
+        key: '<%= PascalCase(columnSchema.Name) %>',
+        label: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
+        labelStyle: { width: '120px', textAlign: 'right' },
+        contentStyle: {textAlign: 'left' },
+        children: '',
+        span: 2,
+    },
+    <%} %>
+<% } %>
+      ];
+    //获取路由参数
+    return (
+        <div style={{overflowY: 'auto', height: 'calc(100vh - 80px)'}}>
+            <Collapse
+                collapsible="header"
+                defaultActiveKey={['1']}
+                ghost
+                items={[
+                    {
+                    key: '1',
+                    label: '基本信息',
+                    children: <Descriptions column={12} size='small' bordered items={borderedItems} />,
+                    },
+                ]}
+            />
+        </div>
+
+    );
+};
+
+export default Detail;

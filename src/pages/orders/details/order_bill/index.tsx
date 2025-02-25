@@ -5,8 +5,8 @@ import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrderBillItemProps } from "@/types/order_bill/order_bill";
 import {OrderFeeItemProps} from "@/types/order_fee/order_fee";
-import { getOrderBillList } from "@/api/financial_basic_data/order_bill_service";
-import { getOrderFeeList } from "@/api/financial_basic_data/order_fee_service";
+import { getOrderBillList } from "@/api/business_order/order_bill_service";
+import { getOrderFeeList } from "@/api/business_order/order_fee_service";
 import { requestWithProgress } from "@/api/request";
 import {DownOutlined,RedoOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -179,6 +179,7 @@ const OrderBill : React.FC = () => {
                     expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}
                     dataSource={orderBillList}
+                    loading={orderBillList.length === 0}
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
                     footer={() => '底部汇总信息'}

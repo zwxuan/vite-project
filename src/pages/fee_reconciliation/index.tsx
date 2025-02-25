@@ -1,67 +1,11 @@
-<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
-
-<%@ Assembly Name="SchemaExplorer" %>
-<%@ Import Namespace="SchemaExplorer" %>
-<%@ Assembly Name="CodeSmith.BaseTemplates" %>
-<%@ Import Namespace="CodeSmith.BaseTemplates" %>
-<%@ Assembly Name="CodeSmith.CustomProperties" %>
-<%@ Import Namespace="CodeSmith.CustomProperties" %>
-<%@ Assembly Name="mysql.data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
-<%@ Assembly src="DbHelper.cs" %>
-<%@ Import Namespace="Common" %>
-<%@ Import Namespace="System.Text.RegularExpressions" %>
-<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
-
-<script runat="template">
-private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
-private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
-
-public string CleanName(string name)
-{
-	return cleanRegEx.Replace(name, "");
-}
-
-public string CamelCase(string name)
-{
-	string property = name;
-	string[] arrCols = property.Split('_');
-	string strName = "";
-	int i = 1;
-	foreach(string colName in arrCols)
-	{
-		if(i==1)
-		{
-			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
-		}
-		else
-		{
-			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
-		}
-		i++;
-	}
-	return strName;	
-}
-public string PascalCase(string name)
-{	
-	string property = name.Replace("_INFO","");
-	string[] arrCols = property.Split('_');
-	string strName = "";
-	foreach(string colName in arrCols)
-	{
-		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
-	}
-	return strName;	
-}
-</script>
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Progress,notification,Drawer } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
-import { get<%= PascalCase(this.SourceTable.Name) %>List,save<%= PascalCase(this.SourceTable.Name) %> } from "@/api/financial_basic_data/<%= this.SourceTable.Name.ToLower() %>_service";
+import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
+import { getFeeReconciliationList,saveFeeReconciliation } from "@/api/fee_manage/fee_reconciliation_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -72,39 +16,44 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems, importItems, exportItems } from './menu_items';
+import { statusItems, importItems, exportItems,statusCheckItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
+const FeeReconciliation : React.FC = () => {
 
-    // <%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
-    const [<%= CamelCase(this.SourceTable.Name) %>List, set<%= PascalCase(this.SourceTable.Name) %>List] = useState([] as <%= PascalCase(this.SourceTable.Name) %>ItemProps[]);
+    // 费用对账数据
+    const [feeReconciliationList, setFeeReconciliationList] = useState([] as FeeReconciliationItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const navigate = useNavigate();
-    // 获取<%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
+    // 获取费用对账数据
     useEffect(() => {
         const getData = async () => {
-            const res = await get<%= PascalCase(this.SourceTable.Name) %>List();
-            const <%= CamelCase(this.SourceTable.Name) %>Data = res?.data as <%= PascalCase(this.SourceTable.Name) %>ItemProps[];
-            // 设置<%= DbHelpter.GetClassDescription(this.SourceTable) %>台账数据
-            set<%= PascalCase(this.SourceTable.Name) %>List([...<%= CamelCase(this.SourceTable.Name) %>Data]);
+            const res = await getFeeReconciliationList();
+            const feeReconciliationData = res?.data as FeeReconciliationItemProps[];
+            // 设置费用对账台账数据
+            setFeeReconciliationList([...feeReconciliationData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:<%= PascalCase(this.SourceTable.Name) %>ItemProps) => {
+    const handleDelete = (record:FeeReconciliationItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:<%= PascalCase(this.SourceTable.Name) %>ItemProps) => {
-        const newData = <%= CamelCase(this.SourceTable.Name) %>List.filter((item) => <% int j=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(j==1) {%>`${item.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${item.<%= PascalCase(columnSchema.Name) %>}<% } %><% j++; %><% } %><% } %>` === <% int p=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(p==1) {%>`${record.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${record.<%= PascalCase(columnSchema.Name) %>}<% } %><% p++; %><% } %><% } %>`);
-        setFormData(newData[0]);
-        setModalFlag('edit');
-        showModal();
+    const handleEdit = (record:FeeReconciliationItemProps) => {
+        
     };
-    
-    const columnsType = getColumns(handleEdit, handleDelete);
+    const [openDetail, setOpenDetail] = useState(false);
+
+    const showDrawer = (record:FeeReconciliationItemProps) => {
+        setOpenDetail(true);
+    };
+  
+    const onClose = () => {
+        setOpenDetail(false);
+    };
+    const columnsType = getColumns(handleEdit, handleDelete,showDrawer);
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -143,8 +92,8 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as <%= PascalCase(this.SourceTable.Name) %>ItemProps;
-    const [formData, setFormData] = useState<<%= PascalCase(this.SourceTable.Name) %>ItemProps>(initFormData);
+    const initFormData = {} as FeeReconciliationItemProps;
+    const [formData, setFormData] = useState<FeeReconciliationItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -174,7 +123,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         });
 
         try {
-            const response = await save<%= PascalCase(this.SourceTable.Name) %>(formData, (progress) => {
+            const response = await saveFeeReconciliation(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -220,7 +169,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<<%= PascalCase(this.SourceTable.Name) %>ItemProps> = {
+    const rowSelection: TableRowSelection<FeeReconciliationItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -240,9 +189,14 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-
+    
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
+            <Drawer title="Basic Drawer" onClose={onClose} open={openDetail}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Drawer>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}
@@ -255,15 +209,15 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='<%= this.SourceTable.Name.ToLower() %>' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='<%= this.SourceTable.Name.ToLower() %>' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='<%= this.SourceTable.Name.ToLower() %>' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='fee_reconciliation' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='fee_reconciliation' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='fee_reconciliation' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> <%= DbHelpter.GetClassDescription(this.SourceTable) %>
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 费用对账
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -279,28 +233,23 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button>修改</Button>
-                                <Button>删除</Button>
-                                <Button>复制</Button>
+                                <Button type="primary" danger onClick={handleAdd}>创建账单</Button>
+                                <Button type="primary" danger onClick={handleAdd}>开票收票</Button>
+                                <Button type="primary" danger onClick={handleAdd}>核销</Button>
+                                <Button type="primary" danger onClick={handleAdd}>付款申请</Button>
+                                
+                                <Button>审核</Button>
+                                <Button>取消审核</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusItems}}>
+                            <Dropdown menu={{items:statusCheckItems}}>
                                 <Button>
                                     <Space>
-                                        启用
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
-                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
-                                <Button>
-                                    <Space>
-                                        导入
+                                        对账
                                     <DownOutlined />
                                     </Space>
                                 </Button>   
@@ -320,15 +269,15 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                     </div>
                 </div>
             </div>
-            <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
+            <AdvancedSearchForm fields={fields} onSearch={handleSearch} span={4} />
             <div className='nc-bill-table-area'>
-                <Table<<%= PascalCase(this.SourceTable.Name) %>ItemProps>
+                <Table<FeeReconciliationItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => <% int o=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(o==1) {%>`${record.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${record.<%= PascalCase(columnSchema.Name) %>}<% } %><% o++; %><% } %><% } %>`}
+                    rowKey={(record) => `${record.FeeId,record.BusinessNumber}`}
                     showSorterTooltip={false}
-                    dataSource={<%= CamelCase(this.SourceTable.Name) %>List}
-                    loading={<%= CamelCase(this.SourceTable.Name) %>List.length === 0}
+                    dataSource={feeReconciliationList}
+                    loading={feeReconciliationList.length === 0}
                     pagination={
                         {
                             size:'small',
@@ -343,7 +292,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                         }
                     }
                     scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
-                    footer={() => '底部汇总信息'}
+                    footer={() => 'RMB:1,022.00 USD:3,000.00 对账金额 RMB:1,600.00 USD:8,000.00 差额 RMB:-578.00 USD:-5,000.00'}
                     bordered={true}
                 />
             </div>
@@ -352,4 +301,4 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         
     )
 }
-export default <%= PascalCase(this.SourceTable.Name) %>;
+export default FeeReconciliation;

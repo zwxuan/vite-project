@@ -5,7 +5,7 @@ import { Table,Button,Dropdown, Space,Progress,notification, Checkbox } from 'an
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrderFeeItemProps } from "@/types/order_fee/order_fee";
-import { getOrderFeeList,saveOrderFee } from "@/api/financial_basic_data/order_fee_service";
+import { getOrderFeeList,saveOrderFee } from "@/api/business_order/order_fee_service";
 import {DownOutlined,HourglassOutlined,RedoOutlined} from '@ant-design/icons';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
@@ -285,6 +285,7 @@ const OrderFee : React.FC = () => {
                     rowKey={(record) => `${record.FeeId}`}
                     showSorterTooltip={false}
                     dataSource={orderFeeList}
+                    loading={orderFeeList.length === 0}
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
                     title={() => (

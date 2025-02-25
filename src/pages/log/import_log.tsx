@@ -119,6 +119,7 @@ const ImportLog : React.FC = () => {
                     rowKey={(record) => record.BatchNo}
                     showSorterTooltip={false}
                     dataSource={exportLogList}
+                    loading={exportLogList.length === 0}
                     pagination={
                         {
                             size:'small',

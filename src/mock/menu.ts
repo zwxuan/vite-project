@@ -442,7 +442,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "对账", key: "settlement",
+            name: "对账", key: "settlement", path: "/fee_reconciliation",
         },
         {
             name: "账单", key: "bill",

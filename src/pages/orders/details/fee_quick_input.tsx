@@ -5,7 +5,7 @@ import Handsontable from "handsontable";
 import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
-import { getOrderFeeList,getFeeNameList } from "@/api/financial_basic_data/order_fee_service";
+import { getOrderFeeList,getFeeNameList } from "@/api/business_order/order_fee_service";
 import { OrderFeeItemProps,FeeNameItemProps } from "@/types/order_fee/order_fee";
 const FeeQuickInput: React.FC = () => {
     const hotTableRef = useRef<any>(null);
@@ -43,7 +43,7 @@ const FeeQuickInput: React.FC = () => {
         if (cellMeta.isNew) {
             TD.style.color = '#007ace'; // 新增的前景色
         }
-        if (cellProperties.type === 'autocomplete') {
+        if (cellProperties.type === 'dropdown') {
             // 手动添加自动完成箭头元素
             const arrowDiv = document.createElement('div');
             arrowDiv.className = 'htAutocompleteArrow';
@@ -171,7 +171,7 @@ const FeeQuickInput: React.FC = () => {
                         data="FeeName"
                         title="费用名称"
                         className="htLeft ellipsis-cell"
-                        type="autocomplete"
+                        type="dropdown"
                         strict={true}
                         language="zh-cn"
                         width={120}
@@ -192,12 +192,14 @@ const FeeQuickInput: React.FC = () => {
                             }, 200); // 延迟 2 秒
                         }}
                     />
-                    <HotColumn data="CreditDebit" title='收|支' type='autocomplete' width={80} source={['[1]收','[2]付']} className="htLeft" renderer={customerRenderer}  />
-                    <HotColumn data="DomesticForeign" title='国内|国外' type='autocomplete' source={['[1]国内','[2]国外']} className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="CreditDebit" title='收|支' type='dropdown' width={80} source={['[1]收','[2]付']} className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="DomesticForeign" title='国内|国外' type='dropdown' source={['[1]国内','[2]国外']} className="htLeft" renderer={customerRenderer}  />
                     <HotColumn data="SettlementObject" title='结算对象' className="htLeft" width={160} renderer={customerRenderer}  />
                     <HotColumn data="SettlementType" title='结算类型' className="htLeft" renderer={customerRenderer}  />
                     <HotColumn data="InvoiceTitle" title='开票抬头' className="htLeft" renderer={customerRenderer}  />
                     <HotColumn data="SettlementCompany" title='开票主体'  width={160}  className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="ServiceType" type="dropdown" title='服务类型'  source={['[1]海运服务','[2]空运服务','[3]报关服务','[4]仓储服务','[5]陆运服务','[6]铁运服务']}  width={120}  className="htLeft" renderer={customerRenderer}  />
+                    <HotColumn data="ServiceNumber" title='服务编号'  width={120}  className="htLeft" renderer={customerRenderer}  />
                     <HotColumn data="Currency" title='币制' className="htLeft" renderer={customerRenderer}  />
                     <HotColumn 
                         data="ExchangeRate" 
