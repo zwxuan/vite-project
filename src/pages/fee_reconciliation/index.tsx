@@ -233,10 +233,10 @@ const FeeReconciliation : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>创建账单</Button>
-                                <Button type="primary" danger onClick={handleAdd}>开票收票</Button>
-                                <Button type="primary" danger onClick={handleAdd}>核销</Button>
-                                <Button type="primary" danger onClick={handleAdd}>付款申请</Button>
+                                <Button type="primary" danger>创建账单</Button>
+                                <Button type="primary" danger>开票收票</Button>
+                                <Button type="primary" danger>核销</Button>
+                                <Button type="primary" danger>付款申请</Button>
                                 
                                 <Button>审核</Button>
                                 <Button>取消审核</Button>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Form, Input, Row, Select, DatePicker, Modal, Button, Space } from 'antd';
-import {Item} from './draggable';
+import { Item } from './draggable';
 import TranferRight from './tranfer_right';
 import zhCN from 'antd/es/date-picker/locale/zh_CN';
 import type { TransferProps } from 'antd';
@@ -25,7 +25,7 @@ export type AdvancedSearchFormProps = {
 
 
 
-const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 3, onSearch }) => {
+const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 4, onSearch }) => {
 
     const [form] = Form.useForm();
     const [expand, setExpand] = useState(false);
@@ -52,70 +52,82 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         <Form.Item
                             name={config.key}
                             label={config.label}
-                            labelCol={{ span: 24 }}
+                            labelCol={{ span: 7 }}
                         >
-                            <Space style={{width: '100%'}}>
-                            <Select labelInValue style={{ textAlign: 'left', width: '140'}}
-                                defaultValue = '等于'
-                                options={[
-                                    { label: '包含', value: 'like' },
-                                    { label: '在列表中', value: 'in' },
-                                    { label: '不在列表', value: 'not_in' },
-                                    { label: '等于', value: 'equal' },
-                                    { label: '大于', value: 'than' },
-                                    { label: '小于', value: 'less' },
-                                ]} >
-                            </Select>
-                            <Input name={config.key} placeholder={config.label} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
-                            </Space>
+                            <div style={{ width: '100%', display: 'flex' }}>
+                                <div style={{ width: '30%' }}>
+                                    <Select labelInValue style={{ textAlign: 'left' }}
+                                        defaultValue='等于'
+                                        options={[
+                                            { label: '包含', value: 'like' },
+                                            { label: '在列表中', value: 'in' },
+                                            { label: '不在列表', value: 'not_in' },
+                                            { label: '等于', value: 'equal' },
+                                            { label: '大于', value: 'than' },
+                                            { label: '小于', value: 'less' },
+                                        ]} >
+                                    </Select>
+                                </div>
+                                <div style={{ width: '70%' }}>
+                                    <Input name={config.key} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
+                                </div>
+
+
+                            </div>
                         </Form.Item>
                     ) : config.type === 'select' ? (
                         <Form.Item
                             name={config.key}
                             label={config.label}
-                            labelCol={{ span: 24 }}
+                            labelCol={{ span: 7 }}
                         >
-                            <Space style={{width: '100%'}}>
-                            <Select labelInValue style={{ textAlign: 'left', width: '140'}}
-                                defaultValue = '等于'
-                                options={[
-                                    { label: '包含', value: 'like' },
-                                    { label: '在列表中', value: 'in' },
-                                    { label: '不在列表', value: 'not_in' },
-                                    { label: '等于', value: 'equal' },
-                                    { label: '大于', value: 'than' },
-                                    { label: '小于', value: 'less' },
-                                ]} >
-                            </Select>
-                            <Select labelInValue style={{ textAlign: 'left' }} placeholder={config.label} prefix={config.prefix} onChange={(value) => { handleSelectChange(config.key, value) }}  >
-                                {config.selectOptions?.map((option, index) => (
-                                    <Option key={index} value={option.value}>
-                                        {option.label}
-                                    </Option>
-                                ))}
-                            </Select>
-                            </Space>
+
+                            <div style={{ width: '100%', display: 'flex' }}>
+                                <div style={{ width: '30%' }}>
+                                    <Select labelInValue style={{ textAlign: 'left', width: '140' }}
+                                        defaultValue='等于'
+                                        options={[
+                                            { label: '等于', value: 'equal' },
+                                        ]} >
+                                    </Select>
+                                </div>
+                                <div style={{ width: '70%' }}>
+                                    <Select labelInValue style={{ textAlign: 'left' }} prefix={config.prefix} onChange={(value) => { handleSelectChange(config.key, value) }}  >
+                                        {config.selectOptions?.map((option, index) => (
+                                            <Option key={index} value={option.value}>
+                                                {option.label}
+                                            </Option>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </div>
+
+
+
+
                         </Form.Item>
                     ) : config.type === 'date' ? (
                         <Form.Item
                             name={config.key}
                             label={config.label}
-                            labelCol={{ span: 24 }}
+                            labelCol={{ span: 7 }}
                         >
-                            <Space style={{width: '100%'}}>
-                            <Select labelInValue style={{ textAlign: 'left', width: '140'}}
-                                defaultValue = '等于'
-                                options={[
-                                    { label: '包含', value: 'like' },
-                                    { label: '在列表中', value: 'in' },
-                                    { label: '不在列表', value: 'not_in' },
-                                    { label: '等于', value: 'equal' },
-                                    { label: '大于', value: 'than' },
-                                    { label: '小于', value: 'less' },
-                                ]} >
-                            </Select>
-                            <DatePicker style={{ display: 'block' }} placeholder={config.label} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
-                            </Space>
+                            <div style={{ width: '100%', display: 'flex' }}>
+                                <div style={{ width: '30%' }}>
+                                    <Select labelInValue style={{ textAlign: 'left', width: '140' }}
+                                        defaultValue='等于'
+                                        options={[
+                                            { label: '等于', value: 'equal' },
+                                            { label: '大于', value: 'than' },
+                                            { label: '小于', value: 'less' },
+                                        ]} >
+                                    </Select>
+                                </div>
+                                <div style={{ width: '70%' }}>
+                                    <DatePicker style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                </div>
+                            </div>
+
                         </Form.Item>
                     ) :
                         (
@@ -123,7 +135,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <Form.Item
                                 name={config.key}
                                 label={config.label}
-                                labelCol={{ span: 24 }}
+                                labelCol={{ span: 7 }}
                             >
                                 <RangePicker locale={zhCN} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                             </Form.Item>
@@ -168,18 +180,18 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
 
 
     const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargetKeys);
-    
-    const leftItemOnClick = (itemKey:string) => {
+
+    const leftItemOnClick = (itemKey: string) => {
         setTargetKeys([...targetKeys || [], itemKey]);
     };
 
-    const rightRemoveItemKey = (itemKey:string) => {
+    const rightRemoveItemKey = (itemKey: string) => {
         setTargetKeys(targetKeys?.filter((item) => item !== itemKey));
     };
 
     return (
         <div>
-            <Form form={form} name="advanced_search" labelCol={{ span: 7 }} layout='vertical'>
+            <Form form={form} name="advanced_search" labelCol={{ span: 7 }} layout='horizontal'>
                 <div className="nc-bill-search-area">
                     <div className="search-area-contant">
                         <div className="search-top">
@@ -231,7 +243,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                 <Row className='ant-tranfer-row' wrap={false}>
                     <Col span={6} className='ant-tranfer-col-left'>
                         <span className="modal-body-left-commons-title-text">候选条件</span>
-                        <ul style={{height:'400px',overflowY:'auto'}}>
+                        <ul style={{ height: '400px', overflowY: 'auto' }}>
                             {mockData.map((item) => {
                                 return targetKeys?.includes(item.key) ?
                                     (
@@ -246,7 +258,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                         <li key={item.key}>
                                             <div className='tranfer-col-left-item'>
                                                 {item.text}
-                                                <i className="iconfont icon-xinzengzijiedian" onClick={()=>leftItemOnClick(item.key)}></i>
+                                                <i className="iconfont icon-xinzengzijiedian" onClick={() => leftItemOnClick(item.key)}></i>
                                             </div>
                                         </li>
                                     )
@@ -256,8 +268,8 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                     </Col>
                     <Col span={18} className='ant-tranfer-col-right'>
                         <span className="modal-body-left-commons-title-text">目标结果</span>
-                        <div className='ant-tranfer-col-right-draggable' style={{height:'400px'}}>
-                            <TranferRight drapItems={mockData} selectKeyItmes={targetKeys?.map((key)=>key.toString())} onRemoveItem={rightRemoveItemKey}/> 
+                        <div className='ant-tranfer-col-right-draggable' style={{ height: '400px' }}>
+                            <TranferRight drapItems={mockData} selectKeyItmes={targetKeys?.map((key) => key.toString())} onRemoveItem={rightRemoveItemKey} />
                         </div>
                     </Col>
                 </Row>

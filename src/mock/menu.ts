@@ -451,7 +451,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "对账单", key: "settlement_bill",path: "/statement_of_account",
         },
         {
-            name: "关联交易", key: "related_transaction",
+            name: "关联交易", key: "related_transaction",path: "/order_fee_relation",
         },
         {
             name: "费用拆分", key: "cost_split",
@@ -558,10 +558,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "付款单", key: "payment_order",
+            name: "核销单", key: "write_off_order",
         },
         {
-            name: "核销单", key: "write_off_order",
+            name: "未核销综合查询", key: "unwrite_off_query",
         },
     ]
 },
