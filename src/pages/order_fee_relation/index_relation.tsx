@@ -15,6 +15,7 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns,getColumns2 } from './columns';
+import { exportItems } from './menu_items';
 import { fields } from './search_fields';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
@@ -114,6 +115,16 @@ const OrderFeeRelation : React.FC = () => {
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
+                        </div>
+                        <div className="divider-button-wrapper">
+                            <Dropdown menu={{items:exportItems}}>
+                                <Button>
+                                    <Space>
+                                        导出
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
                         </div>
                         <span className="u-button">
                             <RedoOutlined className='iconfont' />

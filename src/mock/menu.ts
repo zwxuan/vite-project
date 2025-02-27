@@ -442,19 +442,19 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "对账", key: "settlement", path: "/fee_reconciliation",
+            name: "对账", key: "fee_reconciliation", path: "/fee_reconciliation",
         },
         {
-            name: "账单", key: "bill", path: "/bill_manage",
+            name: "账单", key: "bill_manage", path: "/bill_manage",
         },
         {
-            name: "对账单", key: "settlement_bill",path: "/statement_of_account",
+            name: "对账单", key: "statement_of_account",path: "/statement_of_account",
         },
         {
-            name: "关联交易", key: "related_transaction",path: "/order_fee_relation",
+            name: "关联交易", key: "order_fee_relation",path: "/order_fee_relation",
         },
         {
-            name: "费用拆分", key: "cost_split",
+            name: "费用拆分", key: "order_fee_split",path: "/order_fee_split",
         },
         {
             name: "拼箱分摊模式", key: "lcl_allocation",

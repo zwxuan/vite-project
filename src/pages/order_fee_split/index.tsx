@@ -10,29 +10,31 @@ import { getOrderFeeList } from "@/api/business_order/order_fee_service";
 import { requestWithProgress } from "@/api/request";
 import {DownOutlined,RedoOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
+import AdvancedSearchForm from "@/components/search-form";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
-import { getColumns,expandColumns } from './columns';
+import { expandColumns } from './columns';
 import { importItems, exportItems } from './menu_items';
+import { fields } from './search_fields';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const OrderBill : React.FC = () => {
+const OrderFeeSplit : React.FC = () => {
 
     // order_bill数据
-    const [orderBillList, setOrderBillList] = useState([] as OrderBillItemProps[]);
+    const [orderFeeSource, setOrderFeeSource] = useState([] as OrderFeeItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [expandDataSource, setExpandDataSource] = useState([] as OrderFeeItemProps[]);
     const navigate = useNavigate();
     // 获取order_bill数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrderBillList();
-            const orderBillData = res?.data as OrderBillItemProps[];
+            const res = await getOrderFeeList();
+            const orderBillData = res?.data as OrderFeeItemProps[];
             // 设置order_bill台账数据
-            setOrderBillList([...orderBillData]);
+            setOrderFeeSource([...orderBillData]);
         };
         getData();
     }, []);
@@ -41,11 +43,8 @@ const OrderBill : React.FC = () => {
         alert(record);
     };
     const handleEdit = (record:OrderBillItemProps) => {
-        const newData = orderBillList.filter((item) => `${item.BillNumber}` === `${record.BillNumber}`);
+        const newData = expandDataSource.filter((item) => `${item.BillNumber}` === `${record.BillNumber}`);
     };
-
-    const columnsType = getColumns(handleEdit, handleDelete);
-
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -80,7 +79,7 @@ const OrderBill : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<OrderBillItemProps> = {
+    const rowSelection: TableRowSelection<OrderFeeItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -96,10 +95,15 @@ const OrderBill : React.FC = () => {
         type: 'checkbox',
         columnWidth: '20px',
     };
-    const handExpand  = async (expanded: boolean, record: OrderBillItemProps) => {
+    const handExpand  = async (expanded: boolean, record: OrderFeeItemProps) => {
             const res = await getOrderFeeList();
             const orderBillData = res?.data as OrderFeeItemProps[];
-            setExpandDataSource([...orderBillData]);
+
+            const filterOrderFeeList = orderBillData.filter((item) => {
+                return item.FeeName === record.FeeName;
+            });
+
+            setExpandDataSource([...filterOrderFeeList]);
     }
     const expandedRowRender = () => (
         <div className='nc-bill-table-area nc-bill-table-area-expand'>
@@ -110,6 +114,9 @@ const OrderBill : React.FC = () => {
             />
         </div>
       );
+      const handleSearch = (values:any) => {
+        console.log('handleSearch',values);
+    };
     return (
         <div>
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='order_bill' importType={uploadImportType} />
@@ -132,30 +139,15 @@ const OrderBill : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger>新增应收</Button>
-                                <Button type="primary" danger>新增应付</Button>
-                                <Button>确认</Button>
-                                <Button>取消确认</Button>
-                                <Button>复核</Button>
-                                <Button>取消复核</Button>
-                                <Button>开票|收票</Button>
-                                <Button>申请付款</Button>
-                                <Button>销账</Button>
-                                
+                                <Button type="primary" danger >开票|收票</Button>
+                                <Button type="primary" danger >申请付款</Button>
+                                <Button type="primary" danger >销账</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
-                                <Button>
-                                    <Space>
-                                        导入
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>
@@ -171,15 +163,16 @@ const OrderBill : React.FC = () => {
                     </div>
                 </div>
             </div>
+            <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<OrderBillItemProps>
-                    columns={columnsType}
+                <Table<OrderFeeItemProps>
+                    columns={expandColumns}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.BillNumber}`}
+                    rowKey={(record) => `${record.FeeId}`}
                     expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}
-                    dataSource={orderBillList}
-                    loading={orderBillList.length === 0}
+                    dataSource={orderFeeSource}
+                    loading={orderFeeSource.length === 0}
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
                     footer={() => '底部汇总信息'}
@@ -191,4 +184,4 @@ const OrderBill : React.FC = () => {
         
     )
 }
-export default OrderBill;
+export default OrderFeeSplit;

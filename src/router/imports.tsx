@@ -5,6 +5,7 @@ import BillManage from "@/pages/bill_manage";
 import StatementOfAccount from "@/pages/statement_of_account";
 import OrderFeeRelation from "@/pages/order_fee_relation/index_relation";
 import OrderDetail from "@/pages/orders/detail";
+import OrderFeeSplit from "@/pages/order_fee_split";
 import PermissionManagement from "@/pages/identity/permission";
 import ExportLog from "@/pages/log/export_log";
 import ImportLog from "@/pages/log/import_log";
@@ -18,6 +19,7 @@ export {
   StatementOfAccount,
   OrderFeeRelation,
   OrderDetail,
+  OrderFeeSplit,
   PermissionManagement,
   ExportLog,
   ImportLog,
