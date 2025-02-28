@@ -1,7 +1,7 @@
 //router/index.tsx
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login } from "./imports";
+import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail } from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -73,6 +73,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <OrderFeeSplit />
+          </RouterGuard>),
+      },
+      {
+        path: "/lcl_fee_share",
+        handle: { title: '拼箱分摊模式' },
+        element: (
+          <RouterGuard>
+            <LCLFeeShare />
+          </RouterGuard>),
+      },
+      {
+        path: "/invoice_detail",
+        handle: { title: '发票明细' },
+        element: (
+          <RouterGuard>
+            <InvoiceDetail />
           </RouterGuard>),
       },
       {

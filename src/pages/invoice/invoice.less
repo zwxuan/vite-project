@@ -1,0 +1,70 @@
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    // letter-spacing: 2px;
+    line-height: 1.0;
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #ccc;
+    color: red;
+    /* 可视化容器边界 */
+}
+.ant-row {
+    padding-right: 0px;
+}
+// 保持发票标准尺寸
+.invoice-container {
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .invoice-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .company-info-bottom {
+        border-bottom: 1px solid red;
+        border-left: 1px solid red;
+        border-right: 1px solid red;
+        vertical-align: middle;
+        text-align: right;
+        // padding: 2px;
+    }
+    .company-info-left {
+        border-left: 1px solid red;
+        padding: 1px !important;
+        vertical-align: middle;
+        align-content: center;
+        .row-margin-top1{
+            margin-top: 1px;
+            margin-left: 0px !important;
+            margin-right: 0px!important;
+        }
+    }
+    .company-info-left-lable{
+        text-align: right;
+        padding: 1px!important;
+        color: red;
+    }
+    .company-info-left-text{
+        text-align: left;
+        padding: 1px!important;
+    }
+    .company-info-right {
+        vertical-align: middle;
+        align-content: center;
+    }
+    .content-center {
+        vertical-align: middle;
+        align-content: center;
+    }
+    .company-info {
+        border: 1px solid red;
+        vertical-align: middle;
+        align-content: center;
+    }
+}

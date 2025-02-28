@@ -21,7 +21,7 @@ import { importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const OrderFeeSplit : React.FC = () => {
+const LCLFeeShare : React.FC = () => {
 
     // order_bill数据
     const [orderFeeSource, setOrderFeeSource] = useState([] as OrderFeeItemProps[]);
@@ -127,7 +127,7 @@ const OrderFeeSplit : React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 费用拆分
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 拼箱分摊模式
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -188,4 +188,4 @@ const OrderFeeSplit : React.FC = () => {
         
     )
 }
-export default OrderFeeSplit;
+export default LCLFeeShare;

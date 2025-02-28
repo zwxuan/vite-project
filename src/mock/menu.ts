@@ -457,7 +457,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "费用拆分", key: "order_fee_split",path: "/order_fee_split",
         },
         {
-            name: "拼箱分摊模式", key: "lcl_allocation",
+            name: "拼箱分摊模式", key: "lcl_fee_share",path: "/lcl_fee_share",
         },
     ]
 },
@@ -466,6 +466,9 @@ const childrenMenuData: MenuGroup[] = [{
     key: "invoice_manage",
     parentkey: "cost_manage",
     apps: [
+        {
+            name: "未开票收票", key: "unpaid_invoice",
+        },
         {
             name: "收款发票", key: "receipt_invoice",
         },
@@ -539,17 +542,6 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "其他收款", key: "other_receipt",
         },
-    ]
-},
-{
-    title: "银行对账",
-    key: "bank_reconciliation",
-    parentkey: "finance_manage",
-    apps: [
-        {
-            name: "银行对账", key: "bank_reconciliation",
-        },
-
     ]
 },
 {

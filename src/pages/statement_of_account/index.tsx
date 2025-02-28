@@ -183,7 +183,10 @@ const StatementOfAccount : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-
+    // 开票收票
+    const handleInvoiceDetail = () => {
+        navigate('/invoice_detail');
+    }
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
             
@@ -211,7 +214,7 @@ const StatementOfAccount : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger >开票收票</Button>
+                                <Button type="primary" danger onClick={handleInvoiceDetail}>开票收票</Button>
                                 <Button type="primary" danger >核销</Button>
                                 <Button type="primary" danger >付款申请</Button>
                                 <Button type="primary" danger>删除</Button>
