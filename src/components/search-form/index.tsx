@@ -47,7 +47,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
         for (let i = 0; i < count; i++) {
             const config = fieldConfigs[i];
             children.push(
-                <Col span={span} key={i}>
+                <Col span={span} key={i} style={{padding: '0 6px'}}>
                     {config.type === 'input' ? (
                         <Form.Item
                             name={config.key}

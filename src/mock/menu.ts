@@ -470,13 +470,13 @@ const childrenMenuData: MenuGroup[] = [{
             name: "未开票收票", key: "unpaid_invoice",
         },
         {
-            name: "收款发票", key: "receipt_invoice",
+            name: "收款发票", key: "receipt_invoice",path:"/invoice?type=receipt",
         },
         {
             name: "实体收款发票查询", key: "receipt_invoice_download",
         },
         {
-            name: "付款发票", key: "payment_invoice",
+            name: "付款发票", key: "payment_invoice",path:"/invoice?type=payment",
         },
         {
             name: "实体付款发票查询", key: "payment_invoice_download",

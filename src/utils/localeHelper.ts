@@ -1562,6 +1562,222 @@ class LocaleHelper {
     static getStatementOfAccountParentCompany() {
       return "statement_of_account.parentcompany";
     }
+    // 发票号码
+    static getInvoiceInvoiceNumber() {
+      return "invoice.invoicenumber";
+    }
+    // 开票抬头
+    static getInvoiceBillingTitle() {
+      return "invoice.billingtitle";
+    }
+    // 业务编号
+    static getInvoiceBusinessNumber() {
+      return "invoice.businessnumber";
+    }
+    // MBL（主提单号）
+    static getInvoiceMbl() {
+      return "invoice.mbl";
+    }
+    // 结算单位
+    static getInvoiceSettlementUnit() {
+      return "invoice.settlementunit";
+    }
+    // 发票创建人
+    static getInvoiceInvoiceCreator() {
+      return "invoice.invoicecreator";
+    }
+    // 发票创建时间
+    static getInvoiceInvoiceCreateTime() {
+      return "invoice.invoicecreatetime";
+    }
+    // 复核状态
+    static getInvoiceReviewStatus() {
+      return "invoice.reviewstatus";
+    }
+    // 复核人
+    static getInvoiceReviewer() {
+      return "invoice.reviewer";
+    }
+    // 复核日期
+    static getInvoiceReviewDate() {
+      return "invoice.reviewdate";
+    }
+    // 发票种类
+    static getInvoiceInvoiceType() {
+      return "invoice.invoicetype";
+    }
+    // 收付期限
+    static getInvoicePaymentTerm() {
+      return "invoice.paymentterm";
+    }
+    // 客户下载次数
+    static getInvoiceCustomerDownloadCount() {
+      return "invoice.customerdownloadcount";
+    }
+    // 开票日期
+    static getInvoiceBillingDate() {
+      return "invoice.billingdate";
+    }
+    // 付款通知号
+    static getInvoicePaymentNoticeNumber() {
+      return "invoice.paymentnoticenumber";
+    }
+    // ETD（预计装船日期）
+    static getInvoiceEtd() {
+      return "invoice.etd";
+    }
+    // ETA（预计到货日期）
+    static getInvoiceEta() {
+      return "invoice.eta";
+    }
+    // 目的港
+    static getInvoiceDestinationPort() {
+      return "invoice.destinationport";
+    }
+    // 核销状态
+    static getInvoiceWriteOffStatus() {
+      return "invoice.writeoffstatus";
+    }
+    // 红冲状态
+    static getInvoiceRedCreditStatus() {
+      return "invoice.redcreditstatus";
+    }
+    // 是否打印
+    static getInvoiceIsPrinted() {
+      return "invoice.isprinted";
+    }
+    // 是否作废
+    static getInvoiceIsVoided() {
+      return "invoice.isvoided";
+    }
+    // 船名航次
+    static getInvoiceVesselVoyage() {
+      return "invoice.vesselvoyage";
+    }
+    // 起运港
+    static getInvoicePortOfDeparture() {
+      return "invoice.portofdeparture";
+    }
+    // 是否导出
+    static getInvoiceIsExported() {
+      return "invoice.isexported";
+    }
+    // 发票类型
+    static getInvoiceInvoiceCategory() {
+      return "invoice.invoicecategory";
+    }
+    // 开票方式
+    static getInvoiceBillingMethod() {
+      return "invoice.billingmethod";
+    }
+    // 收付类型
+    static getInvoicePaymentType() {
+      return "invoice.paymenttype";
+    }
+    // 开票币种
+    static getInvoiceBillingCurrency() {
+      return "invoice.billingcurrency";
+    }
+    // 发票汇率
+    static getInvoiceInvoiceExchangeRate() {
+      return "invoice.invoiceexchangerate";
+    }
+    // 金额
+    static getInvoiceAmount() {
+      return "invoice.amount";
+    }
+    // 核销金额
+    static getInvoiceWriteOffAmount() {
+      return "invoice.writeoffamount";
+    }
+    // 税率
+    static getInvoiceTaxRate() {
+      return "invoice.taxrate";
+    }
+    // 税额
+    static getInvoiceTaxAmount() {
+      return "invoice.taxamount";
+    }
+    // 不含税额
+    static getInvoiceTaxExcludedAmount() {
+      return "invoice.taxexcludedamount";
+    }
+    // 开票申请人
+    static getInvoiceBillingApplicant() {
+      return "invoice.billingapplicant";
+    }
+    // 分币种合计
+    static getInvoiceCurrencyTotal() {
+      return "invoice.currencytotal";
+    }
+    // 操作
+    static getInvoiceOperation() {
+      return "invoice.operation";
+    }
+    // 销售
+    static getInvoiceSales() {
+      return "invoice.sales";
+    }
+    // 销货单位
+    static getInvoiceSalesUnit() {
+      return "invoice.salesunit";
+    }
+    // 收货地
+    static getInvoiceDeliveryLocation() {
+      return "invoice.deliverylocation";
+    }
+    // 我方银行
+    static getInvoiceOurBank() {
+      return "invoice.ourbank";
+    }
+    // 我方银行币种
+    static getInvoiceOurBankCurrency() {
+      return "invoice.ourbankcurrency";
+    }
+    // 电子发票发送电票平台状态
+    static getInvoiceEInvoiceSendStatus() {
+      return "invoice.einvoicesendstatus";
+    }
+    // 电子发票发送邮箱状态
+    static getInvoiceEInvoiceEmailStatus() {
+      return "invoice.einvoiceemailstatus";
+    }
+    // 特定约束类型
+    static getInvoiceSpecificConstraintType() {
+      return "invoice.specificconstrainttype";
+    }
+    // 红冲原因
+    static getInvoiceRedCreditReason() {
+      return "invoice.redcreditreason";
+    }
+    // 请求税控平台说明
+    static getInvoiceTaxControlRequest() {
+      return "invoice.taxcontrolrequest";
+    }
+    // 账单结算类型
+    static getInvoiceBillingSettlementType() {
+      return "invoice.billingsettlementtype";
+    }
+    // 发票ID
+    static getInvoiceInvoiceId() {
+      return "invoice.invoiceid";
+    }
+    // 销账流水号
+    static getInvoiceWriteOffSerialNumber() {
+      return "invoice.writeoffserialnumber";
+    }
+    // 收付日期
+    static getInvoicePaymentDate() {
+      return "invoice.paymentdate";
+    }
+    // 分币种汇率1
+    static getInvoiceCurrencyRate1() {
+      return "invoice.currencyrate1";
+    }
+    // 分币种汇率2
+    static getInvoiceCurrencyRate2() {
+      return "invoice.currencyrate2";
+    }
   }
   
   export default LocaleHelper;

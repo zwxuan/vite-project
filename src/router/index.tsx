@@ -1,7 +1,7 @@
 //router/index.tsx
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail } from "./imports";
+import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice } from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -89,6 +89,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <InvoiceDetail />
+          </RouterGuard>),
+      },
+      {
+        path: "/invoice",
+        handle: { title: '发票' },
+        element: (
+          <RouterGuard>
+            <Invoice />
           </RouterGuard>),
       },
       {
