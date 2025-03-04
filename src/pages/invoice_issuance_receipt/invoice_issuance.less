@@ -1,0 +1,29 @@
+.invoice-container{
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    label {
+        font-size: 12px;
+    }
+}
+
+.invoice-container > .invoice-left-item{
+    flex: 0.5;
+    font-size: 12px;
+}
+.invoice-container > .invoice-right-item{
+    flex: 1;
+    font-size: 12px;
+}
+
+.invoice-container > .invoice-left-item > .ant-row {
+    margin-bottom: 6px;
+    > :first-child{
+        text-align: right;
+    }
+    .ant-col {
+        padding-left: 1px !important;
+        padding-right: 1px !important;
+        font-size: 12px;
+    }
+}

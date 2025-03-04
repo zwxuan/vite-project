@@ -9,6 +9,7 @@ import OrderFeeSplit from "@/pages/order_fee_split";
 import LCLFeeShare from "@/pages/lcl_fee_share";
 import InvoiceDetail from "@/pages/invoice/invoice_detail";
 import Invoice from "@/pages/invoice";
+import InvoiceIssuanceReceipt from "@/pages/invoice_issuance_receipt";
 import PermissionManagement from "@/pages/identity/permission";
 import ExportLog from "@/pages/log/export_log";
 import ImportLog from "@/pages/log/import_log";
@@ -26,6 +27,7 @@ export {
   LCLFeeShare,
   InvoiceDetail,
   Invoice,
+  InvoiceIssuanceReceipt,
   PermissionManagement,
   ExportLog,
   ImportLog,

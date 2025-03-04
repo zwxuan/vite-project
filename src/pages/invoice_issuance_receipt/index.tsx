@@ -1,11 +1,11 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
-import type { MenuProps,TableProps } from 'antd';
+import { Table,Button,Dropdown, Space,Radio,Progress,notification,Row,Col } from 'antd';
+import type { MenuProps,RadioChangeEvent,TableProps,TableColumnsType } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { InvoiceItemProps } from "@/types/invoice/invoice";
-import { getInvoiceList,saveInvoice } from "@/api/fee_manage/invoice_service";
+import { InvoiceIssuanceReceiptItemProps } from "@/types/invoice_issuance_receipt/invoice_issuance_receipt";
+import { getInvoiceIssuanceReceiptList,saveInvoiceIssuanceReceipt } from "@/api/fee_manage/invoice_issuance_receipt_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -15,36 +15,43 @@ import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
+import InvoiceIssuanceModal from './invoice_issuance';
 import { getColumns } from './columns';
-import { statusItems, importItems, exportItems,statusDelItems } from './menu_items';
+import { getColumns as getBillColumns } from '@/pages/bill_manage/columns';
+import { getColumns as getStatementOfAccountColumns } from '@/pages/statement_of_account/columns';
+import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const Invoice : React.FC = () => {
+const InvoiceIssuanceReceipt : React.FC = () => {
 
-    // 发票管理数据
-    const [invoiceList, setInvoiceList] = useState([] as InvoiceItemProps[]);
+    // 开票收票数据
+    const [invoiceIssuanceReceiptList, setInvoiceIssuanceReceiptList] = useState([] as InvoiceIssuanceReceiptItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const navigate = useNavigate();
-    // 获取发票管理数据
+    // 获取开票收票数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getInvoiceList();
-            const invoiceData = res?.data as InvoiceItemProps[];
-            // 设置发票管理台账数据
-            setInvoiceList([...invoiceData]);
+            const res = await getInvoiceIssuanceReceiptList();
+            const invoiceIssuanceReceiptData = res?.data as InvoiceIssuanceReceiptItemProps[];
+            // 设置开票收票台账数据
+            setInvoiceIssuanceReceiptList([...invoiceIssuanceReceiptData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:InvoiceItemProps) => {
+    const handleDelete = (record:InvoiceIssuanceReceiptItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:InvoiceItemProps) => {
-        navigate('/invoice_detail');
+
+    const handInvoiceIssuance =()=>{
+        showModal();
     };
-    
-    const columnsType = getColumns(handleEdit, handleDelete);
+    const handleEdit = (record:InvoiceIssuanceReceiptItemProps) => {
+        const newData = invoiceIssuanceReceiptList.filter((item) => ` === `);
+        setFormData(newData[0]);
+        showModal();
+    };
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -71,20 +78,16 @@ const Invoice : React.FC = () => {
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
     const [saving, setSaving] = useState(false);
-    const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
+    const [billFlag, setBillFlag] = useState(false);
+    const [columnsType, setColumns] = useState<TableColumnsType<any>>(getColumns(handleEdit, handleDelete));
 
+    // setColumns(getBillColumns(handleEdit, handleDelete));
     const showModal = () => {
         setOpen(true);
     };
 
-    const handleAdd = () => {
-        setModalFlag('add');
-        setFormData(initFormData);
-        showModal();
-    };
-
-    const initFormData = {} as InvoiceItemProps;
-    const [formData, setFormData] = useState<InvoiceItemProps>(initFormData);
+    const initFormData = {} as InvoiceIssuanceReceiptItemProps;
+    const [formData, setFormData] = useState<InvoiceIssuanceReceiptItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -114,7 +117,7 @@ const Invoice : React.FC = () => {
         });
 
         try {
-            const response = await saveInvoice(formData, (progress) => {
+            const response = await saveInvoiceIssuanceReceipt(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -160,7 +163,7 @@ const Invoice : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<InvoiceItemProps> = {
+    const rowSelection: TableRowSelection<InvoiceIssuanceReceiptItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -177,27 +180,45 @@ const Invoice : React.FC = () => {
         columnWidth: '20px',
     };
 
+    const onChange = (e: RadioChangeEvent) => {
+        if(e.target.value === 1){
+            setColumns(getColumns(handleEdit, handleDelete));
+        }else if(e.target.value === 3){
+            setBillFlag(true);
+            setColumns(getBillColumns(() => {}, () => {}));
+        }else if(e.target.value === 4){
+            setColumns(getStatementOfAccountColumns(() => {}, () => {}));
+        }
+    };
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='invoice' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='invoice' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='invoice' />
+            <InvoiceIssuanceModal 
+                open={open}
+                saving={saving}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                onChange={handleChange}
+            />
+
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='invoice_issuance_receipt' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='invoice_issuance_receipt' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='invoice_issuance_receipt' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 发票管理
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 开票收票
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
                         <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
+                                
                             </label>
                         </div>
                     </span>
@@ -207,42 +228,21 @@ const Invoice : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger>复核</Button>
-                                <Button type="primary" danger>取消复核</Button>
-                                <Button type="primary">修改发票</Button>
-                                <Button>打印</Button>
-                                <Button>付款申请</Button>
-                                <Button>批量下载电子发票</Button>
+                                <Button type="primary" danger onClick={handInvoiceIssuance}>开票</Button>
+                                <Button type="primary" danger>对冲开票</Button>
+                                {billFlag && (
+                                    <>
+                                        <Button>取消账单确认</Button>
+                                        <Button>标记</Button>
+                                        <Button>取消标记</Button>
+                                    </>
+                                )}
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusDelItems}}>
-                                <Button>
-                                    <Space>
-                                        删除
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
-                            <Dropdown menu={{items:statusItems}}>
-                                <Button>
-                                    <Space>
-                                        启用
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
-                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
-                                <Button>
-                                    <Space>
-                                        导入
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>
@@ -258,15 +258,45 @@ const Invoice : React.FC = () => {
                     </div>
                 </div>
             </div>
+            <div className="nc-bill-search-area">
+                <div className="search-area-contant">
+                    <div className="item-contant" style={{ display: "block",textAlign: "left" }}>
+                        <Space>
+                            <label style={{fontWeight:'bolder'}}>收付方式：</label>
+                            <Radio.Group
+                                name="radiogroup"
+                                defaultValue={1}
+                                options={[
+                                    { value: 1, label: '全部' },
+                                    { value: 2, label: '应收' },
+                                    { value: 3, label: '应付' },
+                                ]}
+                            />
+                            <label style={{fontWeight:'bolder'}}>单据类型：</label>
+                            <Radio.Group
+                                name="radiogroup"
+                                defaultValue={1}
+                                onChange={onChange}
+                                options={[
+                                    { value: 1, label: '费用' },
+                                    { value: 2, label: '业务' },
+                                    { value: 3, label: '账单' },
+                                    { value: 4, label: '对账单' },
+                                ]}
+                            />   
+                        </Space>
+                    </div>
+                </div>
+            </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<InvoiceItemProps>
+                <Table
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.InvoiceId}`}
+                    rowKey={(record) => `${record.BusinessId}`}
                     showSorterTooltip={false}
-                    dataSource={invoiceList}
-                    loading={invoiceList.length === 0}
+                    dataSource={invoiceIssuanceReceiptList}
+                    loading={invoiceIssuanceReceiptList.length === 0}
                     pagination={
                         {
                             size:'small',
@@ -290,4 +320,4 @@ const Invoice : React.FC = () => {
         
     )
 }
-export default Invoice;
+export default InvoiceIssuanceReceipt;

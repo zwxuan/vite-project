@@ -1778,6 +1778,174 @@ class LocaleHelper {
     static getInvoiceCurrencyRate2() {
       return "invoice.currencyrate2";
     }
+    // 业务编号
+    static getInvoiceIssuanceReceiptBusinessId() {
+      return "invoice_issuance_receipt.businessid";
+    }
+    // 结算单位
+    static getInvoiceIssuanceReceiptSettlementUnit() {
+      return "invoice_issuance_receipt.settlementunit";
+    }
+    // 主单号
+    static getInvoiceIssuanceReceiptMasterOrderNo() {
+      return "invoice_issuance_receipt.masterorderno";
+    }
+    // 分单号
+    static getInvoiceIssuanceReceiptSubOrderNo() {
+      return "invoice_issuance_receipt.suborderno";
+    }
+    // 开票抬头
+    static getInvoiceIssuanceReceiptInvoiceTitle() {
+      return "invoice_issuance_receipt.invoicetitle";
+    }
+    // 对账单号
+    static getInvoiceIssuanceReceiptReconciliationNo() {
+      return "invoice_issuance_receipt.reconciliationno";
+    }
+    // 客户
+    static getInvoiceIssuanceReceiptCustomer() {
+      return "invoice_issuance_receipt.customer";
+    }
+    // 业务类型
+    static getInvoiceIssuanceReceiptBusinessType() {
+      return "invoice_issuance_receipt.businesstype";
+    }
+    // 业务日期
+    static getInvoiceIssuanceReceiptBusinessDate() {
+      return "invoice_issuance_receipt.businessdate";
+    }
+    // 驳船开航日期
+    static getInvoiceIssuanceReceiptBargeSailingDate() {
+      return "invoice_issuance_receipt.bargesailingdate";
+    }
+    // 船名航次
+    static getInvoiceIssuanceReceiptVesselVoyage() {
+      return "invoice_issuance_receipt.vesselvoyage";
+    }
+    // 起运港
+    static getInvoiceIssuanceReceiptPortOfLoading() {
+      return "invoice_issuance_receipt.portofloading";
+    }
+    // 目的港
+    static getInvoiceIssuanceReceiptPortOfDestination() {
+      return "invoice_issuance_receipt.portofdestination";
+    }
+    // 销售
+    static getInvoiceIssuanceReceiptSales() {
+      return "invoice_issuance_receipt.sales";
+    }
+    // 已计提
+    static getInvoiceIssuanceReceiptAccrued() {
+      return "invoice_issuance_receipt.accrued";
+    }
+    // 操作
+    static getInvoiceIssuanceReceiptOperator() {
+      return "invoice_issuance_receipt.operator";
+    }
+    // 财务日期
+    static getInvoiceIssuanceReceiptFinanceDate() {
+      return "invoice_issuance_receipt.financedate";
+    }
+    // 国内国外
+    static getInvoiceIssuanceReceiptDomesticOrForeign() {
+      return "invoice_issuance_receipt.domesticorforeign";
+    }
+    // 支付类型
+    static getInvoiceIssuanceReceiptPaymentType() {
+      return "invoice_issuance_receipt.paymenttype";
+    }
+    // 费用状态
+    static getInvoiceIssuanceReceiptFeeStatus() {
+      return "invoice_issuance_receipt.feestatus";
+    }
+    // 确认状态
+    static getInvoiceIssuanceReceiptConfirmationStatus() {
+      return "invoice_issuance_receipt.confirmationstatus";
+    }
+    // 费用名称
+    static getInvoiceIssuanceReceiptFeeName() {
+      return "invoice_issuance_receipt.feename";
+    }
+    // 币种
+    static getInvoiceIssuanceReceiptCurrency() {
+      return "invoice_issuance_receipt.currency";
+    }
+    // 自定义业务类型
+    static getInvoiceIssuanceReceiptCustomBusinessType() {
+      return "invoice_issuance_receipt.custombusinesstype";
+    }
+    // 数量
+    static getInvoiceIssuanceReceiptQuantity() {
+      return "invoice_issuance_receipt.quantity";
+    }
+    // 含税价
+    static getInvoiceIssuanceReceiptTaxInclusivePrice() {
+      return "invoice_issuance_receipt.taxinclusiveprice";
+    }
+    // 不含税价
+    static getInvoiceIssuanceReceiptTaxExclusivePrice() {
+      return "invoice_issuance_receipt.taxexclusiveprice";
+    }
+    // 税率
+    static getInvoiceIssuanceReceiptTaxRate() {
+      return "invoice_issuance_receipt.taxrate";
+    }
+    // 税额
+    static getInvoiceIssuanceReceiptTaxAmount() {
+      return "invoice_issuance_receipt.taxamount";
+    }
+    // 联系人
+    static getInvoiceIssuanceReceiptContactPerson() {
+      return "invoice_issuance_receipt.contactperson";
+    }
+    // 核销金额
+    static getInvoiceIssuanceReceiptWriteOffAmount() {
+      return "invoice_issuance_receipt.writeoffamount";
+    }
+    // 未销金额
+    static getInvoiceIssuanceReceiptUnsettledAmount() {
+      return "invoice_issuance_receipt.unsettledamount";
+    }
+    // 费用备注
+    static getInvoiceIssuanceReceiptFeeRemark() {
+      return "invoice_issuance_receipt.feeremark";
+    }
+    // 合约状态
+    static getInvoiceIssuanceReceiptContractStatus() {
+      return "invoice_issuance_receipt.contractstatus";
+    }
+    // 自定义岗位1
+    static getInvoiceIssuanceReceiptCustomPosition1() {
+      return "invoice_issuance_receipt.customposition1";
+    }
+    // 自定义岗位2
+    static getInvoiceIssuanceReceiptCustomPosition2() {
+      return "invoice_issuance_receipt.customposition2";
+    }
+    // 预计开船时间
+    static getInvoiceIssuanceReceiptEtd() {
+      return "invoice_issuance_receipt.ETD";
+    }
+    // 预计到港时间
+    static getInvoiceIssuanceReceiptEta() {
+      return "invoice_issuance_receipt.ETA";
+    }
+    // 承运人
+    static getInvoiceIssuanceReceiptCarrier() {
+      return "invoice_issuance_receipt.carrier";
+    }
+    // 收/发货地
+    static getInvoiceIssuanceReceiptPickupDeliveryLocation() {
+      return "invoice_issuance_receipt.pickupdeliverylocation";
+    }
+    // 拖车实际提货时间
+    static getInvoiceIssuanceReceiptTruckPickupTime() {
+      return "invoice_issuance_receipt.truckpickuptime";
+    }
+    // 业务状态
+    static getInvoiceIssuanceReceiptBusinessStatus() {
+      return "invoice_issuance_receipt.businessstatus";
+    }
   }
   
   export default LocaleHelper;
