@@ -459,6 +459,9 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "拼箱分摊模式", key: "lcl_fee_share",path: "/lcl_fee_share",
         },
+        {
+            name: "对账规则引擎配置", key: "reconciliation_rule_engine",path: "/reconciliation_rule_engine",
+        },
     ]
 },
 {

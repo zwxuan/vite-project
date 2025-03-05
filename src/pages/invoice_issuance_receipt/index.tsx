@@ -79,6 +79,7 @@ const InvoiceIssuanceReceipt : React.FC = () => {
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
     const [saving, setSaving] = useState(false);
     const [billFlag, setBillFlag] = useState(false);
+    const [creditFlag, setCredit] = useState(true);
     const [columnsType, setColumns] = useState<TableColumnsType<any>>(getColumns(handleEdit, handleDelete));
 
     // setColumns(getBillColumns(handleEdit, handleDelete));
@@ -190,6 +191,13 @@ const InvoiceIssuanceReceipt : React.FC = () => {
             setColumns(getStatementOfAccountColumns(() => {}, () => {}));
         }
     };
+    const onChangeCD = (e: RadioChangeEvent)=>{
+        if(e.target.value === 1){
+            setCredit(true);
+        }else{
+            setCredit(false);
+        }
+    }
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
@@ -228,8 +236,8 @@ const InvoiceIssuanceReceipt : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handInvoiceIssuance}>开票</Button>
-                                <Button type="primary" danger>对冲开票</Button>
+                                <Button type="primary" danger onClick={handInvoiceIssuance}>{creditFlag?'开票':'收票'}</Button>
+                                <Button type="primary" danger>{creditFlag?'对冲开票':'对冲收票'}</Button>
                                 {billFlag && (
                                     <>
                                         <Button>取消账单确认</Button>
@@ -266,10 +274,10 @@ const InvoiceIssuanceReceipt : React.FC = () => {
                             <Radio.Group
                                 name="radiogroup"
                                 defaultValue={1}
+                                onChange={onChangeCD}
                                 options={[
-                                    { value: 1, label: '全部' },
-                                    { value: 2, label: '应收' },
-                                    { value: 3, label: '应付' },
+                                    { value: 1, label: '应收' },
+                                    { value: 2, label: '应付' },
                                 ]}
                             />
                             <label style={{fontWeight:'bolder'}}>单据类型：</label>

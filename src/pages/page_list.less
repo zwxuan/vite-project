@@ -1181,12 +1181,15 @@ input.u-form-control {
 .ant-tabs .ant-tabs-tabpane {
     background: #f9fbff;
 }
-.ant-input-outlined {
+.ant-input-outlined,
+.ant-input-number-outlined {
     border-color: #9ca3af;
     border-radius:3px;
 }
 .ant-input-outlined:hover,
-.ant-input-outlined:focus {
+.ant-input-outlined:focus, 
+.ant-input-number-outlined:hover,
+.ant-input-number-outlined:focus {
     border-color: #4b5563;
     box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
 }
@@ -1529,9 +1532,18 @@ div>.ant-input-number .ant-input-number-input .ant-picker .ant-select-selector .
 .ant-select-dropdown .ant-select-item {
     font-size: 12px;
 }
+:where(.css-dev-only-do-not-override-tpassh).ant-input-number .ant-input-number-input {
+    padding-left: 2px;
+    padding-right: 6px;
+    font-size: 12px;
+    height: 20px;
+    text-align: right;
+}
+
 .ant-input-number-input {
     height: 24px;
     line-height: 24px;
+    font-size: 11px;
     // padding-top: 1px !important;
     // padding-bottom: 1px !important;
 }

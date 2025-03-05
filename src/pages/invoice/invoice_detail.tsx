@@ -91,7 +91,7 @@ const InvoiceDetail: React.FC = () => {
   };
 
   return (
-    <div className="invoice-container" style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)',width: '80%'}}>
+    <div className="invoice-review-container" style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)',width: '80%'}}>
       {/* 头部信息 */}
       <div className="invoice-header">
         
@@ -371,7 +371,7 @@ const InvoiceDetail: React.FC = () => {
               <Button type='primary'>全部打印</Button>
               <Button type='primary'>金税导出</Button>
               <Button type='primary'>金税作废</Button>
-              <Button>关闭</Button>
+              {/* <Button>关闭</Button> */}
             </Space>
           </Space>
         </Col>

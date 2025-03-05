@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Modal, Form, Input, InputNumber, Select, Button, Space, Row, Col, Radio, Checkbox,Table, TableColumnsType } from 'antd';
+import { Modal, Form, Input, InputNumber, Select, Button, Space, Row, Col, Radio, Checkbox } from 'antd';
 import { HotTable, HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
 import Handsontable from "handsontable";
-import { InvoiceIssuanceReceiptItemProps } from "@/types/invoice_issuance_receipt/invoice_issuance_receipt";
-import { getInvoiceIssuanceReceiptList,saveInvoiceIssuanceReceipt } from "@/api/fee_manage/invoice_issuance_receipt_service";
 import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
 import './invoice_issuance.less'
-import { getColumns,getSmallColumns } from './columns';
+
 interface DetailModalProps {
     open: boolean;
     saving: boolean;
@@ -32,28 +30,14 @@ const radioStyle: React.CSSProperties = {
     gap: 8,
 };
 
-
-const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
-    open,
-    saving,
-    onCancel,
-    onOk,
-    onChange
-}) => {
+const InvoiceIssuanceStep1: React.FC = () => {
     const hotTableRef = useRef<any>(null);
     const [orderFeeList, setOrderFeeList] = useState([] as any[]);
-    const [invoiceIssuanceReceiptList, setInvoiceIssuanceReceiptList] = useState([] as InvoiceIssuanceReceiptItemProps[]);
-    const [columnsType, setColumns] = useState<TableColumnsType<any>>(getSmallColumns(() => {}, () => {}));
-    
     // 获取order_fee数据
     useEffect(() => {
         const getData = async () => {
             // 设置order_fee台账数据
-            setOrderFeeList([...Array(Math.max(0, 5)).fill({})]);
-            const res = await getInvoiceIssuanceReceiptList();
-            const invoiceIssuanceReceiptData = res?.data as InvoiceIssuanceReceiptItemProps[];
-            // 设置开票收票台账数据
-            setInvoiceIssuanceReceiptList([...invoiceIssuanceReceiptData]);
+            setOrderFeeList([...Array(Math.max(0, 15)).fill({})]);
         };
 
         getData();
@@ -119,16 +103,7 @@ const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
         }
     };
     return (
-        <Modal
-            open={open}
-            title='开票'
-            onCancel={onCancel}
-            width={'calc(100vw - 280px)'}
-            destroyOnClose={true}
-            maskClosable={false}
-            closable={!saving}
-            footer={null}
-        >
+        <>
             <div className='invoice-container'>
                 <div className='invoice-left-item'>
                     <Row gutter={24}>
@@ -177,7 +152,7 @@ const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
                                     { label: '专用发票', value: '5' },
                                 ]} >
                             </Select>
-                            <InputNumber style={{width:"60px"}} min={1} max={10} defaultValue={9} controls={false}></InputNumber>
+                            <InputNumber style={{width:"60px"}} min={1} max={13} defaultValue={9.00} controls={false}></InputNumber>
                         </Col>
                     </Row>
                     <Row gutter={24}>
@@ -238,7 +213,6 @@ const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
                     </Row>
                 </div>
                 <div className='invoice-right-item'>
-                    <div className="nc-bill-search-area">发票项目名称设置</div>
                     <div className='nc-bill-table-area'>
                         <HotTable
                             ref={hotTableRef}
@@ -291,7 +265,7 @@ const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
                         >
                             <HotColumn
                                 data="FeeName"
-                                title="发票类型"
+                                title="费用名称"
                                 className="htLeft ellipsis-cell"
                                 type="dropdown"
                                 strict={true}
@@ -302,42 +276,51 @@ const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
 
                                 }}
                             />
-                            <HotColumn data="CreditDebit" title='CNY费用项名称' width={180} className="htLeft" renderer={customerRenderer} />
-                            <HotColumn data="DomesticForeign" title='USD费用项名称' width={100} className="htLeft" renderer={customerRenderer} />
-                            <HotColumn data="DomesticForeign2" title='JPY费用项名称' width={100} className="htLeft" renderer={customerRenderer} />
-                            <HotColumn data="DomesticForeign3" title='EUR费用项名称' width={100} className="htLeft" renderer={customerRenderer} />
-                            <HotColumn data="Quantity" title='税率' type='dropdown' source={['10%','6%','0%','9%','13%']} renderer={customerRenderer}
-                                className="htRight" width={150} />
-                            {/* checkbox有问题     */}
-                            {/* <HotColumn data="IsDefault" title='是否默认' type='checkbox' /> */}
+                            <HotColumn data="CreditDebit" title='规格型号' width={180} className="htLeft" renderer={customerRenderer} />
+                            <HotColumn data="DomesticForeign" title='单位' type='dropdown' source={['[1]票', '[2]车']} width={100} className="htLeft" renderer={customerRenderer} />
+                            <HotColumn data="Quantity" title='数量' type='numeric' renderer={customerRenderer}
+                                numericFormat={{
+                                    pattern: '0.0000',
+                                    culture: 'zh-CN'
+                                }} className="htRight" width={150} />
+                            <HotColumn data="UnitPrice" title='单价' type='numeric' renderer={customerRenderer}
+                                numericFormat={{
+                                    pattern: '0.0000',
+                                    culture: 'zh-CN'
+                                }} className="htRight" width={150} />
+                            <HotColumn data="TaxExcludedPrice" title='不含税金额' type='numeric' renderer={customerRenderer}
+                                numericFormat={{
+                                    pattern: '0.00',
+                                    culture: 'zh-CN'
+                                }} className="htRight" width={150} />
+                            <HotColumn data="TaxRate" title='税率' type='numeric' renderer={customerRenderer}
+                                numericFormat={{
+                                    pattern: '0.000000',
+                                    culture: 'zh-CN'
+                                }} className="htRight" width={150} />
+                            <HotColumn data="TaxAmount" title='税额' type='numeric' renderer={customerRenderer}
+                                numericFormat={{
+                                    pattern: '0.00',
+                                    culture: 'zh-CN'
+                                }} className="htRight" width={150} />
+
+                            <HotColumn data="TaxIncludedPrice" title='合计' type='numeric' renderer={customerRenderer}
+                                numericFormat={{
+                                    pattern: '0.00',
+                                    culture: 'zh-CN'
+                                }} className="htRight" width={150} />
                         </HotTable>
                     </div>
-                    {/*  */}
                 </div>
             </div>
-            <div className='nc-bill-table-area'>
-                        <Table
-                            columns={columnsType}
-                            rowKey={(record) => `${record.BusinessId}`}
-                            showSorterTooltip={false}
-                            dataSource={invoiceIssuanceReceiptList}
-                            loading={invoiceIssuanceReceiptList.length === 0}
-                            pagination={false}
-                            scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
-                            // style={{ width: '800px',height:'300px' } }
-                            title={() => '费用详情'}
-                            bordered={true}
-                        />
-                    </div>
-            <div style={{ textAlign: 'right', paddingTop: '10px' }}>
+            {/* <div style={{ textAlign: 'right', paddingTop: '10px' }}>
                 <Space>
-                    <Button onClick={onCancel} disabled={saving}>取消</Button>
-                    <Button type="primary" htmlType='submit' danger disabled={saving}>保存</Button>
+                    <Button>取消</Button>
+                    <Button type="primary" htmlType='submit' danger>保存</Button>
                 </Space>
-            </div>
-
-        </Modal>
+            </div> */}
+        </>
     );
 };
 
-export default InvoiceIssuanceModal; 
+export default InvoiceIssuanceStep1; 
