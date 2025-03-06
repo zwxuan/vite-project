@@ -61,7 +61,7 @@ export const cn = {
     <% foreach (ColumnSchema columnSchema in ts.Columns){ %>
         <%= CleanName(columnSchema.Name) %>:"<%= DbHelpter.GetPropertyDescription(columnSchema) %>",
     <%} %>
-    }
+    },
 <%} %>
 };
 
@@ -71,6 +71,6 @@ export const en = {
     <% foreach (ColumnSchema columnSchema in ts.Columns){ %>
         <%= CleanName(columnSchema.Name) %>:"<%= columnSchema.Name.ToLower() %>",
     <%} %>
-    }
+    },
 <%} %>
 };

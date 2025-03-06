@@ -1,7 +1,9 @@
 //router/index.tsx
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine, OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt } from "./imports";
+import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
+  , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
+  , SetFeeSchedule,ChargingStandard} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -108,11 +110,35 @@ const routers = createMemoryRouter([
           </RouterGuard>),
       },
       {
+        path: "/receipt_invoice",
+        handle: { title: '收款发票' },
+        element: (
+          <RouterGuard>
+            <Invoice />
+          </RouterGuard>),
+      },
+      {
+        path: "/physical_invoice_receipt",
+        handle: { title: '实体收款发票' },
+        element: (
+          <RouterGuard>
+            <PhysicalInvoice />
+          </RouterGuard>),
+      },
+      {
         path: "/payment_invoice",
         handle: { title: '付款发票' },
         element: (
           <RouterGuard>
             <Invoice />
+          </RouterGuard>),
+      },
+      {
+        path: "/physical_invoice_payment",
+        handle: { title: '实体付款发票' },
+        element: (
+          <RouterGuard>
+            <PhysicalInvoice />
           </RouterGuard>),
       },
       {
@@ -145,6 +171,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <ImportLog />
+          </RouterGuard>),
+      },
+      {
+        path: "/set_fee_schedule",
+        handle: { title: '费用方案' },
+        element: (
+          <RouterGuard>
+            <SetFeeSchedule />
+          </RouterGuard>),
+      },
+      {
+        path: "/charging_standard",
+        handle: { title: '计费标准' },
+        element: (
+          <RouterGuard>
+            <ChargingStandard />
           </RouterGuard>),
       },
     ], // 如果需要子路由，可以在这里添加

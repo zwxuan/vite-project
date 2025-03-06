@@ -1946,6 +1946,58 @@ class LocaleHelper {
     static getInvoiceIssuanceReceiptBusinessStatus() {
       return "invoice_issuance_receipt.businessstatus";
     }
+    // 发票流水号
+    static getPhysicalInvoiceInvoiceSerialNumber() {
+      return "physical_invoice.invoiceserialnumber";
+    }
+    // 发票类型
+    static getPhysicalInvoiceInvoiceType() {
+      return "physical_invoice.invoicetype";
+    }
+    // 购方名称
+    static getPhysicalInvoicePurchaserName() {
+      return "physical_invoice.purchasername";
+    }
+    // 购方税号
+    static getPhysicalInvoicePurchaserTaxNumber() {
+      return "physical_invoice.purchasertaxnumber";
+    }
+    // 发票代码
+    static getPhysicalInvoiceInvoiceCode() {
+      return "physical_invoice.invoicecode";
+    }
+    // 发票号码
+    static getPhysicalInvoiceInvoiceNumber() {
+      return "physical_invoice.invoicenumber";
+    }
+    // 发票日期
+    static getPhysicalInvoiceInvoiceDate() {
+      return "physical_invoice.invoicedate";
+    }
+    // 销方名称
+    static getPhysicalInvoiceSellerName() {
+      return "physical_invoice.sellername";
+    }
+    // 销方税号
+    static getPhysicalInvoiceSellerTaxNumber() {
+      return "physical_invoice.sellertaxnumber";
+    }
+    // 合计金额
+    static getPhysicalInvoiceTotalAmount() {
+      return "physical_invoice.totalamount";
+    }
+    // 文件名称
+    static getPhysicalInvoiceFileName() {
+      return "physical_invoice.filename";
+    }
+    // 文件路径
+    static getPhysicalInvoiceFilePath() {
+      return "physical_invoice.filepath";
+    }
+    // 下载次数
+    static getPhysicalInvoiceDownloadCount() {
+      return "physical_invoice.downloadcount";
+    }
   }
   
   export default LocaleHelper;

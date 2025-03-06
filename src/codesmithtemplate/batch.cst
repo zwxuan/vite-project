@@ -23,6 +23,7 @@
 <%@ Register Name="api_service" Template="api_service.cst" MergeProperties="False" ExcludeProperties="" %>
 <%@ Register Name="local_language" Template="local_language.cst" MergeProperties="False" ExcludeProperties="" %>
 <%@ Register Name="local_helper" Template="local_helper.cst" MergeProperties="False" ExcludeProperties="" %>
+<%@ Register Name="local_split" Template="local_split.cst" MergeProperties="False" ExcludeProperties="" %>
 <script runat="template">
 private string _path;
 [Editor(typeof(System.Windows.Forms.Design.FolderNameEditor),typeof(System.Drawing.Design.UITypeEditor))]
@@ -143,6 +144,14 @@ foreach(TableSchema ts in Tables)
     apiservice.SourceTable = ts;
     apiservice.OutputFile = dirApiService + ts.Name.ToLower() + "_service.ts";
     apiservice.Render(this.Response);
+    
+    //local_split
+	string dirLocalSplit = this.FilePath + "\\utils\\locale\\";
+	if(!Directory.Exists(dirLocalSplit)) Directory.CreateDirectory(dirLocalSplit);	
+	local_split localSplit = new local_split();
+    localSplit.SourceTable = ts;
+    localSplit.OutputFile = dirLocalSplit + ts.Name.ToLower() + ".ts";
+    localSplit.Render(this.Response);
 }
     //local_language
 	string dirLocalLanguage = this.FilePath + "\\locales\\";
@@ -158,4 +167,5 @@ foreach(TableSchema ts in Tables)
     localHelper.Tables = Tables;
     localHelper.OutputFile = dirLocalHelper + "languageHelper.ts";
     localHelper.Render(this.Response);
+    
 %>

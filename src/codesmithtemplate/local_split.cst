@@ -54,47 +54,13 @@ public string PascalCase(string name)
 	return strName;	
 }
 </script>
-import { AdvancedSearchFormProps } from "@/components/search-form";
-import i18n from '@/i18n';
-import LocaleHelper from '@/utils/locale';
-export const fields: AdvancedSearchFormProps["fields"] = [
 
-<% 
-    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
-    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
-    string[] typeNamesString = new string[]{"string"};
-    string[] typeNamesDate = new string[]{"DateTime"};
-%>
-<% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
-    <% if(typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema))) {%>
-    {
-        type: 'select',
-        label: i18n.t(LocaleHelper.get<%= PascalCase(this.SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>()),
-        key: '<%= PascalCase(columnSchema.Name) %>',
-        selectOptions: [{ value: '1', label: 'Value1' }, { value: '2', label: 'Value2' }, { value: '3', label: 'Value3' }]
-    },
-    <% } %>
-    <% else if(typeNamesString.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
-    {
-        type: 'input',
-        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
-        key: '<%= PascalCase(columnSchema.Name) %>',
+export const <%= PascalCase(SourceTable.Name) %>Locale = {
+    <% foreach (ColumnSchema columnSchema in SourceTable.Columns){ %>
+    // <%= DbHelpter.GetPropertyDescription(columnSchema) %>
+    get<%= PascalCase(SourceTable.Name) %><%= PascalCase(columnSchema.Name) %>() {
+      return "<%= SourceTable.Name.ToLower() %>.<%= CleanName(columnSchema.Name) %>";
     },
     <%} %>
-    <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
-    {
-        type: 'date',
-        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
-        key: '<%= PascalCase(columnSchema.Name) %>',
-    },
-    <%} %>
-    <% else { %>
-    {
-        type: 'input',
-        label: '<%= DbHelpter.GetPropertyDescription(columnSchema) %>',
-        key: '<%= PascalCase(columnSchema.Name) %>',
-    },
-    <%} %>
-<% } %>
-    
-]; 
+
+};

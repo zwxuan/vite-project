@@ -58,7 +58,7 @@ public string PascalCase(string name)
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
 import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
 import i18n from '@/i18n';
-import LocaleHelper from '@/utils/localeHelper';
+import LocaleHelper from '@/utils/locale';
 
 
 

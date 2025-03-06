@@ -476,13 +476,13 @@ const childrenMenuData: MenuGroup[] = [{
             name: "收款发票", key: "receipt_invoice",path:"/receipt_invoice?type=receipt",
         },
         {
-            name: "实体收款发票", key: "receipt_invoice_download",
+            name: "实体收款发票", key: "receipt_invoice_download",path:"/physical_invoice_receipt?type=receipt",
         },
         {
             name: "付款发票", key: "payment_invoice",path:"/payment_invoice?type=payment",
         },
         {
-            name: "实体付款发票", key: "payment_invoice_download",
+            name: "实体付款发票", key: "payment_invoice_download",path:"/physical_invoice_payment?type=payment",
         },
     ]
 },
@@ -602,7 +602,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system_maintenance",
     apps: [
         {
-            name: "费用模板", key: "cost_template",
+            name: "费用模板", key: "cost_template",path:"/set_fee_schedule",
         },
         {
             name: "银行对账模板", key: "bank_template",
