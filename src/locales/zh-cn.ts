@@ -551,7 +551,7 @@ export const cn = {
         minimumcharge:"最低收费",
         taxrate:"税率",
         remarks:"备注",
-        requiresinvoice:"是否需要开票",
+        requiresinvoice:"需要开票",
     },
     set_fee_schedule:{
         businesstype:"业务类型",

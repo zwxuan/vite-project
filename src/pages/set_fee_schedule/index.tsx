@@ -41,10 +41,7 @@ const SetFeeSchedule : React.FC = () => {
         alert(record);
     };
     const handleEdit = (record:SetFeeScheduleItemProps) => {
-        const newData = setFeeScheduleList.filter((item) => ` === `);
-        setFormData(newData[0]);
-        setModalFlag('edit');
-        showModal();
+        navigate('/charging_standard');
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);

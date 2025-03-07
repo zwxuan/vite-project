@@ -1,13 +1,13 @@
 // 计费标准属性
 export interface ChargingStandardItemProps {
     // 
-    Id:number;
+    Id:string;
     // 收付
     PaymentMethod:string;
     // 费用名称
     FeeName:string;
     // 是否受控
-    IsControlled:number;
+    IsControlled:string;
     // 结算单位类型
     SettlementUnitType:string;
     // 固定结算单位
@@ -39,5 +39,5 @@ export interface ChargingStandardItemProps {
     // 备注
     Remarks:string;
     // 是否需要开票
-    RequiresInvoice:number;
+    RequiresInvoice:string;
 }

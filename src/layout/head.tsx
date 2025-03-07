@@ -1,7 +1,9 @@
 //header.tsx
 import './layout_less/head.less'
-import { useAppDispatch } from '@/hooks/use_global.hooks';
+import { useAppDispatch,useAppSelector } from '@/hooks/use_global.hooks';
 import { setCollapsed } from "@/store/reducers/global";
+import { selectUserState } from "@/store/reducers/user";
+import type { UserLoginState } from '@/store/reducers/global_state';
 import { Breadcrumb,Dropdown,MenuProps,Badge,Avatar,Select } from 'antd';
 import dayjs from 'dayjs';
 import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined,TranslationOutlined } from '@ant-design/icons';
@@ -12,6 +14,8 @@ interface AppSiderProps {
     collapsed: boolean;
 }
 const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
+    const userlogin:UserLoginState = useAppSelector(selectUserState);
+    
     const dispatch = useAppDispatch();
     const location:Location = useLocation();
     const { t, i18n } = useTranslation();
@@ -53,7 +57,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
         {
           key: '1',
           label: (
-              <span>天涯轩</span>
+              <span>{userlogin.UserEmail}</span>
           ),
           icon:<CrownOutlined />
         },
