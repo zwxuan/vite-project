@@ -10,7 +10,7 @@ import { StatementOfAccountLocale } from './statement_of_account.ts';
 import { BillManageLocale } from './bill_manage.ts';
 import { SetFeeScheduleLocale } from './set_fee_schedule.ts';
 import { ChargingStandardLocale } from './charging_standard.ts';
-
+import { NotOffSettingLocale } from './not_off_setting.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -24,6 +24,7 @@ export {
   BillManageLocale,
   SetFeeScheduleLocale,
   ChargingStandardLocale,
+  NotOffSettingLocale,
 };
 
 export default {
@@ -39,4 +40,5 @@ export default {
   ...StatementOfAccountLocale,
   ...SetFeeScheduleLocale,
   ...ChargingStandardLocale,
+  ...NotOffSettingLocale,
 };

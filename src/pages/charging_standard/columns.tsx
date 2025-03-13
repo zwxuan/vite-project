@@ -14,12 +14,17 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         render: (text: string, record: ChargingStandardItemProps) => {
             const editable = isEditing(record);
             return editable ? (
-                <Input
+                <Select
                     value={editingRow?.PaymentMethod}
-                    onChange={e => setEditingRow({ ...editingRow!, PaymentMethod: e.target.value })}
+                    style={{ width: '80px',textAlign:'left' }}
+                    onChange={value => setEditingRow({ ...editingRow!, PaymentMethod: value })}
+                    options={[
+                        { value: true, label: '应收' },
+                        { value: false, label: '应付' }
+                    ]}
                 />
             ) : (
-                text
+                text ? '应收' : '应付'
             );
         }
     },
@@ -48,12 +53,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IsControlled',
         sorter: true,
-        align: 'right',
+        align: 'center',
         render: (text: boolean, record: ChargingStandardItemProps) => {
             const editable = isEditing(record);
             return editable ? (
                 <Select
                     value={editingRow?.IsControlled}
+                    style={{ width: '80px',textAlign:'left' }}
                     onChange={value => setEditingRow({ ...editingRow!, IsControlled: value })}
                     options={[
                         { value: true, label: '是' },
@@ -361,7 +367,7 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
             return editable ? (
                 <Select
                     value={editingRow?.RequiresInvoice}
-                    style={{ width: '60px' }}
+                    style={{ width: '60px',textAlign:'left' }}
                     onChange={value => setEditingRow({ ...editingRow!, RequiresInvoice: value })}
                     options={[
                         { value: true, label: '是' },
@@ -377,6 +383,7 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
+        width: 80,
         render: (_: any, record: ChargingStandardItemProps) => {
             const editable = isEditing(record);
             return editable ? (

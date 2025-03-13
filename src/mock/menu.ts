@@ -548,7 +548,7 @@ const childrenMenuData: MenuGroup[] = [{
     ]
 },
 {
-    title: "实收实付",
+    title: "财务管理",
     key: "actual_payment",
     parentkey: "finance_manage",
     apps: [
@@ -556,7 +556,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "核销单", key: "write_off_order",
         },
         {
-            name: "未核销综合查询", key: "unwrite_off_query",
+            name: "未核销综合查询", key: "unwrite_off_query",path:"/not_off_setting",
         },
     ]
 },

@@ -3,7 +3,7 @@ import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
-  , SetFeeSchedule,ChargingStandard} from "./imports";
+  , SetFeeSchedule,ChargingStandard,NotOffSetting} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -187,6 +187,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <ChargingStandard />
+          </RouterGuard>),
+      },
+      {
+        path: "/not_off_setting",
+        handle: { title: '未核销列表' },
+        element: (
+          <RouterGuard>
+            <NotOffSetting />
           </RouterGuard>),
       },
     ], // 如果需要子路由，可以在这里添加
