@@ -273,7 +273,7 @@ const FeeTab : React.FC = () => {
 
             
             <div className="header-button-area">
-                <div style={{textAlign:'right',paddingRight:'8px'}}>
+                <div style={{textAlign:'right',paddingRight:'8px',paddingTop:'3px'}}>
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
                             <Button onClick={handleAdd}>新增</Button>

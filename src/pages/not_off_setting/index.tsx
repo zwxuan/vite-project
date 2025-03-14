@@ -2,7 +2,7 @@
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
-import type { MenuProps,RadioChangeEvent,TableProps } from 'antd';
+import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
 import { getNotOffSettingList,saveNotOffSetting } from "@/api/financial_manage/not_off_setting_service";
@@ -16,6 +16,9 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
+import { getColumns as getBillColumns } from '@/pages/bill_manage/columns';
+import { getColumns as getStatementOfAccountColumns } from '@/pages/statement_of_account/columns';
+import { getColumns as getInvoiceColumns } from '@/pages/invoice/columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
@@ -48,7 +51,7 @@ const NotOffSetting : React.FC = () => {
         showModal();
     };
     
-    const columnsType = getColumns(handleEdit, handleDelete);
+    
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -76,7 +79,8 @@ const NotOffSetting : React.FC = () => {
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
     const [saving, setSaving] = useState(false);
     const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
-
+    const [creditFlag, setCredit] = useState(true);
+    const [columnsType, setColumns] = useState<TableColumnsType<any>>(getColumns(handleEdit, handleDelete));
     const showModal = () => {
         setOpen(true);
     };
@@ -185,21 +189,22 @@ const NotOffSetting : React.FC = () => {
         console.log('handleSearch',values);
     };
     const onChange = (e: RadioChangeEvent) => {
-        // if(e.target.value === 1){
-        //     setColumns(getColumns(handleEdit, handleDelete));
-        // }else if(e.target.value === 3){
-        //     setBillFlag(true);
-        //     setColumns(getBillColumns(() => {}, () => {}));
-        // }else if(e.target.value === 4){
-        //     setColumns(getStatementOfAccountColumns(() => {}, () => {}));
-        // }
+        if(e.target.value === 1){
+            setColumns(getColumns(handleEdit, handleDelete));
+        }else if(e.target.value === 2){
+            setColumns(getInvoiceColumns(() => {}, () => {}));
+        }else if(e.target.value === 3){
+            setColumns(getBillColumns(() => {}, () => {}));
+        }else if(e.target.value === 4){
+            setColumns(getStatementOfAccountColumns(() => {}, () => {}));
+        }
     };
     const onChangeCD = (e: RadioChangeEvent)=>{
-        // if(e.target.value === 1){
-        //     setCredit(true);
-        // }else{
-        //     setCredit(false);
-        // }
+        if(e.target.value === 1){
+            setCredit(true);
+        }else{
+            setCredit(false);
+        }
     }
     
     return (
@@ -241,24 +246,14 @@ const NotOffSetting : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button>修改</Button>
-                                <Button>删除</Button>
-                                <Button>复制</Button>
+                                <Button type="primary" danger onClick={handleAdd}>销账</Button>
+                                <Button type="primary" danger>对冲销账</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusItems}}>
-                                <Button>
-                                    <Space>
-                                        启用
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
                             <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
                                 <Button>
                                     <Space>
