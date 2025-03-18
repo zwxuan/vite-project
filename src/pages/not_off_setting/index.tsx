@@ -45,8 +45,6 @@ const NotOffSetting : React.FC = () => {
         alert(record);
     };
     const handleEdit = (record:NotOffSettingItemProps) => {
-        const newData = notOffSettingList.filter((item) => ` === `);
-        setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
     };
@@ -301,6 +299,7 @@ const NotOffSetting : React.FC = () => {
                                     { value: 2, label: '发票' },
                                     { value: 3, label: '账单' },
                                     { value: 4, label: '对账单' },
+                                    { value: 5, label: '付款申请' },
                                 ]}
                             />   
                         </Space>
