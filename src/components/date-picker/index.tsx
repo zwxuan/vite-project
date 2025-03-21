@@ -20,46 +20,6 @@ const zh_CNLocale: typeof zh = {
 // 导出DatePicker的子组件
 const { RangePicker: AntRangePicker, MonthPicker: AntMonthPicker, WeekPicker: AntWeekPicker, YearPicker: AntYearPicker, TimePicker: AntTimePicker, QuarterPicker: AntQuarterPicker } = AntDatePicker;
 
-// 创建自定义DatePickerZH组件
-interface DatePickerProps extends React.ComponentProps<typeof AntDatePicker> {
-  RangePicker?: typeof RangePickerZH;
-  MonthPicker?: typeof MonthPickerZH;
-  WeekPicker?: typeof WeekPickerZH;
-  YearPicker?: typeof YearPickerZH;
-  QuarterPicker?: typeof QuarterPickerZH;
-  TimePicker?: typeof TimePickerZH;
-}
-
-export const DatePickerZH: React.FC<DatePickerProps> & {
-  RangePicker: typeof RangePickerZH;
-  MonthPicker: typeof MonthPickerZH;
-  WeekPicker: typeof WeekPickerZH;
-  YearPicker: typeof YearPickerZH;
-  QuarterPicker: typeof QuarterPickerZH;
-  TimePicker: typeof TimePickerZH;
-} = Object.assign((props: DatePickerProps) => {
-  return <AntDatePicker locale={zh_CNLocale} {...props} />;
-}, {
-  get RangePicker() {
-    return RangePickerZH;
-  },
-  get MonthPicker() {
-    return MonthPickerZH;
-  },
-  get WeekPicker() {
-    return WeekPickerZH;
-  },
-  get YearPicker() {
-    return YearPickerZH;
-  },
-  get QuarterPicker() {
-    return QuarterPickerZH;
-  },
-  get TimePicker() {
-    return TimePickerZH;
-  }
-});
-
 // 创建自定义RangePicker组件
 interface RangePickerProps extends React.ComponentProps<typeof AntRangePicker> {}
 
@@ -102,14 +62,33 @@ export const TimePickerZH: React.FC<TimePickerProps> = (props) => {
   return <AntTimePicker locale={zh_CNLocale} {...props} />;
 };
 
+// 创建自定义DatePickerZH组件
+interface DatePickerProps extends React.ComponentProps<typeof AntDatePicker> {
+  RangePicker?: typeof RangePickerZH;
+  MonthPicker?: typeof MonthPickerZH;
+  WeekPicker?: typeof WeekPickerZH;
+  YearPicker?: typeof YearPickerZH;
+  QuarterPicker?: typeof QuarterPickerZH;
+  TimePicker?: typeof TimePickerZH;
+}
+
+export const DatePickerZH: React.FC<DatePickerProps> & {
+  RangePicker: typeof RangePickerZH;
+  MonthPicker: typeof MonthPickerZH;
+  WeekPicker: typeof WeekPickerZH;
+  YearPicker: typeof YearPickerZH;
+  QuarterPicker: typeof QuarterPickerZH;
+  TimePicker: typeof TimePickerZH;
+} = Object.assign((props: DatePickerProps) => {
+  return <AntDatePicker locale={zh_CNLocale} {...props} />;
+}, {
+  RangePicker: RangePickerZH,
+  MonthPicker: MonthPickerZH,
+  WeekPicker: WeekPickerZH,
+  YearPicker: YearPickerZH,
+  QuarterPicker: QuarterPickerZH,
+  TimePicker: TimePickerZH
+});
+
 // 默认导出DatePickerZH组件
 export default DatePickerZH;
-
-
-// 同时导出子组件作为DatePickerZH的属性
-(DatePickerZH as any).RangePicker = RangePickerZH;
-(DatePickerZH as any).MonthPicker = MonthPickerZH;
-(DatePickerZH as any).WeekPicker = WeekPickerZH;
-(DatePickerZH as any).YearPicker = YearPickerZH;
-(DatePickerZH as any).QuarterPicker = QuarterPickerZH;
-(DatePickerZH as any).TimePicker = TimePickerZH;

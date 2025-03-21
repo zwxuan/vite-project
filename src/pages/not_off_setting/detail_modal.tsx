@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Table, Modal, Row, Col, Divider, Select, InputNumber, Radio, Input, DatePicker, Button, Splitter, Descriptions, Checkbox, Space } from 'antd';
-import {DatePickerZH} from '@/components/date-picker/index';
+import { DatePickerZH } from '@/components/date-picker/index';
 import type { DescriptionsProps, TableColumnsType } from 'antd';
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
 import { CashBasisAccountingItemProps } from '@/types/cash_basis_accounting/cash_basis_accounting';
@@ -334,7 +334,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 </div>
                             </Col>
                             <Col span={20}>
-                                <div className='nc-bill-table-area' style={{margin:'0 0'}}>
+                                <div className='nc-bill-table-area' style={{ margin: '0 0' }}>
                                     <Table<CashBasisAccountingItemProps>
                                         columns={columnsType}
                                         rowKey={(record) => `${record.CounterpartyAccountNumber, record.BankReceiptNumber, record.OurAccountNumber}`}
@@ -355,6 +355,11 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                         }
                                         scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
                                         footer={() => '底部汇总信息'}
+                                        title={() => (<div style={{ marginLeft: '10px' }}>
+                                            <span className="modal-body-left-commons-title-text">
+                                                实收实付记录
+                                            </span>
+                                        </div>)}
                                         bordered={true}
                                     />
                                 </div>
@@ -372,12 +377,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <label>收款日期</label>
                                     {/* <DatePicker locale={zh_CNLocale} /> */}
-                                    <DatePickerZH  />
+                                    <DatePickerZH />
                                 </div>
                             </Col>
                             <Col span={8}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label style={{color:'red',fontSize:'16px',fontWeight:'bolder'}}>本次核销=收款金额+汇兑损益+财务费用+零头短账</label>
+                                    <label style={{ color: 'red', fontSize: '16px', fontWeight: 'bolder' }}>本次核销=收款金额+汇兑损益+财务费用+零头短账</label>
                                 </div>
                             </Col>
                             <Col span={8}>
