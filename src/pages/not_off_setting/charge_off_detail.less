@@ -1,16 +1,54 @@
-.item-charging-container {
+.item-charging-container-modal {
     text-align: left;
-    display: block;
+    // display: block;
     .ant-row {
         padding-bottom: 5px;
     }
 }
-.item-charging-container label {
-    width: 120px;
-    display: block;
-    text-align: right;
+.item-charging-container-modal label {
+    // display: block;
+    text-align: left;
 }
 :where(.css-dev-only-do-not-override-tpassh).ant-select.ant-select-outlined.ant-select-multiple.ant-select-show-arrow.ant-select-show-search {
     height:26px;
     font-size: 12px;
+}
+.htCore > tbody > tr > .cell_write_background {
+    background-color: #FFFFBB;
+}
+
+/*解决handsontable组件中checkbox控件不显示的问题*/
+.handsontable .htCheckboxRendererInput{
+    appearance: auto;
+    -webkit-appearance: auto;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    accent-color: red;
+}
+.ht-wrapper:not([class*=ht-theme]) {
+    --ht-cell-selection-border-color: red;
+}
+/*右下角角标*/
+.handsontable .wtBorder.corner{
+    background-color: red !important;
+    border-color: red!important;
+}
+.handsontableInputHolder .handsontableInput {
+    box-shadow: inset 0 0 0 1px red;
+}
+.current {
+    box-shadow: inset 0 0 0 1px red;
+}
+.handsontable th.ht__active_highlight{
+    background-color: #d9d9d9;
+    box-shadow:inset 0 0 0 0px #d9d9d9;
+    color: #000;
+}
+.handsontable tbody tr.ht__row_even th.ht__active_highlight, .handsontable tbody tr.ht__row_odd th.ht__active_highlight {
+    background-color: #FFFFBB;
+    color: #000;
+}
+.handsontable tbody tr th.ht__active_highlight {
+    box-shadow:inset 0 0 0 0px #d9d9d9;
 }

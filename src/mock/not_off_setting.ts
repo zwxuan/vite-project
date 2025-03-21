@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
+import { NotOffFeesItemProps } from "@/types/not_off_setting/not_off_fees";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
@@ -299,7 +300,170 @@ const notOffSettingItems:NotOffSettingItemProps[] = [
       "BusinessStatus": "正操作"
   }
 ];
- 
+
+const notOffFeesItems:NotOffFeesItemProps[] = [
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "操作费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1.0000,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1.0000,
+      "Amount": 200,
+      "LastBalance": 200,
+      "CurrentWriteOff": 200,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "文件费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 500,
+      "LastBalance": 500,
+      "CurrentWriteOff": 500,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "港杂费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 1480,
+      "LastBalance": 1480,
+      "CurrentWriteOff": 1480,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "称重声明费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 160,
+      "LastBalance": 160,
+      "CurrentWriteOff": 160,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "舱单费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 100,
+      "LastBalance": 100,
+      "CurrentWriteOff": 100,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "THC",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 6000,
+      "LastBalance": 6000,
+      "CurrentWriteOff": 6000,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "货物处理费用",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 200,
+      "LastBalance": 200,
+      "CurrentWriteOff": 200,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "安保费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 80,
+      "LastBalance": 80,
+      "CurrentWriteOff": 80,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "铅封费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 1,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "RMB",
+      "WriteOffExchangeRate": 1,
+      "Amount": 360,
+      "LastBalance": 360,
+      "CurrentWriteOff": 360,
+      "CurrentBalance": 0
+  },
+  {
+      "BusinessNumber": "SHSE20020008",
+      "MBL": "WSTBND126407447",
+      "BusinessDate": "2020-01-15",
+      "FeeName": "海运费",
+      "ReconciliationStatus": "未确认",
+      "ExchangeRate": 7.2,
+      "BusinessStatus": "正操作",
+      "CreditDebit": "应付",
+      "Currency": "USD",
+      "WriteOffExchangeRate": 7,
+      "Amount": 13200,
+      "LastBalance": 13200,
+      "CurrentWriteOff": 13200,
+      "CurrentBalance": 0
+  }
+]
+
 export default [
   // 未核销台账
   {
@@ -311,6 +475,18 @@ export default [
         success: true,
         message: "请求成功。",
         data: notOffSettingItems,
+      };
+    },
+  },
+  {
+    url: "/api/not_off_fees",
+    method: "GET",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        message: "请求成功。",
+        data: notOffFeesItems,
       };
     },
   },

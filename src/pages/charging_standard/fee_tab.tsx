@@ -1,5 +1,4 @@
 
-import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification,Popconfirm } from 'antd';
 import type { MenuProps,TableProps } from 'antd';

@@ -1,6 +1,7 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
+import { CashBasisAccountingItemProps } from '@/types/cash_basis_accounting/cash_basis_accounting';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -392,6 +393,108 @@ export const getColumns = (handleEdit: (record: NotOffSettingItemProps) => void,
         render: (_, record) => (
         <>
             <a onClick={()=>handleEdit(record)}>详细</a>
+        </>
+        ),
+    },
+]; 
+export const getCashColumns = (handleEdit: (record: CashBasisAccountingItemProps) => void, handleDelete: (record: CashBasisAccountingItemProps) => void): TableColumnsType<CashBasisAccountingItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingOurBank()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'OurBank',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingOurAccountNumber()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'OurAccountNumber',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingCurrency()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Currency',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingPaymentMethod()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'PaymentMethod',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingReceiptStatus()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ReceiptStatus',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingSettlementObject()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'SettlementObject',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingCounterpartyUnit()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CounterpartyUnit',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingCounterpartyBank()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CounterpartyBank',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingCounterpartyAccountNumber()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CounterpartyAccountNumber',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingVoucherNumber()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'VoucherNumber',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getCashBasisAccountingBankReceiptNumber()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'BankReceiptNumber',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 60,
+        render: (_, record) => (
+        <>
+            <a>移除</a>
         </>
         ),
     },

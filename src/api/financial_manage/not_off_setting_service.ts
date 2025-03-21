@@ -10,6 +10,13 @@ export const getNotOffSettingList = () => {
   })
 }
 
+export const getNotOffFeesList = () => {
+  return request({
+    method: "GET",
+    url: "/not_off_fees"
+  })
+}
+
 export const saveNotOffSetting = (data:NotOffSettingItemProps,onUploadProgress: (progress: number) => void) => {
   return requestWithProgress({
     method: 'POST',

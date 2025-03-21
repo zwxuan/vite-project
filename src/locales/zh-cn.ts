@@ -621,4 +621,17 @@ export const cn = {
         sono:"提单号",
         businessstatus:"业务状态",
     },
+    cash_basis_accounting:{
+        ourbank:"我方银行",
+        ouraccountnumber:"我方账号",
+        currency:"币种",
+        paymentmethod:"收款方式",
+        receiptstatus:"水单状态",
+        settlementobject:"结算对象",
+        counterpartyunit:"对方单位",
+        counterpartybank:"对方银行",
+        counterpartyaccountnumber:"对方账号",
+        vouchernumber:"凭证号",
+        bankreceiptnumber:"银行水单号",
+    },
 };

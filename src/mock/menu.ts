@@ -556,10 +556,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "核销单", key: "write_off_order",
+            name: "销账", key: "write_off_order",
         },
         {
-            name: "未核销综合查询", key: "unwrite_off_query",path:"/not_off_setting",
+            name: "未销账综合查询", key: "unwrite_off_query",path:"/not_off_setting",
         },
     ]
 },

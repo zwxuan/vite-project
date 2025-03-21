@@ -1,15 +1,19 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Tabs, Modal, Row, Col, Select, Input, DatePicker, Button, Splitter } from 'antd';
+import { Table, Modal, Row, Col, Divider, Select, InputNumber, Radio, Input, DatePicker, Button, Splitter, Descriptions, Checkbox, Space } from 'antd';
+import {DatePickerZH} from '@/components/date-picker/index';
+import type { DescriptionsProps, TableColumnsType } from 'antd';
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
+import { CashBasisAccountingItemProps } from '@/types/cash_basis_accounting/cash_basis_accounting';
 import { HotTable, HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
 import Handsontable from "handsontable";
-import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
-import { getOrderFeeList, getFeeNameList } from "@/api/business_order/order_fee_service";
-import { OrderFeeItemProps, FeeNameItemProps } from "@/types/order_fee/order_fee";
+import { getNotOffFeesList } from '@/api/financial_manage/not_off_setting_service';
+import { NotOffFeesItemProps } from '@/types/not_off_setting/not_off_fees';
+import { getCashColumns } from './columns';
 import zh from 'antd/es/date-picker/locale/zh_CN';
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
 import './charge_off_detail.less'
 interface DetailModalProps {
     open: boolean;
@@ -22,22 +26,67 @@ interface DetailModalProps {
     onDateChange: (name: string, value: string | Array<string>) => void;
     onNumberChange: (name: string, value: number | null) => void;
 }
-
 const { RangePicker } = DatePicker;
 
-const zh_CNLocale: typeof zh = {
-    ...zh,
-    lang: {
-        ...zh.lang,
-        locale: 'zh_CN',
-        fieldDateFormat: 'YYYY-MM-DD',
-        fieldDateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-        yearFormat: 'YYYY 年',
-        monthFormat: 'MM 月',
-        cellYearFormat: 'YYYY',
-        "shortWeekDays": ["日", "一", "二", "三", "四", "五", "六"],
+
+const invoiceItems: DescriptionsProps['items'] = [
+    {
+        key: '1',
+        label: '结算单位',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'left' },
+        children: '上海大洋行有限公司',
+        span: 6,
     },
-};
+    {
+        key: '3',
+        label: '发票抬头',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'left' },
+        children: '上海大洋行有限公司',
+        span: 4,
+    },
+    {
+        key: '2',
+        label: '发票号',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'left' },
+        children: '6666',
+        span: 2,
+    },
+    {
+        key: '4',
+        label: '开票日期',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'left' },
+        children: '2025-03-04',
+        span: 2,
+    },
+    {
+        key: '5',
+        label: '币种',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'left' },
+        children: 'RMB',
+        span: 2,
+    },
+    {
+        key: '6',
+        label: '金额',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'right' },
+        children: '200.00',
+        span: 2,
+    },
+    {
+        key: '7',
+        label: '应付类型',
+        labelStyle: { width: '120px', textAlign: 'center', fontWeight: 'bold' },
+        contentStyle: { textAlign: 'left' },
+        children: '应付',
+        span: 2,
+    },
+];
 
 const DetailModal: React.FC<DetailModalProps> = ({
     open,
@@ -52,79 +101,83 @@ const DetailModal: React.FC<DetailModalProps> = ({
 }) => {
     const [value, setValue] = useState([]);
     const hotTableRef = useRef<any>(null);
-    const [orderFeeList, setOrderFeeList] = useState([] as OrderFeeItemProps[]);
+    const [orderFeeList, setOrderFeeList] = useState([] as NotOffFeesItemProps[]);
+    const [columnsType, setColumns] = useState<TableColumnsType<any>>(getCashColumns(() => { }, () => { }));
+
     useEffect(() => {
         const getData = async () => {
-          const res = await getOrderFeeList();
-          const orderFeeData = res?.data as OrderFeeItemProps[];
-          // 设置order_fee台账数据
-          setOrderFeeList([...orderFeeData.splice(0, 5)]);
+            const res = await getNotOffFeesList();
+            const orderFeeData = res?.data as NotOffFeesItemProps[];
+            // 设置order_fee台账数据
+            setOrderFeeList([...orderFeeData.splice(0, 5)]);
         };
-    
+
         getData();
-      }, []);
+    }, []);
     const customerRenderer: React.FC<HotRendererProps> = ({ instance, TD, row, col, prop, value, cellProperties }) => {
         Handsontable.renderers.TextRenderer(instance, TD, row, col, prop, value, cellProperties);
         // 获取单元格元数据
         const cellMeta = instance.getCellMeta(row, col);
         // 如果单元格被修改过
         if (cellMeta.isModified) {
-          TD.style.color = '#ff1648'; // 修改后的前景色
+            TD.style.color = '#ff1648'; // 修改后的前景色
         }
-    
+
         // 如果单元格是新增的
         if (cellMeta.isNew) {
-          TD.style.color = '#007ace'; // 新增的前景色
+            TD.style.color = '#007ace'; // 新增的前景色
         }
         if (cellProperties.type === 'dropdown') {
-          // 手动添加自动完成箭头元素
-          const arrowDiv = document.createElement('div');
-          arrowDiv.className = 'htAutocompleteArrow';
-          arrowDiv.setAttribute('aria-hidden', 'true');
-          arrowDiv.textContent = '▼';
-          TD.appendChild(arrowDiv);
+            // 手动添加自动完成箭头元素
+            const arrowDiv = document.createElement('div');
+            arrowDiv.className = 'htAutocompleteArrow';
+            arrowDiv.setAttribute('aria-hidden', 'true');
+            arrowDiv.textContent = '▼';
+            TD.appendChild(arrowDiv);
         }
         return null;
-      };
-      const handleAfterChange = (changes: Handsontable.CellChange[] | null, source: Handsontable.ChangeSource) => {
+    };
+    const handleAfterChange = (changes: Handsontable.CellChange[] | null, source: Handsontable.ChangeSource) => {
         if (source === 'edit') {
-          const hotInstance = hotTableRef.current.hotInstance;
-          if (!hotInstance) {
-            return;
-          }
-          const cellProperties: Handsontable.CellProperties[] = hotInstance.getCellsMeta();
-    
-          changes?.forEach(([row, prop]) => {
-            const colType = cellProperties.filter((item: Handsontable.CellProperties) => {
-              return item.prop === prop.toString();
+            const hotInstance = hotTableRef.current.hotInstance;
+            if (!hotInstance) {
+                return;
+            }
+            const cellProperties: Handsontable.CellProperties[] = hotInstance.getCellsMeta();
+
+            changes?.forEach(([row, prop]) => {
+                const colType = cellProperties.filter((item: Handsontable.CellProperties) => {
+                    return item.prop === prop.toString();
+                });
+                const cellMeta = hotInstance.getCellMeta(row, colType[0].col);
+                cellMeta.isModified = true; // 标记为已修改
             });
-            const cellMeta = hotInstance.getCellMeta(row, colType[0].col);
-            cellMeta.isModified = true; // 标记为已修改
-          });
-          hotInstance.render(); // 重新渲染表格
+            hotInstance.render(); // 重新渲染表格
         }
-      };
+    };
     return (
         <Modal
             open={open}
-            title={modalFlag === 'add' ? "新增未核销" : "编辑未核销"}
+            title={'销账-上海大洋行有限公司'}
             onCancel={onCancel}
             width={'95%'}
+            height={'95%'}
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
             footer={null}
+            centered={true}
         >
             <div className="nc-bill-search-area" style={{ paddingTop: '10px' }}>
                 <div className="search-area-contant">
-                    <div className="item-charging-container">
+                    <div className="item-charging-container-modal">
                         <Row gutter={24}>
                             <Col span={24}>
-                                <Splitter style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', height: 200 }}>
-                                    <Splitter.Panel collapsible min="20%">
-                                        11
+                                <Splitter style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', height: 350 }} layout='vertical'>
+                                    <Splitter.Panel style={{ paddingBottom: '20px' }} defaultSize="20%" collapsible min="5%">
+                                        <Descriptions column={12} size='small' bordered items={invoiceItems} />
                                     </Splitter.Panel>
-                                    <Splitter.Panel style={{paddingLeft:'20px'}} collapsible>
+                                    <Splitter.Panel style={{ paddingTop: '20px' }} collapsible>
                                         <HotTable
                                             ref={hotTableRef}
                                             data={orderFeeList}
@@ -146,122 +199,194 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                             afterChange={handleAfterChange}
                                             licenseKey="non-commercial-and-evaluation"
                                         >
-                                            <HotColumn
-                                                data="FeeName"
-                                                title="费用名称"
-                                                className="htLeft ellipsis-cell"
-                                                type="dropdown"
-                                                strict={true}
-                                                language="zh-cn"
-                                                width={220}
-                                                // renderer={yellowRenderer}
-                                                source={async (query: string, process: (data: string[]) => void) => {
-                                                    // 解决单元格输入中文时，将输入法的英文拼音传入导致检索异常
-                                                    setTimeout(async () => {
-                                                        console.log('Delayed query:', query); // 打印延迟后的 query
-                                                        const res = await getFeeNameList();
-                                                        const orderFeeData = res?.data as FeeNameItemProps[];
-                                                        // 过滤数据（根据 query）
-                                                        const filteredData = orderFeeData.filter((item) =>
-                                                            item.FeeDisplayName.toLowerCase().includes(query.toLowerCase())
-                                                        );
-                                                        // 处理数据并传递给 Handsontable
-                                                        const uniqueFeeNames = [...new Set(filteredData.map((item) => item.FeeDisplayName))];
-                                                        process(uniqueFeeNames);
-                                                    }, 200); // 延迟 2 秒
-                                                }}
-                                            />
-                                            <HotColumn data="CreditDebit" title='规格型号' width={180} className="htLeft" renderer={customerRenderer} />
-                                            <HotColumn data="DomesticForeign" title='单位' type='dropdown' source={['[1]票', '[2]车']} width={100} className="htLeft" renderer={customerRenderer} />
-                                            <HotColumn data="Quantity" title='数量' type='numeric' renderer={customerRenderer}
+                                            <HotColumn data="IsCheck" title='<input type="checkbox" class="htCheckboxRendererInput" />' width={40} type='checkbox' className="htCenter" />
+                                            <HotColumn data="BusinessNumber" title='业务编号' width={180} readOnly="true" className="htLeft" renderer={customerRenderer} />
+                                            <HotColumn data="MBL" title='MBL' width={180} className="htLeft" readOnly="true" renderer={customerRenderer} />
+                                            <HotColumn data="BusinessDate" title='业务日期' width={100} className="htLeft" readOnly="true" renderer={customerRenderer} />
+                                            <HotColumn data="FeeName" title='费用名称' width={100} className="htLeft" readOnly="true" renderer={customerRenderer} />
+                                            <HotColumn data="ReconciliationStatus" title='对账状态' width={100} className="htLeft" readOnly="true" renderer={customerRenderer} />
+                                            <HotColumn data="ExchangeRate" title='汇率' type='numeric' readOnly="true"
                                                 numericFormat={{
-                                                    pattern: '0.0000',
+                                                    pattern: '0,0.0000',
                                                     culture: 'zh-CN'
-                                                }} className="htRight" width={150} />
-                                            <HotColumn data="UnitPrice" title='单价' type='numeric' renderer={customerRenderer}
+                                                }} className="htRight" width={80} />
+                                            <HotColumn data="BusinessStatus" title='业务状态' width={100} className="htLeft" readOnly="true" />
+                                            <HotColumn data="CreditDebit" title='收|付' width={100} className="htLeft" readOnly="true" />
+                                            <HotColumn data="Currency" title='币制' width={100} className="htLeft" readOnly="true" />
+                                            <HotColumn data="WriteOffExchangeRate" title='核销汇率' type='numeric' readOnly="true"
                                                 numericFormat={{
-                                                    pattern: '0.0000',
+                                                    pattern: '0,0.0000',
                                                     culture: 'zh-CN'
-                                                }} className="htRight" width={150} />
-                                            <HotColumn data="TaxExcludedPrice" title='不含税金额' type='numeric' renderer={customerRenderer}
+                                                }} className="htRight" width={80} />
+                                            <HotColumn data="Amount" title='金额' type='numeric' readOnly="true"
                                                 numericFormat={{
-                                                    pattern: '0.00',
+                                                    pattern: '0,0.00',
                                                     culture: 'zh-CN'
-                                                }} className="htRight" width={150} />
-                                            <HotColumn data="TaxRate" title='税率' type='numeric' renderer={customerRenderer}
+                                                }} className="htRight" width={120} />
+                                            <HotColumn data="LastBalance" title='上次余额' type='numeric' readOnly="true"
                                                 numericFormat={{
-                                                    pattern: '0.000000',
+                                                    pattern: '0,0.00',
                                                     culture: 'zh-CN'
-                                                }} className="htRight" width={150} />
-                                            <HotColumn data="TaxAmount" title='税额' type='numeric' renderer={customerRenderer}
+                                                }} className="htRight" width={120} />
+                                            <HotColumn data="CurrentWriteOff" title='本次核销' type='numeric'
                                                 numericFormat={{
-                                                    pattern: '0.00',
+                                                    pattern: '0,0.00',
                                                     culture: 'zh-CN'
-                                                }} className="htRight" width={150} />
-
-                                            <HotColumn data="TaxIncludedPrice" title='合计' type='numeric' renderer={customerRenderer}
+                                                }} className="htRight cell_write_background" width={120} />
+                                            <HotColumn data="CurrentBalance" title='本次余额' type='numeric' readOnly="true"
                                                 numericFormat={{
-                                                    pattern: '0.00',
+                                                    pattern: '0,0.00',
                                                     culture: 'zh-CN'
-                                                }} className="htRight" width={150} />
+                                                }} className="htRight" width={120} />
                                         </HotTable>
                                     </Splitter.Panel>
                                 </Splitter>
                             </Col>
+
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '15px' }}>
+                                <Space size={10} style={{ flex: 1 }}>
+                                    <span className="modal-body-left-commons-title-text">
+                                        利润 USD:1,000.00 RMB:24,540.00 折合RMB:31,640.00 毛利率: 69.02 %
+                                    </span>
+                                    <span className='rule_tilte_info'>
+                                        <Checkbox value="1">已确认费用</Checkbox>
+                                    </span>
+                                </Space>
+                            </div>
                         </Row>
+                        <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed></Divider>
                         <Row gutter={24} style={{ paddingRight: '6px' }}>
-                            <Col span={6}>
+                            <Col span={24}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label>业务类型</label>
-                                    <Select style={{ flex: 1 }} options={[
-                                        { "value": "1", "label": "海运出口" },
-                                        { "value": "2", "label": "海运进口" },
-                                        { "value": "3", "label": "空运出口" },
-                                        { "value": "4", "label": "空运进口" },
-                                        { "value": "5", "label": "铁路出口" },
-                                        { "value": "6", "label": "铁路进口" },
-                                        { "value": "7", "label": "FBA海运" },
-                                        { "value": "8", "label": "FBA空运" },
-                                        { "value": "9", "label": "FBA铁路" },
-                                        { "value": "10", "label": "综合物流" }
-                                    ]}></Select>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label>拼箱类型</label>
-                                    <Select style={{ flex: 1 }} options={[
-                                        { "value": "1", "label": "一主多分" },
-                                        { "value": "2", "label": "一主一分" },
-                                        { "value": "3", "label": "直单" },
-                                    ]}></Select>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label>货物类型</label>
-                                    <Select style={{ flex: 1 }}
-                                        showSearch
-                                        filterOption={(input, option) =>
-                                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                        }
+                                    <label>销账汇率</label>
+                                    <Radio.Group
+                                        name="radiogroup"
+                                        defaultValue={1}
+                                        // onChange={onChangeCD}
                                         options={[
-                                            { "value": "1", "label": "普货" },
-                                            { "value": "2", "label": "危险品" },
-                                            { "value": "3", "label": "托盘" },
-                                            { "value": "4", "label": "挂衣箱" },
-                                            { "value": "5", "label": "大件货" },
-                                            { "value": "6", "label": "温控货物" }
+                                            { value: 1, label: '按平均汇率' },
+                                            { value: 2, label: '按费用汇率' },
                                         ]}
                                     />
                                 </div>
                             </Col>
-                            <Col span={6}>
+                        </Row>
+                        <Row gutter={24} style={{ paddingRight: '6px' }}>
+                            <Col span={3}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label>有效日期</label>
-                                    <RangePicker locale={zh_CNLocale} style={{ flex: 1 }} placeholder={['开始日期', '结束日期']} />
+                                    <label>上次余额</label>
+                                    <InputNumber<number>
+                                        defaultValue={1000}
+                                        style={{ flex: 1 }}
+                                        formatter={(value) => ` ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
+                                    />
                                 </div>
-
+                            </Col>
+                            <Col span={3}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label>本次核销</label>
+                                    <InputNumber style={{ flex: 1 }} />
+                                </div>
+                            </Col>
+                            <Col span={3}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label>本次余额</label>
+                                    <InputNumber style={{ flex: 1 }} />
+                                </div>
+                            </Col>
+                            <Col span={3}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label>预估汇差</label>
+                                    <InputNumber style={{ flex: 1 }} />
+                                </div>
+                            </Col>
+                            <Col span={12} style={{ textAlign: 'right' }}>
+                                <Button type="primary">使用实收实付记录</Button>
+                            </Col>
+                        </Row>
+                        <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed></Divider>
+                        <Row gutter={24} style={{ paddingRight: '6px' }}>
+                            <Col span={3}>
+                                <div style={{ paddingBottom: '6px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label>收款金额</label>
+                                        <InputNumber style={{ flex: 1 }} />
+                                    </div>
+                                </div>
+                                <div style={{ paddingBottom: '6px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label>汇兑损益</label>
+                                        <InputNumber style={{ flex: 1 }} />
+                                    </div>
+                                </div>
+                                <div style={{ paddingBottom: '6px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label>财务费用</label>
+                                        <InputNumber style={{ flex: 1 }} />
+                                    </div>
+                                </div>
+                                <div style={{ paddingBottom: '6px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label>零头短账</label>
+                                        <InputNumber style={{ flex: 1 }} />
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col span={20}>
+                                <div className='nc-bill-table-area' style={{margin:'0 0'}}>
+                                    <Table<CashBasisAccountingItemProps>
+                                        columns={columnsType}
+                                        rowKey={(record) => `${record.CounterpartyAccountNumber, record.BankReceiptNumber, record.OurAccountNumber}`}
+                                        showSorterTooltip={false}
+                                        dataSource={[]}
+                                        pagination={
+                                            {
+                                                size: 'small',
+                                                pageSize: 50, showTotal: (total) => `总共 ${total} 条`,
+                                                showQuickJumper: true,
+                                                locale:
+                                                {
+                                                    items_per_page: '/页',
+                                                    jump_to: '跳至',
+                                                    page: '页',
+                                                }
+                                            }
+                                        }
+                                        scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
+                                        footer={() => '底部汇总信息'}
+                                        bordered={true}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed></Divider>
+                        <Row gutter={24} style={{ paddingRight: '6px' }}>
+                            <Col span={4}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label>销账备注</label>
+                                    <Input style={{ flex: 1 }} />
+                                </div>
+                            </Col>
+                            <Col span={4}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label>收款日期</label>
+                                    {/* <DatePicker locale={zh_CNLocale} /> */}
+                                    <DatePickerZH  />
+                                </div>
+                            </Col>
+                            <Col span={8}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label style={{color:'red',fontSize:'16px',fontWeight:'bolder'}}>本次核销=收款金额+汇兑损益+财务费用+零头短账</label>
+                                </div>
+                            </Col>
+                            <Col span={8}>
+                                <div style={{ textAlign: 'right' }}>
+                                    <Space>
+                                        <Button onClick={onCancel} disabled={saving}>取消</Button>
+                                        <Button type="primary" htmlType='submit' danger disabled={saving}>确定销账</Button>
+                                    </Space>
+                                </div>
                             </Col>
                         </Row>
                     </div>

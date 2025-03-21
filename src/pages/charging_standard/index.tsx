@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
 import type { TabsProps } from 'antd';
-import { Tabs, Row, Col, Select, Input, DatePicker,Button,ConfigProvider  } from 'antd';
+import { Tabs, Row, Col, Select, Input, DatePicker,Button,Checkbox, Radio  } from 'antd';
+import {DatePickerZH} from '@/components/date-picker/index';
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import zhCN from 'antd/es/locale/zh_CN'; // 引入中文语言包
 import zh from 'antd/es/date-picker/locale/zh_CN';
 import FeeTab from './fee_tab';
-import { Space } from 'antd/lib';
 import './charging_standard.less'
 
-const { RangePicker } = DatePicker;
 
-const zh_CNLocale: typeof zh = {
-    ...zh,
-    lang: {
-      ...zh.lang,
-      locale: 'zh_CN',
-      fieldDateFormat: 'YYYY-MM-DD',
-      fieldDateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-      yearFormat: 'YYYY 年',
-      monthFormat: 'MM 月',
-      cellYearFormat: 'YYYY',
-      "shortWeekDays": ["日", "一", "二", "三", "四", "五", "六"],
-    },
-  };
+// const zh_CNLocale: typeof zh = {
+//     ...zh,
+//     lang: {
+//       ...zh.lang,
+//       locale: 'zh_CN',
+//       fieldDateFormat: 'YYYY-MM-DD',
+//       fieldDateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+//       yearFormat: 'YYYY 年',
+//       monthFormat: 'MM 月',
+//       cellYearFormat: 'YYYY',
+//       "shortWeekDays": ["日", "一", "二", "三", "四", "五", "六"],
+//     },
+//   };
 
 const items = [
     {
@@ -118,7 +117,8 @@ const ChargingStandard: React.FC = () => {
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <label>有效日期</label>
-                                    <RangePicker locale={zh_CNLocale} style={{ flex: 1 }} placeholder={['开始日期','结束日期']} />
+                                    {/* <RangePicker locale={zh_CNLocale} style={{ flex: 1 }} placeholder={['开始日期','结束日期']} /> */}
+                                    <DatePickerZH.RangePicker style={{ flex: 1 }} placeholder={['开始日期','结束日期']} />
                                 </div>
 
                             </Col>

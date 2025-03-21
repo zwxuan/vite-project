@@ -1,5 +1,4 @@
 @import '@/layout/layout_less/icon.less';
-
 .nc-bill-header-area {
     min-height: 42px;
     height: auto;
@@ -1193,6 +1192,7 @@ input.u-form-control {
     border-color: #4b5563;
     box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
 }
+
 .nc-bill-table-area {
     margin: 4px 8px 0;
     border-radius: 0px;
@@ -1219,7 +1219,7 @@ input.u-form-control {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
-    
+    font-family: microsoft yahei;
 }
 
 .ant-table-head .ant-table-thead .ant-table-wrapper .ant-table-column-sorters {
@@ -1231,6 +1231,7 @@ input.u-form-control {
     padding: 3px 3px 3px 3px;
     white-space: nowrap;
     font-size: 12px;
+    font-family: microsoft yahei;
 //     overflow: hidden;
 //    white-space: nowrap;
 //    text-overflow: ellipsis;
@@ -1534,12 +1535,15 @@ div>.ant-input-number .ant-input-number-input .ant-picker .ant-select-selector .
 }
 :where(.css-dev-only-do-not-override-tpassh).ant-input-number .ant-input-number-input {
     padding-left: 2px;
-    padding-right: 6px;
+    padding-right: 26px;
     font-size: 12px;
     height: 20px;
     text-align: right;
 }
-
+:where(.css-dev-only-do-not-override-tpassh).ant-input-number .ant-input-number-handler-wrap {
+    opacity: 1;
+    width: 22px;
+}
 .ant-input-number-input {
     height: 24px;
     line-height: 24px;
@@ -1775,6 +1779,9 @@ input.ant-input{
     font-weight: 500;
     color: #111827;
 }
+.ant-divider-horizontal {
+    margin: 12px 0;
+}
 .ant-modal .ant-modal-close {
     top:5px;
     right: 5px;
@@ -1996,3 +2003,6 @@ input.ant-input{
   .handsontableInputHolder .handsontableInput {
     font-size: 12px;
   }
+  /*解决handsontable组件中checkbox控件不显示的问题*/
+
+  

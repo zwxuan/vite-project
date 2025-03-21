@@ -619,4 +619,17 @@ export const en = {
         sono:"sono",
         businessstatus:"business_status",
     },
+    cash_basis_accounting:{
+        ourbank:"our_bank",
+        ouraccountnumber:"our_account_number",
+        currency:"currency",
+        paymentmethod:"payment_method",
+        receiptstatus:"receipt_status",
+        settlementobject:"settlement_object",
+        counterpartyunit:"counterparty_unit",
+        counterpartybank:"counterparty_bank",
+        counterpartyaccountnumber:"counterparty_account_number",
+        vouchernumber:"voucher_number",
+        bankreceiptnumber:"bank_receipt_number",
+    },
 };
