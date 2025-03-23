@@ -10,6 +10,7 @@ import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,Message
 import { Location, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CustomIcon from "@/components/custom-icon";
+import { Space } from 'antd/lib';
 interface AppSiderProps {
     collapsed: boolean;
 }
@@ -218,9 +219,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
                         <div className="avatar_container">
                             <div className="nc-workbench-hp margin-right-10 margin-left-10">
                                 <Dropdown menu={{ items:itemsMenu }}>
-                                    <a onClick={(e) => e.preventDefault()}>
-                                        <img src="/man.png" alt="logo" />
-                                    </a>
+                                    <Avatar size={28} src="/man.png" />
                                 </Dropdown>
                                 
                             </div>
