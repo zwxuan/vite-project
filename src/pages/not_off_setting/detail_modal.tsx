@@ -243,10 +243,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 </Splitter>
                             </Col>
 
-                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '15px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '15px',marginTop: '10px' }}>
                                 <Space size={10} style={{ flex: 1 }}>
                                     <span className="modal-body-left-commons-title-text">
-                                        利润 USD:1,000.00 RMB:24,540.00 折合RMB:31,640.00 毛利率: 69.02 %
+                                        总计 USD:1,000.00 RMB:24,540.00 折合RMB:31,640.00
                                     </span>
                                     <span className='rule_tilte_info'>
                                         <Checkbox value="1">已确认费用</Checkbox>
@@ -376,7 +376,6 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Col span={4}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <label>收款日期</label>
-                                    {/* <DatePicker locale={zh_CNLocale} /> */}
                                     <DatePickerZH />
                                 </div>
                             </Col>
