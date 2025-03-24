@@ -11,6 +11,7 @@ import { BillManageLocale } from './bill_manage.ts';
 import { SetFeeScheduleLocale } from './set_fee_schedule.ts';
 import { ChargingStandardLocale } from './charging_standard.ts';
 import { NotOffSettingLocale } from './not_off_setting.ts';
+import { HasOffSettingLocale,OffSettingDetailLocale } from './has_off_setting.ts';
 import { CashBasisAccountingLocale } from './cash_basis_accounting.ts';
 export {
   OrdersLocale,
@@ -27,6 +28,8 @@ export {
   ChargingStandardLocale,
   NotOffSettingLocale,
   CashBasisAccountingLocale,
+  HasOffSettingLocale,
+  OffSettingDetailLocale,
 };
 
 export default {
@@ -43,5 +46,7 @@ export default {
   ...SetFeeScheduleLocale,
   ...ChargingStandardLocale,
   ...NotOffSettingLocale,
+  ...HasOffSettingLocale,
   ...CashBasisAccountingLocale,
+  ...OffSettingDetailLocale,
 };

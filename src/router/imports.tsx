@@ -19,6 +19,7 @@ import Login from "@/pages/login";
 import SetFeeSchedule from "@/pages/set_fee_schedule";
 import ChargingStandard from "@/pages/charging_standard";
 import NotOffSetting from "@/pages/not_off_setting";
+import HasOffSetting from "@/pages/has_off_setting";
 
 export {
   Currency,
@@ -42,4 +43,5 @@ export {
   SetFeeSchedule,
   ChargingStandard,
   NotOffSetting,
+  HasOffSetting,
 };

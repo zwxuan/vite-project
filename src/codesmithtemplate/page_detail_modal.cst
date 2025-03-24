@@ -96,13 +96,15 @@ const DetailModal: React.FC<DetailModalProps> = ({
     return (
         <Modal 
             open={open} 
-            title={modalFlag === 'add' ? "新增<%= DbHelpter.GetClassDescription(this.SourceTable) %>" : "编辑<%= DbHelpter.GetClassDescription(this.SourceTable)"%>}
+            title={modalFlag === 'add' ? "新增<%= DbHelpter.GetClassDescription(this.SourceTable) %>" : "编辑<%= DbHelpter.GetClassDescription(this.SourceTable)%>"}
             onCancel={onCancel}
-            width={600}
+            width={'95%'}
+            height={'95%'}
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
             footer={null}
+            centered={true}
         >
             <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
                 <% 
