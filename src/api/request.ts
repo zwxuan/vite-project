@@ -29,6 +29,11 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+// 添加请求头jwt
+// instance.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+// instance.defaults.headers.post['Content-Type'] = 'application/json';
+
+
 
 // 添加响应拦截器
 instance.interceptors.response.use(

@@ -181,12 +181,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 </Row>
                 <Divider variant="dashed" style={{ borderColor: '#7cb305' }} dashed></Divider>
                 <Row gutter={24} style={{ paddingRight: '6px'}}>
-                    <Col span={21}>
+                    <Col span={14}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                             <label>核销总计 RMB:800.00 折算总计 RMB:800.00</label>
                         </div>
                     </Col>
-                    <Col span={3} style={{ textAlign: 'right',paddingRight:'3px' }}>
+                    <Col span={10} style={{ textAlign: 'right',paddingRight:'3px' }}>
                             <Button type="primary">复核</Button>
                             <Button type="primary">打印</Button>
                             <Button onClick={onCancel} disabled={saving}>取消</Button>

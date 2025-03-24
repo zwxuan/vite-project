@@ -5,6 +5,7 @@ import { UserLogin } from "@/types/user";
 import { useLocation,Navigate } from "react-router-dom";
 const RouterGuard = ({ children }: { children: JSX.Element }) => {
     const locationPath = useLocation();
+    
     const userLoginString =  sessionStorage.getItem('userlogin')
                 || JSON.stringify({Token: '',
                                     UserCode: '',
