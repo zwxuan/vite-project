@@ -63,12 +63,6 @@ const childrenMenuData: MenuGroup[] = [{
             name: "币制", key: "currency", path: "/currency",
         },
         {
-            name: "费用科目", key: "expense",
-        },
-        {
-            name: "科目账套", key: "account",
-        },
-        {
             name: "税率管理", key: "taxrate",
         },
         {
@@ -100,6 +94,37 @@ const childrenMenuData: MenuGroup[] = [{
         },
         {
             name: "企业类型", key: "company_type",
+        },
+    ]
+},
+{
+    title: "凭证设置",
+    key: "voucher_setting",
+    parentkey: "basic",
+    apps: [
+        {
+            name: "账套设置", key: "accounting_set",path:"/accounting_book",
+        },
+        {
+            name: "凭证分组规则", key: "voucher_grouping_rule",
+        },
+        {
+            name: "分录分组规则", key: "entry_grouping_rule",
+        },
+        {
+            name: "分录摘要规则", key: "entry_summary_rule",
+        },
+        {
+            name: "凭证类型", key: "voucher_type",
+        },
+        {
+            name: "编码映射", key: "code_mapping",
+        },
+        {
+            name: "科目映射", key: "subject_mapping",
+        },
+        {
+            name: "科目设置", key: "subject_setting",
         },
     ]
 },

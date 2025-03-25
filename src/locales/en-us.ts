@@ -704,4 +704,18 @@ export const en = {
         reviewdate:"review_date",
         feeremark:"fee_remark",
     },
+    accounting_book:{
+        bookid:"book_id",
+        companycode:"company_code",
+        companyname:"company_name",
+        bookcode:"book_code",
+        bookname:"book_name",
+        fiscalyear:"fiscal_year",
+        currency:"currency",
+        thirdsystemname:"third_system_name",
+        apiremark:"api_remark",
+        isactive:"is_active",
+        createdat:"created_at",
+        updatedat:"updated_at",
+    },
 };

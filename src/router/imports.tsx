@@ -1,25 +1,26 @@
-import Currency from "@/pages/currency";
-import Orders from "@/pages/orders";
-import FeeReconciliation from "@/pages/fee_reconciliation";
-import BillManage from "@/pages/bill_manage";
-import StatementOfAccount from "@/pages/statement_of_account";
-import OrderFeeRelation from "@/pages/order_fee_relation/index_relation";
-import OrderDetail from "@/pages/orders/detail";
-import OrderFeeSplit from "@/pages/order_fee_split";
-import LCLFeeShare from "@/pages/lcl_fee_share";
-import InvoiceDetail from "@/pages/invoice/invoice_detail";
-import Invoice from "@/pages/invoice";
-import InvoiceIssuanceReceipt from "@/pages/invoice_issuance_receipt";
-import PhysicalInvoice from "@/pages/physical_invoice";
-import ReconciliationRuleEngine from "@/pages/reconciliation_rule_engine";
+import Currency from "@/pages/basic_manage/dic_manage/currency";
+import Orders from "@/pages/business_manage/index";
+import FeeReconciliation from "@/pages/cost_manage/fee_reconciliation";
+import BillManage from "@/pages/cost_manage/bill_manage";
+import StatementOfAccount from "@/pages/cost_manage/statement_of_account";
+import OrderFeeRelation from "@/pages/cost_manage/order_fee_relation/index_relation";
+import OrderDetail from "@/pages/business_manage/detail";
+import OrderFeeSplit from "@/pages/cost_manage/order_fee_split";
+import LCLFeeShare from "@/pages/cost_manage/lcl_fee_share";
+import InvoiceDetail from "@/pages/invoice_manage/invoice/invoice_detail";
+import Invoice from "@/pages/invoice_manage/invoice";
+import InvoiceIssuanceReceipt from "@/pages/invoice_manage/invoice_issuance_receipt";
+import PhysicalInvoice from "@/pages/invoice_manage/physical_invoice";
+import ReconciliationRuleEngine from "@/pages/cost_manage/reconciliation_rule_engine";
 import PermissionManagement from "@/pages/identity/permission";
 import ExportLog from "@/pages/log/export_log";
 import ImportLog from "@/pages/log/import_log";
 import Login from "@/pages/login";
-import SetFeeSchedule from "@/pages/set_fee_schedule";
-import ChargingStandard from "@/pages/charging_standard";
+import SetFeeSchedule from "@/pages/system_manage/set_fee_schedule";
+import ChargingStandard from "@/pages/system_manage/charging_standard";
 import NotOffSetting from "@/pages/not_off_setting";
 import HasOffSetting from "@/pages/has_off_setting";
+import AccountingBook from "@/pages/basic_manage/voucher/accounting_book";
 
 export {
   Currency,
@@ -44,4 +45,5 @@ export {
   ChargingStandard,
   NotOffSetting,
   HasOffSetting,
+  AccountingBook,
 };

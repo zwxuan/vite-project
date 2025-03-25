@@ -1,0 +1,339 @@
+import Mock from "mockjs";
+import { AccountingBookItemProps } from "@/types/accounting_book/accounting_book";
+import { IncomingMessage, ServerResponse } from 'http';
+
+// 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
+const accountingBookItems:AccountingBookItemProps[] = [
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+    {
+        BookId:Mock.mock("@id"),
+        CompanyCode:Mock.mock('@ctitle(5)'),
+        CompanyName:Mock.mock('@ctitle(5)'),
+        BookCode:Mock.mock('@ctitle(5)'),
+        BookName:Mock.mock('@ctitle(5)'),
+        FiscalYear:Mock.mock('@ctitle(5)'),
+        Currency:Mock.mock('@ctitle(5)'),
+        ThirdSystemName:Mock.mock('@ctitle(5)'),
+        ApiRemark:Mock.mock('@ctitle(5)'),
+        IsActive:Mock.mock('@string("number", 1, 3)'),
+        CreatedAt:Mock.mock('@datetime()'),
+        UpdatedAt:Mock.mock('@datetime()'),
+    },  
+];
+ 
+export default [
+  // 账套设置台账
+  {
+    url: "/api/accounting_book",
+    method: "GET",
+    response: () => {
+      return {
+        code: 200,
+        success: true,
+        message: "请求成功。",
+        data: accountingBookItems,
+      };
+    },
+  },
+  {
+    url: "/api/accounting_book/save",
+    method: "POST",
+    response: ({ body }: { body: AccountingBookItemProps }) => {
+      return {
+        code: 200,
+        success: true,
+        message: "开始处理",
+        data: body
+      };
+    }
+  },
+  {
+    url: "/api/accounting_book/save/progress",
+    method: "GET",
+    rawResponse: async (req: IncomingMessage, res: ServerResponse) => {
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.setHeader('X-Accel-Buffering', 'no');
+
+      let progress = 0;
+      
+      const sendProgress = () => {
+        const data = {
+          code: 200,
+          success: true,
+          message: progress >= 100 ? "保存成功" : "处理中...",
+          data: {
+            progress: progress,
+            status: progress >= 100 ? 'completed' : 'processing',
+            result: progress >= 100 ? null : null
+          }
+        };
+
+        res.write(`data: ${JSON.stringify(data)}\n\n`);
+        console.log('Sending progress:', progress);
+
+        if (progress >= 100) {
+          res.end();
+          return;
+        }
+
+        progress += 10;
+        setTimeout(sendProgress, 1000);
+      };
+
+      sendProgress();
+    }
+  }
+];

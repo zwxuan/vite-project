@@ -1,11 +1,11 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox } from 'antd';
-import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
-import { getNotOffSettingList,saveNotOffSetting } from "@/api/financial_manage/not_off_setting_service";
+import { AccountingBookItemProps } from "@/types/accounting_book/accounting_book";
+import { getAccountingBookList,saveAccountingBook } from "@/api/financial_basic_data/accounting_book_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -16,40 +16,39 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { getColumns as getBillColumns } from '@/pages/cost_manage/bill_manage/columns';
-import { getColumns as getStatementOfAccountColumns } from '@/pages/cost_manage/statement_of_account/columns';
-import { getColumns as getInvoiceColumns } from '@/pages/invoice_manage/invoice/columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const NotOffSetting : React.FC = () => {
+const AccountingBook : React.FC = () => {
 
-    // 未核销数据
-    const [notOffSettingList, setNotOffSettingList] = useState([] as NotOffSettingItemProps[]);
+    // 账套设置数据
+    const [accountingBookList, setAccountingBookList] = useState([] as AccountingBookItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const navigate = useNavigate();
-    // 获取未核销数据
+    // 获取账套设置数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getNotOffSettingList();
-            const notOffSettingData = res?.data as NotOffSettingItemProps[];
-            // 设置未核销台账数据
-            setNotOffSettingList([...notOffSettingData]);
+            const res = await getAccountingBookList();
+            const accountingBookData = res?.data as AccountingBookItemProps[];
+            // 设置账套设置台账数据
+            setAccountingBookList([...accountingBookData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:NotOffSettingItemProps) => {
+    const handleDelete = (record:AccountingBookItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:NotOffSettingItemProps) => {
+    const handleEdit = (record:AccountingBookItemProps) => {
+        const newData = accountingBookList.filter((item) => `${item.BookId}` === `${record.BookId}`);
+        setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
     };
     
-    
+    const columnsType = getColumns(handleEdit, handleDelete);
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -77,8 +76,7 @@ const NotOffSetting : React.FC = () => {
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
     const [saving, setSaving] = useState(false);
     const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
-    const [creditFlag, setCredit] = useState(true);
-    const [columnsType, setColumns] = useState<TableColumnsType<any>>(getColumns(handleEdit, handleDelete));
+
     const showModal = () => {
         setOpen(true);
     };
@@ -89,8 +87,8 @@ const NotOffSetting : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as NotOffSettingItemProps;
-    const [formData, setFormData] = useState<NotOffSettingItemProps>(initFormData);
+    const initFormData = {} as AccountingBookItemProps;
+    const [formData, setFormData] = useState<AccountingBookItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -120,7 +118,7 @@ const NotOffSetting : React.FC = () => {
         });
 
         try {
-            const response = await saveNotOffSetting(formData, (progress) => {
+            const response = await saveAccountingBook(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -166,7 +164,7 @@ const NotOffSetting : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<NotOffSettingItemProps> = {
+    const rowSelection: TableRowSelection<AccountingBookItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -186,25 +184,7 @@ const NotOffSetting : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-    const onChange = (e: RadioChangeEvent) => {
-        if(e.target.value === 1){
-            setColumns(getColumns(handleEdit, handleDelete));
-        }else if(e.target.value === 2){
-            setColumns(getInvoiceColumns(() => {}, () => {}));
-        }else if(e.target.value === 3){
-            setColumns(getBillColumns(() => {}, () => {}));
-        }else if(e.target.value === 4){
-            setColumns(getStatementOfAccountColumns(() => {}, () => {}));
-        }
-    };
-    const onChangeCD = (e: RadioChangeEvent)=>{
-        if(e.target.value === 1){
-            setCredit(true);
-        }else{
-            setCredit(false);
-        }
-    }
-    
+
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
             <DetailModal
@@ -219,15 +199,15 @@ const NotOffSetting : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='not_off_setting' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='not_off_setting' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='not_off_setting' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='accounting_book' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='accounting_book' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='accounting_book' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 未核销列表
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 账套设置
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -238,20 +218,29 @@ const NotOffSetting : React.FC = () => {
                         </div>
                     </span>
                 </div>
-                
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>销账</Button>
-                                <Button type="primary" danger>对冲销账</Button>
+                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
+                                <Button>修改</Button>
+                                <Button>删除</Button>
+                                <Button>复制</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
+                            <Dropdown menu={{items:statusItems}}>
+                                <Button>
+                                    <Space>
+                                        启用
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
                             <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
                                 <Button>
                                     <Space>
@@ -275,46 +264,15 @@ const NotOffSetting : React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="nc-bill-search-area">
-                <div className="search-area-contant">
-                    <div className="item-contant" style={{ display: "block",textAlign: "left" }}>
-                        <Space>
-                            <label style={{fontWeight:'bolder'}}>收付方式：</label>
-                            <Radio.Group
-                                name="radiogroup"
-                                defaultValue={1}
-                                onChange={onChangeCD}
-                                options={[
-                                    { value: 1, label: '应收' },
-                                    { value: 2, label: '应付' },
-                                ]}
-                            />
-                            <label style={{fontWeight:'bolder'}}>销账模式：</label>
-                            <Radio.Group
-                                name="radiogroup"
-                                defaultValue={1}
-                                onChange={onChange}
-                                options={[
-                                    { value: 1, label: '费用' },
-                                    { value: 2, label: '发票' },
-                                    { value: 3, label: '账单' },
-                                    { value: 4, label: '对账单' },
-                                    { value: 5, label: '付款申请' },
-                                ]}
-                            />   
-                        </Space>
-                    </div>
-                </div>
-            </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<NotOffSettingItemProps>
+                <Table<AccountingBookItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.BillNumber}`}
+                    rowKey={(record) => `${record.BookId}`}
                     showSorterTooltip={false}
-                    dataSource={notOffSettingList}
-                    loading={notOffSettingList.length === 0}
+                    dataSource={accountingBookList}
+                    loading={accountingBookList.length === 0}
                     pagination={
                         {
                             size:'small',
@@ -338,4 +296,4 @@ const NotOffSetting : React.FC = () => {
         
     )
 }
-export default NotOffSetting;
+export default AccountingBook;

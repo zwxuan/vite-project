@@ -706,4 +706,18 @@ export const cn = {
         reviewdate:"复核日期",
         feeremark:"费用备注",
     },
+    accounting_book:{
+        bookid:"账套ID",
+        companycode:"公司编码",
+        companyname:"公司名称",
+        bookcode:"账套编码",
+        bookname:"账套名称",
+        fiscalyear:"会计年度",
+        currency:"本位币代码",
+        thirdsystemname:"对接第三方系统名称",
+        apiremark:"接口方案",
+        isactive:"是否启用标识", // ，1表示启用，0表示禁用
+        createdat:"创建时间",
+        updatedat:"更新时间",
+    },
 };

@@ -17,8 +17,8 @@ import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import InvoiceIssuanceModal from './invoice_issuance';
 import { getColumns } from './columns';
-import { getColumns as getBillColumns } from '@/pages/bill_manage/columns';
-import { getColumns as getStatementOfAccountColumns } from '@/pages/statement_of_account/columns';
+import { getColumns as getBillColumns } from '@/pages/cost_manage/bill_manage/columns';
+import { getColumns as getStatementOfAccountColumns } from '@/pages/cost_manage/statement_of_account/columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 

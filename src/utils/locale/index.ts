@@ -13,6 +13,7 @@ import { ChargingStandardLocale } from './charging_standard.ts';
 import { NotOffSettingLocale } from './not_off_setting.ts';
 import { HasOffSettingLocale,OffSettingDetailLocale } from './has_off_setting.ts';
 import { CashBasisAccountingLocale } from './cash_basis_accounting.ts';
+import { AccountingBookLocale } from './accounting_book.ts';  
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -30,6 +31,7 @@ export {
   CashBasisAccountingLocale,
   HasOffSettingLocale,
   OffSettingDetailLocale,
+  AccountingBookLocale,
 };
 
 export default {
@@ -49,4 +51,5 @@ export default {
   ...HasOffSettingLocale,
   ...CashBasisAccountingLocale,
   ...OffSettingDetailLocale,
+  ...AccountingBookLocale,
 };
