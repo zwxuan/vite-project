@@ -3,7 +3,7 @@ import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
-  , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook} from "./imports";
+  , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -211,6 +211,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <AccountingBook />
+          </RouterGuard>),
+      },
+      {
+        path: "/voucher_grouping_rule",
+        handle: { title: '凭证分组规则' },
+        element: (
+          <RouterGuard>
+            <VoucherGroupingRule />
           </RouterGuard>),
       },
     ], // 如果需要子路由，可以在这里添加

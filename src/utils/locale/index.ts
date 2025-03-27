@@ -13,7 +13,8 @@ import { ChargingStandardLocale } from './charging_standard.ts';
 import { NotOffSettingLocale } from './not_off_setting.ts';
 import { HasOffSettingLocale,OffSettingDetailLocale } from './has_off_setting.ts';
 import { CashBasisAccountingLocale } from './cash_basis_accounting.ts';
-import { AccountingBookLocale } from './accounting_book.ts';  
+import { AccountingBookLocale } from './accounting_book.ts';
+import { VoucherGroupingRuleLocale } from './voucher_grouping_rule.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -32,6 +33,7 @@ export {
   HasOffSettingLocale,
   OffSettingDetailLocale,
   AccountingBookLocale,
+  VoucherGroupingRuleLocale,
 };
 
 export default {
@@ -52,4 +54,5 @@ export default {
   ...CashBasisAccountingLocale,
   ...OffSettingDetailLocale,
   ...AccountingBookLocale,
+  ...VoucherGroupingRuleLocale,
 };

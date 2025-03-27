@@ -42,13 +42,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
             open={open} 
             title={modalFlag === 'add' ? "新增账套设置" : "编辑账套设置"}
             onCancel={onCancel}
-            width={'95%'}
-            height={'95%'}
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
             footer={null}
-            centered={true}
         >
             <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
                         <Form.Item label="账套ID" name="BookId" rules={[{ required: true, message: '' }]}>
@@ -72,13 +69,13 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         <Form.Item label="本位币代码" name="Currency" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="对接第三方系统名称" name="ThirdSystemName" >
+                        <Form.Item label="第三方系统名称" name="ThirdSystemName" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="接口方案" name="ApiRemark" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="是否启用标识，1表示启用，0表示禁用" name="IsActive" >
+                        <Form.Item label="是否启用标识" name="IsActive" >
                             <Select onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="创建时间"  >

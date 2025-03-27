@@ -714,10 +714,18 @@ export const cn = {
         bookname:"账套名称",
         fiscalyear:"会计年度",
         currency:"本位币代码",
-        thirdsystemname:"对接第三方系统名称",
+        thirdsystemname:"第三方系统名称",
         apiremark:"接口方案",
         isactive:"是否启用标识", // ，1表示启用，0表示禁用
         createdat:"创建时间",
         updatedat:"更新时间",
+    },
+    voucher_grouping_rule:{
+        rulecode:"分组编码",
+        bookcode:"所属账套",
+        rulename:"分组类型",
+        datatype:"数据类型",
+        bookkeepingmethod:"记账方式",
+        groupby:"分组依据",
     },
 };

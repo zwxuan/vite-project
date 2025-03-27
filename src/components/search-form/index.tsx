@@ -58,6 +58,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left' }}
                                         defaultValue='等于'
+                                        dropdownStyle={{width: 'auto'}}
                                         options={[
                                             { label: '包含', value: 'like' },
                                             { label: '在列表中', value: 'in' },
@@ -243,7 +244,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                 <Row className='ant-tranfer-row' wrap={false}>
                     <Col span={6} className='ant-tranfer-col-left'>
                         <span className="modal-body-left-commons-title-text">候选条件</span>
-                        <ul style={{ height: '400px', overflowY: 'auto' }}>
+                        <ul style={{ height: '400px', overflowY: 'auto',overflowX: 'hidden' }}>
                             {mockData.map((item) => {
                                 return targetKeys?.includes(item.key) ?
                                     (

@@ -17,7 +17,7 @@ interface CustomExcelTemplateProps {
   formType?: 'add' | 'update'
 }
 const { Option } = Select
-const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title,readonly = false,formType='add'}) => {
+const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title, readonly = false, formType = 'add' }) => {
 
   // 模板数据
   const [templateFieldsList, setTemplateFieldsList] = useState([] as ImportTemplateFieldItem[]);
@@ -184,60 +184,46 @@ const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title,readon
             key: '1', label: '模板设置',
             children: (
               <>
-                <Row gutter={[2, 0]}>
+                <Row gutter={24} style={{ paddingRight: '6px', marginBottom: '2px' }}>
                   <Col span={8}>
-                    <Form.Item
-                      label="模板版本号"
-                      name="templateVersion"
-                      rules={[{ required: true }]}
-                      colon={false}
-                    >
-                      <Input placeholder="请输入模板版本号" disabled={readonly} />
-                    </Form.Item>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <label className='item-lable-title'>模板版本号</label>
+                      <Input placeholder="请输入模板版本号" name='templateVersion' disabled={readonly} style={{ flex: 1 }} />
+                    </div>
                   </Col>
                   <Col span={8}>
-                    <Form.Item
-                      label="模板名称"
-                      name="templateName"
-                      rules={[{ required: true }]}
-                      colon={false}
-                    >
-                      <Input placeholder="请输入模板名称" disabled={readonly} />
-                    </Form.Item>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <label className='item-lable-title'>模板名称</label>
+                      <Input placeholder="请输入模板名称" name='templateName' disabled={readonly} style={{ flex: 1 }} />
+                    </div>
                   </Col>
                   <Col span={8}>
-                    <Form.Item
-                      label="模板编号"
-                      name="templateCode"
-                      colon={false}
-                    >
-                      <Input placeholder="请输入模板编号" disabled={readonly} />
-                    </Form.Item>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <label className='item-lable-title'>模板编号</label>
+                      <Input placeholder="请输入模板编号" disabled={readonly} style={{ flex: 1 }} />
+                    </div>
                   </Col>
+                </Row>
+                <Row gutter={24} style={{ paddingRight: '6px', marginBottom: '2px' }}>
                   <Col span={8}>
-                    <Form.Item
-                      label="国家/地区"
-                      name="country"
-                      colon={false}
-                    >
-                      <Select placeholder="请选择国家/地区" disabled={readonly}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <label className='item-lable-title'>国家/地区</label>
+                      <Select placeholder="请选择国家/地区" style={{ flex: 1 }} disabled={readonly}>
                         <Option value="China">中国</Option>
                         <Option value="USA">美国</Option>
                       </Select>
-                    </Form.Item>
+                    </div>
                   </Col>
                   <Col span={8}>
-                    <Form.Item
-                      label="唯一性字段"
-                      name="uniqueField"
-                      tooltip={{ title: '用于标识数据的唯一性，判断数据是否重复' }}
-                      colon={false}
-                    >
-                      <Select placeholder="请选择唯一性字段" disabled={readonly}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <label className='item-lable-title'>唯一性字段</label>
+                      <Select placeholder="请选择唯一性字段" disabled={readonly} style={{ flex: 1 }}>
                         <Option value="id">id</Option>
                       </Select>
 
-                    </Form.Item>
+                    </div>
+                  </Col>
+                  <Col span={8}>
                   </Col>
                 </Row>
               </>
@@ -247,12 +233,12 @@ const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title,readon
       </div>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
-          <span className='span_custom_template_title'>{title}({formType==='add'?'新增':'更新'})</span>
+          <span className='span_custom_template_title'>{title}({formType === 'add' ? '新增' : '更新'})</span>
         </div>
         <div className="header-button-area">
           <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
-            <div className="buttonGroup-component" style={readonly? { display: 'none'}:{} }>
+            <div className="buttonGroup-component" style={readonly ? { display: 'none' } : {}}>
               <Button style={{ margin: "0px 5px" }} onClick={() => handMoveFieldOrder('up', 1)}>上移</Button>
               <Button style={{ margin: "0px 5px" }} onClick={() => handMoveFieldOrder('down', 1)}>下移</Button>
               <Popover content={(

@@ -14,7 +14,7 @@ export const getColumns = (handleEdit: (record: AccountingBookItemProps) => void
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'BookId',
         sorter: true,
-        align: 'right',
+        align: 'center',
     },
     {
         title: i18n.t(LocaleHelper.getAccountingBookCompanyCode()),
@@ -26,7 +26,7 @@ export const getColumns = (handleEdit: (record: AccountingBookItemProps) => void
     },
     {
         title: i18n.t(LocaleHelper.getAccountingBookCompanyName()),
-        width: 100,
+        width: 160,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CompanyName',
         sorter: true,
@@ -74,7 +74,7 @@ export const getColumns = (handleEdit: (record: AccountingBookItemProps) => void
     },
     {
         title: i18n.t(LocaleHelper.getAccountingBookApiRemark()),
-        width: 100,
+        width: 160,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ApiRemark',
         sorter: true,
@@ -108,14 +108,11 @@ export const getColumns = (handleEdit: (record: AccountingBookItemProps) => void
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 100,
+        width: 40,
         render: (_, record) => (
         <>
             <a>启用</a>
             <a onClick={()=>handleEdit(record)}>编辑</a>
-            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
-                <a>删除</a>
-            </Popconfirm>
         </>
         ),
     },

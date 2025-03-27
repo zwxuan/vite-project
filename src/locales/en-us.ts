@@ -718,4 +718,12 @@ export const en = {
         createdat:"created_at",
         updatedat:"updated_at",
     },
+    voucher_grouping_rule:{
+        rulecode:"rule_code",
+        bookcode:"book_code",
+        rulename:"rule_name",
+        datatype:"data_type",
+        bookkeepingmethod:"bookkeeping_method",
+        groupby:"group_by",
+    },
 };

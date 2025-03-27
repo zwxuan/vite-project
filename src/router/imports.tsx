@@ -21,6 +21,7 @@ import ChargingStandard from "@/pages/system_manage/charging_standard";
 import NotOffSetting from "@/pages/not_off_setting";
 import HasOffSetting from "@/pages/has_off_setting";
 import AccountingBook from "@/pages/basic_manage/voucher/accounting_book";
+import VoucherGroupingRule from "@/pages/basic_manage/voucher/voucher_grouping_rule";
 
 export {
   Currency,
@@ -46,4 +47,5 @@ export {
   NotOffSetting,
   HasOffSetting,
   AccountingBook,
+  VoucherGroupingRule,
 };

@@ -9,6 +9,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom';
 import AppMenu from './menu';
 import routers from '@/router';
+import Home from './home';
 
 const { Content } = Layout;
 
@@ -32,9 +33,9 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
   
   const [activeKey, setActiveKey] = useState<string>('');
   const [tabs, setTabs] = useState<TabItem[]>([{
-    key: '/',
+    key: '',
     label: '首页',
-    children: '',
+    children: <Home />,
     closable: false,
     icon: <HomeOutlined />
   }]);
@@ -90,7 +91,7 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
     setTabs(newTabs);
     if (activeKey === targetKey) {
       const lastTab = newTabs[newTabs.length - 1];
-      setActiveKey(lastTab?.key || '/');
+      setActiveKey(lastTab?.key || '');
     }
   };
 

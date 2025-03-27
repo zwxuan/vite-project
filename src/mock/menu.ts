@@ -106,7 +106,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "账套设置", key: "accounting_set",path:"/accounting_book",
         },
         {
-            name: "凭证分组规则", key: "voucher_grouping_rule",
+            name: "凭证分组规则", key: "voucher_grouping_rule",path:"/voucher_grouping_rule",
         },
         {
             name: "分录分组规则", key: "entry_grouping_rule",

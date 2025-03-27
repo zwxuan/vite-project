@@ -1,57 +1,50 @@
 import Mock from "mockjs";
-import { AccountingBookItemProps } from "@/types/accounting_book/accounting_book";
+import { VoucherGroupingRuleItemProps } from "@/types/voucher_grouping_rule/voucher_grouping_rule";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
-const accountingBookItems:AccountingBookItemProps[] = [
+const voucherGroupingRuleItems: VoucherGroupingRuleItemProps[] = [
   {
-    "BookId": "623a8d7b1f4e5c2d98765432",
-    "CompanyCode": "JT",
-    "CompanyName": "集团公司",
-    "BookCode": "AC001",
-    "BookName": "管理账套",
-    "FiscalYear": "2024",
-    "Currency": "USD",
-    "ThirdSystemName": "Oracle系统",
-    "ApiRemark": "自动同步",
-    "IsActive": 1,
-    "CreatedAt": "2024-01-10 08:45:22",
-    "UpdatedAt": "2024-03-05 16:20:18"
+    RuleCode: '1',
+    BookName: '管理账套',
+    RuleName: '应收发票',
+    BookkeepingMethod: '普通记账',
+    GroupBy: '发票号',
   },
   {
-    "BookId": "623a8d7b1f4e5c2d98765434",
-    "CompanyCode": "JT",
-    "CompanyName": "集团公司",
-    "BookCode": "AC002",
-    "BookName": "税务账套",
-    "FiscalYear": "2024",
-    "Currency": "USD",
-    "ThirdSystemName": "Oracle系统",
-    "ApiRemark": "自动同步",
-    "IsActive": 1,
-    "CreatedAt": "2024-01-10 08:45:22",
-    "UpdatedAt": "2024-03-05 16:20:18"
-  }
-];
- 
-export default [
-  // 账套设置台账
+    RuleCode: '2',
+    BookName: '管理账套',
+    RuleName: '应付发票',
+    BookkeepingMethod: '普通记账',
+    GroupBy: '发票号',
+  },
   {
-    url: "/api/accounting_book",
+    RuleCode: '3',
+    BookName: '管理账套',
+    RuleName: '实收实付',
+    BookkeepingMethod: '普通记账',
+    GroupBy: '销账编号',
+  },
+];
+
+export default [
+  // 凭证分组规则台账
+  {
+    url: "/api/voucher_grouping_rule",
     method: "GET",
     response: () => {
       return {
         code: 200,
         success: true,
         message: "请求成功。",
-        data: accountingBookItems,
+        data: voucherGroupingRuleItems,
       };
     },
   },
   {
-    url: "/api/accounting_book/save",
+    url: "/api/voucher_grouping_rule/save",
     method: "POST",
-    response: ({ body }: { body: AccountingBookItemProps }) => {
+    response: ({ body }: { body: VoucherGroupingRuleItemProps }) => {
       return {
         code: 200,
         success: true,
@@ -61,7 +54,7 @@ export default [
     }
   },
   {
-    url: "/api/accounting_book/save/progress",
+    url: "/api/voucher_grouping_rule/save/progress",
     method: "GET",
     rawResponse: async (req: IncomingMessage, res: ServerResponse) => {
       res.setHeader('Content-Type', 'text/event-stream');
@@ -70,7 +63,7 @@ export default [
       res.setHeader('X-Accel-Buffering', 'no');
 
       let progress = 0;
-      
+
       const sendProgress = () => {
         const data = {
           code: 200,

@@ -1,7 +1,7 @@
 // 账套设置属性
 export interface AccountingBookItemProps {
     // 账套ID
-    BookId:number;
+    BookId:string;
     // 公司编码
     CompanyCode:string;
     // 公司名称
