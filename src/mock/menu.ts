@@ -109,13 +109,13 @@ const childrenMenuData: MenuGroup[] = [{
             name: "凭证分组规则", key: "voucher_grouping_rule",path:"/voucher_grouping_rule",
         },
         {
-            name: "分录分组规则", key: "entry_grouping_rule",
+            name: "分录分组规则", key: "entry_grouping_rule",path:"/entry_grouping_rule",
         },
         {
-            name: "分录摘要规则", key: "entry_summary_rule",
+            name: "分录摘要规则", key: "entry_summary_rule",path:"/entry_summary_rule",
         },
         {
-            name: "凭证类型", key: "voucher_type",
+            name: "凭证类型", key: "voucher_type",path:"/voucher_type",
         },
         {
             name: "编码映射", key: "code_mapping",

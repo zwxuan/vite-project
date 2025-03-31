@@ -22,6 +22,9 @@ import NotOffSetting from "@/pages/not_off_setting";
 import HasOffSetting from "@/pages/has_off_setting";
 import AccountingBook from "@/pages/basic_manage/voucher/accounting_book";
 import VoucherGroupingRule from "@/pages/basic_manage/voucher/voucher_grouping_rule";
+import EntryGroupingRule from "@/pages/basic_manage/voucher/entry_grouping_rule";
+import SummaryRule from "@/pages/basic_manage/voucher/summary_rule";
+import VoucherType from "@/pages/basic_manage/voucher/voucher_type";
 
 export {
   Currency,
@@ -48,4 +51,7 @@ export {
   HasOffSetting,
   AccountingBook,
   VoucherGroupingRule,
+  EntryGroupingRule,
+  SummaryRule,
+  VoucherType,
 };
