@@ -18,6 +18,7 @@ import { VoucherGroupingRuleLocale } from './voucher_grouping_rule.ts';
 import { EntryGroupingRuleLocale } from './entry_grouping_rule.ts';
 import { SummaryRuleLocale } from './summary_rule.ts';
 import { VoucherTypeLocale } from './voucher_type.ts';
+import { CodeMappingLocale } from './code_mapping.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -40,6 +41,7 @@ export {
   EntryGroupingRuleLocale,
   SummaryRuleLocale,
   VoucherTypeLocale,
+  CodeMappingLocale,
 };
 
 export default {
@@ -64,4 +66,5 @@ export default {
   ...EntryGroupingRuleLocale,
   ...SummaryRuleLocale,
   ...VoucherTypeLocale,
+  ...CodeMappingLocale,
 };

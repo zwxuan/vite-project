@@ -761,4 +761,12 @@ export const en = {
         typeremark:"type_remark",
         typeshortname:"type_short_name",
     },
+    code_mapping:{
+        mappingcode:"mapping_code",
+        bookingname:"booking_name",
+        businesscode:"business_code",
+        businessname:"business_name",
+        financecode:"finance_code",
+        remark:"remark",
+    },
 };

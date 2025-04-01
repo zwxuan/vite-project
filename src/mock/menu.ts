@@ -118,7 +118,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "凭证类型", key: "voucher_type",path:"/voucher_type",
         },
         {
-            name: "编码映射", key: "code_mapping",
+            name: "编码映射", key: "code_mapping",path:"/voucher_code_mapping",
         },
         {
             name: "科目映射", key: "subject_mapping",

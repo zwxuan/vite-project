@@ -763,4 +763,12 @@ export const cn = {
         typeremark:"凭证类型备注",
         typeshortname:"凭证字",
     },
+    code_mapping:{
+        mappingcode:"映射关系ID",
+        bookingname:"所属账套",
+        businesscode:"业务系统编码",
+        businessname:"业务系统名称",
+        financecode:"财务系统编码",
+        remark:"备注",
+    },
 };

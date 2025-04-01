@@ -25,7 +25,7 @@ import VoucherGroupingRule from "@/pages/basic_manage/voucher/voucher_grouping_r
 import EntryGroupingRule from "@/pages/basic_manage/voucher/entry_grouping_rule";
 import SummaryRule from "@/pages/basic_manage/voucher/summary_rule";
 import VoucherType from "@/pages/basic_manage/voucher/voucher_type";
-
+import VoucherCodeMapping from "@/pages/basic_manage/voucher/code_mapping";
 export {
   Currency,
   Orders,
@@ -54,4 +54,5 @@ export {
   EntryGroupingRule,
   SummaryRule,
   VoucherType,
+  VoucherCodeMapping,
 };
