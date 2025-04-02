@@ -1,11 +1,12 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { OrdersItemProps } from "@/types/orders/orders";
-import { getOrdersList,saveOrders } from "@/api/business_order/orders_service";
+import { SummaryRuleItemProps } from "@/types/summary_rule/summary_rule";
+import { getSummaryRuleList,saveSummaryRule } from "@/api/financial_basic_data/summary_rule_service";
+import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
@@ -20,28 +21,28 @@ import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const Orders : React.FC = () => {
+const SummaryRule : React.FC = () => {
 
-    // 订单管理表，存储与业务相关的订单信息数据
-    const [ordersList, setOrdersList] = useState([] as OrdersItemProps[]);
+    // 分录摘要规则数据
+    const [summaryRuleList, setSummaryRuleList] = useState([] as SummaryRuleItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const navigate = useNavigate();
-    // 获取订单管理表，存储与业务相关的订单信息数据
+    // 获取分录摘要规则数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrdersList();
-            const ordersData = res?.data as OrdersItemProps[];
-            // 设置订单管理表，存储与业务相关的订单信息台账数据
-            setOrdersList([...ordersData]);
+            const res = await getSummaryRuleList();
+            const summaryRuleData = res?.data as SummaryRuleItemProps[];
+            // 设置分录摘要规则台账数据
+            setSummaryRuleList([...summaryRuleData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:OrdersItemProps) => {
+    const handleDelete = (record:SummaryRuleItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:OrdersItemProps) => {
-        const newData = ordersList.filter((item) => `${item.BusinessId}` === `${record.BusinessId}`);
+    const handleEdit = (record:SummaryRuleItemProps) => {
+        const newData = summaryRuleList.filter((item) => `${item.SummaryRuleCode}` === `${record.SummaryRuleCode}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -86,8 +87,8 @@ const Orders : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as OrdersItemProps;
-    const [formData, setFormData] = useState<OrdersItemProps>(initFormData);
+    const initFormData = {} as SummaryRuleItemProps;
+    const [formData, setFormData] = useState<SummaryRuleItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -117,7 +118,7 @@ const Orders : React.FC = () => {
         });
 
         try {
-            const response = await saveOrders(formData, (progress) => {
+            const response = await saveSummaryRule(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -163,7 +164,7 @@ const Orders : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<OrdersItemProps> = {
+    const rowSelection: TableRowSelection<SummaryRuleItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -183,11 +184,6 @@ const Orders : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-    const expandedRowRender = () => (
-        <div className='nc-bill-table-area nc-bill-table-area-expand'>
-            折叠内容后期扩展
-        </div>
-      );
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
@@ -203,15 +199,15 @@ const Orders : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='orders' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='orders' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='orders' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='summary_rule' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='summary_rule' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='summary_rule' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 订单管理
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 分录摘要规则
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -270,14 +266,13 @@ const Orders : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<OrdersItemProps>
+                <Table<SummaryRuleItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.BusinessId}`}
+                    rowKey={(record) => `${record.SummaryRuleCode}`}
                     showSorterTooltip={false}
-                    dataSource={ordersList}
-                    expandable={{ expandedRowRender}}
-                    loading={ordersList.length === 0}
+                    dataSource={summaryRuleList}
+                    loading={summaryRuleList.length === 0}
                     pagination={
                         {
                             size:'small',
@@ -291,7 +286,7 @@ const Orders : React.FC = () => {
                             }
                         }
                     }
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
                     footer={() => '底部汇总信息'}
                     bordered={true}
                 />
@@ -301,4 +296,4 @@ const Orders : React.FC = () => {
         
     )
 }
-export default Orders;
+export default SummaryRule;

@@ -3,7 +3,8 @@ import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
-  , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule} from "./imports";
+  , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
+  ,SummaryRule,VoucherType,VoucherCodeMapping} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -219,6 +220,38 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <VoucherGroupingRule />
+          </RouterGuard>),
+      },
+      {
+        path: "/entry_grouping_rule",
+        handle: { title: '凭证分录规则' },
+        element: (
+          <RouterGuard>
+            <EntryGroupingRule />
+          </RouterGuard>),
+      },
+      {
+        path: "/entry_summary_rule",
+        handle: { title: '分录摘要规则' },
+        element: (
+          <RouterGuard>
+            <SummaryRule />
+          </RouterGuard>),
+      },
+      {
+        path: "/voucher_type",
+        handle: { title: '凭证类型' },
+        element: (
+          <RouterGuard>
+            <VoucherType />
+          </RouterGuard>),
+      },
+      {
+        path: "/voucher_code_mapping",
+        handle: { title: '编码映射' },
+        element: (
+          <RouterGuard>
+            <VoucherCodeMapping />
           </RouterGuard>),
       },
     ], // 如果需要子路由，可以在这里添加
