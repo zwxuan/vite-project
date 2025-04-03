@@ -10,6 +10,13 @@ export const getCodeMappingList = () => {
   })
 }
 
+export const getCodeMappingEntryList = () => {
+  return request({
+    method: "GET",
+    url: "/code_mapping/entry"
+  })
+}
+
 export const saveCodeMapping = (data:CodeMappingItemProps,onUploadProgress: (progress: number) => void) => {
   return requestWithProgress({
     method: 'POST',

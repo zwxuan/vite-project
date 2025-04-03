@@ -24,7 +24,7 @@ export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, h
             return editable ? (
                 <Select
                     value={editingRow?.BusinessCode}
-                    style={{ width: '80px', textAlign: 'left' }}
+                    style={{ width: '100%', textAlign: 'left' }}
                     onChange={value => setEditingRow({ ...editingRow!, BusinessCode: value })}
                     options={[
                         { value: '00001', label: '客户1' },
@@ -42,7 +42,7 @@ export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, h
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'FinanceCode',
         sorter: true,
-        align: 'center',
+        align: 'left',
         render: (text: boolean, record: CodeMappingItemProps) => {
             const editable = isEditing(record);
             return editable ? (

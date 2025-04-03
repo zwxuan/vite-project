@@ -4,7 +4,7 @@ import { Table, Button, Dropdown, Space, Modal, Row, Input, Col, Select, Progres
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CodeMappingItemProps } from "@/types/code_mapping/code_mapping";
-import { getCodeMappingList, saveCodeMapping } from "@/api/financial_basic_data/code_mapping_service";
+import { getCodeMappingList,getCodeMappingEntryList, saveCodeMapping } from "@/api/financial_basic_data/code_mapping_service";
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -119,6 +119,16 @@ const VoucherCodeMapping: React.FC = () => {
         setEditingRow(newRow);
     };
 
+    const itemsMappingType = [
+       '合作伙伴',
+        '部门',
+        '销售员',
+        '币种',
+        '凭证字',
+        '分录类型',
+        '业务类型'
+    ]
+
     const isEditing = (record: CodeMappingItemProps) => record.MappingCode?.toString() === editingKey;
 
     const columnsType = getColumns(handleEdit, handleDelete, handleSave, handleCancel, isEditing, editingRow, setEditingRow);
@@ -149,7 +159,8 @@ const VoucherCodeMapping: React.FC = () => {
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
     const [saving, setSaving] = useState(false);
     const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
-
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
+    const [title,setTitle] = useState<string>('合作伙伴');
     const showModal = () => {
         setOpen(true);
     };
@@ -246,8 +257,27 @@ const VoucherCodeMapping: React.FC = () => {
         console.log('handleSearch', values);
     };
 
+    const handleItemClick = async (index: number,item :string) => {
+        setSelectedIndex(index);
+        setTitle(item);
+        if (index === 0) {
+            const res = await getCodeMappingList();
+            const chargingStandardData = res?.data as CodeMappingItemProps[];
+            // 设置计费标准台账数据
+            setChargingStandardList([...chargingStandardData]);    
+        }else if(index === 5){
+            const res = await getCodeMappingEntryList();
+            const entryData = res?.data as CodeMappingItemProps[];
+            // 设置计费标准台账数据
+            setChargingStandardList([...entryData]);    
+        }else{
+            setChargingStandardList([]);
+        }
+        
+    };
+
     return (
-        <div className='transferModal' style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
 
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='charging_standard' importType={uploadImportType} />
             <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel} businessType='charging_standard' />
@@ -305,13 +335,18 @@ const VoucherCodeMapping: React.FC = () => {
             </div>
             <div className='nc-bill-table-area'>
                 <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
-                    <Col span={4} className='ant-tranfer-col-left' style={{borderRight: '1px solid #e8e8e8',height: 'calc(100vh - 125px)' }}>
+                    <Col span={4} className='ant-tranfer-col-left  transferModal' style={{borderRight: '1px solid #e8e8e8',height: 'calc(100vh - 125px)' }}>
                         <ul style={{ height: '400px', overflowY: 'auto', overflowX: 'hidden' }}>
-                            {chargingStandardList.map((item) => {
+                            {itemsMappingType.map((item,index) => {
                                 return (
-                                    <li key={item.MappingCode}>
-                                        <div className='tranfer-col-left-item'>
-                                            {item.BookingName}
+                                    <li key={index}
+                                        style={{
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={() => handleItemClick(index,item)}
+                                    >
+                                        <div className='tranfer-col-left-item' style={{backgroundColor: index === selectedIndex ? '#edf1f7' : 'transparent',fontWeight:"bolder"}}>
+                                            {item}
                                         </div>
                                     </li>
                                 )
@@ -326,8 +361,8 @@ const VoucherCodeMapping: React.FC = () => {
                                 rowSelection={{ ...rowSelection }}
                                 rowKey={(record) => `${record.MappingCode}`}
                                 showSorterTooltip={false}
+                                title={() => title}
                                 dataSource={chargingStandardList}
-                                loading={chargingStandardList.length === 0}
                                 pagination={
                                     {
                                         size: 'small',
