@@ -21,7 +21,8 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(
   function (config) {
-    // 请求成功做点什么
+    // 从localStorage获取token并添加到请求头
+      config.headers['Authorization'] = `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJhZG1pbiIsInJvbGVpZCI6IjEiLCJuYmYiOjE3NDI4Njg1ODAsImV4cCI6MTc2NDkwMDU4MCwiaWF0IjoxNzQyODY4NTgwfQ.6Wm6S4CNtKi9lGqxam4_ZnDebnTXVxycDubbv0DLy2c'}`;
     return config;
   },
   function (error) {
@@ -29,9 +30,8 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-// 添加请求头jwt
-// instance.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-// instance.defaults.headers.post['Content-Type'] = 'application/json';
+
+instance.defaults.headers.post['Content-Type'] = 'application/json';
 
 
 

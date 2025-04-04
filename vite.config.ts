@@ -19,5 +19,13 @@ export default defineConfig({
   },
   server:{
     host:'0.0.0.0',
+    proxy: {
+      '/api/aspire': {
+        target: 'https://localhost:8102',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/aspire/, '/api/')
+      }
+    }
   }
 })

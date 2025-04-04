@@ -4,10 +4,11 @@ import { useState } from "react";
 import { LockOutlined, UserOutlined  } from "@ant-design/icons";
 import CustomIcon from "@/components/custom-icon";
 import "./login.less";
-import { getUserList } from "@/api/golbal/user_service";
+import { getUserList,getAspireUserList } from "@/api/golbal/user_service";
 import { UserLogin } from "@/types/user";
 import { useAppDispatch } from '@/hooks/use_global.hooks';
 import { setUserState} from "@/store/reducers/user";
+import { console } from "inspector";
 const UserSignIn = () => {
     const title = '登录';
     const bLogin = true;
@@ -18,13 +19,14 @@ const UserSignIn = () => {
         setChecked(e.target.checked);
     };
     const onFinish = async (values: any) => {
+        // const testAspire = await getAspireUserList();
         const res = await getUserList();
-        const userList = res?.data as UserLogin[];
+        const userList = res as UserLogin[];
         const userInfo = userList.find(item => item.UserEmail === values.useremail && item.UserPassword === values.password);
         if(userInfo) {
             sessionStorage.setItem('userlogin', JSON.stringify(userInfo));
             dispatch(setUserState(userInfo));
-            window.location.href = '/';
+            window.location.href = '/';            
             return;
         }else {
             alert('账号或密码错误');
