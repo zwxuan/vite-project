@@ -82,7 +82,7 @@ const OrderFeeCAP : React.FC = () => {
     };
 
     return (
-        <div style={{overflowY: 'auto', height: 'calc(100vh - 80px)'}}>
+        <div style={{overflowY: 'auto', height: 'calc(100vh - 20px)'}}>
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     
@@ -117,7 +117,7 @@ const OrderFeeCAP : React.FC = () => {
                     showSorterTooltip={false}
                     dataSource={orderFeeList}
                     pagination={false}
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh/2 - 150px)' }}
                     title={() => (
                         <div style={{marginLeft: '10px'}}>
                             <span className="modal-body-left-commons-title-text">
@@ -138,7 +138,7 @@ const OrderFeeCAP : React.FC = () => {
                     dataSource={orderFeeList}
                     loading={orderFeeList.length === 0}
                     pagination={false}
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh/2 - 150px)' }}
                     title={() => (
                         <div style={{marginLeft: '10px'}}>
                             <span className="modal-body-left-commons-title-text">

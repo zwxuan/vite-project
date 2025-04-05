@@ -264,7 +264,7 @@ const OrderFee : React.FC = () => {
                     showSorterTooltip={false}
                     dataSource={orderFeeList}
                     pagination={false}
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh/2 - 150px)' }}
                     title={() => (
                         <div style={{marginLeft: '10px'}}>
                             <span className="modal-body-left-commons-title-text">
@@ -286,7 +286,7 @@ const OrderFee : React.FC = () => {
                     dataSource={orderFeeList}
                     loading={orderFeeList.length === 0}
                     pagination={false}
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 680px)' }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh/2 - 150px)' }}
                     title={() => (
                         <div style={{marginLeft: '10px'}}>
                             <span className="modal-body-left-commons-title-text">
