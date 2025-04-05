@@ -33,8 +33,7 @@ const NotOffSetting : React.FC = () => {
     // 获取未核销数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getNotOffSettingList();
-            const notOffSettingData = res?.data as NotOffSettingItemProps[];
+            const notOffSettingData = await getNotOffSettingList();
             // 设置未核销台账数据
             setNotOffSettingList([...notOffSettingData]);
         };

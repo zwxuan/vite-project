@@ -30,8 +30,7 @@ const SummaryRule : React.FC = () => {
     // 获取分录摘要规则数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getSummaryRuleList();
-            const summaryRuleData = res?.data as SummaryRuleItemProps[];
+            const summaryRuleData = await getSummaryRuleList();
             // 设置分录摘要规则台账数据
             setSummaryRuleList([...summaryRuleData]);
         };

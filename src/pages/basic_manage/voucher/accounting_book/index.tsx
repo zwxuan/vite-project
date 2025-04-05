@@ -30,8 +30,7 @@ const AccountingBook : React.FC = () => {
     // 获取账套设置数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getAccountingBookList();
-            const accountingBookData = res?.data as AccountingBookItemProps[];
+            const accountingBookData = await getAccountingBookList();
             // 设置账套设置台账数据
             setAccountingBookList([...accountingBookData]);
         };

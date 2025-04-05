@@ -29,8 +29,7 @@ const BillManage : React.FC = () => {
     // 获取账单管理数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getBillManageList();
-            const billManageData = res?.data as BillManageItemProps[];
+            const billManageData = await getBillManageList();
             // 设置账单管理台账数据
             setBillManageList([...billManageData]);
         };

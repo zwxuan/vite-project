@@ -14,8 +14,7 @@ const FeeQuickInput: React.FC = () => {
     // 获取order_fee数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrderFeeList();
-            const orderFeeData = res?.data as OrderFeeItemProps[];
+            const orderFeeData = await getOrderFeeList();
             // 设置order_fee台账数据
             setOrderFeeList([...orderFeeData]);
         };
@@ -180,8 +179,7 @@ const FeeQuickInput: React.FC = () => {
                             // 解决单元格输入中文时，将输入法的英文拼音传入导致检索异常
                             setTimeout(async () => {
                                 console.log('Delayed query:', query); // 打印延迟后的 query
-                                const res = await getFeeNameList();
-                                const orderFeeData = res?.data as FeeNameItemProps[];
+                                const orderFeeData = await getFeeNameList();
                                 // 过滤数据（根据 query）
                                 const filteredData = orderFeeData.filter((item) =>
                                     item.FeeDisplayName.toLowerCase().includes(query.toLowerCase())

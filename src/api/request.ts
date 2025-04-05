@@ -39,7 +39,7 @@ instance.defaults.headers.post['Content-Type'] = 'application/json';
 instance.interceptors.response.use(
   function (response) {
     // 对响应成功做点什么
-    return response.data;
+    return response;
   },
   function (error) {
     // 对响应错误做点什么

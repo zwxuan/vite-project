@@ -29,8 +29,7 @@ const SetFeeSchedule : React.FC = () => {
     // 获取设置费用方案数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getSetFeeScheduleList();
-            const setFeeScheduleData = res?.data as SetFeeScheduleItemProps[];
+            const setFeeScheduleData = await getSetFeeScheduleList();
             // 设置设置费用方案台账数据
             setSetFeeScheduleList([...setFeeScheduleData]);
         };

@@ -32,8 +32,7 @@ const InvoiceIssuanceReceipt : React.FC = () => {
     // 获取开票收票数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getInvoiceIssuanceReceiptList();
-            const invoiceIssuanceReceiptData = res?.data as InvoiceIssuanceReceiptItemProps[];
+            const invoiceIssuanceReceiptData = await getInvoiceIssuanceReceiptList();
             // 设置开票收票台账数据
             setInvoiceIssuanceReceiptList([...invoiceIssuanceReceiptData]);
         };

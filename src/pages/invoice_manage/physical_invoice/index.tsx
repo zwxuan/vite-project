@@ -29,8 +29,7 @@ const PhysicalInvoice : React.FC = () => {
     // 获取实体发票数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getPhysicalInvoiceList();
-            const physicalInvoiceData = res?.data as PhysicalInvoiceItemProps[];
+            const physicalInvoiceData = await getPhysicalInvoiceList();
             // 设置实体发票台账数据
             setPhysicalInvoiceList([...physicalInvoiceData]);
         };

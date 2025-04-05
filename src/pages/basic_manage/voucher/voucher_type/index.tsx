@@ -30,8 +30,7 @@ const VoucherType : React.FC = () => {
     // 获取凭证类型数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getVoucherTypeList();
-            const voucherTypeData = res?.data as VoucherTypeItemProps[];
+            const voucherTypeData = await getVoucherTypeList();
             // 设置凭证类型台账数据
             setVoucherTypeList([...voucherTypeData]);
         };

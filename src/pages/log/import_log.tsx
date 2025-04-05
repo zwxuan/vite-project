@@ -18,8 +18,7 @@ const ImportLog : React.FC = () => {
     useEffect(() => {
         // 获取日志数据
         const getData = async () => {
-            const res = await getImportLogList();
-            const importLogData = res?.data as ImportLogItem[];
+            const importLogData = await getImportLogList();
             // 设置日志台账数据
             setExportLogList([...importLogData]);
         };

@@ -19,7 +19,7 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
 
     const selectMenu = async (keyCode:string) => {
         const resSub = await getSubMenuList();
-        const submenuData = resSub?.data as MenuGroup[];
+        const submenuData = resSub as MenuGroup[];
         const filterMenuData = submenuData.filter((item) => {
             return item.parentkey === keyCode;
         });
@@ -38,12 +38,12 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
         // 获取币制数据
         const getData = async () => {
             const res = await getMainMenuList();
-            const menuData = res?.data as MenuGroup[];
+            const menuData = res as MenuGroup[];
             // 设置主菜单数据
             setMainMenuList([...menuData]);
 
             const resSub = await getSubMenuList();
-            const submenuData = resSub?.data as MenuGroup[];
+            const submenuData = resSub as MenuGroup[];
             // 设置子菜单数据
             const filterMenuData = submenuData.filter((item) => {
                 return item.parentkey === 'basic';

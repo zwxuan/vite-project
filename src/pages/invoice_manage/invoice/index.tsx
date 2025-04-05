@@ -29,8 +29,7 @@ const Invoice : React.FC = () => {
     // 获取发票管理数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getInvoiceList();
-            const invoiceData = res?.data as InvoiceItemProps[];
+            const invoiceData = await getInvoiceList();
             // 设置发票管理台账数据
             setInvoiceList([...invoiceData]);
         };

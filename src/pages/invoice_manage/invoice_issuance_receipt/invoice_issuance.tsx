@@ -50,8 +50,7 @@ const InvoiceIssuanceModal: React.FC<DetailModalProps> = ({
         const getData = async () => {
             // 设置order_fee台账数据
             setOrderFeeList([...Array(Math.max(0, 5)).fill({})]);
-            const res = await getInvoiceIssuanceReceiptList();
-            const invoiceIssuanceReceiptData = res?.data as InvoiceIssuanceReceiptItemProps[];
+            const invoiceIssuanceReceiptData = await getInvoiceIssuanceReceiptList();
             // 设置开票收票台账数据
             setInvoiceIssuanceReceiptList([...invoiceIssuanceReceiptData]);
         };

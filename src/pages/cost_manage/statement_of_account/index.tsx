@@ -29,8 +29,7 @@ const StatementOfAccount : React.FC = () => {
     // 获取对账单管理数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getStatementOfAccountList();
-            const statementOfAccountData = res?.data as StatementOfAccountItemProps[];
+            const statementOfAccountData = await getStatementOfAccountList();
             // 设置对账单管理台账数据
             setStatementOfAccountList([...statementOfAccountData]);
         };

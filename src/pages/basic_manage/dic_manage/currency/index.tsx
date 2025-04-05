@@ -30,8 +30,7 @@ const Currency : React.FC = () => {
     useEffect(() => {
         // 获取币制数据
         const getData = async () => {
-            const res = await getCurrencyList();
-            const currencyData = res?.data as CurrencyItemProps[];
+            const currencyData = await getCurrencyList();
             // 设置币制台账数据
             setCurrencyList([...currencyData]);
         };

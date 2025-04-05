@@ -28,8 +28,7 @@ const OrderFeeRelation : React.FC = () => {
     // 获取order_fee数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrderFeeList();
-            const orderFeeData = res?.data as OrderFeeItemProps[];
+            const orderFeeData = await getOrderFeeList();
             // 设置order_fee台账数据
             // 填充15个空白行
             setOrderFeeList([...Array(Math.max(0, 15)).fill({})]);

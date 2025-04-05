@@ -27,8 +27,7 @@ const VoucherCodeMapping: React.FC = () => {
     // 获取计费标准数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getCodeMappingList();
-            const chargingStandardData = res?.data as CodeMappingItemProps[];
+            const chargingStandardData = await getCodeMappingList();
             // 设置计费标准台账数据
             setChargingStandardList([...chargingStandardData]);
         };
@@ -261,13 +260,11 @@ const VoucherCodeMapping: React.FC = () => {
         setSelectedIndex(index);
         setTitle(item);
         if (index === 0) {
-            const res = await getCodeMappingList();
-            const chargingStandardData = res?.data as CodeMappingItemProps[];
+            const chargingStandardData = await getCodeMappingList();
             // 设置计费标准台账数据
             setChargingStandardList([...chargingStandardData]);    
         }else if(index === 5){
-            const res = await getCodeMappingEntryList();
-            const entryData = res?.data as CodeMappingItemProps[];
+            const entryData = await getCodeMappingEntryList();
             // 设置计费标准台账数据
             setChargingStandardList([...entryData]);    
         }else{

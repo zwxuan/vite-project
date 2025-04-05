@@ -30,8 +30,7 @@ const HasOffSetting : React.FC = () => {
     // 获取已核销数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getHasOffSettingList();
-            const hasOffSettingData = res?.data as HasOffSettingItemProps[];
+            const hasOffSettingData = await getHasOffSettingList();
             // 设置已核销台账数据
             setHasOffSettingList([...hasOffSettingData]);
         };

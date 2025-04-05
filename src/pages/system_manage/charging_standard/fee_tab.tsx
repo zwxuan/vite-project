@@ -30,8 +30,7 @@ const FeeTab : React.FC = () => {
     // 获取计费标准数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getChargingStandardList();
-            const chargingStandardData = res?.data as ChargingStandardItemProps[];
+            const chargingStandardData = await getChargingStandardList();
             // 设置计费标准台账数据
             setChargingStandardList([...chargingStandardData]);
         };

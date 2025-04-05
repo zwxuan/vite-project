@@ -18,8 +18,7 @@ const ExportLog : React.FC = () => {
     useEffect(() => {
         // 获取日志数据
         const getData = async () => {
-            const res = await getExportLogList();
-            const exportLogData = res?.data as ExportLogItem[];
+            const exportLogData = await getExportLogList();
             // 设置日志台账数据
             setExportLogList([...exportLogData]);
         };

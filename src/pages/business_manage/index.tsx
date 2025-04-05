@@ -29,8 +29,7 @@ const Orders : React.FC = () => {
     // 获取订单管理表，存储与业务相关的订单信息数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrdersList();
-            const ordersData = res?.data as OrdersItemProps[];
+            const ordersData = await getOrdersList();
             // 设置订单管理表，存储与业务相关的订单信息台账数据
             setOrdersList([...ordersData]);
         };

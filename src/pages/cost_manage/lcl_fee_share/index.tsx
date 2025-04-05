@@ -31,8 +31,7 @@ const LCLFeeShare : React.FC = () => {
     // 获取order_bill数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrderFeeList();
-            const orderBillData = res?.data as OrderFeeItemProps[];
+            const orderBillData = await getOrderFeeList();
             // 设置order_bill台账数据
             setOrderFeeSource([...orderBillData]);
         };
@@ -96,8 +95,7 @@ const LCLFeeShare : React.FC = () => {
         columnWidth: '20px',
     };
     const handExpand  = async (expanded: boolean, record: OrderFeeItemProps) => {
-            const res = await getOrderFeeList();
-            const orderBillData = res?.data as OrderFeeItemProps[];
+            const orderBillData = await getOrderFeeList();
 
             const filterOrderFeeList = orderBillData.filter((item) => {
                 return item.FeeName === record.FeeName;

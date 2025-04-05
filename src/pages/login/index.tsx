@@ -20,8 +20,7 @@ const UserSignIn = () => {
     };
     const onFinish = async (values: any) => {
         // const testAspire = await getAspireUserList();
-        const res = await getUserList();
-        const userList = res as UserLogin[];
+        const userList = await getUserList();
         const userInfo = userList.find(item => item.UserEmail === values.useremail && item.UserPassword === values.password);
         if(userInfo) {
             sessionStorage.setItem('userlogin', JSON.stringify(userInfo));

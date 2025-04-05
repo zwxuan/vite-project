@@ -30,8 +30,7 @@ const VoucherGroupingRule : React.FC = () => {
     // 获取凭证分组规则数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getVoucherGroupingRuleList();
-            const voucherGroupingRuleData = res?.data as VoucherGroupingRuleItemProps[];
+            const voucherGroupingRuleData = await getVoucherGroupingRuleList();
             // 设置凭证分组规则台账数据
             setVoucherGroupingRuleList([...voucherGroupingRuleData]);
         };

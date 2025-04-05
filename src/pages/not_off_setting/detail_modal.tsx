@@ -106,8 +106,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
 
     useEffect(() => {
         const getData = async () => {
-            const res = await getNotOffFeesList();
-            const orderFeeData = res?.data as NotOffFeesItemProps[];
+            const orderFeeData = await getNotOffFeesList();
             // 设置order_fee台账数据
             setOrderFeeList([...orderFeeData.splice(0, 5)]);
         };

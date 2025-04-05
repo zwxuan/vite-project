@@ -30,8 +30,7 @@ const EntryGroupingRule : React.FC = () => {
     // 获取凭证分录规则数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getEntryGroupingRuleList();
-            const entryGroupingRuleData = res?.data as EntryGroupingRuleItemProps[];
+            const entryGroupingRuleData = await getEntryGroupingRuleList();
             // 设置凭证分录规则台账数据
             setEntryGroupingRuleList([...entryGroupingRuleData]);
         };

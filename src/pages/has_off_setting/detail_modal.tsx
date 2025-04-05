@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Table, Input, InputNumber, Select, Button, Space, Row, Col,Divider } from 'antd';
 import { DatePickerZH } from '@/components/date-picker/index';
-import { OffSettingDetailItemProps } from "@/types/has_off_setting/has_off_setting";
-import { getHasOffSettingList } from "@/api/financial_manage/has_off_setting_service";
+import { HasOffSettingItemProps, OffSettingDetailItemProps } from "@/types/has_off_setting/has_off_setting";
+import { getHasOffDetailList } from "@/api/financial_manage/has_off_setting_service";
 import { getDetailColumns } from './columns';
 interface DetailModalProps {
     open: boolean;
@@ -35,8 +35,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     // 获取已核销数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getHasOffSettingList();
-            const hasOffSettingData = res?.data as OffSettingDetailItemProps[];
+            const hasOffSettingData = await getHasOffDetailList();
             // 设置已核销台账数据
             setHasOffSettingList([...hasOffSettingData]);
         };

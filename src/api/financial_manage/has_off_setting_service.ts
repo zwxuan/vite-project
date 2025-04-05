@@ -1,13 +1,24 @@
 
-import request, { requestWithProgress } from '../request'
-import { HasOffSettingItemProps } from "@/types/has_off_setting/has_off_setting";
+import request, { ApiRes, requestWithProgress } from '../request'
+import { HasOffSettingItemProps, OffSettingDetailItemProps } from "@/types/has_off_setting/has_off_setting";
 
 // 获取币制信息
-export const getHasOffSettingList = () => {
-  return request({
+export const getHasOffSettingList = async () : Promise<HasOffSettingItemProps[]> => {
+  const response = await request({
     method: "GET",
     url: "/has_off_setting"
-  })
+  });
+  const responseData = response?.data as ApiRes<HasOffSettingItemProps[]>;
+  return responseData.data || [];
+}
+
+export const getHasOffDetailList = async () : Promise<OffSettingDetailItemProps[]> => {
+  const response = await request({
+    method: "GET",
+    url: "/has_off_setting"
+  });
+  const responseData = response?.data as ApiRes<OffSettingDetailItemProps[]>;
+  return responseData.data || [];
 }
 
 export const saveHasOffSetting = (data:HasOffSettingItemProps,onUploadProgress: (progress: number) => void) => {

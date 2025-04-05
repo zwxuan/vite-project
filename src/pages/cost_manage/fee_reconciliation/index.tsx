@@ -30,8 +30,7 @@ const FeeReconciliation : React.FC = () => {
     // 获取费用对账数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getFeeReconciliationList();
-            const feeReconciliationData = res?.data as FeeReconciliationItemProps[];
+            const feeReconciliationData = await getFeeReconciliationList();
             // 设置费用对账台账数据
             setFeeReconciliationList([...feeReconciliationData]);
         };

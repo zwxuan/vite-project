@@ -30,8 +30,7 @@ const OrderDocument: React.FC = () => {
     // 获取订单文档数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrderDocumentList();
-            const orderDocumentData = res?.data as OrderDocumentItemProps[];
+            const orderDocumentData = await getOrderDocumentList();
             // 设置订单文档台账数据
             setOrderDocumentList([...orderDocumentData]);
         };
