@@ -121,7 +121,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "编码映射", key: "code_mapping",path:"/voucher_code_mapping",
         },
         {
-            name: "科目映射", key: "subject_mapping",
+            name: "科目映射", key: "account_mapping",path:"/account_mapping",
         },
         {
             name: "科目设置", key: "subject_setting",
@@ -520,23 +520,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "付款申请", key: "payment_apply",
-        },
-    ]
-},
-{
-    title: "管理凭证",
-    key: "manage_voucher",
-    parentkey: "cost_manage",
-    apps: [
-        {
-            name: "操作费凭证", key: "operation_voucher",
-        },
-        {
-            name: "结账凭证", key: "settlement_voucher",
-        },
-        {
-            name: "凭证下载", key: "cost_voucher_download",
+            name: "付款申请", key: "payment_apply",path:"/payment_application",
         },
     ]
 },
@@ -589,16 +573,6 @@ const childrenMenuData: MenuGroup[] = [{
     ]
 },
 {
-    title: "凭证管理",
-    key: "voucher_manage",
-    parentkey: "finance_manage",
-    apps: [
-        {
-            name: "凭证查询", key: "voucher_query",
-        },
-    ]
-},
-{
     title: "财务审核",
     key: "finance_audit",
     parentkey: "finance_manage",
@@ -621,6 +595,30 @@ const childrenMenuData: MenuGroup[] = [{
     apps: [
         {
             name: "综合财务查询", key: "finance_query",
+        },
+        {
+            name: "凭证查询", key: "voucher_query",
+        },
+    ]
+},
+{
+    title: "管理凭证",
+    key: "manage_voucher",
+    parentkey: "finance_manage",
+    apps: [
+        {
+            name: "操作费凭证", key: "operation_voucher",
+        },
+    ]
+},
+{
+    title: "税务管理",
+    key: "tax_manage",
+    parentkey: "finance_manage",
+    apps: [
+        {
+            // 发票结转,未开票未认证已销账发票结转,代收代付,收入和成本以及代收代付结转NCC
+            name: "结转凭证", key: "settlement_voucher",
         },
     ]
 },
@@ -666,19 +664,7 @@ const childrenMenuData: MenuGroup[] = [{
         },
     ]
 },
-{
-    title: "税务管理",
-    key: "tax_manage",
-    parentkey: "finance_manage",
-    apps: [
-        {
-            name: "结账凭证", key: "settlement_voucher",
-        },
-        {
-            name: "凭证查询", key: "voucher_query",
-        },
-    ]
-},
+
 {
     title: "业务统计",
     key: "business_statistics",

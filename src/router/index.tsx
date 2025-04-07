@@ -4,7 +4,7 @@ import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
-  ,SummaryRule,VoucherType,VoucherCodeMapping} from "./imports";
+  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -151,6 +151,14 @@ const routers = createMemoryRouter([
           </RouterGuard>),
       },
       {
+        path: "/payment_application",
+        handle: { title: '付款申请' },
+        element: (
+          <RouterGuard>
+            <PaymentApplication />
+          </RouterGuard>),
+      },
+      {
         path: "/identity/permission",
         handle: { title: '权限分配' },
         element: (
@@ -254,6 +262,16 @@ const routers = createMemoryRouter([
             <VoucherCodeMapping />
           </RouterGuard>),
       },
+      {
+        path: "/account_mapping",
+        handle: { title: '科目映射' },
+        element: (
+          <RouterGuard>
+            <AccountMapping />
+          </RouterGuard>),
+      },
+      
+      
     ], // 如果需要子路由，可以在这里添加
   },
   {
