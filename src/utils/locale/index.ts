@@ -21,6 +21,8 @@ import { VoucherTypeLocale } from './voucher_type.ts';
 import { CodeMappingLocale } from './code_mapping.ts';
 import { AccountMappingLocale } from './account_mapping.ts';
 import { PaymentApplicationLocale } from './payment_application.ts';
+import { PaymentApplicationFeeLocale } from './payment_application_fee.ts';
+import { PaymentApplicationBusinessLocale } from './payment_application_business.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -46,6 +48,8 @@ export {
   CodeMappingLocale,
   AccountMappingLocale,
   PaymentApplicationLocale,
+  PaymentApplicationFeeLocale,
+  PaymentApplicationBusinessLocale,
 };
 
 export default {
@@ -73,4 +77,6 @@ export default {
   ...CodeMappingLocale,
   ...AccountMappingLocale,
   ...PaymentApplicationLocale,
+  ...PaymentApplicationFeeLocale,
+  ...PaymentApplicationBusinessLocale,
 };

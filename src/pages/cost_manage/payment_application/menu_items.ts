@@ -12,26 +12,22 @@ export const statusItems: MenuProps['items'] = [
     },
 ];
 
-export const importItems: MenuProps['items'] = [
+export const reviewItems: MenuProps['items'] = [
     {
-        label: '新增导入',
+        label: '异常检查',
         key: '1',
     },
     {
-        label: '下载新增模板',
+        label: '提交在线审批',
         key: '2',
     },
     {
-        label: '更新导入',
+        label: '取消在线审批',
         key: '3',
     },
     {
-        label: '下载更新模板',
+        label: '查看审批日志',
         key: '4',
-    },
-    {
-        label: '查看导入日志',
-        key: '5',
     },
 ];
 

@@ -16,7 +16,7 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems, importItems, exportItems } from './menu_items';
+import { statusItems, reviewItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
@@ -224,6 +224,7 @@ const PaymentApplication : React.FC = () => {
                             <div className="u-button-group">
                                 <Button type="primary" danger onClick={handleAdd}>创建付款申请</Button>
                                 <Button type="primary" danger >查看明细</Button>
+                                <Button type="primary" danger >创建核销</Button>
                                 <Button>收票</Button>
                                 <Button>删除</Button>
                             </div>
@@ -232,6 +233,14 @@ const PaymentApplication : React.FC = () => {
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
+                            <Dropdown menu={{items:reviewItems}}>
+                                <Button>
+                                    <Space>
+                                        审核
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>

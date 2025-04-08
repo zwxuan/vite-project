@@ -150,3 +150,143 @@ export const fields: AdvancedSearchFormProps["fields"] = [
     },
     
 ]; 
+
+export const fieldsFee: AdvancedSearchFormProps["fields"] = [
+
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeBusinessNumber()),
+        key: 'BusinessNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeInWarehouseNumber()),
+        key: 'InWarehouseNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeBookingNumber()),
+        key: 'BookingNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeProjectNumber()),
+        key: 'ProjectNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeSono()),
+        key: 'Sono',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeSettlementObject()),
+        key: 'SettlementObject',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeConsignmentType()),
+        key: 'ConsignmentType',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeMasterWaybillNumber()),
+        key: 'MasterWaybillNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeSubWaybillNumber()),
+        key: 'SubWaybillNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeConsignor()),
+        key: 'Consignor',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeBusinessType()),
+        key: 'BusinessType',
+    },
+    {
+        type: 'date',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeBusinessDate()),
+        key: 'BusinessDate',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeBusinessReferenceNumber()),
+        key: 'BusinessReferenceNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeDomesticOrForeign()),
+        key: 'DomesticOrForeign',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeConfirmationStatus()),
+        key: 'ConfirmationStatus',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeFeeName()),
+        key: 'FeeName',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationFeeBusinessStatus()),
+        key: 'BusinessStatus',
+    },
+    
+];
+
+export const fieldsBusiness: AdvancedSearchFormProps["fields"] = [
+
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessBusinessNumber()),
+        key: 'BusinessNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessMasterOrderNumber()),
+        key: 'MasterOrderNumber',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessConsignor()),
+        key: 'Consignor',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessSettlementObject()),
+        key: 'SettlementObject',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessSono()),
+        key: 'Sono',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessBusinessType()),
+        key: 'BusinessType',
+    },
+    {
+        type: 'date',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessBusinessDate()),
+        key: 'BusinessDate',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessCurrency()),
+        key: 'Currency',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getPaymentApplicationBusinessTaxInclusivePrice()),
+        key: 'TaxInclusivePrice',
+    },
+    
+]; 
