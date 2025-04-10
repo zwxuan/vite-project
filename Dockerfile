@@ -1,28 +1,28 @@
-# 构建阶段
-FROM node:18-alpine as builder
+# 使用官方的 Node.js 镜像作为基础镜像
+FROM node:latest
 
+# 设置工作目录
 WORKDIR /app
 
-# 复制package文件
+# 复制 package.json 和 package-lock.json
 COPY package*.json ./
 
-# 安装依赖
+# 安装项目依赖
 RUN npm install
 
-# 复制源代码
+# 复制项目文件到工作目录
 COPY . .
 
-# 构建应用
+# 构建生产环境代码
 RUN npm run build
 
-# 生产阶段
+# 使用Nginx作为生产服务器
 FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 从构建阶段复制构建文件到nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# 暴露80端口
+# 暴露应用运行的端口
 EXPOSE 80
 
-# 启动nginx
+# 启动Nginx
 CMD ["nginx", "-g", "daemon off;"]

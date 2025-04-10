@@ -29,8 +29,7 @@ const OrderBillForeign : React.FC = () => {
     // 获取order_bill数据
     useEffect(() => {
         const getData = async () => {
-            const res = await getOrderBillList();
-            const orderBillData = res?.data as OrderBillItemProps[];
+            const orderBillData = await getOrderBillList();
             // 设置order_bill台账数据
             setOrderBillList([...orderBillData]);
         };
@@ -97,8 +96,7 @@ const OrderBillForeign : React.FC = () => {
         columnWidth: '20px',
     };
     const handExpand  = async (expanded: boolean, record: OrderBillItemProps) => {
-            const res = await getOrderFeeList();
-            const orderBillData = res?.data as OrderFeeItemProps[];
+            const orderBillData = await getOrderFeeList();
             setExpandDataSource([...orderBillData]);
     }
     const expandedRowRender = () => (
