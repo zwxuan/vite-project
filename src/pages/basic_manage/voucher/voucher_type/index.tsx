@@ -132,7 +132,7 @@ const VoucherType : React.FC = () => {
                 });
             });
             
-            if (response?.success) {
+            if (response) {
                 setFormData(initFormData);
                 // 等待1秒
                 await new Promise(resolve => setTimeout(resolve, 500));
