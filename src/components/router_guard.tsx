@@ -12,9 +12,9 @@ const RouterGuard = ({ children }: { children: JSX.Element }) => {
                                     UserName: '',
                                     UserEmail: ''});
     const userLogin:UserLogin = JSON.parse(userLoginString);
-    // if (!userLogin.Token && locationPath.pathname !== '/login') {
-    //     return <Navigate to="/login" replace/>;
-    // }
+    if (!userLogin.Token && locationPath.pathname !== '/login') {
+        return <Navigate to="/login" replace/>;
+    }
      
     
     // // const {message} = App.useApp();
