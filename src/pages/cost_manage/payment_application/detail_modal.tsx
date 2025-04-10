@@ -4,6 +4,7 @@ import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, mes
 import { PaymentApplicationItemProps } from "@/types/payment_application/payment_application";
 import dayjs from 'dayjs';
 import PaymentApplicationStep1 from './payment_application_step1';
+import PaymentApplicationStep2 from './payment_application_step2';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -33,7 +34,7 @@ const steps = [
     },
     {
         title: '',
-        content: <Button>页面内容二</Button>,
+        content: <PaymentApplicationStep2 />,
     },
 ];
 const DetailModal: React.FC<DetailModalProps> = ({
@@ -88,8 +89,11 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             上一步
                         </Button>
                     )}
+                    {current > 0 && (
+                        <Button type="primary" danger disabled={saving} onClick={onOk} >保存</Button>
+                    )}
                     <Button onClick={onCancel} disabled={saving}>取消</Button>
-                    <Button type="primary" danger disabled={saving} onClick={onOk} >保存</Button>
+                    
                 </Space>
             </div>
         </Modal>

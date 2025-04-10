@@ -27,8 +27,7 @@ const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title, reado
   useEffect(() => {
     // 获取模板字段数据
     const getData = async () => {
-      const res = await getTemplateFieldList();
-      const templateData = res?.data as ImportTemplateFieldItem[];
+      const templateData = await getTemplateFieldList();
       // 设置模板字段数据
       setTemplateFieldsList([...templateData]);
     };

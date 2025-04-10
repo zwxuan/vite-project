@@ -25,8 +25,7 @@ const ExcelImportTemplate : React.FC = () => {
     useEffect(() => {
         // 获取模板数据
         const getData = async () => {
-            const res = await getImportTemplateList();
-            const templateData = res?.data as ImportTemplateItem[];
+            const templateData = await getImportTemplateList();
             // 设置模板台账数据
             setTemplateList([...templateData]);
         };
