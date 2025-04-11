@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: 'latest'
         cache: 'npm'
 
     - name: Install Dependencies
@@ -24,15 +24,6 @@ jobs:
 
     - name: Build
       run: npm run build
-
-    - name: Build and Push Docker Image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        docker build -t $DOCKER_USERNAME/vite-project:latest .
-        docker push $DOCKER_USERNAME/vite-project:latest
 
     - name: Deploy to Server
       env:
@@ -45,10 +36,10 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H $SERVER_HOST >> ~/.ssh/known_hosts
         
-        # 复制部署脚本和必要文件到服务器
-        scp -r deploy docker-compose.yml Dockerfile $SERVER_USER@$SERVER_HOST:/path/to/project/
+        # 复制构建产物、部署脚本和必要文件到服务器
+        scp -r dist deploy.sh Dockerfile nginx.conf $SERVER_USER@$SERVER_HOST:~/fms_admin/
         
         # 在服务器上执行部署脚本
-        ssh $SERVER_USER@$SERVER_HOST "cd /path/to/project && \
-        chmod +x deploy/deploy.sh && \
-        ./deploy/deploy.sh"
+        ssh $SERVER_USER@$SERVER_HOST "cd ~/fms_admin && \
+        chmod +x deploy.sh && \
+        ./deploy.sh"
