@@ -9,6 +9,7 @@ const Home: React.FC = () => {
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)'}}>
             <div className='nc-bill-table-area' style={{marginTop:'40px'}}>
                 <img src='/fms_workflow.svg' />
+                测试
             </div>
         </div>
     )
