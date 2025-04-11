@@ -25,6 +25,7 @@ const Orders : React.FC = () => {
     // 订单管理表，存储与业务相关的订单信息数据
     const [ordersList, setOrdersList] = useState([] as OrdersItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
     // 获取订单管理表，存储与业务相关的订单信息数据
     useEffect(() => {
@@ -277,19 +278,21 @@ const Orders : React.FC = () => {
                     dataSource={ordersList}
                     expandable={{ expandedRowRender}}
                     loading={ordersList.length === 0}
-                    pagination={
-                        {
-                            size:'small',
-                            pageSize:50,showTotal: (total) => `总共 ${total} 条`,
-                            showQuickJumper:true,
-                            locale:
-                            {
-                                items_per_page: '/页',
-                                jump_to: '跳至',
-                                page: '页',
-                            }
+                    pagination={{
+                        size:'small',
+                        pageSize:pageSize,
+                        showTotal: (total) => `总共 ${total} 条`,
+                        showQuickJumper:true,
+                        showSizeChanger:true,
+                        onShowSizeChange: (current, size) => {
+                            setPageSize(size);
+                        },
+                        locale:{
+                            items_per_page: '/页',
+                            jump_to: '跳至',
+                            page: '页',
                         }
-                    }
+                    }}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
                     footer={() => '底部汇总信息'}
                     bordered={true}

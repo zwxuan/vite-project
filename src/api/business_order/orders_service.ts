@@ -6,7 +6,7 @@ import Mock from "mockjs";
 // 模拟订单数据
 const ordersItems: OrdersItemProps[] = [
   {
-    BusinessId: 'SHSE20050001',
+    BusinessId: 'SHSE20050001'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345577',
     Carrier: '[GH00001]中远集装箱运输有限公司',
@@ -88,7 +88,7 @@ const ordersItems: OrdersItemProps[] = [
     Expenditure: Mock.mock('@float(60, 100, 0, 2)'),
   },
   {
-    BusinessId: 'SHSE20020017',
+    BusinessId: 'SHSE20020017'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345567',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -170,7 +170,7 @@ const ordersItems: OrdersItemProps[] = [
     Expenditure: Mock.mock('@float(60, 100, 0, 2)'),
   },
   {
-    BusinessId: 'SHSE20020018',
+    BusinessId: 'SHSE20020018'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH000031]高丽海运株式会社',
@@ -252,7 +252,7 @@ const ordersItems: OrdersItemProps[] = [
     Expenditure: Mock.mock('@float(60, 100, 0, 2)'),
   },
   {
-    BusinessId: 'SHSE20020020',
+    BusinessId: 'SHSE20020020'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -335,7 +335,7 @@ const ordersItems: OrdersItemProps[] = [
 
   },
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -418,7 +418,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019' + Mock.mock('@string("number", 5, 5)'), 
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -501,7 +501,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -584,7 +584,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -667,7 +667,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -750,7 +750,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -833,7 +833,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -916,7 +916,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -999,7 +999,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1082,7 +1082,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1165,7 +1165,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1248,7 +1248,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1331,7 +1331,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1414,7 +1414,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1497,7 +1497,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1580,7 +1580,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1662,7 +1662,7 @@ const ordersItems: OrdersItemProps[] = [
     Expenditure: Mock.mock('@float(60, 100, 0, 2)'),
   },
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1745,7 +1745,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1828,7 +1828,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1911,7 +1911,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -1994,7 +1994,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2077,7 +2077,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2160,7 +2160,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2243,7 +2243,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2326,7 +2326,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2409,7 +2409,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2492,7 +2492,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2575,7 +2575,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2658,7 +2658,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2741,7 +2741,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2824,7 +2824,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2907,7 +2907,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -2990,7 +2990,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3073,7 +3073,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3156,7 +3156,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3239,7 +3239,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3322,7 +3322,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3405,7 +3405,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3488,7 +3488,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3571,7 +3571,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3654,7 +3654,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3737,7 +3737,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3820,7 +3820,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3903,7 +3903,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -3986,7 +3986,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4069,7 +4069,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4152,7 +4152,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4235,7 +4235,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4318,7 +4318,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4401,7 +4401,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4484,7 +4484,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4567,7 +4567,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4650,7 +4650,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4733,7 +4733,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4816,7 +4816,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4899,7 +4899,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -4982,7 +4982,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -5065,7 +5065,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -5148,7 +5148,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
@@ -5231,7 +5231,7 @@ const ordersItems: OrdersItemProps[] = [
   }
   ,
   {
-    BusinessId: 'SHSE20020019',
+    BusinessId: 'SHSE20020019'+ Mock.mock('@string("number", 5, 5)'),
     ServiceType:`${Object.values(Mock.mock({"object|1": {"海陆关": "海陆关","空陆关": "空陆关","关陆": "关陆","海铁": "海铁"}}).object)[0]}`,
     MainOrderNumber: 'COSU12345568',
     Carrier: '[GH00002]上海市锦江航运有限公司',
