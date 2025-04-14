@@ -82,12 +82,12 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
     // <%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
     const [<%= CamelCase(this.SourceTable.Name) %>List, set<%= PascalCase(this.SourceTable.Name) %>List] = useState([] as <%= PascalCase(this.SourceTable.Name) %>ItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
     // 获取<%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
     useEffect(() => {
         const getData = async () => {
-            const res = await get<%= PascalCase(this.SourceTable.Name) %>List();
-            const <%= CamelCase(this.SourceTable.Name) %>Data = res?.data as <%= PascalCase(this.SourceTable.Name) %>ItemProps[];
+            const <%= CamelCase(this.SourceTable.Name) %>Data = await get<%= PascalCase(this.SourceTable.Name) %>List();
             // 设置<%= DbHelpter.GetClassDescription(this.SourceTable) %>台账数据
             set<%= PascalCase(this.SourceTable.Name) %>List([...<%= CamelCase(this.SourceTable.Name) %>Data]);
         };
@@ -189,7 +189,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                 });
             });
             
-            if (response) {
+            if (response?.success) {
                 setFormData(initFormData);
                 // 等待1秒
                 await new Promise(resolve => setTimeout(resolve, 500));
@@ -329,19 +329,21 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                     showSorterTooltip={false}
                     dataSource={<%= CamelCase(this.SourceTable.Name) %>List}
                     loading={<%= CamelCase(this.SourceTable.Name) %>List.length === 0}
-                    pagination={
-                        {
-                            size:'small',
-                            pageSize:50,showTotal: (total) => `总共 ${total} 条`,
-                            showQuickJumper:true,
-                            locale:
-                            {
-                                items_per_page: '/页',
-                                jump_to: '跳至',
-                                page: '页',
-                            }
+                    pagination={{
+                        size:'small',
+                        pageSize:pageSize,
+                        showTotal: (total) => `总共 ${total} 条`,
+                        showQuickJumper:true,
+                        showSizeChanger:true,
+                        onShowSizeChange: (current, size) => {
+                            setPageSize(size);
+                        },
+                        locale:{
+                            items_per_page: '/页',
+                            jump_to: '跳至',
+                            page: '页',
                         }
-                    }
+                    }}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
                     footer={() => '底部汇总信息'}
                     bordered={true}
