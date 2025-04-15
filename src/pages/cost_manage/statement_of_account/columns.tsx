@@ -15,6 +15,7 @@ export const getColumns = (handleEdit: (record: StatementOfAccountItemProps) => 
         dataIndex: 'StatementNumber',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getStatementOfAccountSettlementObject()),
@@ -23,6 +24,7 @@ export const getColumns = (handleEdit: (record: StatementOfAccountItemProps) => 
         dataIndex: 'SettlementObject',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getStatementOfAccountCounterpartyStatementNumber()),

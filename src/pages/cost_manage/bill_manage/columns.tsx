@@ -15,6 +15,7 @@ export const getColumns = (handleEdit: (record: BillManageItemProps) => void, ha
         dataIndex: 'BillNumber',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getBillManageStatementNumber()),
@@ -23,6 +24,7 @@ export const getColumns = (handleEdit: (record: BillManageItemProps) => void, ha
         dataIndex: 'StatementNumber',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getBillManageCounterpartBillNumber()),
