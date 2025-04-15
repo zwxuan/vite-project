@@ -16,7 +16,7 @@ import LocaleHelper from '@/utils/localeHelper';
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
-import { expandColumns } from './columns';
+import { expandColumns,expandSplitColumns } from './columns';
 import { importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 
@@ -106,7 +106,7 @@ const OrderFeeSplit : React.FC = () => {
     const expandedRowRender = () => (
         <div className='nc-bill-table-area nc-bill-table-area-expand'>
             <Table<OrderFeeItemProps>
-            columns={expandColumns}
+            columns={expandSplitColumns}
             dataSource={expandDataSource}
             pagination={false}
             />

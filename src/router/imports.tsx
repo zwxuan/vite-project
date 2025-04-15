@@ -28,6 +28,7 @@ import VoucherType from "@/pages/basic_manage/voucher/voucher_type";
 import VoucherCodeMapping from "@/pages/basic_manage/voucher/code_mapping";
 import AccountMapping from "@/pages/basic_manage/voucher/account_mapping";
 import PaymentApplication from "@/pages/cost_manage/payment_application";
+import ReleaseOrderVerification from "@/pages/cost_manage/release_order_verification";
 export {
   Currency,
   Orders,
@@ -59,4 +60,5 @@ export {
   VoucherCodeMapping,
   AccountMapping,
   PaymentApplication,
+  ReleaseOrderVerification,
 };

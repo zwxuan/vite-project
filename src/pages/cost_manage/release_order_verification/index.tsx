@@ -1,67 +1,13 @@
-<%@ CodeTemplate Language="C#" ResponseEncoding="UTF-8" TargetLanguage="C#" Debug="TRUE" Inherits="OutputFileCodeTemplate" %>
-
-<%@ Assembly Name="SchemaExplorer" %>
-<%@ Import Namespace="SchemaExplorer" %>
-<%@ Assembly Name="CodeSmith.BaseTemplates" %>
-<%@ Import Namespace="CodeSmith.BaseTemplates" %>
-<%@ Assembly Name="CodeSmith.CustomProperties" %>
-<%@ Import Namespace="CodeSmith.CustomProperties" %>
-<%@ Assembly Name="mysql.data" %>
-<%@ Import Namespace="MySql.Data.MySqlClient" %>
-<%@ Assembly src="DbHelper.cs" %>
-<%@ Import Namespace="Common" %>
-<%@ Import Namespace="System.Text.RegularExpressions" %>
-<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" Description="数据表选择" %>
-
-<script runat="template">
-private Regex cleanRegEx = new Regex(@"\s+|_|-|\.", RegexOptions.Compiled);
-private Regex cleanID = new Regex(@"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)", RegexOptions.Compiled);
-
-public string CleanName(string name)
-{
-	return cleanRegEx.Replace(name, "");
-}
-
-public string CamelCase(string name)
-{
-	string property = name;
-	string[] arrCols = property.Split('_');
-	string strName = "";
-	int i = 1;
-	foreach(string colName in arrCols)
-	{
-		if(i==1)
-		{
-			strName += char.ToLower(colName[0]) + colName.Substring(1).ToLower();
-		}
-		else
-		{
-			strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
-		}
-		i++;
-	}
-	return strName;	
-}
-public string PascalCase(string name)
-{	
-	string property = name.Replace("_INFO","");
-	string[] arrCols = property.Split('_');
-	string strName = "";
-	foreach(string colName in arrCols)
-	{
-		strName += char.ToUpper(colName[0]) + colName.Substring(1).ToLower();
-	}
-	return strName;	
-}
-</script>
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
-import { get<%= PascalCase(this.SourceTable.Name) %>List,save<%= PascalCase(this.SourceTable.Name) %> } from "@/api/financial_basic_data/<%= this.SourceTable.Name.ToLower() %>_service";
+import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/release_order_verification/release_order_verification";
+import {OrderFeeItemProps} from "@/types/order_fee/order_fee";
+import { getReleaseOrderVerificationList,saveReleaseOrderVerification,getReleaseOrderVerificationFeeList } from "@/api/fee_manage/release_order_verification_service";
+import { getOrderFeeList } from "@/api/business_order/order_fee_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -71,41 +17,42 @@ import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
-import { getColumns } from './columns';
+import { getColumns,getFeeColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
+const ReleaseOrderVerification : React.FC = () => {
 
-    // <%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
-    const [<%= CamelCase(this.SourceTable.Name) %>List, set<%= PascalCase(this.SourceTable.Name) %>List] = useState([] as <%= PascalCase(this.SourceTable.Name) %>ItemProps[]);
+    // 放单审核数据
+    const [releaseOrderVerificationList, setReleaseOrderVerificationList] = useState([] as ReleaseOrderVerificationItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const [expandDataSource, setExpandDataSource] = useState([] as ReleaseOrderVerificationFeeItemProps[]);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取<%= DbHelpter.GetClassDescription(this.SourceTable) %>数据
+    // 获取放单审核数据
     useEffect(() => {
         const getData = async () => {
-            const <%= CamelCase(this.SourceTable.Name) %>Data = await get<%= PascalCase(this.SourceTable.Name) %>List();
-            // 设置<%= DbHelpter.GetClassDescription(this.SourceTable) %>台账数据
-            set<%= PascalCase(this.SourceTable.Name) %>List([...<%= CamelCase(this.SourceTable.Name) %>Data]);
+            const releaseOrderVerificationData = await getReleaseOrderVerificationList();
+            // 设置放单审核台账数据
+            setReleaseOrderVerificationList([...releaseOrderVerificationData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:<%= PascalCase(this.SourceTable.Name) %>ItemProps) => {
+    const handleDelete = (record:ReleaseOrderVerificationItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:<%= PascalCase(this.SourceTable.Name) %>ItemProps) => {
-        const newData = <%= CamelCase(this.SourceTable.Name) %>List.filter((item) => <% int j=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(j==1) {%>`${item.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${item.<%= PascalCase(columnSchema.Name) %>}<% } %><% j++; %><% } %><% } %>` === <% int p=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(p==1) {%>`${record.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${record.<%= PascalCase(columnSchema.Name) %>}<% } %><% p++; %><% } %><% } %>`);
+    const handleEdit = (record:ReleaseOrderVerificationItemProps) => {
+        const newData = releaseOrderVerificationList.filter((item) => `${item.BusinessId}` === `${record.BusinessId}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
-    
+    const expandColumnsType = getFeeColumns(()=>{},()=>{});
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
         if(key==='1'){
@@ -143,8 +90,8 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as <%= PascalCase(this.SourceTable.Name) %>ItemProps;
-    const [formData, setFormData] = useState<<%= PascalCase(this.SourceTable.Name) %>ItemProps>(initFormData);
+    const initFormData = {} as ReleaseOrderVerificationItemProps;
+    const [formData, setFormData] = useState<ReleaseOrderVerificationItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -174,7 +121,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         });
 
         try {
-            const response = await save<%= PascalCase(this.SourceTable.Name) %>(formData, (progress) => {
+            const response = await saveReleaseOrderVerification(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -220,7 +167,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<<%= PascalCase(this.SourceTable.Name) %>ItemProps> = {
+    const rowSelection: TableRowSelection<ReleaseOrderVerificationItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -236,7 +183,25 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         type: 'checkbox',
         columnWidth: '20px',
     };
+    const handExpand  = async (expanded: boolean, record: ReleaseOrderVerificationItemProps) => {
+        const orderBillData = await getReleaseOrderVerificationFeeList();
 
+        setExpandDataSource([...orderBillData]);
+}
+
+const getRowClassName = (record:ReleaseOrderVerificationFeeItemProps) => {
+    return record.TransactionType === '应收' ? 'green-row' : 'red-row';
+  };
+const expandedRowRender = () => (
+    <div className='nc-bill-table-area nc-bill-table-area-expand'>
+        <Table<ReleaseOrderVerificationFeeItemProps>
+        columns={expandColumnsType}
+        dataSource={expandDataSource}
+        rowClassName={getRowClassName}
+        pagination={false}
+        />
+    </div>
+  );
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
@@ -255,15 +220,15 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='<%= this.SourceTable.Name.ToLower() %>' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='<%= this.SourceTable.Name.ToLower() %>' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='<%= this.SourceTable.Name.ToLower() %>' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='release_order_verification' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='release_order_verification' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='release_order_verification' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> <%= DbHelpter.GetClassDescription(this.SourceTable) %>
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 放单审核
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -279,32 +244,16 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button>修改</Button>
-                                <Button>删除</Button>
-                                <Button>复制</Button>
+                                <Button type="primary" danger>打印付款清单</Button>
+                                <Button type="primary" danger>审核</Button>
+                                <Button type="primary" danger>撤销审核</Button>
+                                <Button type="primary" danger>扣单</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusItems}}>
-                                <Button>
-                                    <Space>
-                                        启用
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
-                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
-                                <Button>
-                                    <Space>
-                                        导入
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>
@@ -322,13 +271,14 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<<%= PascalCase(this.SourceTable.Name) %>ItemProps>
+                <Table<ReleaseOrderVerificationItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => <% int o=1; %><% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %><% if(columnSchema.IsPrimaryKeyMember) {%><% if(o==1) {%>`${record.<%= PascalCase(columnSchema.Name) %>}<% } else {%>-${record.<%= PascalCase(columnSchema.Name) %>}<% } %><% o++; %><% } %><% } %>`}
+                    rowKey={(record) => `${record.BusinessId}`}
+                    expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}
-                    dataSource={<%= CamelCase(this.SourceTable.Name) %>List}
-                    loading={<%= CamelCase(this.SourceTable.Name) %>List.length === 0}
+                    dataSource={releaseOrderVerificationList}
+                    loading={releaseOrderVerificationList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -354,4 +304,4 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
         
     )
 }
-export default <%= PascalCase(this.SourceTable.Name) %>;
+export default ReleaseOrderVerification;

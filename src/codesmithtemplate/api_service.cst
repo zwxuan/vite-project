@@ -57,7 +57,62 @@ public string PascalCase(string name)
 
 import request, {ApiRes,requestWithProgress } from '../request'
 import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
+import Mock from "mockjs";
+//
+const <%= CamelCase(this.SourceTable.Name) %>Items:<%= PascalCase(this.SourceTable.Name) %>ItemProps[] = [
+<% 
+    string[] typeNamesSelect = new string[]{"int","long","bool","byte"}; 
+    string[] typeNamesDecimal = new string[]{"decimal","float","double"};
+    string[] typeNamesString = new string[]{"string"};
+    string[] typeNamesDate = new string[]{"DateTime"};
+%>
+<% for(int i = 1;i<20;i++) {%>
+    {
+    <% foreach (ColumnSchema columnSchema in this.SourceTable.Columns) { %>
+        <% if(columnSchema.IsPrimaryKeyMember) {%>    
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock("@id"),
+        <%} %>
+        <% else if(typeNamesDecimal.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@float(60, 100, 0, 2)'),
+        <%} %>
+        <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@datetime()'),
+        <%} %>
+        <% else if(typeNamesSelect.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@string("number", 1, 3)'),
+        <%} %>
+        <% else { %>
+        <%= PascalCase(columnSchema.Name) %>:Mock.mock('@ctitle(5)'),
+        <%} %>
+    <%}%>
+    },  
+<%} %>
+];
 
+
+// 获取账单管理台账列表
+export const get<%= PascalCase(this.SourceTable.Name) %>List = async (): Promise<<%= PascalCase(this.SourceTable.Name) %>ItemProps[]> => {
+  return <%= CamelCase(this.SourceTable.Name) %>Items;
+}
+
+// 保存账单管理
+export const save<%= PascalCase(this.SourceTable.Name) %> = async (data: <%= PascalCase(this.SourceTable.Name) %>ItemProps, onUploadProgress?: (progress: number) => void): Promise<<%= PascalCase(this.SourceTable.Name) %>ItemProps> => {
+  // 模拟上传进度
+  if (onUploadProgress) {
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 10;
+      onUploadProgress(progress);
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 1000);
+  }
+  return data;
+}
+
+
+/*
 // 获取币制信息
 export const get<%= PascalCase(this.SourceTable.Name) %>List = async (): Promise<<%= PascalCase(this.SourceTable.Name) %>ItemProps[]> => {
   const response = await request({
@@ -78,3 +133,4 @@ export const save<%= PascalCase(this.SourceTable.Name) %> = (data:<%= PascalCase
     }
   })
 }
+*/

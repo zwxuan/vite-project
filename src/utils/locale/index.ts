@@ -11,7 +11,7 @@ import { BillManageLocale } from './bill_manage.ts';
 import { SetFeeScheduleLocale } from './set_fee_schedule.ts';
 import { ChargingStandardLocale } from './charging_standard.ts';
 import { NotOffSettingLocale } from './not_off_setting.ts';
-import { HasOffSettingLocale,OffSettingDetailLocale } from './has_off_setting.ts';
+import { HasOffSettingLocale, OffSettingDetailLocale } from './has_off_setting.ts';
 import { CashBasisAccountingLocale } from './cash_basis_accounting.ts';
 import { AccountingBookLocale } from './accounting_book.ts';
 import { VoucherGroupingRuleLocale } from './voucher_grouping_rule.ts';
@@ -23,6 +23,8 @@ import { AccountMappingLocale } from './account_mapping.ts';
 import { PaymentApplicationLocale } from './payment_application.ts';
 import { PaymentApplicationFeeLocale } from './payment_application_fee.ts';
 import { PaymentApplicationBusinessLocale } from './payment_application_business.ts';
+import { ReleaseOrderVerificationLocale } from './release_order_verification.ts';
+import { ReleaseOrderVerificationFeeLocale } from './release_order_verification_fee.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -50,6 +52,8 @@ export {
   PaymentApplicationLocale,
   PaymentApplicationFeeLocale,
   PaymentApplicationBusinessLocale,
+  ReleaseOrderVerificationLocale,
+  ReleaseOrderVerificationFeeLocale,
 };
 
 export default {
@@ -79,4 +83,6 @@ export default {
   ...PaymentApplicationLocale,
   ...PaymentApplicationFeeLocale,
   ...PaymentApplicationBusinessLocale,
+  ...ReleaseOrderVerificationLocale,
+  ...ReleaseOrderVerificationFeeLocale,
 };

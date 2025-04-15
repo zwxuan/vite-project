@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Form, Input, Row, Select, DatePicker, Modal, Button, Space } from 'antd';
+import { Col, Form, Input, Row, Select, DatePicker, Modal, Button, Space, message } from 'antd';
 import { Item } from './draggable';
 import TranferRight from './tranfer_right';
 import zhCN from 'antd/es/date-picker/locale/zh_CN';
@@ -23,7 +23,37 @@ export type AdvancedSearchFormProps = {
     onSearch: (values: any) => void;// 查询事件
 };
 
+type FormData = {
+    [key: string]: any;
+  }
+  
+  type FormOperatorData = {
+    [key: string]: string; // 或其他操作符类型
+  }
+  
+  type SearchItem = {
+    field: string;
+    operator: string;
+    value: any;
+  }
 
+export enum FilterOperator {
+    EQ = "eq",      // 等于
+    LIKE = "like",  // 模糊匹配
+    GT = "gt",      // 大于
+    LT = "lt",      // 小于
+    IN = "in",       // 包含
+    NOTIN = "not_in"       // 不包含
+  }
+
+const operatorItems = [
+    { value: FilterOperator.EQ, label: '等于' },
+    { value: FilterOperator.LIKE, label: '包含' },
+    { value: FilterOperator.GT, label: '大于' },
+    { value: FilterOperator.LT, label: '小于' },
+    { value: FilterOperator.IN, label: '在列表中' },
+    { value: FilterOperator.NOTIN, label: '不在列表中' }
+  ];
 
 const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 4, onSearch }) => {
 
@@ -57,16 +87,11 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left' }}
-                                        defaultValue='等于'
+                                        defaultValue={{ label: '等于', value: 'equal' }}
                                         dropdownStyle={{width: 'auto'}}
-                                        options={[
-                                            { label: '包含', value: 'like' },
-                                            { label: '在列表中', value: 'in' },
-                                            { label: '不在列表', value: 'not_in' },
-                                            { label: '等于', value: 'equal' },
-                                            { label: '大于', value: 'than' },
-                                            { label: '小于', value: 'less' },
-                                        ]} >
+                                        options={operatorItems} 
+                                        onChange={(value) => { handleSelectChange(config.key,value,'operator') }}
+                                        >
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
@@ -86,14 +111,16 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left', width: '140' }}
-                                        defaultValue='等于'
+                                        defaultValue={{ label: '等于', value: FilterOperator.EQ }}
                                         options={[
-                                            { label: '等于', value: 'equal' },
-                                        ]} >
+                                            { label: '等于', value: FilterOperator.EQ },
+                                        ]} 
+                                        onSelect={(value) => { handleSelectChange(config.key, value,'operator') }}
+                                        >
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <Select labelInValue style={{ textAlign: 'left' }} prefix={config.prefix} onChange={(value) => { handleSelectChange(config.key, value) }}  >
+                                    <Select labelInValue style={{ textAlign: 'left' }} prefix={config.prefix} onSelect={(value) => { handleSelectChange(config.key, value) }}  >
                                         {config.selectOptions?.map((option, index) => (
                                             <Option key={index} value={option.value}>
                                                 {option.label}
@@ -102,10 +129,6 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Select>
                                 </div>
                             </div>
-
-
-
-
                         </Form.Item>
                     ) : config.type === 'date' ? (
                         <Form.Item
@@ -116,12 +139,14 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left', width: '140' }}
-                                        defaultValue='等于'
+                                        defaultValue={{ label: '等于', value: FilterOperator.EQ }}
                                         options={[
-                                            { label: '等于', value: 'equal' },
-                                            { label: '大于', value: 'than' },
-                                            { label: '小于', value: 'less' },
-                                        ]} >
+                                            { label: '等于', value: FilterOperator.EQ },
+                                            { label: '大于', value: FilterOperator.GT },
+                                            { label: '小于', value: FilterOperator.LT },
+                                        ]} 
+                                        onSelect={(value) => { handleSelectChange(config.key, value,'operator') }}
+                                        >
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
@@ -147,22 +172,38 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
         }
         return children;
     };
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState<FormData>({});
+    const [formOperatorData, setFormOperatorData] = useState<FormOperatorData>({});
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-    const handleSelectChange = (name: string, value: { value: string; label: React.ReactNode }) => {
-        setFormData({ ...formData, [name]: value.label });
+    const handleSelectChange = (name: string, value: { value: string; label: React.ReactNode }, type: string = '') => {
+        if(type === 'operator'){
+            setFormOperatorData({ ...formOperatorData, [name]: value.value});
+        }else{
+            setFormData({...formData, [name]: value.value });
+        }
     };
 
     const handleDateChange = (name: string, value: string | Array<string>) => {
         setFormData({ ...formData, [name]: value });
     };
+
     const handOnFinish = () => {
-        console.log(formData);
-        onSearch(formData);
+        const searchData: SearchItem[] = [];
+        // 这里可以添加缓存
+        Object.keys(formData).forEach((key) => {
+            if(formData[key] !== '' && formData[key] !== undefined){
+                searchData.push({
+                    field: key,
+                    operator: formOperatorData[key]?? FilterOperator.EQ,
+                    value: formData[key]
+                });
+            }
+        });
+        onSearch(searchData);
     };
     const handleResetFields = () => {
         setFormData({});
