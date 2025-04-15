@@ -15,6 +15,7 @@ export const getColumns = (handleEdit: (record: FeeReconciliationItemProps) => v
         dataIndex: 'ShippingCompany',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getFeeReconciliationPricingNature()),
@@ -23,6 +24,7 @@ export const getColumns = (handleEdit: (record: FeeReconciliationItemProps) => v
         dataIndex: 'PricingNature',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getFeeReconciliationActualPortEntryDate()),

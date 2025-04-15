@@ -16,6 +16,7 @@ export const getColumns = (handleEdit: (record: ReleaseOrderVerificationItemProp
         dataIndex: 'BusinessId',
         sorter: true,
         align: 'left',
+        fixed: 'left',
         render: (text) => <a>{text}</a>,
     },
     {
@@ -25,6 +26,7 @@ export const getColumns = (handleEdit: (record: ReleaseOrderVerificationItemProp
         dataIndex: 'Consignor',
         sorter: true,
         align: 'left',
+        fixed: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getReleaseOrderVerificationBookingAgent()),
