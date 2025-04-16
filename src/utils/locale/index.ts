@@ -25,6 +25,7 @@ import { PaymentApplicationFeeLocale } from './payment_application_fee.ts';
 import { PaymentApplicationBusinessLocale } from './payment_application_business.ts';
 import { ReleaseOrderVerificationLocale } from './release_order_verification.ts';
 import { ReleaseOrderVerificationFeeLocale } from './release_order_verification_fee.ts';
+import { BlReleaseLocale } from './bl_release.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -54,6 +55,7 @@ export {
   PaymentApplicationBusinessLocale,
   ReleaseOrderVerificationLocale,
   ReleaseOrderVerificationFeeLocale,
+  BlReleaseLocale,
 };
 
 export default {
@@ -85,4 +87,5 @@ export default {
   ...PaymentApplicationBusinessLocale,
   ...ReleaseOrderVerificationLocale,
   ...ReleaseOrderVerificationFeeLocale,
+ ...BlReleaseLocale,
 };

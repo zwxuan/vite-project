@@ -4,7 +4,7 @@ import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
-  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification} from "./imports";
+  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -164,6 +164,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <ReleaseOrderVerification />
+          </RouterGuard>),
+      },
+      {
+        path: "/bl_release",
+        handle: { title: '提单放单' },
+        element: (
+          <RouterGuard>
+            <BlRelease />
           </RouterGuard>),
       },
       {

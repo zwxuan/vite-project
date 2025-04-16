@@ -22,6 +22,8 @@ export interface ReleaseOrderVerificationItemProps {
     SalesPerson:string;
     // 提单状态
     BlStatus:string;
+    // 系统审核状态
+    SysAuditStatus:string;
     // 放单审核状态
     ReleaseAuditStatus:string;
     // 审核时间

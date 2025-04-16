@@ -48,6 +48,10 @@ export const ReleaseOrderVerificationLocale = {
     getReleaseOrderVerificationReleaseAuditStatus() {
       return "release_order_verification.releaseauditstatus";
     },
+    // 系统审核状态
+    getReleaseOrderVerificationSysAuditStatus() {
+      return "release_order_verification.sysauditstatus";
+    },
     // 审核时间
     getReleaseOrderVerificationAuditTime() {
       return "release_order_verification.audittime";

@@ -533,10 +533,10 @@ const childrenMenuData: MenuGroup[] = [{
   parentkey: "cost_manage",
   apps: [
       {
-          name: "放单审核", key: "order_review",path:"/release_order_verification",
+          name: "放单审核", key: "release_order_verification",path:"/release_order_verification",
       },
       {
-          name: "提单管理", key: "order_manage",
+          name: "提单放单", key: "bl_release",path:"/bl_release",
       },
   ]
 },

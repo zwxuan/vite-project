@@ -4,10 +4,8 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/release_order_verification/release_order_verification";
-import {OrderFeeItemProps} from "@/types/order_fee/order_fee";
-import { getReleaseOrderVerificationList,saveReleaseOrderVerification,getReleaseOrderVerificationFeeList } from "@/api/fee_manage/release_order_verification_service";
-import { getOrderFeeList } from "@/api/business_order/order_fee_service";
+import { BlReleaseItemProps } from "@/types/bl_release/bl_release";
+import { getBlReleaseList,saveBlRelease } from "@/api/fee_manage/bl_release_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -17,42 +15,41 @@ import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
-import { getColumns,getFeeColumns } from './columns';
-import { statusItems, importItems, exportItems } from './menu_items';
+import { getColumns } from './columns';
+import { blClaimItems,blReleaseItems,blRetrieveItems,blReviceItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const ReleaseOrderVerification : React.FC = () => {
+const BlRelease : React.FC = () => {
 
-    // 放单审核数据
-    const [releaseOrderVerificationList, setReleaseOrderVerificationList] = useState([] as ReleaseOrderVerificationItemProps[]);
+    // 提单放单数据
+    const [blReleaseList, setBlReleaseList] = useState([] as BlReleaseItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
-    const [expandDataSource, setExpandDataSource] = useState([] as ReleaseOrderVerificationFeeItemProps[]);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取放单审核数据
+    // 获取提单放单数据
     useEffect(() => {
         const getData = async () => {
-            const releaseOrderVerificationData = await getReleaseOrderVerificationList();
-            // 设置放单审核台账数据
-            setReleaseOrderVerificationList([...releaseOrderVerificationData]);
+            const blReleaseData = await getBlReleaseList();
+            // 设置提单放单台账数据
+            setBlReleaseList([...blReleaseData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:ReleaseOrderVerificationItemProps) => {
+    const handleDelete = (record:BlReleaseItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:ReleaseOrderVerificationItemProps) => {
-        const newData = releaseOrderVerificationList.filter((item) => `${item.BusinessId}` === `${record.BusinessId}`);
+    const handleEdit = (record:BlReleaseItemProps) => {
+        const newData = blReleaseList.filter((item) => `${item.BusinessId}` === `${record.BusinessId}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
-    const expandColumnsType = getFeeColumns(()=>{},()=>{});
+    
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
         if(key==='1'){
@@ -90,8 +87,8 @@ const ReleaseOrderVerification : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as ReleaseOrderVerificationItemProps;
-    const [formData, setFormData] = useState<ReleaseOrderVerificationItemProps>(initFormData);
+    const initFormData = {} as BlReleaseItemProps;
+    const [formData, setFormData] = useState<BlReleaseItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -121,7 +118,7 @@ const ReleaseOrderVerification : React.FC = () => {
         });
 
         try {
-            const response = await saveReleaseOrderVerification(formData, (progress) => {
+            const response = await saveBlRelease(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -167,7 +164,7 @@ const ReleaseOrderVerification : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<ReleaseOrderVerificationItemProps> = {
+    const rowSelection: TableRowSelection<BlReleaseItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -181,27 +178,9 @@ const ReleaseOrderVerification : React.FC = () => {
             console.log(selected, selectedRows, changeRows);
         },
         type: 'checkbox',
-        columnWidth: '24px',
+        columnWidth: '20px',
     };
-    const handExpand  = async (expanded: boolean, record: ReleaseOrderVerificationItemProps) => {
-        const orderBillData = await getReleaseOrderVerificationFeeList();
 
-        setExpandDataSource([...orderBillData]);
-}
-
-const getRowClassName = (record:ReleaseOrderVerificationFeeItemProps) => {
-    return record.TransactionType === '应收' ? 'green-row' : 'red-row';
-  };
-const expandedRowRender = () => (
-    <div className='nc-bill-table-area nc-bill-table-area-expand'>
-        <Table<ReleaseOrderVerificationFeeItemProps>
-        columns={expandColumnsType}
-        dataSource={expandDataSource}
-        rowClassName={getRowClassName}
-        pagination={false}
-        />
-    </div>
-  );
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
@@ -220,15 +199,15 @@ const expandedRowRender = () => (
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='release_order_verification' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='release_order_verification' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='release_order_verification' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='bl_release' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='bl_release' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='bl_release' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 放单审核
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 提单放单
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -243,18 +222,44 @@ const expandedRowRender = () => (
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
-                            <div className="u-button-group">
-                                <Button type="primary" danger>打印付款清单</Button>
-                                <Button type="primary" danger>审核</Button>
-                                <Button type="primary" danger>撤销审核</Button>
-                                <Button type="primary" danger>扣单</Button>
-                                <Button type="primary" danger>系统审核校验日志</Button>
-                            </div>
+                            
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
+                            <Dropdown menu={{items:blRetrieveItems}}>
+                                <Button>
+                                    <Space>
+                                        提单取回
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:blReviceItems}}>
+                                <Button>
+                                    <Space>
+                                        提单接收
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:blClaimItems}}>
+                                <Button>
+                                    <Space>
+                                        提单认领
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:blReleaseItems}}>
+                                <Button>
+                                    <Space>
+                                        提单放单
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>
@@ -272,14 +277,13 @@ const expandedRowRender = () => (
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<ReleaseOrderVerificationItemProps>
+                <Table<BlReleaseItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
                     rowKey={(record) => `${record.BusinessId}`}
-                    expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}
-                    dataSource={releaseOrderVerificationList}
-                    loading={releaseOrderVerificationList.length === 0}
+                    dataSource={blReleaseList}
+                    loading={blReleaseList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -305,4 +309,4 @@ const expandedRowRender = () => (
         
     )
 }
-export default ReleaseOrderVerification;
+export default BlRelease;

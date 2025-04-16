@@ -234,7 +234,7 @@ const <%= PascalCase(this.SourceTable.Name) %> : React.FC = () => {
             console.log(selected, selectedRows, changeRows);
         },
         type: 'checkbox',
-        columnWidth: '20px',
+        columnWidth: '24px',
     };
 
     const handleSearch = (values:any) => {

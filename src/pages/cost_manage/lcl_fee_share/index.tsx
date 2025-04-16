@@ -92,7 +92,7 @@ const LCLFeeShare : React.FC = () => {
             console.log(selected, selectedRows, changeRows);
         },
         type: 'checkbox',
-        columnWidth: '20px',
+        columnWidth: '24px',
     };
     const handExpand  = async (expanded: boolean, record: OrderFeeItemProps) => {
             const orderBillData = await getOrderFeeList();

@@ -101,6 +101,22 @@ export const getColumns = (handleEdit: (record: ReleaseOrderVerificationItemProp
         align: 'left',
     },
     {
+        title: i18n.t(LocaleHelper.getReleaseOrderVerificationSysAuditStatus()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'SysAuditStatus',
+        sorter: true,
+        align: 'center',
+        render: (text) => {
+            if (text === '正常') {
+                return <Tag color='green'>{text}</Tag>;
+            }
+            else {
+                return <Tag color='red'>{text}</Tag>;
+            }
+        },
+    },
+    {
         title: i18n.t(LocaleHelper.getReleaseOrderVerificationReleaseAuditStatus()),
         width: 100,
         onHeaderCell: () => ({ style: { width: '100px' } }),
