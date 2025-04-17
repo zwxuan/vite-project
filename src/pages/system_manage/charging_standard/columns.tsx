@@ -3,7 +3,7 @@ import { TableColumnsType, Tag, Popconfirm,Input,Select,Button,InputNumber } fro
 import { ChargingStandardItemProps } from "@/types/charging_standard/charging_standard";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => void, handleDelete: (record: ChargingStandardItemProps) => void, handleSave: (record: ChargingStandardItemProps) => void, handleCancel: () => void, isEditing: (record: ChargingStandardItemProps) => boolean, editingRow: ChargingStandardItemProps | null, setEditingRow: (row: ChargingStandardItemProps | null) => void): TableColumnsType<ChargingStandardItemProps> => [
+export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => void, handleDelete: (record: ChargingStandardItemProps) => void, handleSave: (record: ChargingStandardItemProps) => void, handleCancel: () => void, editingKey:string): TableColumnsType<ChargingStandardItemProps> => [
     {
         title: i18n.t(LocaleHelper.getChargingStandardPaymentMethod()),
         width: 60,
@@ -12,12 +12,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.PaymentMethod}
+                    // value={editingRow?.PaymentMethod}
+                    defaultValue={record.PaymentMethod}
                     style={{ width: '80px',textAlign:'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, PaymentMethod: value })}
+                    onChange={value => record.PaymentMethod = value }
                     options={[
                         { value: true, label: '应收' },
                         { value: false, label: '应付' }
@@ -36,11 +37,12 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.FeeName}
-                    onChange={e => setEditingRow({ ...editingRow!, FeeName: e.target.value })}
+                    // value={editingRow?.FeeName}
+                    defaultValue={record.FeeName}
+                    onChange={e => record.FeeName = e.target.value }
                 />
             ) : (
                 text
@@ -55,12 +57,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'center',
         render: (text: boolean, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.IsControlled}
+                    // value={editingRow?.IsControlled}
+                    defaultValue={record.IsControlled}
                     style={{ width: '80px',textAlign:'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, IsControlled: value })}
+                    onChange={value => record.IsControlled = value }
                     options={[
                         { value: true, label: '是' },
                         { value: false, label: '否' }
@@ -79,11 +82,12 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.SettlementUnitType}
-                    onChange={e => setEditingRow({ ...editingRow!, SettlementUnitType: e.target.value })}
+                    // value={editingRow?.SettlementUnitType}
+                    defaultValue={record.SettlementUnitType}
+                    onChange={e => record.SettlementUnitType = e.target.value }
                 />
             ) : (
                 text
@@ -98,11 +102,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.FixedSettlementUnit}
-                    onChange={e => setEditingRow({ ...editingRow!, FixedSettlementUnit: e.target.value })}
+                    // value={editingRow?.FixedSettlementUnit}
+                    defaultValue={record.FixedSettlementUnit}
+                    onChange={e => record.FixedSettlementUnit = e.target.value }
+                    // onChange={e => setEditingRow({ ...editingRow!, FixedSettlementUnit: e.target.value })}
                 />
             ) : (
                 text
@@ -117,11 +123,12 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.Currency}
-                    onChange={e => setEditingRow({ ...editingRow!, Currency: e.target.value })}
+                    // value={editingRow?.Currency}
+                    defaultValue={record.Currency}
+                    onChange={e => record.Currency = e.target.value }
                 />
             ) : (
                 text
@@ -136,11 +143,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.City}
-                    onChange={e => setEditingRow({ ...editingRow!, City: e.target.value })}
+                    // value={editingRow?.City}
+                    defaultValue={record.City}
+                    onChange={e => record.City = e.target.value }
+                    // onChange={e => setEditingRow({ ...editingRow!, City: e.target.value })}
                 />
             ) : (
                 text
@@ -155,11 +164,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.BillingUnit}
-                    onChange={e => setEditingRow({ ...editingRow!, BillingUnit: e.target.value })}
+                    // value={editingRow?.BillingUnit}
+                    defaultValue={record.BillingUnit}
+                    onChange={e => record.BillingUnit = e.target.value }
+                    // onChange={e => setEditingRow({ ...editingRow!, BillingUnit: e.target.value })}
                 />
             ) : (
                 text
@@ -173,11 +184,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         dataIndex: 'ValueLowerLimit',
         align: 'right',
         render: (text: number, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <InputNumber
-                    value={editingRow?.ValueLowerLimit}
-                    onChange={value => setEditingRow({ ...editingRow!, ValueLowerLimit: value || 0 })}
+                    // value={editingRow?.ValueLowerLimit}
+                    defaultValue={record.ValueLowerLimit}
+                    onChange={value => record.ValueLowerLimit = value || 0 }
+                    // onChange={value => setEditingRow({ ...editingRow!, ValueLowerLimit: value || 0 })}
                 />
             ) : (
                 text
@@ -192,11 +205,12 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'right',
         render: (text: number, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <InputNumber
-                    value={editingRow?.ValueUpperLimit}
-                    onChange={value => setEditingRow({ ...editingRow!, ValueUpperLimit: value || 0 })}
+                    // value={editingRow?.ValueUpperLimit}
+                    defaultValue={record.ValueUpperLimit}
+                    onChange={value => record.ValueUpperLimit = value || 0 }
                 />
             ) : (
                 text
@@ -211,11 +225,12 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.ContainerType}
-                    onChange={e => setEditingRow({ ...editingRow!, ContainerType: e.target.value })}
+                    // value={editingRow?.ContainerType}
+                    defaultValue={record.ContainerType}
+                    onChange={e => record.ContainerType = e.target.value }
                 />
             ) : (
                 text
@@ -230,11 +245,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.ContainerCategory}
-                    onChange={e => setEditingRow({ ...editingRow!, ContainerCategory: e.target.value })}
+                    // value={editingRow?.ContainerCategory}
+                    defaultValue={record.ContainerCategory}
+                    onChange={e => record.ContainerCategory = e.target.value }
+                    // onChange={e => setEditingRow({ ...editingRow!, ContainerCategory: e.target.value })}
                 />
             ) : (
                 text
@@ -249,11 +266,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'right',
         render: (text: number, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <InputNumber
-                    value={editingRow?.Quantity}
-                    onChange={value => setEditingRow({ ...editingRow!, Quantity: value || 0 })}
+                    // value={editingRow?.Quantity}
+                    defaultValue={record.Quantity}
+                    onChange={value => record.Quantity = value || 0 }
+                    // onChange={value => setEditingRow({ ...editingRow!, Quantity: value || 0 })}
                 />
             ) : (
                 text
@@ -268,11 +287,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'right',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.BillingUnitPrice}
-                    onChange={e => setEditingRow({ ...editingRow!, BillingUnitPrice: e.target.value })}
+                    // value={editingRow?.BillingUnitPrice}
+                    defaultValue={record.BillingUnitPrice}
+                    onChange={e => record.BillingUnitPrice = e.target.value }
+                    // onChange={e => setEditingRow({ ...editingRow!, BillingUnitPrice: e.target.value })}
                 />
             ) : (
                 text
@@ -287,11 +308,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'right',
         render: (text: number, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <InputNumber
-                    value={editingRow?.UnitPrice}
-                    onChange={value => setEditingRow({ ...editingRow!, UnitPrice: value || 0 })}
+                    // value={editingRow?.UnitPrice}
+                    defaultValue={record.UnitPrice}
+                    onChange={value => record.UnitPrice = value || 0 }
+                    // onChange={value => setEditingRow({ ...editingRow!, UnitPrice: value || 0 })}
                 />
             ) : (
                 text
@@ -306,11 +329,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'right',
         render: (text: number, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <InputNumber
-                    value={editingRow?.MinimumCharge}
-                    onChange={value => setEditingRow({ ...editingRow!, MinimumCharge: value || 0 })}
+                    // value={editingRow?.MinimumCharge}
+                    defaultValue={record.MinimumCharge}
+                    onChange={value => record.MinimumCharge = value || 0 }
+                    // onChange={value => setEditingRow({ ...editingRow!, MinimumCharge: value || 0 })}
                 />
             ) : (
                 text
@@ -325,11 +350,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'right',
         render: (text: number, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <InputNumber
-                    value={editingRow?.TaxRate}
-                    onChange={value => setEditingRow({ ...editingRow!, TaxRate: value || 0 })}
+                    // value={editingRow?.TaxRate}
+                    defaultValue={record.TaxRate}
+                    onChange={value => record.TaxRate = value || 0 }
+                    // onChange={value => setEditingRow({ ...editingRow!, TaxRate: value || 0 })}
                 />
             ) : (
                 text
@@ -344,11 +371,12 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'left',
         render: (text: string, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.Remarks}
-                    onChange={e => setEditingRow({ ...editingRow!, Remarks: e.target.value })}
+                    // value={editingRow?.Remarks}
+                    defaultValue={record.Remarks}
+                    onChange={e => record.Remarks = e.target.value }
                 />
             ) : (
                 text
@@ -363,12 +391,13 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         sorter: true,
         align: 'center',
         render: (text: boolean, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.RequiresInvoice}
+                    // value={editingRow?.RequiresInvoice}
+                    defaultValue={record.RequiresInvoice}
                     style={{ width: '60px',textAlign:'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, RequiresInvoice: value })}
+                    onChange={value => record.RequiresInvoice = value }
                     options={[
                         { value: true, label: '是' },
                         { value: false, label: '否' }
@@ -385,10 +414,10 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         fixed: 'right',
         width: 80,
         render: (_: any, record: ChargingStandardItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.Id === editingKey;
             return editable ? (
                 <>
-                    <a onClick={() => handleSave(editingRow!)}>保存</a>
+                    <a onClick={() => handleSave(record)}>保存</a>
                     <a onClick={handleCancel}>取消</a>
                 </>
             ) : (

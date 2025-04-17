@@ -935,4 +935,15 @@ export const en = {
         overlimit:"over_limit",
         remarks:"remarks",
     },
+    reconciliation_rule_engine:{
+        companyname:"company_name",
+        reconciliationrulename:"reconciliation_rule_name",
+        matchfieldsname:"match_fields_name",
+        matchfieldrelation:"match_field_relation",
+        matchfieldorderby:"match_field_order_by",
+        comparefieldsname:"compare_fields_name",
+        comparefieldrelation:"compare_field_relation",
+        comparefieldoperator:"compare_field_operator",
+        comparefieldorderby:"compare_field_order_by",
+    },
 };

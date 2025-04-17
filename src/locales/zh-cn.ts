@@ -937,4 +937,15 @@ export const cn = {
         overlimit:"是否超额",
         remarks:"备注",
     },
+    reconciliation_rule_engine:{
+        companyname:"公司名称",
+        reconciliationrulename:"对账规则名称",
+        matchfieldsname:"匹配字段名称",
+        matchfieldrelation:"匹配字段关系",
+        matchfieldorderby:"匹配字段排序",
+        comparefieldsname:"对比字段名称",
+        comparefieldrelation:"对比字段关系",
+        comparefieldoperator:"对比字段操作",
+        comparefieldorderby:"对比字段排序",
+    },
 };

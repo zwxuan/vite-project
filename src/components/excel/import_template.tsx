@@ -173,7 +173,7 @@ const ExcelImportTemplate : React.FC = () => {
                             <Tooltip
                                 title={
                                     <div className='rul_title_tooltip' style={{backgroundColor:'#fff',color:'#000'}}>
-                                        <ol style={{color:'#666666',fontSize:'12px'}}>
+                                        <ol style={{color:'#666666',fontSize:'12px',paddingLeft:'2px'}}>
                                             <li style={{marginBottom:'10px'}}><span style={{marginRight:'10px',backgroundColor:'#f1f1f1',padding:'2px 10px'}}><b>自定义模板</b></span>用户创建的模板仅自己可见，管理员可见所有模板。基于管理员创建的企业级模板进行配置（企业级模板由管理员在【导入导出模板】菜单创建管理）。
                                             </li>
                                         </ol>

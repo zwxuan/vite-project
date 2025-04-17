@@ -69,7 +69,7 @@ const ExcelImport: React.FC<ExcelImportProps> = ({ importType }) => {
                                 <Tooltip
                                     title={
                                         <div className='rul_title_tooltip' style={{backgroundColor:'#fff',color:'#000'}}>
-                                            <ol style={{color:'#666666',fontSize:'12px'}}>
+                                            <ol style={{color:'#666666',fontSize:'12px',paddingLeft:'2px'}}>
                                                 <li style={{marginBottom:'10px'}}><span style={{marginRight:'10px',backgroundColor:'#f1f1f1',padding:'2px 10px'}}><b>新增</b></span>根据唯一性校验字段，将Excel模板中录入的数据按新增规则进行校验入库。
                                                 </li>
                                                 <li style={{marginBottom:'10px'}}><span style={{marginRight:'10px',backgroundColor:'#f1f1f1',padding:'2px 10px'}}><b>覆盖更新</b></span>根据唯一性校验字段，覆盖更新系统中已存在的数据。例如，如果Excel模板中某行某单元格含有空格，系统中对应行有数据，选择覆盖更新后会清空已有数据。

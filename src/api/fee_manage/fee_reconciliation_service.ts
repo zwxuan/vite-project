@@ -1,8 +1,8 @@
 
 import Mock from "mockjs";
 import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
+import { ReconciliationRuleEngineItemProps,ReconciliationCompareFieldsItemProps,ReconciliationMatchFieldsItemProps } from "@/types/fee_reconciliation/reconciliation_rule_engine";
 import request, { ApiRes, requestWithProgress } from '../request';
-
 // 模拟费用对账台账数据
 const feeReconciliationItems: FeeReconciliationItemProps[] = [
   {
@@ -424,9 +424,26 @@ const feeReconciliationItems: FeeReconciliationItemProps[] = [
   },
 ];
 
+const reconciliationRuleEngineItems: ReconciliationRuleEngineItemProps[] = [
+  {
+    RowKey: Mock.mock("@id"),
+    CompanyName: '公司A',
+    ReconciliationRuleName: '初始多行汇总对账规则',
+  },
+  {
+    RowKey: Mock.mock("@id"),
+    CompanyName: '公司B',
+    ReconciliationRuleName: '初始单行明细对账规则',
+  },
+];
+
 // 获取费用对账台账列表
 export const getFeeReconciliationList = async (): Promise<FeeReconciliationItemProps[]> => {
   return feeReconciliationItems;
+}
+
+export const getReconciliationRuleEngineList = async (): Promise<ReconciliationRuleEngineItemProps[]> => {
+  return reconciliationRuleEngineItems;
 }
 
 // 保存费用对账台账

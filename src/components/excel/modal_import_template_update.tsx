@@ -197,7 +197,7 @@ const ModelExcelImportTemplateUpdate: React.FC<ModelExcelImportTemplateProps> = 
                             <Tooltip
                                 title={
                                     <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000'}}>
-                                        <ol style={{ color: '#666666', fontSize: '12px' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px',paddingLeft:'2px' }}>
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>更新导入的导出</b></span>此导出用于修改后再覆盖更新导入，导出为文本格式，遵循导入模板形式。若表单存在“表头”与“表头+明细”两种模式时，不受切换影响，但“表头+明细”模式下，当子表多行时导致表头重复，也不受是否勾选影响，会自动去重。</li>
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>列表导出</b></span>是获取列表的导出模型，若表单存在“表头”与“表头+明细”两种模式时，查看模板时，“是否列入模板”数量会根据两种模式切换。 “时间、日期、数值”按自定义格式导出，而“文本、枚举、参照”等则采用文本格式，其余空白处采用常规格式。</li>
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>详情导出</b></span>是获取详情的导出模型，不受“表头、表头+明细”模式切换影响，但“表头+明细”模式下，当子表多行时导致表头重复，则会自动去重。 格式同【列表导出】。</li>
@@ -226,7 +226,7 @@ const ModelExcelImportTemplateUpdate: React.FC<ModelExcelImportTemplateProps> = 
                                     <Tooltip
                                         title={
                                             <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
-                                                <ol style={{ color: '#666666', fontSize: '12px' }}>
+                                                <ol style={{ color: '#666666', fontSize: '12px',paddingLeft:'2px' }}>
                                                     <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>自定义模板</b></span>用户创建的模板仅自己可见，管理员可见所有模板。基于管理员创建的企业级模板进行配置（企业级模板由管理员在【导入导出模板】菜单创建管理）。
                                                     </li>
                                                 </ol>
