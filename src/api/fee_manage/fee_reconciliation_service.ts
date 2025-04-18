@@ -437,6 +437,38 @@ const reconciliationRuleEngineItems: ReconciliationRuleEngineItemProps[] = [
   },
 ];
 
+const reconciliationMatchItems: ReconciliationMatchFieldsItemProps[] = [
+  {
+    RowKey: Mock.mock("@id"),
+    MatchFieldsName: 'MBL NO.',
+    MatchFieldRelation: '与',
+    MatchFieldOrderBy: '1',
+  },
+  {
+    RowKey: Mock.mock("@id"),
+    MatchFieldsName: '费用名称',
+    MatchFieldRelation: '与',
+    MatchFieldOrderBy: '2',
+  },
+];
+
+const reconciliationCompareItems: ReconciliationCompareFieldsItemProps[] = [
+  {
+    RowKey: Mock.mock("@id"),
+    CompareFieldsName: '金额',
+    CompareFieldRelation: '与',
+    CompareFieldOrderBy: '1',
+    CompareFieldOperator: '多行汇总方式',
+  },
+  {
+    RowKey: Mock.mock("@id"),
+    CompareFieldsName: '单价',
+    CompareFieldRelation: '与',
+    CompareFieldOrderBy: '2',
+    CompareFieldOperator: '单行明细对比',
+  },
+];
+
 // 获取费用对账台账列表
 export const getFeeReconciliationList = async (): Promise<FeeReconciliationItemProps[]> => {
   return feeReconciliationItems;
@@ -444,6 +476,14 @@ export const getFeeReconciliationList = async (): Promise<FeeReconciliationItemP
 
 export const getReconciliationRuleEngineList = async (): Promise<ReconciliationRuleEngineItemProps[]> => {
   return reconciliationRuleEngineItems;
+}
+
+export const getMatchFieldsList = async (): Promise<ReconciliationMatchFieldsItemProps[]> => {
+  return reconciliationMatchItems;
+}
+
+export const getCompareFieldsList = async (): Promise<ReconciliationCompareFieldsItemProps[]> => {
+  return reconciliationCompareItems;
 }
 
 // 保存费用对账台账

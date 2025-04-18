@@ -7,6 +7,12 @@ if [ "$(docker ps -aq -f name=fms_nginx)" ]; then
     docker rm fms_nginx
 fi
 
+# 删除旧镜像（如果存在）
+if [ "$(docker images -q fms_nginx:latest)" ]; then
+    echo "删除旧镜像..."
+    docker rmi fms_nginx:latest
+fi
+
 # 在服务器上构建Docker镜像
 echo "在服务器上构建Docker镜像..."
 docker build -t fms_nginx:latest .

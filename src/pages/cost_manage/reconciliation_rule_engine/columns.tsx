@@ -73,24 +73,25 @@ export const getRuleEngineColumns = (handleEdit: (record: ReconciliationRuleEngi
 ];
 
 
-export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFieldsItemProps) => void, handleDelete: (record: ReconciliationMatchFieldsItemProps) => void, handleSave: (record: ReconciliationMatchFieldsItemProps) => void, handleCancel: () => void, isEditing: (record: ReconciliationMatchFieldsItemProps) => boolean, editingRow: ReconciliationMatchFieldsItemProps | null, setEditingRow: (row: ReconciliationMatchFieldsItemProps | null) => void): TableColumnsType<ReconciliationMatchFieldsItemProps> => [
+export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFieldsItemProps) => void, handleDelete: (record: ReconciliationMatchFieldsItemProps) => void, handleSave: (record: ReconciliationMatchFieldsItemProps) => void, handleCancel: () => void, editingKey:string): TableColumnsType<ReconciliationMatchFieldsItemProps> => [
     {
         title: i18n.t(LocaleHelper.getReconciliationRuleEngineMatchFieldsName()),
-        width: 100,
+        
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'MatchFieldsName',
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.MatchFieldsName}
+                    // value={editingRow?.MatchFieldsName}
+                    defaultValue={record.MatchFieldsName}
                     style={{ width: '100%', textAlign: 'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, MatchFieldsName: value })}
+                    onChange={value => record.MatchFieldsName = value}
                     options={[
-                        { value: '00001', label: '字段1' },
-                        { value: '00002', label: '字段2' }
+                        { value: '字段1', label: '字段1' },
+                        { value: '字段2', label: '字段2' }
                     ]}
                 />
             ) : (
@@ -106,12 +107,13 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.MatchFieldRelation}
+                    // value={editingRow?.MatchFieldRelation}
+                    defaultValue={record.MatchFieldRelation}
                     style={{ width: '100%', textAlign: 'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, MatchFieldRelation: value })}
+                    onChange={value => record.MatchFieldRelation = value}
                     options={[
                         { value: '00001', label: '与' },
                         { value: '00002', label: '或' }
@@ -130,11 +132,12 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.MatchFieldOrderBy}
-                    onChange={e => setEditingRow({ ...editingRow!, MatchFieldOrderBy: e.target.value })}
+                    // value={editingRow?.MatchFieldOrderBy}
+                    defaultValue={record.MatchFieldOrderBy}
+                    onChange={e => record.MatchFieldOrderBy = e.target.value}
                 />
             ) : (
                 text
@@ -145,12 +148,12 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
-        width: 80,
+        width: 60,
         render: (_: any, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <>
-                    <a onClick={() => handleSave(editingRow!)}>保存</a>
+                    <a onClick={() => handleSave(record)}>保存</a>
                     <a onClick={handleCancel}>取消</a>
                 </>
             ) : (
@@ -165,21 +168,21 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
     },
 ];
 
-export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompareFieldsItemProps) => void, handleDelete: (record: ReconciliationCompareFieldsItemProps) => void, handleSave: (record: ReconciliationCompareFieldsItemProps) => void, handleCancel: () => void, isEditing: (record: ReconciliationCompareFieldsItemProps) => boolean, editingRow: ReconciliationCompareFieldsItemProps | null, setEditingRow: (row: ReconciliationCompareFieldsItemProps | null) => void): TableColumnsType<ReconciliationCompareFieldsItemProps> => [
+export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompareFieldsItemProps) => void, handleDelete: (record: ReconciliationCompareFieldsItemProps) => void, handleSave: (record: ReconciliationCompareFieldsItemProps) => void, handleCancel: () => void, editingKey:string): TableColumnsType<ReconciliationCompareFieldsItemProps> => [
     {
         title: i18n.t(LocaleHelper.getReconciliationRuleEngineCompareFieldsName()),
-        width: 100,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'CompareFieldsName',
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.CompareFieldsName}
+                    // value={editingRow?.CompareFieldsName}
+                    defaultValue={record.CompareFieldsName}
                     style={{ width: '100%', textAlign: 'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, CompareFieldsName: value })}
+                    onChange={value => record.CompareFieldsName = value}
                     options={[
                         { value: '00001', label: '字段1' },
                         { value: '00002', label: '字段2' }
@@ -198,12 +201,13 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Select
-                    value={editingRow?.CompareFieldRelation}
+                    // value={editingRow?.CompareFieldRelation}
+                    defaultValue={record.CompareFieldRelation}
                     style={{ width: '100%', textAlign: 'left' }}
-                    onChange={value => setEditingRow({ ...editingRow!, CompareFieldRelation: value })}
+                    onChange={value => record.CompareFieldRelation = value}
                     options={[
                         { value: '00001', label: '与' },
                         { value: '00002', label: '或' }
@@ -222,11 +226,13 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.CompareFieldOperator}
-                    onChange={e => setEditingRow({ ...editingRow!, CompareFieldOperator: e.target.value })}
+                    // value={editingRow?.CompareFieldOperator}
+                    defaultValue={record.CompareFieldOperator}
+                    onChange={e => record.CompareFieldOperator = e.target.value}
+                    // onChange={e => setEditingRow({ ...editingRow!, CompareFieldOperator: e.target.value })}
                 />
             ) : (
                 text
@@ -241,11 +247,12 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <Input
-                    value={editingRow?.CompareFieldOrderBy}
-                    onChange={e => setEditingRow({ ...editingRow!, CompareFieldOrderBy: e.target.value })}
+                    // value={editingRow?.CompareFieldOrderBy}
+                    defaultValue={record.CompareFieldOrderBy}
+                    onChange={e => record.CompareFieldOrderBy = e.target.value}
                 />
             ) : (
                 text
@@ -256,12 +263,12 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
-        width: 80,
+        width: 60,
         render: (_: any, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = isEditing(record);
+            const editable = record.RowKey===editingKey;
             return editable ? (
                 <>
-                    <a onClick={() => handleSave(editingRow!)}>保存</a>
+                    <a onClick={() => handleSave(record)}>保存</a>
                     <a onClick={handleCancel}>取消</a>
                 </>
             ) : (

@@ -10,73 +10,106 @@ import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import { getCompareFieldsColumns,getMatchFieldsColumns,getRuleEngineColumns } from './columns';
 import CodeBoxMeta from '@/components/code-box-meta';
-import { getReconciliationRuleEngineList } from '@/api/fee_manage/fee_reconciliation_service';
+import { getReconciliationRuleEngineList,getCompareFieldsList,getMatchFieldsList } from '@/api/fee_manage/fee_reconciliation_service';
+import { useTableOperations } from './hooks/useTableOperations';
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ReconciliationRuleEngine: React.FC = () => {
     // 数据
     const [reconciliationRuleEngineList, setReconciliationRuleEngineList] = useState([] as ReconciliationRuleEngineItemProps[]);
-    const [editingKey, setEditingKey] = useState('');
+    const [reconciliationMatchFieldsList, setReconciliationMatchFieldsList] = useState([] as ReconciliationMatchFieldsItemProps[]);
+    const [reconciliationCompareFieldsList, setReconciliationCompareFieldsList] = useState([] as ReconciliationCompareFieldsItemProps[]);
     // 获取计费标准数据
     useEffect(() => {
         const getData = async () => {
             const chargingStandardData = await getReconciliationRuleEngineList();
-            // 设置计费标准台账数据
             setReconciliationRuleEngineList([...chargingStandardData]);
+
+            const reconciliationMatchFieldsList = await getMatchFieldsList();
+            setReconciliationMatchFieldsList([...reconciliationMatchFieldsList]);
+
+            const reconciliationCompareFieldsList = await getCompareFieldsList();
+            setReconciliationCompareFieldsList([...reconciliationCompareFieldsList]);
         };
         getData();
     }, []);
 
-    const handleDelete = (record: ReconciliationRuleEngineItemProps) => {
-        const newData = reconciliationRuleEngineList.filter(item => item.RowKey !== record.RowKey);
-        setReconciliationRuleEngineList(newData);
-    };
-    const handleEdit = (record: ReconciliationRuleEngineItemProps) => {
-        setEditingKey(record.RowKey?.toString() || '');
-    };
-    const handleSave = async (record: ReconciliationRuleEngineItemProps) => {
-        try {
-            // TODO: 调用保存API
-            const newData = [...reconciliationRuleEngineList];
-            const index = newData.findIndex(item => record.RowKey === item.RowKey);
-            if (index > -1) {
-                const item = newData[index];
-                newData.splice(index, 1, {
-                    ...item,
-                    ...record,
-                });
-            } else {
-                newData.push(record);
-            }
-            setReconciliationRuleEngineList(newData);
-            setEditingKey('');
-            message.success('保存成功');
-        } catch (error) {
-            console.error('Save failed:', error);
-            message.error('保存失败');
-        }
-    };
-    const handleCancel = () => {
-        setEditingKey('');
-    };
-    const handleAdd = () => {
-        if (editingKey !== '') {
-            message.warning('请先完成当前编辑');
-            return;
-        }
-        const newId = Date.now().toString();
-        const newRow: ReconciliationRuleEngineItemProps = {
+    // 使用自定义Hook处理规则引擎表格操作
+    const ruleEngineOperations = useTableOperations({
+        dataList: reconciliationRuleEngineList,
+        setDataList: setReconciliationRuleEngineList,
+        createNewRow: () => ({
             CompanyName: '',
             ReconciliationRuleName: '',
-            RowKey: newId,
-        };
-        setReconciliationRuleEngineList([...reconciliationRuleEngineList, newRow]);
-        setEditingKey(newId);
-    };
+        } as ReconciliationRuleEngineItemProps)
+    });
 
-    const columnsType = getRuleEngineColumns(handleEdit, handleDelete, handleSave, handleCancel, editingKey);
+    // 使用自定义Hook处理匹配字段表格操作
+    const matchFieldsOperations = useTableOperations({
+        dataList: reconciliationMatchFieldsList,
+        setDataList: setReconciliationMatchFieldsList,
+        createNewRow: () => ({
+            MatchFieldsName: '',
+            MatchFieldRelation: '',
+            MatchFieldOrderBy: '',
+        } as ReconciliationMatchFieldsItemProps)
+    });
 
+    // 使用自定义Hook处理对比字段表格操作
+    const compareFieldsOperations = useTableOperations({
+        dataList: reconciliationCompareFieldsList,
+        setDataList: setReconciliationCompareFieldsList,
+        createNewRow: () => ({
+            CompareFieldsName: '',
+            CompareFieldRelation: '',
+            CompareFieldOperator: '',
+            CompareFieldOrderBy: '',
+        } as ReconciliationCompareFieldsItemProps)
+    });
+
+    const columnsType = getRuleEngineColumns(
+        ruleEngineOperations.handleEdit,
+        ruleEngineOperations.handleDelete,
+        ruleEngineOperations.handleSave,
+        ruleEngineOperations.handleCancel,
+        ruleEngineOperations.editingKey
+    );
+
+    const columnsMatchFieldsType = getMatchFieldsColumns(
+        matchFieldsOperations.handleEdit,
+        matchFieldsOperations.handleDelete,
+        matchFieldsOperations.handleSave,
+        matchFieldsOperations.handleCancel,
+        matchFieldsOperations.editingKey
+    );
+    const columnsCompareFieldsType = getCompareFieldsColumns(
+        compareFieldsOperations.handleEdit,
+        compareFieldsOperations.handleDelete,
+        compareFieldsOperations.handleSave,
+        compareFieldsOperations.handleCancel,
+        compareFieldsOperations.editingKey
+    );
     //表格选中和取消时触发的函数
     const rowSelection: TableRowSelection<ReconciliationRuleEngineItemProps> = {
+        onSelect: (record, selected, selectedRows) => {
+            console.log('onselect');
+            console.log(record, selected, selectedRows);
+        },
+        type: 'radio',
+        columnWidth: '20px',
+    };
+
+    //表格选中和取消时触发的函数
+    const rowMatchSelection: TableRowSelection<ReconciliationMatchFieldsItemProps> = {
+        onSelect: (record, selected, selectedRows) => {
+            console.log('onselect');
+            console.log(record, selected, selectedRows);
+        },
+        type: 'radio',
+        columnWidth: '20px',
+    };
+
+    //表格选中和取消时触发的函数
+    const rowCompareSelection: TableRowSelection<ReconciliationCompareFieldsItemProps> = {
         onSelect: (record, selected, selectedRows) => {
             console.log('onselect');
             console.log(record, selected, selectedRows);
@@ -107,9 +140,6 @@ const ReconciliationRuleEngine: React.FC = () => {
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
                             <div className="u-button-group"></div>
                         </div>
-                        <span className="u-button">
-                            <RedoOutlined className='iconfont' />
-                        </span>
                     </div>
                 </div>
             </div>
@@ -120,7 +150,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                             <div className='nc-bill-table-area'>
                                 <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                     <div className="u-button-group">
-                                        <Button type='primary' onClick={handleAdd}>新增</Button>
+                                        <Button type='primary' onClick={ruleEngineOperations.handleAdd}>新增</Button>
                                     </div>
                                 </div>
 
@@ -138,23 +168,22 @@ const ReconciliationRuleEngine: React.FC = () => {
                             </div>
                         </CodeBoxMeta>
                     </Col>
-                    {/* <Col span={12}>
+                    <Col span={12}>
                         <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
                             <Col span={24}>
-                                <CodeBoxMeta title="基本用法">
+                                <CodeBoxMeta title="匹配字段设置">
                                     <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                         <div className="u-button-group">
-                                            <Button type='primary' onClick={handleAdd}>新增</Button>
+                                            <Button type='primary' onClick={matchFieldsOperations.handleAdd}>新增</Button>
                                         </div>
                                     </div>
                                     <div className='nc-bill-table-area'>
-                                        <Table<ReconciliationRuleEngineItemProps>
-                                            columns={columnsType}
-                                            rowSelection={{ ...rowSelection }}
-                                            rowKey={(record) => `${record.CompanyName}`}
+                                        <Table<ReconciliationMatchFieldsItemProps>
+                                            columns={columnsMatchFieldsType}
+                                            rowSelection={{ ...rowMatchSelection }}
+                                            rowKey={(record) => `${record.RowKey}`}
                                             showSorterTooltip={false}
-                                            title={() => title}
-                                            dataSource={chargingStandardList}
+                                            dataSource={reconciliationMatchFieldsList}
                                             pagination={false}
                                             scroll={{ x: 'max-content', y: 'calc(100vh/2-100px)' }}
                                             footer={() => ''}
@@ -166,20 +195,19 @@ const ReconciliationRuleEngine: React.FC = () => {
                         </Row>
                         <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
                             <Col span={24}>
-                                <CodeBoxMeta title="基本用法">
+                                <CodeBoxMeta title="对比字段设置">
                                     <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                         <div className="u-button-group">
-                                            <Button type='primary' onClick={handleAdd}>新增</Button>
+                                            <Button type='primary' onClick={compareFieldsOperations.handleAdd}>新增</Button>
                                         </div>
                                     </div>
                                     <div className='nc-bill-table-area'>
-                                        <Table<ReconciliationRuleEngineItemProps>
-                                            columns={columnsType}
-                                            rowSelection={{ ...rowSelection }}
-                                            rowKey={(record) => `${record.CompanyName}`}
+                                        <Table<ReconciliationCompareFieldsItemProps>
+                                            columns={columnsCompareFieldsType}
+                                            rowSelection={{ ...rowCompareSelection }}
+                                            rowKey={(record) => `${record.RowKey}`}
                                             showSorterTooltip={false}
-                                            title={() => title}
-                                            dataSource={chargingStandardList}
+                                            dataSource={reconciliationCompareFieldsList}
                                             pagination={false}
                                             scroll={{ x: 'max-content', y: 'calc(100vh/2-100px)' }}
                                             footer={() => ''}
@@ -189,7 +217,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                                 </CodeBoxMeta>
                             </Col>
                         </Row>
-                    </Col> */}
+                    </Col>
                 </Row>
             </div>
 
