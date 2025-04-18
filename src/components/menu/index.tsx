@@ -17,7 +17,14 @@ const Menu: React.FC<AppSiderProps> = ({ menudatas,collapsed,activeMenudatas,onC
     };
     const location = useLocation();
     return (
-        <div className="ant-drawer-content-wrapper" style={{ display: collapsed ? 'block' : 'none' }}>
+        <div className="ant-drawer-content-wrapper" style={{
+            width: '100%',
+            height: '100%',
+            opacity: collapsed ? 1 : 0,
+            transform: `translateX(${collapsed ? 0 : '-100%'})`,
+            visibility: collapsed ? 'visible' : 'hidden',
+            
+          }}>
             <div className="ant-drawer-content">
                 <div style={{ overflow: 'auto', height: '100%' }}>
                     <div className="ant-drawer-body">
