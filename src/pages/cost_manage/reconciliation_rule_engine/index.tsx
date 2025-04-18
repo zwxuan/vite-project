@@ -146,11 +146,11 @@ const ReconciliationRuleEngine: React.FC = () => {
             <div className='nc-bill-table-area'>
                 <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
                     <Col span={12} className='ant-tranfer-col-left' style={{ borderRight: '1px solid #e8e8e8', height: 'calc(100vh - 125px)' }}>
-                        <CodeBoxMeta title="基本用法">
+                        <CodeBoxMeta title="对账规则">
                             <div className='nc-bill-table-area'>
                                 <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                     <div className="u-button-group">
-                                        <Button type='primary' onClick={ruleEngineOperations.handleAdd}>新增</Button>
+                                        <Button type='primary' size='small' onClick={ruleEngineOperations.handleAdd}>新增</Button>
                                     </div>
                                 </div>
 
@@ -174,7 +174,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                                 <CodeBoxMeta title="匹配字段设置">
                                     <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                         <div className="u-button-group">
-                                            <Button type='primary' onClick={matchFieldsOperations.handleAdd}>新增</Button>
+                                            <Button type='primary' size='small' onClick={matchFieldsOperations.handleAdd}>新增</Button>
                                         </div>
                                     </div>
                                     <div className='nc-bill-table-area'>
@@ -198,7 +198,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                                 <CodeBoxMeta title="对比字段设置">
                                     <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                         <div className="u-button-group">
-                                            <Button type='primary' onClick={compareFieldsOperations.handleAdd}>新增</Button>
+                                            <Button type='primary' size='small' onClick={compareFieldsOperations.handleAdd}>新增</Button>
                                         </div>
                                     </div>
                                     <div className='nc-bill-table-area'>

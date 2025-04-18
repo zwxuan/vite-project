@@ -52,19 +52,20 @@ export const getRuleEngineColumns = (handleEdit: (record: ReconciliationRuleEngi
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
-        width: 60,
+        align:'center',
+        width: 40,
         render: (_: any, record: ReconciliationRuleEngineItemProps) => {
             const editable = record.RowKey===editingKey;
             return editable ? (
                 <>
-                    <a onClick={() => handleSave(record)}>保存</a>
-                    <a onClick={handleCancel}>取消</a>
+                    <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>
+                    <i className="iconfont icon-quxiao" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'3px'}} title='取消' onClick={handleCancel}></i>
                 </>
             ) : (
                 <>
-                    <a onClick={() => handleEdit(record)}>编辑</a>
+                    <i className="iconfont icon-bianji" style={{fontSize:'14px',color:'#EE0F39',marginRight:'3px',marginLeft:'3px'}} title='编辑' onClick={() => handleEdit(record)}></i>
                     <Popconfirm title="确定删除?" onConfirm={() => handleDelete(record)}>
-                        <a>删除</a>
+                        <i className="iconfont icon-shanchu" style={{fontSize:'14px',color:'#EE0F39',marginRight:'3px',marginLeft:'3px'}} title='删除'></i>
                     </Popconfirm>
                 </>
             );
@@ -148,19 +149,20 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
+        align:'center',
         width: 60,
         render: (_: any, record: ReconciliationMatchFieldsItemProps) => {
             const editable = record.RowKey===editingKey;
             return editable ? (
                 <>
-                    <a onClick={() => handleSave(record)}>保存</a>
-                    <a onClick={handleCancel}>取消</a>
+                    <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>
+                    <i className="iconfont icon-quxiao" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'3px'}} title='取消' onClick={handleCancel}></i>
                 </>
             ) : (
                 <>
-                    <a onClick={() => handleEdit(record)}>编辑</a>
+                    <i className="iconfont icon-bianji" style={{fontSize:'14px',color:'#EE0F39',marginRight:'3px',marginLeft:'3px'}} title='编辑' onClick={() => handleEdit(record)}></i>
                     <Popconfirm title="确定删除?" onConfirm={() => handleDelete(record)}>
-                        <a>删除</a>
+                        <i className="iconfont icon-shanchu" style={{fontSize:'14px',color:'#EE0F39',marginRight:'3px',marginLeft:'3px'}} title='删除'></i>
                     </Popconfirm>
                 </>
             );
@@ -264,18 +266,19 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         dataIndex: 'operation',
         fixed: 'right',
         width: 60,
+        align:'center',
         render: (_: any, record: ReconciliationCompareFieldsItemProps) => {
             const editable = record.RowKey===editingKey;
             return editable ? (
                 <>
-                    <a onClick={() => handleSave(record)}>保存</a>
-                    <a onClick={handleCancel}>取消</a>
+                    <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>
+                    <i className="iconfont icon-quxiao" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'3px'}} title='取消' onClick={handleCancel}></i>
                 </>
             ) : (
                 <>
-                    <a onClick={() => handleEdit(record)}>编辑</a>
+                    <i className="iconfont icon-bianji" style={{fontSize:'14px',color:'#EE0F39',marginRight:'3px',marginLeft:'3px'}} title='编辑' onClick={() => handleEdit(record)}></i>
                     <Popconfirm title="确定删除?" onConfirm={() => handleDelete(record)}>
-                        <a>删除</a>
+                        <i className="iconfont icon-shanchu" style={{fontSize:'14px',color:'#EE0F39',marginRight:'3px',marginLeft:'3px'}} title='删除'></i>
                     </Popconfirm>
                 </>
             );
