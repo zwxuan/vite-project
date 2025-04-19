@@ -1,7 +1,7 @@
 //router/index.tsx
 import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
+import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
   ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease} from "./imports";
@@ -44,6 +44,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <FeeReconciliation />
+          </RouterGuard>),
+      },
+      {
+        path: "/fee_reconciliation/compare",
+        handle: { title: '费用对账' }, 
+        element: (
+          <RouterGuard>
+            <FeeReconciliationCompare />
           </RouterGuard>),
       },
       {

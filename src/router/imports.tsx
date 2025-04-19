@@ -1,6 +1,7 @@
 import Currency from "@/pages/basic_manage/dic_manage/currency";
 import Orders from "@/pages/business_manage/index";
 import FeeReconciliation from "@/pages/cost_manage/fee_reconciliation";
+import FeeReconciliationCompare from "@/pages/cost_manage/fee_reconciliation/recociliation/reconciliation";
 import BillManage from "@/pages/cost_manage/bill_manage";
 import StatementOfAccount from "@/pages/cost_manage/statement_of_account";
 import OrderFeeRelation from "@/pages/cost_manage/order_fee_relation/index_relation";
@@ -34,6 +35,7 @@ export {
   Currency,
   Orders,
   FeeReconciliation,
+  FeeReconciliationCompare,
   BillManage,
   StatementOfAccount,
   OrderFeeRelation,
