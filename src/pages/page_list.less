@@ -310,12 +310,11 @@ label.u-checkbox.u-checkbox-info.is-checked .u-checkbox-label:after {
     // border: 1px solid #d0d0d0;
     border-right: none;
 }
-
-.buttonGroup-component .u-button-group>button:disabled {
+.buttonGroup-component .u-button-group>button:last-child:disabled {
     border-right: none;
 }
 
-.buttonGroup-component .u-button-group>button:hover:not(:last-child) {
+.buttonGroup-component .u-button-group>button:hover:not(:disabled):not(:last-child) {
     border-right: none;
 }
 
@@ -385,7 +384,9 @@ label.u-checkbox.u-checkbox-info.is-checked .u-checkbox-label:after {
 .buttonGroup-component .u-button-group>span:first-child:hover .u-upload button {
     z-index: 1;
 }
-
+.ant-upload-wrapper .ant-upload-list .ant-upload-list-item .ant-upload-list-item-name {
+    flex:none;
+}
 .buttonGroup-component .u-button-group .u-button {
     margin-left: 0 !important;
     min-width: 60px;
@@ -1235,7 +1236,7 @@ input.u-form-control {
     white-space: nowrap;
     font-size: 12px;
     font-family: microsoft yahei;
-//     overflow: hidden;
+    overflow: hidden;
 //    white-space: nowrap;
 //    text-overflow: ellipsis;
 }

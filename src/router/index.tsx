@@ -48,7 +48,7 @@ const routers = createMemoryRouter([
       },
       {
         path: "/fee_reconciliation/compare",
-        handle: { title: '费用对账' }, 
+        handle: { title: '自动对账' }, 
         element: (
           <RouterGuard>
             <FeeReconciliationCompare />
