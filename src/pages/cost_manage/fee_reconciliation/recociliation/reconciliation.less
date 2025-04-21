@@ -1,0 +1,74 @@
+.fee-reconciliation-container {
+  padding: 16px;
+
+  .upload-section {
+    margin-bottom: 24px;
+    
+    .ant-upload-drag {
+      padding: 16px;
+    }
+  }
+
+  .config-section {
+    margin-bottom: 24px;
+    
+    .action-section {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .result-section {
+    .ant-table-wrapper {
+      margin-top: 8px;
+    }
+  }
+
+  // 对账结果颜色
+  .match-success {
+    color: green;
+  }
+
+  .match-fail {
+    color: red;
+  }
+
+  .match-none {
+    color: black;
+  }
+
+  // 说明区域
+  .color-legend {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .color-box {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        border: 1px solid #d9d9d9;
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .black {
+        background-color: black;
+      }
+    }
+  }
+}

@@ -73,6 +73,11 @@ const FeeReconciliation : React.FC = () => {
         }
     };
 
+    const reconciliationOnClick: MenuProps['onClick'] = ({ key }) => {
+        console.log(`Click on item ${key}`);
+        navigate('/fee_reconciliation/compare');
+    };
+
     
     const [open, setOpen] = useState(false);
     const [openExcel, setExcelOpen] = useState(false);
@@ -239,14 +244,15 @@ const FeeReconciliation : React.FC = () => {
                                 
                                 <Button>审核</Button>
                                 <Button>取消审核</Button>
+                                <Button type="primary" onClick={() => navigate('/fee_reconciliation/compare')}>Excel对账</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusCheckItems}}>
-                                <Button>
+                            <Dropdown menu={{items:statusCheckItems,onClick:reconciliationOnClick}}>
+                                <Button onClick={() => console.log('对账')}>
                                     <Space>
                                         对账
                                     <DownOutlined />
