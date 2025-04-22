@@ -28,12 +28,7 @@ interface CompareField {
 // 定义匹配状态类型
 type MatchStatus = 'matched-equal' | 'matched-diff' | 'unmatched' | 'default';
 
-interface MatchedDataItem {
-  excel: ExcelDataItem;
-  system: SystemDataItem;
-  matched: boolean;
-  status: MatchStatus; // 添加状态字段
-}
+// 移除 MatchedDataItem 接口
 
 const { Dragger } = Upload;
 
@@ -42,31 +37,27 @@ const FeeReconciliation: React.FC = () => {
   const [systemData, setSystemData] = useState<SystemDataItem[]>([]);
   const [excelColumns, setExcelColumns] = useState<any[]>([]);
   const [systemColumns, setSystemColumns] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [excelHeaders, setExcelHeaders] = useState<string[]>([]);
   const [systemHeaders, setSystemHeaders] = useState<string[]>([]);
-  // 更新 matchedData 状态类型
-  const [matchedData, setMatchedData] = useState<MatchedDataItem[]>([]);
 
-  const matchFields:MatchField[] = [
-    { excelField: '发票号码', systemField: 'billNumber' },
-    { excelField: '费用名称', systemField: 'feeName' },
+  const matchFields: MatchField[] = [
+    { excelField: '主单号', systemField: '主单号' },
+    { excelField: '费用名称', systemField: '费用名称' },
     { excelField: '币种', systemField: '币制' },
   ];
-  const compareFields:CompareField[] = [
-    { excelField: '金额', systemField: 'amount' },
-    { excelField: '单价', systemField: 'price' },
+  const compareFields: CompareField[] = [
+    { excelField: '含税价', systemField: '金额' },
   ];
   // 模拟获取系统数据
   useEffect(() => {
     // 这里应该是从API获取系统数据
     // 模拟数据
     const mockSystemData = [
-      { 对比结果: '', 主单号: 'BL001', 费用名称: '装箱费', 金额: 1200, 币制: 'CNY', 日期: '2023-01-15' },
-      { 对比结果: '', 主单号: 'BL002', 费用名称: '报关费', 金额: 800, 币制: 'CNY', 日期: '2023-01-16' },
-      { 对比结果: '', 主单号: 'BL003', 费用名称: '运输费', 金额: 3500, 币制: 'CNY', 日期: '2023-01-17' },
-      { 对比结果: '', 主单号: 'BL004', 费用名称: '仓储费', 金额: 1500, 币制: 'CNY', 日期: '2023-01-18' },
-      { 对比结果: '', 主单号: 'BL005', 费用名称: '装卸费', 金额: 600, 币制: 'CNY', 日期: '2023-01-19' },
+      { 对比结果: '未对账', 主单号: 'ASHAYIN200624814E', 费用名称: '装箱费', 金额: 1200, 币制: 'CNY', 日期: '2023-01-15' },
+      { 对比结果: '未对账', 主单号: 'BL002', 费用名称: '报关费', 金额: 800, 币制: 'CNY', 日期: '2023-01-16' },
+      { 对比结果: '未对账', 主单号: 'SHCR0W809700', 费用名称: '海运费', 金额: 12, 币制: 'USD', 日期: '2023-01-17' },
+      { 对比结果: '未对账', 主单号: 'SHCR0W808600', 费用名称: '海运费', 金额: 1500, 币制: 'USD', 日期: '2023-01-18' },
+      { 对比结果: '未对账', 主单号: 'BL005', 费用名称: '装卸费', 金额: 600, 币制: 'CNY', 日期: '2023-01-19' },
     ];
 
     setSystemData(mockSystemData);
@@ -83,34 +74,52 @@ const FeeReconciliation: React.FC = () => {
         width: 100,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         ...(index === 0 ? { fixed: 'left' } : {}),
-        // 移除 render 函数以取消颜色高亮
       }));
 
       setSystemColumns(columns);
     }
   }, []);
 
-  // 更新系统列配置 - 移除颜色相关逻辑和依赖
+  // 定义系统列标题映射
+  const systemTitleMap: { [key: string]: string } = {
+    '对比结果': '对比结果',
+    '主单号': '主单号',
+    '费用名称': '费用名称',
+    '金额': '金额',
+    '币制': '币制',
+    '日期': '日期',
+  };
+
+  // 更新系统列配置 - 使用中文标题
   useEffect(() => {
     if (systemHeaders.length > 0) {
       const columns = systemHeaders.map((header, index) => ({
-        title: header,
+        title: systemTitleMap[header] || header, // 使用映射的中文标题，如果不存在则使用原始英文标题
         dataIndex: header,
         key: header,
         width: 100,
         ...(index === 0 ? { fixed: 'left' } : {}),
         onHeaderCell: () => ({ style: { width: '100px' } }),
       }));
-      
+
       setSystemColumns(columns);
     }
   }, [systemHeaders]);
 
-  // 更新Excel列配置 - 移除颜色渲染逻辑
+  // 定义Excel列标题映射
+  const excelTitleMap: { [key: string]: string } = {
+    '对比结果': '对比结果',
+    '主单号': '主单号',
+    '费用名称': '费用名称',
+    '含税价': '含税价',
+    '币种': '币种',
+  };
+
+  // 更新Excel列配置 - 使用中文标题
   useEffect(() => {
     if (excelHeaders.length > 0) {
       const columns = excelHeaders.map((header, index) => ({
-        title: header,
+        title: excelTitleMap[header] || header, // 使用映射的中文标题，如果不存在则使用原始英文标题
         dataIndex: header,
         key: header,
         width: '100px',
@@ -140,11 +149,12 @@ const FeeReconciliation: React.FC = () => {
           const worksheet = workbook.Sheets[sheetName];
           const json = XLSX.utils.sheet_to_json(worksheet);
 
-          setExcelData(json as ExcelDataItem[]);
-          setMatchedData([]); // 清空之前的对账结果
+          // 初始化对比结果字段
+          const initialExcelData = (json as ExcelDataItem[]).map(item => ({ ...item, '对比结果': '未对账' }));
+          setExcelData(initialExcelData);
 
           // 设置Excel表头
-          if (json.length > 0) {
+          if (initialExcelData.length > 0) {
             const headers = Object.keys(json[0] as object);
             headers.unshift('对比结果'); // 在数组开头添加 '对比结果'
             setExcelHeaders(headers);
@@ -162,13 +172,11 @@ const FeeReconciliation: React.FC = () => {
 
   // 执行对账
   const performReconciliation = () => {
-    setLoading(true);
 
     // 验证是否设置了匹配字段
     const validMatchFields = matchFields.filter(field => field.excelField && field.systemField);
     if (validMatchFields.length === 0) {
       message.error('请至少设置一个匹配字段');
-      setLoading(false);
       return;
     }
 
@@ -176,26 +184,28 @@ const FeeReconciliation: React.FC = () => {
     const validCompareFields = compareFields.filter(field => field.excelField && field.systemField);
     if (validCompareFields.length === 0) {
       message.error('请至少设置一个比较字段');
-      setLoading(false);
       return;
     }
 
-    // 执行匹配逻辑
-    const newMatchedData: MatchedDataItem[] = [];
+    // 创建数据的副本以进行修改
+    const updatedExcelData = [...excelData];
+    const updatedSystemData = [...systemData];
     const matchedSystemIndices = new Set<number>();
 
     // 遍历Excel数据
-    excelData.forEach((excelItem, excelIndex) => {
+    updatedExcelData.forEach((excelItem, excelIndex) => {
       let matchedSystemItem: SystemDataItem | undefined = undefined;
       let matchedSystemIndex: number | undefined = undefined;
 
       // 查找匹配的系统数据
-      for (let i = 0; i < systemData.length; i++) {
-        const systemItem = systemData[i];
+      for (let i = 0; i < updatedSystemData.length; i++) {
+        // 跳过已匹配的系统数据
+        if (matchedSystemIndices.has(i)) continue;
+
+        const systemItem = updatedSystemData[i];
         const isMatch = validMatchFields.every(field => {
           const excelValue = excelItem[field.excelField];
           const systemValue = systemItem[field.systemField];
-          // 注意：这里可能需要更复杂的比较逻辑（例如，忽略大小写、类型转换）
           return String(excelValue) === String(systemValue);
         });
 
@@ -207,42 +217,47 @@ const FeeReconciliation: React.FC = () => {
       }
 
       let status: MatchStatus = 'default';
+      let statusText = '未对账'; // 默认状态文本
+
       if (matchedSystemItem !== undefined && matchedSystemIndex !== undefined) {
         matchedSystemIndices.add(matchedSystemIndex);
         // 检查比较字段是否一致
         const isEqual = validCompareFields.every(field => {
           const excelValue = excelItem[field.excelField];
           const systemValue = matchedSystemItem![field.systemField];
-          // 注意：这里可能需要更复杂的比较逻辑
           return String(excelValue) === String(systemValue);
         });
         status = isEqual ? 'matched-equal' : 'matched-diff';
-        newMatchedData.push({
-          excel: excelItem,
-          system: matchedSystemItem,
-          matched: true,
-          status: status
-        });
+        statusText = isEqual ? '匹配一致' : '匹配不一致';
+
+        // 更新系统数据的对比结果
+        updatedSystemData[matchedSystemIndex]['对比结果'] = statusText;
       } else {
         // 未匹配到系统数据
         status = 'unmatched';
-        newMatchedData.push({
-          excel: excelItem,
-          system: {} as SystemDataItem, // 空对象表示未匹配
-          matched: false,
-          status: status
-        });
+        statusText = '未匹配';
+      }
+      // 更新Excel数据的对比结果
+      updatedExcelData[excelIndex]['对比结果'] = statusText;
+    });
+
+    // 处理未被匹配的系统数据
+    updatedSystemData.forEach((systemItem, index) => {
+      if (!matchedSystemIndices.has(index)) {
+        updatedSystemData[index]['对比结果'] = '未匹配';
       }
     });
 
-    setMatchedData(newMatchedData);
-    setLoading(false);
+    // 更新状态以触发重新渲染
+    setExcelData(updatedExcelData);
+    setSystemData(updatedSystemData);
     message.success('对账完成');
   };
 
   // 导出对账结果
   const exportReconciliationResult = () => {
-    if (matchedData.length === 0 && excelData.length === 0 && systemData.length === 0) {
+    // 检查是否有数据可导出
+    if (excelData.length === 0 && systemData.length === 0) {
       message.warning('没有数据可导出');
       return;
     }
@@ -250,23 +265,11 @@ const FeeReconciliation: React.FC = () => {
     // 创建工作簿
     const wb = XLSX.utils.book_new();
 
-    // 创建包含状态的Excel数据工作表
-    const excelDataWithStatus = excelData.map(excelItem => {
-      const matchedEntry = matchedData.find(item => item.excel === excelItem);
-      let statusText = '未对账';
-      if (matchedEntry) {
-        switch (matchedEntry.status) {
-          case 'matched-equal': statusText = '匹配一致'; break;
-          case 'matched-diff': statusText = '匹配不一致'; break;
-          case 'unmatched': statusText = '未匹配'; break;
-        }
-      }
-      return { ...excelItem, 对账状态: statusText };
-    });
-    const excelWs = XLSX.utils.json_to_sheet(excelDataWithStatus);
+    // 创建Excel数据工作表 (已包含对比结果)
+    const excelWs = XLSX.utils.json_to_sheet(excelData);
     XLSX.utils.book_append_sheet(wb, excelWs, 'Excel数据');
 
-    // 创建系统数据工作表
+    // 创建系统数据工作表 (已包含对比结果)
     const systemWs = XLSX.utils.json_to_sheet(systemData);
     XLSX.utils.book_append_sheet(wb, systemWs, '系统数据');
 
@@ -286,8 +289,30 @@ const FeeReconciliation: React.FC = () => {
     onChange: handleExcelUpload,
   };
 
-  // 获取Excel表格行的类名
+  // 移除 getExcelRowClassName 函数，因为它不再需要基于 matchedData 设置样式
   const getExcelRowClassName = (record: ExcelDataItem, index: number): string => {
+    if(record.对比结果 === '未对账' || record.对比结果 === '未匹配'){
+      return 'unmatched-row';
+    }
+    if(record.对比结果 === '匹配不一致'){
+      return 'matched-diff-row';
+    }
+    if(record.对比结果 === '匹配一致'){
+      return'matched-equal-row';
+    }
+    return '';
+  };
+  
+  const getSystemRowClassName = (record: SystemDataItem, index: number): string => {
+    if(record.对比结果 === '未对账' || record.对比结果 === '未匹配'){
+      return 'unmatched-row';
+    }
+    if(record.对比结果 === '匹配不一致'){
+      return 'matched-diff-row';
+    }
+    if(record.对比结果 === '匹配一致'){
+      return'matched-equal-row';
+    }
     return '';
   };
 
@@ -298,6 +323,7 @@ const FeeReconciliation: React.FC = () => {
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
             <span className="bill-info-title" style={{ marginLeft: "10px" }}>
               <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 自动对账
+              <span style={{marginLeft:'10px',fontSize:'14px',fontWeight:'normal',color:'#007ace'}}>上海大洋行有限公司</span>
               <Tooltip
                 title={
                   <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
@@ -310,7 +336,7 @@ const FeeReconciliation: React.FC = () => {
                       </li>
                       <li style={{ marginBottom: '10px', color: 'orange' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>橙色</b></span>表示手工对账完成。
                       </li>
-                      <li style={{ marginBottom: '10px'}}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>规则说明</b></span>匹配字段和对比字段是根据对账规则引擎模版。
+                      <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>规则说明</b></span>匹配字段和对比字段是根据对账规则引擎模版。
                       </li>
                     </ol>
                   </div>
@@ -330,6 +356,16 @@ const FeeReconciliation: React.FC = () => {
           <div style={{ display: "flex" }}>
             <div className="buttonGroup-component">
               <div className="u-button-group">
+                <label style={{marginRight:'6px'}}>对账规则</label>
+                <Select labelInValue style={{ textAlign: 'left', width: '160px',marginRight:'10px' }}
+                  options={[
+                    { label: '对账规则一', value: '对账规则一' },
+                    { label: '对账规则二', value: '对账规则二' },
+                    { label: '对账规则三', value: '对账规则三' },
+                    { label: '对账规则四', value: '对账规则四' },
+                  ]}
+                >
+                </Select>
                 <Button type="primary" onClick={performReconciliation} disabled={excelData.length === 0}>执行对账</Button>
                 <Button type="primary" danger onClick={exportReconciliationResult}>导出对账结果</Button>
               </div>
@@ -382,9 +418,10 @@ const FeeReconciliation: React.FC = () => {
                   <Table
                     dataSource={excelData}
                     columns={excelColumns}
-                    rowKey={(record, index) => `excel_${index}`} // 使用字符串作为唯一标识符
+                    rowKey={(record, index) => `excel_${index}`}
                     pagination={false} // 如果数据量大，可以考虑分页
                     bordered
+                    rowClassName={getExcelRowClassName}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 580px)' }}
                   />
                 </div>
@@ -403,7 +440,7 @@ const FeeReconciliation: React.FC = () => {
                     rowKey={(record, index) => `system_${index}`}
                     pagination={false}
                     bordered
-                    // rowClassName={getExcelRowClassName} // 应用行样式
+                    rowClassName={getSystemRowClassName}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 580px)' }}
                   />
                 </div>
