@@ -5,7 +5,7 @@ import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progre
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { HasOffSettingItemProps } from "@/types/has_off_setting/has_off_setting";
-import { getHasOffSettingList,saveHasOffSetting } from "@/api/financial_manage/has_off_setting_service";
+import { getHasOffSettingList,saveHasOffSetting } from "@/api/finance_manage/has_off_setting_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";

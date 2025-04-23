@@ -19,8 +19,8 @@ import ImportLog from "@/pages/log/import_log";
 import Login from "@/pages/login";
 import SetFeeSchedule from "@/pages/system_manage/set_fee_schedule";
 import ChargingStandard from "@/pages/system_manage/charging_standard";
-import NotOffSetting from "@/pages/not_off_setting";
-import HasOffSetting from "@/pages/has_off_setting";
+import NotOffSetting from "@/pages/finance_manage/not_off_setting";
+import HasOffSetting from "@/pages/finance_manage/has_off_setting";
 import AccountingBook from "@/pages/basic_manage/voucher/accounting_book";
 import VoucherGroupingRule from "@/pages/basic_manage/voucher/voucher_grouping_rule";
 import EntryGroupingRule from "@/pages/basic_manage/voucher/entry_grouping_rule";
@@ -31,6 +31,7 @@ import AccountMapping from "@/pages/basic_manage/voucher/account_mapping";
 import PaymentApplication from "@/pages/cost_manage/payment_application";
 import ReleaseOrderVerification from "@/pages/cost_manage/release_order_verification";
 import BlRelease from "@/pages/cost_manage/bl_release";
+import ExpenseReview from "@/pages/finance_manage/expense_review";
 export {
   Currency,
   Orders,
@@ -65,4 +66,5 @@ export {
   PaymentApplication,
   ReleaseOrderVerification,
   BlRelease,
+  ExpenseReview,
 };

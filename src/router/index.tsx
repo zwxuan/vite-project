@@ -4,7 +4,7 @@ import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
-  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease} from "./imports";
+  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -236,6 +236,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <HasOffSetting />
+          </RouterGuard>),
+      },
+      {
+        path: "/expense_review",
+        handle: { title: '费用审核' },
+        element: (
+          <RouterGuard>
+            <ExpenseReview />
           </RouterGuard>),
       },
       {

@@ -1,11 +1,11 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification,Drawer } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
-import { getFeeReconciliationList,saveFeeReconciliation } from "@/api/fee_manage/fee_reconciliation_service";
+import { ExpenseReviewItemProps } from "@/types/expense_review/expense_review";
+import { getExpenseReviewList,saveExpenseReview } from "@/api/finance_manage/expense_review_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -16,45 +16,39 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems, importItems, exportItems,statusCheckItems } from './menu_items';
+import { statusItems, appropriateItems, exportItems,printItems,archiveItems,editBusinessItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const FeeReconciliation : React.FC = () => {
+const ExpenseReview : React.FC = () => {
 
-    // 费用对账数据
-    const [feeReconciliationList, setFeeReconciliationList] = useState([] as FeeReconciliationItemProps[]);
+    // 费用审核数据
+    const [expenseReviewList, setExpenseReviewList] = useState([] as ExpenseReviewItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取费用对账数据
+    // 获取费用审核数据
     useEffect(() => {
         const getData = async () => {
-            const feeReconciliationData = await getFeeReconciliationList();
-            // 设置费用对账台账数据
-            setFeeReconciliationList([...feeReconciliationData]);
+            const expenseReviewData = await getExpenseReviewList();
+            // 设置费用审核台账数据
+            setExpenseReviewList([...expenseReviewData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:FeeReconciliationItemProps) => {
+    const handleDelete = (record:ExpenseReviewItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:FeeReconciliationItemProps) => {
-        
+    const handleEdit = (record:ExpenseReviewItemProps) => {
+        const newData = expenseReviewList.filter((item) => ` === `);
+        navigate('/importlog');
     };
-    const [openDetail, setOpenDetail] = useState(false);
-
-    const showDrawer = (record:FeeReconciliationItemProps) => {
-        setOpenDetail(true);
-    };
-  
-    const onClose = () => {
-        setOpenDetail(false);
-    };
-    const columnsType = getColumns(handleEdit, handleDelete,showDrawer);
     
-    const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
+    const columnsType = getColumns(handleEdit, handleDelete);
+    
+    const appropriateOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
         if(key==='1'){
             setUploadImportType(1);
@@ -71,11 +65,6 @@ const FeeReconciliation : React.FC = () => {
         else{
             navigate('/importlog');
         }
-    };
-
-    const reconciliationOnClick: MenuProps['onClick'] = ({ key }) => {
-        console.log(`Click on item ${key}`);
-        navigate('/fee_reconciliation/compare');
     };
 
     
@@ -96,8 +85,8 @@ const FeeReconciliation : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as FeeReconciliationItemProps;
-    const [formData, setFormData] = useState<FeeReconciliationItemProps>(initFormData);
+    const initFormData = {} as ExpenseReviewItemProps;
+    const [formData, setFormData] = useState<ExpenseReviewItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -127,7 +116,7 @@ const FeeReconciliation : React.FC = () => {
         });
 
         try {
-            const response = await saveFeeReconciliation(formData, (progress) => {
+            const response = await saveExpenseReview(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -173,7 +162,7 @@ const FeeReconciliation : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<FeeReconciliationItemProps> = {
+    const rowSelection: TableRowSelection<ExpenseReviewItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -193,14 +182,9 @@ const FeeReconciliation : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-    
+
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
-            <Drawer title="Basic Drawer" onClose={onClose} open={openDetail}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Drawer>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}
@@ -213,15 +197,15 @@ const FeeReconciliation : React.FC = () => {
                 onNumberChange={handleNumberChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='fee_reconciliation' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='fee_reconciliation' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='fee_reconciliation' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='expense_review' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='expense_review' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='expense_review' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 费用对账
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 费用审核
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -237,23 +221,50 @@ const FeeReconciliation : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger>创建账单</Button>
-                                <Button type="primary" danger>开票收票</Button>
-                                <Button type="primary" danger>核销</Button>
-                                <Button type="primary" danger>付款申请</Button>
-                                
-                                <Button>审核</Button>
-                                <Button>取消审核</Button>
+                                <Button type="primary" danger onClick={handleAdd}>锁单</Button>
+                                <Button type="primary" danger>业务提成</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusCheckItems,onClick:reconciliationOnClick}}>
-                                <Button onClick={() => navigate('/fee_reconciliation/compare')}>
+                            <Dropdown menu={{items:statusItems}}>
+                                <Button>
                                     <Space>
-                                        对账
+                                        批量审批
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:appropriateItems,onClick:appropriateOnClick}}>
+                                <Button>
+                                    <Space>
+                                        计提
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:printItems}}>
+                                <Button>
+                                    <Space>
+                                        打印
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:archiveItems}}>
+                                <Button>
+                                    <Space>
+                                        归档
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:editBusinessItems}}>
+                                <Button>
+                                    <Space>
+                                        修改
                                     <DownOutlined />
                                     </Space>
                                 </Button>   
@@ -273,30 +284,32 @@ const FeeReconciliation : React.FC = () => {
                     </div>
                 </div>
             </div>
-            <AdvancedSearchForm fields={fields} onSearch={handleSearch} span={4} />
+            <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<FeeReconciliationItemProps>
+                <Table<ExpenseReviewItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.FeeId,record.BusinessNumber}`}
+                    rowKey={(record) => `${record.BusinessNumber}`}
                     showSorterTooltip={false}
-                    dataSource={feeReconciliationList}
-                    loading={feeReconciliationList.length === 0}
-                    pagination={
-                        {
-                            size:'small',
-                            pageSize:50,showTotal: (total) => `总共 ${total} 条`,
-                            showQuickJumper:true,
-                            locale:
-                            {
-                                items_per_page: '/页',
-                                jump_to: '跳至',
-                                page: '页',
-                            }
+                    dataSource={expenseReviewList}
+                    loading={expenseReviewList.length === 0}
+                    pagination={{
+                        size:'small',
+                        pageSize:pageSize,
+                        showTotal: (total) => `总共 ${total} 条`,
+                        showQuickJumper:true,
+                        showSizeChanger:true,
+                        onShowSizeChange: (current, size) => {
+                            setPageSize(size);
+                        },
+                        locale:{
+                            items_per_page: '/页',
+                            jump_to: '跳至',
+                            page: '页',
                         }
-                    }
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
-                    footer={() => 'RMB:1,022.00 USD:3,000.00 对账金额 RMB:1,600.00 USD:8,000.00 差额 RMB:-578.00 USD:-5,000.00'}
+                    }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 320px)' }}
+                    footer={() => '底部汇总信息'}
                     bordered={true}
                 />
             </div>
@@ -305,4 +318,4 @@ const FeeReconciliation : React.FC = () => {
         
     )
 }
-export default FeeReconciliation;
+export default ExpenseReview;

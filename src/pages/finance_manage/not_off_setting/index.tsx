@@ -5,7 +5,7 @@ import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,
 import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
-import { getNotOffSettingList,saveNotOffSetting } from "@/api/financial_manage/not_off_setting_service";
+import { getNotOffSettingList,saveNotOffSetting } from "@/api/finance_manage/not_off_setting_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";

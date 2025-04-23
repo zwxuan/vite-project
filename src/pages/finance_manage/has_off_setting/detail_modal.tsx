@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Table, Input, InputNumber, Select, Button, Space, Row, Col,Divider } from 'antd';
 import { DatePickerZH } from '@/components/date-picker/index';
 import { HasOffSettingItemProps, OffSettingDetailItemProps } from "@/types/has_off_setting/has_off_setting";
-import { getHasOffDetailList } from "@/api/financial_manage/has_off_setting_service";
+import { getHasOffDetailList } from "@/api/finance_manage/has_off_setting_service";
 import { getDetailColumns } from './columns';
 interface DetailModalProps {
     open: boolean;

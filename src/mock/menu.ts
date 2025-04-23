@@ -540,10 +540,10 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "TMO管理",
     key: "tmo_manage",
-    parentkey: "cost_manage",
+    parentkey: "finance_manage",
     apps: [
         {
-            name: "现金收款", key: "cash_receipt",
+            name: "实收实付", key: "actual_payment",
         },
         {
             name: "银行转账", key: "bank_transfer",

@@ -543,23 +543,26 @@ const childrenMenuData: MenuGroup[] = [{
 {
   title: "TMO管理",
   key: "tmo_manage",
-  parentkey: "cost_manage",
+  parentkey: "finance_manage",
   apps: [
       {
-          name: "现金收款", key: "cash_receipt",
+          name: "实收实付", key: "actual_payment",path:"/actual_payment",
       },
-      {
-          name: "银行转账", key: "bank_transfer",
-      },
-      {
-          name: "支票收款", key: "cheque_receipt",
-      },
-      {
-          name: "第三方支付平台", key: "third_party_payment",
-      },
-      {
-          name: "其他收款", key: "other_receipt",
-      },
+    //   {
+    //       name: "现金收款", key: "cash_receipt",
+    //   },
+    //   {
+    //       name: "银行转账", key: "bank_transfer",
+    //   },
+    //   {
+    //       name: "支票收款", key: "cheque_receipt",
+    //   },
+    //   {
+    //       name: "第三方支付平台", key: "third_party_payment",
+    //   },
+    //   {
+    //       name: "其他收款", key: "other_receipt",
+    //   },
   ]
 },
 {
@@ -581,10 +584,7 @@ const childrenMenuData: MenuGroup[] = [{
   parentkey: "finance_manage",
   apps: [
       {
-          name: "费用审核", key: "cost_audit",
-      },
-      {
-          name: "批量审核", key: "batch_audit",
+          name: "费用审核", key: "expense_review",path:"/expense_review",
       },
       {
           name: "增减费用", key: "add_cost",

@@ -8,7 +8,7 @@ import { HotTable, HotColumn, HotRendererProps } from '@handsontable/react-wrapp
 import Handsontable from "handsontable";
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
-import { getNotOffFeesList } from '@/api/financial_manage/not_off_setting_service';
+import { getNotOffFeesList } from '@/api/finance_manage/not_off_setting_service';
 import { NotOffFeesItemProps } from '@/types/not_off_setting/not_off_fees';
 import { getCashColumns } from './columns';
 import zh from 'antd/es/date-picker/locale/zh_CN';
