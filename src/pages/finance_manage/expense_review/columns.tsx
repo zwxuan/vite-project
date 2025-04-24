@@ -1,5 +1,5 @@
 
-import { TableColumnsType, Tag, Popconfirm } from 'antd';
+import { TableColumnsType, Tag, Popconfirm, Tooltip } from 'antd';
 import { ExpenseReviewItemProps } from "@/types/expense_review/expense_review";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
@@ -467,7 +467,20 @@ export const getColumns = (handleEdit: (record: ExpenseReviewItemProps) => void,
         sorter: false,
         align: 'left',
         render: (text: string) => {
-            return <div title={text} style={{ maxWidth:'200px',whiteSpace: 'nowrap',wordWrap: 'break-word', wordBreak: 'break-word',textOverflow:'ellipsis',overflow:'hidden'}}>{text}</div>;
+            return <Tooltip
+                title={
+                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                            {text && typeof text === 'string' && text.split(/[\uff0c,，]/).map((item, index) => (
+                                <li key={index} style={{ marginBottom: '10px' }}>{item.trim()}</li>
+                            ))}
+                        </ol>
+                    </div>
+                }
+                color='white'>
+                <div style={{ maxWidth: '200px', whiteSpace: 'nowrap', wordWrap: 'break-word', wordBreak: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
+            </Tooltip>
+
         },
     },
     {
@@ -500,9 +513,9 @@ export const getColumns = (handleEdit: (record: ExpenseReviewItemProps) => void,
         fixed: 'right',
         width: 20,
         render: (_, record) => (
-        <>
-            <NavLink to={`/orders/detail?businessId=${record.BusinessNumber}`}>详细</NavLink>
-        </>
+            <>
+                <NavLink to={`/orders/detail?businessId=${record.BusinessNumber}`}>详细</NavLink>
+            </>
         ),
     },
-]; 
+];
