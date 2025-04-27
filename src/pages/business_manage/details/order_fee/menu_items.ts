@@ -22,20 +22,41 @@ export const statusItems: MenuProps['items'] = [
         label: '处理差额',
         key: '7',
     },
-    {
-        label: '红冲',
-        key: '8',
-    },
 ];
 
 export const statusCheckItems: MenuProps['items'] = [
     {
-        label: '手工对账',
+        label: '人工对账',
         key: '5',
     },
     {
         label: '取消对账',
         key: '6',
+    },
+];
+export const feeAdjustmentItems: MenuProps['items'] = [
+    {
+        label: '增加调整',
+        key: '1',
+    },
+    {
+        label: '修改调整',
+        key: '2',
+    },
+    {
+        label: '删除调整',
+        key: '3',
+    },
+];
+
+export const costControlItems: MenuProps['items'] = [
+    {
+        label: '受控',
+        key: '1',
+    },
+    {
+        label: '取消受控',
+        key: '2',
     },
 ];
 

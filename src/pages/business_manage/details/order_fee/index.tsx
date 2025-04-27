@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification, Checkbox } from 'antd';
+import { Table,Button,Dropdown, Space,Progress,notification, Checkbox, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrderFeeItemProps } from "@/types/order_fee/order_fee";
@@ -13,7 +13,7 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems,statusCheckItems, importItems, exportItems } from './menu_items';
+import { statusItems,statusCheckItems, importItems, exportItems, feeAdjustmentItems, costControlItems } from './menu_items';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
@@ -209,17 +209,32 @@ const OrderFee : React.FC = () => {
                                 <Button>复制</Button>
                                 <Button>创建账单</Button>
                                 <Button>费用方案</Button>
-                                <Button>受控</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
+                        <Dropdown menu={{items:costControlItems}}>
+                                <Button>
+                                    <Space>
+                                        受控
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
                             <Dropdown menu={{items:statusCheckItems}}>
                                 <Button>
                                     <Space>
-                                        对账
+                                        人工对账
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                            <Dropdown menu={{items:feeAdjustmentItems}}>
+                                <Button>
+                                    <Space>
+                                        费用调整
                                     <DownOutlined />
                                     </Space>
                                 </Button>   
@@ -252,6 +267,26 @@ const OrderFee : React.FC = () => {
                         <span className="u-button">
                             <RedoOutlined className='iconfont' />
                         </span>
+                        <Tooltip
+                            title={
+                                <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                    <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>受控</b></span>受控的费用，只有具有受控权限的用户或者管理员用户可以看到。
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>处理差额</b></span>费用手动对账后如果费用还有差额，将差额新生成一条费用，源费用变成确认状态。
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>增加调整</b></span>已经审核的业务单据，操作不能再增加费用，但是财务可以增加费用。
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>修改调整</b></span>已经审核的业务单据，操作不能再修改费用，但是财务可以修改费用，在原来费用的基础上生成一个相同的负数费用，同时在生成一个调整后的新费用。
+                                        </li>
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>删除调整</b></span>已经审核的业务单据，操作不能再删除费用，但是财务可以删除费用，在原来费用的基础上生成一个相同的负数费用。
+                                        </li>
+                                    </ol>
+                                </div>
+                            }
+                            color='white'>
+                            <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                        </Tooltip>
                     </div>
                 </div>
             </div>

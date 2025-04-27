@@ -1,6 +1,6 @@
 
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space } from 'antd';
+import { Table,Button,Dropdown, Space, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrderBillItemProps } from "@/types/order_bill/order_bill";
@@ -126,15 +126,32 @@ const OrderFeeSplit : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 费用拆分
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>合同条款</b></span>分段计价,阶梯折扣
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>客户需求</b></span>分开发票,隐藏真实成本
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>税务合规</b></span>税率分离,跨境结算
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>物流需求</b></span>分段运输,异常费用调整
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>规避风险</b></span>汇率波动,争议准备金
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>佣金分成</b></span>代理佣金分离,多方分成
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>特殊说明</b></span>没有生成后续单据的费用才能拆分，例如已经生成账单、开票、销账的费用不能拆分
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
-                    <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
-                            <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
-                            </label>
-                        </div>
-                    </span>
                 </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>

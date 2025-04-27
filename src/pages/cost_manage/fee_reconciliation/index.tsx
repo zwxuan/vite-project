@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification,Drawer } from 'antd';
+import { Table,Button,Dropdown, Space,Progress,notification,Drawer, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
@@ -222,6 +222,32 @@ const FeeReconciliation : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 费用对账
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>人工对账</b></span>财务或者操作手动进行费用核对。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>自动对账</b></span>财务或者操作根据系统对于客户或者供应商在某个公司配置的对账规则，根据上传的Excle文件自动比对费用。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>确认</b></span>费用打上确认标记，相当于费用对账确认。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>处理差额</b></span>费用手动对账后如果费用还有差额，将差额新生成一条费用，源费用变成确认状态。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>审核</b></span>财务对于已经对账完成的费用进行审核，审核通过后，进行后续开票、付款、核销操作。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>小额费用</b></span>对于小额或简单的费用，直接核销或付款可以节省时间。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>内部结算</b></span>在内部部门之间的结算中，可能不需要正式的账单。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>自动化流程</b></span>系统自动化程度较高时，可以直接根据费用记录生成付款或开票，无需额外生成账单。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>

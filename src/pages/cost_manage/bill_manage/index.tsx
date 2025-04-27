@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { BillManageItemProps } from "@/types/bill_manage/bill_manage";
@@ -194,7 +194,26 @@ const BillManage : React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 账单管理
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 账单
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>外部交易</b></span>涉及与外部供应商或客户的交易，如采购商品、接受服务等，通常需要生成账单。例如，企业购买办公用品，供应商会开具发票（账单）。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>税务合规</b></span>某些费用需要账单作为凭证，以满足税务申报和审计的要求。例如，企业支付的房租费用需要房东开具发票。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>确认</b></span>费用打上确认标记，相当于费用对账确认。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>总结</b></span>是否需要生成账单，取决于费用的性质和业务场景。外部交易费用通常需要账单，而内部费用或预估费用则不一定需要。
+                                            </li>
+                                            
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>

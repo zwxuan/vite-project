@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { StatementOfAccountItemProps } from "@/types/statement_of_account/statement_of_account";
@@ -197,7 +197,19 @@ const StatementOfAccount : React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 对账单管理
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 对账单
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>对账单</b></span>多笔账单的集合，用于分阶段核对，例如客户B的月结账单有50票工作单，您无法一天内核对完毕，需分3天完成，每天对账完成的账单生成对账单。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
