@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Radio,Progress,notification,Row,Col } from 'antd';
+import { Table,Button,Dropdown, Space,Radio,Progress,notification,Row,Col, Tooltip } from 'antd';
 import type { MenuProps,RadioChangeEvent,TableProps,TableColumnsType } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { InvoiceIssuanceReceiptItemProps } from "@/types/invoice_issuance_receipt/invoice_issuance_receipt";
@@ -220,6 +220,28 @@ const InvoiceIssuanceReceipt : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 开票收票
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>开票</b></span>指服务提供方或销售方向购买方开具发票，确认收入并作为税务申报凭证。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>收票</b></span>指服务接收方或购买方收到发票，用于成本确认和税务抵扣。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>对冲开票</b></span>当同一交易对手（客户/供应商）同时存在应收和应付账款时，双方通过系统或协议将应收和应付金额相抵，仅对净额部分开具发票（而非全额开票）。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>完整流程示例</b></span>
+                                            <p>1. 原始交易：货代A为客户B提供运输服务，应收运费10万元（A开票给B）；客户B为货代A提供仓储服务，应付仓储费8万元（B开票给A）。</p>
+                                            <p>2. 对冲抵消：双方协商后，将应收10万与应付8万对冲，净应收2万元（B需支付A）。</p>
+                                            <p>3. 开票调整：A向B开具净额发票2万元（原10万运费发票 - 8万仓储发票对冲）；B不再单独支付10万，A也不再支付8万。</p>
+                                            <p>4. 结算	    B根据净额发票支付A 2万元。</p>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>

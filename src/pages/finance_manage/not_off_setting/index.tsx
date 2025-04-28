@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox } from 'antd';
+import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox, Tooltip } from 'antd';
 import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
@@ -227,6 +227,26 @@ const NotOffSetting : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 未核销列表
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>对冲销账</b></span>指通过相互抵消应收款项和应付款项来简化账务结算，避免实际资金流动。其核心是当同一交易对手（客户或供应商）同时存在“应收”和“应付”关系时，双方协商将部分或全部金额直接抵消，减少资金流转的繁琐和成本。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>客户与供应商双重身份</b></span>作为客户：例如，货代A委托合作车队B运输货物，需向B支付运费（应付账款）。作为供应商：同一车队B可能委托货代A处理报关服务，需向A支付服务费（应收账款）。此时，双方可协商对冲账目（如A应付B的运费与B应付A的服务费抵消），减少实际付款。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>跨境业务中的汇率风险对冲</b></span>在国际货代中，若同时存在外币应收和应付，对冲可减少汇率波动的影响。货代公司有一笔美元应收账款和一笔美元应付账款，对冲后仅需处理差额，降低外汇兑换风险。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>关联企业内部交易</b></span>集团内不同子公司或关联企业之间频繁交易时，对冲销账可简化内部资金调拨。集团内货代子公司与报关子公司互相提供服务，定期对冲账目以减少资金占用。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>账目差异或错误调整</b></span>当发生重复记账、金额错误或费用争议时，对冲销账可用于快速调整账目。货代公司误向客户多收运费，后续业务中直接在应付客户的款项中抵消多收部分，无需退款。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
