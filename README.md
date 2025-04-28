@@ -1,3 +1,9 @@
+# FMS Admin - 基于 React + TypeScript + Vite 的财务管理系统
+
+这是一个使用 React, TypeScript 和 Vite 构建的财务管理系统前端项目。旨在提供一套完整的财务管理解决方案，包括账单管理、费用管理、财务报表等功能。
+
+**关键词:** React, TypeScript, Vite, vite-project, 财务管理系统, FMS, Admin, Frontend, Accounting, Finance
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
