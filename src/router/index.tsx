@@ -4,7 +4,8 @@ import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
-  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview} from "./imports";
+  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
+  ,FeeAdjustment} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -244,6 +245,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <ExpenseReview />
+          </RouterGuard>),
+      },
+      {
+        path: "/fee_adjustment",
+        handle: { title: '费用调整' },
+        element: (
+          <RouterGuard>
+            <FeeAdjustment />
           </RouterGuard>),
       },
       {

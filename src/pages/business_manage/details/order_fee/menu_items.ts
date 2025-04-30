@@ -36,15 +36,15 @@ export const statusCheckItems: MenuProps['items'] = [
 ];
 export const feeAdjustmentItems: MenuProps['items'] = [
     {
-        label: '增加调整',
+        label: '增加费用',
         key: '1',
     },
     {
-        label: '修改调整',
+        label: '修改费用',
         key: '2',
     },
     {
-        label: '删除调整',
+        label: '删除费用',
         key: '3',
     },
 ];

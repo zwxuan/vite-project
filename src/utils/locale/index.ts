@@ -28,6 +28,7 @@ import { ReleaseOrderVerificationFeeLocale } from './release_order_verification_
 import { BlReleaseLocale } from './bl_release.ts';
 import { ReconciliationRuleEngineLocale } from './reconciliation_rule_engine.ts';
 import { ExpenseReviewLocale } from './expense_review.ts';
+import { FeeAdjustmentFeeLocale, FeeAdjustmentLocale } from './fee_adjustment.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -60,6 +61,8 @@ export {
   BlReleaseLocale,
   ReconciliationRuleEngineLocale,
   ExpenseReviewLocale,
+  FeeAdjustmentFeeLocale,
+  FeeAdjustmentLocale,
 };
 
 export default {
@@ -91,7 +94,9 @@ export default {
   ...PaymentApplicationBusinessLocale,
   ...ReleaseOrderVerificationLocale,
   ...ReleaseOrderVerificationFeeLocale,
- ...BlReleaseLocale,
-...ReconciliationRuleEngineLocale,
-...ExpenseReviewLocale,
+  ...BlReleaseLocale,
+  ...ReconciliationRuleEngineLocale,
+  ...ExpenseReviewLocale,
+  ...FeeAdjustmentFeeLocale,
+  ...FeeAdjustmentLocale,
 };

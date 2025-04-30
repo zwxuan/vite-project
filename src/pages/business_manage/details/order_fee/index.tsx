@@ -275,11 +275,11 @@ const OrderFee : React.FC = () => {
                                         </li>
                                         <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>处理差额</b></span>费用手动对账后如果费用还有差额，将差额新生成一条费用，源费用变成确认状态。
                                         </li>
-                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>增加调整</b></span>已经审核的业务单据，操作不能再增加费用，但是财务可以增加费用。
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>增加费用</b></span>已经审核的业务单据，操作不能再增加费用，但是财务可以增加费用。
                                         </li>
-                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>修改调整</b></span>已经审核的业务单据，操作不能再修改费用，但是财务可以修改费用，在原来费用的基础上生成一个相同的负数费用，同时在生成一个调整后的新费用。
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>修改费用</b></span>已经审核的业务单据，操作不能再修改费用，但是财务可以修改费用，在原来费用的基础上生成一个相同的负数费用，同时在生成一个调整后的新费用。
                                         </li>
-                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>删除调整</b></span>已经审核的业务单据，操作不能再删除费用，但是财务可以删除费用，在原来费用的基础上生成一个相同的负数费用。
+                                        <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>删除费用</b></span>已经审核的业务单据，操作不能再删除费用，但是财务可以删除费用，在原来费用的基础上生成一个相同的负数费用。
                                         </li>
                                     </ol>
                                 </div>

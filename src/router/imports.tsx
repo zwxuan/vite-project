@@ -32,6 +32,7 @@ import PaymentApplication from "@/pages/cost_manage/payment_application";
 import ReleaseOrderVerification from "@/pages/cost_manage/release_order_verification";
 import BlRelease from "@/pages/cost_manage/bl_release";
 import ExpenseReview from "@/pages/finance_manage/expense_review";
+import FeeAdjustment from "@/pages/finance_manage/fee_adjustment";
 export {
   Currency,
   Orders,
@@ -67,4 +68,5 @@ export {
   ReleaseOrderVerification,
   BlRelease,
   ExpenseReview,
+  FeeAdjustment,
 };
