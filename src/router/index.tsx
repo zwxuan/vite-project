@@ -5,7 +5,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
   ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
-  ,FeeAdjustment} from "./imports";
+  ,FeeAdjustment,ActualPayment} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -221,6 +221,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <ChargingStandard />
+          </RouterGuard>),
+      },
+      {
+        path: "/actual_payment",
+        handle: { title: '实收实付' },
+        element: (
+          <RouterGuard>
+            <ActualPayment />
           </RouterGuard>),
       },
       {

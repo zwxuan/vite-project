@@ -12,7 +12,7 @@ const userLoginString = sessionStorage.getItem('userlogin')
     UserEmail: ''
   });
 const initialUser: UserLogin = JSON.parse(userLoginString);
-
+console.log(initialUser);
 // 创建 slice
 export const userSlice = createSlice({
   name: "userLogin",// 名称
