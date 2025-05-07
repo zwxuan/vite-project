@@ -4,8 +4,9 @@ import { Item } from './draggable';
 import TranferRight from './tranfer_right';
 import zhCN from 'antd/es/date-picker/locale/zh_CN';
 import type { TransferProps } from 'antd';
+import DatePickerZH, { RangePickerZH } from '../date-picker';
 const { Option } = Select;
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePickerZH;
 type Field = {
     key: string;
     label: string;
@@ -150,20 +151,19 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <DatePicker style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                    <DatePickerZH style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                                 </div>
                             </div>
 
                         </Form.Item>
                     ) :
                         (
-
                             <Form.Item
                                 name={config.key}
                                 label={config.label}
                                 labelCol={{ span: 7 }}
                             >
-                                <RangePicker locale={zhCN} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                <RangePickerZH allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                             </Form.Item>
                         )
                     }

@@ -34,6 +34,7 @@ import BlRelease from "@/pages/cost_manage/bl_release";
 import ExpenseReview from "@/pages/finance_manage/expense_review";
 import FeeAdjustment from "@/pages/finance_manage/fee_adjustment";
 import ActualPayment from "@/pages/finance_manage/actual_payment";
+import FinanceQuery from "@/pages/finance_manage/finance_query";
 export {
   Currency,
   Orders,
@@ -71,4 +72,5 @@ export {
   ExpenseReview,
   FeeAdjustment,
   ActualPayment,
+  FinanceQuery,
 };

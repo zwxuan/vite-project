@@ -30,6 +30,7 @@ import { ReconciliationRuleEngineLocale } from './reconciliation_rule_engine.ts'
 import { ExpenseReviewLocale } from './expense_review.ts';
 import { FeeAdjustmentFeeLocale, FeeAdjustmentLocale } from './fee_adjustment.ts';
 import { ActualPaymentLocale } from './actual_payment.ts';
+import { StatementObjectLocale } from './statement_object.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -65,6 +66,7 @@ export {
   FeeAdjustmentFeeLocale,
   FeeAdjustmentLocale,
   ActualPaymentLocale,
+  StatementObjectLocale,
 };
 
 export default {
@@ -102,4 +104,5 @@ export default {
   ...FeeAdjustmentFeeLocale,
   ...FeeAdjustmentLocale,
  ...ActualPaymentLocale,
+...StatementObjectLocale,
 };
