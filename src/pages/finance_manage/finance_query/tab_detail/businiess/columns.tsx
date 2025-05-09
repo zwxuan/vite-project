@@ -653,7 +653,7 @@ export const getColumns = (handleEdit: (record: OrdersItemProps) => void, handle
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 80,
+        width: 40,
         onHeaderCell: () => ({ style: { width: '200px' } }),
         render: (_, record) => (
         <>
@@ -662,3 +662,33 @@ export const getColumns = (handleEdit: (record: OrdersItemProps) => void, handle
         ),
     },
 ];
+
+
+export const getBusinessSumColumns = () => [
+    {
+        title: '',
+        width: 60,
+        dataIndex: 'sum_title',
+        align: 'left',
+        
+    },
+    {
+        title: 'RMB',
+        width: 100,
+        dataIndex: 'rmb',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+        
+    },
+    {
+        title: 'USD',
+        width: 100,
+        dataIndex: 'usd',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+]; 

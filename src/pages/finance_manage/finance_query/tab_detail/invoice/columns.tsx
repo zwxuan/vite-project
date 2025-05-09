@@ -453,3 +453,22 @@ export const getColumns = (handleEdit: (record: InvoiceItemProps) => void, handl
         ),
     },
 ]; 
+
+export const getInvoiceSumColumns = () => [
+    {
+        title: '',
+        width: 60,
+        dataIndex: 'sum_title',
+        align: 'left',
+    },
+    {
+        title: 'RMB',
+        width: 100,
+        dataIndex: 'rmb',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+        
+    },
+]; 

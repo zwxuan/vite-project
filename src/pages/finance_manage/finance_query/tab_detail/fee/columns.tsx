@@ -1107,3 +1107,40 @@ export const getColumns = (handleEdit: (record: FeeReconciliationItemProps) => v
         align: 'right',
     },
 ]; 
+
+export const getFeeSumColumns = () => [
+    {
+        title: '',
+        width: 60,
+        dataIndex: 'sum_title',
+        align: 'left',
+    },
+    {
+        title: 'RMB',
+        width: 100,
+        dataIndex: 'rmb',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+        
+    },
+    {
+        title: 'USD',
+        width: 100,
+        dataIndex: 'usd',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+    {
+        title: 'EUR',
+        width: 100,
+        dataIndex: 'eur',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+]; 

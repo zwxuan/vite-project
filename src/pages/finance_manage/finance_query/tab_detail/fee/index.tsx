@@ -10,13 +10,17 @@ import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
-import { getColumns } from './columns';
+import { getColumns, getFeeSumColumns } from './columns';
+import SumTableFooter from '@/components/table-footer/SumTableFooter';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const FeeReconciliation : React.FC = () => {
+interface FeeReconciliationProps {
+    isCurrentTabActive?: boolean;
+  }
+const FeeReconciliationComponent : React.FC<FeeReconciliationProps> = ({ isCurrentTabActive = true }) => {
     // 费用对账数据
     const [feeReconciliationList, setFeeReconciliationList] = useState([] as FeeReconciliationItemProps[]);
-    const navigate = useNavigate();
+    
     // 获取费用对账数据
     useEffect(() => {
         const getData = async () => {
@@ -26,8 +30,52 @@ const FeeReconciliation : React.FC = () => {
         };
         getData();
     }, []);
-  
+    const summaryData = [
+        {
+            sum_title: '应收',
+            rmb: 1568739.80,
+            usd: 7435355.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '应付',
+            rmb: 705318.30,
+            usd: 50976.37,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '已收',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '已付',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '未收',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '未付',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        }
+    ]
     const columnsType = getColumns(()=>{}, ()=>{},()=>{});
+    const sumColumnsType = getFeeSumColumns() as any[];
     //表格选中和取消时触发的函数
     const rowSelection: TableRowSelection<FeeReconciliationItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -46,6 +94,7 @@ const FeeReconciliation : React.FC = () => {
         columnWidth: '20px',
     };
     
+
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
             <div className='nc-bill-table-area'>
@@ -70,7 +119,13 @@ const FeeReconciliation : React.FC = () => {
                         }
                     }
                     scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
-                    footer={() => 'RMB:1,022.00 USD:3,000.00 对账金额 RMB:1,600.00 USD:8,000.00 差额 RMB:-578.00 USD:-5,000.00'}
+                    footer={() => (
+                        <SumTableFooter 
+                            summaryColumns={sumColumnsType} 
+                            summaryData={summaryData}
+                            isParentTabActive={isCurrentTabActive}
+                        />
+                    )}
                     bordered={true}
                 />
             </div>
@@ -79,4 +134,5 @@ const FeeReconciliation : React.FC = () => {
         
     )
 }
+const FeeReconciliation = React.memo(FeeReconciliationComponent);
 export default FeeReconciliation;

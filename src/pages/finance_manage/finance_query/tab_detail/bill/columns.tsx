@@ -411,3 +411,32 @@ export const getColumns = (handleEdit: (record: BillManageItemProps) => void, ha
         align: 'center',
     },
 ]; 
+
+export const getBillSumColumns = () => [
+    {
+        title: '',
+        width: 60,
+        dataIndex: 'sum_title',
+        align: 'left',
+        
+    },
+    {
+        title: 'RMB',
+        width: 100,
+        dataIndex: 'rmb',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+        
+    },
+    {
+        title: 'USD',
+        width: 100,
+        dataIndex: 'usd',
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+]; 

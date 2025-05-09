@@ -2051,5 +2051,23 @@ input.ant-input{
   .ant-picker-header,.ant-picker-body {
     font-size: 12px;
   }
-
-  
+  .ant-popover .ant-popover-inner {
+     border: 1px solid #d9d9d9;
+     border-radius: 0px;
+     border-top-left-radius: 8px;
+     border-top-right-radius: 8px;
+     padding: 2px;
+  }
+  /*table合计弹出样式*/
+  .ant-popover .ant-popover-inner {
+    .sum_table_footer {
+        td {
+            background-color: #f9fbff;
+            color: #0073e1;
+        }
+        tr:not(.sumrow):nth-child(2n-1) td {
+            background-color: #f9fbff;
+            color: #0073e1;
+        }
+    }
+  }

@@ -10,10 +10,15 @@ import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
-import { getColumns } from './columns';
+import { getColumns, getInvoiceSumColumns } from './columns';
+import SumTableFooter from '@/components/table-footer/SumTableFooter';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const Invoice : React.FC = () => {
+interface InvoiceProps {
+  isCurrentTabActive?: boolean;
+}
+
+const InvoiceComponent : React.FC<InvoiceProps> = ({ isCurrentTabActive = true }) => {
     // 发票管理数据
     const [invoiceList, setInvoiceList] = useState([] as InvoiceItemProps[]);
     // 获取发票管理数据
@@ -27,7 +32,37 @@ const Invoice : React.FC = () => {
     }, []);
     
     const columnsType = getColumns(()=>{}, ()=>{});
-
+    const sumColumnsType = getInvoiceSumColumns() as any[];
+    const summaryData = [
+        {
+            sum_title: '已收折合CNY',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '已付折合CNY',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '未收折合CNY',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        },
+        {
+            sum_title: '未付折合CNY',
+            rmb: 54022674.21,
+            usd: 458799.00,
+            eur: 0.00,
+            jpy: 0.00,
+        }
+    ]
 
     //表格选中和取消时触发的函数
     const rowSelection: TableRowSelection<InvoiceItemProps> = {
@@ -71,7 +106,13 @@ const Invoice : React.FC = () => {
                         }
                     }
                     scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
-                    footer={() => '底部汇总信息'}
+                    footer={() => (
+                        <SumTableFooter 
+                            summaryColumns={sumColumnsType} 
+                            summaryData={summaryData}
+                            isParentTabActive={isCurrentTabActive}
+                        />
+                    )}
                     bordered={true}
                 />
             </div>
@@ -80,4 +121,5 @@ const Invoice : React.FC = () => {
         
     )
 }
+const Invoice = React.memo(InvoiceComponent);
 export default Invoice;
