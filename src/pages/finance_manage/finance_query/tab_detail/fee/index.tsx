@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Progress,notification,Drawer, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
+import { FeeReconciliationItemProps } from "@/types/cost_manage/fee_reconciliation/fee_reconciliation";
 import { getFeeReconciliationList,saveFeeReconciliation } from "@/api/cost_manage/fee_reconciliation_service";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
