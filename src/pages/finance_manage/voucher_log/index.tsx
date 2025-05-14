@@ -16,9 +16,10 @@ import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
 import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_template_update';
 import { getColumns } from './columns';
-import { statusItems, importItems, exportItems } from './menu_items';
+import { statusItems, sendVoucherItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
+import VoucherDrCrModal from './vocuher_detail_dr_cr';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const VoucherLog : React.FC = () => {
@@ -44,36 +45,16 @@ const VoucherLog : React.FC = () => {
     const handleEdit = (record:VoucherLogItemProps) => {
         const newData = voucherLogList.filter((item) => `${item.VoucherSerialNo}` === `${record.VoucherSerialNo}`);
         setFormData(newData[0]);
-        setModalFlag('edit');
-        showModal();
+        setOpenDetail(true);
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
     
-    const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
-        console.log(`Click on item ${key}`);
-        if(key==='1'){
-            setUploadImportType(1);
-            setExcelOpen(true);
-        }else if(key==='2'){
-            setExcelTemplateOpen(true);
-            console.log(openExcelTemplate)
-        }else if(key==='3'){
-            setUploadImportType(2);
-            setExcelOpen(true);
-        }else if(key==='4'){
-            setExcelTemplateOpenUpdate(true);
-        }
-        else{
-            navigate('/importlog');
-        }
-    };
 
     
     const [open, setOpen] = useState(false);
-    const [openExcel, setExcelOpen] = useState(false);
+    const [openDetail, setOpenDetail] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
-    const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
     const [saving, setSaving] = useState(false);
     const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
 
@@ -152,16 +133,8 @@ const VoucherLog : React.FC = () => {
         if (!saving) {
             setFormData(initFormData);
             setOpen(false);
+            setOpenDetail(false);
         }
-    };
-    const handleExcelCancel = () => {
-        setExcelOpen(false);
-    };
-    const handleExcelTemplateCancel = () => {
-        setExcelTemplateOpen(false);
-    };
-    const handleExcelTemplateUpdateCancel = () => {
-        setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
     const rowSelection: TableRowSelection<VoucherLogItemProps> = {
@@ -198,10 +171,12 @@ const VoucherLog : React.FC = () => {
                 onDateChange={handleDateChange}
                 onNumberChange={handleNumberChange}
             />
-            
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='voucher_log' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='voucher_log' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='voucher_log' />
+
+            <VoucherDrCrModal
+                open={openDetail}
+                formData={formData}
+                onCancel={handleCancel}
+            />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
@@ -212,9 +187,6 @@ const VoucherLog : React.FC = () => {
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
                         <div style={{display: "inline"}}>
-                            <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
-                            </label>
                         </div>
                     </span>
                 </div>
@@ -223,28 +195,23 @@ const VoucherLog : React.FC = () => {
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button>修改</Button>
-                                <Button>删除</Button>
-                                <Button>复制</Button>
+                                <Button type="primary" onClick={handleAdd}>生成凭证</Button>
+                                <Button type="primary">删除凭证</Button>
+                                <Button type="primary">强制删除</Button>
+                                <Button type="primary">审核凭证</Button>
+                                <Button type="primary">取消审核</Button>
+                                <Button type="primary">红冲凭证</Button>
+                                
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusItems}}>
+                            <Dropdown menu={{items:sendVoucherItems}}>
                                 <Button>
                                     <Space>
-                                        启用
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
-                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
-                                <Button>
-                                    <Space>
-                                        导入
+                                        发送凭证
                                     <DownOutlined />
                                     </Space>
                                 </Button>   

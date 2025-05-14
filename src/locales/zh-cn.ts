@@ -1139,7 +1139,7 @@ export const cn = {
         voucherdebitcredittotal:"凭证借贷合计",
         voucherstatus:"凭证状态",
         voucherdate:"凭证日期",
-        voucherstatus2:"凭证状态（第二个状态字段）",
+        voucherstatus2:"发送状态",
         counterpartyvoucherno:"对方凭证号",
         debitamount:"借方金额",
         creditamount:"贷方金额",

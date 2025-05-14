@@ -1,5 +1,5 @@
 
-import { TableColumnsType, Tag, Popconfirm } from 'antd';
+import { TableColumnsType, Tag, Popconfirm, Tooltip } from 'antd';
 import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
@@ -10,19 +10,35 @@ export const getColumns = (handleEdit: (record: VoucherLogItemProps) => void, ha
 
     {
         title: i18n.t(LocaleHelper.getVoucherLogVoucherSerialNo()),
-        width: 100,
+        width: 120,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'VoucherSerialNo',
         sorter: true,
-        align: 'right',
+        align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getVoucherLogVoucherNo()),
-        width: 100,
+        width: 160,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'VoucherNo',
         sorter: true,
         align: 'left',
+        render: (text: string) => {
+            return <Tooltip
+                title={
+                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                            {text && typeof text === 'string' && text.split(/[\uff0c,，]/).map((item, index) => (
+                                <li key={index} style={{ marginBottom: '10px' }}>{item.trim()}</li>
+                            ))}
+                        </ol>
+                    </div>
+                }
+                color='white'>
+                <div style={{ maxWidth: '200px', whiteSpace: 'nowrap', wordWrap: 'break-word', wordBreak: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
+            </Tooltip>
+
+        },
     },
     {
         title: i18n.t(LocaleHelper.getVoucherLogVoucherType()),
@@ -34,11 +50,27 @@ export const getColumns = (handleEdit: (record: VoucherLogItemProps) => void, ha
     },
     {
         title: i18n.t(LocaleHelper.getVoucherLogVoucherDebitCreditTotal()),
-        width: 100,
+        width: 160,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'VoucherDebitCreditTotal',
         sorter: true,
-        align: 'right',
+        align: 'left',
+        render: (text: string) => {
+            return <Tooltip
+                title={
+                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                            {text && typeof text === 'string' && text.split(/[\uff0c,，]/).map((item, index) => (
+                                <li key={index} style={{ marginBottom: '10px' }}>{item.trim()}</li>
+                            ))}
+                        </ol>
+                    </div>
+                }
+                color='white'>
+                <div style={{ maxWidth: '200px', whiteSpace: 'nowrap', wordWrap: 'break-word', wordBreak: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
+            </Tooltip>
+
+        },
     },
     {
         title: i18n.t(LocaleHelper.getVoucherLogVoucherStatus()),
@@ -55,22 +87,6 @@ export const getColumns = (handleEdit: (record: VoucherLogItemProps) => void, ha
         dataIndex: 'VoucherDate',
         sorter: true,
         align: 'center',
-    },
-    {
-        title: i18n.t(LocaleHelper.getVoucherLogVoucherStatus2()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
-        dataIndex: 'VoucherStatus2',
-        sorter: true,
-        align: 'left',
-    },
-    {
-        title: i18n.t(LocaleHelper.getVoucherLogCounterpartyVoucherNo()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
-        dataIndex: 'CounterpartyVoucherNo',
-        sorter: true,
-        align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getVoucherLogDebitAmount()),
@@ -140,11 +156,10 @@ export const getColumns = (handleEdit: (record: VoucherLogItemProps) => void, ha
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 100,
+        width: 40,
         render: (_, record) => (
         <>
-            <a>启用</a>
-            <a onClick={()=>handleEdit(record)}>编辑</a>
+            <a onClick={()=>handleEdit(record)}>查看</a>
             <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
                 <a>删除</a>
             </Popconfirm>

@@ -12,26 +12,18 @@ export const statusItems: MenuProps['items'] = [
     },
 ];
 
-export const importItems: MenuProps['items'] = [
+export const sendVoucherItems: MenuProps['items'] = [
     {
-        label: '新增导入',
+        label: '发送用友',
         key: '1',
     },
     {
-        label: '下载新增模板',
+        label: '发送金蝶',
         key: '2',
     },
     {
-        label: '更新导入',
+        label: '发送SAP',
         key: '3',
-    },
-    {
-        label: '下载更新模板',
-        key: '4',
-    },
-    {
-        label: '查看导入日志',
-        key: '5',
     },
 ];
 

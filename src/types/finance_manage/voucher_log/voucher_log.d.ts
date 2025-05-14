@@ -1,13 +1,13 @@
 // 凭证生成日志属性
 export interface VoucherLogItemProps {
     // 凭证流水号
-    VoucherSerialNo:number;
+    VoucherSerialNo:string;
     // 凭证号
     VoucherNo:string;
     // 凭证类型
     VoucherType:string;
     // 凭证借贷合计
-    VoucherDebitCreditTotal:number;
+    VoucherDebitCreditTotal:string;
     // 凭证状态
     VoucherStatus:string;
     // 凭证日期
