@@ -1,4 +1,4 @@
-import { InvoiceItemProps } from '@/types/invoice/invoice';
+import { InvoiceItemProps } from '@/types/cost_manage/invoice/invoice';
 import request, { ApiRes, requestWithProgress } from '../request';
 import Mock from 'mockjs';
 

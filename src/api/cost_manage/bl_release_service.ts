@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { BlReleaseItemProps } from "@/types/bl_release/bl_release";
+import { BlReleaseItemProps } from "@/types/cost_manage/bl_release/bl_release";
 import Mock from "mockjs";
 //
 const blReleaseItems:BlReleaseItemProps[] = [

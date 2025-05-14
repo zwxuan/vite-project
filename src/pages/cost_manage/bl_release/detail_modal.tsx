@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { BlReleaseItemProps } from "@/types/bl_release/bl_release";
+import { BlReleaseItemProps } from "@/types/cost_manage/bl_release/bl_release";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

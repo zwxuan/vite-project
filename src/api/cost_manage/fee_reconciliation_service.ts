@@ -1,7 +1,7 @@
 
 import Mock from "mockjs";
-import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
-import { ReconciliationRuleEngineItemProps,ReconciliationCompareFieldsItemProps,ReconciliationMatchFieldsItemProps } from "@/types/fee_reconciliation/reconciliation_rule_engine";
+import { FeeReconciliationItemProps } from "@/types/cost_manage/fee_reconciliation/fee_reconciliation";
+import { ReconciliationRuleEngineItemProps,ReconciliationCompareFieldsItemProps,ReconciliationMatchFieldsItemProps } from "@/types/cost_manage/fee_reconciliation/reconciliation_rule_engine";
 import request, { ApiRes, requestWithProgress } from '../request';
 // 模拟费用对账台账数据
 const feeReconciliationItems: FeeReconciliationItemProps[] = [
