@@ -31,6 +31,7 @@ import { ExpenseReviewLocale } from './expense_review.ts';
 import { FeeAdjustmentFeeLocale, FeeAdjustmentLocale } from './fee_adjustment.ts';
 import { ActualPaymentLocale } from './actual_payment.ts';
 import { StatementObjectLocale } from './statement_object.ts';
+import { VoucherLogLocale } from './voucher_log.ts';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -67,6 +68,7 @@ export {
   FeeAdjustmentLocale,
   ActualPaymentLocale,
   StatementObjectLocale,
+  VoucherLogLocale,
 };
 
 export default {
@@ -105,4 +107,5 @@ export default {
   ...FeeAdjustmentLocale,
  ...ActualPaymentLocale,
 ...StatementObjectLocale,
+...VoucherLogLocale,
 };

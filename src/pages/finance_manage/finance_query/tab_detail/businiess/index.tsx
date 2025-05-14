@@ -3,8 +3,8 @@ import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table } from 'antd';
 import type {TableProps } from 'antd';
-import { OrdersItemProps } from "@/types/orders/orders";
-import { getOrdersList } from "@/api/business_order/orders_service";
+import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+import { getOrdersList } from "@/api/business_manage/orders_service";
 import { getColumns,getBusinessSumColumns } from './columns';
 import SumTableFooter from '@/components/table-footer/SumTableFooter';
 

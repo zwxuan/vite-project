@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ActualPaymentItemProps } from "@/types/actual_payment/actual_payment";
+import { ActualPaymentItemProps } from "@/types/finance_manage/actual_payment/actual_payment";
 import { getActualPaymentList,saveActualPayment } from "@/api/finance_manage/actual_payment_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';

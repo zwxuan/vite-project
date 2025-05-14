@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { ExpenseReviewItemProps } from "@/types/expense_review/expense_review";
+import { ExpenseReviewItemProps } from "@/types/finance_manage/expense_review/expense_review";
 import Mock from "mockjs";
 //
 const expenseReviewItems: ExpenseReviewItemProps[] = [

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { ActualPaymentItemProps } from "@/types/actual_payment/actual_payment";
+import { ActualPaymentItemProps } from "@/types/finance_manage/actual_payment/actual_payment";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

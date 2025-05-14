@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { ImportTemplateItem,ImportTemplateFieldItem,ImportLogItem } from "@/types/excel/import_template.d";
+import { ImportTemplateItem,ImportTemplateFieldItem,ImportLogItem } from "@/types/basic_manage/log/import_template";
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
 const importTemplateItems:ImportTemplateItem[] = [
   {

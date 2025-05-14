@@ -4,7 +4,7 @@ import { Table } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { InvoiceItemProps } from "@/types/invoice/invoice";
-import { getInvoiceList,saveInvoice } from "@/api/fee_manage/invoice_service";
+import { getInvoiceList,saveInvoice } from "@/api/cost_manage/invoice_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";

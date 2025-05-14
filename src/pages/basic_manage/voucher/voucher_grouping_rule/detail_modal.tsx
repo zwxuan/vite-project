@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker } from 'antd';
-import { VoucherGroupingRuleItemProps } from "@/types/voucher_grouping_rule/voucher_grouping_rule";
+import { VoucherGroupingRuleItemProps } from "@/types/basic_manage/voucher_grouping_rule/voucher_grouping_rule";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

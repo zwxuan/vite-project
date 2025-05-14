@@ -2,8 +2,8 @@
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification,Popconfirm } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
-import { ChargingStandardItemProps } from "@/types/charging_standard/charging_standard";
-import { getChargingStandardList,saveChargingStandard } from "@/api/financial_basic_data/charging_standard_service";
+import { ChargingStandardItemProps } from "@/types/system_manage/charging_standard/charging_standard";
+import { getChargingStandardList,saveChargingStandard } from "@/api/basic_manage/charging_standard_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";

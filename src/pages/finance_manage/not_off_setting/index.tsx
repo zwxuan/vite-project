@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox, Tooltip } from 'antd';
 import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
+import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting/not_off_setting";
 import { getNotOffSettingList,saveNotOffSetting } from "@/api/finance_manage/not_off_setting_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -18,7 +18,7 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { getColumns as getBillColumns } from '@/pages/cost_manage/bill_manage/columns';
 import { getColumns as getStatementOfAccountColumns } from '@/pages/cost_manage/statement_of_account/columns';
-import { getColumns as getInvoiceColumns } from '@/pages/invoice_manage/invoice/columns';
+import { getColumns as getInvoiceColumns } from '@/pages/cost_manage/invoice/columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';

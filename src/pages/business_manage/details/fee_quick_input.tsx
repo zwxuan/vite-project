@@ -5,8 +5,8 @@ import Handsontable from "handsontable";
 import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
-import { getOrderFeeList,getFeeNameList } from "@/api/business_order/order_fee_service";
-import { OrderFeeItemProps,FeeNameItemProps } from "@/types/order_fee/order_fee";
+import { getOrderFeeList,getFeeNameList } from "@/api/business_manage/order_fee_service";
+import { OrderFeeItemProps,FeeNameItemProps } from "@/types/business_manage/order_fee/order_fee";
 const FeeQuickInput: React.FC = () => {
     const hotTableRef = useRef<any>(null);
 

@@ -8,14 +8,14 @@ import OrderFeeRelation from "@/pages/cost_manage/order_fee_relation/index_relat
 import OrderDetail from "@/pages/business_manage/detail";
 import OrderFeeSplit from "@/pages/cost_manage/order_fee_split";
 import LCLFeeShare from "@/pages/cost_manage/lcl_fee_share";
-import InvoiceDetail from "@/pages/invoice_manage/invoice/invoice_detail";
-import Invoice from "@/pages/invoice_manage/invoice";
-import InvoiceIssuanceReceipt from "@/pages/invoice_manage/invoice_issuance_receipt";
-import PhysicalInvoice from "@/pages/invoice_manage/physical_invoice";
+import InvoiceDetail from "@/pages/cost_manage/invoice/invoice_detail";
+import Invoice from "@/pages/cost_manage/invoice";
+import InvoiceIssuanceReceipt from "@/pages/cost_manage/invoice_issuance_receipt";
+import PhysicalInvoice from "@/pages/cost_manage/physical_invoice";
 import ReconciliationRuleEngine from "@/pages/cost_manage/reconciliation_rule_engine";
 import PermissionManagement from "@/pages/identity/permission";
-import ExportLog from "@/pages/log/export_log";
-import ImportLog from "@/pages/log/import_log";
+import ExportLog from "@/pages/basic_manage/log/export_log";
+import ImportLog from "@/pages/basic_manage/log/import_log";
 import Login from "@/pages/login";
 import SetFeeSchedule from "@/pages/system_manage/set_fee_schedule";
 import ChargingStandard from "@/pages/system_manage/charging_standard";
@@ -35,6 +35,7 @@ import ExpenseReview from "@/pages/finance_manage/expense_review";
 import FeeAdjustment from "@/pages/finance_manage/fee_adjustment";
 import ActualPayment from "@/pages/finance_manage/actual_payment";
 import FinanceQuery from "@/pages/finance_manage/finance_query";
+import VoucherLog from "@/pages/finance_manage/voucher_log";
 export {
   Currency,
   Orders,
@@ -73,4 +74,5 @@ export {
   FeeAdjustment,
   ActualPayment,
   FinanceQuery,
+  VoucherLog,
 };

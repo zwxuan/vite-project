@@ -5,7 +5,7 @@ import { Table,Button,Dropdown, Space,Progress,notification, Tooltip } from 'ant
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { BillManageItemProps } from "@/types/bill_manage/bill_manage";
-import { getBillManageList,saveBillManage } from "@/api/fee_manage/bill_manage_service";
+import { getBillManageList,saveBillManage } from "@/api/cost_manage/bill_manage_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";

@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { HasOffSettingItemProps,OffSettingDetailItemProps } from "@/types/has_off_setting/has_off_setting";
+import { HasOffSettingItemProps,OffSettingDetailItemProps } from "@/types/finance_manage/has_off_setting/has_off_setting";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 

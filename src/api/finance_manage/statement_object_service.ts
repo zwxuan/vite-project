@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { StatementObjectItemProps } from "@/types/statement_object/statement_object";
+import { StatementObjectItemProps } from "@/types/finance_manage/statement_object/statement_object";
 import Mock from "mockjs";
 //
 const statementObjectItems:StatementObjectItemProps[] = [

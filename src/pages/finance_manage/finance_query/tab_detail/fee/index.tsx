@@ -5,7 +5,7 @@ import { Table,Button,Dropdown, Space,Progress,notification,Drawer, Tooltip } fr
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { FeeReconciliationItemProps } from "@/types/fee_reconciliation/fee_reconciliation";
-import { getFeeReconciliationList,saveFeeReconciliation } from "@/api/fee_manage/fee_reconciliation_service";
+import { getFeeReconciliationList,saveFeeReconciliation } from "@/api/cost_manage/fee_reconciliation_service";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';

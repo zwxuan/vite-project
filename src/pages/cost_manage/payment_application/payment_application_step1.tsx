@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox } from 'antd';
 import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { getPaymentApplicationBusinessList, getPaymentApplicationFeeList } from "@/api/fee_manage/payment_application_service";
+import { getPaymentApplicationBusinessList, getPaymentApplicationFeeList } from "@/api/cost_manage/payment_application_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -13,8 +13,8 @@ import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm from "@/components/search-form";
 import { getPaymentAppFeeColumns,getPaymentAppBusinessColumns } from './columns';
 import { fieldsFee,fieldsBusiness } from './search_fields';
-import { PaymentApplicationFeeItemProps } from '@/types/payment_application_fee/payment_application_fee';
-import { PaymentApplicationBusinessItemProps } from '@/types/payment_application_business/payment_application_business';
+import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee/payment_application_fee';
+import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business/payment_application_business';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const PaymentApplicationStep1 : React.FC = () => {

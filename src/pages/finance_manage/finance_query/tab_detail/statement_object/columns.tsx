@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { StatementObjectItemProps } from "@/types/statement_object/statement_object";
+import { StatementObjectItemProps } from "@/types/finance_manage/statement_object/statement_object";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 

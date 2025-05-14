@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { StatementOfAccountItemProps } from "@/types/statement_of_account/statement_of_account";
+import { StatementOfAccountItemProps } from "@/types/cost_manage/statement_of_account/statement_of_account";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 

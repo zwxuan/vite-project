@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space } from 'antd';
-import { CurrencyItemProps } from "@/types/currency/currency";
+import { CurrencyItemProps } from "@/types/basic_manage/currency/currency";
 
 interface DetailModalProps {
     open: boolean;

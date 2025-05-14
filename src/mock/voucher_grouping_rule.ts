@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { VoucherGroupingRuleItemProps } from "@/types/voucher_grouping_rule/voucher_grouping_rule";
+import { VoucherGroupingRuleItemProps } from "@/types/basic_manage/voucher_grouping_rule/voucher_grouping_rule";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串

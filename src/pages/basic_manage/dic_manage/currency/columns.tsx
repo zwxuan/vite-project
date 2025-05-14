@@ -1,5 +1,5 @@
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { CurrencyItemProps } from "@/types/currency/currency";
+import { CurrencyItemProps } from "@/types/basic_manage/currency/currency";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 

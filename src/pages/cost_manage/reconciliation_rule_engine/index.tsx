@@ -2,7 +2,7 @@ import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Row, Input, Col, Select, Progress, message } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
-import { ReconciliationMatchFieldsItemProps,ReconciliationCompareFieldsItemProps,ReconciliationRuleEngineItemProps } from '@/types/fee_reconciliation/reconciliation_rule_engine';
+import { ReconciliationMatchFieldsItemProps,ReconciliationCompareFieldsItemProps,ReconciliationRuleEngineItemProps } from '@/types/cost_manage/fee_reconciliation/reconciliation_rule_engine';
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -10,7 +10,7 @@ import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import { getCompareFieldsColumns,getMatchFieldsColumns,getRuleEngineColumns } from './columns';
 import CodeBoxMeta from '@/components/code-box-meta';
-import { getReconciliationRuleEngineList,getCompareFieldsList,getMatchFieldsList } from '@/api/fee_manage/fee_reconciliation_service';
+import { getReconciliationRuleEngineList,getCompareFieldsList,getMatchFieldsList } from '@/api/cost_manage/fee_reconciliation_service';
 import { useTableOperations } from './hooks/useTableOperations';
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ReconciliationRuleEngine: React.FC = () => {

@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BlReleaseItemProps } from "@/types/bl_release/bl_release";
+import { BlReleaseItemProps } from "@/types/cost_manage/bl_release/bl_release";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import { NavLink } from 'react-router-dom';

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker } from 'antd';
-import { EntryGroupingRuleItemProps } from "@/types/entry_grouping_rule/entry_grouping_rule";
+import { EntryGroupingRuleItemProps } from "@/types/basic_manage/entry_grouping_rule/entry_grouping_rule";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Form, Input, InputNumber, Select, Progress, notification, Tooltip } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ExpenseReviewItemProps } from "@/types/expense_review/expense_review";
+import { ExpenseReviewItemProps } from "@/types/finance_manage/expense_review/expense_review";
 import { getExpenseReviewList, saveExpenseReview } from "@/api/finance_manage/expense_review_service";
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';

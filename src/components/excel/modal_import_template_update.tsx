@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Table, Button, Tooltip, Tag,Space,Radio } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ImportTemplateItem } from "@/types/excel/import_template";
-import { getImportTemplateList } from "@/api/financial_basic_data/currency_service";
+import { ImportTemplateItem } from "@/types/basic_manage/log/import_template";
+import { getImportTemplateList } from "@/api/basic_manage/currency_service";
 import CustomeExcelTemplate from './custom_template';
 interface ModelExcelImportTemplateProps {
     open: boolean;

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { OrderFeeItemProps } from "@/types/order_fee/order_fee";
+import { OrderFeeItemProps } from "@/types/business_manage/order_fee/order_fee";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

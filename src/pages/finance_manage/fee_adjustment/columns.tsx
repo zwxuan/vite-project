@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { FeeAdjustmentFeeItemProps,FeeAdjustmentItemProps } from "@/types/fee_adjustment/fee_adjustment";
+import { FeeAdjustmentFeeItemProps,FeeAdjustmentItemProps } from "@/types/finance_manage/fee_adjustment/fee_adjustment";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import { NavLink } from 'react-router-dom';

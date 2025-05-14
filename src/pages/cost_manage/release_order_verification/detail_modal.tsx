@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { ReleaseOrderVerificationItemProps } from "@/types/release_order_verification/release_order_verification";
+import { ReleaseOrderVerificationItemProps } from "@/types/cost_manage/release_order_verification/release_order_verification";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

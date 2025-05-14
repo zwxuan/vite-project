@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { AccountMappingItemProps } from "@/types/account_mapping/account_mapping";
+import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping/account_mapping";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;

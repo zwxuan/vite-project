@@ -603,7 +603,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "综合财务查询", key: "finance_query",path: "/finance_query",
         },
         {
-            name: "凭证查询", key: "voucher_query",
+            name: "凭证查询", key: "voucher_log",path: "/voucher_log",
         },
     ]
 },

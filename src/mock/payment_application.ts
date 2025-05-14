@@ -1,8 +1,8 @@
 import Mock from "mockjs";
-import { PaymentApplicationItemProps } from "@/types/payment_application/payment_application";
+import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application/payment_application";
 import { IncomingMessage, ServerResponse } from 'http';
-import { PaymentApplicationFeeItemProps } from "@/types/payment_application_fee/payment_application_fee";
-import { PaymentApplicationBusinessItemProps } from "@/types/payment_application_business/payment_application_business";
+import { PaymentApplicationFeeItemProps } from "@/types/cost_manage/payment_application_fee/payment_application_fee";
+import { PaymentApplicationBusinessItemProps } from "@/types/cost_manage/payment_application_business/payment_application_business";
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
 const paymentApplicationItems: PaymentApplicationItemProps[] = [

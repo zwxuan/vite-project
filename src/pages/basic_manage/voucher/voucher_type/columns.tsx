@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { VoucherTypeItemProps } from "@/types/voucher_type/voucher_type";
+import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type/voucher_type";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 

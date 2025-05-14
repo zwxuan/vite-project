@@ -1,7 +1,7 @@
 
-import { NotOffFeesItemProps } from '@/types/not_off_setting/not_off_fees';
+import { NotOffFeesItemProps } from '@/types/finance_manage/not_off_setting/not_off_fees';
 import request, { ApiRes, requestWithProgress } from '../request'
-import { NotOffSettingItemProps } from "@/types/not_off_setting/not_off_setting";
+import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting/not_off_setting";
 
 const notOffSettingItems:NotOffSettingItemProps[] = [
   {
