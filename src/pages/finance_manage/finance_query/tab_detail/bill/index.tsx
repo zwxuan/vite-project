@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BillManageItemProps } from "@/types/bill_manage/bill_manage";
+import { BillManageItemProps } from "@/types/cost_manage/bill_manage/bill_manage";
 import { getBillManageList,saveBillManage } from "@/api/cost_manage/bill_manage_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';

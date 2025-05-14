@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { InvoiceItemProps } from "@/types/invoice/invoice";
+import { InvoiceItemProps } from "@/types/cost_manage/invoice/invoice";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
