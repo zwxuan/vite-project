@@ -18,7 +18,7 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, sendVoucherItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
-import DetailModal from './detail_modal';
+import CreateVoucherModal from './create_voucher';
 import VoucherDrCrModal from './vocuher_detail_dr_cr';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
@@ -160,7 +160,7 @@ const VoucherLog : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
-            <DetailModal
+            <CreateVoucherModal
                 open={open}
                 modalFlag={modalFlag}
                 saving={saving}

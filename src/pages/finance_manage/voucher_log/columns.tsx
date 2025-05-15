@@ -3,6 +3,7 @@ import { TableColumnsType, Tag, Popconfirm, Tooltip } from 'antd';
 import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
+import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_log/voucher_detail';
 
 
 
@@ -165,5 +166,102 @@ export const getColumns = (handleEdit: (record: VoucherLogItemProps) => void, ha
             </Popconfirm>
         </>
         ),
+    },
+]; 
+
+
+export const getVoucherDetailColumns = (): TableColumnsType<VoucherDetailItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailId()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Id',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailSummary()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Summary',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailSubjectCode()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'SubjectCode',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailSubjectName()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'SubjectName',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailCurrency()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Currency',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailOriginalAmount()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'OriginalAmount',
+        sorter: true,
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailExchangeRate()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ExchangeRate',
+        sorter: true,
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailDebitAmount()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'DebitAmount',
+        sorter: true,
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailCreditAmount()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CreditAmount',
+        sorter: true,
+        align: 'right',
+        render: (text:any) => (
+            new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(text)
+        ),
+    },
+    {
+        title: i18n.t(LocaleHelper.getVoucherDetailDocumentNumber()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'DocumentNumber',
+        sorter: true,
+        align: 'left',
     },
 ]; 

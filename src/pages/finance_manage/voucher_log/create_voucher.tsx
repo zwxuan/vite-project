@@ -17,7 +17,7 @@ interface DetailModalProps {
     onNumberChange: (name: string, value: number | null) => void;
 }
 
-const DetailModal: React.FC<DetailModalProps> = ({
+const CreateVoucherModal: React.FC<DetailModalProps> = ({
     open,
     modalFlag,
     saving,
@@ -74,4 +74,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
     );
 };
 
-export default DetailModal;
+export default CreateVoucherModal;

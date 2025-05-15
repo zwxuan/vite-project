@@ -1150,4 +1150,16 @@ export const cn = {
         sender:"发送人",
         senddate:"发送日期",
     },
+    voucher_detail:{
+        id:"流水号",
+        summary:"摘要",
+        subjectcode:"科目编码",
+        subjectname:"科目名称",
+        currency:"币种",
+        originalamount:"原币金额",
+        exchangerate:"汇率",
+        debitamount:"借方本位币",
+        creditamount:"贷方本位币",
+        documentnumber:"单据号",
+    },
 };

@@ -1148,4 +1148,16 @@ export const en = {
         sender:"sender",
         senddate:"send_date",
     },
+    voucher_detail:{
+        id:"id",
+        summary:"summary",
+        subjectcode:"subject_code",
+        subjectname:"subject_name",
+        currency:"currency",
+        originalamount:"original_amount",
+        exchangerate:"exchange_rate",
+        debitamount:"debit_amount",
+        creditamount:"credit_amount",
+        documentnumber:"document_number",
+    },
 };

@@ -32,6 +32,7 @@ import { FeeAdjustmentFeeLocale, FeeAdjustmentLocale } from '@/utils/locale/fina
 import { ActualPaymentLocale } from '@/utils/locale/finance_manage/actual_payment.ts';
 import { StatementObjectLocale } from '@/utils/locale/finance_manage/statement_object.ts';
 import { VoucherLogLocale } from '@/utils/locale/finance_manage/voucher_log.ts';
+import { VoucherDetailLocale } from '@/pages/finance_manage/voucher_log/voucher_detail';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -69,6 +70,7 @@ export {
   ActualPaymentLocale,
   StatementObjectLocale,
   VoucherLogLocale,
+  VoucherDetailLocale,
 };
 
 export default {
@@ -108,4 +110,5 @@ export default {
  ...ActualPaymentLocale,
 ...StatementObjectLocale,
 ...VoucherLogLocale,
+...VoucherDetailLocale,
 };

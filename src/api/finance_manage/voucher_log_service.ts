@@ -1,4 +1,5 @@
 
+import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_log/voucher_detail';
 import request, {ApiRes,requestWithProgress } from '../request'
 import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
 import Mock from "mockjs";
@@ -96,10 +97,40 @@ const voucherLogItems:VoucherLogItemProps[] = [
     },
 ];
 
+const voucherDetailItems:VoucherDetailItemProps[] = [
+  {
+      Id:Mock.mock("@id"),
+      Summary:'销账',
+      SubjectCode:'KM001',
+      SubjectName:'科目一',
+      Currency:'RMB',
+      OriginalAmount:2000.00,
+      ExchangeRate:1.000000,
+      DebitAmount:2000.00,
+      CreditAmount:0.00,
+      DocumentNumber:'202505070001',
+  },  
+  {
+      Id:Mock.mock("@id"),
+      Summary:'销账1',
+      SubjectCode:'KM002',
+      SubjectName:'科目二',
+      Currency:'RMB',
+      OriginalAmount:2000.00,
+      ExchangeRate:1.000000,
+      DebitAmount:0.00,
+      CreditAmount:2000.00,
+      DocumentNumber:'202505070002',
+  },  
+];
 
 // 获取账单管理台账列表
 export const getVoucherLogList = async (): Promise<VoucherLogItemProps[]> => {
   return voucherLogItems;
+}
+
+export const getVoucherDetailList = async (): Promise<VoucherDetailItemProps[]> => {
+  return voucherDetailItems;
 }
 
 // 保存账单管理
