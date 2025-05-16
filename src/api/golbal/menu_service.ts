@@ -680,7 +680,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "销售箱量统计表", key: "sales_volume",
         },
         {
-            name: "业务对比分析表", key: "business_comparison",
+            name: "业务对比分析表", key: "sales_business_amount_report",path: "/sales_business_amount_report",
         },
         {
             name: "销售毛利润统计表", key: "gross_profit",

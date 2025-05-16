@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@ant-design/pro-components": "^2.8.2",
+    "@antv/g2": "^5.3.2",
+    "@antv/s2": "^2.4.0",
+    "@antv/s2-react": "^2.2.0",
     "@handsontable/react-wrapper": "^15.0.1",
     "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.22.0",

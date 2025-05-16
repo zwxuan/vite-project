@@ -36,6 +36,7 @@ import FeeAdjustment from "@/pages/finance_manage/fee_adjustment";
 import ActualPayment from "@/pages/finance_manage/actual_payment";
 import FinanceQuery from "@/pages/finance_manage/finance_query";
 import VoucherLog from "@/pages/finance_manage/voucher_log";
+import SalesBusinessAmountReport from "@/pages/report/sales_business_amount";
 export {
   Currency,
   Orders,
@@ -75,4 +76,5 @@ export {
   ActualPayment,
   FinanceQuery,
   VoucherLog,
+  SalesBusinessAmountReport,
 };
