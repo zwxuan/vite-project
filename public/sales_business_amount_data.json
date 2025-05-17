@@ -8,6 +8,30 @@
         "sales_rep": "管理员"
     },
     {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202411",
+        "sales_rep": "销售员一"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202411",
+        "sales_rep": "销售员二"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202411",
+        "sales_rep": "销售员三"
+    },
+    {
         "sales_amount": 48267,
         "ticket_count": 12,
         "gross_profit": 35057,
@@ -32,6 +56,30 @@
         "sales_rep": "管理员"
     },
     {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202502",
+        "sales_rep": "销售员一"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202502",
+        "sales_rep": "销售员二"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202502",
+        "sales_rep": "销售员三"
+    },
+    {
         "sales_amount": 152801.42,
         "ticket_count": 31,
         "gross_profit": 79247.13,
@@ -54,6 +102,30 @@
         "box_quantity": 3,
         "business_date": "202505",
         "sales_rep": "管理员"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202505",
+        "sales_rep": "销售员一"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202505",
+        "sales_rep": "销售员二"
+    },
+    {
+        "sales_amount": 181226,
+        "ticket_count": 20,
+        "gross_profit": 103146,
+        "box_quantity": 19,
+        "business_date": "202505",
+        "sales_rep": "销售员三"
     },
     {
         "sales_amount": 33,

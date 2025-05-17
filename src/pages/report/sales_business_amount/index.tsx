@@ -1,6 +1,6 @@
 
 import '@/pages/page_list.less';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Aggregation, ColCellStyle, S2DataConfig, type S2RenderOptions, type SpreadSheet } from '@antv/s2';
 import { CustomColHeadCell,CustomRowHeadCell,CustomCornerCell,CustomDataCell } from '../custom_col_cell';
 import { SheetComponent, SheetComponentOptions } from '@antv/s2-react';
@@ -12,11 +12,13 @@ import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm from "@/components/search-form";
 import { fields } from './search_fields';
+import { exportItems } from './menu_items';
 
 
 const SalesBusinessAmountReport: React.FC = () => {
-
+    const tableAreaRef = useRef<HTMLDivElement>(null);
     const [data, setData] = useState<any[]>([]);
+    const [adaptiveSheetSize, setAdaptiveSheetSize] = useState({ width: 1200, height: 880 });
     useEffect(() => {
         fetch('/sales_business_amount_data.json')
             .then((res) => res.json())
@@ -24,7 +26,36 @@ const SalesBusinessAmountReport: React.FC = () => {
                 setData(res);
             });
     }, []);
+    useEffect(() => {
+        const currentTableArea = tableAreaRef.current;
+        if (!currentTableArea) return;
 
+        // const resizeObserver = new ResizeObserver(entries => {
+        //     for (let entry of entries) {
+        //         const { width, height } = entry.contentRect;
+        //         // Ensure width and height are positive to avoid issues with S2
+        //         if (width > 0 && height > 0) {
+        //             setAdaptiveSheetSize({ width, height });
+        //         }
+        //     }
+        // });
+
+        // resizeObserver.observe(currentTableArea);
+
+        // Set initial size based on the container's current dimensions
+        const initialWidth = currentTableArea.clientWidth;
+        const initialHeight = currentTableArea.clientHeight;
+        if (initialWidth > 0 && initialHeight > 0) {
+            setAdaptiveSheetSize({ width: initialWidth, height: initialHeight });
+        }
+
+        // return () => {
+        //     if (currentTableArea) {
+        //         resizeObserver.unobserve(currentTableArea);
+        //     }
+        //     resizeObserver.disconnect();
+        // };
+    }, []);
 
 
     const s2DataConfig: S2DataConfig = {
@@ -86,8 +117,8 @@ const SalesBusinessAmountReport: React.FC = () => {
     };
 
     const s2Options: SheetComponentOptions = {
-        width: 1000,
-        height: 680,
+        width: adaptiveSheetSize.width,
+        height: adaptiveSheetSize.height,
         
         totals: {
             row: {
@@ -156,7 +187,16 @@ const SalesBusinessAmountReport: React.FC = () => {
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
                             <div className="u-button-group"></div>
                         </div>
-
+                        <div className="divider-button-wrapper">
+                            <Dropdown menu={{items:exportItems}}>
+                                <Button>
+                                    <Space>
+                                        导出
+                                    <DownOutlined />
+                                    </Space>
+                                </Button>   
+                            </Dropdown>
+                        </div>
                         <span className="u-button">
                             <RedoOutlined className='iconfont' />
                         </span>
@@ -165,7 +205,7 @@ const SalesBusinessAmountReport: React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <Divider style={{ borderColor: '#7cb305' }}></Divider>
-            <div className="nc-bill-table-area">
+            <div className="nc-bill-table-area"  ref={tableAreaRef} >
                 <SheetComponent
                     dataCfg={s2DataConfig}
                     options={s2Options}
