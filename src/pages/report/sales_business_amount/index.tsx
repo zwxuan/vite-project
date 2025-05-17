@@ -18,7 +18,7 @@ const SalesBusinessAmountReport: React.FC = () => {
 
     const [data, setData] = useState<any[]>([]);
     useEffect(() => {
-        fetch('sales_business_amount_data.json')
+        fetch('/sales_business_amount_data.json')
             .then((res) => res.json())
             .then((res) => {
                 setData(res);
@@ -86,8 +86,8 @@ const SalesBusinessAmountReport: React.FC = () => {
     };
 
     const s2Options: SheetComponentOptions = {
-        width: 800,
-        height: 480,
+        width: 1000,
+        height: 680,
         
         totals: {
             row: {
