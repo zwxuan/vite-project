@@ -1,7 +1,8 @@
 
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
-import { Aggregation, type S2RenderOptions, type SpreadSheet } from '@antv/s2';
+import { Aggregation, ColCellStyle, S2DataConfig, type S2RenderOptions, type SpreadSheet } from '@antv/s2';
+import { CustomColHeadCell,CustomRowHeadCell,CustomCornerCell,CustomDataCell } from '../custom_col_cell';
 import { SheetComponent, SheetComponentOptions } from '@antv/s2-react';
 import '@antv/s2-react/dist/s2-react.min.css';
 import { Button, Divider, Dropdown, Space } from 'antd';
@@ -10,22 +11,84 @@ import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm from "@/components/search-form";
-
 import { fields } from './search_fields';
-import CodeBoxMeta from '@/components/code-box-meta';
+
+
 const SalesBusinessAmountReport: React.FC = () => {
 
-    const [data, setData] = useState<any>('');
+    const [data, setData] = useState<any[]>([]);
+    useEffect(() => {
+        fetch('sales_business_amount_data.json')
+            .then((res) => res.json())
+            .then((res) => {
+                setData(res);
+            });
+    }, []);
 
-    fetch('sales_business_amount_data.json')
-        .then((res) => res.json())
-        .then((res) => {
-            setData(res);
-        });
+
+
+    const s2DataConfig: S2DataConfig = {
+        fields: {
+            rows: [
+                "business_date",
+                "sales_rep"
+            ],
+            columns: [
+
+            ],
+            values: [
+                "sales_amount",
+                "ticket_count",
+                "gross_profit",
+                "box_quantity"
+            ],
+            valueInCols: true
+        },
+        meta: [
+            {
+                field: "sales_amount",
+                name: "销售额",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "ticket_count",
+                name: "票数",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "gross_profit",
+                name: "毛利润",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "box_quantity",
+                name: "箱量",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "business_date",
+                name: "业务日期"
+            },
+            {
+                field: "sales_rep",
+                name: "销售代表"
+            }
+        ],
+        data: data
+    };
 
     const s2Options: SheetComponentOptions = {
-        width: 600,
+        width: 800,
         height: 480,
+        
         totals: {
             row: {
                 showGrandTotals: true,
@@ -33,28 +96,40 @@ const SalesBusinessAmountReport: React.FC = () => {
                 calcGrandTotals: {
                     // 设置总计汇总计算方式为求和
                     aggregation: Aggregation.SUM,
-                  },
-                  calcSubTotals: {
+                },
+                calcSubTotals: {
                     // 设置小计汇总计算方式为求和
                     aggregation: Aggregation.SUM,
-                  },
-                subTotalsDimensions: ['province'],
+                },
+                subTotalsDimensions: ['business_date'],
             },
         },
+        colCell: (node, spreadsheet, headerConfig) => {
+            return new CustomColHeadCell(node, spreadsheet, headerConfig);
+        },
+        rowCell: (node, spreadsheet, headerConfig) => {
+            return new CustomRowHeadCell(node, spreadsheet, headerConfig);
+        },
+        cornerCell: (node, spreadsheet, headerConfig) => {
+            return new CustomCornerCell(node, spreadsheet, headerConfig);
+        },
+        dataCell: (spreadsheet, dataCellConfig) => {
+            return new CustomDataCell(spreadsheet, dataCellConfig);
+        },
     };
-    const onMounted = (spreadsheet: SpreadSheet) => {
-        console.log('onMounted:', spreadsheet);
-    };
+    // const onMounted = (spreadsheet: SpreadSheet) => {
+    //     console.log('onMounted:', spreadsheet);
+    // };
 
-    const onUpdate = (renderOptions: S2RenderOptions) => {
-        console.log('onUpdate:', renderOptions);
+    // const onUpdate = (renderOptions: S2RenderOptions) => {
+    //     console.log('onUpdate:', renderOptions);
 
-        return renderOptions;
-    };
+    //     return renderOptions;
+    // };
 
-    const onUpdateAfterRender = (renderOptions: S2RenderOptions) => {
-        console.log('onUpdateAfterRender:', renderOptions);
-    };
+    // const onUpdateAfterRender = (renderOptions: S2RenderOptions) => {
+    //     console.log('onUpdateAfterRender:', renderOptions);
+    // };
 
     const handleSearch = (values: any) => {
         console.log('handleSearch', values);
@@ -92,12 +167,12 @@ const SalesBusinessAmountReport: React.FC = () => {
             <Divider style={{ borderColor: '#7cb305' }}></Divider>
             <div className="nc-bill-table-area">
                 <SheetComponent
-                    dataCfg={data}
+                    dataCfg={s2DataConfig}
                     options={s2Options}
-                    onMounted={onMounted}
-                    onUpdate={onUpdate}
-                    onUpdateAfterRender={onUpdateAfterRender}
-                />,
+                    // onMounted={onMounted}
+                    // onUpdate={onUpdate}
+                    // onUpdateAfterRender={onUpdateAfterRender}
+                />
             </div>
         </div>
     )
