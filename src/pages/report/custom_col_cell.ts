@@ -76,6 +76,7 @@ export class CustomDataCell extends DataCell {
 
   drawBackgroundShape() {
     const defaultTextStyle = super.getBBoxByType();
+    //小计
     if (this.meta.rowId?.includes('小计')) {
       this.backgroundShape = renderRect(this, {
         ...defaultTextStyle,
@@ -84,7 +85,7 @@ export class CustomDataCell extends DataCell {
       });
       return;
     }
-
+    //总计
     if (this.meta.rowId?.includes('总计')) {
       this.backgroundShape = renderRect(this, {
         ...defaultTextStyle,

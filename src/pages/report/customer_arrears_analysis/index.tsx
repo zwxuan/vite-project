@@ -15,12 +15,12 @@ import { fields } from './search_fields';
 import { exportItems } from './menu_items';
 
 
-const SalesBusinessAmountReport: React.FC = () => {
+const CustomerArrearsAnalysisReport: React.FC = () => {
     const tableAreaRef = useRef<HTMLDivElement>(null);
     const [data, setData] = useState<any[]>([]);
     const [adaptiveSheetSize, setAdaptiveSheetSize] = useState({ width: 1200, height: 880 });
     useEffect(() => {
-        fetch('/data/sales_business_amount_data.json')
+        fetch('/data/customer_arrears_analysis_data.json')
             .then((res) => res.json())
             .then((res) => {
                 setData(res);
@@ -60,59 +60,118 @@ const SalesBusinessAmountReport: React.FC = () => {
 
     const s2DataConfig: S2DataConfig = {
         fields: {
-            rows: [
-                "business_date",
-                "sales_rep"
-            ],
-            columns: [
-
-            ],
-            values: [
-                "sales_amount",
-                "ticket_count",
-                "gross_profit",
-                "box_quantity"
-            ],
-            valueInCols: true
-        },
-        meta: [
-            {
-                field: "sales_amount",
-                name: "销售额",
-                formatter: (value, record, meta) => {
-                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
-            },
-            {
-                field: "ticket_count",
-                name: "票数",
-                formatter: (value, record, meta) => {
-                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
-            },
-            {
-                field: "gross_profit",
-                name: "毛利润",
-                formatter: (value, record, meta) => {
-                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
-            },
-            {
-                field: "box_quantity",
-                name: "箱量",
-                formatter: (value, record, meta) => {
-                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
-            },
-            {
-                field: "business_date",
-                name: "业务日期"
-            },
-            {
-                field: "sales_rep",
-                name: "销售代表"
-            }
+        rows: ["sales_rep", "settlement_unit"],
+        columns: [],
+        values: [
+            "unbilled_cny_before_nov2024",
+            "unbilled_usd_before_nov2024",
+            "unbilled_cny_nov2024",
+            "unbilled_usd_nov2024",
+            "unbilled_cny_dec2024",
+            "unbilled_usd_dec2024",
+            "unbilled_cny_jan2025",
+            "unbilled_usd_jan2025",
+            "unbilled_cny_feb2025",
+            "unbilled_usd_feb2025",
+            "unbilled_cny.mar2025",
+            "unbilled_usd.mar2025",
+            "unbilled_cny_apr2025",
+            "unbilled_usd_apr2025",
+            "unbilled_cny_may2025",
+            "unbilled_usd_may2025"
         ],
+        "valueInCols": true
+    },
+    meta: [
+        {
+            field: "unbilled_cny_before_nov2024",
+            name: "2024年11月以前未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_before_nov2024",
+            name: "2024年11月以前未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny_nov2024",
+            name: "2024年11月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_nov2024",
+            name: "2024年11月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny_dec2024",
+            name: "2024年12月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_dec2024",
+            name: "2024年12月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny_jan2025",
+            name: "2025年1月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_jan2025",
+            name: "2025年1月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny_feb2025",
+            name: "2025年2月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_feb2025",
+            name: "2025年2月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny.mar2025",
+            name: "2025年3月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd.mar2025",
+            name: "2025年3月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny_apr2025",
+            name: "2025年4月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_apr2025",
+            name: "2025年4月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_cny_may2025",
+            name: "2025年5月未收人民币",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "unbilled_usd_may2025",
+            name: "2025年5月未收美圆",
+            formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
+        },
+        {
+            field: "sales_rep",
+            name: "销售代表"
+        },
+        {
+            field: "settlement_unit",
+            name: "结算单位"
+        }
+    ],
         data: data
     };
 
@@ -132,7 +191,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                     // 设置小计汇总计算方式为求和
                     aggregation: Aggregation.SUM,
                 },
-                subTotalsDimensions: ['business_date'],
+                subTotalsDimensions: ["sales_rep", "settlement_unit"],
             },
         },
         colCell: (node, spreadsheet, headerConfig) => {
@@ -172,7 +231,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 业务对比分析表
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 客户欠账分析
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
@@ -218,4 +277,4 @@ const SalesBusinessAmountReport: React.FC = () => {
         
     )
 }
-export default SalesBusinessAmountReport;
+export default CustomerArrearsAnalysisReport;

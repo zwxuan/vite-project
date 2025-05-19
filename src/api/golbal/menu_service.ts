@@ -677,7 +677,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "销售箱量统计表", key: "sales_volume",
+            name: "销售箱量统计表", key: "sales_business_weight_report",path: "/sales_business_weight_report",
         },
         {
             name: "业务对比分析表", key: "sales_business_amount_report",path: "/sales_business_amount_report",
@@ -711,13 +711,13 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "未收未付统计对账表", key: "unpaid_receivable_payable_statement",
+            name: "未收未付统计对账表", key: "outstanding_receivables_payables_report",path: "/outstanding_receivables_payables_report",
         },
         {
-            name: "未收对账表（按费用）", key: "unpaid_cost",
+            name: "未收对账表（按费用）", key: "not_receivables_fee_report",path: "/not_receivables_fee_report",
         },
         {
-            name: "未收对账表（按工作单）", key: "unpaid_work_order",
+            name: "未收对账表（按业务单号）", key: "not_receivables_order_report",path: "/not_receivables_order_report",
         },
         {
             name: "应收未收对账表（按工作单）", key: "receivable_unpaid_work_order",
@@ -729,10 +729,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "未付对账表（按工作单）", key: "unpaid_work_order_statement",
         },
         {
-            name: "客户欠账分析", key: "customer_arrears_analysis",
-        },
-        {
-            name: "供应商欠账分析", key: "supplier_arrears_analysis",
+            name: "客户欠账分析", key: "customer_arrears_analysis_report",path: "/customer_arrears_analysis_report",
         },
     ]
 },

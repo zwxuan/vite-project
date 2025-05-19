@@ -37,6 +37,11 @@ import ActualPayment from "@/pages/finance_manage/actual_payment";
 import FinanceQuery from "@/pages/finance_manage/finance_query";
 import VoucherLog from "@/pages/finance_manage/voucher_log";
 import SalesBusinessAmountReport from "@/pages/report/sales_business_amount";
+import OutstandingReceivablesPayablesReport from "@/pages/report/outstanding_receivables_payables";
+import NotReceivablesFeeReport from "@/pages/report/not_receivables_fee";
+import NotReceivablesOrderReport from "@/pages/report/not_receivables_order";
+import SalesBusinessWeightReport from "@/pages/report/sales_business_weight";
+import CustomerArrearsAnalysisReport from "@/pages/report/customer_arrears_analysis";
 export {
   Currency,
   Orders,
@@ -77,4 +82,9 @@ export {
   FinanceQuery,
   VoucherLog,
   SalesBusinessAmountReport,
+  OutstandingReceivablesPayablesReport,
+  NotReceivablesFeeReport,
+  NotReceivablesOrderReport,
+  SalesBusinessWeightReport,
+  CustomerArrearsAnalysisReport,
 };

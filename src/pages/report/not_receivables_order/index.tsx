@@ -15,12 +15,12 @@ import { fields } from './search_fields';
 import { exportItems } from './menu_items';
 
 
-const SalesBusinessAmountReport: React.FC = () => {
+const NotReceivablesOrderReport: React.FC = () => {
     const tableAreaRef = useRef<HTMLDivElement>(null);
     const [data, setData] = useState<any[]>([]);
     const [adaptiveSheetSize, setAdaptiveSheetSize] = useState({ width: 1200, height: 880 });
     useEffect(() => {
-        fetch('/data/sales_business_amount_data.json')
+        fetch('/data/not_receivables_fee_data.json')
             .then((res) => res.json())
             .then((res) => {
                 setData(res);
@@ -29,92 +29,92 @@ const SalesBusinessAmountReport: React.FC = () => {
     useEffect(() => {
         const currentTableArea = tableAreaRef.current;
         if (!currentTableArea) return;
-
-        // const resizeObserver = new ResizeObserver(entries => {
-        //     for (let entry of entries) {
-        //         const { width, height } = entry.contentRect;
-        //         // Ensure width and height are positive to avoid issues with S2
-        //         if (width > 0 && height > 0) {
-        //             setAdaptiveSheetSize({ width, height });
-        //         }
-        //     }
-        // });
-
-        // resizeObserver.observe(currentTableArea);
-
-        // Set initial size based on the container's current dimensions
         const initialWidth = currentTableArea.clientWidth;
         const initialHeight = currentTableArea.clientHeight-180;
         if (initialWidth > 0 && initialHeight > 0) {
             setAdaptiveSheetSize({ width: initialWidth, height: initialHeight });
         }
-
-        // return () => {
-        //     if (currentTableArea) {
-        //         resizeObserver.unobserve(currentTableArea);
-        //     }
-        //     resizeObserver.disconnect();
-        // };
     }, []);
 
 
     const s2DataConfig: S2DataConfig = {
         fields: {
             rows: [
-                "business_date",
-                "sales_rep"
+                "settlement_object",
+                "work_number",
+                "etd",
+                "invoice_number",
+                "master_number",
             ],
-            columns: [
-
-            ],
+            columns: [],
             values: [
-                "sales_amount",
-                "ticket_count",
-                "gross_profit",
-                "box_quantity"
+                "unreceived_cny",
+                "unreceived_usd",
+                "unreceived_hkd",
+                "unreceived_eur",
+                "unreceived_jpy"
             ],
             valueInCols: true
         },
         meta: [
             {
-                field: "sales_amount",
-                name: "销售额",
+                field: "unreceived_cny",
+                name: "未收（人民币）",
                 formatter: (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
                 },
             },
             {
-                field: "ticket_count",
-                name: "票数",
+                field: "unreceived_usd",
+                name: "未收（美金）",
                 formatter: (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
                 },
             },
             {
-                field: "gross_profit",
-                name: "毛利润",
+                field: "unreceived_hkd",
+                name: "未收（港币）",
                 formatter: (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
                 },
             },
             {
-                field: "box_quantity",
-                name: "箱量",
+                field: "unreceived_eur",
+                name: "未收（欧元）",
                 formatter: (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
                 },
             },
             {
-                field: "business_date",
-                name: "业务日期"
+                field: "unreceived_jpy",
+                name: "未收（日元）",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
             },
             {
-                field: "sales_rep",
-                name: "销售代表"
-            }
+                field: "settlement_object",
+                name: "结算对象"
+            },
+            {
+                field: "work_number",
+                name: "工作号"
+            },
+            {
+                field: "etd",
+                name: "ETD"
+            },
+            {
+                field: "invoice_number",
+                name: "发票号"
+            },
+            {
+                field: "master_number",
+                name: "主单号"
+            },
         ],
         data: data
-    };
+    }
 
     const s2Options: SheetComponentOptions = {
         width: adaptiveSheetSize.width,
@@ -132,7 +132,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                     // 设置小计汇总计算方式为求和
                     aggregation: Aggregation.SUM,
                 },
-                subTotalsDimensions: ['business_date'],
+                subTotalsDimensions: ['settlement_object', 'work_number', 'etd', 'invoice_number', 'master_number'],
             },
         },
         colCell: (node, spreadsheet, headerConfig) => {
@@ -148,19 +148,6 @@ const SalesBusinessAmountReport: React.FC = () => {
             return new CustomDataCell(spreadsheet, dataCellConfig);
         },
     };
-    // const onMounted = (spreadsheet: SpreadSheet) => {
-    //     console.log('onMounted:', spreadsheet);
-    // };
-
-    // const onUpdate = (renderOptions: S2RenderOptions) => {
-    //     console.log('onUpdate:', renderOptions);
-
-    //     return renderOptions;
-    // };
-
-    // const onUpdateAfterRender = (renderOptions: S2RenderOptions) => {
-    //     console.log('onUpdateAfterRender:', renderOptions);
-    // };
 
     const handleSearch = (values: any) => {
         console.log('handleSearch', values);
@@ -172,7 +159,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 业务对比分析表
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 未收对账表（按业务单号明细）
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
@@ -209,13 +196,10 @@ const SalesBusinessAmountReport: React.FC = () => {
                 <SheetComponent
                     dataCfg={s2DataConfig}
                     options={s2Options}
-                    // onMounted={onMounted}
-                    // onUpdate={onUpdate}
-                    // onUpdateAfterRender={onUpdateAfterRender}
                 />
             </div>
         </div>
         
     )
 }
-export default SalesBusinessAmountReport;
+export default NotReceivablesOrderReport;

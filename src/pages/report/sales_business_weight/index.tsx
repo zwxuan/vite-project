@@ -15,105 +15,110 @@ import { fields } from './search_fields';
 import { exportItems } from './menu_items';
 
 
-const SalesBusinessAmountReport: React.FC = () => {
+const SalesBusinessWeightReport: React.FC = () => {
     const tableAreaRef = useRef<HTMLDivElement>(null);
-    const [data, setData] = useState<any[]>([]);
+    const [businessWeightData, setBusinessWeightData] = useState<any[]>([]);
     const [adaptiveSheetSize, setAdaptiveSheetSize] = useState({ width: 1200, height: 880 });
     useEffect(() => {
-        fetch('/data/sales_business_amount_data.json')
-            .then((res) => res.json())
-            .then((res) => {
-                setData(res);
-            });
+        const loadData = async () => {
+            try {
+                const response = await fetch('/data/sales_business_weight_data.json');
+                if (!response.ok) {
+                    throw new Error('数据加载失败');
+                }
+                const data = await response.json();
+                setBusinessWeightData(data);
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                // 可以添加错误提示
+            }
+        };
+        loadData();
     }, []);
     useEffect(() => {
         const currentTableArea = tableAreaRef.current;
         if (!currentTableArea) return;
-
-        // const resizeObserver = new ResizeObserver(entries => {
-        //     for (let entry of entries) {
-        //         const { width, height } = entry.contentRect;
-        //         // Ensure width and height are positive to avoid issues with S2
-        //         if (width > 0 && height > 0) {
-        //             setAdaptiveSheetSize({ width, height });
-        //         }
-        //     }
-        // });
-
-        // resizeObserver.observe(currentTableArea);
-
-        // Set initial size based on the container's current dimensions
         const initialWidth = currentTableArea.clientWidth;
         const initialHeight = currentTableArea.clientHeight-180;
         if (initialWidth > 0 && initialHeight > 0) {
             setAdaptiveSheetSize({ width: initialWidth, height: initialHeight });
         }
-
-        // return () => {
-        //     if (currentTableArea) {
-        //         resizeObserver.unobserve(currentTableArea);
-        //     }
-        //     resizeObserver.disconnect();
-        // };
     }, []);
 
 
     const s2DataConfig: S2DataConfig = {
         fields: {
             rows: [
-                "business_date",
                 "sales_rep"
             ],
-            columns: [
-
-            ],
+            columns: [],
             values: [
-                "sales_amount",
-                "ticket_count",
-                "gross_profit",
-                "box_quantity"
+                "20'GP",
+                "40'GP",
+                "40'HC",
+                "45'GP",
+                "特殊箱种",
+                "TEU",
+                "票数"
             ],
             valueInCols: true
         },
         meta: [
             {
-                field: "sales_amount",
-                name: "销售额",
+                field: "20'GP",
+                name: "20'GP箱量",
                 formatter: (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
                 },
             },
             {
-                field: "ticket_count",
+                field: "40'GP",
+                name: "40'GP箱量",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "40'HC",
+                name: "40'HC箱量",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "45'GP",
+                name: "45'GP箱量",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "特殊箱种",
+                name: "特殊箱种箱量",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "TEU",
+                name: "TEU",
+                formatter: (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                },
+            },
+            {
+                field: "票数",
                 name: "票数",
                 formatter: (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
                 },
             },
             {
-                field: "gross_profit",
-                name: "毛利润",
-                formatter: (value, record, meta) => {
-                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
-            },
-            {
-                field: "box_quantity",
-                name: "箱量",
-                formatter: (value, record, meta) => {
-                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
-            },
-            {
-                field: "business_date",
-                name: "业务日期"
-            },
-            {
                 field: "sales_rep",
                 name: "销售代表"
             }
         ],
-        data: data
+        data: businessWeightData
     };
 
     const s2Options: SheetComponentOptions = {
@@ -172,7 +177,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 业务对比分析表
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 销售箱量统计表
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
@@ -209,13 +214,10 @@ const SalesBusinessAmountReport: React.FC = () => {
                 <SheetComponent
                     dataCfg={s2DataConfig}
                     options={s2Options}
-                    // onMounted={onMounted}
-                    // onUpdate={onUpdate}
-                    // onUpdateAfterRender={onUpdateAfterRender}
                 />
             </div>
         </div>
         
     )
 }
-export default SalesBusinessAmountReport;
+export default SalesBusinessWeightReport;

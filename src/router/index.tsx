@@ -5,7 +5,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
   ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
-  ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport} from "./imports";
+  ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
+  ,NotReceivablesFeeReport,NotReceivablesOrderReport,
+  SalesBusinessWeightReport,
+  CustomerArrearsAnalysisReport} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -343,6 +346,47 @@ const routers = createMemoryRouter([
             <SalesBusinessAmountReport />
           </RouterGuard>),
       },
+      {
+        path: "/outstanding_receivables_payables_report",
+        handle: { title: '未收未付统计对账表' },
+        element: (
+          <RouterGuard>
+            <OutstandingReceivablesPayablesReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/not_receivables_fee_report",
+        handle: { title: '未收对账表（按费用明细）' },
+        element: (
+          <RouterGuard>
+            <NotReceivablesFeeReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/not_receivables_order_report",
+        handle: { title: '未收对账表（按业务单号明细）' },
+        element: (
+          <RouterGuard>
+            <NotReceivablesOrderReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/sales_business_weight_report",
+        handle: { title: '销售箱量统计表' },
+        element: (
+          <RouterGuard>
+            <SalesBusinessWeightReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/customer_arrears_analysis_report",
+        handle: { title: '客户欠款分析表' },
+        element: (
+          <RouterGuard>
+            <CustomerArrearsAnalysisReport />
+          </RouterGuard>),
+      },
+
       
     ], // 如果需要子路由，可以在这里添加
   },

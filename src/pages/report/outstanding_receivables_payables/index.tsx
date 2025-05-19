@@ -15,12 +15,12 @@ import { fields } from './search_fields';
 import { exportItems } from './menu_items';
 
 
-const SalesBusinessAmountReport: React.FC = () => {
+const OutstandingReceivablesPayablesReport: React.FC = () => {
     const tableAreaRef = useRef<HTMLDivElement>(null);
     const [data, setData] = useState<any[]>([]);
     const [adaptiveSheetSize, setAdaptiveSheetSize] = useState({ width: 1200, height: 880 });
     useEffect(() => {
-        fetch('/data/sales_business_amount_data.json')
+        fetch('/data/outstanding_receivables_payables_data.json')
             .then((res) => res.json())
             .then((res) => {
                 setData(res);
@@ -29,92 +29,130 @@ const SalesBusinessAmountReport: React.FC = () => {
     useEffect(() => {
         const currentTableArea = tableAreaRef.current;
         if (!currentTableArea) return;
-
-        // const resizeObserver = new ResizeObserver(entries => {
-        //     for (let entry of entries) {
-        //         const { width, height } = entry.contentRect;
-        //         // Ensure width and height are positive to avoid issues with S2
-        //         if (width > 0 && height > 0) {
-        //             setAdaptiveSheetSize({ width, height });
-        //         }
-        //     }
-        // });
-
-        // resizeObserver.observe(currentTableArea);
-
-        // Set initial size based on the container's current dimensions
         const initialWidth = currentTableArea.clientWidth;
         const initialHeight = currentTableArea.clientHeight-180;
         if (initialWidth > 0 && initialHeight > 0) {
             setAdaptiveSheetSize({ width: initialWidth, height: initialHeight });
         }
-
-        // return () => {
-        //     if (currentTableArea) {
-        //         resizeObserver.unobserve(currentTableArea);
-        //     }
-        //     resizeObserver.disconnect();
-        // };
     }, []);
 
 
     const s2DataConfig: S2DataConfig = {
-        fields: {
-            rows: [
-                "business_date",
-                "sales_rep"
+        "fields": {
+            "rows": [
+                "结算对象",
+                "业务单号",
+                "ETD",
+                "发票号",
+                "主单号"
             ],
-            columns: [
-
+            "columns": [
+                
             ],
-            values: [
-                "sales_amount",
-                "ticket_count",
-                "gross_profit",
-                "box_quantity"
+            "values": [
+                "未收(RMB)",
+                "未付(RMB)",
+                "未收(USD)",
+                "未付(USD)",
+                "未收(HKD)",
+                "未付(HKD)",
+                "未收(EUR)",
+                "未付(EUR)",
+                "未收(JPY)",
+                "未付(JPY)"
             ],
-            valueInCols: true
+            "valueInCols": true
         },
-        meta: [
+        "meta": [
             {
-                field: "sales_amount",
-                name: "销售额",
-                formatter: (value, record, meta) => {
+                "field": "未收(RMB)",
+                "name": "未收人民币",
+                "formatter": (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
+                }
             },
             {
-                field: "ticket_count",
-                name: "票数",
-                formatter: (value, record, meta) => {
+                "field": "未付(RMB)",
+                "name": "未付人民币",
+                "formatter": (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
+                }
             },
             {
-                field: "gross_profit",
-                name: "毛利润",
-                formatter: (value, record, meta) => {
+                "field": "未收(USD)",
+                "name": "未收美元",
+                "formatter": (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
+                }
             },
             {
-                field: "box_quantity",
-                name: "箱量",
-                formatter: (value, record, meta) => {
+                "field": "未付(USD)",
+                "name": "未付美元",
+                "formatter": (value, record, meta) => {
                     return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
-                },
+                }
             },
             {
-                field: "business_date",
-                name: "业务日期"
+                "field": "未收(HKD)",
+                "name": "未收港币",
+                "formatter": (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                }
             },
             {
-                field: "sales_rep",
-                name: "销售代表"
+                "field": "未付(HKD)",
+                "name": "未付港币",
+                "formatter": (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                }
+            },
+            {
+                "field": "未收(EUR)",
+                "name": "未收欧元",
+                "formatter": (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                }
+            },
+            {
+                "field": "未付(EUR)",
+                "name": "未付欧元",
+                "formatter": (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                }
+            },
+            {
+                "field": "未收(JPY)",
+                "name": "未收日元",
+                "formatter": (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                }
+            },
+            {
+                "field": "未付(JPY)",
+                "name": "未付日元",
+                "formatter": (value, record, meta) => {
+                    return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))
+                }
+            },
+            {
+                "field": "结算对象",
+                "name": "结算对象"
+            },
+            {
+                "field": "ETD",
+                "name": "ETD"
+            },
+            {
+                "field": "发票号",
+                "name": "发票号"
+            },
+            {
+                "field": "主单号",
+                "name": "主单号"
             }
         ],
-        data: data
-    };
+        "data": data,
+    }
 
     const s2Options: SheetComponentOptions = {
         width: adaptiveSheetSize.width,
@@ -132,7 +170,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                     // 设置小计汇总计算方式为求和
                     aggregation: Aggregation.SUM,
                 },
-                subTotalsDimensions: ['business_date'],
+                subTotalsDimensions: ['结算对象','ETD','发票号','主单号'],
             },
         },
         colCell: (node, spreadsheet, headerConfig) => {
@@ -148,19 +186,6 @@ const SalesBusinessAmountReport: React.FC = () => {
             return new CustomDataCell(spreadsheet, dataCellConfig);
         },
     };
-    // const onMounted = (spreadsheet: SpreadSheet) => {
-    //     console.log('onMounted:', spreadsheet);
-    // };
-
-    // const onUpdate = (renderOptions: S2RenderOptions) => {
-    //     console.log('onUpdate:', renderOptions);
-
-    //     return renderOptions;
-    // };
-
-    // const onUpdateAfterRender = (renderOptions: S2RenderOptions) => {
-    //     console.log('onUpdateAfterRender:', renderOptions);
-    // };
 
     const handleSearch = (values: any) => {
         console.log('handleSearch', values);
@@ -172,7 +197,7 @@ const SalesBusinessAmountReport: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 业务对比分析表
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 未收未付统计对账表
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
@@ -218,4 +243,4 @@ const SalesBusinessAmountReport: React.FC = () => {
         
     )
 }
-export default SalesBusinessAmountReport;
+export default OutstandingReceivablesPayablesReport;
