@@ -80,12 +80,14 @@ const CustomerArrearsAnalysisReport: React.FC = () => {
             "unbilled_cny_may2025",
             "unbilled_usd_may2025"
         ],
+        
         "valueInCols": true
     },
     meta: [
         {
             field: "unbilled_cny_before_nov2024",
             name: "2024年11月以前未收人民币",
+            
             formatter: (value, record, meta) => {return new Intl.NumberFormat('zh-CN', { style: 'decimal' }).format(Number(value))}
         },
         {
@@ -205,6 +207,12 @@ const CustomerArrearsAnalysisReport: React.FC = () => {
         },
         dataCell: (spreadsheet, dataCellConfig) => {
             return new CustomDataCell(spreadsheet, dataCellConfig);
+        },
+        style: {
+            colCell: {
+                // 固定配置: 每列 220px
+                width: 220,
+              },
         },
     };
     // const onMounted = (spreadsheet: SpreadSheet) => {
