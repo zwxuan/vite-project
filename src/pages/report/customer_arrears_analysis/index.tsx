@@ -43,7 +43,7 @@ const CustomerArrearsAnalysisReport: React.FC = () => {
         // resizeObserver.observe(currentTableArea);
 
         // Set initial size based on the container's current dimensions
-        const initialWidth = currentTableArea.clientWidth;
+        const initialWidth = currentTableArea.clientWidth-10;
         const initialHeight = currentTableArea.clientHeight-180;
         if (initialWidth > 0 && initialHeight > 0) {
             setAdaptiveSheetSize({ width: initialWidth, height: initialHeight });
@@ -234,7 +234,7 @@ const CustomerArrearsAnalysisReport: React.FC = () => {
     };
 
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}  ref={tableAreaRef}>
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
@@ -272,7 +272,7 @@ const CustomerArrearsAnalysisReport: React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <Divider style={{ borderColor: '#7cb305' }}></Divider>
-            <div className="nc-bill-table-area" ref={tableAreaRef}>
+            <div className="nc-bill-table-area">
                 <SheetComponent
                     dataCfg={s2DataConfig}
                     options={s2Options}

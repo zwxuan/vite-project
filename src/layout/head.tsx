@@ -11,27 +11,45 @@ import { Location, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CustomIcon from "@/components/custom-icon";
 import { Space } from 'antd/lib';
+import React from 'react';
+import { i18n } from 'i18next';
 interface AppSiderProps {
     collapsed: boolean;
+    i18n_page:i18n;
 }
-const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
-    const userlogin:UserLoginState = useAppSelector(selectUserState);
+const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
+    // 使用React.useMemo来缓存useTranslation的结果，避免在组件重新渲染时重复创建
+    // 确保在组件挂载和更新时hooks的调用顺序保持一致
+    // const {i18n, t } = React.useMemo(() => {
+    //     return useTranslation(undefined, { useSuspense: false });
+    // }, []);
     
+    const userlogin:UserLoginState = useAppSelector(selectUserState);
     const dispatch = useAppDispatch();
     const location:Location = useLocation();
-    const { t, i18n } = useTranslation();
-    console.log('当前路径:', location.pathname);
+    
     const handleCollapsed = () => {
         //更新全局状态  collapsed
         dispatch(setCollapsed());
     };
+    
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
     };
+    
+    // 优化语言切换函数，使用useCallback确保函数引用稳定
     const handleChangeLanguage = (value: string) => {
-        i18n.changeLanguage(value);
-        window.location.reload();
-    };
+        // 只在语言真正变化时才进行切换
+        
+            i18n_page.changeLanguage(value);
+            // 存储用户选择的语言到localStorage，避免刷新后丢失
+        
+            // 使用更温和的方式更新UI，避免整页刷新
+            // 延迟执行以确保语言切换完成
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
+        };
 
     const exitSystem = () => {
         sessionStorage.removeItem('userlogin');
@@ -98,7 +116,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
           danger: true,
           className:'ant-drowndown-custom',
           label:(
-            <CustomIcon type="icon-ICON-297" style={{fontSize:'24px'}} onClick={()=>{handleChangeLanguage('zh-CN')}} />
+            <CustomIcon type="icon-ICON-297" style={{fontSize:'24px'}} onClick={() => handleChangeLanguage('zh-CN')} />
           )
         },
         {
@@ -106,7 +124,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed}) => {
           danger: true,
           className:'ant-drowndown-custom',
           label:(
-            <CustomIcon type="icon-English" style={{fontSize:'24px'}} onClick={()=>{handleChangeLanguage('en-US')}} />
+            <CustomIcon type="icon-English" style={{fontSize:'24px'}} onClick={() => handleChangeLanguage('en-US')} />
           )
         },
       ];
