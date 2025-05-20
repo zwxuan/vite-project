@@ -6,8 +6,6 @@ import { ReconciliationMatchFieldsItemProps,ReconciliationCompareFieldsItemProps
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
-import i18n from '@/i18n';
-import LocaleHelper from '@/utils/localeHelper';
 import { getCompareFieldsColumns,getMatchFieldsColumns,getRuleEngineColumns } from './columns';
 import CodeBoxMeta from '@/components/code-box-meta';
 import { getReconciliationRuleEngineList,getCompareFieldsList,getMatchFieldsList } from '@/api/cost_manage/fee_reconciliation_service';
