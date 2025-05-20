@@ -683,10 +683,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "业务对比分析表", key: "sales_business_amount_report",path: "/sales_business_amount_report",
         },
         {
-            name: "销售毛利润统计表", key: "gross_profit",
+            name: "销售毛利润统计表", key: "sales_profit_report",path: "/sales_profit_report",
         },
         {
-            name: "部门箱量利润分析表", key: "department_profit",
+            name: "接单部门箱量利润汇总表", key: "department_business_weight_report", path: "/department_business_weight_report",
         },
         {
             name: "客户委托明细统计表", key: "customer_consignment",

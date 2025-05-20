@@ -6,9 +6,9 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
   ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
   ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
-  ,NotReceivablesFeeReport,NotReceivablesOrderReport,
-  SalesBusinessWeightReport,
-  CustomerArrearsAnalysisReport} from "./imports";
+  ,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,
+  SalesProfitReport,
+  DepartmentBusinessWeightReport} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -386,7 +386,22 @@ const routers = createMemoryRouter([
             <CustomerArrearsAnalysisReport />
           </RouterGuard>),
       },
-
+      {
+        path: "/sales_profit_report",
+        handle: { title: '销售毛利润统计表' },
+        element: (
+          <RouterGuard>
+            <SalesProfitReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/department_business_weight_report",
+        handle: { title: '接单部门箱量利润汇总表' },
+        element: (
+          <RouterGuard>
+            <DepartmentBusinessWeightReport />
+          </RouterGuard>),
+      },
       
     ], // 如果需要子路由，可以在这里添加
   },

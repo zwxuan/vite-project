@@ -42,7 +42,7 @@ export class CustomRowHeadCell extends RowCell {
       ...defaultTextStyle,
       fontSize: 14,
       // fill: '#396',
-      textAlign: 'center',
+      // textAlign: 'center',
     };
     
   }
