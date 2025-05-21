@@ -4,16 +4,16 @@
         "discharge_port": "BUSAN",
         "TEU": "2",
         "HBL": "2",
-        "CBM": "CBM",
-        "RT": "RT"
+        "CBM": "0.2",
+        "RT": "0"
     },
     {
         "route": "东南亚",
         "discharge_port": "HAIPHONG",
         "TEU": "1",
         "HBL": "1",
-        "CBM": "CBM",
-        "RT": "RT"
+        "CBM": "0",
+        "RT": "0"
     },
     {
         "route": "东南亚",
