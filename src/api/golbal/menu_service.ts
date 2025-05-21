@@ -689,10 +689,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "接单部门箱量利润汇总表", key: "department_business_weight_report", path: "/department_business_weight_report",
         },
         {
-            name: "客户委托明细统计表", key: "customer_consignment",
+            name: "单票利润统计", key: "single_ticket_profit_statistics_report",path: "/single_ticket_profit_statistics_report",
         },
         {
-            name: "货量统计表(按操作)", key: "volume_operation",
+            name: "操作员票数箱量利润汇总表", key: "operator_shipment_summary_report",path: "/operator_shipment_summary_report",
         },
         {
             name: "海运开箱利润统计表", key: "sea_open_profit",

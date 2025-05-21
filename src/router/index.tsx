@@ -8,7 +8,9 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
   ,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,
   SalesProfitReport,
-  DepartmentBusinessWeightReport} from "./imports";
+  DepartmentBusinessWeightReport,
+  SingleTicketProfitStatisticsReport,
+  OperatorShipmentSummaryReport} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -400,6 +402,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <DepartmentBusinessWeightReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/single_ticket_profit_statistics_report",
+        handle: { title: '单票利润统计' },
+        element: (
+          <RouterGuard>
+            <SingleTicketProfitStatisticsReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/operator_shipment_summary_report",
+        handle: { title: '操作员票数箱量利润汇总表' },
+        element: (
+          <RouterGuard>
+            <OperatorShipmentSummaryReport />
           </RouterGuard>),
       },
       

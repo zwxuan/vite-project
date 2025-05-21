@@ -85,6 +85,8 @@ const SalesBusinessWeightReport = React.lazy(() => import("@/pages/report/sales_
 const CustomerArrearsAnalysisReport = React.lazy(() => import("@/pages/report/customer_arrears_analysis"));
 const SalesProfitReport = React.lazy(() => import("@/pages/report/sales_profit"));
 const DepartmentBusinessWeightReport = React.lazy(() => import("@/pages/report/department_business_weight"));
+const SingleTicketProfitStatisticsReport = React.lazy(() => import("@/pages/report/single_ticket_profit_statistics"));
+const OperatorShipmentSummaryReport  = React.lazy(() => import("@/pages/report/operator_shipment_summary"));
 export {
   Currency,
   Orders,
@@ -132,4 +134,6 @@ export {
   CustomerArrearsAnalysisReport,
   SalesProfitReport,
   DepartmentBusinessWeightReport,
+  SingleTicketProfitStatisticsReport,
+  OperatorShipmentSummaryReport,
 };
