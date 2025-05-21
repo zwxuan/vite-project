@@ -17,9 +17,9 @@
         "other_currency_rmb_revenue": "0", 
         "other_currency_rmb_cost": "0", 
         "other_currency_rmb_profit": "0", 
-        "total_revenue": "总收入", 
-        "total_cost": "总成本", 
-        "total_profit": "总利润", 
+        "total_revenue": "0", 
+        "total_cost": "0", 
+        "total_profit": "0", 
         "teu": "0" 
     },
     { 
@@ -40,9 +40,9 @@
         "other_currency_rmb_revenue": "0", 
         "other_currency_rmb_cost": "0", 
         "other_currency_rmb_profit": "0", 
-        "total_revenue": "总收入", 
-        "total_cost": "总成本", 
-        "total_profit": "总利润", 
+        "total_revenue": "0", 
+        "total_cost": "0", 
+        "total_profit": "0", 
         "teu": "0" 
     },
     { 

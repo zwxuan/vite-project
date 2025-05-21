@@ -226,7 +226,7 @@
     {
         "business_operator": "薛坤",
         "customer_service": "李想",
-        "container_type_and_quantity": "1*20GP\n1*40HC",
+        "container_type_and_quantity": "1*20GP,1*40HC",
         "ticket_count": 1,
         "teu": 3,
         "rmb_receivable": 1000,
@@ -271,7 +271,7 @@
     {
         "business_operator": "薛坤",
         "customer_service": "李想",
-        "container_type_and_quantity": "1*20HQ\n3*40HQ",
+        "container_type_and_quantity": "1*20HQ,3*40HQ",
         "ticket_count": 1,
         "teu": 7,
         "rmb_receivable": 5000,
@@ -316,7 +316,7 @@
     {
         "business_operator": "薛坤",
         "customer_service": "李想",
-        "container_type_and_quantity": "1*40HC\n2*20GP",
+        "container_type_and_quantity": "1*40HC,2*20GP",
         "ticket_count": 1,
         "teu": 4,
         "rmb_receivable": 1000,
@@ -511,7 +511,7 @@
     {
         "business_operator": "薛坤",
         "customer_service": "操作",
-        "container_type_and_quantity": "7*40HC\n15*40OT",
+        "container_type_and_quantity": "7*40HC,15*40OT",
         "ticket_count": 1,
         "teu": 44,
         "rmb_receivable": 200,
@@ -661,7 +661,7 @@
     {
         "business_operator": "管理员",
         "customer_service": "周浩",
-        "container_type_and_quantity": "1*20GP\n1*40GP",
+        "container_type_and_quantity": "1*20GP,1*40GP",
         "ticket_count": 1,
         "teu": 3,
         "rmb_receivable": 2000,
@@ -676,7 +676,7 @@
     {
         "business_operator": "管理员",
         "customer_service": "周浩",
-        "container_type_and_quantity": "1*20GP\n1*40HC",
+        "container_type_and_quantity": "1*20GP,1*40HC",
         "ticket_count": 1,
         "teu": 3,
         "rmb_receivable": 2000,
@@ -841,7 +841,7 @@
     {
         "business_operator": "管理员",
         "customer_service": "操作",
-        "container_type_and_quantity": "1*20GP\n1*40GP",
+        "container_type_and_quantity": "1*20GP,1*40GP",
         "ticket_count": 1,
         "teu": 3,
         "rmb_receivable": 500,
@@ -886,7 +886,7 @@
     {
         "business_operator": "管理员",
         "customer_service": "管理员",
-        "container_type_and_quantity": "1*20GP\n1*40GP\n1*45GP",
+        "container_type_and_quantity": "1*20GP,1*40GP,1*45GP",
         "ticket_count": 1,
         "teu": 5,
         "rmb_receivable": 500,
@@ -901,7 +901,7 @@
     {
         "business_operator": "管理员",
         "customer_service": "管理员",
-        "container_type_and_quantity": "1*20GP\n1*40GP",
+        "container_type_and_quantity": "1*20GP,1*40GP",
         "ticket_count": 1,
         "teu": 3,
         "rmb_receivable": 500,
@@ -931,7 +931,7 @@
     {
         "business_operator": "管理员",
         "customer_service": "管理员",
-        "container_type_and_quantity": "1*40GP\n1*20GP",
+        "container_type_and_quantity": "1*40GP,1*20GP",
         "ticket_count": 2,
         "teu": 6,
         "rmb_receivable": 500,

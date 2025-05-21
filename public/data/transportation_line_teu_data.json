@@ -1,0 +1,394 @@
+[
+    {
+        "route": "东南亚",
+        "discharge_port": "BUSAN",
+        "TEU": "2",
+        "HBL": "2",
+        "CBM": "CBM",
+        "RT": "RT"
+    },
+    {
+        "route": "东南亚",
+        "discharge_port": "HAIPHONG",
+        "TEU": "1",
+        "HBL": "1",
+        "CBM": "CBM",
+        "RT": "RT"
+    },
+    {
+        "route": "东南亚",
+        "discharge_port": "HO CHI MINH (CAT LAI)",
+        "TEU": "3",
+        "HBL": "4",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "东南亚",
+        "discharge_port": "LAEM CHABANG",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "东南亚",
+        "discharge_port": "SINGAPORE",
+        "TEU": "4",
+        "HBL": "1",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "东南亚",
+        "discharge_port": "YANGON",
+        "TEU": "3",
+        "HBL": "3",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "东南亚",
+        "discharge_port": "",
+        "TEU": "15",
+        "HBL": "12",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "中东",
+        "discharge_port": "DUBAI",
+        "TEU": "3",
+        "HBL": "3",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "中东",
+        "discharge_port": "",
+        "TEU": "3",
+        "HBL": "3",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "中国",
+        "discharge_port": "SHENZHEN",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "中国",
+        "discharge_port": " XIAMEN",
+        "TEU": "1",
+        "HBL": "1",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "中国",
+        "discharge_port": "",
+        "TEU": "3",
+        "HBL": "2",
+        "CBM": "0.3",
+        "RT": "1"
+    },
+    {
+        "route": "加勒比",
+        "discharge_port": "KINGSTON",
+        "TEU": "1",
+        "HBL": "2",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "加勒比",
+        "discharge_port": "KINGSTOWN",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "加勒比",
+        "discharge_port": "MONTEGO BAY",
+        "TEU": "6",
+        "HBL": "2",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "加勒比",
+        "discharge_port": "",
+        "TEU": "9",
+        "HBL": "5",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "南美洲",
+        "discharge_port": "BUENOS AIRES",
+        "TEU": "12",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "南美洲",
+        "discharge_port": "CALLAO",
+        "TEU": "3",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "南美洲",
+        "discharge_port": "IMBITUBA",
+        "TEU": "3",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "南美洲",
+        "discharge_port": "MANAUS",
+        "TEU": "11",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "南美洲",
+        "discharge_port": "",
+        "TEU": "26",
+        "HBL": "4",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "印巴",
+        "discharge_port": "NHAVA SHEVA",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "印巴",
+        "discharge_port": "",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "地中海",
+        "discharge_port": "EVYAP",
+        "TEU": "1",
+        "HBL": "3",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "地中海",
+        "discharge_port": "TRIPOLI",
+        "TEU": "12",
+        "HBL": "2",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "地中海",
+        "discharge_port": "",
+        "TEU": "13",
+        "HBL": "5",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "墨西哥",
+        "discharge_port": "MANZANILLO,MEXICO",
+        "TEU": "1",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "墨西哥",
+        "discharge_port": "",
+        "TEU": "1",
+        "HBL": "1",
+        "CBM": "232",
+        "RT": "1"
+    },
+    {
+        "route": "欧洲",
+        "discharge_port": "ANTWERP",
+        "TEU": "4",
+        "HBL": "5",
+        "CBM": "9",
+        "RT": "9"
+    },
+    {
+        "route": "欧洲",
+        "discharge_port": "GDANSK",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "9",
+        "RT": "9"
+    },
+    {
+        "route": "欧洲",
+        "discharge_port": "LONDON",
+        "TEU": "2",
+        "HBL": "1",
+        "CBM": "9",
+        "RT": "9"
+    },
+    {
+        "route": "欧洲",
+        "discharge_port": "ROTTERDAM",
+        "TEU": "3",
+        "HBL": "1",
+        "CBM": "9",
+        "RT": "9"
+    },
+    {
+        "route": "欧洲",
+        "discharge_port": "SOUTHAMPTON",
+        "TEU": "4",
+        "HBL": "1",
+        "CBM": "9",
+        "RT": "9"
+    },
+    {
+        "route": "欧洲",
+        "discharge_port": "",
+        "TEU": "15",
+        "HBL": "9",
+        "CBM": "9",
+        "RT": "9"
+    },
+    {
+        "route": "澳新",
+        "discharge_port": "SYDNEY",
+        "TEU": "1",
+        "HBL": "2",
+        "CBM": "9",
+        "RT": "1"
+    },
+    {
+        "route": "澳新",
+        "discharge_port": "",
+        "TEU": "1",
+        "HBL": "2",
+        "CBM": "9",
+        "RT": "1"
+    },
+    {
+        "route": "美东",
+        "discharge_port": "BOSTON",
+        "TEU": "5",
+        "HBL": "5",
+        "CBM": "9",
+        "RT": "1"
+    },
+    {
+        "route": "美东",
+        "discharge_port": "",
+        "TEU": "5",
+        "HBL": "5",
+        "CBM": "9",
+        "RT": "1"
+    },
+    {
+        "route": "美国内陆",
+        "discharge_port": "ELLWOOD CITY",
+        "TEU": "4",
+        "HBL": "3",
+        "CBM": "121",
+        "RT": "121"
+    },
+    {
+        "route": "美国内陆",
+        "discharge_port": "TORRANCE",
+        "TEU": "4",
+        "HBL": "1",
+        "CBM": "121",
+        "RT": "121"
+    },
+    {
+        "route": "美国内陆",
+        "discharge_port": "WINSTON SALEM",
+        "TEU": "6",
+        "HBL": "7",
+        "CBM": "1231",
+        "RT": "1231"
+    },
+    {
+        "route": "美国内陆",
+        "discharge_port": "",
+        "TEU": "10",
+        "HBL": "11",
+        "CBM": "1352",
+        "RT": "1352"
+    },
+    {
+        "route": "美西",
+        "discharge_port": "LONG BEACH,CA",
+        "TEU": "4",
+        "HBL": "2",
+        "CBM": "1352",
+        "RT": "1352"
+    },
+    {
+        "route": "美西",
+        "discharge_port": "LOS ANGELES,CA",
+        "TEU": "19",
+        "HBL": "11",
+        "CBM": "1.03",
+        "RT": "1.03"
+    },
+    {
+        "route": "美西",
+        "discharge_port": "VISALIA",
+        "TEU": "5",
+        "HBL": "5",
+        "CBM": "212",
+        "RT": "1.03"
+    },
+    {
+        "route": "美西",
+        "discharge_port": "",
+        "TEU": "28",
+        "HBL": "18",
+        "CBM": "213.03",
+        "RT": "1.03"
+    },
+    {
+        "route": "非洲",
+        "discharge_port": "DAR ES SALAAM",
+        "TEU": "71",
+        "HBL": "46",
+        "CBM": "213.03",
+        "RT": "1.03"
+    },
+    {
+        "route": "非洲",
+        "discharge_port": "LOME",
+        "TEU": "6",
+        "HBL": "1",
+        "CBM": "213.03",
+        "RT": "1.03"
+    },
+    {
+        "route": "非洲",
+        "discharge_port": "",
+        "TEU": "77",
+        "HBL": "47",
+        "CBM": "213.03",
+        "RT": "1.03"
+    }
+]

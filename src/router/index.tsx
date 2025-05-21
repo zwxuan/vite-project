@@ -10,7 +10,9 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   SalesProfitReport,
   DepartmentBusinessWeightReport,
   SingleTicketProfitStatisticsReport,
-  OperatorShipmentSummaryReport} from "./imports";
+  OperatorShipmentSummaryReport,
+  TransportationLineTeuReport,
+  CustomerWeightProfitReport} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -418,6 +420,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <OperatorShipmentSummaryReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/transportation_line_teu_report",
+        handle: { title: '航线货量分析' },
+        element: (
+          <RouterGuard>
+            <TransportationLineTeuReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/customer_weight_profit_report",
+        handle: { title: '客户箱量利润汇总表' },
+        element: (
+          <RouterGuard>
+            <CustomerWeightProfitReport />
           </RouterGuard>),
       },
       
