@@ -12,7 +12,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   SingleTicketProfitStatisticsReport,
   OperatorShipmentSummaryReport,
   TransportationLineTeuReport,
-  CustomerWeightProfitReport} from "./imports";
+  CustomerWeightProfitReport,
+  AccountsReceivableAgingReport,
+  NotPayFeeReport,
+  NotPayOrderReport} from "./imports";
 import RouterGuard from "@/components/router_guard";
 const routers = createMemoryRouter([
   {
@@ -438,7 +441,30 @@ const routers = createMemoryRouter([
             <CustomerWeightProfitReport />
           </RouterGuard>),
       },
-      
+      {
+        path: "/accounts_receivable_aging_report",
+        handle: { title: '应收未收对账表（按业务单号）' },
+        element: (
+          <RouterGuard>
+            <AccountsReceivableAgingReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/not_pay_fee_report",
+        handle: { title: '未付对账表（按费用明细）' },
+        element: (
+          <RouterGuard>
+            <NotPayFeeReport />
+          </RouterGuard>),
+      },
+      {
+        path: "/not_pay_order_report",
+        handle: { title: '未付对账表（按业务单号）' },
+        element: (
+          <RouterGuard>
+            <NotPayOrderReport />
+          </RouterGuard>),
+      },
     ], // 如果需要子路由，可以在这里添加
   },
   {

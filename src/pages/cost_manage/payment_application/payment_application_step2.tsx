@@ -70,7 +70,7 @@ const PaymentApplicationStep2: React.FC = () => {
                     <div className="item-charging-container-modal">
                         <Row gutter={24} style={{ paddingRight: '6px' }}>
                             <Col span={20}>
-                                <Row gutter={24} style={{ paddingRight: '6px' }}>
+                                <Row gutter={24} style={{ paddingRight: '6px',marginTop:'2px' }}>
                                     <Col span={6}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                             <label className='item_label_title'>申请单号</label>
@@ -118,7 +118,7 @@ const PaymentApplicationStep2: React.FC = () => {
                                         </div>
                                     </Col>
                                 </Row>
-                                <Row gutter={24} style={{ paddingRight: '6px' }}>
+                                <Row gutter={24} style={{ paddingRight: '6px',marginTop:'2px' }}>
                                     <Col span={18}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                             <label className='item_label_title'>业务类型</label>
@@ -132,7 +132,7 @@ const PaymentApplicationStep2: React.FC = () => {
                                         </div>
                                     </Col>
                                 </Row>
-                                <Row gutter={24} style={{ paddingRight: '6px' }}>
+                                <Row gutter={24} style={{ paddingRight: '6px',marginTop:'2px' }}>
                                     <Col span={6}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                             <label className='item_label_title'>付款币种</label>
@@ -179,7 +179,7 @@ const PaymentApplicationStep2: React.FC = () => {
                                         </div>
                                     </Col>
                                 </Row>
-                                <Row gutter={24} style={{ paddingRight: '6px' }}>
+                                <Row gutter={24} style={{ paddingRight: '6px',marginTop:'2px' }}>
                                     <Col span={6}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                             <label className='item_label_title'>开票抬头</label>

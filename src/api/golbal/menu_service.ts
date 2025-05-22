@@ -717,13 +717,13 @@ const childrenMenuData: MenuGroup[] = [{
             name: "未收对账表（按业务单号）", key: "not_receivables_order_report",path: "/not_receivables_order_report",
         },
         {
-            name: "应收未收对账表（按工作单）", key: "receivable_unpaid_work_order",
+            name: "应收未收对账表（按业务单号）", key: "accounts_receivable_aging_report",path: "/accounts_receivable_aging_report",
         },
         {
-            name: "未付对账表（按费用）", key: "unpaid_cost_statement",
+            name: "未付对账表（按费用）", key: "not_pay_fee_report",path: "/not_pay_fee_report",
         },
         {
-            name: "未付对账表（按工作单）", key: "unpaid_work_order_statement",
+            name: "未付对账表（按业务单号）", key: "unpaid_work_order_statement",path: "/not_pay_order_report",
         },
         {
             name: "客户欠账分析", key: "customer_arrears_analysis_report",path: "/customer_arrears_analysis_report",

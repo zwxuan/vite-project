@@ -4,8 +4,8 @@ import LocaleHelper from '@/utils/locale';
 export const fields: AdvancedSearchFormProps["fields"] = [
     {
         type: 'rangepicker',
-        label: '开航日期',
-        key: 'FlightDate',
+        label: '业务日期',
+        key: 'BusinessDate',
     },
     {
         type: 'select',

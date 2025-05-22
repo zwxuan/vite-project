@@ -9,13 +9,8 @@ export const fields: AdvancedSearchFormProps["fields"] = [
     },
     {
         type: 'select',
-        label: '客户',
-        key: 'Customer',
-    },
-    {
-        type: 'select',
-        label: '销售',
-        key: 'Sales',
+        label: '结算对象',
+        key: 'SettlementObject',
     },
     
 ]; 

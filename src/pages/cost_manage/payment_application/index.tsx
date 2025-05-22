@@ -18,7 +18,8 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, reviewItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
-import DetailModal from './detail_modal';
+// import DetailModal from './detail_modal';
+const DetailModal = React.lazy(() => import('./detail_modal'));
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const PaymentApplication : React.FC = () => {

@@ -17,5 +17,14 @@ export const fields: AdvancedSearchFormProps["fields"] = [
         label: '销售',
         key: 'Sales',
     },
-    
+    {
+        type: 'select',
+        label: '航线',
+        key: 'Route',
+    },
+    {
+        type: 'select',
+        label: '操作',
+        key: 'Operation',
+    },
 ]; 

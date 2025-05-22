@@ -89,6 +89,9 @@ const SingleTicketProfitStatisticsReport = React.lazy(() => import("@/pages/repo
 const OperatorShipmentSummaryReport  = React.lazy(() => import("@/pages/report/operator_shipment_summary"));
 const TransportationLineTeuReport = React.lazy(() => import("@/pages/report/transportation_line_teu"));
 const CustomerWeightProfitReport = React.lazy(() => import("@/pages/report/customer_weight_profit"));
+const AccountsReceivableAgingReport = React.lazy(() => import("@/pages/report/accounts_receivable_aging"));
+const NotPayFeeReport = React.lazy(() => import("@/pages/report/not_pay_fee"));
+const NotPayOrderReport = React.lazy(() => import("@/pages/report/not_pay_order"));
 export {
   Currency,
   Orders,
@@ -140,4 +143,7 @@ export {
   OperatorShipmentSummaryReport,
   TransportationLineTeuReport,
   CustomerWeightProfitReport,
+  AccountsReceivableAgingReport,
+  NotPayFeeReport,
+  NotPayOrderReport,
 };
