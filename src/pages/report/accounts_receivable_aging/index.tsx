@@ -138,6 +138,13 @@ const AccountsReceivableAgingReport: React.FC = () => {
     const s2Options: SheetComponentOptions = {
         width: adaptiveSheetSize.width,
         height: adaptiveSheetSize.height,
+        tooltip: {
+          autoAdjustBoundary: "container", // 默认 "body"
+          style: {
+            fontSize: '16px'
+          },
+          className: 'test'
+        },
         totals: {
             row: {
                 showGrandTotals: true,

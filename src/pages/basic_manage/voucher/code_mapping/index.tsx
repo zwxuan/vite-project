@@ -1,6 +1,6 @@
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Dropdown, Space, Modal, Row, Input, Col, Select, Progress, notification } from 'antd';
+import { Table, Button, Dropdown, Space, Modal, Row, Input, Col, Select, Progress, notification, Tooltip } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping/code_mapping";
@@ -285,6 +285,20 @@ const VoucherCodeMapping: React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 编码映射
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>编码映射</b></span>业务系统与目标系统（如用友U8/BIP）之间数据对接的核心部分。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>示例</b></span>务系统中的客户编号（如CRM中的CUST001）与用友系统中的客户编码（如KH001）需要一一对应。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
