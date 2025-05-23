@@ -186,19 +186,19 @@ const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title, reado
                 <Row gutter={24} style={{ paddingRight: '6px', marginBottom: '2px' }}>
                   <Col span={8}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <label className='item-lable-title'>模板版本号</label>
+                      <label className='item-lable-title' style={{width:'100px',textAlign:'right'}}>模板版本号</label>
                       <Input placeholder="请输入模板版本号" name='templateVersion' disabled={readonly} style={{ flex: 1 }} />
                     </div>
                   </Col>
                   <Col span={8}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <label className='item-lable-title'>模板名称</label>
+                      <label className='item-lable-title' style={{width:'100px',textAlign:'right'}}>模板名称</label>
                       <Input placeholder="请输入模板名称" name='templateName' disabled={readonly} style={{ flex: 1 }} />
                     </div>
                   </Col>
                   <Col span={8}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <label className='item-lable-title'>模板编号</label>
+                      <label className='item-lable-title'style={{width:'100px',textAlign:'right'}}>模板编号</label>
                       <Input placeholder="请输入模板编号" disabled={readonly} style={{ flex: 1 }} />
                     </div>
                   </Col>
@@ -206,7 +206,7 @@ const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title, reado
                 <Row gutter={24} style={{ paddingRight: '6px', marginBottom: '2px' }}>
                   <Col span={8}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <label className='item-lable-title'>国家/地区</label>
+                      <label className='item-lable-title'style={{width:'100px',textAlign:'right'}}>国家/地区</label>
                       <Select placeholder="请选择国家/地区" style={{ flex: 1 }} disabled={readonly}>
                         <Option value="China">中国</Option>
                         <Option value="USA">美国</Option>
@@ -215,7 +215,7 @@ const CustomeExcelTemplate: React.FC<CustomExcelTemplateProps> = ({ title, reado
                   </Col>
                   <Col span={8}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <label className='item-lable-title'>唯一性字段</label>
+                      <label className='item-lable-title'style={{width:'100px',textAlign:'right'}}>唯一性字段</label>
                       <Select placeholder="请选择唯一性字段" disabled={readonly} style={{ flex: 1 }}>
                         <Option value="id">id</Option>
                       </Select>
