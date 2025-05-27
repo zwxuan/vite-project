@@ -33,6 +33,10 @@ import { ActualPaymentLocale } from '@/utils/locale/finance_manage/actual_paymen
 import { StatementObjectLocale } from '@/utils/locale/finance_manage/statement_object.ts';
 import { VoucherLogLocale } from '@/utils/locale/finance_manage/voucher_log.ts';
 import { VoucherDetailLocale } from '@/pages/finance_manage/voucher_log/voucher_detail';
+import { BaseGoodsLocale } from '@/utils/locale/basic_manage/base_goods.ts';
+import { BaseAmsPortLocale } from './basic_manage/base_ams_port';
+import { BaseEdiPortLocale } from './basic_manage/base_edi_port';
+import { BaseSeaportLocale } from './basic_manage/base_seaport';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -71,6 +75,10 @@ export {
   StatementObjectLocale,
   VoucherLogLocale,
   VoucherDetailLocale,
+  BaseGoodsLocale,
+  BaseAmsPortLocale,
+  BaseEdiPortLocale,
+  BaseSeaportLocale
 };
 
 export default {
@@ -111,4 +119,8 @@ export default {
 ...StatementObjectLocale,
 ...VoucherLogLocale,
 ...VoucherDetailLocale,
+...BaseGoodsLocale,
+...BaseAmsPortLocale,
+...BaseEdiPortLocale,
+...BaseSeaportLocale,
 };

@@ -92,6 +92,8 @@ const CustomerWeightProfitReport = React.lazy(() => import("@/pages/report/custo
 const AccountsReceivableAgingReport = React.lazy(() => import("@/pages/report/accounts_receivable_aging"));
 const NotPayFeeReport = React.lazy(() => import("@/pages/report/not_pay_fee"));
 const NotPayOrderReport = React.lazy(() => import("@/pages/report/not_pay_order"));
+const BaseGoods = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_goods"));
+const BaseSeaPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/sea_port"));
 export {
   Currency,
   Orders,
@@ -146,4 +148,6 @@ export {
   AccountsReceivableAgingReport,
   NotPayFeeReport,
   NotPayOrderReport,
+  BaseGoods,
+  BaseSeaPort,
 };

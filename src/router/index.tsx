@@ -15,8 +15,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   CustomerWeightProfitReport,
   AccountsReceivableAgingReport,
   NotPayFeeReport,
-  NotPayOrderReport} from "./imports";
+  NotPayOrderReport,
+  BaseSeaPort} from "./imports";
 import RouterGuard from "@/components/router_guard";
+import BaseGoods from "@/pages/basic_manage/dic_manage/base_goods";
 const routers = createMemoryRouter([
   {
     path: "/",
@@ -31,6 +33,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <Currency />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_goods",
+        handle: { title: '海关商品' },
+        element: (
+          <RouterGuard>
+            <BaseGoods />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_seaport",
+        handle: { title: '海港' },
+        element: (
+          <RouterGuard>
+            <BaseSeaPort />
           </RouterGuard>),
       },
       {

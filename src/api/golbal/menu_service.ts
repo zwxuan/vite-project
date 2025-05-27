@@ -153,13 +153,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic",
     apps: [
         {
-            name: "海关编码", key: "customs_code",
+            name: "海关编码", key: "base_goods",path: "/base_goods",
         },
         {
-            name: "海关监管方式", key: "customs_supervision",
-        },
-        {
-            name: "海港", key: "sea_port",
+            name: "海港", key: "base_seaport",path: "/base_seaport",
         },
         {
             name: "空港", key: "air_port",
