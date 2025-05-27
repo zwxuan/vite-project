@@ -75,7 +75,7 @@ export const getColumns = (handleEdit: (record: BaseGoodsItemProps) => void, han
                     </div>
                 }
                 color='white'>
-                <div style={{ maxWidth: '200', whiteSpace: 'nowrap', wordWrap: 'break-word', wordBreak: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
+                <div style={{ maxWidth: '200px', whiteSpace: 'nowrap', wordWrap: 'break-word', wordBreak: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden' }}>{text}</div>
             </Tooltip>
 
         },
