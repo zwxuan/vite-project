@@ -3,8 +3,8 @@ import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Button, Dropdown, Space, Table } from 'antd';
 import type { TableProps } from 'antd';
-import { BaseSeaportItemProps } from "@/types/basic_manage/base_port/base_seaport";
-import { getBaseSeaportList } from "@/api/basic_manage/base_seaport_service";
+import { BaseAirPortItemProps } from "@/types/basic_manage/base_port/base_airport";
+import { getBaseAirportList } from "@/api/basic_manage/base_airport_service";
 import { getColumns } from './columns';
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
 import { statusItems, importItems, exportItems } from './menu_items';
@@ -14,12 +14,12 @@ type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'
 const PortComponent: React.FC = () => {
 
     // 订单管理表，存储与业务相关的订单信息数据
-    const [ordersList, setOrdersList] = useState([] as BaseSeaportItemProps[]);
+    const [ordersList, setOrdersList] = useState([] as BaseAirPortItemProps[]);
     const [pageSize, setPageSize] = useState(50);
     // 获取订单管理表，存储与业务相关的订单信息数据
     useEffect(() => {
         const getData = async () => {
-            const ordersData = await getBaseSeaportList();
+            const ordersData = await getBaseAirportList();
             // 设置订单管理表，存储与业务相关的订单信息台账数据
             setOrdersList([...ordersData]);
         };
@@ -29,7 +29,7 @@ const PortComponent: React.FC = () => {
 
     const columnsType = getColumns(() => { }, () => { });
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<BaseSeaportItemProps> = {
+    const rowSelection: TableRowSelection<BaseAirPortItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -76,7 +76,7 @@ const PortComponent: React.FC = () => {
                 </div>
             </div>
             <div className='nc-bill-table-area'>
-                <Table<BaseSeaportItemProps>
+                <Table<BaseAirPortItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection }}
                     rowKey={(record) => `${record.Id}`}

@@ -706,10 +706,23 @@ const baseAmsPortItems:BaseAmsPortItemProps[] = [
     }
 ];
 
+const baseAmsPortItems2:BaseAmsPortItemProps[] = [
+    {
+        "UsNo":"2702",
+        "NameEn":"LOS ÁNGELES",
+        "UnNo":"LAX",
+        "CountryRegion":"美国 ",
+        "Remarks":""
+    },
+];
 
 // 获取账单管理台账列表
 export const getBaseAmsPortList = async (): Promise<BaseAmsPortItemProps[]> => {
   return baseAmsPortItems;
+}
+
+export const getBaseAmsPortList2 = async (): Promise<BaseAmsPortItemProps[]> => {
+    return baseAmsPortItems2;
 }
 
 // 保存账单管理

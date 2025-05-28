@@ -1199,4 +1199,14 @@ export const cn = {
         isocode:"ISO代码",
         portrequirements:"港口要求",
     },
+    base_railway_port:{
+        countryid:"国家简码",
+        stationid:"铁路站点编码",
+        stationnamecn:"铁路站点中文",
+        stationnameen:"铁路站点英文",
+        countrycn:"国家中文",
+        countryen:"国家英文",
+        continentcn:"大洲中文",
+        continenten:"大洲英文",
+    },
 };

@@ -37,6 +37,7 @@ import { BaseGoodsLocale } from '@/utils/locale/basic_manage/base_goods.ts';
 import { BaseAmsPortLocale } from './basic_manage/base_ams_port';
 import { BaseEdiPortLocale } from './basic_manage/base_edi_port';
 import { BaseSeaportLocale } from './basic_manage/base_seaport';
+import { BaseRailwayPortLocale } from './basic_manage/base_railway_port';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -123,4 +124,5 @@ export default {
 ...BaseAmsPortLocale,
 ...BaseEdiPortLocale,
 ...BaseSeaportLocale,
+...BaseRailwayPortLocale,
 };

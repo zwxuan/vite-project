@@ -94,6 +94,8 @@ const NotPayFeeReport = React.lazy(() => import("@/pages/report/not_pay_fee"));
 const NotPayOrderReport = React.lazy(() => import("@/pages/report/not_pay_order"));
 const BaseGoods = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_goods"));
 const BaseSeaPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/sea_port"));
+const BaseAirPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/air_port"));
+const BaseRailwayPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_railway_port"));
 export {
   Currency,
   Orders,
@@ -150,4 +152,6 @@ export {
   NotPayOrderReport,
   BaseGoods,
   BaseSeaPort,
+  BaseAirPort,
+  BaseRailwayPort,
 };

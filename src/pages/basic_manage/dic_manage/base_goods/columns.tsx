@@ -96,19 +96,15 @@ export const getColumns = (handleEdit: (record: BaseGoodsItemProps) => void, han
         sorter: true,
         align: 'left',
     },
-    {
-        title: '操作',
-        key: 'operation',
-        fixed: 'right',
-        width: 100,
-        render: (_, record) => (
-        <>
-            <a>启用</a>
-            <a onClick={()=>handleEdit(record)}>编辑</a>
-            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
-                <a>删除</a>
-            </Popconfirm>
-        </>
-        ),
-    },
+    // {
+    //     title: '操作',
+    //     key: 'operation',
+    //     fixed: 'right',
+    //     width: 100,
+    //     render: (_, record) => (
+    //     <>
+            
+    //     </>
+    //     ),
+    // },
 ]; 

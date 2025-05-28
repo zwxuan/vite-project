@@ -159,10 +159,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "海港", key: "base_seaport",path: "/base_seaport",
         },
         {
-            name: "空港", key: "air_port",
+            name: "空港", key: "base_airport",path: "/base_airport",
         },
         {
-            name: "铁港", key: "railway_port",
+            name: "铁港", key: "base_railwayport",path: "/base_railwayport",
         },
         {
             name: "航线", key: "route",

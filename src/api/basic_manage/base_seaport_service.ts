@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { BaseSeaportItemProps } from "@/types/basic_manage/base_seaport/base_seaport";
+import { BaseSeaportItemProps } from "@/types/basic_manage/base_port/base_seaport";
 import Mock from "mockjs";
 //
 const baseSeaportItems:BaseSeaportItemProps[] = [

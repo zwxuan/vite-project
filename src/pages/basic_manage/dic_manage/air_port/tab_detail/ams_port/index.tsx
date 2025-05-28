@@ -1,35 +1,39 @@
-
 import '@/pages/page_list.less';
-import React, { useState, useEffect } from 'react';
-import { Button, Dropdown, Space, Table } from 'antd';
-import type { TableProps } from 'antd';
-import { BaseSeaportItemProps } from "@/types/basic_manage/base_port/base_seaport";
-import { getBaseSeaportList } from "@/api/basic_manage/base_seaport_service";
+import React, { useState,useEffect } from 'react';
+import { Button, Table } from 'antd';
+import type { MenuProps,TableProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port/base_ams_port";
+import { getBaseAmsPortList2 } from "@/api/basic_manage/base_ams_port_service";
+import { requestWithProgress } from "@/api/request";
+import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
+import CustomIcon from "@/components/custom-icon";
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
 import { getColumns } from './columns';
-import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
-import { statusItems, importItems, exportItems } from './menu_items';
+import SumTableFooter from '@/components/table-footer/SumTableFooter';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 
-const PortComponent: React.FC = () => {
-
-    // 订单管理表，存储与业务相关的订单信息数据
-    const [ordersList, setOrdersList] = useState([] as BaseSeaportItemProps[]);
+const AMSPortComponent : React.FC = () => {
+    // 发票管理数据
+    const [invoiceList, setInvoiceList] = useState([] as BaseAmsPortItemProps[]);
     const [pageSize, setPageSize] = useState(50);
-    // 获取订单管理表，存储与业务相关的订单信息数据
+    // 获取发票管理数据
     useEffect(() => {
         const getData = async () => {
-            const ordersData = await getBaseSeaportList();
-            // 设置订单管理表，存储与业务相关的订单信息台账数据
-            setOrdersList([...ordersData]);
+            const invoiceData = await getBaseAmsPortList2();
+            // 设置发票管理台账数据
+            setInvoiceList([...invoiceData]);
         };
         getData();
     }, []);
+    
+    const columnsType = getColumns(()=>{}, ()=>{});
+    
 
-
-    const columnsType = getColumns(() => { }, () => { });
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<BaseSeaportItemProps> = {
+    const rowSelection: TableRowSelection<BaseAmsPortItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -47,7 +51,7 @@ const PortComponent: React.FC = () => {
     };
 
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
@@ -76,13 +80,13 @@ const PortComponent: React.FC = () => {
                 </div>
             </div>
             <div className='nc-bill-table-area'>
-                <Table<BaseSeaportItemProps>
+                <Table<BaseAmsPortItemProps>
                     columns={columnsType}
-                    rowSelection={{ ...rowSelection }}
-                    rowKey={(record) => `${record.Id}`}
+                    rowSelection={{ ...rowSelection}}
+                    rowKey={(record) => `${record.UsNo}`}
                     showSorterTooltip={false}
-                    dataSource={ordersList}
-                    loading={ordersList.length === 0}
+                    dataSource={invoiceList}
+                    loading={invoiceList.length === 0}
                     pagination={{
                         size: 'small',
                         pageSize: pageSize,
@@ -99,11 +103,14 @@ const PortComponent: React.FC = () => {
                         }
                     }}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
+                    
                     bordered={true}
                 />
             </div>
         </div>
+        
+        
     )
 }
-const Port = React.memo(PortComponent);
-export default Port;
+const AMSPort = React.memo(AMSPortComponent);
+export default AMSPort;

@@ -1,12 +1,10 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseSeaportItemProps } from "@/types/basic_manage/base_port/base_seaport";
+import { BaseAirPortItemProps } from "@/types/basic_manage/base_port/base_airport";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
-
-
-export const getColumns = (handleEdit: (record: BaseSeaportItemProps) => void, handleDelete: (record: BaseSeaportItemProps) => void): TableColumnsType<BaseSeaportItemProps> => [
+export const getColumns = (handleEdit: (record: BaseAirPortItemProps) => void, handleDelete: (record: BaseAirPortItemProps) => void): TableColumnsType<BaseAirPortItemProps> => [
 
     {
         title: i18n.t(LocaleHelper.getBaseSeaportId()),
