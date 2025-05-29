@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { BaseAirPortItemProps } from "@/types/basic_manage/base_port/base_airport";
+import { BaseAirPortItemProps } from "@/types/basic_manage/base_airport";
 import Mock from "mockjs";
 //
 const baseSeaportItems: BaseAirPortItemProps[] = [

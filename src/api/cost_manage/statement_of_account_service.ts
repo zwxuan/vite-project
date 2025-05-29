@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { StatementOfAccountItemProps } from "@/types/cost_manage/statement_of_account/statement_of_account";
+import { StatementOfAccountItemProps } from "@/types/cost_manage/statement_of_account";
 
 const statementOfAccountItems: StatementOfAccountItemProps[] = [
   {

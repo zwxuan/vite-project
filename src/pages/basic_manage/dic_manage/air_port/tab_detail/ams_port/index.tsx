@@ -1,9 +1,9 @@
-import '@/pages/page_list.less';
+﻿import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Button, Table } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port/base_ams_port";
+import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port";
 import { getBaseAmsPortList2 } from "@/api/basic_manage/base_ams_port_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -114,3 +114,4 @@ const AMSPortComponent : React.FC = () => {
 }
 const AMSPort = React.memo(AMSPortComponent);
 export default AMSPort;
+

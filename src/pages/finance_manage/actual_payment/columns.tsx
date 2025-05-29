@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { ActualPaymentItemProps } from "@/types/finance_manage/actual_payment/actual_payment";
+import { ActualPaymentItemProps } from "@/types/finance_manage/actual_payment";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -331,3 +331,4 @@ export const getColumns = (handleEdit: (record: ActualPaymentItemProps) => void,
         ),
     },
 ]; 
+

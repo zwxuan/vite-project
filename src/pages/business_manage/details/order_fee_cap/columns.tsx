@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Popconfirm } from 'antd';
-import { OrderFeeItemProps } from "@/types/business_manage/order_fee/order_fee";
+import { OrderFeeItemProps } from "@/types/business_manage/order_fee";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
@@ -195,3 +195,4 @@ export const getColumns = (handleEdit: (record: OrderFeeItemProps) => void, hand
         ),
     },
 ];
+

@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Button, Table } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseEdiPortItemProps } from "@/types/basic_manage/base_edi_port/base_edi_port";
+import { BaseEdiPortItemProps } from "@/types/basic_manage/base_edi_port";
 import { getBaseEdiPortList } from "@/api/basic_manage/base_edi_port_service";
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
@@ -107,3 +107,4 @@ const EDIPortComponent : React.FC = () => {
 }
 const EDIPort = React.memo(EDIPortComponent);
 export default EDIPort;
+

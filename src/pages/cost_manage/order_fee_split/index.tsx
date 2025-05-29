@@ -1,10 +1,10 @@
-
+﻿
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { OrderBillItemProps } from "@/types/business_manage/order_bill/order_bill";
-import {OrderFeeItemProps} from "@/types/business_manage/order_fee/order_fee";
+import { OrderBillItemProps } from "@/types/business_manage/order_bill";
+import {OrderFeeItemProps} from "@/types/business_manage/order_fee";
 import { getOrderBillList } from "@/api/business_manage/order_bill_service";
 import { getOrderFeeList } from "@/api/business_manage/order_fee_service";
 import { requestWithProgress } from "@/api/request";
@@ -204,3 +204,4 @@ const OrderFeeSplit : React.FC = () => {
     )
 }
 export default OrderFeeSplit;
+

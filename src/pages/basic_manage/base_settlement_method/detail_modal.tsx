@@ -1,7 +1,7 @@
-
+﻿
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { BaseSettlementMethodItemProps } from "@/types/basic_manage/base_settlement_method/base_settlement_method";
+import { BaseSettlementMethodItemProps } from "@/types/basic_manage/base_settlement_method";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;
@@ -83,3 +83,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
 };
 
 export default DetailModal;
+

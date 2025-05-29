@@ -1,7 +1,7 @@
-
+﻿
 import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, message, Steps } from 'antd';
-import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application/payment_application";
+import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application";
 import dayjs from 'dayjs';
 // import PaymentApplicationStep1 from './payment_application_step1';
 const PaymentApplicationStep1 = React.lazy(() => import('./payment_application_step1'));
@@ -103,3 +103,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
 };
 
 export default DetailModal;
+

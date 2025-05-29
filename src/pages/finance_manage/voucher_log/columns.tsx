@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm, Tooltip } from 'antd';
-import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
+import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_log/voucher_detail';
@@ -265,3 +265,4 @@ export const getVoucherDetailColumns = (): TableColumnsType<VoucherDetailItemPro
         align: 'left',
     },
 ]; 
+

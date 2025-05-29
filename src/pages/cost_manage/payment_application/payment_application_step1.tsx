@@ -1,4 +1,4 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox } from 'antd';
@@ -13,8 +13,8 @@ import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm from "@/components/search-form";
 import { getPaymentAppFeeColumns,getPaymentAppBusinessColumns } from './columns';
 import { fieldsFee,fieldsBusiness } from './search_fields';
-import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee/payment_application_fee';
-import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business/payment_application_business';
+import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee';
+import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const PaymentApplicationStep1 : React.FC = () => {

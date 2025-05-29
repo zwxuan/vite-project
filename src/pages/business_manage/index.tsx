@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+import { OrdersItemProps } from "@/types/business_manage/orders";
 import { getOrdersList,saveOrders } from "@/api/business_manage/orders_service";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -304,3 +304,4 @@ const Orders : React.FC = () => {
     )
 }
 export default Orders;
+

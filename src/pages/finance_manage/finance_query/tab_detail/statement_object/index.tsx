@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { StatementObjectItemProps } from "@/types/finance_manage/statement_object/statement_object";
+import { StatementObjectItemProps } from "@/types/finance_manage/statement_object";
 import { getStatementObjectList,saveStatementObject } from "@/api/finance_manage/statement_object_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -139,3 +139,4 @@ const StatementObjectComponent : React.FC<StatementObjectProps> = ({ isCurrentTa
 }
 const StatementObject = React.memo(StatementObjectComponent);
 export default StatementObject;
+

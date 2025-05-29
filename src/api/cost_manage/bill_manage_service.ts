@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { BillManageItemProps } from "@/types/cost_manage/bill_manage/bill_manage";
+import { BillManageItemProps } from "@/types/cost_manage/bill_manage";
 import Mock from "mockjs";
 
 // 模拟账单管理台账数据

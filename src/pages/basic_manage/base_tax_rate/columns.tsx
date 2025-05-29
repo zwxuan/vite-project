@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseTaxRateItemProps } from "@/types/basic_manage/base_tax_rate/base_tax_rate";
+import { BaseTaxRateItemProps } from "@/types/basic_manage/base_tax_rate";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -120,3 +120,4 @@ export const getColumns = (handleEdit: (record: BaseTaxRateItemProps) => void, h
         ),
     },
 ]; 
+

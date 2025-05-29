@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping/code_mapping";
+import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping";
 import Mock from "mockjs";
 
 // 模拟编码映射台账数据

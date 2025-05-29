@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { StatementOfAccountItemProps } from "@/types/cost_manage/statement_of_account/statement_of_account";
+import { StatementOfAccountItemProps } from "@/types/cost_manage/statement_of_account";
 import { getStatementOfAccountList,saveStatementOfAccount } from "@/api/cost_manage/statement_of_account_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -308,3 +308,4 @@ const StatementOfAccount : React.FC = () => {
     )
 }
 export default StatementOfAccount;
+

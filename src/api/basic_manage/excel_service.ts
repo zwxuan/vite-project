@@ -1,7 +1,7 @@
 //excel_service.ts
-import { ExportLogItem } from '@/types/basic_manage/log/export_template';
-import request, { ApiRes } from '../request'
-import { ImportLogItem, ImportTemplateItem, ImportTemplateFieldItem } from '@/types/basic_manage/log/import_template';
+import { ExportLogItem } from '@/types/basic_manage/export_template';
+import request, { ApiRes, requestWithProgress } from '../request'
+import { ImportLogItem, ImportTemplateItem, ImportTemplateFieldItem } from '@/types/basic_manage/import_template';
 import Mock from "mockjs";
 
 // 模拟导出日志数据

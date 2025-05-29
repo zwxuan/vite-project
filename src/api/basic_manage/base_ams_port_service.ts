@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port/base_ams_port";
+import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port";
 import Mock from "mockjs";
 //
 const baseAmsPortItems:BaseAmsPortItemProps[] = [

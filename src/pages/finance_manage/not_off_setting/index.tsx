@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Radio,Modal,Form,Input,InputNumber,Select,Progress,notification, Checkbox, Tooltip } from 'antd';
 import type { MenuProps,RadioChangeEvent,TableColumnsType,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting/not_off_setting";
+import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting";
 import { getNotOffSettingList,saveNotOffSetting } from "@/api/finance_manage/not_off_setting_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -358,3 +358,4 @@ const NotOffSetting : React.FC = () => {
     )
 }
 export default NotOffSetting;
+

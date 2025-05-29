@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm, Tooltip } from 'antd';
-import { ExpenseReviewItemProps } from "@/types/finance_manage/expense_review/expense_review";
+import { ExpenseReviewItemProps } from "@/types/finance_manage/expense_review";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import { NavLink } from 'react-router-dom';
@@ -519,3 +519,4 @@ export const getColumns = (handleEdit: (record: ExpenseReviewItemProps) => void,
         ),
     },
 ];
+

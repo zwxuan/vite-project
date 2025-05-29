@@ -1,4 +1,4 @@
-// InvoicePage.tsx
+﻿// InvoicePage.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Typography, Input, Space, Button, Radio, Table } from 'antd';
 import { HotTable, HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
@@ -7,7 +7,7 @@ import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
 import { getOrderFeeList, getFeeNameList } from "@/api/business_manage/order_fee_service";
-import { OrderFeeItemProps, FeeNameItemProps } from "@/types/business_manage/order_fee/order_fee";
+import { OrderFeeItemProps, FeeNameItemProps } from "@/types/business_manage/order_fee";
 import '@/pages/page_list.less';
 import './invoice_detail.less';
 const { Title, } = Typography;

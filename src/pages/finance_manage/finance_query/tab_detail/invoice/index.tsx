@@ -1,9 +1,9 @@
-import '@/pages/page_list.less';
+﻿import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { InvoiceItemProps } from "@/types/cost_manage/invoice/invoice";
+import { InvoiceItemProps } from "@/types/cost_manage/invoice";
 import { getInvoiceList,saveInvoice } from "@/api/cost_manage/invoice_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -123,3 +123,4 @@ const InvoiceComponent : React.FC<InvoiceProps> = ({ isCurrentTabActive = true }
 }
 const Invoice = React.memo(InvoiceComponent);
 export default Invoice;
+

@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { HasOffSettingItemProps } from "@/types/finance_manage/has_off_setting/has_off_setting";
+import { HasOffSettingItemProps } from "@/types/finance_manage/has_off_setting";
 import { getHasOffSettingList,saveHasOffSetting } from "@/api/finance_manage/has_off_setting_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -279,3 +279,4 @@ const HasOffSetting : React.FC = () => {
     )
 }
 export default HasOffSetting;
+

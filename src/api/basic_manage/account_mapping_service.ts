@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping/account_mapping";
+import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping";
 import Mock from "mockjs";
 
 // 模拟科目映射台账数据

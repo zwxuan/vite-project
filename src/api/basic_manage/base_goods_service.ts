@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { BaseGoodsItemProps } from "@/types/basic_manage/base_goods/base_goods";
+import { BaseGoodsItemProps } from "@/types/basic_manage/base_goods";
 import Mock from "mockjs";
 //
 const baseGoodsItems:BaseGoodsItemProps[] = [

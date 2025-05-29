@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { BaseExchangeRateItemProps } from "@/types/basic_manage/base_exchange_rate/base_exchange_rate";
+import { BaseExchangeRateItemProps } from "@/types/basic_manage/base_exchange_rate";
 import Mock from "mockjs";
 //
 const baseExchangeRateItems: BaseExchangeRateItemProps[] = [

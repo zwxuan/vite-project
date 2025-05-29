@@ -1,7 +1,7 @@
-
+﻿
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type/voucher_type";
+import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;
@@ -74,3 +74,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
 };
 
 export default DetailModal;
+

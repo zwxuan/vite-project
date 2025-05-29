@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseRailwayPortItemProps } from "@/types/basic_manage/base_railway_port/base_railway_port";
+import { BaseRailwayPortItemProps } from "@/types/basic_manage/base_railway_port";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -87,3 +87,4 @@ export const getColumns = (handleEdit: (record: BaseRailwayPortItemProps) => voi
         ),
     },
 ]; 
+

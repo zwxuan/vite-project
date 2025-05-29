@@ -1,9 +1,9 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table } from 'antd';
 import type {TableProps } from 'antd';
-import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+import { OrdersItemProps } from "@/types/business_manage/orders";
 import { getOrdersList } from "@/api/business_manage/orders_service";
 import { getColumns,getBusinessSumColumns } from './columns';
 import SumTableFooter from '@/components/table-footer/SumTableFooter';
@@ -122,3 +122,4 @@ const OrdersComponent: React.FC<OrdersProps> = ({ isCurrentTabActive = true }) =
 }
 const Orders = React.memo(OrdersComponent);
 export default Orders;
+

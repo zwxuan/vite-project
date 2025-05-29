@@ -1,7 +1,7 @@
 //currency_service.ts
-import { ImportTemplateFieldItem, ImportTemplateItem } from '@/types/basic_manage/log/import_template';
+import { ImportTemplateFieldItem, ImportTemplateItem } from '@/types/basic_manage/import_template';
 import request, { ApiRes, requestWithProgress } from '../request'
-import { CurrencyItemProps } from "@/types/basic_manage/currency/currency"
+import { CurrencyItemProps } from "@/types/basic_manage/currency"
 import Mock from "mockjs";
 
 // 模拟币制数据

@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { FeeAdjustmentFeeItemProps, FeeAdjustmentItemProps } from "@/types/finance_manage/fee_adjustment/fee_adjustment";
+import { FeeAdjustmentFeeItemProps, FeeAdjustmentItemProps } from "@/types/finance_manage/fee_adjustment";
 import Mock from "mockjs";
 //
 const feeAdjustmentItems: FeeAdjustmentItemProps[] = [

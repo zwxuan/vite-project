@@ -3,7 +3,7 @@ import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Button, Dropdown, Space, Table } from 'antd';
 import type { TableProps } from 'antd';
-import { BaseAirPortItemProps } from "@/types/basic_manage/base_port/base_airport";
+import { BaseAirPortItemProps } from "@/types/basic_manage/base_airport";
 import { getBaseAirportList } from "@/api/basic_manage/base_airport_service";
 import { getColumns } from './columns';
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';

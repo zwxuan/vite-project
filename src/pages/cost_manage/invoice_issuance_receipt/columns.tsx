@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { InvoiceIssuanceReceiptItemProps } from "@/types/cost_manage/invoice_issuance_receipt/invoice_issuance_receipt";
+import { InvoiceIssuanceReceiptItemProps } from "@/types/cost_manage/invoice_issuance_receipt";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
@@ -501,3 +501,4 @@ export const getSmallColumns = (handleEdit: (record: InvoiceIssuanceReceiptItemP
         align: 'left',
     },
 ]; 
+

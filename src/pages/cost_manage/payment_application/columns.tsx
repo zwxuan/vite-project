@@ -1,10 +1,10 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application/payment_application";
+import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee/payment_application_fee';
-import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business/payment_application_business';
+import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee';
+import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business';
 
 
 

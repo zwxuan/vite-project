@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { BaseSettlementMethodItemProps } from "@/types/basic_manage/base_settlement_method/base_settlement_method";
+import { BaseSettlementMethodItemProps } from "@/types/basic_manage/base_settlement_method";
 import Mock from "mockjs";
 //
 const baseSettlementMethodItems:BaseSettlementMethodItemProps[] = [

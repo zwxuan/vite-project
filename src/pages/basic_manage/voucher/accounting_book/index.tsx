@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { AccountingBookItemProps } from "@/types/basic_manage/accounting_book/accounting_book";
+import { AccountingBookItemProps } from "@/types/basic_manage/accounting_book";
 import { getAccountingBookList,saveAccountingBook } from "@/api/basic_manage/accounting_book_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -311,3 +311,4 @@ const AccountingBook : React.FC = () => {
     )
 }
 export default AccountingBook;
+

@@ -1,7 +1,7 @@
 
-import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_log/voucher_detail';
+import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_detail';
 import request, {ApiRes,requestWithProgress } from '../request'
-import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
+import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log";
 import Mock from "mockjs";
 //
 const voucherLogItems:VoucherLogItemProps[] = [

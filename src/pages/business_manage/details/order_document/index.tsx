@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Progress, notification } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { OrderDocumentItemProps } from "@/types/business_manage/order_document/order_document";
+import { OrderDocumentItemProps } from "@/types/business_manage/order_document";
 import { getOrderDocumentList, saveOrderDocument } from "@/api/business_manage/order_document_service";
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
@@ -245,3 +245,4 @@ const OrderDocument: React.FC = () => {
     )
 }
 export default OrderDocument;
+

@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { FeeReconciliationItemProps } from "@/types/cost_manage/fee_reconciliation/fee_reconciliation";
+import { FeeReconciliationItemProps } from "@/types/cost_manage/fee_reconciliation";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
@@ -1118,3 +1118,4 @@ export const getColumns = (handleEdit: (record: FeeReconciliationItemProps) => v
         ),
     },
 ]; 
+

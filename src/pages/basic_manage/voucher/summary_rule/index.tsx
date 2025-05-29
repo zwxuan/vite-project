@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { SummaryRuleItemProps } from "@/types/basic_manage/summary_rule/summary_rule";
+import { SummaryRuleItemProps } from "@/types/basic_manage/summary_rule";
 import { getSummaryRuleList,saveSummaryRule } from "@/api/basic_manage/summary_rule_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -308,3 +308,4 @@ const SummaryRule : React.FC = () => {
     )
 }
 export default SummaryRule;
+

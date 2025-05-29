@@ -1,7 +1,7 @@
-
+﻿
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { BaseExchangeRateItemProps } from "@/types/basic_manage/base_exchange_rate/base_exchange_rate";
+import { BaseExchangeRateItemProps } from "@/types/basic_manage/base_exchange_rate";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;
@@ -83,3 +83,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
 };
 
 export default DetailModal;
+

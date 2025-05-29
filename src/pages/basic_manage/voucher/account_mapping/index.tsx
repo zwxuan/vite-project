@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping/account_mapping";
+import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping";
 import { getAccountMappingList,saveAccountMapping } from "@/api/basic_manage/account_mapping_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -310,3 +310,4 @@ const AccountMapping : React.FC = () => {
     )
 }
 export default AccountMapping;
+

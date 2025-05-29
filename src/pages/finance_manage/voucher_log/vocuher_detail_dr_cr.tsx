@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Typography, Input, Space, Button, Radio, Table, Modal, Select, Divider } from 'antd';
 import 'handsontable/styles/handsontable.min.css';
@@ -7,7 +7,7 @@ import '@/pages/page_list.less';
 import './voucher_detail.less';
 const { Title, } = Typography;
 const { TextArea } = Input;
-import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
+import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log";
 import { getColumns,getVoucherDetailColumns } from './columns';
 import DatePickerZH from '@/components/date-picker';
 import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_log/voucher_detail';
@@ -202,3 +202,4 @@ const VoucherDrCrModal: React.FC<DetailModalProps> = ({
     );
 };
 export default VoucherDrCrModal;
+

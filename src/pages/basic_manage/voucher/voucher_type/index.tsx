@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type/voucher_type";
+import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type";
 import { getVoucherTypeList,saveVoucherType } from "@/api/basic_manage/voucher_type_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -308,3 +308,4 @@ const VoucherType : React.FC = () => {
     )
 }
 export default VoucherType;
+

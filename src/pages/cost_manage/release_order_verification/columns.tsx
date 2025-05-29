@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/cost_manage/release_order_verification/release_order_verification";
+import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/cost_manage/release_order_verification";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import { NavLink } from 'react-router-dom';

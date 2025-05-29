@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { VoucherGroupingRuleItemProps } from "@/types/basic_manage/voucher_grouping_rule/voucher_grouping_rule";
+import { VoucherGroupingRuleItemProps } from "@/types/basic_manage/voucher_grouping_rule";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -64,3 +64,4 @@ export const getColumns = (handleEdit: (record: VoucherGroupingRuleItemProps) =>
         ),
     },
 ]; 
+

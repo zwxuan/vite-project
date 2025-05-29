@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { FeeNameItemProps, OrderFeeItemProps } from "@/types/business_manage/order_fee/order_fee";
+import { FeeNameItemProps, OrderFeeItemProps } from "@/types/business_manage/order_fee";
 import Mock from "mockjs";
 
 const orderFeeItems:OrderFeeItemProps[] = [

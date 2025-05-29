@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { VoucherGroupingRuleItemProps } from "@/types/basic_manage/voucher_grouping_rule/voucher_grouping_rule";
+import { VoucherGroupingRuleItemProps } from "@/types/basic_manage/voucher_grouping_rule";
 
 const voucherGroupingRuleItems: VoucherGroupingRuleItemProps[] = [
   {

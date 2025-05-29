@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { PhysicalInvoiceItemProps } from "@/types/cost_manage/physical_invoice/physical_invoice";
+import { PhysicalInvoiceItemProps } from "@/types/cost_manage/physical_invoice";
 import i18n from '@/i18n';
 // import LocaleHelper from '@/utils/localeHelper';
 import LocaleHelper from '@/utils/locale';
@@ -127,3 +127,4 @@ export const getColumns = (handleEdit: (record: PhysicalInvoiceItemProps) => voi
         ),
     },
 ]; 
+

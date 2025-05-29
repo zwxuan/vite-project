@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { PhysicalInvoiceItemProps } from "@/types/cost_manage/physical_invoice/physical_invoice";
+import { PhysicalInvoiceItemProps } from "@/types/cost_manage/physical_invoice";
 import Mock from "mockjs";
 const physicalInvoiceItems:PhysicalInvoiceItemProps[] = [
   {

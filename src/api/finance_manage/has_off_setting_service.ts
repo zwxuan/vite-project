@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { HasOffSettingItemProps, OffSettingDetailItemProps } from "@/types/finance_manage/has_off_setting/has_off_setting";
+import { HasOffSettingItemProps, OffSettingDetailItemProps } from "@/types/finance_manage/has_off_setting";
 
 const hasOffSettingItems:HasOffSettingItemProps[] = [
   {

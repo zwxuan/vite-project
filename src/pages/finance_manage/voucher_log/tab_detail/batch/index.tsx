@@ -1,9 +1,9 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Checkbox, Col, Radio, Row, Table, Tooltip } from 'antd';
 import type { CheckboxOptionType, GetProp, TableProps } from 'antd';
-import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+import { OrdersItemProps } from "@/types/business_manage/orders";
 import { getOrdersList } from "@/api/business_manage/orders_service";
 import SumTableFooter from '@/components/table-footer/SumTableFooter';
 import Ribbon from 'antd/es/badge/Ribbon';
@@ -102,3 +102,4 @@ const BatchCreateVoucher: React.FC = () => {
     )
 }
 export default BatchCreateVoucher;
+

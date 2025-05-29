@@ -1,9 +1,9 @@
-import '@/pages/page_list.less';
+﻿import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Row, Input, Col, Select, Progress, notification, Tooltip } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping/code_mapping";
+import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping";
 import { getCodeMappingList,getCodeMappingEntryList, saveCodeMapping } from "@/api/basic_manage/code_mapping_service";
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
@@ -400,3 +400,4 @@ const VoucherCodeMapping: React.FC = () => {
     )
 }
 export default VoucherCodeMapping;
+

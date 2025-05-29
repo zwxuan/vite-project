@@ -2,7 +2,7 @@ import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Row, Input, Col, Select, Progress, message } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
-import { ReconciliationMatchFieldsItemProps,ReconciliationCompareFieldsItemProps,ReconciliationRuleEngineItemProps } from '@/types/cost_manage/fee_reconciliation/reconciliation_rule_engine';
+import { ReconciliationMatchFieldsItemProps,ReconciliationCompareFieldsItemProps,ReconciliationRuleEngineItemProps } from '@/types/cost_manage/reconciliation_rule_engine';
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";

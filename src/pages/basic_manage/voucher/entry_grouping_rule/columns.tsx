@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { EntryGroupingRuleItemProps } from "@/types/basic_manage/entry_grouping_rule/entry_grouping_rule";
+import { EntryGroupingRuleItemProps } from "@/types/basic_manage/entry_grouping_rule";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -176,3 +176,4 @@ export const getColumns = (handleEdit: (record: EntryGroupingRuleItemProps) => v
         ),
     },
 ]; 
+

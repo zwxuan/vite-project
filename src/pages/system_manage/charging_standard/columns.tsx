@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm,Input,Select,Button,InputNumber } from 'antd';
-import { ChargingStandardItemProps } from "@/types/system_manage/charging_standard/charging_standard";
+import { ChargingStandardItemProps } from "@/types/system_manage/charging_standard";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => void, handleDelete: (record: ChargingStandardItemProps) => void, handleSave: (record: ChargingStandardItemProps) => void, handleCancel: () => void, editingKey:string): TableColumnsType<ChargingStandardItemProps> => [
@@ -431,3 +431,4 @@ export const getColumns = (handleEdit: (record: ChargingStandardItemProps) => vo
         },
     },
 ];
+

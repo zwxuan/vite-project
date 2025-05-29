@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { OrderDocumentItemProps } from "@/types/business_manage/order_document/order_document";
+import { OrderDocumentItemProps } from "@/types/business_manage/order_document";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 
@@ -128,3 +128,4 @@ export const getColumns = (handleEdit: (record: OrderDocumentItemProps) => void,
         ),
     },
 ]; 
+

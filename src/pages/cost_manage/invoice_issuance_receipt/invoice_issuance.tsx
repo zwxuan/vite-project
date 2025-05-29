@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, Row, Col, Radio, Checkbox,Table, TableColumnsType } from 'antd';
 import { HotTable, HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
 import Handsontable from "handsontable";
-import { InvoiceIssuanceReceiptItemProps } from "@/types/cost_manage/invoice_issuance_receipt/invoice_issuance_receipt";
+import { InvoiceIssuanceReceiptItemProps } from "@/types/cost_manage/invoice_issuance_receipt";
 import { getInvoiceIssuanceReceiptList,saveInvoiceIssuanceReceipt } from "@/api/cost_manage/invoice_issuance_receipt_service";
 import { ContextMenu } from 'handsontable/plugins';
 import 'handsontable/styles/handsontable.min.css';

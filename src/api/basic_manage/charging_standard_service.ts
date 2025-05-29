@@ -1,5 +1,5 @@
 import request, { ApiRes, requestWithProgress } from '../request'
-import { ChargingStandardItemProps } from "@/types/system_manage/charging_standard/charging_standard";
+import { ChargingStandardItemProps } from "@/types/system_manage/charging_standard";
 import Mock from "mockjs";
 
 // 模拟计费标准台账数据

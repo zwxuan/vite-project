@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { PhysicalInvoiceItemProps } from "@/types/cost_manage/physical_invoice/physical_invoice";
+import { PhysicalInvoiceItemProps } from "@/types/cost_manage/physical_invoice";
 import { getPhysicalInvoiceList,savePhysicalInvoice } from "@/api/cost_manage/physical_invoice_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -283,3 +283,4 @@ const PhysicalInvoice : React.FC = () => {
     )
 }
 export default PhysicalInvoice;
+

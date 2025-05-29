@@ -1,7 +1,7 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting/not_off_setting";
-import { CashBasisAccountingItemProps } from '@/types/finance_manage/cash_basis_accounting/cash_basis_accounting';
+import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting";
+import { CashBasisAccountingItemProps } from '@/types/finance_manage/cash_basis_accounting';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 

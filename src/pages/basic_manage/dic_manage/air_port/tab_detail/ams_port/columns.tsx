@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port/base_ams_port";
+import { BaseAmsPortItemProps } from "@/types/basic_manage/base_ams_port";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -64,3 +64,4 @@ export const getColumns = (handleEdit: (record: BaseAmsPortItemProps) => void, h
         ),
     },
 ]; 
+

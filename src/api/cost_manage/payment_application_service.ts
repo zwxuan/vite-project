@@ -1,8 +1,8 @@
 
-import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee/payment_application_fee';
+import { PaymentApplicationFeeItemProps } from '@/types/cost_manage/payment_application_fee';
 import request, {ApiRes,requestWithProgress } from '../request'
-import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application/payment_application";
-import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business/payment_application_business';
+import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application";
+import { PaymentApplicationBusinessItemProps } from '@/types/cost_manage/payment_application_business';
 
 const paymentApplicationItems: PaymentApplicationItemProps[] = [
   {

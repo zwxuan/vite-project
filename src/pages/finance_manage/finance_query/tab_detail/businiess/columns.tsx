@@ -1,5 +1,5 @@
-import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+﻿import { TableColumnsType, Tag, Popconfirm } from 'antd';
+import { OrdersItemProps } from "@/types/business_manage/orders";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 import { NavLink,Link } from 'react-router-dom';

@@ -3,7 +3,7 @@ import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Button, Dropdown, Space, Table } from 'antd';
 import type { TableProps } from 'antd';
-import { BaseSeaportItemProps } from "@/types/basic_manage/base_port/base_seaport";
+import { BaseSeaportItemProps } from "@/types/basic_manage/base_seaport";
 import { getBaseSeaportList } from "@/api/basic_manage/base_seaport_service";
 import { getColumns } from './columns';
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';

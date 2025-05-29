@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { SetFeeScheduleItemProps } from "@/types/system_manage/set_fee_schedule/set_fee_schedule";
+import { SetFeeScheduleItemProps } from "@/types/system_manage/set_fee_schedule";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -160,3 +160,4 @@ export const getColumns = (handleEdit: (record: SetFeeScheduleItemProps) => void
         ),
     },
 ]; 
+

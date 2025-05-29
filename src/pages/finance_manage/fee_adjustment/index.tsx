@@ -1,11 +1,11 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { FeeAdjustmentFeeItemProps,FeeAdjustmentItemProps } from "@/types/finance_manage/fee_adjustment/fee_adjustment";
-import {OrderFeeItemProps} from "@/types/business_manage/order_fee/order_fee";
+import { FeeAdjustmentFeeItemProps,FeeAdjustmentItemProps } from "@/types/finance_manage/fee_adjustment";
+import {OrderFeeItemProps} from "@/types/business_manage/order_fee";
 import { getFeeAdjustmentFeeList,getFeeAdjustmentList } from "@/api/finance_manage/fee_adjustment_service";
 import { getOrderFeeList } from "@/api/business_manage/order_fee_service";
 import { requestWithProgress } from "@/api/request";
@@ -212,3 +212,4 @@ const getRowClassName = (record:FeeAdjustmentFeeItemProps) => {
     )
 }
 export default FeeAdjustment;
+

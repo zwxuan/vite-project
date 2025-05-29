@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { AccountingBookItemProps } from "@/types/basic_manage/accounting_book/accounting_book";
+import { AccountingBookItemProps } from "@/types/basic_manage/accounting_book";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -117,3 +117,4 @@ export const getColumns = (handleEdit: (record: AccountingBookItemProps) => void
         ),
     },
 ]; 
+

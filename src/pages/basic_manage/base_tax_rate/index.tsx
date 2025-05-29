@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseTaxRateItemProps } from "@/types/basic_manage/base_tax_rate/base_tax_rate";
+import { BaseTaxRateItemProps } from "@/types/basic_manage/base_tax_rate";
 import { getBaseTaxRateList,saveBaseTaxRate } from "@/api/basic_manage/base_tax_rate_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -299,3 +299,4 @@ const BaseTaxRate : React.FC = () => {
     )
 }
 export default BaseTaxRate;
+

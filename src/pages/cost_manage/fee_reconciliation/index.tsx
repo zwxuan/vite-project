@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Progress,notification,Drawer, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { FeeReconciliationItemProps } from "@/types/cost_manage/fee_reconciliation/fee_reconciliation";
+import { FeeReconciliationItemProps } from "@/types/cost_manage/fee_reconciliation";
 import { getFeeReconciliationList,saveFeeReconciliation } from "@/api/cost_manage/fee_reconciliation_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -331,3 +331,4 @@ const FeeReconciliation : React.FC = () => {
     )
 }
 export default FeeReconciliation;
+

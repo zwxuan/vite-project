@@ -1,9 +1,9 @@
-import '@/pages/page_list.less'
+﻿import '@/pages/page_list.less'
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { CurrencyItemProps } from "@/types/basic_manage/currency/currency";
+import { CurrencyItemProps } from "@/types/basic_manage/currency";
 import { getCurrencyList,saveCurrency } from "@/api/basic_manage/currency_service";
 // import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';

@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { SetFeeScheduleItemProps } from "@/types/system_manage/set_fee_schedule/set_fee_schedule";
+import { SetFeeScheduleItemProps } from "@/types/system_manage/set_fee_schedule";
 
 const setFeeScheduleItems: SetFeeScheduleItemProps[] = [
   {

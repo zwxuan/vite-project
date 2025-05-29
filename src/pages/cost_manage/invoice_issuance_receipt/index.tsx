@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Radio,Progress,notification,Row,Col, Tooltip } from 'antd';
 import type { MenuProps,RadioChangeEvent,TableProps,TableColumnsType } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { InvoiceIssuanceReceiptItemProps } from "@/types/cost_manage/invoice_issuance_receipt/invoice_issuance_receipt";
+import { InvoiceIssuanceReceiptItemProps } from "@/types/cost_manage/invoice_issuance_receipt";
 import { getInvoiceIssuanceReceiptList,saveInvoiceIssuanceReceipt } from "@/api/cost_manage/invoice_issuance_receipt_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -350,3 +350,4 @@ const InvoiceIssuanceReceipt : React.FC = () => {
     )
 }
 export default InvoiceIssuanceReceipt;
+

@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react';
 import { Table,Tag } from 'antd';
 import type { TableColumnsType,TableProps } from 'antd';
 import { ExportOutlined } from '@ant-design/icons';
-import { ExportLogItem } from "@/types/basic_manage/log/export_template";
+import { ExportLogItem } from "@/types/basic_manage/export_template";
 import { getExportLogList } from "@/api/basic_manage/excel_service";
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';

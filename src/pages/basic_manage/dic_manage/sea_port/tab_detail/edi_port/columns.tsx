@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseEdiPortItemProps } from "@/types/basic_manage/base_edi_port/base_edi_port";
+import { BaseEdiPortItemProps } from "@/types/basic_manage/base_edi_port";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -48,3 +48,4 @@ export const getColumns = (handleEdit: (record: BaseEdiPortItemProps) => void, h
         ),
     },
 ]; 
+

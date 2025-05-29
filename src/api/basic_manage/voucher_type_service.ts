@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type/voucher_type";
+import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type";
 import Mock from 'mockjs'
 
 const voucherTypeItems: VoucherTypeItemProps[] = [

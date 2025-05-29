@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Form, Input, InputNumber, Select, Progress, notification, Popconfirm } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseGoodsItemProps } from "@/types/basic_manage/base_goods/base_goods";
+import { BaseGoodsItemProps } from "@/types/basic_manage/base_goods";
 import { getBaseGoodsList, saveBaseGoods } from "@/api/basic_manage/base_goods_service";
 import { requestWithProgress } from "@/api/request";
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
@@ -367,3 +367,4 @@ const BaseGoods: React.FC = () => {
     )
 }
 export default BaseGoods;
+

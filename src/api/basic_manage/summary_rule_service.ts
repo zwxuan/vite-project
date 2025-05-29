@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { SummaryRuleItemProps } from "@/types/basic_manage/summary_rule/summary_rule";
+import { SummaryRuleItemProps } from "@/types/basic_manage/summary_rule";
 import Mock from "mockjs";
 
 const summaryRuleItems:SummaryRuleItemProps[] = [

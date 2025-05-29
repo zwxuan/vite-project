@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseExchangeRateItemProps } from "@/types/basic_manage/base_exchange_rate/base_exchange_rate";
+import { BaseExchangeRateItemProps } from "@/types/basic_manage/base_exchange_rate";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -72,3 +72,4 @@ export const getColumns = (handleEdit: (record: BaseExchangeRateItemProps) => vo
         ),
     },
 ]; 
+

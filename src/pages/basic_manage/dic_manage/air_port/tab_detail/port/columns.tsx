@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseAirPortItemProps } from "@/types/basic_manage/base_port/base_airport";
+import { BaseAirPortItemProps } from "@/types/basic_manage/base_airport";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 

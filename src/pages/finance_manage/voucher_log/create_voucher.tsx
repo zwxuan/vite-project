@@ -1,7 +1,7 @@
-
+﻿
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Tabs, Divider } from 'antd';
-import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log/voucher_log";
+import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log";
 import BatchCreateVoucher from './tab_detail/batch/index'
 import Invoice from './tab_detail/invoice';
 import dayjs from 'dayjs';
@@ -75,3 +75,4 @@ const CreateVoucherModal: React.FC<DetailModalProps> = ({
 };
 
 export default CreateVoucherModal;
+

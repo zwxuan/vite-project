@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { AccountingBookItemProps } from "@/types/basic_manage/accounting_book/accounting_book";
+import { AccountingBookItemProps } from "@/types/basic_manage/accounting_book";
 import Mock from "mockjs";
 
 // 模拟账套设置台账数据

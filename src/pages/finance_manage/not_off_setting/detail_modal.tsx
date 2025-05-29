@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Table, Modal, Row, Col, Divider, Select, InputNumber, Radio, Input, DatePicker, Button, Splitter, Descriptions, Checkbox, Space } from 'antd';
 import { DatePickerZH } from '@/components/date-picker/index';
 import type { DescriptionsProps, TableColumnsType } from 'antd';
-import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting/not_off_setting";
-import { CashBasisAccountingItemProps } from '@/types/finance_manage/cash_basis_accounting/cash_basis_accounting';
+import { NotOffSettingItemProps } from "@/types/finance_manage/not_off_setting";
+import { CashBasisAccountingItemProps } from '@/types/finance_manage/cash_basis_accounting';
 import { HotTable, HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
 import Handsontable from "handsontable";
 import 'handsontable/styles/handsontable.min.css';
@@ -400,3 +400,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
 };
 
 export default DetailModal;
+

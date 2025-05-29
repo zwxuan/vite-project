@@ -1,4 +1,4 @@
-import { InvoiceIssuanceReceiptItemProps } from '@/types/cost_manage/invoice_issuance_receipt/invoice_issuance_receipt';
+import { InvoiceIssuanceReceiptItemProps } from '@/types/cost_manage/invoice_issuance_receipt';
 import request, { ApiRes, requestWithProgress } from '../request';
 import Mock from 'mockjs';
 

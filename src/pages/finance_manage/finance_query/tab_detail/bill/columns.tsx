@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BillManageItemProps } from "@/types/cost_manage/bill_manage/bill_manage";
+import { BillManageItemProps } from "@/types/cost_manage/bill_manage";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/localeHelper';
 

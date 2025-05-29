@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm, Tooltip } from 'antd';
-import { BaseGoodsItemProps } from "@/types/basic_manage/base_goods/base_goods";
+import { BaseGoodsItemProps } from "@/types/basic_manage/base_goods";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -108,3 +108,4 @@ export const getColumns = (handleEdit: (record: BaseGoodsItemProps) => void, han
     //     ),
     // },
 ]; 
+

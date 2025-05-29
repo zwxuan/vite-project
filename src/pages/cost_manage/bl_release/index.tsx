@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BlReleaseItemProps } from "@/types/cost_manage/bl_release/bl_release";
+import { BlReleaseItemProps } from "@/types/cost_manage/bl_release";
 import { getBlReleaseList,saveBlRelease } from "@/api/cost_manage/bl_release_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -330,3 +330,4 @@ const BlRelease : React.FC = () => {
     )
 }
 export default BlRelease;
+

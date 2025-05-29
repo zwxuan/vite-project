@@ -1,7 +1,7 @@
-
+﻿
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+import { OrdersItemProps } from "@/types/business_manage/orders";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;
@@ -309,3 +309,4 @@ const DetailModal: React.FC<DetailModalProps> = ({
 };
 
 export default DetailModal;
+

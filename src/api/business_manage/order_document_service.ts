@@ -1,6 +1,6 @@
 
 import Mock from "mockjs";
-import { OrderDocumentItemProps } from "@/types/business_manage/order_document/order_document";
+import { OrderDocumentItemProps } from "@/types/business_manage/order_document";
 import request, { ApiRes, requestWithProgress } from '../request';
 
 // 模拟订单文档台账数据

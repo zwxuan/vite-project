@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { BaseEdiPortItemProps } from "@/types/basic_manage/base_edi_port/base_edi_port";
+import { BaseEdiPortItemProps } from "@/types/basic_manage/base_edi_port";
 import Mock from "mockjs";
 //
 const baseEdiPortItems:BaseEdiPortItemProps[] = [

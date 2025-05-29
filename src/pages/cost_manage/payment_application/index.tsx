@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application/payment_application";
+import { PaymentApplicationItemProps } from "@/types/cost_manage/payment_application";
 import { getPaymentApplicationList,savePaymentApplication } from "@/api/cost_manage/payment_application_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -290,3 +290,4 @@ const PaymentApplication : React.FC = () => {
     )
 }
 export default PaymentApplication;
+

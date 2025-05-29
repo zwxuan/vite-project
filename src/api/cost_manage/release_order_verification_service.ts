@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/cost_manage/release_order_verification/release_order_verification";
+import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/cost_manage/release_order_verification";
 import Mock from "mockjs";
 //
 const releaseOrderVerificationItems:ReleaseOrderVerificationItemProps[] = [

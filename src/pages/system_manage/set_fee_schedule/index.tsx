@@ -1,10 +1,10 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { SetFeeScheduleItemProps } from "@/types/system_manage/set_fee_schedule/set_fee_schedule";
+import { SetFeeScheduleItemProps } from "@/types/system_manage/set_fee_schedule";
 import { getSetFeeScheduleList,saveSetFeeSchedule } from "@/api/basic_manage/set_fee_schedule_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
@@ -280,3 +280,4 @@ const SetFeeSchedule : React.FC = () => {
     )
 }
 export default SetFeeSchedule;
+

@@ -1,11 +1,11 @@
-
+﻿
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/cost_manage/release_order_verification/release_order_verification";
-import {OrderFeeItemProps} from "@/types/business_manage/order_fee/order_fee";
+import { ReleaseOrderVerificationItemProps,ReleaseOrderVerificationFeeItemProps } from "@/types/cost_manage/release_order_verification";
+import {OrderFeeItemProps} from "@/types/business_manage/order_fee";
 import { getReleaseOrderVerificationList,saveReleaseOrderVerification,getReleaseOrderVerificationFeeList } from "@/api/cost_manage/release_order_verification_service";
 import { getOrderFeeList } from "@/api/business_manage/order_fee_service";
 import { requestWithProgress } from "@/api/request";
@@ -322,3 +322,4 @@ const expandedRowRender = () => (
     )
 }
 export default ReleaseOrderVerification;
+

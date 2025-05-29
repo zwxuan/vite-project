@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { BaseSettlementMethodItemProps } from "@/types/basic_manage/base_settlement_method/base_settlement_method";
+import { BaseSettlementMethodItemProps } from "@/types/basic_manage/base_settlement_method";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -72,3 +72,4 @@ export const getColumns = (handleEdit: (record: BaseSettlementMethodItemProps) =
         ),
     },
 ]; 
+

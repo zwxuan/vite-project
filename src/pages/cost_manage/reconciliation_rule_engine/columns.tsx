@@ -1,6 +1,6 @@
 
 import { TableColumnsType, Tag, Popconfirm, Input, Select, Button, InputNumber } from 'antd';
-import { ReconciliationCompareFieldsItemProps,ReconciliationMatchFieldsItemProps,ReconciliationRuleEngineItemProps } from '@/types/cost_manage/fee_reconciliation/reconciliation_rule_engine';
+import { ReconciliationCompareFieldsItemProps,ReconciliationMatchFieldsItemProps,ReconciliationRuleEngineItemProps } from '@/types/cost_manage/reconciliation_rule_engine';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 export const getRuleEngineColumns = (handleEdit: (record: ReconciliationRuleEngineItemProps) => void, handleDelete: (record: ReconciliationRuleEngineItemProps) => void, handleSave: (record: ReconciliationRuleEngineItemProps) => void, handleCancel: () => void, editingKey: string): TableColumnsType<ReconciliationRuleEngineItemProps> => [

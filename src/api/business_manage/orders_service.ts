@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { OrdersItemProps } from "@/types/business_manage/orders/orders";
+import { OrdersItemProps } from "@/types/business_manage/orders";
 import Mock from "mockjs";
 
 // 模拟订单数据

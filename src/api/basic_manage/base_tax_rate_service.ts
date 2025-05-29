@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { BaseTaxRateItemProps } from "@/types/basic_manage/base_tax_rate/base_tax_rate";
+import { BaseTaxRateItemProps } from "@/types/basic_manage/base_tax_rate";
 import Mock from "mockjs";
 //
 const baseTaxRateItems: BaseTaxRateItemProps[] = [

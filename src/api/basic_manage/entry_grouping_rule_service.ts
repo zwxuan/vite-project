@@ -1,6 +1,6 @@
 
 import request, { ApiRes, requestWithProgress } from '../request'
-import { EntryGroupingRuleItemProps } from "@/types/basic_manage/entry_grouping_rule/entry_grouping_rule";
+import { EntryGroupingRuleItemProps } from "@/types/basic_manage/entry_grouping_rule";
 import Mock from "mockjs";
 
 const entryGroupingRuleItems: EntryGroupingRuleItemProps[] = [

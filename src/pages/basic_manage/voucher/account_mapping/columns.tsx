@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm } from 'antd';
-import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping/account_mapping";
+import { AccountMappingItemProps } from "@/types/basic_manage/account_mapping";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
@@ -88,3 +88,4 @@ export const getColumns = (handleEdit: (record: AccountMappingItemProps) => void
         ),
     },
 ]; 
+

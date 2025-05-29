@@ -1,6 +1,6 @@
-
+﻿
 import { TableColumnsType, Tag, Popconfirm, Input, Select, Button, InputNumber } from 'antd';
-import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping/code_mapping";
+import { CodeMappingItemProps } from "@/types/basic_manage/code_mapping";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, handleDelete: (record: CodeMappingItemProps) => void, handleSave: (record: CodeMappingItemProps) => void, handleCancel: () => void, isEditing: (record: CodeMappingItemProps) => boolean, editingRow: CodeMappingItemProps | null, setEditingRow: (row: CodeMappingItemProps | null) => void): TableColumnsType<CodeMappingItemProps> => [
@@ -97,3 +97,4 @@ export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, h
         },
     },
 ];
+
