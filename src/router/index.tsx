@@ -18,7 +18,11 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   NotPayOrderReport,
   BaseSeaPort,
   BaseAirPort,
-  BaseRailwayPort} from "./imports";
+  BaseRailwayPort,
+  Demo,
+  BaseExchangeRate,
+  BaseTaxRate,
+  BaseSettlementMethod} from "./imports";
 import RouterGuard from "@/components/router_guard";
 import BaseGoods from "@/pages/basic_manage/dic_manage/base_goods";
 const routers = createMemoryRouter([
@@ -30,11 +34,42 @@ const routers = createMemoryRouter([
       </RouterGuard>),
     children: [
       {
+        path: "/demo",
+        handle: { title: '测试' },
+        element: (
+            <Demo />
+          )
+      },
+      {
         path: "/currency",
         handle: { title: '币制管理' },
         element: (
           <RouterGuard>
             <Currency />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_tax_rate",
+        handle: { title: '税率管理' },
+        element: (
+          <RouterGuard>
+            <BaseTaxRate />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_settlement_method",
+        handle: { title: '结算方式' },
+        element: (
+          <RouterGuard>
+            <BaseSettlementMethod />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_exchange_rate",
+        handle: { title: '汇率管理' },
+        element: (
+          <RouterGuard>
+            <BaseExchangeRate />
           </RouterGuard>),
       },
       {

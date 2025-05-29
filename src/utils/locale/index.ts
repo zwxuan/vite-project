@@ -38,6 +38,9 @@ import { BaseAmsPortLocale } from './basic_manage/base_ams_port';
 import { BaseEdiPortLocale } from './basic_manage/base_edi_port';
 import { BaseSeaportLocale } from './basic_manage/base_seaport';
 import { BaseRailwayPortLocale } from './basic_manage/base_railway_port';
+import { BaseExchangeRateLocale } from './basic_manage/base_exchange_rate';
+import { BaseTaxRateLocale } from './basic_manage/base_tax_rate';
+import { BaseSettlementMethodLocale } from './basic_manage/base_settlement_method';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -79,7 +82,11 @@ export {
   BaseGoodsLocale,
   BaseAmsPortLocale,
   BaseEdiPortLocale,
-  BaseSeaportLocale
+  BaseSeaportLocale,
+  BaseRailwayPortLocale,
+  BaseExchangeRateLocale,
+  BaseTaxRateLocale,
+  BaseSettlementMethodLocale,
 };
 
 export default {
@@ -125,4 +132,7 @@ export default {
 ...BaseEdiPortLocale,
 ...BaseSeaportLocale,
 ...BaseRailwayPortLocale,
+...BaseExchangeRateLocale,
+...BaseTaxRateLocale,
+...BaseSettlementMethodLocale,
 };

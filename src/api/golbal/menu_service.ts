@@ -66,10 +66,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "币制", key: "currency", path: "/currency",
         },
         {
-            name: "税率管理", key: "taxrate",
+            name: "税率管理", key: "base_tax_rate",path: "/base_tax_rate",
         },
         {
-            name: "结算方式", key: "settlement_method",
+            name: "结算方式", key: "base_settlement_method",path: "/base_settlement_method",
         },
         {
             name: "开票方式", key: "invoice_method",
@@ -81,7 +81,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "发票类型", key: "invoice_type",
         },
         {
-            name: "汇率管理", key: "exchange_rate",
+            name: "汇率管理", key: "base_exchange_rate",path: "/base_exchange_rate",
         },
         {
             name: "TMO类型", key: "tmo_type",
@@ -98,6 +98,10 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "企业类型", key: "company_type",
         },
+        {
+            name: "测试页面", key: "demo",path: "/demo",
+        },
+
     ]
 },
 {

@@ -1,4 +1,5 @@
 import React from "react";
+const Demo = React.lazy(() => import("@/pages/demo"));
 const Currency = React.lazy(() => import("@/pages/basic_manage/dic_manage/currency"));
 const Orders = React.lazy(() => import("@/pages/business_manage/index"));
 const FeeReconciliation = React.lazy(() => import("@/pages/cost_manage/fee_reconciliation"));
@@ -96,7 +97,11 @@ const BaseGoods = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_
 const BaseSeaPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/sea_port"));
 const BaseAirPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/air_port"));
 const BaseRailwayPort = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_railway_port"));
+const BaseExchangeRate = React.lazy(() => import("@/pages/basic_manage/base_exchange_rate"));
+const BaseTaxRate = React.lazy(() => import("@/pages/basic_manage/base_tax_rate"));
+const BaseSettlementMethod = React.lazy(() => import("@/pages/basic_manage/base_settlement_method"));
 export {
+  Demo,
   Currency,
   Orders,
   FeeReconciliation,
@@ -154,4 +159,7 @@ export {
   BaseSeaPort,
   BaseAirPort,
   BaseRailwayPort,
+  BaseExchangeRate,
+  BaseTaxRate,
+  BaseSettlementMethod,
 };
