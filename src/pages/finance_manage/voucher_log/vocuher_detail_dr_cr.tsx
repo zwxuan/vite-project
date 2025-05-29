@@ -10,7 +10,7 @@ const { TextArea } = Input;
 import { VoucherLogItemProps } from "@/types/finance_manage/voucher_log";
 import { getColumns,getVoucherDetailColumns } from './columns';
 import DatePickerZH from '@/components/date-picker';
-import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_log/voucher_detail';
+import { VoucherDetailItemProps } from '@/types/finance_manage/voucher_detail';
 import { getVoucherDetailList } from '@/api/finance_manage/voucher_log_service';
 
 interface DetailModalProps {

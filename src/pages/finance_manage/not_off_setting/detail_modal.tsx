@@ -9,7 +9,7 @@ import Handsontable from "handsontable";
 import 'handsontable/styles/handsontable.min.css';
 import 'handsontable/styles/ht-theme-main.min.css';
 import { getNotOffFeesList } from '@/api/finance_manage/not_off_setting_service';
-import { NotOffFeesItemProps } from '@/types/finance_manage/not_off_setting/not_off_fees';
+import { NotOffFeesItemProps } from '@/types/finance_manage/not_off_fees';
 import { getCashColumns } from './columns';
 import zh from 'antd/es/date-picker/locale/zh_CN';
 import i18n from '@/i18n';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Table, Button, Tooltip, Tag,Space } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
-import { ImportTemplateItem } from "@/types/basic_manage/log/import_template";
+import { ImportTemplateItem } from "@/types/basic_manage/import_template";
 import { getImportTemplateList } from "@/api/basic_manage/currency_service";
 import CustomeExcelTemplate from './custom_template';
 interface ModelExcelImportTemplateProps {
