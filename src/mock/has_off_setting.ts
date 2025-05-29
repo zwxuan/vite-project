@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { HasOffSettingItemProps } from "@/types/finance_manage/has_off_setting/has_off_setting";
+import { HasOffSettingItemProps } from "@/types/finance_manage/has_off_setting";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串
