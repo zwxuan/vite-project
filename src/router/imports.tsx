@@ -100,6 +100,8 @@ const BaseRailwayPort = React.lazy(() => import("@/pages/basic_manage/dic_manage
 const BaseExchangeRate = React.lazy(() => import("@/pages/basic_manage/base_exchange_rate"));
 const BaseTaxRate = React.lazy(() => import("@/pages/basic_manage/base_tax_rate"));
 const BaseSettlementMethod = React.lazy(() => import("@/pages/basic_manage/base_settlement_method"));
+const BaseTradeLanes = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_trade_lanes"));
+const BaseTradeLanesGrouping = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_trade_lanes_grouping"));
 export {
   Demo,
   Currency,
@@ -162,4 +164,6 @@ export {
   BaseExchangeRate,
   BaseTaxRate,
   BaseSettlementMethod,
+  BaseTradeLanes,
+  BaseTradeLanesGrouping,
 };

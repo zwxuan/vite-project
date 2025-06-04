@@ -22,9 +22,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   Demo,
   BaseExchangeRate,
   BaseTaxRate,
-  BaseSettlementMethod} from "./imports";
+  BaseSettlementMethod,
+  BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods} from "./imports";
 import RouterGuard from "@/components/router_guard";
-import BaseGoods from "@/pages/basic_manage/dic_manage/base_goods";
+
 const routers = createMemoryRouter([
   {
     path: "/",
@@ -62,6 +63,22 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <BaseSettlementMethod />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_trade_lanes",
+        handle: { title: '航线' },
+        element: (
+          <RouterGuard>
+            <BaseTradeLanes />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_trade_lanes_grouping",
+        handle: { title: '航线归类' },
+        element: (
+          <RouterGuard>
+            <BaseTradeLanesGrouping />
           </RouterGuard>),
       },
       {

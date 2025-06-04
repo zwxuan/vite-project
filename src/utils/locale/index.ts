@@ -41,6 +41,8 @@ import { BaseRailwayPortLocale } from './basic_manage/base_railway_port';
 import { BaseExchangeRateLocale } from './basic_manage/base_exchange_rate';
 import { BaseTaxRateLocale } from './basic_manage/base_tax_rate';
 import { BaseSettlementMethodLocale } from './basic_manage/base_settlement_method';
+import { BaseTradeLanesLocale } from './basic_manage/base_trade_lanes';
+import { BaseTradeLanesGroupingLocale } from './basic_manage/base_trade_lanes_grouping';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -87,6 +89,8 @@ export {
   BaseExchangeRateLocale,
   BaseTaxRateLocale,
   BaseSettlementMethodLocale,
+  BaseTradeLanesLocale,
+  BaseTradeLanesGroupingLocale,
 };
 
 export default {
@@ -135,4 +139,6 @@ export default {
 ...BaseExchangeRateLocale,
 ...BaseTaxRateLocale,
 ...BaseSettlementMethodLocale,
+...BaseTradeLanesLocale,
+...BaseTradeLanesGroupingLocale,
 };

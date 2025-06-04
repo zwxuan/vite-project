@@ -1239,4 +1239,17 @@ export const cn = {
         isdefault:"是否默认",
         applicablescenario:"适用场景",
     },
+    base_trade_lanes:{
+        lanecode:"航线代码",
+        lanenamecn:"航线中文名",
+        lanenameen:"航线英文名",
+        lanegroupname:"航线组名称",
+        lanemanager:"航线负责人",
+    },
+    base_trade_lanes_grouping:{
+        lanegroupingcode:"航线归类代码",
+        lanegroupingnamecn:"航线归类中文名",
+        lanegroupingnameen:"航线归类英文名",
+        lanegroupingmanager:"航线归类负责人",
+    },
 };

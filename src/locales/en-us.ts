@@ -1237,4 +1237,17 @@ export const en = {
         "isdefault": "Is Default",
         "applicablescenario": "Applicable Scenario"
     },
+    base_trade_lanes: {
+        "lanecode": "Lane Code",
+        "lanenamecn": "Chinese Name",
+        "lanenameen": "English Name",
+        "lanegroupname": "Lane Group",
+        "lanemanager": "Lane Manager"
+    },
+    "base_trade_lanes_grouping": {
+        "lanegroupingcode": "Grouping Code",
+        "lanegroupingnamecn": "Chinese Name",
+        "lanegroupingnameen": "English Name",
+        "lanegroupingmanager": "Grouping Manager"
+    },
 };

@@ -169,10 +169,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "铁港", key: "base_railwayport",path: "/base_railwayport",
         },
         {
-            name: "航线", key: "route",
+            name: "航线", key: "base_trade_lanes",path: "/base_trade_lanes",
         },
         {
-            name: "航线归类", key: "route_classification",
+            name: "航线归类", key: "base_trade_lanes_grouping",path: "/base_trade_lanes_grouping",
         },
         {
             name: "业务类型", key: "business_type",
