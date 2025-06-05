@@ -102,6 +102,10 @@ const BaseTaxRate = React.lazy(() => import("@/pages/basic_manage/base_tax_rate"
 const BaseSettlementMethod = React.lazy(() => import("@/pages/basic_manage/base_settlement_method"));
 const BaseTradeLanes = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_trade_lanes"));
 const BaseTradeLanesGrouping = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_trade_lanes_grouping"));
+const BaseShipmentType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_shipment_type"));
+const BaseBusinessType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_business_type"));
+const BaseTransportationTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_transportation_terms"));
+const BaseTradeTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_trade_terms"));
 export {
   Demo,
   Currency,
@@ -166,4 +170,8 @@ export {
   BaseSettlementMethod,
   BaseTradeLanes,
   BaseTradeLanesGrouping,
+  BaseShipmentType,
+  BaseBusinessType,
+  BaseTransportationTerms,
+  BaseTradeTerms,
 };

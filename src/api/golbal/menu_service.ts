@@ -175,16 +175,16 @@ const childrenMenuData: MenuGroup[] = [{
             name: "航线归类", key: "base_trade_lanes_grouping",path: "/base_trade_lanes_grouping",
         },
         {
-            name: "业务类型", key: "business_type",
+            name: "业务类型", key: "base_business_type",path: "/base_business_type",
         },
         {
-            name: "出运类型", key: "export_type",
+            name: "出运类型", key: "base_shipment_type",path: "/base_shipment_type",
         },
         {
-            name: "交货方式", key: "delivery_method",
+            name: "运输条款", key: "base_transportation_terms",path: "/base_transportation_terms",
         },
         {
-            name: "运输类型", key: "transport_method",
+            name: "贸易条款", key: "transport_method",path: "/base_trade_terms",
         },
         {
             name: "揽货方式", key: "pickup_method",

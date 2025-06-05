@@ -23,7 +23,11 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseExchangeRate,
   BaseTaxRate,
   BaseSettlementMethod,
-  BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods} from "./imports";
+  BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods,
+  BaseShipmentType,
+  BaseBusinessType,
+  BaseTransportationTerms,
+  BaseTradeTerms} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -79,6 +83,38 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <BaseTradeLanesGrouping />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_shipment_type",
+        handle: { title: '出运类型' },
+        element: (
+          <RouterGuard>
+            <BaseShipmentType />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_business_type",
+        handle: { title: '业务类型' },
+        element: (
+          <RouterGuard>
+            <BaseBusinessType />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_transportation_terms",
+        handle: { title: '运输条款' },
+        element: (
+          <RouterGuard>
+            <BaseTransportationTerms />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_trade_terms",
+        handle: { title: '贸易条款' },
+        element: (
+          <RouterGuard>
+            <BaseTradeTerms />
           </RouterGuard>),
       },
       {

@@ -1250,4 +1250,38 @@ export const en = {
         "lanegroupingnameen": "English Name",
         "lanegroupingmanager": "Grouping Manager"
     },
+    "base_shipment_type": {
+        "shipmenttypeid": "Shipment Type ID",
+        "shipmenttypename": "Shipment Type Name",
+        "shipmenttypemeaning": "Type Meaning",
+        "applicablescenario": "Applicable Scenario",
+        "advantage": "Advantage",
+        "disadvantage": "Disadvantage"
+    },
+    base_business_type: {
+        businesstypecode: "Business Type Code",
+        businesstypename: "Business Type Name",
+        businesstypemeaning: "Type Meaning",
+        applicablescenario: "Applicable Scenario",
+        advantage: "Advantage",
+        disadvantage: "Disadvantage",
+    },
+    base_transportation_terms: {
+        code: "Code",
+        englishname: "English Name",
+        chinesename: "Chinese Name",
+        meaning: "Meaning",
+        applicablescenarios: "Applicable Scenarios",
+        advantages: "Advantages",
+        disadvantages: "Disadvantages",
+    },
+    base_trade_terms:{
+        code:"Code",
+        englishname:"English Name",
+        chinesename:"Chinese Name",
+        meaning:"Meaning",
+        applicablescenario:"Applicable Scenario",
+        advantage:"Advantage",
+        disadvantage:"Disadvantage",
+    },
 };

@@ -1,13 +1,13 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { BaseTradeLanesItemProps } from "@/types/basic_manage/base_trade_lanes";
+import { BaseTransportationTermsItemProps } from "@/types/basic_manage/base_transportation_terms";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
     saving: boolean;
-    formData: Partial<BaseTradeLanesItemProps>;
+    formData: Partial<BaseTransportationTermsItemProps>;
     onCancel: () => void;
     onOk: (values: any) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,7 +40,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     return (
         <Modal 
             open={open} 
-            title={modalFlag === 'add' ? "新增航线归类" : "编辑航线归类"}
+            title={modalFlag === 'add' ? "新增运输条款" : "编辑运输条款"}
             onCancel={onCancel}
             destroyOnClose={true}
             maskClosable={false}
@@ -49,16 +49,25 @@ const DetailModal: React.FC<DetailModalProps> = ({
             centered={true}
         >
             <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
-                        <Form.Item label="航线归类代码" name="LaneGroupingCode" rules={[{ required: true, message: '' }]}>
+                        <Form.Item label="编码" name="Code" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="航线归类中文名" name="LaneGroupingNameCn" >
+                        <Form.Item label="英文名称" name="EnglishName" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="航线归类英文名" name="LaneGroupingNameEn" >
+                        <Form.Item label="中文名称" name="ChineseName" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="航线归类负责人" name="LaneGroupingManager" >
+                        <Form.Item label="含义" name="Meaning" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="适用场景" name="ApplicableScenarios" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="优势" name="Advantages" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="劣势" name="Disadvantages" >
                             <Input onChange={onChange} />
                         </Form.Item>
                 <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>

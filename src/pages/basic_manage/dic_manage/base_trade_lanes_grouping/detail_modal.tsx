@@ -42,8 +42,6 @@ const DetailModal: React.FC<DetailModalProps> = ({
             open={open} 
             title={modalFlag === 'add' ? "新增航线归类" : "编辑航线归类"}
             onCancel={onCancel}
-            width={'95%'}
-            height={'95%'}
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}

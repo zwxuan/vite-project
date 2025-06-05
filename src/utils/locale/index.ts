@@ -43,6 +43,10 @@ import { BaseTaxRateLocale } from './basic_manage/base_tax_rate';
 import { BaseSettlementMethodLocale } from './basic_manage/base_settlement_method';
 import { BaseTradeLanesLocale } from './basic_manage/base_trade_lanes';
 import { BaseTradeLanesGroupingLocale } from './basic_manage/base_trade_lanes_grouping';
+import { BaseShipmentTypeLocale } from './basic_manage/base_shipment_type';
+import { BaseBusinessTypeLocale } from './basic_manage/base_business_type';
+import { BaseTransportationTermsLocale } from './basic_manage/base_transportation_terms';
+import { BaseTradeTermsLocale } from './basic_manage/base_trade_terms';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -91,6 +95,10 @@ export {
   BaseSettlementMethodLocale,
   BaseTradeLanesLocale,
   BaseTradeLanesGroupingLocale,
+  BaseShipmentTypeLocale,
+  BaseBusinessTypeLocale,
+  BaseTransportationTermsLocale,
+  BaseTradeTermsLocale,
 };
 
 export default {
@@ -127,18 +135,22 @@ export default {
   ...ExpenseReviewLocale,
   ...FeeAdjustmentFeeLocale,
   ...FeeAdjustmentLocale,
- ...ActualPaymentLocale,
-...StatementObjectLocale,
-...VoucherLogLocale,
-...VoucherDetailLocale,
-...BaseGoodsLocale,
-...BaseAmsPortLocale,
-...BaseEdiPortLocale,
-...BaseSeaportLocale,
-...BaseRailwayPortLocale,
-...BaseExchangeRateLocale,
-...BaseTaxRateLocale,
-...BaseSettlementMethodLocale,
-...BaseTradeLanesLocale,
-...BaseTradeLanesGroupingLocale,
+  ...ActualPaymentLocale,
+  ...StatementObjectLocale,
+  ...VoucherLogLocale,
+  ...VoucherDetailLocale,
+  ...BaseGoodsLocale,
+  ...BaseAmsPortLocale,
+  ...BaseEdiPortLocale,
+  ...BaseSeaportLocale,
+  ...BaseRailwayPortLocale,
+  ...BaseExchangeRateLocale,
+  ...BaseTaxRateLocale,
+  ...BaseSettlementMethodLocale,
+  ...BaseTradeLanesLocale,
+  ...BaseTradeLanesGroupingLocale,
+  ...BaseShipmentTypeLocale,
+  ...BaseBusinessTypeLocale,
+  ...BaseTransportationTermsLocale,
+ ...BaseTradeTermsLocale,
 };
