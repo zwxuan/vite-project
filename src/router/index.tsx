@@ -27,7 +27,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseShipmentType,
   BaseBusinessType,
   BaseTransportationTerms,
-  BaseTradeTerms} from "./imports";
+  BaseTradeTerms,
+  BaseFreightTerms,
+  BaseBillTerms,
+  BaseContainerTeu} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -115,6 +118,30 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <BaseTradeTerms />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_freight_terms",
+        handle: { title: '运费条款' },
+        element: (
+          <RouterGuard>
+            <BaseFreightTerms />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_bill_terms",
+        handle: { title: '提单条款' },
+        element: (
+          <RouterGuard>
+            <BaseBillTerms />
+          </RouterGuard>),
+      },
+      {
+        path: "/base_container_teu",
+        handle: { title: '箱型TEU' },
+        element: (
+          <RouterGuard>
+            <BaseContainerTeu />
           </RouterGuard>),
       },
       {

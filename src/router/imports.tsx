@@ -106,6 +106,9 @@ const BaseShipmentType = React.lazy(() => import("@/pages/basic_manage/dic_manag
 const BaseBusinessType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_business_type"));
 const BaseTransportationTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_transportation_terms"));
 const BaseTradeTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_trade_terms"));
+const BaseFreightTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_freight_terms"));
+const BaseBillTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_bill_terms"));
+const BaseContainerTeu = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_container_teu"));
 export {
   Demo,
   Currency,
@@ -174,4 +177,7 @@ export {
   BaseBusinessType,
   BaseTransportationTerms,
   BaseTradeTerms,
+  BaseFreightTerms,
+  BaseBillTerms,
+  BaseContainerTeu,
 };

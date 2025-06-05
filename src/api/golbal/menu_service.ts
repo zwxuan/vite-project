@@ -187,55 +187,21 @@ const childrenMenuData: MenuGroup[] = [{
             name: "贸易条款", key: "transport_method",path: "/base_trade_terms",
         },
         {
-            name: "揽货方式", key: "pickup_method",
+            name: "运费条款", key: "base_freight_terms",path: "/base_freight_terms",
         },
         {
-            name: "进出口标记", key: "import_export_mark",
-        },
-        {
-            name: "货物来源", key: "goods_source",
-        },
-        {
-            name: "货物状态", key: "goods_status",
+            name: "提单条款", key: "base_bill_terms",path: "/base_bill_terms",
         },
         {
             name: "货物类型", key: "goods_type",
         },
         {
-            name: "包装类型", key: "packaging_type",
-        },
-        {
-            name: "包装单位", key: "packaging_unit",
-        },
-        {
-            name: "箱型箱量", key: "box_type",
+            name: "箱型TEU", key: "base_container_teu",path: "/base_container_teu",
         },
     ]
 },
 {
-    title: "供应商管理",
-    key: "supplier",
-    parentkey: "basic",
-    apps: [
-        {
-            name: "合同管理", key: "contract",
-        },
-        {
-            name: "基本信息", key: "basic",
-        },
-        {
-            name: "商品管理", key: "goods",
-        },
-        {
-            name: "商品价格", key: "price",
-        },
-        {
-            name: "绩效管理", key: "performance",
-        },
-    ]
-},
-{
-    title: "客户管理",
+    title: "合作伙伴",
     key: "customer",
     parentkey: "basic",
     apps: [
