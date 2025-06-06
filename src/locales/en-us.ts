@@ -1317,4 +1317,21 @@ export const en = {
         createdby:"Created By",
         createdtime:"Created Time",
     },
+    base_cargo_type:{
+        id:"Code",
+        englishname:"English Name",
+        chinesename:"Chinese Name",
+        description:"Description",
+        oceanuse:"Ocean Use",
+        airuse:"Air Use",
+        fbaoceanuse:"FBA Ocean Use",
+        fbaairuse:"FBA Air Use",
+        fbarailuse:"FBA Rail Use",
+    },
+    base_container_type:{
+        code:"Code",
+        englishname:"English Name",
+        chinesename:"Chinese Name",
+        remark:"Remark",
+    },
 };

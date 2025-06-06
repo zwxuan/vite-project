@@ -1319,4 +1319,21 @@ export const cn = {
         createdby:"创建人",
         createdtime:"创建时间",
     },
+    base_cargo_type:{
+        id:"编码",
+        englishname:"英文名称",
+        chinesename:"中文名称",
+        description:"说明",
+        oceanuse:"海运使用",
+        airuse:"空运使用",
+        fbaoceanuse:"FBA海运使用",
+        fbaairuse:"FBA空运使用",
+        fbarailuse:"FBA铁路使用",
+    },
+    base_container_type:{
+        code:"编码",
+        englishname:"英文名称",
+        chinesename:"中文名称",
+        remark:"备注",
+    },
 };

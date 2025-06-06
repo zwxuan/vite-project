@@ -193,7 +193,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "提单条款", key: "base_bill_terms",path: "/base_bill_terms",
         },
         {
-            name: "货物类型", key: "goods_type",
+            name: "货物类型", key: "base_cargo_type",path: "/base_cargo_type",
+        },
+        {
+            name: "箱型种类", key: "base_container_type",path: "/base_container_type",
         },
         {
             name: "箱型TEU", key: "base_container_teu",path: "/base_container_teu",
