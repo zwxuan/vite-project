@@ -205,11 +205,11 @@ const childrenMenuData: MenuGroup[] = [{
 },
 {
     title: "合作伙伴",
-    key: "customer",
+    key: "cooperation_party",
     parentkey: "basic",
     apps: [
         {
-            name: "合同管理", key: "contract",
+            name: "合同管理", key: "contracts_manage",path: "/cooperation_party/contracts_manage",
         },
         {
             name: "基本信息", key: "basic",

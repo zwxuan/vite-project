@@ -1,0 +1,236 @@
+
+import { TableColumnsType, Tag, Popconfirm } from 'antd';
+import { ContractsManageItemProps } from "@/types/basic_manage/contracts_manage";
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/locale';
+
+
+
+export const getColumns = (handleEdit: (record: ContractsManageItemProps) => void, handleDelete: (record: ContractsManageItemProps) => void): TableColumnsType<ContractsManageItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getContractsManageContractId()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ContractId',
+        sorter: true,
+        align: 'left',
+        fixed: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManagePartner()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Partner',
+        sorter: true,
+        align: 'left',
+        fixed: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageCustomerLevel()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CustomerLevel',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageAuditStatus()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'AuditStatus',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageContractStatus()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ContractStatus',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageContractType()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ContractType',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageEffectiveDate()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'EffectiveDate',
+        sorter: true,
+        align: 'center',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageExpirationDate()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ExpirationDate',
+        sorter: true,
+        align: 'center',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageAttachmentCount()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'AttachmentCount',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageOperator()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Operator',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageOperationDate()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'OperationDate',
+        sorter: true,
+        align: 'center',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageContractAgreement()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ContractAgreement',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageLogRecord()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'LogRecord',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageCreditLimit()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CreditLimit',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageCreditCurrency()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CreditCurrency',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageDateType()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'DateType',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManagePaymentCycle()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'PaymentCycle',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageIsExtension()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'IsExtension',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageExtensionPeriod()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ExtensionPeriod',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageRemarks()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Remarks',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageIsShippingChapterUploaded()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'IsShippingChapterUploaded',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageIsContractUploaded()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'IsContractUploaded',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageIsNeedUpdate()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'IsNeedUpdate',
+        sorter: true,
+        align: 'right',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageCompanyBranch()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'CompanyBranch',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageSalesRep()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'SalesRep',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getContractsManageSettlementMethod()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'SettlementMethod',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+        render: (_, record) => (
+        <>
+            <a>启用</a>
+            <a onClick={()=>handleEdit(record)}>编辑</a>
+            <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
+                <a>删除</a>
+            </Popconfirm>
+        </>
+        ),
+    },
+]; 

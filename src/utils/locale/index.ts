@@ -52,6 +52,7 @@ import { BaseBillTermsLocale } from './basic_manage/base_bill_terms';
 import { BaseContainerTeuLocale } from './basic_manage/base_container_teu';
 import { BaseCargoTypeLocale } from './basic_manage/base_cargo_type';
 import { BaseContainerTypeLocale } from './basic_manage/base_container_type';
+import { ContractsManageLocale } from './basic_manage/contracts_manage';
 export {
   OrdersLocale,
   OrderFeeLocale,
@@ -109,6 +110,7 @@ export {
   BaseContainerTeuLocale,
   BaseCargoTypeLocale,
   BaseContainerTypeLocale,
+  ContractsManageLocale,
 };
 
 export default {
@@ -168,4 +170,5 @@ export default {
 ...BaseContainerTeuLocale,
 ...BaseCargoTypeLocale,
 ...BaseContainerTypeLocale,
+...ContractsManageLocale,
 };

@@ -68,7 +68,7 @@ const ExpenseReview = React.lazy(() => import("@/pages/finance_manage/expense_re
 const FeeAdjustment = React.lazy(() => import("@/pages/finance_manage/fee_adjustment"));
 const ActualPayment = React.lazy(() => import("@/pages/finance_manage/actual_payment"));
 // import ActualPayment from "@/pages/finance_manage/actual_payment";
-const FinanceQuery  = React.lazy(() => import("@/pages/finance_manage/finance_query"));
+const FinanceQuery = React.lazy(() => import("@/pages/finance_manage/finance_query"));
 // import FinanceQuery from "@/pages/finance_manage/finance_query";
 const VoucherLog = React.lazy(() => import("@/pages/finance_manage/voucher_log"));
 // import VoucherLog from "@/pages/finance_manage/voucher_log";
@@ -87,7 +87,7 @@ const CustomerArrearsAnalysisReport = React.lazy(() => import("@/pages/report/cu
 const SalesProfitReport = React.lazy(() => import("@/pages/report/sales_profit"));
 const DepartmentBusinessWeightReport = React.lazy(() => import("@/pages/report/department_business_weight"));
 const SingleTicketProfitStatisticsReport = React.lazy(() => import("@/pages/report/single_ticket_profit_statistics"));
-const OperatorShipmentSummaryReport  = React.lazy(() => import("@/pages/report/operator_shipment_summary"));
+const OperatorShipmentSummaryReport = React.lazy(() => import("@/pages/report/operator_shipment_summary"));
 const TransportationLineTeuReport = React.lazy(() => import("@/pages/report/transportation_line_teu"));
 const CustomerWeightProfitReport = React.lazy(() => import("@/pages/report/customer_weight_profit"));
 const AccountsReceivableAgingReport = React.lazy(() => import("@/pages/report/accounts_receivable_aging"));
@@ -111,6 +111,7 @@ const BaseBillTerms = React.lazy(() => import("@/pages/basic_manage/dic_manage/b
 const BaseContainerTeu = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_container_teu"));
 const BaseCargoType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_cargo_type"));
 const BaseContainerType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_container_type"));
+const ContractsManage = React.lazy(() => import("@/pages/basic_manage/contracts_manage"));
 export {
   Demo,
   Currency,
@@ -184,4 +185,5 @@ export {
   BaseContainerTeu,
   BaseCargoType,
   BaseContainerType,
+  ContractsManage,
 };
