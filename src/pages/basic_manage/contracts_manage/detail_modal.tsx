@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Col, Row, Radio, Checkbox, Table, Tooltip } from 'antd';
 import { ContractsManageItemProps } from "@/types/basic_manage/contracts_manage";
 import dayjs from 'dayjs';
@@ -8,8 +8,11 @@ import TextArea from 'antd/es/input/TextArea';
 import CodeBoxMeta from '@/components/code-box-meta';
 import HotTable, { HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
 import Handsontable from 'handsontable';
-import 'handsontable/styles/handsontable.min.css';
-import 'handsontable/styles/ht-theme-main.min.css';
+import 'handsontable/dist/handsontable.full.min.css';
+import { registerAllModules } from 'handsontable/registry';
+
+// Register all Handsontable modules including dropdown
+registerAllModules();
 import './contracts_detail.less'
 interface DetailModalProps {
     open: boolean;
@@ -46,6 +49,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     onNumberChange,
 }) => {
     const [allowMultipleAgreements, setAllowMultipleAgreements] = useState(false); // Default to true as per defaultValue={[1]}
+    const hotTableRef = useRef<any>(null);
     const handleAllowMultipleAgreementsChange = (checkedValues: any) => {
         setAllowMultipleAgreements(checkedValues.includes(1));
     };
@@ -324,6 +328,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                     <div className="nc-bill-search-area" style={{backgroundColor:'#EE0F39',color:'#fff'}}>临时信控  注：临时信控的额度/账期 单位同合同的单位（次日生效）</div>
                     <div className='nc-bill-table-area'>
                     <HotTable
+                            ref={hotTableRef}
                             data={[{},{}]}
                             height={'300px'}
                             dropdownMenu={false}

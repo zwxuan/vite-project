@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, Input, InputNumber, Select, Button, Space, DatePicker, Radio } from 'antd';
 import { ContractsManageItemProps } from "@/types/basic_manage/contracts_manage";
 import dayjs from 'dayjs';
@@ -36,6 +36,7 @@ const Detail: React.FC<DetailProps> = ({
 }) => {
     const [contractAgreementType, setContractAgreementType] = useState('客户合同');
     const [dateType, setDateType] = useState('ETD');
+    
     const [settlementMethod, setSettlementMethod] = useState('按月结算');
     const [extensionType, setExtensionType] = useState('票结');
     
