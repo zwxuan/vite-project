@@ -112,6 +112,7 @@ const BaseContainerTeu = React.lazy(() => import("@/pages/basic_manage/dic_manag
 const BaseCargoType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_cargo_type"));
 const BaseContainerType = React.lazy(() => import("@/pages/basic_manage/dic_manage/base_container_type"));
 const ContractsManage = React.lazy(() => import("@/pages/basic_manage/contracts_manage"));
+const BusinessPartner = React.lazy(() => import("@/pages/basic_manage/business_partner"));
 export {
   Demo,
   Currency,
@@ -186,4 +187,5 @@ export {
   BaseCargoType,
   BaseContainerType,
   ContractsManage,
+  BusinessPartner,
 };

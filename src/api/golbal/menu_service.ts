@@ -212,7 +212,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "合同管理", key: "contracts_manage",path: "/cooperation_party/contracts_manage",
         },
         {
-            name: "基本信息", key: "basic",
+            name: "基本信息", key: "business_partner",path: "/cooperation_party/business_partner",
         },
         {
             name: "绩效管理", key: "performance",
