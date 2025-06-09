@@ -19,6 +19,7 @@ import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
 import DetailModal from './detail_modal';
+import DetailSetModal from './detail_set';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ContractsManage : React.FC = () => {
@@ -71,6 +72,7 @@ const ContractsManage : React.FC = () => {
 
     
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
     const [openExcel, setExcelOpen] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
@@ -87,9 +89,14 @@ const ContractsManage : React.FC = () => {
         showModal();
     };
 
+    const handleContractsSet = () => {
+        setModalFlag('add');
+        setOpen2(true);
+    };
+
     const initFormData = {} as ContractsManageItemProps;
     const [formData, setFormData] = useState<ContractsManageItemProps>(initFormData);
-    
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -152,6 +159,7 @@ const ContractsManage : React.FC = () => {
         if (!saving) {
             setFormData(initFormData);
             setOpen(false);
+            setOpen2(false);
         }
     };
     const handleExcelCancel = () => {
@@ -198,6 +206,14 @@ const ContractsManage : React.FC = () => {
                 onDateChange={handleDateChange}
                 onNumberChange={handleNumberChange}
             />
+
+            <DetailSetModal
+                open={open2}
+                modalFlag={modalFlag}
+                saving={saving}
+                onCancel={handleCancel}
+                onOk={handleOk}
+            />
             
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='contracts_manage' importType={uploadImportType} />
             <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='contracts_manage' />
@@ -224,7 +240,7 @@ const ContractsManage : React.FC = () => {
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
                                 <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button type="primary" danger>合同配置</Button>
+                                <Button type="primary" danger onClick={handleContractsSet}>合同配置</Button>
                                 <Button>修改</Button>
                                 <Button>删除</Button>
                                 <Button>复制</Button>

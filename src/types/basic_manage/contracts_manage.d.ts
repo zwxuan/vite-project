@@ -53,3 +53,24 @@ export interface ContractsManageItemProps {
     // 结算方式
     SettlementMethod:string;
 }
+
+
+// 合同规则引擎
+export interface ContractsRuleEngineItemProps {
+    RowKey:string;
+    // 对账规则名称
+    ReconciliationRuleName:string;
+    // 匹配字段关系
+    MatchFieldRelation:string;
+}
+
+// 合同规则比较字段
+export interface ContractsCompareFieldsItemProps {
+    RowKey:string;
+    // 对比字段名称
+    CompareFieldsName:string;
+    // 匹配字段关系
+    CompareFieldRelation:string;
+    // 匹配字段值
+    CompareFieldValue:string;
+}

@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../request'
-import { ContractsManageItemProps } from "@/types/basic_manage/contracts_manage";
+import { ContractsCompareFieldsItemProps, ContractsManageItemProps, ContractsRuleEngineItemProps } from "@/types/basic_manage/contracts_manage";
 import Mock from "mockjs";
 //
 const contractsManageItems:ContractsManageItemProps[] = [
@@ -61,6 +61,43 @@ const contractsManageItems:ContractsManageItemProps[] = [
       "SettlementMethod": "按月结算"
     }
   ];
+
+  const contractsRuleEngineItems: ContractsRuleEngineItemProps[] = [
+    {
+      RowKey: Mock.mock("@id"),
+      ReconciliationRuleName: '合同规则1',
+      MatchFieldRelation: '与',
+    },
+    {
+      RowKey: Mock.mock("@id"),
+      ReconciliationRuleName: '合同规则2',
+      MatchFieldRelation: '或',
+    },
+  ];
+  
+  const contractsCompareItems: ContractsCompareFieldsItemProps[] = [
+    {
+      RowKey: Mock.mock("@id"),
+      CompareFieldsName: '业务类型',
+      CompareFieldRelation: '等于',
+      CompareFieldValue: '海运出口',
+    },
+    {
+      RowKey: Mock.mock("@id"),
+      CompareFieldsName: '操作分公司',
+      CompareFieldRelation: '等于',
+      CompareFieldValue: '青岛分公司',
+    },
+  ];
+  
+  export const getContractsRuleEngineList = async (): Promise<ContractsRuleEngineItemProps[]> => {
+    return contractsRuleEngineItems;
+  }
+
+  
+  export const getContractsCompareFieldsList = async (): Promise<ContractsCompareFieldsItemProps[]> => {
+    return contractsCompareItems;
+  }
 
 
 // 获取账单管理台账列表
