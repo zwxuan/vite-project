@@ -18,7 +18,6 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
-import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const BusinessPartner : React.FC = () => {
@@ -41,14 +40,8 @@ const BusinessPartner : React.FC = () => {
     const handleDelete = (record:BusinessPartnerItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:BusinessPartnerItemProps) => {
-        const newData = businessPartnerList.filter((item) => `${item.Id}` === `${record.Id}`);
-        setFormData(newData[0]);
-        setModalFlag('edit');
-        showModal();
-    };
     
-    const columnsType = getColumns(handleEdit, handleDelete);
+    const columnsType = getColumns(()=>{}, handleDelete);
     
     const excelImportOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
@@ -77,14 +70,10 @@ const BusinessPartner : React.FC = () => {
     const [saving, setSaving] = useState(false);
     const [modalFlag, setModalFlag] = useState<'add' | 'edit'>('add');
 
-    const showModal = () => {
-        setOpen(true);
-    };
+    
 
     const handleAdd = () => {
-        setModalFlag('add');
-        setFormData(initFormData);
-        showModal();
+        navigate('/cooperation_party/business_partner/detail');
     };
 
     const initFormData = {} as BusinessPartnerItemProps;
@@ -184,21 +173,9 @@ const BusinessPartner : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-
+    
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
-            <DetailModal
-                open={open}
-                modalFlag={modalFlag}
-                saving={saving}
-                formData={formData}
-                onCancel={handleCancel}
-                onOk={handleOk}
-                onChange={handleChange}
-                onDateChange={handleDateChange}
-                onNumberChange={handleNumberChange}
-            />
-            
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='business_partner' importType={uploadImportType} />
             <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='business_partner' />
             <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='business_partner' />

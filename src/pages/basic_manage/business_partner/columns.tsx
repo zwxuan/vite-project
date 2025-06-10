@@ -3,6 +3,7 @@ import { TableColumnsType, Tag, Popconfirm } from 'antd';
 import { BusinessPartnerItemProps } from "@/types/basic_manage/business_partner";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -439,8 +440,7 @@ export const getColumns = (handleEdit: (record: BusinessPartnerItemProps) => voi
         width: 100,
         render: (_, record) => (
         <>
-            <a>启用</a>
-            <a onClick={()=>handleEdit(record)}>编辑</a>
+            <NavLink to={`/cooperation_party/business_partner/detail?id=${record.Id}`}>详细</NavLink>
             <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
                 <a>删除</a>
             </Popconfirm>

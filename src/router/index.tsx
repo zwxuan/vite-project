@@ -34,7 +34,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseCargoType,
   BaseContainerType,
   ContractsManage,
-  BusinessPartner} from "./imports";
+  BusinessPartner,
+  ParterDetail} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -210,6 +211,14 @@ const routers = createMemoryRouter([
         element: (
           <RouterGuard>
             <ContractsManage />
+          </RouterGuard>),
+      },
+      {
+        path: "/cooperation_party/business_partner/detail",
+        handle: { title: '基础信息' },
+        element: (
+          <RouterGuard>
+            <ParterDetail />
           </RouterGuard>),
       },
       {

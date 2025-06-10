@@ -1417,5 +1417,21 @@ export const en = {
         "documentnumber": "Doc No.",
         "iscontractattachmentuploaded": "Attach Uploaded"
     },
-
+    contact:{
+        contactid:"Contact Id",
+        contactname:"Contact Name",
+        jobfunction:"Job Function",
+        route:"Route",
+        phone:"Phone",
+        address:"Address",
+        email:"Email",
+        ccemail:"CC Email",
+        mobile:"Mobile",
+        pushnode:"Push Node",
+        pushmethod:"Push Method",
+        remarks:"Remarks",
+        qqnumber:"QQ Number",
+        wechatid:"Wechat Number",
+        skypeid:"Skype Number",
+    },
 };
