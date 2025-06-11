@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { useLocation } from 'react-router-dom';
 import ParterBaseInfo from './tab_detail/base_info_tab';
 import Contact from './tab_detail/contact_tab';
+import ParterCustomer from './tab_detail/customer_tab';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -64,6 +65,11 @@ const Detail: React.FC = () => {
                             label: '联系人',
                             key: 'contact',
                             children: <Contact />,
+                        },
+                        {
+                            label: '客户',
+                            key: 'customer',
+                            children: <ParterCustomer />,
                         },
                         {
                             label: '信用账款',
