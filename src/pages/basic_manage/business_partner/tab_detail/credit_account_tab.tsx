@@ -14,6 +14,9 @@ import './tab_detail.less'
 import TextArea from 'antd/es/input/TextArea';
 import CodeBoxMeta from '@/components/code-box-meta';
 import HotTable, { HotColumn } from '@handsontable/react-wrapper';
+import { registerAllModules } from 'handsontable/registry';
+
+registerAllModules();
 const CreditAccount: React.FC = () => {
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden',width:'60%', height: 'calc(100vh - 180px)', paddingTop: '10px' }}>
