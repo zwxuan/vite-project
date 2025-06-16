@@ -1434,4 +1434,39 @@ export const en = {
         wechatid:"Wechat Number",
         skypeid:"Skype Number",
     },
+    port_destination_agent: {
+        portcode: "Port Code",
+        isdefault: "Is Default",
+        designatedagent: "Designated Agent",
+        remarks: "Remarks"
+    },
+    invoice_requirement: {
+        customerno: "Customer No",
+        taxpayerid: "Taxpayer ID",
+        invoiceaddress: "Invoice Addr",
+        phone: "Phone",
+        isdefault: "Is Default",
+        bankaccount: "Bank Account",
+        billingheadbank: "Billing Bank",
+        customeremail: "Email",
+        systemautopush: "Auto Push",
+        systemautosendtarget: "Push Target",
+        taxcontrolplatformsend: "Tax Send",
+        taxcontrolplatformsendtarget: "Tax Target",
+        operation: "Operation",
+        invoicetype: "Invoice Type",
+        invoicekind: "Invoice Kind",
+        domesticorabroad: "Domestic/Foreign",
+        applicablewhttax: "Apply WHT",
+        billingrequirements: "Billing Notes"
+    },
+    delivery_agent: {
+        id: "ID",
+        agentchinesename: "Chinese Name",
+        agentenglishname: "English Name",
+        agentenglishabbreviation: "Agent Abbrev",
+        affiliatedbranchcompany: "Affiliated Co",
+        isdefault: "Is Default",
+        agentinfo: "Agent Info"
+    }
 };

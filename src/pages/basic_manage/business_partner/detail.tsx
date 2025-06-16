@@ -7,6 +7,11 @@ import { useLocation } from 'react-router-dom';
 import ParterBaseInfo from './tab_detail/base_info_tab';
 import Contact from './tab_detail/contact_tab';
 import ParterCustomer from './tab_detail/customer_tab';
+import CreditAccount from './tab_detail/credit_account_tab';
+import Contracts from './tab_detail/contracts_tab';
+import ParterDocument from './tab_detail/document';
+import InvoiceRequirement from './tab_detail/invoice_requirement';
+import DeliveryAgent from './tab_detail/delivery_agent';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -74,27 +79,27 @@ const Detail: React.FC = () => {
                         {
                             label: '信用账款',
                             key: 'credit_account',
-                            children: '信用账款',
+                            children: <CreditAccount />,
                         },
                         {
                             label: '合同约号',
                             key: 'contract_no',
-                            children: '合同约号',
+                            children: <Contracts />,
                         },
                         {
                             label: '文件资料',
                             key: 'file',
-                            children: '文件资料',
+                            children: <ParterDocument />,
                         },
                         {
                             label: '开票要求',
                             key: 'invoice_require',
-                            children: '开票要求',
+                            children: <InvoiceRequirement />,
                         },
                         {
                             label: '换单代理',
-                            key: 'change_agent',
-                            children: '换单代理',
+                            key: 'delivery_agent',
+                            children: <DeliveryAgent />,
                         },
                         {
                             label: '舱位承运人',

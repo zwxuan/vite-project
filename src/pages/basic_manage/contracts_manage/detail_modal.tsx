@@ -245,7 +245,17 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         <Col span={12}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <label className='item-lable-title'>日期类型</label>
-                                <DatePickerZH style={{ flex: 1 }} />
+                                <Select style={{ flex: 1 }} options={[
+                                    { value: 1, label: 'ETD' },
+                                    { value: 2, label: 'ETA' },
+                                    { value: 3, label: 'ATD' },
+                                    { value: 4, label: 'ATA' },
+                                    { value: 5, label: '业务日期' },
+                                    { value: 6, label: '发票日期' },
+                                    { value: 7, label: '账单日期' },
+                                    { value: 8, label: '实际送货日期' },
+                                    { value: 9, label: '国外发票开票日期' },
+                                ]} />
                             </div>
                         </Col>
                         <Col span={12}>

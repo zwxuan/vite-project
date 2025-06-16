@@ -14,15 +14,15 @@ import LocaleHelper from '@/utils/localeHelper';
 import DatePickerZH from '@/components/date-picker';
 import './tab_detail.less'
 import TextArea from 'antd/es/input/TextArea';
-import { getColumns } from './columns';
-import { ContactItemProps } from '@/types/basic_manage/contact';
+import { getColumns, getColumnsAngent } from './columns';
 import CodeBoxMeta from '@/components/code-box-meta';
+import { PortDestinationAgentItemProps } from '@/types/basic_manage/port_destination_agent';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ParterCustomer: React.FC = () => {
 
     // 计费标准数据
-    const [chargingStandardList, setChargingStandardList] = useState([] as ContactItemProps[]);
+    const [chargingStandardList, setChargingStandardList] = useState([] as PortDestinationAgentItemProps[]);
     const [editingKey, setEditingKey] = useState('');
     // 获取计费标准数据
     useEffect(() => {
@@ -34,10 +34,10 @@ const ParterCustomer: React.FC = () => {
         getData();
     }, []);
 
-    const handleDelete = (record: ContactItemProps) => {
+    const handleDelete = (record: PortDestinationAgentItemProps) => {
         try {
             // TODO: 调用删除API
-            const newData = chargingStandardList.filter(item => item.ContactId !== record.ContactId);
+            const newData = chargingStandardList.filter(item => item.PortCode !== record.PortCode);
             setChargingStandardList(newData);
         } catch (error) {
             console.error('Delete failed:', error);
@@ -47,7 +47,7 @@ const ParterCustomer: React.FC = () => {
             });
         }
     };
-    const handleEdit = (record: ContactItemProps) => {
+    const handleEdit = (record: PortDestinationAgentItemProps) => {
         if (editingKey !== '') {
             notification.warning({
                 message: '提示',
@@ -55,13 +55,13 @@ const ParterCustomer: React.FC = () => {
             });
             return;
         }
-        setEditingKey(record.ContactId?.toString() || '');
+        setEditingKey(record.PortCode?.toString() || '');
     };
-    const handleSave = async (record: ContactItemProps) => {
+    const handleSave = async (record: PortDestinationAgentItemProps) => {
         try {
             // TODO: 调用保存API
             const newData = [...chargingStandardList];
-            const index = newData.findIndex(item => record.ContactId === item.ContactId);
+            const index = newData.findIndex(item => record.PortCode === item.PortCode);
             if (index > -1) {
                 const item = newData[index];
                 newData.splice(index, 1, {
@@ -95,46 +95,21 @@ const ParterCustomer: React.FC = () => {
             return;
         }
         const newId = Date.now().toString();
-        const newRow: ContactItemProps = {
+        const newRow: PortDestinationAgentItemProps = {
             // 联系人ID
-            ContactId: newId,
-            // 联系人
-            ContactName: '',
-            // 职能
-            JobFunction: '',
-            // 航线
-            Route: '',
-            // 电话
-            Phone: '',
-            // 地址
-            Address: '',
-            // 邮件地址
-            Email: '',
-            // 抄送地址
-            CcEmail: '',
-            // 手机
-            Mobile: '',
-            // 推送节点
-            PushNode: '',
-            // 推送方式
-            PushMethod: '',
-            // 备注
-            Remarks: '',
-            // QQ
-            QqNumber: '',
-            // 微信号
-            WechatId: '',
-            // Skype
-            SkypeId: '',
+            PortCode: newId,
+            IsDefault:'否',
+            DesignatedAgent:'',
+            Remarks:''
         };
         setChargingStandardList([...chargingStandardList, newRow]);
         setEditingKey(newId);
     };
 
-    const columnsType = getColumns(handleEdit, handleDelete, handleSave, handleCancel, editingKey);
+    const columnsType = getColumnsAngent(handleEdit, handleDelete, handleSave, handleCancel, editingKey);
 
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<ContactItemProps> = {
+    const rowSelection: TableRowSelection<PortDestinationAgentItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -297,10 +272,10 @@ const ParterCustomer: React.FC = () => {
                                 </div>
                             </div>
                             <div className='nc-bill-table-area'>
-                                <Table<ContactItemProps>
+                                <Table<PortDestinationAgentItemProps>
                                     columns={columnsType}
                                     rowSelection={{ ...rowSelection }}
-                                    rowKey={(record) => `${record.ContactId}`}
+                                    rowKey={(record) => `${record.PortCode}`}
                                     showSorterTooltip={false}
                                     dataSource={chargingStandardList}
                                     pagination={false}
