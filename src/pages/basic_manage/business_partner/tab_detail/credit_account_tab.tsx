@@ -1,6 +1,6 @@
 
 import '@/pages/page_list.less';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Form, Input, InputNumber, Select, Progress, notification, Col, Row, Checkbox, Tooltip, Radio } from 'antd';
 import type { MenuProps, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -13,11 +13,14 @@ import DatePickerZH from '@/components/date-picker';
 import './tab_detail.less'
 import TextArea from 'antd/es/input/TextArea';
 import CodeBoxMeta from '@/components/code-box-meta';
-import HotTable, { HotColumn } from '@handsontable/react-wrapper';
+import HotTable, { HotColumn, HotRendererProps } from '@handsontable/react-wrapper';
+import Handsontable from 'handsontable';
+import 'handsontable/dist/handsontable.full.min.css';
 import { registerAllModules } from 'handsontable/registry';
 
 registerAllModules();
 const CreditAccount: React.FC = () => {
+    const hotTableRef = useRef<any>(null);
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden',width:'60%', height: 'calc(100vh - 180px)', paddingTop: '10px' }}>
             <div className="nc-bill-table-area">
@@ -208,6 +211,7 @@ const CreditAccount: React.FC = () => {
                 <CodeBoxMeta title="临时信控">
                     <div className='nc-bill-table-area'>
                         <HotTable
+                            ref={hotTableRef}
                             data={[{}, {}]}
                             height={'300px'}
                             dropdownMenu={false}
