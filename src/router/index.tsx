@@ -1,5 +1,5 @@
 //router/index.tsx
-import { createBrowserRouter,createMemoryRouter } from "react-router-dom";
+import { createBrowserRouter, createMemoryRouter, Outlet } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
   , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
@@ -78,92 +78,136 @@ const routers = createMemoryRouter([
           </RouterGuard>),
       },
       {
-        path: "/base_trade_lanes",
-        handle: { title: '航线' },
+        path: "/base_business_manage",
+        handle: { title: '业务基础数据' },
         element: (
           <RouterGuard>
-            <BaseTradeLanes />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_trade_lanes_grouping",
-        handle: { title: '航线归类' },
-        element: (
-          <RouterGuard>
-            <BaseTradeLanesGrouping />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_shipment_type",
-        handle: { title: '出运类型' },
-        element: (
-          <RouterGuard>
-            <BaseShipmentType />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_business_type",
-        handle: { title: '业务类型' },
-        element: (
-          <RouterGuard>
-            <BaseBusinessType />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_transportation_terms",
-        handle: { title: '运输条款' },
-        element: (
-          <RouterGuard>
-            <BaseTransportationTerms />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_trade_terms",
-        handle: { title: '贸易条款' },
-        element: (
-          <RouterGuard>
-            <BaseTradeTerms />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_freight_terms",
-        handle: { title: '运费条款' },
-        element: (
-          <RouterGuard>
-            <BaseFreightTerms />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_bill_terms",
-        handle: { title: '提单条款' },
-        element: (
-          <RouterGuard>
-            <BaseBillTerms />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_cargo_type",
-        handle: { title: '货物类型' },
-        element: (
-          <RouterGuard>
-            <BaseCargoType />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_container_type",
-        handle: { title: '箱型种类' },
-        element: (
-          <RouterGuard>
-            <BaseContainerType />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_container_teu",
-        handle: { title: '箱型TEU' },
-        element: (
-          <RouterGuard>
-            <BaseContainerTeu />
-          </RouterGuard>),
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "base_trade_lanes",
+            handle: { title: '航线' },
+            element: (
+              <RouterGuard>
+                <BaseTradeLanes />
+              </RouterGuard>),
+          },
+          {
+            path: "base_trade_lanes_grouping",
+            handle: { title: '航线归类' },
+            element: (
+              <RouterGuard>
+                <BaseTradeLanesGrouping />
+              </RouterGuard>),
+          },
+          {
+            path: "base_shipment_type",
+            handle: { title: '出运类型' },
+            element: (
+              <RouterGuard>
+                <BaseShipmentType />
+              </RouterGuard>),
+          },
+          {
+            path: "base_business_type",
+            handle: { title: '业务类型' },
+            element: (
+              <RouterGuard>
+                <BaseBusinessType />
+              </RouterGuard>),
+          },
+          {
+            path: "base_transportation_terms",
+            handle: { title: '运输条款' },
+            element: (
+              <RouterGuard>
+                <BaseTransportationTerms />
+              </RouterGuard>),
+          },
+          {
+            path: "base_trade_terms",
+            handle: { title: '贸易条款' },
+            element: (
+              <RouterGuard>
+                <BaseTradeTerms />
+              </RouterGuard>),
+          },
+          {
+            path: "base_freight_terms",
+            handle: { title: '运费条款' },
+            element: (
+              <RouterGuard>
+                <BaseFreightTerms />
+              </RouterGuard>),
+          },
+          {
+            path: "base_bill_terms",
+            handle: { title: '提单条款' },
+            element: (
+              <RouterGuard>
+                <BaseBillTerms />
+              </RouterGuard>),
+          },
+          {
+            path: "base_cargo_type",
+            handle: { title: '货物类型' },
+            element: (
+              <RouterGuard>
+                <BaseCargoType />
+              </RouterGuard>),
+          },
+          {
+            path: "base_container_type",
+            handle: { title: '箱型种类' },
+            element: (
+              <RouterGuard>
+                <BaseContainerType />
+              </RouterGuard>),
+          },
+          {
+            path: "base_container_teu",
+            handle: { title: '箱型TEU' },
+            element: (
+              <RouterGuard>
+                <BaseContainerTeu />
+              </RouterGuard>),
+          },
+          
+          {
+            path: "base_goods",
+            handle: { title: '海关商品' },
+            element: (
+              <RouterGuard>
+                <BaseGoods />
+              </RouterGuard>),
+          },
+          {
+            path: "base_seaport",
+            handle: { title: '海港' },
+            element: (
+              <RouterGuard>
+                <BaseSeaPort />
+              </RouterGuard>),
+          },
+          {
+            path: "base_airport",
+            handle: { title: '空港' },
+            element: (
+              <RouterGuard>
+                <BaseAirPort />
+              </RouterGuard>),
+          },
+          {
+            path: "base_railwayport",
+            handle: { title: '铁港' },
+            element: (
+              <RouterGuard>
+                <BaseRailwayPort />
+              </RouterGuard>),
+          },
+        ]
       },
       {
         path: "/base_exchange_rate",
@@ -174,60 +218,30 @@ const routers = createMemoryRouter([
           </RouterGuard>),
       },
       {
-        path: "/base_goods",
-        handle: { title: '海关商品' },
-        element: (
-          <RouterGuard>
-            <BaseGoods />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_seaport",
-        handle: { title: '海港' },
-        element: (
-          <RouterGuard>
-            <BaseSeaPort />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_airport",
-        handle: { title: '空港' },
-        element: (
-          <RouterGuard>
-            <BaseAirPort />
-          </RouterGuard>),
-      },
-      {
-        path: "/base_railwayport",
-        handle: { title: '铁港' },
-        element: (
-          <RouterGuard>
-            <BaseRailwayPort />
-          </RouterGuard>),
-      },
-      {
-        path: "/cooperation_party/contracts_manage",
-        handle: { title: '合同管理' },
-        element: (
-          <RouterGuard>
-            <ContractsManage />
-          </RouterGuard>),
-      },
-      {
-        path: "/cooperation_party/business_partner/detail",
-        handle: { title: '基础信息' },
-        element: (
-          <RouterGuard>
-            <ParterDetail />
-          </RouterGuard>),
-      },
-      {
-        path: "/cooperation_party/business_partner",
+        path: "/cooperation_party",
         handle: { title: '合作伙伴' },
         element: (
           <RouterGuard>
-            <BusinessPartner />
-          </RouterGuard>),
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "contracts_manage",
+            handle: { title: '合同管理' },
+            element: <ContractsManage />,
+          },
+          {
+            path: "business_partner",
+            handle: { title: '合作伙伴' },
+            element: <BusinessPartner />,
+          },
+          {
+            path: "business_partner/detail",
+            handle: { title: '基础信息' },
+            element: <ParterDetail />,
+          }
+        ]
       },
 
       {

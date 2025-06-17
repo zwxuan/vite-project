@@ -157,49 +157,49 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic",
     apps: [
         {
-            name: "海关编码", key: "base_goods",path: "/base_goods",
+            name: "海关编码", key: "base_goods",path: "/base_business_manage/base_goods",
         },
         {
-            name: "海港", key: "base_seaport",path: "/base_seaport",
+            name: "海港", key: "base_seaport",path: "/base_business_manage/base_seaport",
         },
         {
-            name: "空港", key: "base_airport",path: "/base_airport",
+            name: "空港", key: "base_airport",path: "/base_business_manage/base_airport",
         },
         {
-            name: "铁港", key: "base_railwayport",path: "/base_railwayport",
+            name: "铁港", key: "base_railwayport",path: "/base_business_manage/base_railwayport",
         },
         {
-            name: "航线", key: "base_trade_lanes",path: "/base_trade_lanes",
+            name: "航线", key: "base_trade_lanes",path: "/base_business_manage/base_trade_lanes",
         },
         {
-            name: "航线归类", key: "base_trade_lanes_grouping",path: "/base_trade_lanes_grouping",
+            name: "航线归类", key: "base_trade_lanes_grouping",path: "/base_business_manage/base_trade_lanes_grouping",
         },
         {
-            name: "业务类型", key: "base_business_type",path: "/base_business_type",
+            name: "业务类型", key: "base_business_type",path: "/base_business_manage/base_business_type",
         },
         {
-            name: "出运类型", key: "base_shipment_type",path: "/base_shipment_type",
+            name: "出运类型", key: "base_shipment_type",path: "/base_business_manage/base_shipment_type",
         },
         {
-            name: "运输条款", key: "base_transportation_terms",path: "/base_transportation_terms",
+            name: "运输条款", key: "base_transportation_terms",path: "/base_business_manage/base_transportation_terms",
         },
         {
-            name: "贸易条款", key: "transport_method",path: "/base_trade_terms",
+            name: "贸易条款", key: "transport_method",path: "/base_business_manage/base_trade_terms",
         },
         {
-            name: "运费条款", key: "base_freight_terms",path: "/base_freight_terms",
+            name: "运费条款", key: "base_freight_terms",path: "/base_business_manage/base_freight_terms",
         },
         {
-            name: "提单条款", key: "base_bill_terms",path: "/base_bill_terms",
+            name: "提单条款", key: "base_bill_terms",path: "/base_business_manage/base_bill_terms",
         },
         {
-            name: "货物类型", key: "base_cargo_type",path: "/base_cargo_type",
+            name: "货物类型", key: "base_cargo_type",path: "/base_business_manage/base_cargo_type",
         },
         {
-            name: "箱型种类", key: "base_container_type",path: "/base_container_type",
+            name: "箱型种类", key: "base_container_type",path: "/base_business_manage/base_container_type",
         },
         {
-            name: "箱型TEU", key: "base_container_teu",path: "/base_container_teu",
+            name: "箱型TEU", key: "base_container_teu",path: "/base_business_manage/base_container_teu",
         },
     ]
 },
