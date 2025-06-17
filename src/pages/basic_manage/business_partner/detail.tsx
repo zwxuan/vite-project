@@ -12,6 +12,9 @@ import Contracts from './tab_detail/contracts_tab';
 import ParterDocument from './tab_detail/document';
 import InvoiceRequirement from './tab_detail/invoice_requirement';
 import DeliveryAgent from './tab_detail/delivery_agent';
+import SpaceCarrier from './tab_detail/space_carrier';
+import EdiConfig from './tab_detail/edi_config';
+import VisitCustomer from './tab_detail/visit_customer';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -103,23 +106,18 @@ const Detail: React.FC = () => {
                         },
                         {
                             label: '舱位承运人',
-                            key: 'cargo_carrier',
-                            children: '舱位承运人',
-                        },
-                        {
-                            label: '舱位代理',
-                            key: 'cargo_agent',
-                            children: '舱位代理',
+                            key: 'space_carrier',
+                            children: <SpaceCarrier />,
                         },
                         {
                             label: 'EDI配置',
                             key: 'edi_config',
-                            children: 'EDI配置',
+                            children: <EdiConfig />,
                         },
                         {
                             label: '拜访客户',
                             key: 'visit_customer',
-                            children: '拜访客户',
+                            children: <VisitCustomer />,
                         },
                     ]}
                 />

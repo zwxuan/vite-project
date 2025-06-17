@@ -186,7 +186,7 @@ const InvoiceRequirement: React.FC = () => {
     };
 
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 180px)' }}>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}

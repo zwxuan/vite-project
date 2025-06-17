@@ -1,13 +1,13 @@
 
 import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
-import { DeliveryAgentItemProps } from "@/types/basic_manage/delivery_agent";
+import { VisitCustomerItemProps } from "@/types/basic_manage/visit_customer";
 import dayjs from 'dayjs';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
     saving: boolean;
-    formData: Partial<DeliveryAgentItemProps>;
+    formData: Partial<VisitCustomerItemProps>;
     onCancel: () => void;
     onOk: (values: any) => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -40,7 +40,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     return (
         <Modal 
             open={open} 
-            title={modalFlag === 'add' ? "新增换单代理" : "编辑换单代理"}
+            title={modalFlag === 'add' ? "新增拜访客户" : "编辑拜访客户"}
             onCancel={onCancel}
             destroyOnClose={true}
             maskClosable={false}
@@ -52,22 +52,40 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         <Form.Item label="编号" name="Id" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="代理中文名称" name="AgentChineseName" >
+                        <Form.Item label="主题" name="Theme" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="代理英文名称" name="AgentEnglishName" >
+                        <Form.Item label="拜访时间"  >
+                            <DatePicker name="VisitTime" style={{ display: 'block' }} defaultValue={dayjs(formData.VisitTime)}  onChange={(_, dateStrings) => {onDateChange("VisitTime", dateStrings) }} />
+                        </Form.Item>
+                        <Form.Item label="记录入" name="Recorder" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="代理英文缩写" name="AgentEnglishAbbreviation" >
+                        <Form.Item label="记录时间"  >
+                            <DatePicker name="RecordTime" style={{ display: 'block' }} defaultValue={dayjs(formData.RecordTime)}  onChange={(_, dateStrings) => {onDateChange("RecordTime", dateStrings) }} />
+                        </Form.Item>
+                        <Form.Item label="拜访状态" name="Status" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="所属分公司" name="AffiliatedBranchCompany" >
+                        <Form.Item label="地点" name="Location" >
                             <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="是否默认" name="IsDefault" >
-                            <Select onChange={onChange} />
+                        <Form.Item label="参与人" name="Participants" >
+                            <Input onChange={onChange} />
                         </Form.Item>
-                        <Form.Item label="代理信息" name="AgentInfo" >
+                        <Form.Item label="拜访内容" name="Content" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="拜访结果" name="Result" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="下一步任务" name="NextTask" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="汇报对象" name="ReportTo" >
+                            <Input onChange={onChange} />
+                        </Form.Item>
+                        <Form.Item label="备注" name="Remarks" >
                             <Input onChange={onChange} />
                         </Form.Item>
                 <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>

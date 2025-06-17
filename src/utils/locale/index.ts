@@ -58,6 +58,9 @@ import { ContactLocale } from './basic_manage/contact';
 import { PortDestinationAgentLocale } from './basic_manage/port_destination_agent';
 import { InvoiceRequirementLocale } from './basic_manage/invoice_requirement';
 import { DeliveryAgentLocale } from './basic_manage/delivery_agent';
+import { SpaceCarrierLocale } from './basic_manage/space_carrier';
+import { EdiConfigLocale } from './basic_manage/edi_config';
+import { VisitCustomerLocale } from './basic_manage/visit_customer';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -66,6 +69,7 @@ export {
   ActualPaymentLocale,StatementObjectLocale,VoucherLogLocale,VoucherDetailLocale,BaseGoodsLocale,BaseAmsPortLocale,BaseEdiPortLocale,BaseSeaportLocale,BaseRailwayPortLocale,BaseExchangeRateLocale,BaseTaxRateLocale,
   BaseSettlementMethodLocale,BaseTradeLanesLocale,BaseTradeLanesGroupingLocale,BaseShipmentTypeLocale,BaseBusinessTypeLocale,BaseTransportationTermsLocale,BaseTradeTermsLocale,BaseFreightTermsLocale,BaseBillTermsLocale,
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
+  SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,
 };
 
 export default {
@@ -76,5 +80,5 @@ export default {
   ...VoucherLogLocale,...VoucherDetailLocale,...BaseGoodsLocale,...BaseAmsPortLocale,...BaseEdiPortLocale,...BaseSeaportLocale,...BaseRailwayPortLocale,...BaseExchangeRateLocale,
   ...BaseTaxRateLocale,...BaseSettlementMethodLocale,...BaseTradeLanesLocale,...BaseTradeLanesGroupingLocale,...BaseShipmentTypeLocale,...BaseBusinessTypeLocale,...BaseTransportationTermsLocale,...BaseTradeTermsLocale,
   ...BaseFreightTermsLocale,...BaseBillTermsLocale,...BaseContainerTeuLocale,...BaseCargoTypeLocale,...BaseContainerTypeLocale,...ContractsManageLocale,...BusinessPartnerLocale,...ContactLocale,
-  ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,
+  ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,
 };

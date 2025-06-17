@@ -1468,5 +1468,42 @@ export const en = {
         affiliatedbranchcompany: "Affiliated Co",
         isdefault: "Is Default",
         agentinfo: "Agent Info"
+    },
+    space_carrier: {
+        id: "ID",
+        carriername: "Carrier Name",
+        carriertype: "Carrier Type",
+        bookingmethod: "Booking Method",
+        departureport: "Departure Port",
+        route: "Route",
+        destinationport: "Dest Port",
+        country: "Country",
+        contactperson: "Contact Person",
+        contactnumber: "Contact No",
+        email: "Email"
+    },
+    edi_config: {
+        id: "ID",
+        branchoffice: "Branch Office",
+        edisendercode: "EDI Sender",
+        edireceivercode: "EDI Receiver",
+        cncode: "CN Code",
+        bookingagent: "Booking Agent",
+        bookingpersoncode: "Booker Code"
+    },
+    visit_customer: {
+        id: "ID",
+        theme: "Theme",
+        visittime: "Visit Time",
+        recorder: "Recorder",
+        recordtime: "Record Time",
+        status: "Status",
+        location: "Location",
+        participants: "Participants",
+        content: "Content",
+        result: "Result",
+        nexttask: "Next Task",
+        reportto: "Report To",
+        remarks: "Remarks"
     }
 };

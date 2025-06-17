@@ -148,7 +148,7 @@ const Contact: React.FC = () => {
     };
 
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 180px)' }}>
 
             <div className="header-button-area">
                 <div style={{ textAlign: 'right', paddingRight: '8px', paddingTop: '3px' }}>
