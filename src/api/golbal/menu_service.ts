@@ -59,17 +59,17 @@ const menuData: MenuGroup[] = [
 ];
 const childrenMenuData: MenuGroup[] = [{
     title: "财务基础数据",
-    key: "finance",
+    key: "basic_finance",
     parentkey: "basic",
     apps: [
         {
-            name: "币制", key: "currency", path: "/currency",
+            name: "币制", key: "currency", path: "/basic_finance/currency",
         },
         {
-            name: "税率管理", key: "base_tax_rate",path: "/base_tax_rate",
+            name: "税率管理", key: "base_tax_rate",path: "/basic_finance/base_tax_rate",
         },
         {
-            name: "结算方式", key: "base_settlement_method",path: "/base_settlement_method",
+            name: "结算方式", key: "base_settlement_method",path: "/basic_finance/base_settlement_method",
         },
         {
             name: "开票方式", key: "invoice_method",
@@ -81,7 +81,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "发票类型", key: "invoice_type",
         },
         {
-            name: "汇率管理", key: "base_exchange_rate",path: "/base_exchange_rate",
+            name: "汇率管理", key: "base_exchange_rate",path: "/basic_finance/base_exchange_rate",
         },
         {
             name: "TMO类型", key: "tmo_type",
@@ -110,25 +110,25 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic",
     apps: [
         {
-            name: "账套设置", key: "accounting_set", path: "/accounting_book",
+            name: "账套设置", key: "accounting_set", path: "/voucher_setting/accounting_book",
         },
         {
-            name: "凭证分组规则", key: "voucher_grouping_rule", path: "/voucher_grouping_rule",
+            name: "凭证分组规则", key: "voucher_grouping_rule", path: "/voucher_setting/voucher_grouping_rule",
         },
         {
-            name: "凭证分录规则", key: "entry_grouping_rule", path: "/entry_grouping_rule",
+            name: "凭证分录规则", key: "entry_grouping_rule", path: "/voucher_setting/entry_grouping_rule",
         },
         {
-            name: "分录摘要规则", key: "entry_summary_rule", path: "/entry_summary_rule",
+            name: "分录摘要规则", key: "entry_summary_rule", path: "/voucher_setting/entry_summary_rule",
         },
         {
-            name: "凭证类型", key: "voucher_type", path: "/voucher_type",
+            name: "凭证类型", key: "voucher_type", path: "/voucher_setting/voucher_type",
         },
         {
-            name: "编码映射", key: "code_mapping", path: "/voucher_code_mapping",
+            name: "编码映射", key: "code_mapping", path: "/voucher_setting/voucher_code_mapping",
         },
         {
-            name: "科目映射", key: "account_mapping", path: "/account_mapping",
+            name: "科目映射", key: "account_mapping", path: "/voucher_setting/account_mapping",
         },
         {
             name: "科目设置", key: "subject_setting",
@@ -153,7 +153,7 @@ const childrenMenuData: MenuGroup[] = [{
 },
 {
     title: "业务基础数据",
-    key: "business",
+    key: "base_business_manage",
     parentkey: "basic",
     apps: [
         {
@@ -411,7 +411,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "business_manage",
     apps: [
         {
-            name: "订单管理", key: "order", path: "/orders",
+            name: "订单管理", key: "order", path: "/entrust_manage/orders",
         },
         {
             name: "海运服务", key: "sea_service",
@@ -443,28 +443,28 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "对账", key: "fee_reconciliation", path: "/fee_reconciliation",
+            name: "对账", key: "fee_reconciliation", path: "/cost_manage/fee_reconciliation",
         },
         {
-            name: "账单", key: "bill_manage", path: "/bill_manage",
+            name: "账单", key: "bill_manage", path: "/cost_manage/bill_manage",
         },
         {
-            name: "对账单", key: "statement_of_account", path: "/statement_of_account",
+            name: "对账单", key: "statement_of_account", path: "/cost_manage/statement_of_account",
         },
         {
-            name: "关联交易", key: "order_fee_relation", path: "/order_fee_relation",
+            name: "关联交易", key: "order_fee_relation", path: "/cost_manage/order_fee_relation",
         },
         {
-            name: "费用拆分", key: "order_fee_split", path: "/order_fee_split",
+            name: "费用拆分", key: "order_fee_split", path: "/cost_manage/order_fee_split",
         },
         {
-            name: "拼箱分摊模式", key: "lcl_fee_share", path: "/lcl_fee_share",
+            name: "拼箱分摊模式", key: "lcl_fee_share", path: "/cost_manage/lcl_fee_share",
         },
         {
-            name: "内部代理结算", key: "internal_agent_settlement", path: "/internal_agent_settlement",
+            name: "内部代理结算", key: "internal_agent_settlement", path: "/cost_manage/internal_agent_settlement",
         },
         {
-            name: "对账规则引擎配置", key: "reconciliation_rule_engine", path: "/reconciliation_rule_engine",
+            name: "对账规则引擎配置", key: "reconciliation_rule_engine", path: "/cost_manage/reconciliation_rule_engine",
         },
     ]
 },
@@ -474,19 +474,19 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "开票|收票", key: "unpaid_invoice", path: "/invoice_issuance_receipt",
+            name: "开票|收票", key: "unpaid_invoice", path: "/invoice_manage/invoice_issuance_receipt",
         },
         {
-            name: "收款发票", key: "receipt_invoice", path: "/receipt_invoice?type=receipt",
+            name: "收款发票", key: "receipt_invoice", path: "/invoice_manage/receipt_invoice?type=receipt",
         },
         {
-            name: "实体收款发票", key: "receipt_invoice_download", path: "/physical_invoice_receipt?type=receipt",
+            name: "实体收款发票", key: "receipt_invoice_download", path: "/invoice_manage/physical_invoice_receipt?type=receipt",
         },
         {
-            name: "付款发票", key: "payment_invoice", path: "/payment_invoice?type=payment",
+            name: "付款发票", key: "payment_invoice", path: "/invoice_manage/payment_invoice?type=payment",
         },
         {
-            name: "实体付款发票", key: "payment_invoice_download", path: "/physical_invoice_payment?type=payment",
+            name: "实体付款发票", key: "payment_invoice_download", path: "/invoice_manage/physical_invoice_payment?type=payment",
         },
     ]
 },
@@ -496,7 +496,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "付款申请", key: "payment_apply", path: "/payment_application",
+            name: "付款申请", key: "payment_apply", path: "/payment_apply/payment_application",
         },
     ]
 },
@@ -506,10 +506,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "cost_manage",
     apps: [
         {
-            name: "放单审核", key: "release_order_verification", path: "/release_order_verification",
+            name: "放单审核", key: "release_order_verification", path: "/main_order/release_order_verification",
         },
         {
-            name: "提单放单", key: "bl_release", path: "/bl_release",
+            name: "提单放单", key: "bl_release", path: "/main_order/bl_release",
         },
     ]
 },
@@ -519,7 +519,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "实收实付", key: "actual_payment", path: "/actual_payment",
+            name: "实收实付", key: "actual_payment", path: "/tmo_manage/actual_payment",
         },
         //   {
         //       name: "现金收款", key: "cash_receipt",
@@ -544,10 +544,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "销账", key: "write_off_order", path: "/has_off_setting",
+            name: "销账", key: "write_off_order", path: "/actual_payment/has_off_setting",
         },
         {
-            name: "未销账综合查询", key: "unwrite_off_query", path: "/not_off_setting",
+            name: "未销账综合查询", key: "unwrite_off_query", path: "/actual_payment/not_off_setting",
         },
     ]
 },
@@ -557,10 +557,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "费用审核", key: "expense_review", path: "/expense_review",
+            name: "费用审核", key: "expense_review", path: "/finance_audit/expense_review",
         },
         {
-            name: "费用调整", key: "fee_adjustment", path: "/fee_adjustment",
+            name: "费用调整", key: "fee_adjustment", path: "/finance_audit/fee_adjustment",
         },
     ]
 },
@@ -570,10 +570,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "综合财务查询", key: "finance_query",path: "/finance_query",
+            name: "综合财务查询", key: "finance_query",path: "/finance_query/finance_query",
         },
         {
-            name: "凭证查询", key: "voucher_log",path: "/voucher_log",
+            name: "凭证查询", key: "voucher_log",path: "/finance_query/voucher_log",
         },
     ]
 },
@@ -604,7 +604,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system_maintenance",
     apps: [
         {
-            name: "费用模板", key: "cost_template", path: "/set_fee_schedule",
+            name: "费用模板", key: "cost_template", path: "/template_manage/set_fee_schedule",
         },
         {
             name: "银行对账模板", key: "bank_template",
@@ -647,28 +647,28 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "销售箱量统计表", key: "sales_business_weight_report",path: "/sales_business_weight_report",
+            name: "销售箱量统计表", key: "sales_business_weight_report",path: "/business_statistics/sales_business_weight_report",
         },
         {
-            name: "业务对比分析表", key: "sales_business_amount_report",path: "/sales_business_amount_report",
+            name: "业务对比分析表", key: "sales_business_amount_report",path: "/business_statistics/sales_business_amount_report",
         },
         {
-            name: "销售毛利润统计表", key: "sales_profit_report",path: "/sales_profit_report",
+            name: "销售毛利润统计表", key: "sales_profit_report",path: "/business_statistics/sales_profit_report",
         },
         {
-            name: "接单部门箱量利润汇总表", key: "department_business_weight_report", path: "/department_business_weight_report",
+            name: "接单部门箱量利润汇总表", key: "department_business_weight_report", path: "/business_statistics/department_business_weight_report",
         },
         {
-            name: "单票利润统计", key: "single_ticket_profit_statistics_report",path: "/single_ticket_profit_statistics_report",
+            name: "单票利润统计", key: "single_ticket_profit_statistics_report",path: "/business_statistics/single_ticket_profit_statistics_report",
         },
         {
-            name: "操作员票数箱量利润汇总表", key: "operator_shipment_summary_report",path: "/operator_shipment_summary_report",
+            name: "操作员票数箱量利润汇总表", key: "operator_shipment_summary_report",path: "/business_statistics/operator_shipment_summary_report",
         },
         {
-            name: "航线货量分析", key: "transportation_line_teu_report",path: "/transportation_line_teu_report",
+            name: "航线货量分析", key: "transportation_line_teu_report",path: "/business_statistics/transportation_line_teu_report",
         },
         {
-            name: "客户箱量利润汇总表", key: "customer_weight_profit_report",path: "/customer_weight_profit_report",
+            name: "客户箱量利润汇总表", key: "customer_weight_profit_report",path: "/business_statistics/customer_weight_profit_report",
         },
     ]
 },
@@ -678,25 +678,25 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "未收未付统计对账表", key: "outstanding_receivables_payables_report",path: "/outstanding_receivables_payables_report",
+            name: "未收未付统计对账表", key: "outstanding_receivables_payables_report",path: "/finance_statistics/outstanding_receivables_payables_report",
         },
         {
-            name: "未收对账表（按费用）", key: "not_receivables_fee_report",path: "/not_receivables_fee_report",
+            name: "未收对账表（按费用）", key: "not_receivables_fee_report",path: "/finance_statistics/not_receivables_fee_report",
         },
         {
-            name: "未收对账表（按业务单号）", key: "not_receivables_order_report",path: "/not_receivables_order_report",
+            name: "未收对账表（按业务单号）", key: "not_receivables_order_report",path: "/finance_statistics/not_receivables_order_report",
         },
         {
-            name: "应收未收对账表（按业务单号）", key: "accounts_receivable_aging_report",path: "/accounts_receivable_aging_report",
+            name: "应收未收对账表（按业务单号）", key: "accounts_receivable_aging_report",path: "/finance_statistics/accounts_receivable_aging_report",
         },
         {
-            name: "未付对账表（按费用）", key: "not_pay_fee_report",path: "/not_pay_fee_report",
+            name: "未付对账表（按费用）", key: "not_pay_fee_report",path: "/finance_statistics/not_pay_fee_report",
         },
         {
-            name: "未付对账表（按业务单号）", key: "unpaid_work_order_statement",path: "/not_pay_order_report",
+            name: "未付对账表（按业务单号）", key: "unpaid_work_order_statement",path: "/finance_statistics/not_pay_order_report",
         },
         {
-            name: "客户欠账分析", key: "customer_arrears_analysis_report",path: "/customer_arrears_analysis_report",
+            name: "客户欠账分析", key: "customer_arrears_analysis_report",path: "/finance_statistics/customer_arrears_analysis_report",
         },
     ]
 },

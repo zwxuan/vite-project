@@ -40,7 +40,7 @@ const SetFeeSchedule : React.FC = () => {
         alert(record);
     };
     const handleEdit = (record:SetFeeScheduleItemProps) => {
-        navigate('/charging_standard');
+        navigate('/template_manage/charging_standard');
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
