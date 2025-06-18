@@ -1,5 +1,6 @@
 export interface GlobalState {
     collapsed: boolean;
+    tabsActiveKey: string;
 }
 
 export interface UserLoginState {

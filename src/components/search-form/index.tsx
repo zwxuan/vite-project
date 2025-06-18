@@ -210,15 +210,16 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
         form.resetFields();
     };
 
-    //高级方案
-    const mockData = Array.from({ length: 20 }).map<Item>((_, i) => ({
+    //高级方案 - 使用传入的fields数据而不是随机生成
+    const mockData = fields.map<Item>((field, i) => ({
         id: i,
-        key: i.toString(),
-        type: 'input',
-        text: `字段 ${i + 1}`,
+        key: field.key,
+        type: field.type,
+        text: field.label,
     }));
 
-    const initialTargetKeys = mockData.filter((item) => Number(item.key) > 10).map((item) => item.key);
+    // 默认不选择任何字段，让用户自行选择
+    const initialTargetKeys: string[] = [];
 
 
     const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargetKeys);

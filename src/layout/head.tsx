@@ -1,9 +1,9 @@
 //header.tsx
 import './layout_less/head.less'
 import { useAppDispatch,useAppSelector } from '@/hooks/use_global.hooks';
-import { setCollapsed } from "@/store/reducers/global";
+import { setCollapsed,selectGlobalState } from "@/store/reducers/global";
 import { selectUserState } from "@/store/reducers/user";
-import type { UserLoginState } from '@/store/reducers/global_state';
+import type { GlobalState, UserLoginState } from '@/store/reducers/global_state';
 import { Breadcrumb,Dropdown,MenuProps,Badge,Avatar,Select } from 'antd';
 import dayjs from 'dayjs';
 import { InfoCircleOutlined,CrownOutlined,SettingOutlined,LogoutOutlined,MessageOutlined,BarsOutlined,TranslationOutlined } from '@ant-design/icons';
@@ -46,7 +46,9 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     // }, []);
     
     const userlogin:UserLoginState = useAppSelector(selectUserState);
+    const global:GlobalState = useAppSelector(selectGlobalState);
     const dispatch = useAppDispatch();
+    console.log(global);
     const location:Location = useLocation();
     
     // 添加状态管理面包屑项
@@ -73,7 +75,10 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     // 根据路由路径生成面包屑
     useEffect(() => {
         if (mainMenus.length > 0 && subMenus.length > 0) {
-            const pathWithoutSlash = location.pathname.startsWith('/') ? location.pathname.substring(1) : location.pathname;
+            let pathWithoutSlash = location.pathname.startsWith('/') ? location.pathname.substring(1) : location.pathname;
+            if(global.tabsActiveKey!==''){
+                pathWithoutSlash = global.tabsActiveKey.startsWith('/') ? global.tabsActiveKey.substring(1) : global.tabsActiveKey;
+            }
             const pathSegments = pathWithoutSlash.split('/');
             
             // 默认添加首页
@@ -134,14 +139,13 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
                     }
                 }
             }
-            
             setBreadcrumbItems(items);
         }
-    }, [location.pathname, mainMenus, subMenus]);
+    }, [location.pathname, mainMenus, subMenus,global.tabsActiveKey]);
     
     const handleCollapsed = () => {
         //更新全局状态  collapsed
-        dispatch(setCollapsed());
+        dispatch(setCollapsed({collapsed: !collapsed,tabsActiveKey: ''}));
     };
     
     const handleChange = (value: string) => {

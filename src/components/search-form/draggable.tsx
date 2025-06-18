@@ -37,7 +37,7 @@ const DraggableTag: React.FC<DraggableTagProps> = (props) => {
     return (
         <Card style={style} ref={setNodeRef} {...listeners}>
             <Row>
-                <Col flex="40px" style={{ textAlign: "left" }}>
+                <Col flex="140px" style={{ textAlign: "right" }}>
                     <span className='spanDraggable' style={{whiteSpace: 'nowrap'}}>{tag.text}</span>
                 </Col>
                 <Col flex="120px" style={{ textAlign: "center" }}>

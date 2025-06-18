@@ -461,7 +461,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "拼箱分摊模式", key: "lcl_fee_share", path: "/cost_manage/lcl_fee_share",
         },
         {
-            name: "内部代理结算", key: "internal_agent_settlement", path: "/cost_manage/internal_agent_settlement",
+            name: "内部代理结算", key: "internal_agent_settlement",
         },
         {
             name: "对账规则引擎配置", key: "reconciliation_rule_engine", path: "/cost_manage/reconciliation_rule_engine",

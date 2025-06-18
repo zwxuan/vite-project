@@ -14,7 +14,7 @@ const AppMenu : React.FC<AppSiderProps> = ({collapsed}) => {
     const dispatch = useAppDispatch();
     const handleCollapsed = () => {
         //更新全局状态  collapsed
-        dispatch(setCollapsed());
+        dispatch(setCollapsed({collapsed: !collapsed,tabsActiveKey: ''}));
     };
 
     const selectMenu = async (keyCode:string) => {

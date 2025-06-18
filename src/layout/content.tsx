@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Tabs, } from "antd";
 import { HomeOutlined } from '@ant-design/icons';
-import { useAppSelector } from '@/hooks/use_global.hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/use_global.hooks';
 import { selectUserState } from "@/store/reducers/user";
 import type { UserLoginState } from '@/store/reducers/global_state';
 import { Outlet, useLocation } from 'react-router-dom'
@@ -10,6 +10,7 @@ import type { RouteObject } from 'react-router-dom';
 import AppMenu from './menu';
 import routers from '@/router';
 import Home from './home';
+import { setCollapsed } from '@/store/reducers/global';
 
 const { Content } = Layout;
 
@@ -40,9 +41,11 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
     icon: <HomeOutlined />
   }]);
   const location = useLocation();
-
+  const dispatch = useAppDispatch();
   const handleTabChange = (key: string) => {
     setActiveKey(key);
+    //tabs切换时记录当前tabskey，用于同步面包屑
+    dispatch(setCollapsed({collapsed: false,tabsActiveKey: key}));
   };
 
   const addTab = (key: string, title: string) => {
@@ -190,6 +193,8 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
     if (activeKey === targetKey) {
       const lastTab = newTabs[newTabs.length - 1];
       setActiveKey(lastTab?.key || '');
+      //tabs切换时记录当前tabskey，用于同步面包屑
+      dispatch(setCollapsed({collapsed: false,tabsActiveKey: lastTab?.key || ''}));
     }
   };
 
