@@ -11,12 +11,33 @@ import { Location, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CustomIcon from "@/components/custom-icon";
 import { Space } from 'antd/lib';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { i18n } from 'i18next';
+import { getMainMenuList, getSubMenuList } from '@/api/golbal/menu_service';
+
 interface AppSiderProps {
     collapsed: boolean;
     i18n_page:i18n;
 }
+
+// 定义菜单数据结构
+interface MenuGroup {
+    title: string;
+    key: string;
+    parentkey?: string;
+    apps?: {
+        name: string;
+        key: string;
+        path?: string;
+    }[];
+}
+
+// 定义面包屑项结构
+interface BreadcrumbItem {
+    title: React.ReactNode;
+    href?: string;
+}
+
 const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     // 使用React.useMemo来缓存useTranslation的结果，避免在组件重新渲染时重复创建
     // 确保在组件挂载和更新时hooks的调用顺序保持一致
@@ -27,6 +48,96 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     const userlogin:UserLoginState = useAppSelector(selectUserState);
     const dispatch = useAppDispatch();
     const location:Location = useLocation();
+    
+    // 添加状态管理面包屑项
+    const [breadcrumbItems, setBreadcrumbItems] = useState<BreadcrumbItem[]>([]);
+    const [mainMenus, setMainMenus] = useState<MenuGroup[]>([]);
+    const [subMenus, setSubMenus] = useState<MenuGroup[]>([]);
+    
+    // 获取菜单数据
+    useEffect(() => {
+        const fetchMenuData = async () => {
+            try {
+                const mainMenuData = await getMainMenuList();
+                const subMenuData = await getSubMenuList();
+                setMainMenus(mainMenuData);
+                setSubMenus(subMenuData);
+            } catch (error) {
+                console.error('获取菜单数据失败:', error);
+            }
+        };
+        
+        fetchMenuData();
+    }, []);
+    
+    // 根据路由路径生成面包屑
+    useEffect(() => {
+        if (mainMenus.length > 0 && subMenus.length > 0) {
+            const pathWithoutSlash = location.pathname.startsWith('/') ? location.pathname.substring(1) : location.pathname;
+            const pathSegments = pathWithoutSlash.split('/');
+            
+            // 默认添加首页
+            const items: BreadcrumbItem[] = [
+                { title: '首页' }
+            ];
+            
+            // 查找一级菜单（主菜单中的apps）
+            let mainMenuTitle = '';
+            let appName = '';
+            let parentKey = '';
+            
+            // 查找子菜单
+            const subMenu = subMenus.find(menu => {
+                // 移除路径中的前导斜杠进行比较
+                const menuPath = menu.key;
+                return pathSegments[0] === menuPath;
+            });
+            
+            if (subMenu) {
+                parentKey = subMenu.parentkey || '';
+                
+                // 查找主菜单中对应的应用
+                const mainMenu = mainMenus.find(menu => {
+                    return menu.apps?.some(app => app.key === parentKey);
+                });
+                
+                if (mainMenu) {
+                    mainMenuTitle = mainMenu.title;
+                    const app = mainMenu.apps?.find(app => app.key === parentKey);
+                    if (app) {
+                        appName = app.name;
+                    }
+                }
+                
+                // 添加主菜单标题
+                if (mainMenuTitle) {
+                    items.push({ title: mainMenuTitle });
+                }
+                
+                // 添加应用名称
+                if (appName) {
+                    items.push({ title: appName });
+                }
+                
+                // 添加子菜单标题
+                items.push({ title: subMenu.title });
+                
+                // 如果有更深层级的路径，查找对应的子菜单项
+                if (pathSegments.length > 1) {
+                    const childPath = pathSegments.slice(0, 2).join('/');
+                    const childApp = subMenu.apps?.find(app => {
+                        return app.path && app.path.substring(1) === childPath;
+                    });
+                    
+                    if (childApp) {
+                        items.push({ title: childApp.name });
+                    }
+                }
+            }
+            
+            setBreadcrumbItems(items);
+        }
+    }, [location.pathname, mainMenus, subMenus]);
     
     const handleCollapsed = () => {
         //更新全局状态  collapsed
@@ -57,20 +168,6 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     };
 
     const currentDate = dayjs().format('YYYY-MM-DD');
-    const breadcrumbItems =[
-        {
-            title: '首页',
-        },
-        {
-            title: <a href="">动态建模平台</a>,
-        },
-        {
-            title: <a href="">组织管理</a>,
-        },
-        {
-            title: '业务单元',
-        },
-    ]
 
     const itemsMenu: MenuProps['items'] = [
         {
