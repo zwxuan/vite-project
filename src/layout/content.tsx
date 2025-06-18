@@ -34,7 +34,7 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
   
   const [activeKey, setActiveKey] = useState<string>('');
   const [tabs, setTabs] = useState<TabItem[]>([{
-    key: '',
+    key: 'home',
     label: '首页',
     children: <Home />,
     closable: false,

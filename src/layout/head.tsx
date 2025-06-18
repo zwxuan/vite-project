@@ -74,6 +74,9 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     
     // 根据路由路径生成面包屑
     useEffect(() => {
+        if(global.tabsActiveKey ==='#'){
+            return;
+        }
         if (mainMenus.length > 0 && subMenus.length > 0) {
             let pathWithoutSlash = location.pathname.startsWith('/') ? location.pathname.substring(1) : location.pathname;
             if(global.tabsActiveKey!==''){
@@ -145,7 +148,7 @@ const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {
     
     const handleCollapsed = () => {
         //更新全局状态  collapsed
-        dispatch(setCollapsed({collapsed: !collapsed,tabsActiveKey: ''}));
+        dispatch(setCollapsed({collapsed: !collapsed,tabsActiveKey: '#'}));
     };
     
     const handleChange = (value: string) => {
