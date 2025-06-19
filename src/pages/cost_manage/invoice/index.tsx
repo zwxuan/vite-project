@@ -40,7 +40,7 @@ const Invoice : React.FC = () => {
         alert(record);
     };
     const handleEdit = (record:InvoiceItemProps) => {
-        navigate('/invoice_detail');
+        navigate('/invoice_manage/invoice_detail');
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);

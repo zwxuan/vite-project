@@ -184,7 +184,7 @@ const StatementOfAccount : React.FC = () => {
     };
     // 开票收票
     const handleInvoiceDetail = () => {
-        navigate('/invoice_detail');
+        navigate('/invoice_manage/invoice_detail');
     }
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>

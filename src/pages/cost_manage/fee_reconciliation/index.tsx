@@ -74,7 +74,7 @@ const FeeReconciliation : React.FC = () => {
 
     const reconciliationOnClick: MenuProps['onClick'] = ({ key }) => {
         console.log(`Click on item ${key}`);
-        navigate('/fee_reconciliation/compare');
+        navigate('/cost_manage/fee_reconciliation/compare');
     };
 
     
@@ -276,7 +276,7 @@ const FeeReconciliation : React.FC = () => {
                         </div>
                         <div className="divider-button-wrapper">
                             <Dropdown menu={{items:statusCheckItems,onClick:reconciliationOnClick}}>
-                                <Button onClick={() => navigate('/fee_reconciliation/compare')}>
+                                <Button onClick={() => navigate('/cost_manage/fee_reconciliation/compare')}>
                                     <Space>
                                         对账
                                     <DownOutlined />
