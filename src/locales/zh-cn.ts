@@ -1508,4 +1508,17 @@ export const cn = {
         reportto:"汇报对象",
         remarks:"备注",
     },
+    internal_agent_settlement:{
+        id:"主键",
+        settlementnumber:"结算单号",
+        ordernumber:"订单号",
+        servicenumber:"服务单号",
+        costid:"费用编号",
+        costname:"费用名称",
+        currency:"币制",
+        domestictohk:"国内付香港",
+        hkreceivedomestic:"香港收国内",
+        hkagentpayment:"香港代理支付",
+        status:"状态",
+    },
 };

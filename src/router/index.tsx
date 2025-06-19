@@ -35,7 +35,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseContainerType,
   ContractsManage,
   BusinessPartner,
-  ParterDetail} from "./imports";
+  ParterDetail,
+  InternalAgentSettlement} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -349,6 +350,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <LCLFeeShare />
+              </RouterGuard>),
+          },
+          {
+            path: "internal_agent_settlement",
+            handle: { title: '内部代理结算' },
+            element: (
+              <RouterGuard>
+                <InternalAgentSettlement />
               </RouterGuard>),
           },
           {

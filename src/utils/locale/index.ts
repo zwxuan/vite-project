@@ -61,6 +61,7 @@ import { DeliveryAgentLocale } from './basic_manage/delivery_agent';
 import { SpaceCarrierLocale } from './basic_manage/space_carrier';
 import { EdiConfigLocale } from './basic_manage/edi_config';
 import { VisitCustomerLocale } from './basic_manage/visit_customer';
+import { InternalAgentSettlementLocale } from './cost_manage/internal_agent_settlement';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -69,7 +70,7 @@ export {
   ActualPaymentLocale,StatementObjectLocale,VoucherLogLocale,VoucherDetailLocale,BaseGoodsLocale,BaseAmsPortLocale,BaseEdiPortLocale,BaseSeaportLocale,BaseRailwayPortLocale,BaseExchangeRateLocale,BaseTaxRateLocale,
   BaseSettlementMethodLocale,BaseTradeLanesLocale,BaseTradeLanesGroupingLocale,BaseShipmentTypeLocale,BaseBusinessTypeLocale,BaseTransportationTermsLocale,BaseTradeTermsLocale,BaseFreightTermsLocale,BaseBillTermsLocale,
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
-  SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,
+  SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,
 };
 
 export default {
@@ -80,5 +81,5 @@ export default {
   ...VoucherLogLocale,...VoucherDetailLocale,...BaseGoodsLocale,...BaseAmsPortLocale,...BaseEdiPortLocale,...BaseSeaportLocale,...BaseRailwayPortLocale,...BaseExchangeRateLocale,
   ...BaseTaxRateLocale,...BaseSettlementMethodLocale,...BaseTradeLanesLocale,...BaseTradeLanesGroupingLocale,...BaseShipmentTypeLocale,...BaseBusinessTypeLocale,...BaseTransportationTermsLocale,...BaseTradeTermsLocale,
   ...BaseFreightTermsLocale,...BaseBillTermsLocale,...BaseContainerTeuLocale,...BaseCargoTypeLocale,...BaseContainerTypeLocale,...ContractsManageLocale,...BusinessPartnerLocale,...ContactLocale,
-  ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,
+  ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
 };

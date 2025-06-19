@@ -1505,5 +1505,18 @@ export const en = {
         nexttask: "Next Task",
         reportto: "Report To",
         remarks: "Remarks"
-    }
+    },
+    internal_agent_settlement: {
+        id: "ID",
+        settlementnumber: "Settlement No",
+        ordernumber: "Order No",
+        servicenumber: "Service No",
+        costid: "Cost ID",
+        costname: "Cost Name",
+        currency: "Currency",
+        domestictohk: "Domestic to HK",
+        hkreceivedomestic: "HK Receive",
+        hkagentpayment: "HK Agent Pay",
+        status: "Status"
+    },
 };

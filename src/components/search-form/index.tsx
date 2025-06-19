@@ -70,11 +70,9 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
     };
     const getFields = (fieldConfigs: Field[]) => {
         const children = [];
-        const spanCount = 24 / span;
-        let count = expand ? fieldConfigs.length : spanCount;
-        if (count > fieldConfigs.length) {
-            count = fieldConfigs.length;
-        }
+        const spanCount = 24 / span; // 一行可以显示的控件数量
+        // 展开时显示所有控件，收起时只显示一行控件
+        let count = expand ? fieldConfigs.length : Math.min(spanCount, fieldConfigs.length);
         for (let i = 0; i < count; i++) {
             const config = fieldConfigs[i];
             children.push(
@@ -252,7 +250,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                 </span>
                             </div>
                         </div>
-                        <div className="item-contant" style={{ display: "block" }}>
+                        <div className="item-contant" style={{display: "block",}}>
                             <Row gutter={[2, 0]}>{getFields(fields)}</Row>
                             <div className="search-button">
                                 <div className="search-component-rowArea">
