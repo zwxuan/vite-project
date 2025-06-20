@@ -32,7 +32,7 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
     overflow: 'hidden',
   };
   
-  const [activeKey, setActiveKey] = useState<string>('');
+  const [activeKey, setActiveKey] = useState<string>('home');
   const [tabs, setTabs] = useState<TabItem[]>([{
     key: 'home',
     label: '首页',
