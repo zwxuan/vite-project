@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
 import { RuleKpiItemItemProps } from "@/types/basic_manage/rule_kpi_item";
 import dayjs from 'dayjs';
+import { githubDarkTheme, JsonEditor } from 'json-edit-react';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -37,6 +38,17 @@ const RuleKpiItemModal: React.FC<DetailModalProps> = ({
     onDateChange,
     onNumberChange,
 }) => {
+    
+    const data = {
+name: 'John',
+age: 30,
+address: {
+street: '123 Main St',
+city: 'Anytown',
+state: 'CA',
+zip: '12345'
+}
+};
     return (
         <Modal 
             open={open} 
@@ -45,10 +57,11 @@ const RuleKpiItemModal: React.FC<DetailModalProps> = ({
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
+            width={'50%'}
             footer={null}
             centered={true}
         >
-            <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
+            <Form {...formItemLayout} style={{ maxWidth: 800 }} initialValues={formData} disabled={saving} onFinish={onOk}>
                         <Form.Item label="关联项ID" name="ItemId" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />
                         </Form.Item>
@@ -62,7 +75,13 @@ const RuleKpiItemModal: React.FC<DetailModalProps> = ({
                             <InputNumber onChange={(value)=>onNumberChange("Weight", value as number)} />
                         </Form.Item>
                         <Form.Item label="评分规则配置" name="ScoringConfig" rules={[{ required: true, message: '' }]}>
-                            <Input onChange={onChange} />
+                            <JsonEditor minWidth={'100%'}
+                                data={data}
+                                onUpdate={ ({ newData }) => {
+                                    console.log(newData);
+                                }}
+                                theme={githubDarkTheme}
+                            />
                         </Form.Item>
                 <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>
                 <div style={{ textAlign: 'right' }}>
