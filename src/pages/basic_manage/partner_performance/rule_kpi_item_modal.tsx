@@ -18,12 +18,10 @@ interface DetailModalProps {
 
 const formItemLayout = {
     labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
+        xs: { span: 4 },
     },
     wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
+        xs: { span: 20 },
     },
 };
 
@@ -57,11 +55,11 @@ zip: '12345'
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
-            width={'50%'}
+            width={'80%'}
             footer={null}
             centered={true}
         >
-            <Form {...formItemLayout} style={{ maxWidth: 800 }} initialValues={formData} disabled={saving} onFinish={onOk}>
+            <Form {...formItemLayout} initialValues={formData} disabled={saving} onFinish={onOk}>
                         <Form.Item label="关联项ID" name="ItemId" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />
                         </Form.Item>
@@ -75,7 +73,7 @@ zip: '12345'
                             <InputNumber onChange={(value)=>onNumberChange("Weight", value as number)} />
                         </Form.Item>
                         <Form.Item label="评分规则配置" name="ScoringConfig" rules={[{ required: true, message: '' }]}>
-                            <JsonEditor minWidth={'100%'}
+                            <JsonEditor minWidth={'80%'}
                                 data={data}
                                 onUpdate={ ({ newData }) => {
                                     console.log(newData);

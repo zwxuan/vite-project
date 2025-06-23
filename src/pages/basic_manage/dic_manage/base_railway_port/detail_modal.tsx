@@ -48,7 +48,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
             footer={null}
             centered={true}
         >
-            <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
+            <Form {...formItemLayout} initialValues={formData} disabled={saving} onFinish={onOk}>
                         <Form.Item label="国家简码" name="CountryId" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />
                         </Form.Item>
