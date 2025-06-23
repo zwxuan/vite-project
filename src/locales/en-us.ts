@@ -1417,22 +1417,22 @@ export const en = {
         "documentnumber": "Doc No.",
         "iscontractattachmentuploaded": "Attach Uploaded"
     },
-    contact:{
-        contactid:"Contact Id",
-        contactname:"Contact Name",
-        jobfunction:"Job Function",
-        route:"Route",
-        phone:"Phone",
-        address:"Address",
-        email:"Email",
-        ccemail:"CC Email",
-        mobile:"Mobile",
-        pushnode:"Push Node",
-        pushmethod:"Push Method",
-        remarks:"Remarks",
-        qqnumber:"QQ Number",
-        wechatid:"Wechat Number",
-        skypeid:"Skype Number",
+    contact: {
+        contactid: "Contact Id",
+        contactname: "Contact Name",
+        jobfunction: "Job Function",
+        route: "Route",
+        phone: "Phone",
+        address: "Address",
+        email: "Email",
+        ccemail: "CC Email",
+        mobile: "Mobile",
+        pushnode: "Push Node",
+        pushmethod: "Push Method",
+        remarks: "Remarks",
+        qqnumber: "QQ Number",
+        wechatid: "Wechat Number",
+        skypeid: "Skype Number",
     },
     port_destination_agent: {
         portcode: "Port Code",
@@ -1519,4 +1519,37 @@ export const en = {
         hkagentpayment: "HK Agent Pay",
         status: "Status"
     },
+    advanced_rule_config: {
+        ruleid: "Rule ID",
+        dynamicweightformula: "Dynamic Weight",
+        penaltyrules: "Penalty Rules",
+        autoactionrules: "Auto Actions"
+    },
+    kpi_definition: {
+        kpiid: "KPI ID",
+        kpicode: "KPI Code",
+        kpiname: "KPI Name",
+        description: "Description",
+        datatype: "Data Type",
+        iscritical: "Is Critical",
+        sourceid: "Source ID",
+        partnertypes: "Partner Types"
+    },
+    partner_performance_rule: {
+        ruleid: "Rule ID",
+        rulename: "Rule Name",
+        partnertype: "Partner Type",
+        effectivedate: "Effective Date",
+        expiredate: "Expire Date",
+        isactive: "Is Active",
+        createdby: "Created By",
+        createdat: "Created At"
+    },
+    rule_kpi_item: {
+        itemid: "Item ID",
+        ruleid: "Rule ID",
+        kpiid: "KPI ID",
+        weight: "Weight",
+        scoringconfig: "Scoring Config"
+    }
 };

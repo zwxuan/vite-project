@@ -115,6 +115,7 @@ const ContractsManage = React.lazy(() => import("@/pages/basic_manage/contracts_
 const BusinessPartner = React.lazy(() => import("@/pages/basic_manage/business_partner"));
 const ParterDetail = React.lazy(() => import("@/pages/basic_manage/business_partner/detail"));
 const InternalAgentSettlement = React.lazy(() => import("@/pages/cost_manage/internal_agent_settlement"));
+const PartnerPerformance = React.lazy(() => import("@/pages/basic_manage/partner_performance"));
 export {
   Demo,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
@@ -124,5 +125,5 @@ export {
   OutstandingReceivablesPayablesReport,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,
   AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseGoods,BaseSeaPort,BaseAirPort,BaseRailwayPort,BaseExchangeRate,BaseTaxRate,BaseSettlementMethod,
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
-  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,
+  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,
 };

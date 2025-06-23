@@ -36,7 +36,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   ContractsManage,
   BusinessPartner,
   ParterDetail,
-  InternalAgentSettlement} from "./imports";
+  InternalAgentSettlement,
+  PartnerPerformance} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -255,7 +256,12 @@ const routers = createMemoryRouter([
             path: "business_partner/detail",
             handle: { title: '基础信息' },
             element: <ParterDetail />,
-          }
+          },
+          {
+            path: "partner_performance_rule",
+            handle: { title: '绩效规则' },
+            element: <PartnerPerformance />,
+          },
         ]
       },
       //托书管理
