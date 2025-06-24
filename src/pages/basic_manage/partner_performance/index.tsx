@@ -8,7 +8,7 @@ import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons
 import CustomIcon from "@/components/custom-icon";
 import { getKpiDefinitionColumns, getPartnerPerformanceRuleColumns, getRuleKpiItemColumns } from './columns';
 import CodeBoxMeta from '@/components/code-box-meta';
-import { getReconciliationRuleEngineList, getCompareFieldsList, getMatchFieldsList } from '@/api/cost_manage/fee_reconciliation_service';
+import { getKpiDefinitionList, getPartnerPerformanceRuleList, getRuleKpiItemList } from '@/api/basic_manage/partner_performance_rule_service';
 import { useTableOperations } from './hooks/useTableOperations';
 import { PartnerPerformanceRuleItemProps } from '@/types/basic_manage/partner_performance_rule';
 import { KpiDefinitionItemProps } from '@/types/basic_manage/kpi_definition';
@@ -27,14 +27,15 @@ const PartnerPerformance: React.FC = () => {
     // 获取计费标准数据
     useEffect(() => {
         const getData = async () => {
-            // const chargingStandardData = await getReconciliationRuleEngineList();
-            // setReconciliationRuleEngineList([...chargingStandardData]);
+            const partnerPerformanceRuleData = await getPartnerPerformanceRuleList();
+            setPartnerPerformanceRuleList([...partnerPerformanceRuleData]);
 
-            // const reconciliationMatchFieldsList = await getMatchFieldsList();
-            // setReconciliationMatchFieldsList([...reconciliationMatchFieldsList]);
 
-            // const reconciliationCompareFieldsList = await getCompareFieldsList();
-            // setReconciliationCompareFieldsList([...reconciliationCompareFieldsList]);
+            const kpiDefinitionData = await getKpiDefinitionList();
+            setKpiDefinitionList([...kpiDefinitionData]);
+
+            const ruleKpiItemData = await getRuleKpiItemList();
+            setRuleKpiItemList([...ruleKpiItemData]);
         };
         getData();
     }, []);
@@ -189,9 +190,9 @@ const PartnerPerformance: React.FC = () => {
             </div>
             <div className='nc-bill-table-area'>
                 <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
-                    <Col span={12} className='ant-tranfer-col-left' style={{ borderRight: '1px solid #e8e8e8', height: '300px' }}>
+                    <Col span={12} className='ant-tranfer-col-left'>
                         <CodeBoxMeta title="绩效规则">
-                            <div className='nc-bill-table-area'>
+                            <div className='nc-bill-table-area' style={{ height: '300px' }}>
                                 <div style={{ textAlign: 'left', margin: '6px 4px' }}>
                                     <div className="u-button-group">
                                         <Button type='primary' size='small' onClick={partnerPerformanceRuleOperations.handleAdd}>新增</Button>
@@ -205,7 +206,7 @@ const PartnerPerformance: React.FC = () => {
                                     showSorterTooltip={false}
                                     dataSource={partnerPerformanceRuleList}
                                     pagination={false}
-                                    scroll={{ x: 'max-content', y: '300px' }}
+                                    scroll={{ x: 'max-content', y: '260px' }}
                                     footer={() => ''}
                                     bordered={true}
                                 />
@@ -214,24 +215,27 @@ const PartnerPerformance: React.FC = () => {
                     </Col>
                     <Col span={12}>
                         <CodeBoxMeta title="KPI定义">
-                            <div style={{ textAlign: 'left', margin: '6px 4px' }}>
-                                <div className="u-button-group">
-                                    <Button type='primary' size='small' onClick={kpiDefinitionOperations.handleAdd}>新增</Button>
+                            <div className='nc-bill-table-area' style={{ height: '300px' }}>
+                                <div style={{ textAlign: 'left', margin: '6px 4px' }}>
+                                    <div className="u-button-group">
+                                        <Button type='primary' size='small' onClick={kpiDefinitionOperations.handleAdd}>新增</Button>
+                                    </div>
+                                </div>
+                                <div className='nc-bill-table-area'>
+                                    <Table<KpiDefinitionItemProps>
+                                        columns={columnsKpiDefinitionType}
+                                        rowSelection={{ ...rowKpiDefitionSelection }}
+                                        rowKey={(record) => `${record.RowKey}`}
+                                        showSorterTooltip={false}
+                                        dataSource={kpiDefinitionList}
+                                        pagination={false}
+                                        scroll={{ x: 'max-content', y: '260px' }}
+                                        footer={() => ''}
+                                        bordered={true}
+                                    />
                                 </div>
                             </div>
-                            <div className='nc-bill-table-area'>
-                                <Table<KpiDefinitionItemProps>
-                                    columns={columnsKpiDefinitionType}
-                                    rowSelection={{ ...rowKpiDefitionSelection }}
-                                    rowKey={(record) => `${record.RowKey}`}
-                                    showSorterTooltip={false}
-                                    dataSource={kpiDefinitionList}
-                                    pagination={false}
-                                    scroll={{ x: 'max-content', y: '300px' }}
-                                    footer={() => ''}
-                                    bordered={true}
-                                />
-                            </div>
+
                         </CodeBoxMeta>
                     </Col>
                 </Row>

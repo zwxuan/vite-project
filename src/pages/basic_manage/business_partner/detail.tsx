@@ -15,6 +15,8 @@ import DeliveryAgent from './tab_detail/delivery_agent';
 import SpaceCarrier from './tab_detail/space_carrier';
 import EdiConfig from './tab_detail/edi_config';
 import VisitCustomer from './tab_detail/visit_customer';
+import CustomIcon from '@/components/custom-icon';
+import KPIScoreReport from './tab_detail/kpi_source/partner_kpi_score';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -44,8 +46,15 @@ const Detail: React.FC = () => {
     const searchParams = new URLSearchParams(location.search);
     const businessId = searchParams.get('businessId');
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 40px)' }}>
             <div className="nc-bill-header-area">
+                <div className="header-title-search-area">
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <span className="bill-info-title" style={{marginLeft: "10px"}}>
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 详细信息
+                        </span>
+                    </div>
+                </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{ display: "flex" }}>
@@ -119,6 +128,12 @@ const Detail: React.FC = () => {
                             key: 'visit_customer',
                             children: <VisitCustomer />,
                         },
+                        {
+                            label: 'KPI打分',
+                            key: 'kpi_score',
+                            children: <KPIScoreReport />,
+                        },
+
                     ]}
                 />
 

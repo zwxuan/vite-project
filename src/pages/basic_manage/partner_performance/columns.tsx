@@ -7,6 +7,7 @@ import { PartnerPerformanceRuleItemProps } from '@/types/basic_manage/partner_pe
 import DatePickerZH from '@/components/date-picker';
 import { KpiDefinitionItemProps } from '@/types/basic_manage/kpi_definition';
 import { RuleKpiItemItemProps } from '@/types/basic_manage/rule_kpi_item';
+import moment from 'moment';
 
 export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPerformanceRuleItemProps) => void, handleDelete: (record: PartnerPerformanceRuleItemProps) => void, handleSave: (record: PartnerPerformanceRuleItemProps) => void, handleCancel: () => void, editingKey:string): TableColumnsType<PartnerPerformanceRuleItemProps> => [
 
@@ -32,8 +33,8 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
     },
     {
         title: i18n.t(LocaleHelper.getPartnerPerformanceRuleRuleName()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
         dataIndex: 'RuleName',
         sorter: true,
         align: 'left',
@@ -80,8 +81,8 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
     },
     {
         title: i18n.t(LocaleHelper.getPartnerPerformanceRuleEffectiveDate()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 120,
+        onHeaderCell: () => ({ style: { width: '120px' } }),
         dataIndex: 'EffectiveDate',
         sorter: true,
         align: 'center',
@@ -90,7 +91,7 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
             return editable ? (
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
-                    defaultValue={record.EffectiveDate}
+                    defaultValue={record.EffectiveDate ? moment(record.EffectiveDate) : undefined}
                     onChange={(_, dateStrings) => record.EffectiveDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
                 />
             ) : (
@@ -100,8 +101,8 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
     },
     {
         title: i18n.t(LocaleHelper.getPartnerPerformanceRuleExpireDate()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 120,
+        onHeaderCell: () => ({ style: { width: '120px' } }),
         dataIndex: 'ExpireDate',
         sorter: true,
         align: 'center',
@@ -110,7 +111,7 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
             return editable ? (
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
-                    defaultValue={record.ExpireDate}
+                    defaultValue={record.ExpireDate ? moment(record.ExpireDate) : undefined}
                     onChange={(_, dateStrings) => record.ExpireDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
                 />
             ) : (
@@ -306,7 +307,7 @@ export const getKpiDefinitionColumns = (handleEdit: (record: KpiDefinitionItemPr
             const editable = record.RowKey === editingKey;
             const routeOptions = [
                 { value: '1', label: '是' },
-                { value: '2', label: '否' },
+                { value: '0', label: '否' },
             ];
             return editable ? (
                 <Select
@@ -374,8 +375,8 @@ export const getRuleKpiItemColumns = (handleEdit: (record: RuleKpiItemItemProps)
     },
     {
         title: i18n.t(LocaleHelper.getRuleKpiItemWeight()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 120,
+        onHeaderCell: () => ({ style: { width: '120px' } }),
         dataIndex: 'Weight',
         sorter: true,
         align: 'right',
@@ -385,6 +386,14 @@ export const getRuleKpiItemColumns = (handleEdit: (record: RuleKpiItemItemProps)
         width: 100,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ScoringConfig',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getRuleKpiItemDescription()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'Description',
         sorter: true,
         align: 'left',
     },

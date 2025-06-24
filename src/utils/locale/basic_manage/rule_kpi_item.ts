@@ -20,5 +20,8 @@ export const RuleKpiItemLocale = {
     getRuleKpiItemScoringConfig() {
       return "rule_kpi_item.scoringconfig";
     },
-
+    // 评分规则描述
+    getRuleKpiItemDescription() {
+      return "rule_kpi_item.description";
+    },
 };

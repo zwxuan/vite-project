@@ -201,7 +201,7 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
   return (
     <Content style={containerStyle}>
       <AppMenu collapsed={collapsed}></AppMenu>
-      <Tabs 
+      {/* <Tabs 
         activeKey={activeKey} 
         onChange={handleTabChange}
         items={tabs}
@@ -212,8 +212,8 @@ const AppContent: React.FC<AppSiderProps> = ({ collapsed }) => {
             removeTab(targetKey as string);
           }
         }} 
-      />
-      {/* <Outlet></Outlet> */}
+      /> */}
+      <Outlet></Outlet>
     </Content>
   );
 };

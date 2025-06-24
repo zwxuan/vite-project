@@ -4,6 +4,7 @@ import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } fro
 import { RuleKpiItemItemProps } from "@/types/basic_manage/rule_kpi_item";
 import dayjs from 'dayjs';
 import { githubDarkTheme, JsonEditor } from 'json-edit-react';
+import TextArea from 'antd/es/input/TextArea';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -37,20 +38,11 @@ const RuleKpiItemModal: React.FC<DetailModalProps> = ({
     onNumberChange,
 }) => {
     
-    const data = {
-name: 'John',
-age: 30,
-address: {
-street: '123 Main St',
-city: 'Anytown',
-state: 'CA',
-zip: '12345'
-}
-};
+    const data = {"method":"deduction","params":{"base_score":100,"deduct_per_unit":5,"unit":1,"max_deduction":50}};
     return (
         <Modal 
             open={open} 
-            title={modalFlag === 'add' ? "新增规则与KPI关联关系表" : "编辑规则与KPI关联关系表"}
+            title={'绩效规则'}
             onCancel={onCancel}
             destroyOnClose={true}
             maskClosable={false}
@@ -75,11 +67,15 @@ zip: '12345'
                         <Form.Item label="评分规则配置" name="ScoringConfig" rules={[{ required: true, message: '' }]}>
                             <JsonEditor minWidth={'80%'}
                                 data={data}
+                                showCollectionCount={false}
                                 onUpdate={ ({ newData }) => {
                                     console.log(newData);
                                 }}
                                 theme={githubDarkTheme}
                             />
+                        </Form.Item>
+                        <Form.Item label="评分规则描述" name="Description" rules={[{ required: true, message: '' }]}>
+                            <TextArea rows={4}></TextArea>
                         </Form.Item>
                 <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>
                 <div style={{ textAlign: 'right' }}>

@@ -1,3 +1,5 @@
+import { Descriptions } from "antd";
+
 export const en = {
     common: {
         title: "title",
@@ -1550,6 +1552,18 @@ export const en = {
         ruleid: "Rule ID",
         kpiid: "KPI ID",
         weight: "Weight",
-        scoringconfig: "Scoring Config"
+        scoringconfig: "Scoring Config",
+        description: "Description"
+    },
+    kpi_score_report: {
+        assessmentdimension: "Assessment",
+        indicatorkpi: "Indicator KPI",
+        weight: "Weight",
+        targetvalue: "Target Value",
+        actualvalue: "Actual Value",
+        scoringrule: "Scoring Rule",
+        autoscore: "Auto Score",
+        manualcorrection: "Manual Adjust",
+        finalscore: "Final Score"
     }
 };

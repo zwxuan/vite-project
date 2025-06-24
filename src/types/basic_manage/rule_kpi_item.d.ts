@@ -11,4 +11,6 @@ export interface RuleKpiItemItemProps {
     Weight:number;
     // 评分规则配置（JSON结构，存储算法类型和参数）
     ScoringConfig:string;
+    // 描述
+    Description:string;
 }

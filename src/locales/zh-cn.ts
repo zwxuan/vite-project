@@ -1522,13 +1522,13 @@ export const cn = {
         status:"状态",
     },
     advanced_rule_config:{
-        ruleid:"关联的规则ID",
+        ruleid:"规则ID",
         dynamicweightformula:"动态权重计算公式",
         penaltyrules:"连坐惩罚规则配置JSON数组",
         autoactionrules:"自动执行动作规则JSON数组",
     },
     kpi_definition:{
-        kpiid:"KPI唯一标识符",
+        kpiid:"KPI编码",
         kpicode:"KPI代码",
         kpiname:"KPI中文名称",
         description:"KPI详细描述",
@@ -1538,7 +1538,7 @@ export const cn = {
         partnertypes:"适用伙伴类型列表JSON数组",
     },
     partner_performance_rule:{
-        ruleid:"规则唯一标识符",
+        ruleid:"规则编码",
         rulename:"规则名称",
         partnertype:"合作伙伴类型",
         effectivedate:"规则生效日期",
@@ -1548,10 +1548,23 @@ export const cn = {
         createdat:"规则创建时间",
     },
     rule_kpi_item:{
-        itemid:"关联项唯一ID",
-        ruleid:"关联的规则ID",
-        kpiid:"关联的KPI ID",
-        weight:"该KPI在规则中的权重（0-100%）",
+        itemid:"关联项编码",
+        ruleid:"规则编码",
+        kpiid:"KPI编码",
+        weight:"权重",
         scoringconfig:"评分规则配置",
+        description:"关联项描述",
     },
+    kpi_score_report:{
+        assessmentdimension:"评估维度",
+        indicatorkpi:"指标KPI",
+        weight:"权重",
+        targetvalue:"目标值",
+        actualvalue:"实际值",
+        scoringrule:"评分规则",
+        autoscore:"自动评分",
+        manualcorrection:"人工修正",
+        finalscore:"最终得分",
+    },
+
 };
