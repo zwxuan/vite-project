@@ -90,7 +90,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "",
     "AutoScore": 100.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C7/100)*(G7+H7)"
+    "FinalScore": "=(C8/100)*(G8+H8)"
   },
   {
     "AssessmentDimension": "战略",
@@ -101,7 +101,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "",
     "AutoScore": 0,
     "ManualCorrection": 90.00,
-    "FinalScore": "=(C8/100)*(G8+H8)"
+    "FinalScore": "=(C9/100)*(G9+H9)"
   },
   {
     "AssessmentDimension": "风险监控",
@@ -112,7 +112,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "",
     "AutoScore": 0,
     "ManualCorrection": 60.00,
-    "FinalScore": "=(C9/100)*(G9+H9)"
+    "FinalScore": "=(C10/100)*(G10+H10)"
   },
   {
     "AssessmentDimension": "清关能力",
@@ -123,7 +123,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "每节省10%加5分",
     "AutoScore": 105.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C10/100)*(G10+H10)"
+    "FinalScore": "=(C11/100)*(G11+H11)"
   },
   {
     "AssessmentDimension": "清关能力",
@@ -134,7 +134,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "(实际值/目标值)×100",
     "AutoScore": 106.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C11/100)*(G11+H11)"
+    "FinalScore": "=(C12/100)*(G12+H12)"
   },
   {
     "AssessmentDimension": "清关能力",
@@ -145,7 +145,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "发生即得0分",
     "AutoScore": 0.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C12/100)*(G12+H12)"
+    "FinalScore": "=(C13/100)*(G13+H13)"
   },
   {
     "AssessmentDimension": "本地服务",
@@ -156,7 +156,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "每超目标1%加2分",
     "AutoScore": 106.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C13/100)*(G13+H13)"
+    "FinalScore": "=(C14/100)*(G14+H14)"
   },
   {
     "AssessmentDimension": "本地服务",
@@ -167,7 +167,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "布尔值（达成100/未达成0）",
     "AutoScore": 100.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C14/100)*(G14+H14)"
+    "FinalScore": "=(C15/100)*(G15+H15)"
   },
   {
     "AssessmentDimension": "本地服务",
@@ -178,7 +178,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "未达标得0分",
     "AutoScore": 100.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C15/100)*(G15+H15)"
+    "FinalScore": "=(C16/100)*(G16+H16)"
   },
   {
     "AssessmentDimension": "合规风控",
@@ -189,7 +189,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "每错误1单扣20分",
     "AutoScore": 80.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C16/100)*(G16+H16)"
+    "FinalScore": "=(C17/100)*(G17+H17)"
   },
   {
     "AssessmentDimension": "合规风控",
@@ -200,7 +200,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "违规即终止合作",
     "AutoScore": 100.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C17/100)*(G17+H17)"
+    "FinalScore": "=(C18/100)*(G18+H18)"
   },
   {
     "AssessmentDimension": "成本透明度",
@@ -211,7 +211,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "每超1%扣10分",
     "AutoScore": 70.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C18/100)*(G18+H18)"
+    "FinalScore": "=(C19/100)*(G19+H19)"
   },
   {
     "AssessmentDimension": "成本透明度",
@@ -222,7 +222,7 @@ const kpiScoreReportItems: KpiScoreReportItemProps[] = [
     "ScoringRule": "每次投诉扣30分",
     "AutoScore": 40.00,
     "ManualCorrection": 0,
-    "FinalScore": "=(C19/100)*(G19+H19)"
+    "FinalScore": "=(C20/100)*(G20+H20)"
   },
   {
     "AssessmentDimension": "总计",
