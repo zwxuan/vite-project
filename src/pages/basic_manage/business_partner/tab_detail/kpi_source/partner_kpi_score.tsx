@@ -145,7 +145,7 @@ const KPIScoreReport: React.FC = () => {
                     <HotColumn data="ActualValue" title={i18n.t(LocaleHelper.getKpiScoreReportActualValue())} className="htRight" width={160}  renderer={customerRenderer} readOnly={true} />
                     <HotColumn data="ScoringRule" title={i18n.t(LocaleHelper.getKpiScoreReportScoringRule())} className="htLeft" width={160}  renderer={customerRenderer} readOnly={true} />
                     <HotColumn data="AutoScore" title={i18n.t(LocaleHelper.getKpiScoreReportAutoScore())}  width={160}  className="htRight" renderer={customerRenderer} readOnly={true} />
-                    <HotColumn data="ManualScore" title={i18n.t(LocaleHelper.getKpiScoreReportManualCorrection())}  width={160}  className="htRight cell_write_background" renderer={customerRenderer}  />
+                    <HotColumn data="ManualScore" title={i18n.t(LocaleHelper.getKpiScoreReportManualCorrection())}  width={160}  className="htRight cell_write_background"  />
                     <HotColumn data="FinalScore" title={i18n.t(LocaleHelper.getKpiScoreReportFinalScore())}  width={160}  className="htRight" renderer={customerRenderer}  readOnly={true} />
                 </HotTable>
             </div>
