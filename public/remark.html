@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI评分算法对比表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px 20px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .table-wrapper {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+
+        th {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            font-weight: 600;
+            padding: 18px 16px;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            border: none;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 16px;
+            border: 1px solid #e8ecf0;
+            vertical-align: top;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+
+        .algorithm-name {
+            font-weight: 600;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #4facfe;
+            font-size: 12px;
+            word-break: break-all;
+        }
+
+        .scenario {
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .example {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            font-size: 12px;
+        }
+
+        .calculation {
+            background: #d1ecf1;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #17a2b8;
+            font-size: 12px;
+        }
+
+        .pros {
+            color: #28a745;
+            background: #d4edda;
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+        }
+
+        .cons {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .highlight-text {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h2 {
+                font-size: 22px;
+            }
+            
+            .table-wrapper {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                padding: 8px 6px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>KPI评分算法对比表</h2>
+        </div>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>算法名称</th>
+                        <th>公式</th>
+                        <th>使用场景</th>
+                        <th>真实示例</th>
+                        <th>计算过程</th>
+                        <th>优点</th>
+                        <th>缺点</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="algorithm-name">线性插值法</div>
+                        </td>
+                        <td>
+                            <div class="formula">
+                                得分 = min_score + (实际值 - min_value) / (max_value - min_value) × (max_score - min_score)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="scenario">
+                                连续型量化指标<br>
+                                <span class="highlight-text">（如完成率、时效、成本变化）</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="example">
+                                <strong>物流行业</strong><br>
+                                KPI：海运清关时效<br>
+                                目标：24小时最优，72小时底线
+                            </div>
+                        </td>
+                        <td>
+                            <div class="calculation">
+                                规则：24小时→100分，72小时→0分<br>
+                                实际36小时 → 0 + (36-24)/(72-24)×(100-0) = <strong>25分</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pros">
+                                ✓ 公平反映中间状态<br>
+                                ✓ 避免阶梯法临界点突变
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cons">
+                                ✗ 目标区间设定需科学<br>
+                                ✗ 易出现负分或超满分
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="algorithm-name">扣分制</div>
+                        </td>
+                        <td>
+                            <div class="formula">
+                                得分 = base_score - min( (偏差值 / unit) × deduct_per_unit, max_deduction )
+                            </div>
+                        </td>
+                        <td>
+                            <div class="scenario">
+                                过程管控类指标<br>
+                                <span class="highlight-text">（如失误次数、延迟率）</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="example">
+                                <strong>仓储管理</strong><br>
+                                KPI：库存盘点准确率<br>
+                                基础分100，差错率≤0.5%
+                            </div>
+                        </td>
+                        <td>
+                            <div class="calculation">
+                                规则：每超0.1%扣10分，最多扣50分<br>
+                                实际差错率0.8% → 超0.3% → 扣30分 → <strong>得分70</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pros">
+                                ✓ 强化过程控制<br>
+                                ✓ 直接关联改进点
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cons">
+                                ✗ 导致员工保守操作<br>
+                                ✗ 抑制创新
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="algorithm-name">布尔法</div>
+                        </td>
+                        <td>
+                            <div class="formula">
+                                得分 = { true_score (达标), false_score (未达标) }
+                            </div>
+                        </td>
+                        <td>
+                            <div class="scenario">
+                                合规性、安全性等<br>
+                                <span class="highlight-text">一票否决项</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="example">
+                                <strong>货代行业</strong><br>
+                                KPI：危险品申报合规率<br>
+                                100%合规=100分，1次违规=0分
+                            </div>
+                        </td>
+                        <td>
+                            <div class="calculation">
+                                发现1次瞒报 → <strong>得0分</strong><br>
+                                （触发合同终止）
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pros">
+                                ✓ 绝对红线管控<br>
+                                ✓ 执行简单
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cons">
+                                ✗ 无法区分轻微/重大违规
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="algorithm-name">阶梯评分法</div>
+                        </td>
+                        <td>
+                            <div class="formula">
+                                if 实际值 ≥ level1: score = 100<br>
+                                elif 实际值 ≥ level2: score = 80<br>
+                                else: score = 0
+                            </div>
+                        </td>
+                        <td>
+                            <div class="scenario">
+                                需明确分级的定性指标<br>
+                                <span class="highlight-text">（如客户满意度）</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="example">
+                                <strong>客户服务</strong><br>
+                                KPI：客户满意度<br>
+                                ≥90%=优秀，80-89%=合格
+                            </div>
+                        </td>
+                        <td>
+                            <div class="calculation">
+                                实际87% → <strong>得80分</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="pros">
+                                ✓ 简化管理<br>
+                                ✓ 快速分级
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cons">
+                                ✗ 临界点附近结果失真<br>
+                                ✗ 89.5%与90%差距大
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
