@@ -45,6 +45,32 @@
         .tab.active { background: #3498db; color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        
+        /* 货物信息提示框样式 */
+        .cargo-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            max-width: 250px;
+            word-wrap: break-word;
+        }
+        
+        .cargo-tooltip .cargo-name {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 6px;
+        }
+        
+        .cargo-tooltip .cargo-info {
+            margin: 2px 0;
+        }
     </style>
 </head>
 <body>
@@ -159,13 +185,16 @@
                         <tbody id="cargo-list-body"></tbody>
                     </table>
                 </div>
+                <div style="margin-top: 10px; text-align: center;">
+                    <button class="btn btn-warning" onclick="clearAllCargo()" style="width: 100%;">🗑️ 清空集装箱货物</button>
+                </div>
             </div>
             
             <!-- 3D可视化面板 -->
             <div class="panel visualization">
                 <h2>🎯 3D 可视化装箱方案</h2>
                 <div id="scene-container"></div>
-                <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                     <div>
                         <button class="btn" onclick="resetCamera()">🎥 重置视角</button>
                         <button class="btn" onclick="toggleWireframe()">📐 线框模式</button>
@@ -180,6 +209,17 @@
                             <option value="front">正视图</option>
                         </select>
                     </div>
+                </div>
+                <div style="margin-top: 10px; display: flex; gap: 15px; flex-wrap: wrap; font-size: 12px;">
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="show-safety-lines" checked onchange="drawContainer()"> 安全标线
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="show-container-details" checked onchange="drawContainer()"> 集装箱细节
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="show-work-areas" checked onchange="drawContainer()"> 作业区域
+                    </label>
                 </div>
             </div>
             
@@ -212,6 +252,12 @@
                 <div class="form-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="fragile-protection" checked> 易碎品保护
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="show-grid" checked onchange="drawContainer()"> 显示地面网格
                     </label>
                 </div>
                 
@@ -269,7 +315,9 @@
         let cargoItems = [];
         let solutions = [];
         let currentSolution = null;
-        let scene, camera, renderer, controls;
+        let scene, camera, renderer, controls, raycaster, mouse;
+        let tooltip = null;
+        let hoveredCargo = null;
         let containerGroup, cargoGroup;
         
         // 集装箱规格数据
@@ -353,6 +401,14 @@
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
             
+            // 射线检测器
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+            
+            // 鼠标事件监听
+            renderer.domElement.addEventListener('mousemove', onMouseMove, false);
+            renderer.domElement.addEventListener('mouseleave', onMouseLeave, false);
+            
             drawContainer();
             animate();
         }
@@ -382,12 +438,33 @@
             const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 }));
             containerMesh.add(line);
             
+            // 添加集装箱细节（根据用户选择）
+            const showDetails = document.getElementById('show-container-details')?.checked !== false;
+            if (showDetails) {
+                // 添加集装箱角件
+                addCornerFittings(containerMesh, dims);
+                
+                // 添加门把手和门细节
+                addDoorDetails(containerMesh, dims);
+                
+                // 添加集装箱标识牌和编号
+                addContainerLabels(containerMesh, dims);
+            }
+            
             containerGroup.add(containerMesh);
             
-            // 地面网格
-            const gridHelper = new THREE.GridHelper(Math.max(dims.length, dims.width) + 4, 20);
-            gridHelper.position.y = -dims.height / 2;
-            containerGroup.add(gridHelper);
+            // 创建混凝土质感地面
+            createConcreteGround(dims);
+            
+            // 添加安全标线和作业区域标记（根据用户选择）
+            const showSafetyLines = document.getElementById('show-safety-lines')?.checked !== false;
+            const showWorkAreas = document.getElementById('show-work-areas')?.checked !== false;
+            if (showSafetyLines || showWorkAreas) {
+                addSafetyMarkings(dims, showSafetyLines, showWorkAreas);
+            }
+            
+            // 可选的网格显示
+            addOptionalGrid(dims);
             
             scene.add(containerGroup);
             
@@ -395,6 +472,232 @@
             camera.position.set(dims.length * 1.5, dims.height * 2, dims.width * 1.5);
             controls.target.set(0, 0, 0);
             controls.update();
+        }
+        
+        // 添加集装箱角件
+        function addCornerFittings(containerMesh, dims) {
+            const cornerSize = 0.15;
+            const cornerGeometry = new THREE.BoxGeometry(cornerSize, cornerSize, cornerSize);
+            const cornerMaterial = new THREE.MeshStandardMaterial({ color: 0x666666 });
+            
+            // 8个角的位置
+            const corners = [
+                [-dims.length/2, -dims.height/2, -dims.width/2],
+                [dims.length/2, -dims.height/2, -dims.width/2],
+                [-dims.length/2, dims.height/2, -dims.width/2],
+                [dims.length/2, dims.height/2, -dims.width/2],
+                [-dims.length/2, -dims.height/2, dims.width/2],
+                [dims.length/2, -dims.height/2, dims.width/2],
+                [-dims.length/2, dims.height/2, dims.width/2],
+                [dims.length/2, dims.height/2, dims.width/2]
+            ];
+            
+            corners.forEach(corner => {
+                const cornerMesh = new THREE.Mesh(cornerGeometry, cornerMaterial);
+                cornerMesh.position.set(corner[0], corner[1], corner[2]);
+                containerMesh.add(cornerMesh);
+            });
+        }
+        
+        // 添加门把手和门细节
+        function addDoorDetails(containerMesh, dims) {
+            // 门把手
+            const handleGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.3);
+            const handleMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+            
+            const leftHandle = new THREE.Mesh(handleGeometry, handleMaterial);
+            leftHandle.position.set(dims.length/2 + 0.01, 0, -dims.width/4);
+            leftHandle.rotation.z = Math.PI/2;
+            containerMesh.add(leftHandle);
+            
+            const rightHandle = new THREE.Mesh(handleGeometry, handleMaterial);
+            rightHandle.position.set(dims.length/2 + 0.01, 0, dims.width/4);
+            rightHandle.rotation.z = Math.PI/2;
+            containerMesh.add(rightHandle);
+            
+            // 门缝线
+            const doorLineGeometry = new THREE.BoxGeometry(0.02, dims.height * 0.9, 0.02);
+            const doorLineMaterial = new THREE.MeshStandardMaterial({ color: 0x222222 });
+            
+            const doorLine = new THREE.Mesh(doorLineGeometry, doorLineMaterial);
+            doorLine.position.set(dims.length/2 + 0.005, 0, 0);
+            containerMesh.add(doorLine);
+        }
+        
+        // 添加集装箱标识牌和编号
+        function addContainerLabels(containerMesh, dims) {
+            // 创建标识牌背景
+            const labelGeometry = new THREE.PlaneGeometry(1.5, 0.8);
+            const labelMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xFFFFFF,
+                side: THREE.DoubleSide
+            });
+            
+            const label = new THREE.Mesh(labelGeometry, labelMaterial);
+            label.position.set(-dims.length/2 - 0.01, dims.height/4, 0);
+            label.rotation.y = Math.PI/2;
+            containerMesh.add(label);
+            
+            // 添加文字纹理（简化版本，实际项目中可使用Canvas纹理）
+            const textGeometry = new THREE.PlaneGeometry(1.2, 0.3);
+            const textMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x000000,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const containerNumber = new THREE.Mesh(textGeometry, textMaterial);
+            containerNumber.position.set(-dims.length/2 - 0.015, dims.height/4, 0);
+            containerNumber.rotation.y = Math.PI/2;
+            containerMesh.add(containerNumber);
+        }
+        
+        // 创建混凝土质感地面
+        function createConcreteGround(dims) {
+            const groundSize = Math.max(dims.length, dims.width) + 8;
+            const groundGeometry = new THREE.PlaneGeometry(groundSize, groundSize);
+            
+            // 创建混凝土纹理
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // 基础混凝土色
+            ctx.fillStyle = '#C0C0C0';
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // 添加噪点和纹理
+            for (let i = 0; i < 5000; i++) {
+                const x = Math.random() * 512;
+                const y = Math.random() * 512;
+                const size = Math.random() * 3;
+                const opacity = Math.random() * 0.3;
+                ctx.fillStyle = `rgba(${100 + Math.random() * 50}, ${100 + Math.random() * 50}, ${100 + Math.random() * 50}, ${opacity})`;
+                ctx.fillRect(x, y, size, size);
+            }
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(4, 4);
+            
+            const groundMaterial = new THREE.MeshStandardMaterial({ 
+                map: texture,
+                roughness: 0.8,
+                metalness: 0.1
+            });
+            
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -dims.height / 2 - 0.01;
+            ground.receiveShadow = true;
+            containerGroup.add(ground);
+        }
+        
+        // 添加安全标线和作业区域标记
+        function addSafetyMarkings(dims, showSafetyLines = true, showWorkAreas = true) {
+            const lineWidth = 0.15;
+            const lineHeight = 0.02;
+            
+            // 黄色安全标线材质
+            const yellowLineMaterial = new THREE.MeshStandardMaterial({ color: 0xFFD700 });
+            
+            // 集装箱周围的安全标线
+            if (showSafetyLines) {
+                const safetyDistance = 1.5;
+                const lineGeometry = new THREE.BoxGeometry(dims.length + safetyDistance * 2, lineHeight, lineWidth);
+                
+                // 前后安全线
+                const frontLine = new THREE.Mesh(lineGeometry, yellowLineMaterial);
+                frontLine.position.set(0, -dims.height/2 + lineHeight/2, dims.width/2 + safetyDistance);
+                containerGroup.add(frontLine);
+                
+                const backLine = new THREE.Mesh(lineGeometry, yellowLineMaterial);
+                backLine.position.set(0, -dims.height/2 + lineHeight/2, -dims.width/2 - safetyDistance);
+                containerGroup.add(backLine);
+                
+                // 左右安全线
+                const sideLineGeometry = new THREE.BoxGeometry(lineWidth, lineHeight, dims.width + safetyDistance * 2);
+                
+                const leftLine = new THREE.Mesh(sideLineGeometry, yellowLineMaterial);
+                leftLine.position.set(-dims.length/2 - safetyDistance, -dims.height/2 + lineHeight/2, 0);
+                containerGroup.add(leftLine);
+                
+                const rightLine = new THREE.Mesh(sideLineGeometry, yellowLineMaterial);
+                rightLine.position.set(dims.length/2 + safetyDistance, -dims.height/2 + lineHeight/2, 0);
+                containerGroup.add(rightLine);
+            }
+            
+            // 作业区域标记
+            if (showWorkAreas) {
+                addWorkAreaMarkings(dims, yellowLineMaterial);
+                
+                // 集装箱定位标记
+                addPositioningMarks(dims, yellowLineMaterial);
+            }
+        }
+        
+        // 添加作业区域标记
+        function addWorkAreaMarkings(dims, material) {
+            const markSize = 0.3;
+            const markGeometry = new THREE.RingGeometry(markSize * 0.7, markSize, 0, Math.PI * 2, 8);
+            
+            // 四个角的作业区域标记
+            const workAreas = [
+                [-dims.length/2 - 2, -dims.width/2 - 2],
+                [dims.length/2 + 2, -dims.width/2 - 2],
+                [-dims.length/2 - 2, dims.width/2 + 2],
+                [dims.length/2 + 2, dims.width/2 + 2]
+            ];
+            
+            workAreas.forEach(area => {
+                const mark = new THREE.Mesh(markGeometry, material);
+                mark.rotation.x = -Math.PI / 2;
+                mark.position.set(area[0], -dims.height/2 + 0.01, area[1]);
+                containerGroup.add(mark);
+            });
+        }
+        
+        // 添加集装箱定位标记
+        function addPositioningMarks(dims, material) {
+            const crossSize = 0.5;
+            const crossWidth = 0.05;
+            
+            // 十字定位标记
+            const horizontalGeometry = new THREE.BoxGeometry(crossSize, 0.01, crossWidth);
+            const verticalGeometry = new THREE.BoxGeometry(crossWidth, 0.01, crossSize);
+            
+            // 集装箱四个角的定位标记
+            const positions = [
+                [-dims.length/2, -dims.width/2],
+                [dims.length/2, -dims.width/2],
+                [-dims.length/2, dims.width/2],
+                [dims.length/2, dims.width/2]
+            ];
+            
+            positions.forEach(pos => {
+                const horizontal = new THREE.Mesh(horizontalGeometry, material);
+                horizontal.position.set(pos[0], -dims.height/2 + 0.005, pos[1]);
+                containerGroup.add(horizontal);
+                
+                const vertical = new THREE.Mesh(verticalGeometry, material);
+                vertical.position.set(pos[0], -dims.height/2 + 0.005, pos[1]);
+                containerGroup.add(vertical);
+            });
+        }
+        
+        // 可选的网格显示
+        function addOptionalGrid(dims) {
+            const showGrid = document.getElementById('show-grid')?.checked !== false;
+            if (showGrid) {
+                const gridSize = Math.max(dims.length, dims.width) + 6;
+                const gridHelper = new THREE.GridHelper(gridSize, 30, 0x888888, 0xCCCCCC);
+                gridHelper.position.y = -dims.height / 2 + 0.001;
+                gridHelper.material.opacity = 0.3;
+                gridHelper.material.transparent = true;
+                containerGroup.add(gridHelper);
+            }
         }
         
         // 动画循环
@@ -479,6 +782,31 @@
         function removeCargo(index) {
             cargoItems.splice(index, 1);
             updateCargoList();
+        }
+        
+        // 清空集装箱内货物
+        function clearAllCargo() {
+            // 检查是否有已装载的货物
+            if (!cargoGroup || cargoGroup.children.length === 0) {
+                alert('集装箱内没有货物！');
+                return;
+            }
+            
+            if (confirm('确定要清空集装箱内的货物吗？货物列表将保持不变。')) {
+                // 清除3D场景中的货物
+                if (cargoGroup) {
+                    scene.remove(cargoGroup);
+                    cargoGroup = new THREE.Group();
+                }
+                
+                // 重置指标显示
+                document.getElementById('load-ratio').textContent = '0%';
+                document.getElementById('loaded-items').textContent = '0';
+                document.getElementById('total-weight').textContent = '0kg';
+                document.getElementById('center-deviation').textContent = '0cm';
+                
+                alert('集装箱内货物已清空！货物列表保持不变。');
+            }
         }
         
         // 优化时间滑块
@@ -580,8 +908,7 @@
                     const geometry = new THREE.BoxGeometry(cargo.length, cargo.height, cargo.width);
                     const material = new THREE.MeshStandardMaterial({ 
                         color: cargo.color,
-                        transparent: true,
-                        opacity: 0.8
+                        transparent: false
                     });
                     
                     const mesh = new THREE.Mesh(geometry, material);
@@ -593,6 +920,23 @@
                     
                     mesh.castShadow = true;
                     mesh.receiveShadow = true;
+                    
+                    // 添加货物信息到userData
+                    mesh.userData.cargoInfo = {
+                        name: cargo.name,
+                        length: cargo.length,
+                        width: cargo.width,
+                        height: cargo.height,
+                        weight: cargo.weight,
+                        quantity: cargo.quantity,
+                        fragile: cargo.fragile,
+                        stackable: cargo.stackable,
+                        position: {
+                            x: currentX + cargo.length / 2,
+                            y: currentY + cargo.height / 2,
+                            z: currentZ + cargo.width / 2
+                        }
+                    };
                     
                     // 添加边框
                     const edges = new THREE.EdgesGeometry(geometry);
@@ -837,6 +1181,114 @@
                 document.getElementById('total-weight').textContent = '0kg';
                 document.getElementById('center-deviation').textContent = '0cm';
             }
+        }
+        
+        // 鼠标移动事件处理
+        function onMouseMove(event) {
+            const container = document.getElementById('scene-container');
+            const rect = container.getBoundingClientRect();
+            
+            // 计算鼠标在容器中的相对位置
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            
+            // 射线检测
+            raycaster.setFromCamera(mouse, camera);
+            
+            if (cargoGroup && cargoGroup.children.length > 0) {
+                const intersects = raycaster.intersectObjects(cargoGroup.children, true);
+                
+                if (intersects.length > 0) {
+                    const intersectedObject = intersects[0].object;
+                    
+                    // 查找货物网格对象（排除边框线）
+                    let cargoMesh = intersectedObject;
+                    while (cargoMesh && !cargoMesh.userData.cargoInfo) {
+                        cargoMesh = cargoMesh.parent;
+                        if (cargoMesh === cargoGroup) {
+                            cargoMesh = null;
+                            break;
+                        }
+                    }
+                    
+                    if (cargoMesh && cargoMesh.userData.cargoInfo) {
+                        if (hoveredCargo !== cargoMesh) {
+                            hoveredCargo = cargoMesh;
+                            showCargoTooltip(event, cargoMesh.userData.cargoInfo);
+                        } else {
+                            updateTooltipPosition(event);
+                        }
+                        return;
+                    }
+                }
+            }
+            
+            // 没有悬停在货物上，隐藏提示框
+            hideCargoTooltip();
+        }
+        
+        // 鼠标离开事件处理
+        function onMouseLeave(event) {
+            hideCargoTooltip();
+        }
+        
+        // 显示货物信息提示框
+        function showCargoTooltip(event, cargoInfo) {
+            hideCargoTooltip(); // 先隐藏现有的提示框
+            
+            tooltip = document.createElement('div');
+            tooltip.className = 'cargo-tooltip';
+            
+            const content = `
+                <div class="cargo-name">${cargoInfo.name}</div>
+                <div class="cargo-info">尺寸: ${cargoInfo.length}×${cargoInfo.width}×${cargoInfo.height}m</div>
+                <div class="cargo-info">重量: ${cargoInfo.weight}kg</div>
+                <div class="cargo-info">数量: ${cargoInfo.quantity}件</div>
+                <div class="cargo-info">易碎品: ${cargoInfo.fragile ? '是' : '否'}</div>
+                <div class="cargo-info">可堆叠: ${cargoInfo.stackable ? '是' : '否'}</div>
+                <div class="cargo-info">位置: (${cargoInfo.position.x.toFixed(1)}, ${cargoInfo.position.y.toFixed(1)}, ${cargoInfo.position.z.toFixed(1)})</div>
+            `;
+            
+            tooltip.innerHTML = content;
+            document.body.appendChild(tooltip);
+            
+            updateTooltipPosition(event);
+        }
+        
+        // 更新提示框位置
+        function updateTooltipPosition(event) {
+            if (tooltip) {
+                const offsetX = 15;
+                const offsetY = 15;
+                
+                let left = event.clientX + offsetX;
+                let top = event.clientY + offsetY;
+                
+                // 防止提示框超出屏幕边界
+                const tooltipRect = tooltip.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                if (left + tooltipRect.width > windowWidth) {
+                    left = event.clientX - tooltipRect.width - offsetX;
+                }
+                
+                if (top + tooltipRect.height > windowHeight) {
+                    top = event.clientY - tooltipRect.height - offsetY;
+                }
+                
+                tooltip.style.left = left + 'px';
+                tooltip.style.top = top + 'px';
+            }
+        }
+        
+        // 隐藏货物信息提示框
+        function hideCargoTooltip() {
+            if (tooltip) {
+                document.body.removeChild(tooltip);
+                tooltip = null;
+            }
+            hoveredCargo = null;
         }
         
         // 窗口大小调整
