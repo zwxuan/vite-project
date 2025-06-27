@@ -154,6 +154,35 @@
             margin-top: 5px;
         }
 
+        .pallet-recommendation {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 11px;
+        }
+
+        .pallet-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 6px;
+            margin: 5px 0;
+            font-size: 11px;
+            color: #856404;
+        }
+
+        .pallet-info {
+            background: #d1ecf1;
+            border: 1px solid #17a2b8;
+            border-radius: 4px;
+            padding: 6px;
+            margin: 5px 0;
+            font-size: 11px;
+            color: #0c5460;
+        }
+
         .container-selector {
             margin-bottom: 20px;
         }
@@ -163,6 +192,29 @@
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
+        }
+
+        .transport-settings {
+            margin-bottom: 20px;
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+        }
+
+        .setting-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .setting-group select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
         }
 
         .btn {
@@ -259,6 +311,27 @@
                 </select>
             </div>
 
+            <h3>运输设置</h3>
+            <div class="transport-settings">
+                <div class="setting-group">
+                    <label for="transportMode">运输方式:</label>
+                    <select id="transportMode" onchange="updateTransportMode()">
+                        <option value="sea">海运 (≤2.1m)</option>
+                        <option value="air">空运 (≤1.8m)</option>
+                        <option value="land">陆运 (≤2.5m)</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="palletMode">托盘模式:</label>
+                    <select id="palletMode" onchange="updatePalletMode()">
+                        <option value="auto">智能推荐</option>
+                        <option value="force">强制使用托盘</option>
+                        <option value="none">不使用托盘</option>
+                    </select>
+                </div>
+            </div>
+
             <h3>货物清单</h3>
             
             <div class="operations">
@@ -340,6 +413,10 @@
         let draggedCargo = null;
         let raycaster, mouse;
         let occupiedSpaces = []; // 记录已占用的空间
+        let currentTransportMode = 'sea'; // 默认海运
+        let currentPalletMode = false; // 是否启用托盘模式
+        let loadedPallets = []; // 已装载的托盘
+        let palletCargoMap = new Map(); // 托盘与货物的映射关系
         
         // 集装箱规格（增加更多类型）
         const containerSpecs = {
@@ -352,16 +429,45 @@
             '53HC': { length: 16.154, width: 2.438, height: 2.896, maxWeight: 34000 }
         };
         
-        // 优化后的货物数据，专门针对20GP集装箱设计以达到90%+空间利用率
+        // 托盘标准数据
+        const palletStandards = {
+            'EUR': { name: '欧标托盘', length: 1.2, width: 0.8, height: 0.144, maxStaticLoad: 6000, maxDynamicLoad: 1500, color: 0x8B4513 },
+            'US': { name: '美标托盘', length: 1.219, width: 1.016, height: 0.144, maxStaticLoad: 5000, maxDynamicLoad: 1200, color: 0x8B4513 },
+            'JP': { name: '日标托盘', length: 1.1, width: 1.1, height: 0.144, maxStaticLoad: 4500, maxDynamicLoad: 1000, color: 0x8B4513 },
+            'ASIA': { name: '亚洲标准', length: 1.0, width: 1.2, height: 0.144, maxStaticLoad: 4000, maxDynamicLoad: 900, color: 0x8B4513 },
+            'CUSTOM': { name: '定制托盘', length: 1.0, width: 0.8, height: 0.144, maxStaticLoad: 3000, maxDynamicLoad: 800, color: 0x8B4513 }
+        };
+
+        // 运输方式限制
+        const transportLimits = {
+            'sea': { maxHeight: 2.1, name: '海运' },
+            'air': { maxHeight: 1.8, name: '空运' },
+            'land': { maxHeight: 2.0, name: '陆运' }
+        };
+
+        // 货物分类规则
+        const cargoCategories = {
+            'regular_bulk': { name: '规则批量货物', recommendPallet: true, priority: 1 },
+            'fragile_valuable': { name: '易碎高价值', recommendPallet: true, priority: 2 },
+            'mechanical_handling': { name: '机械化装卸', recommendPallet: true, priority: 1 },
+            'irregular_bulk': { name: '散货异形', recommendPallet: false, priority: 3 },
+            'lightweight_lowcost': { name: '轻量低成本', recommendPallet: false, priority: 4 },
+            'special_container': { name: '特殊集装箱', recommendPallet: false, priority: 5 }
+        };
+
+        // 优化后的货物数据，增加托盘化支持
         const cargoData = {
-            '1': { name: '电子产品', length: 1.1, width: 0.7, height: 0.5, weight: 120, fragile: true, stackable: true, maxStack: 2, color: 0xff6b6b },
-            '2': { name: '机械零件', length: 1.6, width: 0.9, height: 1.0, weight: 500, stackable: true, maxStack: 2, color: 0x4ecdc4 },
-            '3': { name: '纺织品', length: 1.2, width: 1.0, height: 0.7, weight: 180, compressible: true, stackable: true, maxStack: 3, color: 0x45b7d1 },
-            '4': { name: '化工原料', length: 0.9, width: 0.9, height: 1.0, weight: 350, dangerous: false, stackable: true, maxStack: 2, color: 0xf9ca24 },
-            '5': { name: '标准托盘', length: 1.0, width: 0.8, height: 1.8, weight: 400, stackable: true, maxStack: 1, color: 0x96ceb4 },
-            '6': { name: '冷冻食品', length: 0.9, width: 0.9, height: 1.5, weight: 300, refrigerated: true, stackable: true, maxStack: 1, color: 0x74b9ff },
-            '7': { name: '小件包装', length: 0.5, width: 0.4, height: 0.3, weight: 35, stackable: true, maxStack: 8, color: 0xfd79a8 },
-            '8': { name: '重型设备', length: 1.8, width: 1.2, height: 1.0, weight: 800, heavy: true, stackable: false, bottomOnly: true, color: 0x636e72 },
+            '1': { name: '电子产品', length: 1.1, width: 0.7, height: 0.5, weight: 120, fragile: true, stackable: true, maxStack: 2, color: 0xff6b6b, category: 'fragile_valuable', recommendPallet: true, palletType: 'EUR', requireCushion: true },
+            '2': { name: '机械零件', length: 1.6, width: 0.9, height: 1.0, weight: 500, stackable: true, maxStack: 2, color: 0x4ecdc4, category: 'mechanical_handling', recommendPallet: true, palletType: 'US', requireStrapping: true },
+            '3': { name: '纺织品', length: 1.2, width: 1.0, height: 0.7, weight: 180, compressible: true, stackable: true, maxStack: 3, color: 0x45b7d1, category: 'regular_bulk', recommendPallet: true, palletType: 'ASIA' },
+            '4': { name: '化工原料', length: 0.9, width: 0.9, height: 1.0, weight: 350, dangerous: false, stackable: true, maxStack: 2, color: 0xf9ca24, category: 'special_container', recommendPallet: false },
+            '5': { name: '欧标托盘', length: 1.2, width: 0.8, height: 0.144, weight: 25, stackable: false, isPallet: true, palletType: 'EUR', color: 0x8B4513, maxLoad: 6000 },
+            '6': { name: '冷冻食品', length: 0.9, width: 0.9, height: 1.5, weight: 300, refrigerated: true, stackable: true, maxStack: 1, color: 0x74b9ff, category: 'special_container', recommendPallet: false },
+            '7': { name: '小件包装', length: 0.5, width: 0.4, height: 0.3, weight: 35, stackable: true, maxStack: 8, color: 0xfd79a8, category: 'regular_bulk', recommendPallet: true, palletType: 'EUR' },
+            '8': { name: '重型设备', length: 1.8, width: 1.2, height: 1.0, weight: 800, heavy: true, stackable: false, bottomOnly: true, color: 0x636e72, category: 'irregular_bulk', recommendPallet: false },
+            '65': { name: '美标托盘', length: 1.219, width: 1.016, height: 0.144, weight: 28, stackable: false, isPallet: true, palletType: 'US', color: 0x8B4513, maxLoad: 5000 },
+            '66': { name: '日标托盘', length: 1.1, width: 1.1, height: 0.144, weight: 26, stackable: false, isPallet: true, palletType: 'JP', color: 0x8B4513, maxLoad: 4500 },
+            '67': { name: '亚洲标准托盘', length: 1.0, width: 1.2, height: 0.144, weight: 24, stackable: false, isPallet: true, palletType: 'ASIA', color: 0x8B4513, maxLoad: 4000 },
             '9': { name: '标准箱A', length: 0.9, width: 0.9, height: 0.9, weight: 250, stackable: true, maxStack: 2, color: 0xa29bfe },
             '10': { name: '标准箱B', length: 1.0, width: 0.8, height: 0.9, weight: 270, stackable: true, maxStack: 2, color: 0x6c5ce7 },
             '11': { name: '长条货物', length: 2.5, width: 0.6, height: 0.6, weight: 300, stackable: true, maxStack: 3, color: 0xfd79a8 },
@@ -425,6 +531,139 @@
             '69': { name: '化学试剂', length: 0.25, width: 0.25, height: 0.3, weight: 18, stackable: true, maxStack: 6, color: 0xe74c3c, dangerous: true },
             '70': { name: '橡胶制品', length: 0.8, width: 0.5, height: 0.2, weight: 42, stackable: true, maxStack: 8, color: 0x2c3e50 }
         };
+
+        // 托盘智能推荐算法
+        function recommendPalletForCargo(cargo) {
+            if (!cargo.recommendPallet) {
+                return { recommend: false, reason: '该货物类型不推荐使用托盘' };
+            }
+
+            // 根据货物重量检查托盘承载能力
+            const palletType = cargo.palletType || 'EUR';
+            const pallet = palletStandards[palletType];
+            
+            if (cargo.weight > pallet.maxStaticLoad) {
+                return { 
+                    recommend: false, 
+                    reason: `货物重量(${cargo.weight}kg)超过${pallet.name}最大承载(${pallet.maxStaticLoad}kg)`,
+                    suggestion: '建议分托或使用更大承载能力的托盘'
+                };
+            }
+
+            // 检查尺寸匹配度
+            const lengthFit = cargo.length <= pallet.length;
+            const widthFit = cargo.width <= pallet.width;
+            
+            if (!lengthFit || !widthFit) {
+                return {
+                    recommend: false,
+                    reason: `货物尺寸(${cargo.length}×${cargo.width}m)超出托盘尺寸(${pallet.length}×${pallet.width}m)`,
+                    suggestion: '建议使用更大尺寸的托盘或调整货物摆放'
+                };
+            }
+
+            // 计算托盘利用率
+            const utilizationRate = (cargo.length * cargo.width) / (pallet.length * pallet.width);
+            
+            return {
+                recommend: true,
+                palletType: palletType,
+                pallet: pallet,
+                utilizationRate: utilizationRate,
+                reason: `推荐使用${pallet.name}，利用率${(utilizationRate * 100).toFixed(1)}%`
+            };
+        }
+
+        // 计算托盘堆叠层数
+        function calculatePalletStackLayers(palletHeight, cargoHeight, transportMode = 'sea') {
+            const maxHeight = transportLimits[transportMode].maxHeight;
+            const availableHeight = maxHeight - palletHeight; // 减去托盘本身高度
+            const maxLayers = Math.floor(availableHeight / cargoHeight);
+            
+            return {
+                maxLayers: maxLayers,
+                totalHeight: palletHeight + (maxLayers * cargoHeight),
+                remainingHeight: maxHeight - (palletHeight + (maxLayers * cargoHeight))
+            };
+        }
+
+        // 托盘与货物组合优化
+        function optimizePalletCargoLayout(cargo, palletType) {
+            const pallet = palletStandards[palletType];
+            
+            // 计算每层可摆放的货物数量
+            const itemsPerRow = Math.floor(pallet.length / cargo.length);
+            const rowsPerLayer = Math.floor(pallet.width / cargo.width);
+            const itemsPerLayer = itemsPerRow * rowsPerLayer;
+            
+            // 计算堆叠层数
+            const stackInfo = calculatePalletStackLayers(pallet.height, cargo.height, currentTransportMode);
+            const totalItems = itemsPerLayer * Math.min(stackInfo.maxLayers, cargo.maxStack || 999);
+            
+            // 计算重量限制
+            const maxItemsByWeight = Math.floor(pallet.maxStaticLoad / cargo.weight);
+            const actualItems = Math.min(totalItems, maxItemsByWeight);
+            
+            return {
+                itemsPerLayer: itemsPerLayer,
+                layers: Math.ceil(actualItems / itemsPerLayer),
+                totalItems: actualItems,
+                weightUtilization: (actualItems * cargo.weight) / pallet.maxStaticLoad,
+                spaceUtilization: (actualItems * cargo.length * cargo.width * cargo.height) / (pallet.length * pallet.width * stackInfo.totalHeight),
+                needsStrapping: cargo.requireStrapping || actualItems > itemsPerLayer * 2,
+                needsCushion: cargo.requireCushion || cargo.fragile
+            };
+        }
+
+        // 智能托盘选择算法
+        function selectOptimalPallet(cargo) {
+            let bestOption = null;
+            let bestScore = 0;
+            
+            Object.keys(palletStandards).forEach(palletType => {
+                const recommendation = recommendPalletForCargo({...cargo, palletType});
+                if (recommendation.recommend) {
+                    const layout = optimizePalletCargoLayout(cargo, palletType);
+                    // 综合评分：利用率 + 稳定性 + 经济性
+                    const score = (layout.spaceUtilization * 0.4) + (layout.weightUtilization * 0.3) + (recommendation.utilizationRate * 0.3);
+                    
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestOption = {
+                            palletType,
+                            recommendation,
+                            layout,
+                            score
+                        };
+                    }
+                }
+            });
+            
+            return bestOption;
+        }
+
+        // 检查托盘加固需求
+        function checkPalletReinforcementNeeds(cargo, layout) {
+            const needs = [];
+            
+            if (layout.needsStrapping) {
+                needs.push('拉伸膜包装');
+            }
+            
+            if (layout.needsCushion) {
+                needs.push('缓冲材料（气垫膜/泡沫）');
+            }
+            
+            if (layout.layers > 3) {
+                needs.push('绑带加固');
+            }
+            
+            if (cargo.fragile && layout.layers > 2) {
+                needs.push('防震包装');
+            }
+            
+            return needs;
+        }
 
         // 初始化3D场景
         function init() {
@@ -496,12 +735,6 @@
 
             // 创建集装箱
             createContainer();
-
-            // 生成货物列表
-            generateCargoList();
-
-            // 设置拖拽事件（必须在货物列表生成之后）
-            setupDragAndDrop();
 
             // 设置点击事件
             setupClickEvents();
@@ -789,9 +1022,69 @@
             });
         }
 
+        // 检查指定位置垂直方向上同种货物的堆叠数量
+        function getVerticalStackCount(cargoId, x, z, tolerance = 0.1) {
+            return loadedCargo.filter(cargoMesh => {
+                if (cargoMesh.userData.cargoId !== cargoId) return false;
+                
+                const meshPos = cargoMesh.position;
+                // 检查是否在同一个垂直位置（x和z坐标相近）
+                return Math.abs(meshPos.x - x) <= tolerance && 
+                       Math.abs(meshPos.z - z) <= tolerance;
+            }).length;
+        }
+
+        // 检查指定位置下方是否有已达到最大堆叠层数的货物
+        function hasMaxStackedCargoBelow(x, y, z, length, width, tolerance = 0.1) {
+            // 查找当前位置下方的所有货物
+            const cargoBelow = loadedCargo.filter(cargoMesh => {
+                const meshPos = cargoMesh.position;
+                const meshSize = cargoMesh.geometry.parameters;
+
+                // 检查是否在当前货物的支撑区域内且在下方
+                const isBelow = meshPos.y < y;
+                const overlapsX = Math.abs(meshPos.x - x) * 2 < (meshSize.width + length);
+                const overlapsZ = Math.abs(meshPos.z - z) * 2 < (meshSize.depth + width);
+
+                return isBelow && overlapsX && overlapsZ;
+            });
+
+            if (cargoBelow.length === 0) {
+                return false; // 下方没有货物
+            }
+
+            // 检查下方所有货物，是否有任何一个达到了其最大堆叠数
+            for (const below of cargoBelow) {
+                const cargoId = below.userData.cargoId;
+                const cargoInfo = cargoData[cargoId];
+                const maxStack = cargoInfo ? (cargoInfo.maxStack || 1) : 1;
+
+                // 计算该货物的当前堆叠层数
+                const stackCount = getVerticalStackCount(cargoId, below.position.x, below.position.z, tolerance);
+
+                // 如果下方任何一个货物已达到其最大堆叠层数，则不能在其上方放置
+                if (stackCount >= maxStack) {
+                    // 但需要确保我们正在检查的是最顶层的那个
+                    const isTopMost = !loadedCargo.some(other => 
+                        other.userData.cargoId === cargoId &&
+                        Math.abs(other.position.x - below.position.x) <= tolerance &&
+                        Math.abs(other.position.z - below.position.z) <= tolerance &&
+                        other.position.y > below.position.y
+                    );
+
+                    if (isTopMost) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         // 寻找最佳放置位置（支持堆叠和旋转）
-        function findBestPosition(cargo, containerSpec) {
-            const step = 0.02; // 极高的位置搜索精度
+        function findBestPosition(cargo, containerSpec, cargoId) {
+            let hasSpaceButStackLimited = false; // 标记是否因堆叠限制而无法放置
+            const step = 0.1; // 较高的位置搜索精度
             
             // 尝试不同的旋转方向
             const orientations = [
@@ -825,6 +1118,20 @@
                                     }
                                 }
                                 
+                                // 检查垂直堆叠数量是否超过限制
+                                const stackCount = getVerticalStackCount(cargoId, x, z);
+                                const maxStack = cargo.maxStack || 1;
+                                if (stackCount >= maxStack) {
+                                    hasSpaceButStackLimited = true;
+                                    continue; // 跳过这个位置，继续寻找其他位置
+                                }
+                                
+                                // 检查下方是否有已达到最大堆叠层数的货物
+                                if (hasMaxStackedCargoBelow(x, y, z, orientation.length, orientation.width)) {
+                                    hasSpaceButStackLimited = true;
+                                    continue; // 跳过这个位置，不能在已达到最大堆叠的货物上方放置
+                                }
+                                
                                 return { 
                                     x, y, z, 
                                     length: orientation.length, 
@@ -835,6 +1142,10 @@
                         }
                     }
                 }
+            }
+            // 如果因堆叠限制无法放置，返回特殊标记
+            if (hasSpaceButStackLimited) {
+                return { error: 'stack_limit', maxStack: cargo.maxStack || 1 };
             }
             return null;
         }
@@ -882,7 +1193,9 @@
             canvas.addEventListener('drop', (e) => {
                 e.preventDefault();
                 if (draggedCargo) {
-                    addCargoToContainer(draggedCargo);
+                    const cargoId = draggedCargo;
+                    draggedCargo = null; // 立即清理，防止重复触发
+                    addCargoToContainer(cargoId);
                 }
             });
         }
@@ -897,16 +1210,40 @@
                 mouse.x = ((event.clientX - rect.left) / canvas.clientWidth) * 2 - 1;
                 mouse.y = -((event.clientY - rect.top) / canvas.clientHeight) * 2 + 1;
                 
-                // 射线检测
+                // 射线检测 - 需要递归检测所有子对象
                 raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(loadedCargo);
+                const intersects = raycaster.intersectObjects(loadedCargo, true); // 递归检测子对象
                 
                 if (intersects.length > 0) {
-                    const clickedCargo = intersects[0].object;
-                    const cargoId = clickedCargo.userData.cargoId;
+                    const clickedObject = intersects[0].object;
+                    let targetCargo = clickedObject;
                     
-                    if (confirm(`是否要移除货物 ${clickedCargo.userData.cargo.name}？`)) {
-                        removeCargoFromContainer(cargoId);
+                    // 如果点击的是子对象（托盘上的货物），找到对应的货物对象
+                    while (targetCargo.parent && !targetCargo.userData.cargoId && targetCargo.parent !== scene) {
+                        targetCargo = targetCargo.parent;
+                    }
+                    
+                    // 如果点击的是托盘上的货物
+                    if (clickedObject.userData && clickedObject.userData.cargoId && clickedObject.parent.userData.isPalletContainer) {
+                        const cargoId = clickedObject.userData.cargoId;
+                        const cargoName = clickedObject.userData.cargo.name;
+                        if (confirm(`是否要从托盘上移除货物 ${cargoName}？`)) {
+                            removeCargoFromContainer(cargoId);
+                        }
+                    }
+                    // 如果点击的是直接装载的货物或托盘
+                    else if (targetCargo.userData && targetCargo.userData.cargoId) {
+                        const cargoId = targetCargo.userData.cargoId;
+                        const cargoName = targetCargo.userData.cargo.name;
+                        const isContainer = targetCargo.userData.isPalletContainer;
+                        
+                        const message = isContainer ? 
+                            `是否要移除托盘 ${cargoName} 及其上的所有货物？` : 
+                            `是否要移除货物 ${cargoName}？`;
+                            
+                        if (confirm(message)) {
+                            removeCargoFromContainer(cargoId);
+                        }
                     }
                 }
             });
@@ -914,11 +1251,20 @@
 
         // 从集装箱移除货物
         function removeCargoFromContainer(cargoId) {
-            const cargoIndex = loadedCargo.findIndex(cargoMesh => cargoMesh.userData.cargoId === cargoId);
+            // 首先查找直接装载的货物
+            let cargoIndex = loadedCargo.findIndex(cargoMesh => cargoMesh.userData.cargoId === cargoId);
             
             if (cargoIndex !== -1) {
                 const cargoMesh = loadedCargo[cargoIndex];
                 const cargo = cargoMesh.userData.cargo;
+                
+                // 如果是托盘容器，需要同时移除托盘上的所有货物
+                if (cargoMesh.userData.isPalletContainer && cargoMesh.userData.containedCargo) {
+                    // 更新托盘上所有货物的状态
+                    cargoMesh.userData.containedCargo.forEach(containedCargoId => {
+                        updateCargoStatus(containedCargoId, false);
+                    });
+                }
                 
                 // 从场景中移除
                 scene.remove(cargoMesh);
@@ -943,6 +1289,44 @@
                 
                 // 更新统计信息
                 updateStats();
+            } else {
+                // 查找托盘上的货物
+                const palletContainer = loadedCargo.find(cargoMesh => 
+                    cargoMesh.userData.isPalletContainer && 
+                    cargoMesh.userData.containedCargo && 
+                    cargoMesh.userData.containedCargo.includes(cargoId)
+                );
+                
+                if (palletContainer) {
+                    // 从托盘的containedCargo数组中移除
+                    const containedIndex = palletContainer.userData.containedCargo.indexOf(cargoId);
+                    if (containedIndex !== -1) {
+                        palletContainer.userData.containedCargo.splice(containedIndex, 1);
+                    }
+                    
+                    // 找到并移除托盘上的货物3D对象
+                    const cargoToRemove = palletContainer.children.find(child => 
+                        child.userData && child.userData.cargoId === cargoId
+                    );
+                    
+                    if (cargoToRemove) {
+                        palletContainer.remove(cargoToRemove);
+                    }
+                    
+                    // 如果托盘上没有货物了，询问是否移除整个托盘
+                    if (palletContainer.userData.containedCargo.length === 0) {
+                        if (confirm('托盘上已无货物，是否同时移除托盘？')) {
+                            removeCargoFromContainer(palletContainer.userData.cargoId);
+                            return;
+                        }
+                    }
+                    
+                    // 更新货物状态
+                    updateCargoStatus(cargoId, false);
+                    
+                    // 更新统计信息
+                    updateStats();
+                }
             }
         }
 
@@ -1027,15 +1411,140 @@
             controls.update();
         }
 
+        // 使用托盘装载货物
+        function addCargoWithPallet(cargoId) {
+            const cargo = cargoData[cargoId];
+            if (!cargo) return;
+
+            // 选择合适的托盘
+            const palletRecommendation = selectOptimalPallet(cargo);
+            if (!palletRecommendation) {
+                alert('无法为货物 ' + cargo.name + ' 找到合适的托盘！\n原因：货物尺寸或重量超出所有可用托盘的承载能力');
+                return;
+            }
+
+            const palletType = palletRecommendation.palletType;
+            const layout = palletRecommendation.layout;
+            
+            // 查找可用的托盘
+            let palletId = null;
+            for (const id in cargoData) {
+                const item = cargoData[id];
+                if (item.isPallet && item.palletType === palletType) {
+                    const alreadyLoaded = loadedCargo.some(cargoMesh => cargoMesh.userData.cargoId === id);
+                    if (!alreadyLoaded) {
+                        palletId = id;
+                        break;
+                    }
+                }
+            }
+
+            if (!palletId) {
+                alert('没有可用的' + palletType + '托盘！');
+                return;
+            }
+
+            const containerType = document.getElementById('containerType').value;
+            const spec = containerSpecs[containerType];
+            const pallet = cargoData[palletId];
+            
+            // 为托盘寻找位置
+            const palletPosition = findBestPosition(pallet, spec, palletId);
+            if (!palletPosition || palletPosition.error) {
+                alert('集装箱空间不足，无法放置托盘装载的 ' + cargo.name + '！\n建议：\n1. 移除一些已装载的货物\n2. 更换更大的集装箱类型\n3. 尝试关闭托盘模式');
+                return;
+            }
+
+            // 创建托盘3D模型
+            const palletGeometry = new THREE.BoxGeometry(pallet.length, pallet.height, pallet.width);
+            const palletMaterial = new THREE.MeshLambertMaterial({ 
+                color: 0x8B4513,
+                transparent: true,
+                opacity: 0.7
+            });
+            const palletMesh = new THREE.Mesh(palletGeometry, palletMaterial);
+            
+            // 设置托盘位置
+            palletMesh.position.set(palletPosition.x, palletPosition.y, palletPosition.z);
+            palletMesh.castShadow = true;
+            palletMesh.userData = { 
+                cargoId: palletId, 
+                cargo: pallet,
+                actualDimensions: { length: pallet.length, width: pallet.width, height: pallet.height },
+                isPalletContainer: true,
+                containedCargo: []
+            };
+
+            // 添加托盘边框
+            const palletEdges = new THREE.EdgesGeometry(palletGeometry);
+            const palletEdgeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
+            const palletWireframe = new THREE.LineSegments(palletEdges, palletEdgeMaterial);
+            palletMesh.add(palletWireframe);
+
+            // 在托盘上装载货物
+            const cargoGeometry = new THREE.BoxGeometry(cargo.length, cargo.height, cargo.width);
+            const cargoMaterial = new THREE.MeshLambertMaterial({ 
+                color: cargo.color,
+                transparent: cargo.fragile ? true : false,
+                opacity: cargo.fragile ? 0.8 : 1.0
+            });
+            const cargoMesh = new THREE.Mesh(cargoGeometry, cargoMaterial);
+            
+            // 设置货物在托盘上的相对位置（相对于托盘中心）
+            // 货物放置在托盘表面中央
+            cargoMesh.position.set(0, pallet.height/2 + cargo.height/2, 0);
+            cargoMesh.castShadow = true;
+            cargoMesh.userData = { 
+                cargoId: cargoId, 
+                cargo: cargo,
+                actualDimensions: { length: cargo.length, width: cargo.width, height: cargo.height },
+                onPallet: palletId
+            };
+
+            // 添加货物边框
+            const cargoEdges = new THREE.EdgesGeometry(cargoGeometry);
+            const cargoEdgeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1 });
+            const cargoWireframe = new THREE.LineSegments(cargoEdges, cargoEdgeMaterial);
+            cargoMesh.add(cargoWireframe);
+
+            // 将货物添加到托盘上
+            palletMesh.add(cargoMesh);
+            palletMesh.userData.containedCargo.push(cargoId);
+
+            // 添加标签
+            addCargoLabel(palletMesh, pallet.name, palletId);
+            addCargoLabel(cargoMesh, cargo.name, cargoId);
+
+            // 添加到场景
+            scene.add(palletMesh);
+            loadedCargo.push(palletMesh);
+
+            // 记录占用空间
+            addOccupiedSpace(palletPosition.x, palletPosition.y, palletPosition.z, pallet.length, pallet.width, pallet.height);
+
+            // 更新状态
+            updateCargoStatus(palletId, true);
+            updateCargoStatus(cargoId, true);
+            updateStats();
+        }
+
         // 添加货物到集装箱（优化版）
         function addCargoToContainer(cargoId) {
             const cargo = cargoData[cargoId];
             if (!cargo) return;
 
-            // 检查是否已经装载
-            const alreadyLoaded = loadedCargo.some(cargoMesh => cargoMesh.userData.cargoId === cargoId);
-            if (alreadyLoaded) {
-                alert('该货物已经装载！');
+            // 注释：移除重复装载检查，现在支持同一货物多次装载
+            
+            // 检查托盘模式
+            if (currentPalletMode === 'force' && !cargo.isPallet) {
+                // 强制托盘模式下，非托盘货物需要先装载到托盘上
+                console.log('强制托盘模式：正在为货物 ' + cargo.name + ' 选择托盘...');
+                addCargoWithPallet(cargoId);
+                return;
+            } else if (currentPalletMode === 'auto' && cargo.recommendPallet && !cargo.isPallet) {
+                // 智能模式下，推荐使用托盘的货物
+                console.log('智能模式：为推荐使用托盘的货物 ' + cargo.name + ' 装载到托盘...');
+                addCargoWithPallet(cargoId);
                 return;
             }
 
@@ -1043,10 +1552,29 @@
             const spec = containerSpecs[containerType];
             
             // 寻找最佳位置
-            const position = findBestPosition(cargo, spec);
-            
-            if (!position) {
-                alert('无法找到合适的位置放置该货物！');
+            const position = findBestPosition(cargo, spec, cargoId);
+
+            if (!position || position.error) {
+                const maxStack = cargo.maxStack || 1;
+                if (position && position.error === 'stack_limit') {
+                    alert(`${cargo.name} 已达到最大堆叠数量限制（${maxStack}层）！\n该货物在所有可能的位置都已达到堆叠上限。`);
+                } else {
+                    alert('集装箱空间不足，无法放置 ' + cargo.name + '！\n建议：\n1. 移除一些已装载的货物\n2. 更换更大的集装箱类型');
+                }
+                return;
+            }
+
+            // 双重检查：在最终放置前再次验证堆叠限制
+            const stackCount = getVerticalStackCount(cargoId, position.x, position.z);
+            const maxStack = cargo.maxStack || 1;
+            if (stackCount >= maxStack) {
+                alert(`无法在此位置放置 ${cargo.name}，因为已达到其最大堆叠层数（${maxStack}层）。`);
+                return;
+            }
+
+            // 检查下方货物是否已达到其最大堆叠
+            if (hasMaxStackedCargoBelow(position.x, position.y, position.z, position.length, position.width)) {
+                 alert(`无法在此位置放置 ${cargo.name}，因为下方的货物已达到其最大堆叠层数。`);
                 return;
             }
 
@@ -1056,12 +1584,39 @@
             const actualHeight = position.height || cargo.height;
             
             const geometry = new THREE.BoxGeometry(actualLength, actualHeight, actualWidth);
-            const material = new THREE.MeshLambertMaterial({ 
-                color: cargo.color,
-                transparent: cargo.fragile ? true : false,
-                opacity: cargo.fragile ? 0.8 : 1.0
-            });
+            
+            // 为托盘创建特殊材质
+            let material;
+            if (cargo.isPallet) {
+                // 托盘使用木纹材质效果
+                material = new THREE.MeshLambertMaterial({ 
+                    color: 0x8B4513, // 棕色木纹
+                    transparent: true,
+                    opacity: 0.7
+                });
+            } else {
+                // 普通货物材质
+                material = new THREE.MeshLambertMaterial({ 
+                    color: cargo.color,
+                    transparent: cargo.fragile ? true : false,
+                    opacity: cargo.fragile ? 0.8 : 1.0
+                });
+            }
+            
             const cargoMesh = new THREE.Mesh(geometry, material);
+            
+            // 为托盘添加木板纹理效果
+            if (cargo.isPallet) {
+                // 添加木板条纹效果
+                const plankCount = Math.floor(actualLength / 0.1); // 每10cm一条木板
+                for (let i = 0; i < plankCount; i++) {
+                    const plankGeometry = new THREE.BoxGeometry(0.08, actualHeight + 0.001, actualWidth);
+                    const plankMaterial = new THREE.MeshLambertMaterial({ color: 0x654321 });
+                    const plank = new THREE.Mesh(plankGeometry, plankMaterial);
+                    plank.position.set(-actualLength/2 + (i + 0.5) * (actualLength/plankCount), 0, 0);
+                    cargoMesh.add(plank);
+                }
+            }
             
             cargoMesh.position.set(position.x, position.y, position.z);
             cargoMesh.castShadow = true;
@@ -1131,8 +1686,84 @@
             const cargoListContainer = document.getElementById('cargoList');
             cargoListContainer.innerHTML = ''; // 清空现有内容
             
-            // 遍历cargoData生成货物列表项
-            Object.keys(cargoData).forEach(cargoId => {
+            // 为托盘模式生成多个相同货物实例
+            const expandedCargoData = {};
+            const originalCargoData = {
+                '1': { name: '电子产品', length: 1.1, width: 0.7, height: 0.5, weight: 120, fragile: true, stackable: true, maxStack: 2, color: 0xff6b6b, category: 'fragile_valuable', recommendPallet: true, palletType: 'EUR', requireCushion: true },
+                '2': { name: '机械零件', length: 1.6, width: 0.9, height: 1.0, weight: 500, stackable: true, maxStack: 2, color: 0x4ecdc4, category: 'mechanical_handling', recommendPallet: true, palletType: 'US', requireStrapping: true },
+                '3': { name: '纺织品', length: 1.2, width: 1.0, height: 0.7, weight: 180, compressible: true, stackable: true, maxStack: 3, color: 0x45b7d1, category: 'regular_bulk', recommendPallet: true, palletType: 'ASIA' },
+                '4': { name: '化工原料', length: 0.9, width: 0.9, height: 1.0, weight: 350, dangerous: false, stackable: true, maxStack: 2, color: 0xf9ca24, category: 'special_container', recommendPallet: false },
+                '5': { name: '欧标托盘', length: 1.2, width: 0.8, height: 0.144, weight: 25, stackable: false, isPallet: true, palletType: 'EUR', color: 0x8B4513, maxLoad: 6000 },
+                '6': { name: '冷冻食品', length: 0.9, width: 0.9, height: 1.5, weight: 300, refrigerated: true, stackable: true, maxStack: 1, color: 0x74b9ff, category: 'special_container', recommendPallet: false },
+                '7': { name: '小件包装', length: 0.5, width: 0.4, height: 0.3, weight: 35, stackable: true, maxStack: 8, color: 0xfd79a8, category: 'regular_bulk', recommendPallet: true, palletType: 'EUR' },
+                '8': { name: '重型设备', length: 1.8, width: 1.2, height: 1.0, weight: 800, heavy: true, stackable: false, bottomOnly: true, color: 0x636e72, category: 'irregular_bulk', recommendPallet: false },
+                '65': { name: '美标托盘', length: 1.219, width: 1.016, height: 0.144, weight: 28, stackable: false, isPallet: true, palletType: 'US', color: 0x8B4513, maxLoad: 5000 },
+                '66': { name: '日标托盘', length: 1.1, width: 1.1, height: 0.144, weight: 26, stackable: false, isPallet: true, palletType: 'JP', color: 0x8B4513, maxLoad: 4500 },
+                '67': { name: '亚洲标准托盘', length: 1.0, width: 1.2, height: 0.144, weight: 24, stackable: false, isPallet: true, palletType: 'ASIA', color: 0x8B4513, maxLoad: 4000 }
+            };
+            
+            Object.keys(originalCargoData).forEach(cargoId => {
+                const cargo = originalCargoData[cargoId];
+                
+                // 如果是托盘，只保留一个实例
+                if (cargo.isPallet) {
+                    expandedCargoData[cargoId] = cargo;
+                    return;
+                }
+                
+                // 根据托盘模式决定货物数量
+                let quantity = 1;
+                if (currentPalletMode === 'force' || (currentPalletMode === 'auto' && cargo.recommendPallet)) {
+                    // 计算托盘容量来确定货物数量
+                    const palletRecommendation = selectOptimalPallet(cargo);
+                    if (palletRecommendation) {
+                        const layout = palletRecommendation.layout;
+                        // 生成足够装满2-3个托盘的货物数量
+                        quantity = Math.max(layout.totalItems * 2, 6);
+                    } else {
+                        quantity = 6; // 默认数量
+                    }
+                } else {
+                    quantity = Math.random() > 0.5 ? 2 : 1; // 随机1-2个
+                }
+                
+                // 创建多个货物实例
+                for (let i = 0; i < quantity; i++) {
+                    const instanceId = i === 0 ? cargoId : `${cargoId}_${i}`;
+                    expandedCargoData[instanceId] = { ...cargo };
+                }
+            });
+            
+            // 保存已装载货物的状态
+            const loadedCargoIds = new Set();
+            loadedCargo.forEach(cargoMesh => {
+                if (cargoMesh.userData && cargoMesh.userData.cargoId) {
+                    loadedCargoIds.add(cargoMesh.userData.cargoId);
+                }
+                // 检查托盘上的货物
+                if (cargoMesh.userData && cargoMesh.userData.isPalletContainer && 
+                    Array.isArray(cargoMesh.userData.containedCargo)) {
+                    cargoMesh.userData.containedCargo.forEach(id => loadedCargoIds.add(id));
+                }
+            });
+            
+            // 更新全局cargoData，但保持已装载货物的ID一致性
+            const newCargoData = {};
+            Object.keys(expandedCargoData).forEach(newId => {
+                // 如果这个ID已经被装载，保持原有的数据结构
+                if (loadedCargoIds.has(newId)) {
+                    newCargoData[newId] = cargoData[newId] || expandedCargoData[newId];
+                } else {
+                    newCargoData[newId] = expandedCargoData[newId];
+                }
+            });
+            
+            // 清空并重新分配cargoData
+             Object.keys(cargoData).forEach(key => delete cargoData[key]);
+             Object.assign(cargoData, newCargoData);
+            
+            // 遍历newCargoData生成货物列表项
+             Object.keys(newCargoData).forEach(cargoId => {
                 const cargo = cargoData[cargoId];
                 
                 // 创建货物项容器
@@ -1178,7 +1809,41 @@
                 }
                 
                 if (properties.length > 0) {
-                    infoText += `特性: ${properties.join(', ')}`;
+                    infoText += `特性: ${properties.join(', ')}<br>`;
+                }
+                
+                // 添加托盘推荐信息（根据托盘模式）
+                if (currentPalletMode !== 'none' && cargo.category && cargoCategories[cargo.category]) {
+                    const category = cargoCategories[cargo.category];
+                    infoText += `分类: ${category.name}<br>`;
+                    
+                    // 根据托盘模式决定是否显示托盘信息
+                    const shouldShowPallet = currentPalletMode === 'force' || 
+                                           (currentPalletMode === 'auto' && cargo.recommendPallet);
+                    
+                    if (shouldShowPallet) {
+                        const palletRecommendation = selectOptimalPallet(cargo);
+                        if (palletRecommendation) {
+                            const layout = palletRecommendation.layout;
+                            infoText += `<div class="pallet-recommendation">`;
+                            infoText += `推荐托盘: ${palletRecommendation.recommendation.pallet.name}<br>`;
+                            infoText += `每托盘装载: ${layout.totalItems}件 (${layout.layers}层)<br>`;
+                            infoText += `空间利用率: ${(layout.spaceUtilization * 100).toFixed(1)}%<br>`;
+                            infoText += `重量利用率: ${(layout.weightUtilization * 100).toFixed(1)}%<br>`;
+                            
+                            const reinforcements = checkPalletReinforcementNeeds(cargo, layout);
+                            if (reinforcements.length > 0) {
+                                infoText += `加固需求: ${reinforcements.join(', ')}<br>`;
+                            }
+                            infoText += `</div>`;
+                        } else {
+                            infoText += `<div class="pallet-warning">⚠️ 无合适托盘推荐</div>`;
+                        }
+                    } else if (currentPalletMode === 'auto' && !cargo.recommendPallet) {
+                        infoText += `<div class="pallet-info">💡 ${category.reason}</div>`;
+                    }
+                } else if (currentPalletMode === 'none') {
+                    infoText += `<div class="pallet-info">🚫 当前模式：不使用托盘</div>`;
                 }
                 
                 infoElement.innerHTML = infoText;
@@ -1191,6 +1856,9 @@
                 // 添加到容器
                 cargoListContainer.appendChild(cargoItem);
             });
+            
+            // 重新绑定拖拽事件
+            setupDragAndDrop();
         }
 
         // 更新货物状态
@@ -1219,15 +1887,97 @@
             let totalVolume = 0;
             let totalWeight = 0;
             
-            loadedCargo.forEach(cargoMesh => {
+            console.log('=== 空间利用率计算详细过程 ===');
+            console.log('集装箱规格:', spec);
+            console.log('集装箱总体积:', spec.length * spec.width * spec.height, 'm³');
+            console.log('已装载货物数量:', loadedCargo.length);
+            console.log('\n货物详细信息:');
+            
+            loadedCargo.forEach((cargoMesh, index) => {
                 const cargo = cargoMesh.userData.cargo;
-                totalVolume += cargo.length * cargo.width * cargo.height;
+                
+                // 使用实际装载的尺寸计算体积
+                let actualVolume;
+                if (cargoMesh.userData.actualDimensions) {
+                    // 使用实际装载时的尺寸（可能经过旋转）
+                    const dims = cargoMesh.userData.actualDimensions;
+                    actualVolume = dims.length * dims.width * dims.height;
+                    console.log(`货物${index + 1}: ${cargo.name}`);
+                    console.log(`  - 原始尺寸: ${cargo.length}×${cargo.width}×${cargo.height}m`);
+                    console.log(`  - 实际尺寸: ${dims.length}×${dims.width}×${dims.height}m`);
+                    console.log(`  - 实际体积: ${actualVolume.toFixed(4)}m³`);
+                    console.log(`  - 重量: ${cargo.weight}kg`);
+                    console.log(`  - 位置: (${cargoMesh.position.x.toFixed(2)}, ${cargoMesh.position.y.toFixed(2)}, ${cargoMesh.position.z.toFixed(2)})`);
+                    if (cargoMesh.userData.instanceNumber) {
+                        console.log(`  - 实例编号: #${cargoMesh.userData.instanceNumber}`);
+                    }
+                } else {
+                    // 回退到原始尺寸
+                    actualVolume = cargo.length * cargo.width * cargo.height;
+                    console.log(`货物${index + 1}: ${cargo.name}`);
+                    console.log(`  - 尺寸: ${cargo.length}×${cargo.width}×${cargo.height}m`);
+                    console.log(`  - 体积: ${actualVolume.toFixed(4)}m³`);
+                    console.log(`  - 重量: ${cargo.weight}kg`);
+                    console.log(`  - 位置: (${cargoMesh.position.x.toFixed(2)}, ${cargoMesh.position.y.toFixed(2)}, ${cargoMesh.position.z.toFixed(2)})`);
+                }
+                
+                totalVolume += actualVolume;
                 totalWeight += cargo.weight;
             });
             
             const containerVolume = spec.length * spec.width * spec.height;
             const spaceUtilization = (totalVolume / containerVolume * 100).toFixed(1);
             const weightUtilization = (totalWeight / spec.maxWeight * 100).toFixed(1);
+            
+            // 按货物类型统计
+            const cargoStats = {};
+            loadedCargo.forEach(cargoMesh => {
+                const cargo = cargoMesh.userData.cargo;
+                const cargoName = cargo.name;
+                
+                if (!cargoStats[cargoName]) {
+                    cargoStats[cargoName] = {
+                        count: 0,
+                        totalVolume: 0,
+                        totalWeight: 0,
+                        originalDimensions: `${cargo.length}×${cargo.width}×${cargo.height}`,
+                        singleVolume: cargo.length * cargo.width * cargo.height
+                    };
+                }
+                
+                cargoStats[cargoName].count++;
+                cargoStats[cargoName].totalWeight += cargo.weight;
+                
+                // 计算实际体积
+                let actualVolume;
+                if (cargoMesh.userData.actualDimensions) {
+                    const dims = cargoMesh.userData.actualDimensions;
+                    actualVolume = dims.length * dims.width * dims.height;
+                } else {
+                    actualVolume = cargo.length * cargo.width * cargo.height;
+                }
+                cargoStats[cargoName].totalVolume += actualVolume;
+            });
+            
+            console.log('\n=== 货物类型统计 ===');
+            Object.keys(cargoStats).forEach(cargoName => {
+                const stats = cargoStats[cargoName];
+                console.log(`${cargoName}:`);
+                console.log(`  - 装载数量: ${stats.count} 件`);
+                console.log(`  - 单件尺寸: ${stats.originalDimensions}m`);
+                console.log(`  - 单件体积: ${stats.singleVolume.toFixed(4)}m³`);
+                console.log(`  - 总体积: ${stats.totalVolume.toFixed(4)}m³`);
+                console.log(`  - 总重量: ${stats.totalWeight.toFixed(2)}kg`);
+            });
+            
+            console.log('\n=== 计算结果汇总 ===');
+            console.log('货物总体积:', totalVolume.toFixed(4), 'm³');
+            console.log('集装箱总体积:', containerVolume.toFixed(4), 'm³');
+            console.log('空间利用率计算: (' + totalVolume.toFixed(4) + ' / ' + containerVolume.toFixed(4) + ') × 100 = ' + spaceUtilization + '%');
+            console.log('货物总重量:', totalWeight.toFixed(2), 'kg');
+            console.log('集装箱最大载重:', spec.maxWeight, 'kg');
+            console.log('重量利用率:', weightUtilization + '%');
+            console.log('========================\n');
             
             document.getElementById('spaceUtilization').textContent = spaceUtilization + '%';
             document.getElementById('weightUtilization').textContent = weightUtilization + '%';
@@ -1265,8 +2015,22 @@
             const containerType = document.getElementById('containerType').value;
             const spec = containerSpecs[containerType];
             
+            // 根据托盘模式决定装箱策略
+            if (currentPalletMode === 'none') {
+                // 传统装箱模式
+                optimizeTraditionalLoading(spec);
+            } else {
+                // 托盘化装箱模式
+                optimizePalletizedLoading(spec);
+            }
+        }
+        
+        // 传统装箱优化
+        function optimizeTraditionalLoading(spec) {
             // 优化排序策略：重型货物优先，然后按体积从大到小，最后是填充货物
-            const sortedCargo = Object.entries(cargoData).sort((a, b) => {
+            const sortedCargo = Object.entries(cargoData)
+                .filter(([cargoId, cargo]) => !cargo.isPallet) // 排除托盘
+                .sort((a, b) => {
                 const cargoA = a[1];
                 const cargoB = b[1];
                 
@@ -1296,52 +2060,284 @@
                 return volumeB - volumeA;
             });
             
-            sortedCargo.forEach(([cargoId, cargo]) => {
-                const position = findBestPosition(cargo, spec);
+            // 智能装箱算法现在依赖findBestPosition中的堆叠检查
+            
+            // 持续尝试装载货物，直到无法再装载为止
+            let continueLoading = true;
+            let loadedInRound = true; // 新增标志，检查每一轮是否有货物被装载
+            
+            while (loadedInRound) {
+                loadedInRound = false; // 重置标志
                 
-                if (position) {
-                    // 创建货物3D模型（使用旋转后的尺寸）
-                    const actualLength = position.length || cargo.length;
-                    const actualWidth = position.width || cargo.width;
-                    const actualHeight = position.height || cargo.height;
+                sortedCargo.forEach(([cargoId, cargo]) => {
+                    const position = findBestPosition(cargo, spec, cargoId);
                     
-                    const geometry = new THREE.BoxGeometry(actualLength, actualHeight, actualWidth);
-                    const material = new THREE.MeshLambertMaterial({ 
-                        color: cargo.color,
-                        transparent: cargo.fragile ? true : false,
-                        opacity: cargo.fragile ? 0.8 : 1.0
+                    // 检查是否是有效位置（不是错误对象）
+                    if (position && !position.error) {
+                        loadedInRound = true; // 成功装载，本轮有效
+                        
+                        // 创建货物3D模型（使用旋转后的尺寸）
+                        const actualLength = position.length || cargo.length;
+                        const actualWidth = position.width || cargo.width;
+                        const actualHeight = position.height || cargo.height;
+                        
+                        const geometry = new THREE.BoxGeometry(actualLength, actualHeight, actualWidth);
+                        const material = new THREE.MeshLambertMaterial({ 
+                            color: cargo.color,
+                            transparent: cargo.fragile ? true : false,
+                            opacity: cargo.fragile ? 0.8 : 1.0
+                        });
+                        const cargoMesh = new THREE.Mesh(geometry, material);
+                        
+                        cargoMesh.position.set(position.x, position.y, position.z);
+                        cargoMesh.castShadow = true;
+                        // 计算当前已装载的同种货物数量
+                        const currentLoadedCount = loadedCargo.filter(mesh => mesh.userData.cargoId === cargoId).length;
+                        
+                        cargoMesh.userData = { 
+                            cargoId: cargoId, 
+                            cargo: cargo,
+                            actualDimensions: { length: actualLength, width: actualWidth, height: actualHeight },
+                            instanceNumber: currentLoadedCount + 1 // 记录是第几个实例
+                        };
+                        
+                        // 添加边框
+                        const edges = new THREE.EdgesGeometry(geometry);
+                        const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1 });
+                        const wireframe = new THREE.LineSegments(edges, edgeMaterial);
+                        cargoMesh.add(wireframe);
+                        
+                        // 添加货物标签（显示实例编号）
+                        const labelText = currentLoadedCount > 0 ? `${cargo.name} #${currentLoadedCount + 1}` : cargo.name;
+                        addCargoLabel(cargoMesh, labelText, cargoId);
+                        
+                        scene.add(cargoMesh);
+                        loadedCargo.push(cargoMesh);
+                        
+                        // 记录占用空间（使用实际尺寸）
+                        addOccupiedSpace(position.x, position.y, position.z, actualLength, actualWidth, actualHeight);
+                        
+                        // 更新货物状态（只在第一次装载时更新）
+                        if (currentLoadedCount === 0) {
+                            updateCargoStatus(cargoId, true);
+                        }
+                    }
+                });
+            }
+            
+            updateStats();
+        }
+        
+        // 托盘化装箱优化
+        function optimizePalletizedLoading(spec) {
+            const palletPlan = createPalletLoadingPlan();
+            const processedCargo = new Set();
+            
+            // 处理托盘装载计划
+            palletPlan.forEach(palletGroup => {
+                // 先放置托盘
+                const palletPosition = findBestPosition(palletGroup.pallet, spec, 'pallet_' + palletGroup.palletType);
+                if (palletPosition && !palletPosition.error) {
+                    loadCargoAtPosition(palletGroup.palletId, palletGroup.pallet, palletPosition);
+                    
+                    // 在托盘上放置货物
+                    palletGroup.cargoItems.forEach((cargoItem, index) => {
+                        const cargoPosition = calculateCargoPositionOnPallet(
+                            palletPosition, 
+                            palletGroup.pallet, 
+                            cargoItem.cargo, 
+                            cargoItem.layout,
+                            index
+                        );
+                        
+                        if (cargoPosition) {
+                            loadCargoAtPosition(cargoItem.cargoId, cargoItem.cargo, cargoPosition);
+                            processedCargo.add(cargoItem.cargoId);
+                        }
                     });
-                    const cargoMesh = new THREE.Mesh(geometry, material);
-                    
-                    cargoMesh.position.set(position.x, position.y, position.z);
-                    cargoMesh.castShadow = true;
-                    cargoMesh.userData = { 
-                        cargoId: cargoId, 
-                        cargo: cargo,
-                        actualDimensions: { length: actualLength, width: actualWidth, height: actualHeight }
-                    };
-                    
-                    // 添加边框
-                    const edges = new THREE.EdgesGeometry(geometry);
-                    const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1 });
-                    const wireframe = new THREE.LineSegments(edges, edgeMaterial);
-                    cargoMesh.add(wireframe);
-                    
-                    // 添加货物标签
-                    addCargoLabel(cargoMesh, cargo.name, cargoId);
-                    
-                    scene.add(cargoMesh);
-                    loadedCargo.push(cargoMesh);
-                    
-                    // 记录占用空间（使用实际尺寸）
-                    addOccupiedSpace(position.x, position.y, position.z, actualLength, actualWidth, actualHeight);
-                    
-                    // 更新货物状态
-                    updateCargoStatus(cargoId, true);
                 }
             });
             
+            // 处理剩余未使用托盘的货物（在auto模式下）
+            if (currentPalletMode === 'auto') {
+                const remainingCargo = Object.entries(cargoData)
+                    .filter(([cargoId, cargo]) => !cargo.isPallet && !processedCargo.has(cargoId))
+                    .sort((a, b) => {
+                        const cargoA = a[1];
+                        const cargoB = b[1];
+                        
+                        // 重型货物优先
+                        if (cargoA.heavy && !cargoB.heavy) return -1;
+                        if (!cargoA.heavy && cargoB.heavy) return 1;
+                        
+                        // 按体积排序
+                        const volumeA = cargoA.length * cargoA.width * cargoA.height;
+                        const volumeB = cargoB.length * cargoB.width * cargoB.height;
+                        return volumeB - volumeA;
+                    });
+                
+                remainingCargo.forEach(([cargoId, cargo]) => {
+                    const position = findBestPosition(cargo, spec, cargoId);
+                    // 检查是否是有效位置（不是错误对象）
+                    if (position && !position.error) {
+                        loadCargoAtPosition(cargoId, cargo, position);
+                    }
+                });
+            }
+            
             updateStats();
+        }
+        
+        // 创建托盘装载计划
+        function createPalletLoadingPlan() {
+            const plan = [];
+            const processedCargo = new Set();
+            
+            // 按货物类型分组
+            const cargoByType = {};
+            Object.entries(cargoData).forEach(([cargoId, cargo]) => {
+                if (cargo.isPallet) return;
+                
+                const shouldUsePallet = currentPalletMode === 'force' || 
+                                      (currentPalletMode === 'auto' && cargo.recommendPallet);
+                
+                if (shouldUsePallet) {
+                    const key = `${cargo.name}_${cargo.length}_${cargo.width}_${cargo.height}`;
+                    if (!cargoByType[key]) {
+                        cargoByType[key] = {
+                            cargo: cargo,
+                            items: []
+                        };
+                    }
+                    cargoByType[key].items.push(cargoId);
+                }
+            });
+            
+            // 为每种货物类型创建托盘装载计划
+            Object.values(cargoByType).forEach(cargoGroup => {
+                const cargo = cargoGroup.cargo;
+                const cargoIds = cargoGroup.items;
+                
+                const palletRecommendation = selectOptimalPallet(cargo);
+                if (palletRecommendation) {
+                    const layout = palletRecommendation.layout;
+                    const itemsPerPallet = layout.totalItems;
+                    
+                    // 查找对应的托盘货物
+                    const palletCargoEntry = Object.entries(cargoData).find(([id, c]) => 
+                        c.isPallet && c.name.includes(palletRecommendation.recommendation.pallet.name.split('托盘')[0])
+                    );
+                    
+                    if (palletCargoEntry) {
+                        const [palletId, palletCargo] = palletCargoEntry;
+                        
+                        // 按托盘容量分组货物
+                        for (let i = 0; i < cargoIds.length; i += itemsPerPallet) {
+                            const palletCargoItems = cargoIds.slice(i, i + itemsPerPallet).map(cargoId => ({
+                                cargoId: cargoId,
+                                cargo: cargo,
+                                layout: layout
+                            }));
+                            
+                            plan.push({
+                                palletId: `${palletId}_${Math.floor(i / itemsPerPallet)}`,
+                                pallet: palletCargo,
+                                cargoItems: palletCargoItems,
+                                recommendation: palletRecommendation
+                            });
+                        }
+                        
+                        cargoIds.forEach(id => processedCargo.add(id));
+                    }
+                }
+            });
+            
+            return plan;
+        }
+        
+        // 计算货物在托盘上的位置
+        function calculateCargoPositionOnPallet(palletPosition, pallet, cargo, layout, itemIndex) {
+            const itemsPerRow = Math.floor(pallet.length / cargo.length);
+            const rowsPerLayer = Math.floor(pallet.width / cargo.width);
+            const itemsPerLayer = itemsPerRow * rowsPerLayer;
+            
+            const layer = Math.floor(itemIndex / itemsPerLayer);
+            const positionInLayer = itemIndex % itemsPerLayer;
+            const row = Math.floor(positionInLayer / itemsPerRow);
+            const col = positionInLayer % itemsPerRow;
+            
+            return {
+                x: palletPosition.x - pallet.length/2 + cargo.length/2 + col * cargo.length,
+                y: palletPosition.y + pallet.height/2 + cargo.height/2 + layer * cargo.height,
+                z: palletPosition.z - pallet.width/2 + cargo.width/2 + row * cargo.width,
+                length: cargo.length,
+                width: cargo.width,
+                height: cargo.height
+            };
+        }
+        
+        // 在指定位置装载货物
+        function loadCargoAtPosition(cargoId, cargo, position) {
+            const actualLength = position.length || cargo.length;
+            const actualWidth = position.width || cargo.width;
+            const actualHeight = position.height || cargo.height;
+            
+            // 为托盘创建特殊材质
+            let material;
+            if (cargo.isPallet) {
+                material = new THREE.MeshLambertMaterial({ 
+                    color: 0x8B4513,
+                    transparent: true,
+                    opacity: 0.7
+                });
+            } else {
+                material = new THREE.MeshLambertMaterial({ 
+                    color: cargo.color,
+                    transparent: cargo.fragile ? true : false,
+                    opacity: cargo.fragile ? 0.8 : 1.0
+                });
+            }
+            
+            const geometry = new THREE.BoxGeometry(actualLength, actualHeight, actualWidth);
+            const cargoMesh = new THREE.Mesh(geometry, material);
+            
+            // 为托盘添加木板纹理效果
+            if (cargo.isPallet) {
+                const plankCount = Math.floor(actualLength / 0.1);
+                for (let i = 0; i < plankCount; i++) {
+                    const plankGeometry = new THREE.BoxGeometry(0.08, actualHeight + 0.001, actualWidth);
+                    const plankMaterial = new THREE.MeshLambertMaterial({ color: 0x654321 });
+                    const plank = new THREE.Mesh(plankGeometry, plankMaterial);
+                    plank.position.set(-actualLength/2 + (i + 0.5) * (actualLength/plankCount), 0, 0);
+                    cargoMesh.add(plank);
+                }
+            }
+            
+            cargoMesh.position.set(position.x, position.y, position.z);
+            cargoMesh.castShadow = true;
+            cargoMesh.userData = { 
+                cargoId: cargoId, 
+                cargo: cargo,
+                actualDimensions: { length: actualLength, width: actualWidth, height: actualHeight }
+            };
+            
+            // 添加边框
+            const edges = new THREE.EdgesGeometry(geometry);
+            const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1 });
+            const wireframe = new THREE.LineSegments(edges, edgeMaterial);
+            cargoMesh.add(wireframe);
+            
+            // 添加货物标签
+            addCargoLabel(cargoMesh, cargo.name, cargoId);
+            
+            scene.add(cargoMesh);
+            loadedCargo.push(cargoMesh);
+            
+            // 记录占用空间
+            addOccupiedSpace(position.x, position.y, position.z, actualLength, actualWidth, actualHeight);
+            
+            // 更新货物状态
+            updateCargoStatus(cargoId, true);
         }
 
         // 清空集装箱
@@ -1431,9 +2427,58 @@
             createContainer();
             clearContainer();
         });
+        
+        // 运输模式切换
+        document.getElementById('transportMode').addEventListener('change', updateTransportMode);
+        
+        // 托盘模式切换
+        document.getElementById('palletMode').addEventListener('change', updatePalletMode);
+
+        // 更新运输模式
+        function updateTransportMode() {
+            const transportModeSelect = document.getElementById('transportMode');
+            currentTransportMode = transportModeSelect.value;
+            console.log(`运输模式已更新为: ${currentTransportMode}`);
+            
+            // 更新货物列表以反映新的托盘堆叠高度限制
+            generateCargoList();
+            
+            // 显示提示信息
+            console.log(`已切换到${transportModeSelect.options[transportModeSelect.selectedIndex].text}模式，托盘堆叠高度已调整`);
+        }
+        
+        // 更新托盘模式
+        function updatePalletMode() {
+            const palletModeSelect = document.getElementById('palletMode');
+            currentPalletMode = palletModeSelect.value;
+            console.log(`托盘模式已更新为: ${currentPalletMode}`);
+            
+            // 更新货物列表以反映新的托盘使用策略
+            generateCargoList();
+            
+            // 显示提示信息
+            const modeText = {
+                'auto': '智能推荐',
+                'force': '强制使用托盘',
+                'none': '不使用托盘'
+            };
+            console.log(`托盘模式已切换为: ${modeText[currentPalletMode]}`);
+        }
 
         // 页面加载完成后初始化
-        window.addEventListener('load', init);
+        window.addEventListener('load', function() {
+            init();
+            
+            // 设置默认运输模式和托盘模式
+            currentTransportMode = 'sea';
+            currentPalletMode = 'auto';
+            
+            createContainer();
+            generateCargoList();
+            setupDragAndDrop();
+            updateStats();
+            animate();
+        });
     </script>
 </body>
-</html>
+</html>l>
