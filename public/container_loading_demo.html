@@ -448,16 +448,39 @@
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
 
-            // 添加光源
-            const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+            // 优化光照系统
+            // 环境光
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
             scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(10, 10, 5);
+            // 主光源 - 模拟阳光
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+            directionalLight.position.set(15, 20, 10);
             directionalLight.castShadow = true;
-            directionalLight.shadow.mapSize.width = 2048;
-            directionalLight.shadow.mapSize.height = 2048;
+            directionalLight.shadow.mapSize.width = 4096;
+            directionalLight.shadow.mapSize.height = 4096;
+            directionalLight.shadow.camera.near = 0.5;
+            directionalLight.shadow.camera.far = 50;
+            directionalLight.shadow.camera.left = -20;
+            directionalLight.shadow.camera.right = 20;
+            directionalLight.shadow.camera.top = 20;
+            directionalLight.shadow.camera.bottom = -20;
             scene.add(directionalLight);
+            
+            // 补充光源 - 模拟反射光
+            const fillLight = new THREE.DirectionalLight(0x87ceeb, 0.3);
+            fillLight.position.set(-10, 10, -10);
+            scene.add(fillLight);
+            
+            // 点光源 - 模拟作业灯
+            const spotLight = new THREE.SpotLight(0xffffff, 0.5);
+            spotLight.position.set(0, 15, 0);
+            spotLight.angle = Math.PI / 4;
+            spotLight.penumbra = 0.1;
+            spotLight.decay = 2;
+            spotLight.distance = 30;
+            spotLight.castShadow = true;
+            scene.add(spotLight);
 
             // 创建地面
             const groundGeometry = new THREE.PlaneGeometry(20, 20);
@@ -490,7 +513,7 @@
             animate();
         }
 
-        // 创建集装箱
+        // 创建集装箱（美化版）
         function createContainer() {
             if (container) {
                 scene.remove(container);
@@ -499,25 +522,181 @@
             const containerType = document.getElementById('containerType').value;
             const spec = containerSpecs[containerType];
 
-            // 创建集装箱框架
-            const geometry = new THREE.BoxGeometry(spec.length, spec.height, spec.width);
-            const edges = new THREE.EdgesGeometry(geometry);
-            const material = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
-            container = new THREE.LineSegments(edges, material);
-            container.position.y = spec.height / 2;
-            scene.add(container);
+            // 创建集装箱主体结构
+            container = new THREE.Group();
+            
+            // 1. 集装箱外壳（金属质感）
+            const containerGeometry = new THREE.BoxGeometry(spec.length, spec.height, spec.width);
+            
+            // 创建集装箱材质 - 深蓝色金属质感
+            const containerMaterial = new THREE.MeshLambertMaterial({
+                color: 0x1e40af, // 深蓝色
+                transparent: true,
+                opacity: 0.2
+            });
+            
+            const containerMesh = new THREE.Mesh(containerGeometry, containerMaterial);
+            containerMesh.position.y = spec.height / 2;
+            container.add(containerMesh);
 
-            // 添加集装箱底面
+            // 2. 集装箱框架 - 更粗的边框
+            const edges = new THREE.EdgesGeometry(containerGeometry);
+            const frameMaterial = new THREE.LineBasicMaterial({ 
+                color: 0x1e3a8a, 
+                linewidth: 3 
+            });
+            const frameLines = new THREE.LineSegments(edges, frameMaterial);
+            frameLines.position.y = spec.height / 2;
+            container.add(frameLines);
+
+            // 3. 集装箱角件（8个角的金属加强件）
+            const cornerGeometry = new THREE.BoxGeometry(0.15, 0.15, 0.15);
+            const cornerMaterial = new THREE.MeshLambertMaterial({ 
+                color: 0x374151 // 深灰色
+            });
+            
+            const corners = [
+                [-spec.length/2, 0, -spec.width/2],
+                [spec.length/2, 0, -spec.width/2],
+                [-spec.length/2, 0, spec.width/2],
+                [spec.length/2, 0, spec.width/2],
+                [-spec.length/2, spec.height, -spec.width/2],
+                [spec.length/2, spec.height, -spec.width/2],
+                [-spec.length/2, spec.height, spec.width/2],
+                [spec.length/2, spec.height, spec.width/2]
+            ];
+            
+            corners.forEach(([x, y, z]) => {
+                const corner = new THREE.Mesh(cornerGeometry, cornerMaterial);
+                corner.position.set(x, y, z);
+                container.add(corner);
+            });
+
+            // 4. 集装箱门（后端）- 重点突出门的设计
+            const doorWidth = spec.length * 0.48;
+            const doorHeight = spec.height * 0.9;
+            const doorGeometry = new THREE.PlaneGeometry(doorWidth, doorHeight);
+            const doorMaterial = new THREE.MeshLambertMaterial({ 
+                color: 0x1f2937 // 深灰蓝色
+            });
+            
+            // 左门
+            const leftDoor = new THREE.Mesh(doorGeometry, doorMaterial);
+            leftDoor.position.set(-spec.length * 0.25, spec.height / 2, -spec.width/2 - 0.02);
+            container.add(leftDoor);
+            
+            // 右门
+            const rightDoor = new THREE.Mesh(doorGeometry, doorMaterial);
+            rightDoor.position.set(spec.length * 0.25, spec.height / 2, -spec.width/2 - 0.02);
+            container.add(rightDoor);
+
+            // 5. 门框加强条
+            const doorFrameGeometry = new THREE.BoxGeometry(doorWidth + 0.1, 0.05, 0.05);
+            const doorFrameMaterial = new THREE.MeshLambertMaterial({ color: 0x111827 });
+            
+            // 上门框
+            const topFrame = new THREE.Mesh(doorFrameGeometry, doorFrameMaterial);
+            topFrame.position.set(-spec.length * 0.25, spec.height * 0.95, -spec.width/2 - 0.03);
+            container.add(topFrame);
+            
+            const topFrame2 = new THREE.Mesh(doorFrameGeometry, doorFrameMaterial);
+            topFrame2.position.set(spec.length * 0.25, spec.height * 0.95, -spec.width/2 - 0.03);
+            container.add(topFrame2);
+            
+            // 下门框
+            const bottomFrame = new THREE.Mesh(doorFrameGeometry, doorFrameMaterial);
+            bottomFrame.position.set(-spec.length * 0.25, spec.height * 0.05, -spec.width/2 - 0.03);
+            container.add(bottomFrame);
+            
+            const bottomFrame2 = new THREE.Mesh(doorFrameGeometry, doorFrameMaterial);
+            bottomFrame2.position.set(spec.length * 0.25, spec.height * 0.05, -spec.width/2 - 0.03);
+            container.add(bottomFrame2);
+
+            // 6. 门把手和锁具
+            const handleGeometry = new THREE.BoxGeometry(0.08, 0.3, 0.08);
+            const handleMaterial = new THREE.MeshLambertMaterial({ 
+                color: 0x6b7280 // 中灰色
+            });
+            
+            // 左门把手
+            const leftHandle = new THREE.Mesh(handleGeometry, handleMaterial);
+            leftHandle.position.set(-spec.length * 0.05, spec.height * 0.6, -spec.width/2 - 0.06);
+            container.add(leftHandle);
+            
+            // 右门把手
+            const rightHandle = new THREE.Mesh(handleGeometry, handleMaterial);
+            rightHandle.position.set(spec.length * 0.05, spec.height * 0.6, -spec.width/2 - 0.06);
+            container.add(rightHandle);
+            
+            // 门锁
+            const lockGeometry = new THREE.BoxGeometry(0.12, 0.12, 0.06);
+            const lockMaterial = new THREE.MeshLambertMaterial({ color: 0x4b5563 });
+            const lock = new THREE.Mesh(lockGeometry, lockMaterial);
+            lock.position.set(0, spec.height * 0.5, -spec.width/2 - 0.05);
+            container.add(lock);
+
+            // 7. 集装箱底面（更真实的金属底板）
             const floorGeometry = new THREE.PlaneGeometry(spec.length, spec.width);
             const floorMaterial = new THREE.MeshLambertMaterial({ 
-                color: 0xcccccc, 
-                transparent: true, 
-                opacity: 0.3 
+                color: 0x4b5563, // 深灰色
+                transparent: true,
+                opacity: 0.8
             });
             const floor = new THREE.Mesh(floorGeometry, floorMaterial);
             floor.rotation.x = -Math.PI / 2;
             floor.position.y = 0.01;
-            scene.add(floor);
+            container.add(floor);
+
+            // 8. 集装箱标识牌
+            const labelGeometry = new THREE.PlaneGeometry(1.5, 0.5);
+            const labelMaterial = new THREE.MeshLambertMaterial({ 
+                color: 0xffffff
+            });
+            const label = new THREE.Mesh(labelGeometry, labelMaterial);
+            label.position.set(0, spec.height * 0.8, spec.width/2 + 0.01);
+            container.add(label);
+
+            // 添加集装箱编号文字
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 300;
+            canvas.height = 100;
+            
+            context.fillStyle = '#ffffff';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle = '#000000';
+            context.font = 'bold 24px Arial';
+            context.textAlign = 'center';
+            context.fillText(containerType, canvas.width / 2, 35);
+            context.font = '16px Arial';
+            context.fillText(`${spec.length}×${spec.width}×${spec.height}m`, canvas.width / 2, 65);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const textMaterial = new THREE.MeshBasicMaterial({ map: texture });
+            const textLabel = new THREE.Mesh(labelGeometry, textMaterial);
+            textLabel.position.set(0, spec.height * 0.8, spec.width/2 + 0.02);
+            container.add(textLabel);
+
+            // 9. 侧面加强筋
+            const ribGeometry = new THREE.BoxGeometry(0.05, spec.height * 0.8, 0.05);
+            const ribMaterial = new THREE.MeshLambertMaterial({ color: 0x1e3a8a });
+            
+            // 左侧加强筋
+            for (let i = 0; i < 3; i++) {
+                const rib = new THREE.Mesh(ribGeometry, ribMaterial);
+                rib.position.set(-spec.length/2 + (i + 1) * spec.length/4, spec.height/2, spec.width/2 + 0.01);
+                container.add(rib);
+            }
+            
+            // 右侧加强筋
+            for (let i = 0; i < 3; i++) {
+                const rib = new THREE.Mesh(ribGeometry, ribMaterial);
+                rib.position.set(-spec.length/2 + (i + 1) * spec.length/4, spec.height/2, -spec.width/2 - 0.01);
+                container.add(rib);
+            }
+
+            container.position.y = 0;
+            scene.add(container);
         }
 
         // 检查空间是否被占用
