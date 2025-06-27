@@ -497,7 +497,10 @@
             // 创建集装箱
             createContainer();
 
-            // 设置拖拽事件
+            // 生成货物列表
+            generateCargoList();
+
+            // 设置拖拽事件（必须在货物列表生成之后）
             setupDragAndDrop();
 
             // 设置点击事件
@@ -505,9 +508,6 @@
 
             // 设置鼠标悬停事件
             setupHoverEvents();
-
-            // 生成货物列表
-            generateCargoList();
 
             // 开始渲染循环
             animate();
@@ -647,32 +647,92 @@
             floor.position.y = 0.01;
             container.add(floor);
 
-            // 8. 集装箱标识牌
-            const labelGeometry = new THREE.PlaneGeometry(1.5, 0.5);
-            const labelMaterial = new THREE.MeshLambertMaterial({ 
-                color: 0xffffff
-            });
-            const label = new THREE.Mesh(labelGeometry, labelMaterial);
-            label.position.set(0, spec.height * 0.8, spec.width/2 + 0.01);
-            container.add(label);
-
-            // 添加集装箱编号文字
+            // 8. 集装箱标识牌（美化版）
+            const labelGeometry = new THREE.PlaneGeometry(2.0, 0.8);
+            
+            // 创建美化的标识牌
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
-            canvas.width = 300;
-            canvas.height = 100;
+            canvas.width = 400;
+            canvas.height = 160;
             
-            context.fillStyle = '#ffffff';
+            // 绘制渐变背景
+            const gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#f8fafc');
+            gradient.addColorStop(0.5, '#e2e8f0');
+            gradient.addColorStop(1, '#cbd5e1');
+            context.fillStyle = gradient;
             context.fillRect(0, 0, canvas.width, canvas.height);
-            context.fillStyle = '#000000';
-            context.font = 'bold 24px Arial';
+            
+            // 绘制边框
+            context.strokeStyle = '#1e40af';
+            context.lineWidth = 4;
+            context.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+            
+            // 绘制内边框
+            context.strokeStyle = '#3b82f6';
+            context.lineWidth = 2;
+            context.strokeRect(8, 8, canvas.width - 16, canvas.height - 16);
+            
+            // 添加装饰线条
+            context.strokeStyle = '#1e40af';
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(20, 50);
+            context.lineTo(canvas.width - 20, 50);
+            context.moveTo(20, 110);
+            context.lineTo(canvas.width - 20, 110);
+            context.stroke();
+            
+            // 绘制主标题
+            context.fillStyle = '#1e40af';
+            context.font = 'bold 28px Arial';
             context.textAlign = 'center';
             context.fillText(containerType, canvas.width / 2, 35);
+            
+            // 生成集装箱编号
+            const containerNumber = `CSLU${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`;
+            context.fillStyle = '#374151';
+            context.font = 'bold 20px "Courier New", monospace';
+            context.fillText(containerNumber, canvas.width / 2, 70);
+            
+            // 绘制尺寸信息
+            context.fillStyle = '#4b5563';
             context.font = '16px Arial';
-            context.fillText(`${spec.length}×${spec.width}×${spec.height}m`, canvas.width / 2, 65);
+            context.fillText(`尺寸: ${spec.length}×${spec.width}×${spec.height}m`, canvas.width / 2, 95);
+            
+            // 绘制容积信息
+            const volume = (spec.length * spec.width * spec.height).toFixed(1);
+            context.fillStyle = '#6b7280';
+            context.font = '14px Arial';
+            context.fillText(`容积: ${volume}m³`, canvas.width / 2, 125);
+            
+            // 添加小图标装饰
+            context.fillStyle = '#3b82f6';
+            context.beginPath();
+            context.arc(30, 30, 8, 0, Math.PI * 2);
+            context.fill();
+            context.beginPath();
+            context.arc(canvas.width - 30, 30, 8, 0, Math.PI * 2);
+            context.fill();
+            
+            // 添加底部装饰条
+            const bottomGradient = context.createLinearGradient(0, canvas.height - 20, 0, canvas.height);
+            bottomGradient.addColorStop(0, '#1e40af');
+            bottomGradient.addColorStop(1, '#3b82f6');
+            context.fillStyle = bottomGradient;
+            context.fillRect(0, canvas.height - 20, canvas.width, 20);
+            
+            // 在底部条上添加文字
+            context.fillStyle = '#ffffff';
+            context.font = 'bold 12px Arial';
+            context.fillText('CONTAINER LOADING SYSTEM', canvas.width / 2, canvas.height - 8);
             
             const texture = new THREE.CanvasTexture(canvas);
-            const textMaterial = new THREE.MeshBasicMaterial({ map: texture });
+            const textMaterial = new THREE.MeshBasicMaterial({ 
+                map: texture,
+                transparent: true
+            });
             const textLabel = new THREE.Mesh(labelGeometry, textMaterial);
             textLabel.position.set(0, spec.height * 0.8, spec.width/2 + 0.02);
             container.add(textLabel);
