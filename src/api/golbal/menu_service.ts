@@ -101,6 +101,9 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "测试页面", key: "demo",path: "/demo",
         },
+        {
+            name: "集装箱装箱", key: "container_loading",path: "/container-loading",
+        },
 
     ]
 },

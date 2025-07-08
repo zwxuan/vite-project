@@ -37,7 +37,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BusinessPartner,
   ParterDetail,
   InternalAgentSettlement,
-  PartnerPerformance} from "./imports";
+  PartnerPerformance,
+  ContainerLoadingDemo} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -53,6 +54,13 @@ const routers = createMemoryRouter([
         handle: { title: '测试' },
         element: (
             <Demo />
+          )
+      },
+      {
+        path: "/container-loading",
+        handle: { title: '集装箱装箱' },
+        element: (
+            <ContainerLoadingDemo />
           )
       },
       {
