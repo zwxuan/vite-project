@@ -38,7 +38,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   ParterDetail,
   InternalAgentSettlement,
   PartnerPerformance,
-  ContainerLoadingDemo} from "./imports";
+  ContainerLoadingDemo,
+  Home} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -49,6 +50,14 @@ const routers = createMemoryRouter([
         <AppLayout />
       </RouterGuard>),
     children: [
+      {
+        index: true,
+        element: (
+          <RouterGuard>
+            <Home />
+          </RouterGuard>
+        )
+      },
       {
         path: "/demo",
         handle: { title: '测试' },

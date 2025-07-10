@@ -18,11 +18,12 @@ export const Scene3D: React.FC<Scene3DProps> = ({
   const [hoveredContainer, setHoveredContainer] = useState<number | null>(null);
 
   // 计算集装箱位置 - 确保整体居中在地面中心点
-  const containerSpacing = 8; // 减小间距适应地面大小
+  const containerSpacing = 15; // 增加集装箱间距，避免紧贴
   const containersPerRow = 3;
   const containerCount = packingResult?.containers.length || 0;
   const totalRows = Math.ceil(containerCount / containersPerRow);
-  
+
+  // 先计算集装箱位置
   const containerPositions = packingResult?.containers.map((container, index) => {
     const row = Math.floor(index / containersPerRow);
     const col = index % containersPerRow;
@@ -47,10 +48,45 @@ export const Scene3D: React.FC<Scene3DProps> = ({
     
     return {
       x,
-      y: container.height / 2, // 确保集装箱在地面以上
+      y: container.height / 2 + 0.1, // 确保集装箱底部在地面以上，添加0.1米间隙
       z
     };
   }) || [];
+
+  // 动态计算地面和网格大小，确保包含所有安全标线
+  const calculateGroundSize = () => {
+    if (containerCount === 0 || !packingResult?.containerType) {
+      return 25; // 减小默认大小
+    }
+
+    const containerType = packingResult.containerType;
+    
+    // 计算所有集装箱位置的边界
+    const positions = containerPositions;
+    if (positions.length === 0) {
+      return 25;
+    }
+    
+    const minX = Math.min(...positions.map(pos => pos.x - containerType.length / 2));
+    const maxX = Math.max(...positions.map(pos => pos.x + containerType.length / 2));
+    const minZ = Math.min(...positions.map(pos => pos.z - containerType.width / 2));
+    const maxZ = Math.max(...positions.map(pos => pos.z + containerType.width / 2));
+
+    // 优化安全标线的额外范围计算
+    const safetyLineExtension = Math.max(containerSpacing / 2, 2); // 减小安全标线延伸范围
+    const centralLineLength = 20; // 大幅减小中央导向线长度
+    
+    // 计算包含安全标线的总范围，减少额外边距
+    const totalWidth = maxX - minX + safetyLineExtension * 2 + 5; // 减少额外边距
+    const totalDepth = maxZ - minZ + safetyLineExtension * 2 + 5;
+    
+    // 确保地面能包含中央导向线，但不过度扩展
+    const minSizeForCentralLine = Math.max(centralLineLength + 5, 25);
+    
+    return Math.max(totalWidth, totalDepth, minSizeForCentralLine); // 取最大值确保包含所有元素
+  };
+
+  const dynamicGroundSize = calculateGroundSize();
 
   return (
     <Canvas
@@ -100,8 +136,12 @@ export const Scene3D: React.FC<Scene3DProps> = ({
         dampingFactor={0.05}
       />
       
-      {/* 混凝土地面 - 调整大小 */}
-      <ConcreteGround size={30} />
+      {/* 混凝土地面 - 动态调整大小 */}
+      <ConcreteGround 
+        containerPositions={containerPositions}
+        containerType={packingResult?.containerType}
+        containerSpacing={containerSpacing}
+      />
       
       {/* 安全标线 */}
       <SafetyMarkings 
@@ -109,10 +149,10 @@ export const Scene3D: React.FC<Scene3DProps> = ({
         containerSpacing={containerSpacing}
       />
       
-      {/* 可选网格 - 调整大小 */}
+      {/* 可选网格 - 极简设计，几乎不可见 */}
       {showGrid && (
         <gridHelper 
-          args={[30, Math.floor(30/2), '#999999', '#cccccc']} 
+          args={[dynamicGroundSize, Math.floor(dynamicGroundSize/4), 'rgba(248,248,248,0.3)', 'rgba(252,252,252,0.1)']} 
           position={[0, 0.01, 0]} 
         />
       )}
@@ -126,7 +166,7 @@ export const Scene3D: React.FC<Scene3DProps> = ({
           <group key={containerIndex}>
             {/* 集装箱基础平台 - 参考原始组件样式 */}
             <mesh 
-              position={[position.x, 0.02, position.z]}
+              position={[position.x, 0.05, position.z]}
               onPointerEnter={() => setHoveredContainer(containerIndex)}
               onPointerLeave={() => setHoveredContainer(null)}
             >
@@ -141,7 +181,7 @@ export const Scene3D: React.FC<Scene3DProps> = ({
             </mesh>
             
             {/* 集装箱编号标识 - 参考原始组件样式 */}
-            <mesh position={[position.x, 0.06, position.z - container.width/2 - 0.5]}>
+            <mesh position={[position.x, 0.1, position.z - container.width/2 - 0.5]}>
               <planeGeometry args={[1, 0.3]} />
               <meshBasicMaterial color="#2196F3" />
             </mesh>

@@ -117,8 +117,9 @@ const ParterDetail = React.lazy(() => import("@/pages/basic_manage/business_part
 const InternalAgentSettlement = React.lazy(() => import("@/pages/cost_manage/internal_agent_settlement"));
 const PartnerPerformance = React.lazy(() => import("@/pages/basic_manage/partner_performance"));
 const ContainerLoadingDemo = React.lazy(() => import("@/pages/system_manage/container_loading/demo"));
+const Home = React.lazy(() => import("@/layout/home"));
 export {
-  Demo,ContainerLoadingDemo,
+  Demo,ContainerLoadingDemo,Home,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagement,ExportLog,ImportLog,Login,
   SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,

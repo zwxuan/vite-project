@@ -131,22 +131,28 @@ export const Container3D: React.FC<Container3DProps> = ({
       
       {/* 集装箱详细信息提示 - 悬停时显示 */}
       {isHovered && (
-        <group position={[0, containerType.height/2 + 2.2, 0]}>
+        <group position={[0, containerType.height/2 - 0.2, 0]}>
           {/* 主背景卡片 - 现代化设计 */}
           <Html position={[0, 0, 0.1]} transform>
             <div style={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              borderRadius: '12px',
-              padding: '12px',
-              minWidth: '240px',
-              maxWidth: '280px',
-              boxShadow: '0 12px 24px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              backdropFilter: 'blur(10px)',
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%)',
+              borderRadius: '16px',
+              padding: '16px',
+              minWidth: '260px',
+              maxWidth: '300px',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3)',
+              border: '2px solid rgba(255,255,255,0.3)',
+              backdropFilter: 'blur(20px) saturate(180%)',
               userSelect: 'none',
-              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              transform: 'translateY(-50%) scale(0.85)',
-              transformOrigin: 'center'
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif',
+              transform: 'translateY(-50%) scale(0.95)',
+              transformOrigin: 'center',
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+              textRendering: 'optimizeLegibility',
+              WebkitBackfaceVisibility: 'hidden',
+              backfaceVisibility: 'hidden',
+              willChange: 'transform'
             }}>
               {/* 标题区域 */}
               <div style={{
@@ -158,24 +164,28 @@ export const Container3D: React.FC<Container3DProps> = ({
                 borderBottom: '1px solid rgba(255,255,255,0.2)'
               }}>
                 <div style={{
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  color: '#ffffff',
-                  textShadow: '0 1px 2px rgba(0,0,0,0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                }}>
-                  <span style={{
-                    display: 'inline-block',
-                    width: '18px',
-                    height: '18px',
-                    background: 'rgba(255,255,255,0.2)',
-                    borderRadius: '4px',
+                    fontSize: '18px',
+                    fontWeight: '800',
+                    color: '#ffffff',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.3)',
+                    letterSpacing: '0.5px',
+                    display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '12px'
-                  }}>📦</span>
+                    gap: '8px',
+                    filter: 'contrast(1.1) brightness(1.05)'
+                  }}>
+                  <span style={{
+                      display: 'inline-flex',
+                      width: '20px',
+                      height: '20px',
+                      background: 'rgba(255,255,255,0.25)',
+                      borderRadius: '6px',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '14px',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                      filter: 'brightness(1.2)'
+                    }}>📦</span>
                   {`集装箱 #${containerIndex + 1}`}
                 </div>
               </div>
@@ -188,119 +198,138 @@ export const Container3D: React.FC<Container3DProps> = ({
               }}>
                 {/* 类型信息 */}
                 <div style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  borderRadius: '8px',
-                  padding: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  gridColumn: '1 / -1'
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  gridColumn: '1 / -1',
+                  boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.1)'
                 }}>
                   <div style={{
-                    fontSize: '10px',
-                    color: 'rgba(255,255,255,0.8)',
-                    marginBottom: '2px',
-                    fontWeight: '500'
+                    fontSize: '12px',
+                    color: 'rgba(255,255,255,0.95)',
+                    marginBottom: '4px',
+                    fontWeight: '700',
+                    letterSpacing: '0.3px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
                   }}>🏷️ 类型</div>
                   <div style={{
-                    fontSize: '13px',
+                    fontSize: '15px',
                     color: '#ffffff',
-                    fontWeight: '600'
+                    fontWeight: '800',
+                    letterSpacing: '0.3px',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                    filter: 'contrast(1.1)'
                   }}>{containerType.name}</div>
                 </div>
                 
                 {/* 尺寸信息 */}
                 <div style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  borderRadius: '8px',
-                  padding: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.1)'
                 }}>
                   <div style={{
-                    fontSize: '10px',
-                    color: 'rgba(255,255,255,0.8)',
-                    marginBottom: '2px',
-                    fontWeight: '500'
+                    fontSize: '12px',
+                    color: 'rgba(255,255,255,0.95)',
+                    marginBottom: '4px',
+                    fontWeight: '700',
+                    letterSpacing: '0.3px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
                   }}>📏 尺寸</div>
                   <div style={{
-                    fontSize: '11px',
+                    fontSize: '13px',
                     color: '#ffffff',
-                    fontWeight: '600'
+                    fontWeight: '800',
+                    letterSpacing: '0.2px',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                    filter: 'contrast(1.1)'
                   }}>{`${containerType.length.toFixed(1)}×${containerType.width.toFixed(1)}×${containerType.height.toFixed(1)}m`}</div>
                 </div>
                 
                 {/* 载重信息 */}
                 <div style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  borderRadius: '8px',
-                  padding: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.1)'
                 }}>
                   <div style={{
-                    fontSize: '10px',
-                    color: 'rgba(255,255,255,0.8)',
-                    marginBottom: '2px',
-                    fontWeight: '500'
+                    fontSize: '12px',
+                    color: 'rgba(255,255,255,0.95)',
+                    marginBottom: '4px',
+                    fontWeight: '700',
+                    letterSpacing: '0.3px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
                   }}>⚖️ 载重</div>
                   <div style={{
-                    fontSize: '11px',
+                    fontSize: '13px',
                     color: '#ffffff',
-                    fontWeight: '600'
+                    fontWeight: '800',
+                    letterSpacing: '0.2px',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                    filter: 'contrast(1.1)'
                   }}>{`${containerType.maxWeight.toLocaleString('zh-CN')} kg`}</div>
                 </div>
                 
                 {/* 成本信息 */}
                 <div style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  borderRadius: '8px',
-                  padding: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.1)'
                 }}>
                   <div style={{
-                    fontSize: '10px',
-                    color: 'rgba(255,255,255,0.8)',
-                    marginBottom: '2px',
-                    fontWeight: '500'
+                    fontSize: '12px',
+                    color: 'rgba(255,255,255,0.95)',
+                    marginBottom: '4px',
+                    fontWeight: '700',
+                    letterSpacing: '0.3px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
                   }}>💰 成本</div>
                   <div style={{
-                    fontSize: '11px',
+                    fontSize: '13px',
                     color: '#ffffff',
-                    fontWeight: '600'
+                    fontWeight: '800',
+                    letterSpacing: '0.2px',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                    filter: 'contrast(1.1)'
                   }}>{`¥${containerType.cost.toLocaleString('zh-CN')}`}</div>
                 </div>
                 
                 {/* 货物数量 */}
                 <div style={{
-                  background: 'rgba(255,255,255,0.15)',
-                  borderRadius: '8px',
-                  padding: '8px',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,0.1)'
                 }}>
                   <div style={{
-                    fontSize: '10px',
-                    color: 'rgba(255,255,255,0.8)',
-                    marginBottom: '2px',
-                    fontWeight: '500'
+                    fontSize: '12px',
+                    color: 'rgba(255,255,255,0.95)',
+                    marginBottom: '4px',
+                    fontWeight: '700',
+                    letterSpacing: '0.3px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
                   }}>📦 货物</div>
                   <div style={{
-                    fontSize: '11px',
+                    fontSize: '13px',
                     color: '#ffffff',
-                    fontWeight: '600'
+                    fontWeight: '800',
+                    letterSpacing: '0.2px',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                    filter: 'contrast(1.1)'
                   }}>{`${containerItems.length} 件`}</div>
                 </div>
               </div>
               
               {/* 底部装饰 */}
-              <div style={{
-                marginTop: '10px',
-                paddingTop: '8px',
-                borderTop: '1px solid rgba(255,255,255,0.2)',
-                textAlign: 'center'
-              }}>
-                <div style={{
-                  fontSize: '9px',
-                  color: 'rgba(255,255,255,0.7)',
-                  fontWeight: '500'
-                }}>悬停查看详细信息</div>
-              </div>
+              
             </div>
           </Html>
         </group>

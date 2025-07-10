@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card, Statistic, Row, Col, Progress, Tag, Space, Divider } from 'antd';
-import { ContainerOutlined, BoxPlotOutlined, DollarOutlined, PercentageOutlined } from '@ant-design/icons';
+import { ContainerOutlined, BoxPlotOutlined, DollarOutlined, PercentageOutlined, SettingOutlined } from '@ant-design/icons';
 import { PackingResult } from '../../types';
+import { PACKING_ALGORITHMS, PACKING_MODES } from '../../constants';
 
 interface PackingResultsProps {
   packingResult: PackingResult | null;
@@ -29,8 +30,14 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
     totalCost,
     totalVolume,
     totalWeight,
-    utilizationRate
+    utilizationRate,
+    algorithm,
+    mode
   } = packingResult;
+
+  // 获取算法和模式的显示名称
+  const algorithmInfo = PACKING_ALGORITHMS.find(alg => alg.value === algorithm);
+  const modeInfo = PACKING_MODES.find(m => m.value === mode);
 
   const packedCount = packedItems.length;
   const unpackedCount = unpackedItems.length;
@@ -39,6 +46,27 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
 
   return (
     <Card title="装箱结果" style={{ marginTop: 16 }}>
+      {/* 配置信息 */}
+      <Card size="small" title={<><SettingOutlined /> 装箱配置</>} style={{ marginBottom: 16, background: '#fafafa' }}>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Tag color="blue" style={{ marginBottom: 4 }}>
+              算法: {algorithmInfo?.label || algorithm}
+            </Tag>
+            <div style={{ fontSize: 12, color: '#666' }}>
+              {algorithmInfo?.description}
+            </div>
+          </Col>
+          <Col span={12}>
+            <Tag color="green" style={{ marginBottom: 4 }}>
+              模式: {modeInfo?.label || mode}
+            </Tag>
+            <div style={{ fontSize: 12, color: '#666' }}>
+              {modeInfo?.description}
+            </div>
+          </Col>
+        </Row>
+      </Card>
       {/* 总体统计 */}
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} md={6}>
@@ -53,7 +81,6 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
           <Statistic
             title="总成本"
             value={totalCost}
-            prefix={<DollarOutlined />}
             suffix="¥"
             valueStyle={{ color: '#52c41a' }}
             formatter={(value) => `${Number(value).toLocaleString('zh-CN')}`}
@@ -63,7 +90,6 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
           <Statistic
             title="利用率"
             value={utilizationRate}
-            prefix={<PercentageOutlined />}
             suffix="%"
             valueStyle={{ color: '#722ed1' }}
             precision={1}
@@ -73,7 +99,6 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
           <Statistic
             title="装箱成功率"
             value={packingSuccessRate}
-            prefix={<BoxPlotOutlined />}
             suffix="%"
             valueStyle={{ color: packingSuccessRate >= 80 ? '#52c41a' : packingSuccessRate >= 60 ? '#faad14' : '#ff4d4f' }}
             precision={1}

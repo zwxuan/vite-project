@@ -1,4 +1,10 @@
 .container-loading {
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: 24px;
+  padding-bottom: 48px;
+  box-sizing: border-box;
+  
   .ant-card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -129,20 +135,69 @@
     display: flex;
     gap: 24px;
     align-items: flex-start;
+    min-height: calc(100vh - 200px);
   }
 
   .left-panel {
-    flex: 0 0 380px;
-    min-width: 350px;
+    flex: 0 0 420px;
+    min-width: 400px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    padding-right: 8px;
+    
+    /* 自定义滚动条样式 */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+      
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
   }
 
   .right-panel {
     flex: 1;
     min-width: 0;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    
+    /* 自定义滚动条样式 */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+      
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
     
     .action-bar {
       margin-bottom: 16px;
       text-align: right;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+      padding: 8px 0;
       
       .calculate-btn {
         min-width: 200px;
@@ -167,16 +222,24 @@
     .main-layout {
       flex-direction: column;
       gap: 16px;
+      min-height: auto;
     }
     
     .left-panel {
       flex: none;
       width: 100%;
+      max-height: none;
+      overflow-y: visible;
+      padding-right: 0;
     }
     
     .right-panel {
+      max-height: none;
+      overflow-y: visible;
+      
       .action-bar {
         text-align: center;
+        position: static;
         
         .calculate-btn {
           width: 100%;

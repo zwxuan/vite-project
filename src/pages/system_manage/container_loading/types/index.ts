@@ -8,6 +8,24 @@ export interface ContainerType {
   cost: number;
 }
 
+// 装箱算法类型
+export type PackingAlgorithmType = 'greedy' | 'genetic' | 'simulated' | 'hybrid' | 'multi-container';
+
+// 成本优化策略类型
+export type CostOptimizationStrategy = 'min_containers' | 'min_cost' | 'max_utilization' | 'none';
+
+// 装箱模式类型
+export type PackingModeType = 'single_container' | 'multi_container';
+
+// 装箱配置
+export interface PackingConfig {
+  containerType?: ContainerType;
+  algorithm: PackingAlgorithmType;
+  mode: PackingModeType;
+  allowMultipleContainers: boolean;
+  costOptimizationStrategy?: CostOptimizationStrategy;
+}
+
 // 货物定义
 export interface Cargo {
   id: string;
@@ -32,6 +50,8 @@ export interface PackingResult {
   totalVolume: number;
   totalWeight: number;
   utilizationRate: number;
+  algorithm: PackingAlgorithmType;
+  mode: PackingModeType;
 }
 
 // 已装箱物品
@@ -67,7 +87,10 @@ export interface Container3DProps {
 
 // 地面组件属性
 export interface ConcreteGroundProps {
-  size: number;
+  size?: number;
+  containerPositions?: ContainerPosition[];
+  containerType?: ContainerType;
+  containerSpacing?: number;
 }
 
 // 安全标线组件属性

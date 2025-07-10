@@ -8,8 +8,10 @@ import './ContainerLoading.less';
 
 // 导入拆分后的模块
 import { Scene3D } from './components/3d';
-import { CargoForm, CargoTable, PackingResults } from './components/ui';
+import { CargoForm, CargoTable, PackingResults, PackingConfigComponent } from './components/ui';
 import { useCargoManagement, usePackingCalculation } from './hooks';
+import { PackingConfig } from './types';
+import { DEFAULT_PACKING_CONFIG } from './constants';
 
 
 
@@ -24,6 +26,9 @@ import { useCargoManagement, usePackingCalculation } from './hooks';
 
 
 const ContainerLoading: React.FC = () => {
+  // 装箱配置状态
+  const [packingConfig, setPackingConfig] = useState<PackingConfig>(DEFAULT_PACKING_CONFIG);
+
   // 使用自定义hooks
   const {
     cargos,
@@ -39,10 +44,15 @@ const ContainerLoading: React.FC = () => {
      calculatePacking
    } = usePackingCalculation();
 
+  // 处理装箱计算
+  const handleCalculatePacking = () => {
+    calculatePacking(cargos, cargoNameColors, packingConfig);
+  };
+
 
 
   return (
-    <div className="container-loading" style={{ padding: '24px' }}>
+    <div className="container-loading">
       <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px' }}>集装箱可视化装箱系统</h1>
       
       <div className="main-layout">
@@ -57,12 +67,34 @@ const ContainerLoading: React.FC = () => {
                getCargoColor={getCargoColor}
              />
           </Card>
+
+          {/* 装箱配置 */}
+          <PackingConfigComponent 
+            config={packingConfig}
+            onChange={setPackingConfig}
+          />
         </div>
 
         {/* 右侧：3D可视化和装箱结果 */}
         <div className="right-panel">
           {/* 操作按钮区域 */}
-          
+          <div className="action-bar">
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlayCircleOutlined />}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleCalculatePacking();
+              }}
+              disabled={cargos.length === 0}
+              loading={isCalculating}
+              className="calculate-btn"
+            >
+              {isCalculating ? '计算中...' : '开始装箱计算'}
+            </Button>
+          </div>
 
           {/* 3D可视化 */}
           <Card title="3D可视化" className="scene-3d" style={{ marginBottom: '16px' }}>
@@ -77,26 +109,6 @@ const ContainerLoading: React.FC = () => {
           </Card>
 
           {/* 装箱结果 */}
-          
-        </div>
-        <div className="left-panel">
-              <div className="action-bar">
-            <Button
-              type="primary"
-              size="large"
-              icon={<PlayCircleOutlined />}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                calculatePacking(cargos, cargoNameColors);
-              }}
-              disabled={cargos.length === 0}
-              loading={isCalculating}
-              className="calculate-btn"
-            >
-              {isCalculating ? '计算中...' : '开始装箱计算'}
-            </Button>
-          </div>
           <PackingResults packingResult={packingResult} />
         </div>
       </div>

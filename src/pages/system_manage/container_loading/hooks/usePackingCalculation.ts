@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Cargo, PackingResult } from '../types';
+import { Cargo, PackingResult, PackingConfig } from '../types';
 import { PackingAlgorithm } from '../algorithms/PackingAlgorithm';
 
 /**
@@ -14,9 +14,9 @@ export const usePackingCalculation = () => {
   const [isCalculating, setIsCalculating] = useState(false);
 
   // 计算装箱
-  const calculatePacking = useCallback(async (cargos: Cargo[], cargoNameColors?: Record<string, string>) => {
+  const calculatePacking = useCallback(async (cargos: Cargo[], cargoNameColors?: Record<string, string>, config?: PackingConfig) => {
     if (cargos.length === 0) {
-      message.warning(t('container_loading.no_cargo_warning'));
+      message.warning('请先添加货物');
       return;
     }
 
@@ -26,31 +26,31 @@ export const usePackingCalculation = () => {
       // 模拟异步计算过程
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      const result = PackingAlgorithm.calculateBestPacking(cargos, cargoNameColors);
+      const result = PackingAlgorithm.calculateBestPacking(cargos, cargoNameColors, config);
       
       setPackingResult(result);
       
       if (!result) {
-        message.error(t('container_loading.packing_failed'));
+        message.error('装箱计算失败');
       } else if (result.packedItems.length === 0) {
-        message.error(t('container_loading.packing_failed'));
+        message.error('装箱计算失败，无法装载任何货物');
       } else if (result.unpackedItems.length > 0) {
+        const totalCargos = cargos.reduce((sum, cargo) => sum + cargo.quantity, 0);
+        const packedCount = result.packedItems.length;
+        const unpackedCount = totalCargos - packedCount;
         message.warning(
-          t('container_loading.partial_packing_warning', {
-            packed: result.packedItems.length,
-            unpacked: result.unpackedItems.length
-          })
+          `装箱完成，已装载 ${packedCount} 件货物，未装载 ${unpackedCount} 件货物`
         );
       } else {
-        message.success(t('container_loading.packing_success'));
+        message.success('装箱计算完成，所有货物已成功装载');
       }
     } catch (error) {
       console.error('Packing calculation error:', error);
-      message.error(t('container_loading.packing_error'));
+      message.error('装箱计算过程中发生错误');
     } finally {
       setIsCalculating(false);
     }
-  }, [t]);
+  }, []);
 
   // 清空装箱结果
   const clearPackingResult = useCallback(() => {
@@ -58,9 +58,9 @@ export const usePackingCalculation = () => {
   }, []);
 
   // 重新计算装箱
-  const recalculatePacking = useCallback(async (cargos: Cargo[], cargoNameColors?: Record<string, string>) => {
+  const recalculatePacking = useCallback(async (cargos: Cargo[], cargoNameColors?: Record<string, string>, config?: PackingConfig) => {
     clearPackingResult();
-    await calculatePacking(cargos, cargoNameColors);
+    await calculatePacking(cargos, cargoNameColors, config);
   }, [calculatePacking, clearPackingResult]);
 
   return {
