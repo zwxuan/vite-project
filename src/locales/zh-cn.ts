@@ -95,6 +95,14 @@ export const cn = {
         income:"收入",
         expenditure:"支出",
     },
+    container_loading: {
+        type: "类型",
+        size: "尺寸",
+        weight: "载重",
+        cost: "成本",
+        cargo: "货物",
+        pieces: "件"
+    },
     order_fee:{
         settlementcompany:"结算公司",
         feename:"费用名称",

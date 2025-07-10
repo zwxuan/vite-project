@@ -125,22 +125,35 @@
     }
   }
 
+  .main-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
   .left-panel {
+    flex: 0 0 380px;
     min-width: 350px;
-    max-width: 400px;
-    float: left;
   }
 
   .right-panel {
-    min-height: 600px;
-    min-width: 800px;
-    margin-left: 10px;
-    float:left;
+    flex: 1;
+    min-width: 0;
+    
+    .action-bar {
+      margin-bottom: 16px;
+      text-align: right;
+      
+      .calculate-btn {
+        min-width: 200px;
+      }
+    }
+    
     .scene-3d {
-      height: 600px;
+      height: 500px;
       
       .ant-card-body {
-        height: 550px;
+        height: 420px;
         padding: 16px;
         
         > div:last-child {
@@ -150,23 +163,34 @@
     }
   }
 
-  @media (max-width: 1024px) {
-    .flex {
+  @media (max-width: 1200px) {
+    .main-layout {
       flex-direction: column;
+      gap: 16px;
     }
     
-    .w-1\/3 {
+    .left-panel {
+      flex: none;
       width: 100%;
     }
     
-    .cargo-form {
-      .grid {
-        grid-template-columns: 1fr;
+    .right-panel {
+      .action-bar {
+        text-align: center;
+        
+        .calculate-btn {
+          width: 100%;
+          max-width: 400px;
+        }
       }
-    }
-    
-    .scene-3d {
-      height: 400px !important;
+      
+      .scene-3d {
+        height: 400px;
+        
+        .ant-card-body {
+          height: 320px;
+        }
+      }
     }
   }
 
@@ -180,6 +204,16 @@
     .container-info {
       .grid {
         grid-template-columns: 1fr;
+      }
+    }
+    
+    .right-panel {
+      .scene-3d {
+        height: 300px;
+        
+        .ant-card-body {
+          height: 220px;
+        }
       }
     }
   }
