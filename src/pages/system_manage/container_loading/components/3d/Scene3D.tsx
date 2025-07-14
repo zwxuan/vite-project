@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Grid } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
+import * as THREE from 'three';
 import { Container3D } from './Container3D';
 import { ConcreteGround } from './ConcreteGround';
 import { SafetyMarkings } from './SafetyMarkings';
@@ -149,10 +150,10 @@ export const Scene3D: React.FC<Scene3DProps> = ({
         containerSpacing={containerSpacing}
       />
       
-      {/* 可选网格 - 极简设计，几乎不可见 */}
+      {/* 可选网格 - 浅色设计 */}
       {showGrid && (
         <gridHelper 
-          args={[dynamicGroundSize, Math.floor(dynamicGroundSize/4), 'rgba(248,248,248,0.3)', 'rgba(252,252,252,0.1)']} 
+          args={[dynamicGroundSize, Math.floor(dynamicGroundSize/4), '#E8E8E8', '#d1c6c6']} 
           position={[0, 0.01, 0]} 
         />
       )}

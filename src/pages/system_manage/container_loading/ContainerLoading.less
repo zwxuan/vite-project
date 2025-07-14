@@ -1,9 +1,28 @@
 .container-loading {
-  min-height: 100vh;
-  overflow-y: auto;
-  padding: 24px;
-  padding-bottom: 48px;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 2px 24px;
+  padding-bottom: 88px;
   box-sizing: border-box;
+  
+  /* 自定义滚动条样式 */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
   
   .ant-card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -13,7 +32,7 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border-radius: 8px 8px 0 0;
-      
+      min-height: 36px;
       .ant-card-head-title {
         color: white;
         font-weight: 600;
@@ -77,15 +96,9 @@
   }
 
   .calculate-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    height: 48px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
-    
-    &:hover {
-      background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-    }
   }
 
   .container-info {
@@ -166,7 +179,7 @@
           &.ant-tag {
             margin-right: 0;
             width: 100%;
-            text-align: center;
+            text-align: left;
             padding: 2px 6px;
           }
         }
@@ -208,54 +221,12 @@
   .left-panel {
     flex: 0 0 420px;
     min-width: 400px;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
     padding-right: 8px;
-    
-    /* 自定义滚动条样式 */
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 3px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
-      border-radius: 3px;
-      
-      &:hover {
-        background: #a8a8a8;
-      }
-    }
   }
 
   .right-panel {
     flex: 1;
     min-width: 0;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-    
-    /* 自定义滚动条样式 */
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 3px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
-      border-radius: 3px;
-      
-      &:hover {
-        background: #a8a8a8;
-      }
-    }
     
     .action-bar {
       margin-bottom: 16px;
@@ -272,10 +243,10 @@
     }
     
     .scene-3d {
-      height: 500px;
+      height: 800px;
       
       .ant-card-body {
-        height: 420px;
+        height: 720px;
         padding: 16px;
         
         > div:last-child {
@@ -295,14 +266,10 @@
     .left-panel {
       flex: none;
       width: 100%;
-      max-height: none;
-      overflow-y: visible;
       padding-right: 0;
     }
     
     .right-panel {
-      max-height: none;
-      overflow-y: visible;
       
       .action-bar {
         text-align: center;

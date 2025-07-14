@@ -71,8 +71,6 @@ const ContainerLoading: React.FC = () => {
 
   return (
     <div className="container-loading">
-      <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px' }}>集装箱可视化装箱系统</h1>
-      
       <div className="main-layout">
         {/* 左侧：装箱配置和货物列表 */}
         <div className="left-panel">
@@ -108,10 +106,12 @@ const ContainerLoading: React.FC = () => {
         {/* 右侧：3D可视化和装箱结果 */}
         <div className="right-panel">
           {/* 操作按钮区域 */}
-          <div className="action-bar">
-            <Button
+
+          {/* 3D可视化 */}
+          <Card title="3D可视化" className="scene-3d" style={{ marginBottom: '16px' }}
+            extra={ 
+              <Button
               type="primary"
-              size="large"
               icon={<PlayCircleOutlined />}
               onClick={(e) => {
                 e.preventDefault();
@@ -124,11 +124,9 @@ const ContainerLoading: React.FC = () => {
             >
               {isCalculating ? '计算中...' : '开始装箱计算'}
             </Button>
-          </div>
-
-          {/* 3D可视化 */}
-          <Card title="3D可视化" className="scene-3d" style={{ marginBottom: '16px' }}>
-            <div style={{ textAlign: 'center', color: '#999', marginBottom: '8px' }}>
+             }
+          >
+            <div style={{ textAlign: 'left', color: '#999', marginBottom: '8px' }}>
               鼠标左键旋转 | 滚轮缩放 | 右键平移 | 悬停查看集装箱详情
             </div>
 

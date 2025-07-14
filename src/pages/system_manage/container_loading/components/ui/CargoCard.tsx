@@ -34,7 +34,6 @@ export const CargoCard: React.FC<CargoCardProps> = ({
           <Card
             size="small"
             className="cargo-card"
-            bodyStyle={{ padding: '12px 16px' }}
             actions={[
               <Popconfirm
                 title="确定要删除这个货物吗？"
@@ -54,19 +53,20 @@ export const CargoCard: React.FC<CargoCardProps> = ({
             ]}
           >
             <div className="cargo-card-content">
-              <div className="cargo-header">
-                <Space>
+              <div className="cargo-header" style={{ textAlign: 'left', marginBottom: '6px' }}>
+                <Space align="start" style={{ justifyContent: 'flex-start', width: '100%' }}>
                   <div
                     className="cargo-color-indicator"
                     style={{
-                      width: 16,
-                      height: 16,
+                      width: 20,
+                      height: 20,
                       backgroundColor: getCargoColor(cargo.id),
                       borderRadius: 2,
-                      border: '1px solid #d9d9d9'
+                      border: '1px solid #d9d9d9',
+                      flexShrink: 0
                     }}
                   />
-                  <span className="cargo-name">{cargo.name}</span>
+                  <span className="cargo-name" style={{ fontWeight: 'bold', fontSize: '14px' }}>{cargo.name}</span>
                 </Space>
               </div>
               
@@ -74,22 +74,22 @@ export const CargoCard: React.FC<CargoCardProps> = ({
                 <Row gutter={[8, 4]}>
                   <Col span={12}>
                     <Tag color="blue" className="detail-tag">
-                      📏 {cargo.length} × {cargo.width} × {cargo.height} m
+                      📏 尺寸: {cargo.length} × {cargo.width} × {cargo.height} m
                     </Tag>
                   </Col>
                   <Col span={12}>
                     <Tag color="green" className="detail-tag">
-                      ⚖️ {cargo.weight.toLocaleString('zh-CN')} kg
+                      ⚖️ 重量: {cargo.weight.toLocaleString('zh-CN')} kg
                     </Tag>
                   </Col>
                   <Col span={12}>
                     <Tag color="purple" className="detail-tag">
-                      📦 {cargo.quantity} 件
+                      📦 数量: {cargo.quantity} 件
                     </Tag>
                   </Col>
                   <Col span={12}>
                     <Tag color="orange" className="detail-tag">
-                      📐 {(cargo.length * cargo.width * cargo.height).toFixed(2)} m³
+                      📐 体积: {(cargo.length * cargo.width * cargo.height).toFixed(2)} m³
                     </Tag>
                   </Col>
                 </Row>

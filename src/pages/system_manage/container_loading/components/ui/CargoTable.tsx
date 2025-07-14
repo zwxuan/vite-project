@@ -23,56 +23,58 @@ export const CargoTable: React.FC<CargoTableProps> = ({
       title: '货物名称',
       dataIndex: 'name',
       key: 'name',
+      align: 'left' as const,
       render: (text: string, record: Cargo) => (
-        <Space>
+        <Space align="start" style={{ justifyContent: 'flex-start', width: '100%' }}>
           <div
             style={{
               width: 16,
               height: 16,
               backgroundColor: getCargoColor(record.id),
               borderRadius: 2,
-              border: '1px solid #d9d9d9'
+              border: '1px solid #d9d9d9',
+              flexShrink: 0
             }}
           />
-          {text}
+          <span style={{ textAlign: 'left' }}>{text}</span>
         </Space>
       ),
     },
     {
-      title: '尺寸',
+      title: '尺寸 (长×宽×高)',
       key: 'dimensions',
       render: (record: Cargo) => (
         <Tag color="blue">
-          {`${record.length} × ${record.width} × ${record.height} m`}
+          📏 {`${record.length} × ${record.width} × ${record.height} m`}
         </Tag>
       ),
     },
     {
-      title: '重量',
+      title: '重量 (千克)',
       dataIndex: 'weight',
       key: 'weight',
       render: (weight: number) => (
         <Tag color="green">
-          {`${weight.toLocaleString('zh-CN')} kg`}
+          ⚖️ {`${weight.toLocaleString('zh-CN')} kg`}
         </Tag>
       ),
     },
     {
-      title: '数量',
+      title: '数量 (件)',
       dataIndex: 'quantity',
       key: 'quantity',
       render: (quantity: number) => (
         <Tag color="purple">
-          {`${quantity} 件`}
+          📦 {`${quantity} 件`}
         </Tag>
       ),
     },
     {
-      title: '体积',
+      title: '体积 (立方米)',
       key: 'volume',
       render: (record: Cargo) => (
         <Tag color="orange">
-          {`${(record.length * record.width * record.height).toFixed(2)} m³`}
+          📐 {`${(record.length * record.width * record.height).toFixed(2)} m³`}
         </Tag>
       ),
     },
