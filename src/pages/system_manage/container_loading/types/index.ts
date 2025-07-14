@@ -24,6 +24,7 @@ export interface PackingConfig {
   mode: PackingModeType;
   allowMultipleContainers: boolean;
   costOptimizationStrategy?: CostOptimizationStrategy;
+  gap?: number; // 货物间隙，单位：米，默认0.05米(5cm)
 }
 
 // 货物定义

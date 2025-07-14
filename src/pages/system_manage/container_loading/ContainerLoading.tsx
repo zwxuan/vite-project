@@ -8,7 +8,7 @@ import './ContainerLoading.less';
 
 // 导入拆分后的模块
 import { Scene3D } from './components/3d';
-import { CargoForm, CargoTable, PackingResults, PackingConfigComponent } from './components/ui';
+import { CargoForm, CargoTable, CargoCard, CargoModal, PackingResults, PackingConfigComponent } from './components/ui';
 import { useCargoManagement, usePackingCalculation } from './hooks';
 import { PackingConfig } from './types';
 import { DEFAULT_PACKING_CONFIG } from './constants';
@@ -28,6 +28,8 @@ import { DEFAULT_PACKING_CONFIG } from './constants';
 const ContainerLoading: React.FC = () => {
   // 装箱配置状态
   const [packingConfig, setPackingConfig] = useState<PackingConfig>(DEFAULT_PACKING_CONFIG);
+  // 模态窗口状态
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // 使用自定义hooks
   const {
@@ -49,6 +51,22 @@ const ContainerLoading: React.FC = () => {
     calculatePacking(cargos, cargoNameColors, packingConfig);
   };
 
+  // 处理添加货物
+  const handleAddCargo = (cargo: any) => {
+    addCargo(cargo);
+    message.success('货物添加成功！');
+  };
+
+  // 显示添加货物模态窗口
+  const showAddCargoModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // 隐藏添加货物模态窗口
+  const hideAddCargoModal = () => {
+    setIsModalVisible(false);
+  };
+
 
 
   return (
@@ -56,23 +74,35 @@ const ContainerLoading: React.FC = () => {
       <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px' }}>集装箱可视化装箱系统</h1>
       
       <div className="main-layout">
-        {/* 左侧：货物管理和货物列表 */}
+        {/* 左侧：装箱配置和货物列表 */}
         <div className="left-panel">
-          <CargoForm onAddCargo={addCargo} />
-          
-          <Card title="货物列表" style={{ marginBottom: '16px' }}>
-            <CargoTable 
-               cargos={cargos} 
-               onDeleteCargo={deleteCargo}
-               getCargoColor={getCargoColor}
-             />
-          </Card>
-
           {/* 装箱配置 */}
           <PackingConfigComponent 
             config={packingConfig}
             onChange={setPackingConfig}
           />
+          
+          {/* 货物列表 */}
+          <Card 
+            title="货物列表" 
+            style={{ marginBottom: '16px' }}
+            extra={
+              <Button 
+                type="primary" 
+                icon={<PlusOutlined />} 
+                onClick={showAddCargoModal}
+                size="small"
+              >
+                添加货物
+              </Button>
+            }
+          >
+            <CargoCard 
+               cargos={cargos} 
+               onDeleteCargo={deleteCargo}
+               getCargoColor={getCargoColor}
+             />
+          </Card>
         </div>
 
         {/* 右侧：3D可视化和装箱结果 */}
@@ -112,6 +142,13 @@ const ContainerLoading: React.FC = () => {
           <PackingResults packingResult={packingResult} />
         </div>
       </div>
+
+      {/* 添加货物模态窗口 */}
+      <CargoModal
+        visible={isModalVisible}
+        onCancel={hideAddCargoModal}
+        onAddCargo={handleAddCargo}
+      />
     </div>
   );
 };

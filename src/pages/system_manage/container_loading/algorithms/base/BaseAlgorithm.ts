@@ -46,7 +46,7 @@ export abstract class BaseAlgorithm {
     let currentX = 0, currentY = 0, currentZ = 0;
     let maxHeightInLayer = 0;
     let maxWidthInRow = 0;
-    const gap = 0.05; // 5cm间隙
+    const gap = packingConfig.gap || 0.05; // 货物间隙，默认5cm
 
     for (const cargo of sortedCargos) {
       for (let i = 0; i < cargo.quantity; i++) {

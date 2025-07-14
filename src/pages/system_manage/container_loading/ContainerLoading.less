@@ -131,6 +131,73 @@
     }
   }
 
+  // 货物卡片样式
+  .cargo-card {
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: #1890ff;
+      box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+    }
+    
+    .cargo-card-content {
+      .cargo-header {
+        margin-bottom: 12px;
+        
+        .cargo-name {
+          font-weight: 600;
+          font-size: 14px;
+          color: #333;
+        }
+        
+        .cargo-color-indicator {
+          flex-shrink: 0;
+        }
+      }
+      
+      .cargo-details {
+        .detail-tag {
+          margin-bottom: 4px;
+          font-size: 12px;
+          border-radius: 4px;
+          
+          &.ant-tag {
+            margin-right: 0;
+            width: 100%;
+            text-align: center;
+            padding: 2px 6px;
+          }
+        }
+      }
+    }
+    
+    .ant-card-actions {
+      background: #fafafa;
+      border-top: 1px solid #f0f0f0;
+      
+      li {
+        margin: 0;
+        
+        &:not(:last-child) {
+          border-right: 1px solid #f0f0f0;
+        }
+      }
+    }
+  }
+
+  // 模态窗口表单样式
+  .cargo-modal-form {
+    .ant-form-item {
+      margin-bottom: 16px;
+    }
+    
+    .ant-input-number {
+      width: 100%;
+    }
+  }
+
   .main-layout {
     display: flex;
     gap: 24px;

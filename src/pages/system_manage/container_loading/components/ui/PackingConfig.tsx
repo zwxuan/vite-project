@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Select, Radio, Tooltip } from 'antd';
+import { Card, Form, Select, Radio, Tooltip, InputNumber } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { PackingConfig, ContainerType, PackingAlgorithmType, PackingModeType, CostOptimizationStrategy } from '../../types';
 import { CONTAINER_TYPES, PACKING_ALGORITHMS, PACKING_MODES, COST_OPTIMIZATION_STRATEGIES } from '../../constants';
@@ -37,6 +37,13 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
     onChange({
       ...config,
       costOptimizationStrategy: value
+    });
+  };
+
+  const handleGapChange = (value: number | null) => {
+    onChange({
+      ...config,
+      gap: value || 0.05
     });
   };
 
@@ -167,6 +174,32 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
               </Select.Option>
             ))}
           </Select>
+        </Form.Item>
+
+        <Form.Item 
+          label={
+            <span>
+              货物间隙设置
+              <Tooltip title="设置货物之间的安全间隙，单位为米，建议值0.03-0.1米">
+                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
+              </Tooltip>
+            </span>
+          }
+        >
+          <InputNumber
+            value={config.gap || 0.05}
+            onChange={handleGapChange}
+            min={0.01}
+            max={0.5}
+            step={0.01}
+            precision={2}
+            placeholder="请输入间隙值"
+            addonAfter="米"
+            style={{ width: '100%' }}
+          />
+          <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+            当前设置：{((config.gap || 0.05) * 100).toFixed(0)}cm 间隙
+          </div>
         </Form.Item>
       </Form>
     </Card>
