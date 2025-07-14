@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
-import { Button, Card, Form, Input, InputNumber, Table, Space, message, Divider } from 'antd';
+import { Button, Card, Form, Input, InputNumber, Table, Space, message, Divider, Tooltip } from 'antd';
 import { PlusOutlined, DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import * as THREE from 'three';
 import './ContainerLoading.less';
@@ -108,7 +108,18 @@ const ContainerLoading: React.FC = () => {
           {/* 操作按钮区域 */}
 
           {/* 3D可视化 */}
-          <Card title="3D可视化" className="scene-3d" style={{ marginBottom: '16px' }}
+          <Card title={<Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>操作说明</b></span>鼠标左键旋转 | 滚轮缩放 | 右键平移 | 悬停查看集装箱详情。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>3D可视化 
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>} className="scene-3d" style={{ marginBottom: '6px' }}
             extra={ 
               <Button
               type="primary"
@@ -126,10 +137,6 @@ const ContainerLoading: React.FC = () => {
             </Button>
              }
           >
-            <div style={{ textAlign: 'left', color: '#999', marginBottom: '8px' }}>
-              鼠标左键旋转 | 滚轮缩放 | 右键平移 | 悬停查看集装箱详情
-            </div>
-
             <Scene3D 
               packingResult={packingResult} 
               showGrid={true}

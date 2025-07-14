@@ -50,7 +50,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
   return (
     <Card title="装箱配置" style={{ marginBottom: '16px' }}>
       <Form layout="vertical">
-        <Form.Item 
+        <Form.Item style={{padding:'4px'}}
           label={
             <span>
               集装箱规格选择
@@ -74,7 +74,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           </Select>
         </Form.Item>
 
-        <Form.Item 
+        <Form.Item  style={{padding:'4px'}}
           label={
             <span>
               装箱算法选择
@@ -113,7 +113,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           </Select>
         </Form.Item>
 
-        <Form.Item 
+        <Form.Item  style={{padding:'4px'}}
           label={
             <span>
               装箱模式选择
@@ -128,7 +128,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
             onChange={(e) => handleModeChange(e.target.value)}
           >
             {PACKING_MODES.map(mode => (
-              <Radio.Button key={mode.value} value={mode.value}>
+              <Radio.Button key={mode.value} value={mode.value} style={{height:'22px',lineHeight:'22px'}}>
                 <Tooltip title={mode.description}>
                   {mode.label}
                 </Tooltip>
@@ -137,7 +137,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item 
+        <Form.Item  style={{padding:'4px'}}
           label={
             <span>
               成本优化策略
@@ -176,7 +176,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           </Select>
         </Form.Item>
 
-        <Form.Item 
+        <Form.Item  style={{padding:'4px'}}
           label={
             <span>
               货物间隙设置
