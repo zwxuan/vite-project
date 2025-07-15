@@ -22,8 +22,6 @@ export const Container3D: React.FC<Container3DProps> = ({
     <group position={position}>
       {/* 集装箱框架 */}
       <mesh 
-        castShadow={false} 
-        receiveShadow
         onPointerEnter={(event) => {
           event.stopPropagation();
           onHover(true);
@@ -47,7 +45,7 @@ export const Container3D: React.FC<Container3DProps> = ({
       {/* 集装箱边框 */}
       <lineSegments>
         <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
-        <lineBasicMaterial color="#2C2C2C" linewidth={3} />
+        <lineBasicMaterial color="#2C2C2C" linewidth={4} />
       </lineSegments>
       
       {/* 集装箱底部 */}
@@ -178,7 +176,7 @@ export const Container3D: React.FC<Container3DProps> = ({
       ))} */}
       
       {/* 作业区域标记 - 圆形标记 */}
-      {[
+      {/* {[
         [-containerType.length/2 - 1, -containerType.height/2 + 0.01, -containerType.width/2 - 1],
         [containerType.length/2 + 1, -containerType.height/2 + 0.01, -containerType.width/2 - 1],
         [-containerType.length/2 - 1, -containerType.height/2 + 0.01, containerType.width/2 + 1],
@@ -188,7 +186,7 @@ export const Container3D: React.FC<Container3DProps> = ({
           <ringGeometry args={[0.2, 0.3, 8]} />
           <meshStandardMaterial color="#e60012" emissive="#e60012" emissiveIntensity={0.3} />
         </mesh>
-      ))}
+      ))} */}
       
       {/* 集装箱详细信息提示 - 悬停时显示 */}
       {isHovered && (
