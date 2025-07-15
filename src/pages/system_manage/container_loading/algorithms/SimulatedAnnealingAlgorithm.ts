@@ -7,10 +7,15 @@ import { BaseAlgorithm } from './base/BaseAlgorithm';
  * 平衡速度与质量的优化算法
  */
 export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
-  private readonly initialTemperature = 1000; // 初始温度
-  private readonly finalTemperature = 1; // 最终温度
-  private readonly coolingRate = 0.95; // 冷却率
-  private readonly maxIterationsPerTemp = 100; // 每个温度的最大迭代次数
+  private readonly initialTemperature = 100; // 初始温度（降低）
+  private readonly finalTemperature = 0.1; // 最终温度（提高）
+  private readonly coolingRate = 0.9; // 冷却率（加快冷却）
+  private readonly maxIterationsPerTemp = 50; // 每个温度的最大迭代次数（减少）
+  private readonly maxTotalIterations = 1000; // 总迭代次数限制
+  private readonly maxExecutionTime = 30000; // 最大执行时间（30秒）
+  
+  // 简单的结果缓存
+  private resultCache = new Map<string, PackingResult>();
 
   /**
    * 执行模拟退火算法
@@ -22,9 +27,22 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
   execute(cargos: Cargo[], cargoNameColors?: Record<string, string>, config?: PackingConfig): PackingResult | null {
     if (!cargos.length) return null;
 
+    const startTime = Date.now();
+    
+    // 生成缓存键
+    const cacheKey = this.generateCacheKey(cargos, config);
+    if (this.resultCache.has(cacheKey)) {
+      console.log('模拟退火算法：使用缓存结果');
+      return this.resultCache.get(cacheKey)!;
+    }
+
     // 如果指定了集装箱类型，直接使用
     if (config?.containerType) {
-      return this.optimizeWithSimulatedAnnealing(cargos, [config.containerType], cargoNameColors, config);
+      const result = this.optimizeWithSimulatedAnnealing(cargos, [config.containerType], cargoNameColors, config, startTime);
+      if (result) {
+        this.resultCache.set(cacheKey, result);
+      }
+      return result;
     }
 
     // 预检查：计算货物的最大高度，过滤掉高度不足的集装箱类型
@@ -45,7 +63,27 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
     }
 
     // 使用模拟退火算法优化可行的集装箱类型
-    return this.optimizeWithSimulatedAnnealing(cargos, feasibleContainerTypes, cargoNameColors, config);
+    const result = this.optimizeWithSimulatedAnnealing(cargos, feasibleContainerTypes, cargoNameColors, config, startTime);
+    if (result) {
+      this.resultCache.set(cacheKey, result);
+      // 限制缓存大小
+      if (this.resultCache.size > 50) {
+        const firstKey = this.resultCache.keys().next().value;
+        if (firstKey) {
+          this.resultCache.delete(firstKey);
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
+   * 生成缓存键
+   */
+  private generateCacheKey(cargos: Cargo[], config?: PackingConfig): string {
+    const cargoKey = cargos.map(c => `${c.id}-${c.quantity}`).sort().join(',');
+    const configKey = config?.containerType?.name || 'auto';
+    return `${cargoKey}-${configKey}`;
   }
 
   /**
@@ -55,14 +93,26 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
     cargos: Cargo[],
     containerTypes: any[],
     cargoNameColors?: Record<string, string>,
-    config?: PackingConfig
+    config?: PackingConfig,
+    startTime?: number
   ): PackingResult | null {
     let globalBestResult: PackingResult | null = null;
     let globalBestEnergy = Infinity;
 
-    // 对每种集装箱类型运行模拟退火算法
-    for (const containerType of containerTypes) {
-      const result = this.runSimulatedAnnealing(cargos, containerType, cargoNameColors, config);
+    // 优化：限制尝试的集装箱类型数量，优先选择性价比高的
+    const sortedContainerTypes = containerTypes
+      .sort((a, b) => (a.cost / a.volume) - (b.cost / b.volume))
+      .slice(0, Math.min(3, containerTypes.length)); // 最多尝试3种类型
+
+    // 对选定的集装箱类型运行模拟退火算法
+    for (const containerType of sortedContainerTypes) {
+      // 检查时间限制
+      if (startTime && Date.now() - startTime > this.maxExecutionTime) {
+        console.log('模拟退火算法：达到时间限制，提前结束');
+        break;
+      }
+      
+      const result = this.runSimulatedAnnealing(cargos, containerType, cargoNameColors, config, startTime);
       
       if (result) {
         const energy = this.calculateEnergy(result);
@@ -87,9 +137,10 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
     cargos: Cargo[],
     containerType: any,
     cargoNameColors?: Record<string, string>,
-    config?: PackingConfig
+    config?: PackingConfig,
+    startTime?: number
   ): PackingResult | null {
-    // 初始解：随机排序的货物
+    // 初始解：使用更好的启发式方法
     let currentSolution = this.generateInitialSolution(cargos);
     let currentResult = this.packIntoContainerType(currentSolution, containerType, cargoNameColors, config);
     
@@ -103,10 +154,21 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
     let bestEnergy = currentEnergy;
     
     let temperature = this.initialTemperature;
+    let totalIterations = 0;
+    let noImprovementCount = 0;
+    const maxNoImprovement = 200; // 连续无改进的最大次数
     
     // 模拟退火主循环
-    while (temperature > this.finalTemperature) {
-      for (let iteration = 0; iteration < this.maxIterationsPerTemp; iteration++) {
+    while (temperature > this.finalTemperature && totalIterations < this.maxTotalIterations) {
+      // 检查时间限制
+      if (startTime && Date.now() - startTime > this.maxExecutionTime) {
+        console.log('模拟退火算法：达到时间限制，提前结束主循环');
+        break;
+      }
+      
+      let tempIterations = 0;
+      
+      for (let iteration = 0; iteration < this.maxIterationsPerTemp && totalIterations < this.maxTotalIterations; iteration++) {
         // 生成邻域解
         const neighborSolution = this.generateNeighbor(currentSolution);
         const neighborResult = this.packIntoContainerType(neighborSolution, containerType, cargoNameColors, config);
@@ -128,13 +190,31 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
               bestSolution = [...currentSolution];
               bestResult = { ...currentResult };
               bestEnergy = currentEnergy;
+              noImprovementCount = 0; // 重置无改进计数
+            } else {
+              noImprovementCount++;
             }
+          } else {
+            noImprovementCount++;
           }
+        }
+        
+        totalIterations++;
+        tempIterations++;
+        
+        // 早停机制：如果连续很多次没有改进，提前结束
+        if (noImprovementCount >= maxNoImprovement) {
+          break;
         }
       }
       
       // 降温
       temperature *= this.coolingRate;
+      
+      // 如果连续无改进，提前结束外层循环
+      if (noImprovementCount >= maxNoImprovement) {
+        break;
+      }
     }
     
     return bestResult;

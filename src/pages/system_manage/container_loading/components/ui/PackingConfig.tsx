@@ -54,7 +54,15 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           label={
             <span>
               集装箱规格选择
-              <Tooltip title="选择特定的集装箱类型，或选择'自动选择'让系统根据算法自动选择最优规格">
+              <Tooltip title={
+                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                <li style={{ marginBottom: '10px' }}>选择特定的集装箱类型，或选择'自动选择'让系统根据算法自动选择最优规格。
+                                </li>
+                            </ol>
+                        </div>
+                    }
+                    color='white'>
                 <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
               </Tooltip>
             </span>
@@ -78,9 +86,26 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           label={
             <span>
               装箱算法选择
-              <Tooltip title="不同算法有不同的优化目标和策略">
-                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
-              </Tooltip>
+              <Tooltip
+                    title={
+                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>快速预览</b></span>贪心算法 + 单集装箱模式。
+                                </li>
+                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>精确装箱</b></span>遗传算法 + 多集装箱模式 + 最高空间利用率。
+                                </li>
+                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>平衡方案</b></span>混合算法 + 多集装箱模式 + 最低运输成本。
+                                </li>
+                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>大批量货物</b></span>多集装箱算法 + 多集装箱模式 + 最少集装箱数量。
+                                </li>
+                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>时间敏感</b></span>模拟退火算法 + 单集装箱模式 + 无优化策略。
+                                </li>
+                            </ol>
+                        </div>
+                    }
+                    color='white'>
+                    <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
+                </Tooltip>
             </span>
           }
         >
@@ -117,7 +142,15 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           label={
             <span>
               装箱模式选择
-              <Tooltip title="单集装箱模式只使用一个集装箱，多集装箱模式允许使用多个集装箱">
+              <Tooltip title={
+                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                <li style={{ marginBottom: '10px' }}>单集装箱模式只使用一个集装箱，多集装箱模式允许使用多个集装箱。
+                                </li>
+                            </ol>
+                        </div>
+                    }
+                    color='white'>
                 <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
               </Tooltip>
             </span>
@@ -141,7 +174,15 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           label={
             <span>
               成本优化策略
-              <Tooltip title="选择不同的成本优化策略来获得最佳的装箱方案">
+              <Tooltip title={
+                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                <li style={{ marginBottom: '10px' }}>选择不同的成本优化策略来获得最佳的装箱方案。
+                                </li>
+                            </ol>
+                        </div>
+                    }
+                    color='white'>
                 <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
               </Tooltip>
             </span>
@@ -180,7 +221,15 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           label={
             <span>
               货物间隙设置
-              <Tooltip title="设置货物之间的安全间隙，单位为米，建议值0.03-0.1米">
+              <Tooltip title={
+                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                <li style={{ marginBottom: '10px' }}>设置货物之间的安全间隙，单位为米，建议值0.03-0.1米。
+                                </li>
+                            </ol>
+                        </div>
+                    }
+                    color='white'>
                 <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
               </Tooltip>
             </span>

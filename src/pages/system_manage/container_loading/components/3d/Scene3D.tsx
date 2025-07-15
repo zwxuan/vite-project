@@ -101,10 +101,10 @@ export const Scene3D: React.FC<Scene3DProps> = ({
       style={{ background: 'linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 50%, #87CEEB 100%)' }}
     >
       {/* 光照系统 - 参考原始组件配置 */}
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={0.2} />
       <directionalLight
         position={[10, 20, 5]}
-        intensity={0.8}
+        intensity={1.2}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -116,8 +116,8 @@ export const Scene3D: React.FC<Scene3DProps> = ({
       />
       <pointLight 
         position={[5, 15, 5]} 
-        intensity={0.3}
-        castShadow 
+        intensity={0.0}
+        
       />
       
       {/* 相机控制 - 参考原始组件配置 */}

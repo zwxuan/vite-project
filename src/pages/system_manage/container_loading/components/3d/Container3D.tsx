@@ -45,7 +45,7 @@ export const Container3D: React.FC<Container3DProps> = ({
       {/* 集装箱边框 */}
       <lineSegments>
         <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
-        <lineBasicMaterial color="#2C2C2C" linewidth={4} />
+        <lineBasicMaterial color={isHovered ? "#e60012" : "#2C2C2C"} linewidth={4} />
       </lineSegments>
       
       {/* 集装箱底部 */}
@@ -410,8 +410,8 @@ export const Container3D: React.FC<Container3DProps> = ({
             <meshStandardMaterial 
               color={item.cargo.color || '#3182CE'} 
               transparent={false}
-              roughness={0.3}
-              metalness={0.1}
+              roughness={0.8}
+              metalness={0.0}
               depthTest={true}
               depthWrite={true}
               side={THREE.FrontSide}

@@ -16,11 +16,11 @@ export const CARGO_COLORS = [
 
 // 装箱算法选项
 export const PACKING_ALGORITHMS = [
-  { value: 'greedy' as PackingAlgorithmType, label: '贪心算法', description: '快速装箱，优先选择当前最优解' },
-  { value: 'genetic' as PackingAlgorithmType, label: '遗传算法', description: '全局优化，寻找最优装箱方案' },
-  { value: 'simulated' as PackingAlgorithmType, label: '模拟退火算法', description: '平衡速度与质量的优化算法' },
-  { value: 'hybrid' as PackingAlgorithmType, label: '混合算法', description: '结合多种算法优势的推荐方案' },
-  { value: 'multi-container' as PackingAlgorithmType, label: '多集装箱优化算法', description: '智能选择多种集装箱类型组合' }
+  { value: 'greedy' as PackingAlgorithmType, label: '贪心算法', description: '快速装箱，优先选择当前最优解，货物种类相对简单，数量不太多的场景' },
+  { value: 'genetic' as PackingAlgorithmType, label: '遗传算法', description: '全局优化，寻找最优装箱方案，货物种类多样、装箱复杂度高的场景' },
+  { value: 'simulated' as PackingAlgorithmType, label: '模拟退火算法', description: '平衡速度与质量的优化算法，需要平衡计算速度和结果质量的场景' },
+  { value: 'hybrid' as PackingAlgorithmType, label: '混合算法', description: '结合多种算法优势的推荐方案，复杂的综合性装箱场景' },
+  { value: 'multi-container' as PackingAlgorithmType, label: '多集装箱优化算法', description: '智能选择多种集装箱类型组合，货物总量超过单个集装箱容量' }
 ];
 
 // 成本优化策略选项
