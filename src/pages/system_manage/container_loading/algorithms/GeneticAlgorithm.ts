@@ -27,8 +27,25 @@ export class GeneticAlgorithm extends BaseAlgorithm {
       return this.optimizeWithGenetic(cargos, [config.containerType], cargoNameColors, config);
     }
 
-    // 使用遗传算法优化所有集装箱类型
-    return this.optimizeWithGenetic(cargos, CONTAINER_TYPES, cargoNameColors, config);
+    // 预检查：计算货物的最大高度，过滤掉高度不足的集装箱类型
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+    
+    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      if (!canFitSingleCargo) {
+        console.log(`遗传算法：集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+      }
+      return canFitSingleCargo;
+    });
+    
+    if (feasibleContainerTypes.length === 0) {
+      console.warn('遗传算法：没有找到能够容纳货物高度的集装箱类型');
+      return null;
+    }
+
+    // 使用遗传算法优化可行的集装箱类型
+    return this.optimizeWithGenetic(cargos, feasibleContainerTypes, cargoNameColors, config);
   }
 
   /**

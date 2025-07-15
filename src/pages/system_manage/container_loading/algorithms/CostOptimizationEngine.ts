@@ -51,6 +51,10 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let minContainers = Infinity;
 
+    // 预检查：计算货物的最大高度和可能的堆叠层数
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+    
     // 按体积从大到小排序集装箱类型，优先尝试大容器
     const sortedContainerTypes = [...CONTAINER_TYPES].sort((a, b) => {
       const volumeA = a.length * a.width * a.height;
@@ -58,7 +62,22 @@ export class CostOptimizationEngine {
       return volumeB - volumeA;
     });
 
-    for (const containerType of sortedContainerTypes) {
+    // 过滤掉高度不足的集装箱类型
+    const feasibleContainerTypes = sortedContainerTypes.filter(containerType => {
+      // 检查集装箱是否能容纳至少一个货物（考虑间隙）
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      if (!canFitSingleCargo) {
+        console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+      }
+      return canFitSingleCargo;
+    });
+
+    if (feasibleContainerTypes.length === 0) {
+      console.warn('没有找到能够容纳货物高度的集装箱类型');
+      return null;
+    }
+
+    for (const containerType of feasibleContainerTypes) {
       const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, {
         algorithm: config?.algorithm || 'greedy',
         mode: config?.mode || 'multi_container',
@@ -97,6 +116,10 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let minCost = Infinity;
 
+    // 预检查：计算货物的最大高度
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+
     // 按成本效益比排序（体积/成本）
     const sortedContainerTypes = [...CONTAINER_TYPES].sort((a, b) => {
       const efficiencyA = (a.length * a.width * a.height) / a.cost;
@@ -104,7 +127,21 @@ export class CostOptimizationEngine {
       return efficiencyB - efficiencyA;
     });
 
-    for (const containerType of sortedContainerTypes) {
+    // 过滤掉高度不足的集装箱类型
+    const feasibleContainerTypes = sortedContainerTypes.filter(containerType => {
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      if (!canFitSingleCargo) {
+        console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+      }
+      return canFitSingleCargo;
+    });
+
+    if (feasibleContainerTypes.length === 0) {
+      console.warn('没有找到能够容纳货物高度的集装箱类型');
+      return null;
+    }
+
+    for (const containerType of feasibleContainerTypes) {
       const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, {
         algorithm: config?.algorithm || 'greedy',
         mode: config?.mode || 'multi_container',
@@ -147,7 +184,25 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let maxUtilization = 0;
 
-    for (const containerType of CONTAINER_TYPES) {
+    // 预检查：计算货物的最大高度
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+
+    // 过滤掉高度不足的集装箱类型
+    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      if (!canFitSingleCargo) {
+        console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+      }
+      return canFitSingleCargo;
+    });
+
+    if (feasibleContainerTypes.length === 0) {
+      console.warn('没有找到能够容纳货物高度的集装箱类型');
+      return null;
+    }
+
+    for (const containerType of feasibleContainerTypes) {
       const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, config);
       
       if (result) {
@@ -219,7 +274,21 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let maxUtilization = 0;
 
-    for (const containerType of CONTAINER_TYPES) {
+    // 预检查：计算货物的最大高度
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+
+    // 过滤掉高度不足的集装箱类型
+    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      return canFitSingleCargo;
+    });
+
+    if (feasibleContainerTypes.length === 0) {
+      return null;
+    }
+
+    for (const containerType of feasibleContainerTypes) {
       const result = algorithm.packIntoContainerType(densitySortedCargos, containerType, cargoNameColors, config);
       
       if (result) {

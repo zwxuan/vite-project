@@ -27,8 +27,25 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
       return this.optimizeWithSimulatedAnnealing(cargos, [config.containerType], cargoNameColors, config);
     }
 
-    // 使用模拟退火算法优化所有集装箱类型
-    return this.optimizeWithSimulatedAnnealing(cargos, CONTAINER_TYPES, cargoNameColors, config);
+    // 预检查：计算货物的最大高度，过滤掉高度不足的集装箱类型
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+    
+    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      if (!canFitSingleCargo) {
+        console.log(`模拟退火算法：集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+      }
+      return canFitSingleCargo;
+    });
+    
+    if (feasibleContainerTypes.length === 0) {
+      console.warn('模拟退火算法：没有找到合适的集装箱类型，所有集装箱高度都不足以容纳货物');
+      return null;
+    }
+
+    // 使用模拟退火算法优化可行的集装箱类型
+    return this.optimizeWithSimulatedAnnealing(cargos, feasibleContainerTypes, cargoNameColors, config);
   }
 
   /**

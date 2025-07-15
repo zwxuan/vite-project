@@ -51,8 +51,10 @@ export interface PackingResult {
   totalVolume: number;
   totalWeight: number;
   utilizationRate: number;
+  spaceOccupancyRate?: number; // 实际空间占用率（包含间隙），单位：百分比
   algorithm: PackingAlgorithmType;
   mode: PackingModeType;
+  gap?: number; // 货物间隙，用于3D渲染时计算货物与集装箱内壁的距离
 }
 
 // 已装箱物品
@@ -84,11 +86,13 @@ export interface Container3DProps {
   containerIndex: number;
   isHovered: boolean;
   onHover: (hovered: boolean) => void;
+  gap?: number; // 货物间隙，用于计算货物与集装箱内壁的距离
 }
 
 // 地面组件属性
 export interface ConcreteGroundProps {
   size?: number;
+  position?: [number, number, number];
   containerPositions?: ContainerPosition[];
   containerType?: ContainerType;
   containerSpacing?: number;

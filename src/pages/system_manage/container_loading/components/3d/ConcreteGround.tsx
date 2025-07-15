@@ -50,8 +50,8 @@ export const ConcreteGround: React.FC<ConcreteGroundProps> = ({
       >
         <planeGeometry args={[groundSize, groundSize]} />
         <meshStandardMaterial 
-          color="#FEFEFE" 
-          roughness={0.98}
+          color="#FCFCFC" 
+          roughness={0.18}
           metalness={0.005}
           side={THREE.DoubleSide}
         />

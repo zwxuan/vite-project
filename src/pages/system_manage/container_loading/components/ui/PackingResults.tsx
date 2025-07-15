@@ -31,6 +31,7 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
     totalVolume,
     totalWeight,
     utilizationRate,
+    spaceOccupancyRate,
     algorithm,
     mode
   } = packingResult;
@@ -88,13 +89,25 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
         </Col>
         <Col xs={24} sm={12} md={6}>
           <Statistic
-            title="利用率"
+            title="理论利用率"
             value={utilizationRate}
             suffix="%"
             valueStyle={{ color: '#722ed1' }}
             precision={1}
           />
         </Col>
+        <Col xs={24} sm={12} md={6}>
+          <Statistic
+            title="实际占用率"
+            value={spaceOccupancyRate || utilizationRate}
+            suffix="%"
+            valueStyle={{ color: '#fa8c16' }}
+            precision={1}
+          />
+        </Col>
+      </Row>
+      
+      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
         <Col xs={24} sm={12} md={6}>
           <Statistic
             title="装箱成功率"

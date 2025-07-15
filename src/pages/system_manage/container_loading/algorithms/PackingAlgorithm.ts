@@ -26,7 +26,16 @@ export class PackingAlgorithm {
     if (packingConfig.containerType) {
       class SpecificContainerAlgorithm extends BaseAlgorithm {
         execute(cargos: Cargo[], cargoNameColors?: Record<string, string>, config?: PackingConfig): PackingResult | null {
-          return this.packIntoContainerType(cargos, packingConfig.containerType!, cargoNameColors, config);
+          const result = this.packIntoContainerType(cargos, packingConfig.containerType!, cargoNameColors, config);
+          
+          // 确保只有在有货物装载时才返回结果
+          if (result && result.packedItems.length > 0) {
+            console.log(`指定集装箱类型装载结果: ${result.containerCount}个${packingConfig.containerType!.name}，装载${result.packedItems.length}件货物`);
+            return result;
+          } else {
+            console.log(`指定集装箱类型装载失败: 无法装载任何货物`);
+            return null;
+          }
         }
       }
       const specificAlgorithm = new SpecificContainerAlgorithm();

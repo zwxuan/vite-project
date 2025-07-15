@@ -153,7 +153,7 @@ export const Scene3D: React.FC<Scene3DProps> = ({
       {/* 可选网格 - 浅色设计 */}
       {showGrid && (
         <gridHelper 
-          args={[dynamicGroundSize, Math.floor(dynamicGroundSize/4), '#E8E8E8', '#d1c6c6']} 
+          args={[dynamicGroundSize, 30, '#888888', '#CCCCCC']} 
           position={[0, 0.01, 0]} 
         />
       )}
@@ -165,27 +165,9 @@ export const Scene3D: React.FC<Scene3DProps> = ({
         
         return (
           <group key={containerIndex}>
-            {/* 集装箱基础平台 - 参考原始组件样式 */}
-            <mesh 
-              position={[position.x, 0.05, position.z]}
-              onPointerEnter={() => setHoveredContainer(containerIndex)}
-              onPointerLeave={() => setHoveredContainer(null)}
-            >
-              <boxGeometry args={[container.length + 0.2, 0.04, container.width + 0.2]} />
-              <meshStandardMaterial 
-                color={hoveredContainer === containerIndex ? "#66BB6A" : "#4CAF50"} 
-                transparent 
-                opacity={hoveredContainer === containerIndex ? 0.6 : 0.4}
-                roughness={0.3}
-                metalness={0.1}
-              />
-            </mesh>
             
-            {/* 集装箱编号标识 - 参考原始组件样式 */}
-            <mesh position={[position.x, 0.1, position.z - container.width/2 - 0.5]}>
-              <planeGeometry args={[1, 0.3]} />
-              <meshBasicMaterial color="#2196F3" />
-            </mesh>
+            
+            
             
             {/* Container3D 组件 */}
             <Container3D
@@ -195,6 +177,7 @@ export const Scene3D: React.FC<Scene3DProps> = ({
               containerIndex={containerIndex}
               isHovered={hoveredContainer === containerIndex}
               onHover={(hovered) => setHoveredContainer(hovered ? containerIndex : null)}
+              gap={packingResult.gap || 0.05}
             />
           </group>
         );

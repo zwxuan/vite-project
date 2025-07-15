@@ -9,6 +9,23 @@ export const getRandomColor = (): string => {
 };
 
 /**
+ * 根据货物名称获取一致的颜色
+ * @param cargoName 货物名称
+ * @returns 颜色值
+ */
+export const getConsistentColor = (cargoName: string): string => {
+  // 使用货物名称的哈希值来确保相同名称总是得到相同颜色
+  let hash = 0;
+  for (let i = 0; i < cargoName.length; i++) {
+    const char = cargoName.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // 转换为32位整数
+  }
+  const index = Math.abs(hash) % CARGO_COLORS.length;
+  return CARGO_COLORS[index];
+};
+
+/**
  * 生成唯一ID
  * @returns 唯一标识符
  */

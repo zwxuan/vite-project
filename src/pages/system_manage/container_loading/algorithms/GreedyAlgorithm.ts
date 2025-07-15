@@ -22,8 +22,25 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       return this.packIntoContainerType(cargos, config.containerType, cargoNameColors, config);
     }
 
-    // 贪心策略：按体积效率排序集装箱类型
-    const sortedContainerTypes = [...CONTAINER_TYPES].sort((a, b) => {
+    // 预检查：计算货物的最大高度，过滤掉高度不足的集装箱类型
+    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    const gap = 0.05; // 默认间隙
+    
+    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
+      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+      if (!canFitSingleCargo) {
+        console.log(`贪心算法：集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+      }
+      return canFitSingleCargo;
+    });
+    
+    if (feasibleContainerTypes.length === 0) {
+      console.warn('贪心算法：没有找到能够容纳货物高度的集装箱类型');
+      return null;
+    }
+
+    // 贪心策略：按体积效率排序可行的集装箱类型
+    const sortedContainerTypes = [...feasibleContainerTypes].sort((a, b) => {
       const efficiencyA = (a.length * a.width * a.height) / a.cost;
       const efficiencyB = (b.length * b.width * b.height) / b.cost;
       return efficiencyB - efficiencyA;

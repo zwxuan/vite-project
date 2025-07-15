@@ -13,7 +13,8 @@ export const Container3D: React.FC<Container3DProps> = ({
   packedItems, 
   containerIndex, 
   isHovered, 
-  onHover 
+  onHover,
+  gap = 0.05 // 默认5cm间隙
 }) => {
   const containerItems = packedItems.filter(item => item.containerIndex === containerIndex);
 
@@ -46,18 +47,16 @@ export const Container3D: React.FC<Container3DProps> = ({
       {/* 集装箱边框 */}
       <lineSegments>
         <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
-        <lineBasicMaterial color="#2C5282" linewidth={2} />
+        <lineBasicMaterial color="#2C2C2C" linewidth={3} />
       </lineSegments>
       
       {/* 集装箱底部 */}
       <mesh 
         position={[0, -containerType.height/2 + 0.05, 0]} 
-        castShadow 
-        receiveShadow
+        
       >
         <boxGeometry args={[containerType.length, 0.1, containerType.width]} />
         <meshStandardMaterial 
-          color="#2E86AB" 
           roughness={0.4}
           metalness={0.3}
         />
@@ -66,10 +65,7 @@ export const Container3D: React.FC<Container3DProps> = ({
       {/* 集装箱门 */}
       <mesh 
         position={[containerType.length/2 - 0.05, 0, 0]} 
-        castShadow 
-        receiveShadow
       >
-        <boxGeometry args={[0.1, containerType.height * 0.9, containerType.width * 0.9]} />
         <meshStandardMaterial 
           color="#2E86AB" 
           transparent 
@@ -79,32 +75,97 @@ export const Container3D: React.FC<Container3DProps> = ({
         />
       </mesh>
       
+      {/* 门把手 - 现实集装箱门把手形状 */}
+      <group position={[containerType.length/2 + 0.05, 0, -containerType.width/4]}>
+        {/* 门把手主体 - 长方形杆状 */}
+        <mesh 
+          position={[0, 0, 0]} 
+        >
+          <boxGeometry args={[0.08, 0.04, 0.25]} />
+          <meshStandardMaterial 
+            color="#2C2C2C" 
+            roughness={0.4}
+            metalness={0.8}
+          />
+        </mesh>
+        {/* 门把手支架 */}
+        <mesh 
+          position={[-0.03, 0, 0]} 
+          
+        >
+          <boxGeometry args={[0.02, 0.06, 0.3]} />
+          <meshStandardMaterial 
+            color="#1A1A1A" 
+            roughness={0.3}
+            metalness={0.9}
+          />
+        </mesh>
+      </group>
+      
+      <group position={[containerType.length/2 + 0.05, 0, containerType.width/4]}>
+        {/* 门把手主体 - 长方形杆状 */}
+        <mesh 
+          position={[0, 0, 0]} 
+        >
+          <boxGeometry args={[0.08, 0.04, 0.25]} />
+          <meshStandardMaterial 
+            color="#2C2C2C" 
+            roughness={0.4}
+            metalness={0.8}
+          />
+        </mesh>
+        {/* 门把手支架 */}
+        <mesh 
+          position={[-0.03, 0, 0]} 
+          
+        >
+          <boxGeometry args={[0.02, 0.06, 0.3]} />
+          <meshStandardMaterial 
+            color="#1A1A1A" 
+            roughness={0.3}
+            metalness={0.9}
+          />
+        </mesh>
+      </group>
+      
+      {/* 门缝线 */}
+      <mesh 
+        position={[containerType.length/2 + 0.005, 0, 0]} 
+      >
+        <boxGeometry args={[0.02, containerType.height * 0.9, 0.02]} />
+        <meshStandardMaterial 
+          color="#222222" 
+          roughness={0.8}
+          metalness={0.1}
+        />
+      </mesh>
+      
       {/* 集装箱角件 */}
       {[
         [-containerType.length/2, -containerType.height/2, -containerType.width/2],
         [containerType.length/2, -containerType.height/2, -containerType.width/2],
-        [-containerType.length/2, -containerType.height/2, containerType.width/2],
-        [containerType.length/2, -containerType.height/2, containerType.width/2],
         [-containerType.length/2, containerType.height/2, -containerType.width/2],
         [containerType.length/2, containerType.height/2, -containerType.width/2],
+        [-containerType.length/2, -containerType.height/2, containerType.width/2],
+        [containerType.length/2, -containerType.height/2, containerType.width/2],
         [-containerType.length/2, containerType.height/2, containerType.width/2],
         [containerType.length/2, containerType.height/2, containerType.width/2]
       ].map((pos, index) => (
-        <mesh key={index} position={pos as [number, number, number]} castShadow={false} receiveShadow>
-          <boxGeometry args={[0.2, 0.2, 0.2]} />
-          <meshStandardMaterial color="#1A365D" metalness={0.8} roughness={0.2} />
+        <mesh key={index} position={pos as [number, number, number]}>
+          <boxGeometry args={[0.15, 0.15, 0.15]} />
+          <meshStandardMaterial color="#666666" metalness={0.7} roughness={0.3} />
         </mesh>
       ))}
       
       {/* 黄色安全标线 - 地面四角 */}
-      {[
+      {/* L形安全标线 */}
+      {/* {[
         [-containerType.length/2, -containerType.height/2 + 0.01, -containerType.width/2],
         [containerType.length/2, -containerType.height/2 + 0.01, -containerType.width/2],
         [-containerType.length/2, -containerType.height/2 + 0.01, containerType.width/2],
         [containerType.length/2, -containerType.height/2 + 0.01, containerType.width/2]
       ].map((pos, index) => (
         <group key={`safety-${index}`} position={[pos[0], pos[1], pos[2]]}>
-          {/* L形安全标线 */}
           <mesh>
             <boxGeometry args={[0.8, 0.02, 0.05]} />
             <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.2} />
@@ -114,7 +175,7 @@ export const Container3D: React.FC<Container3DProps> = ({
             <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.2} />
           </mesh>
         </group>
-      ))}
+      ))} */}
       
       {/* 作业区域标记 - 圆形标记 */}
       {[
@@ -125,7 +186,7 @@ export const Container3D: React.FC<Container3DProps> = ({
       ].map((pos, index) => (
         <mesh key={`work-area-${index}`} position={[pos[0], pos[1], pos[2]]} rotation={[-Math.PI/2, 0, 0]}>
           <ringGeometry args={[0.2, 0.3, 8]} />
-          <meshStandardMaterial color="#FF6B35" emissive="#FF6B35" emissiveIntensity={0.3} />
+          <meshStandardMaterial color="#e60012" emissive="#e60012" emissiveIntensity={0.3} />
         </mesh>
       ))}
       
@@ -340,13 +401,13 @@ export const Container3D: React.FC<Container3DProps> = ({
         <group 
           key={`${item.cargo.id}-${index}`}
           position={[
-            item.x - containerType.length/2 + item.cargo.length/2,
-            -containerType.height/2 + item.y + item.cargo.height/2, // 从集装箱底部开始计算
-            item.z - containerType.width/2 + item.cargo.width/2
+            item.x - containerType.length/2 + item.cargo.length/2 + gap, // 添加与集装箱内壁的间隙
+            -containerType.height/2 + item.y + item.cargo.height/2 + gap, // 从集装箱底部开始计算，添加底部间隙
+            item.z - containerType.width/2 + item.cargo.width/2 + gap // 添加与集装箱内壁的间隙
           ]}
         >
           {/* 货物主体 */}
-          <mesh castShadow receiveShadow>
+          <mesh>
             <boxGeometry args={[item.cargo.length, item.cargo.height, item.cargo.width]} />
             <meshStandardMaterial 
               color={item.cargo.color || '#3182CE'} 

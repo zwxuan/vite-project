@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Cargo } from '../types';
-import { generateId, getRandomColor } from '../utils';
+import { generateId, getConsistentColor } from '../utils';
 
 /**
  * 货物管理自定义Hook
@@ -17,7 +17,7 @@ export const useCargoManagement = () => {
     // 为货物名称分配颜色（如果还没有的话）
     setCargoNameColors(prev => {
       if (!prev[baseCargoData.name]) {
-        return { ...prev, [baseCargoData.name]: getRandomColor() };
+        return { ...prev, [baseCargoData.name]: getConsistentColor(baseCargoData.name) };
       }
       return prev;
     });
@@ -43,7 +43,7 @@ export const useCargoManagement = () => {
       } else {
         // 如果不存在，创建新货物
         const id = generateId();
-        const color = cargoNameColors[baseCargoData.name] || getRandomColor();
+        const color = cargoNameColors[baseCargoData.name] || getConsistentColor(baseCargoData.name);
         
         const newCargo: Cargo = {
           ...baseCargoData,
@@ -103,7 +103,7 @@ export const useCargoManagement = () => {
       
       // 为新的货物名称分配颜色
       if (!cargoNameColors[cargoData.name] && !newNameColors[cargoData.name]) {
-        newNameColors[cargoData.name] = getRandomColor();
+        newNameColors[cargoData.name] = getConsistentColor(cargoData.name);
       }
       
       const color = cargoNameColors[cargoData.name] || newNameColors[cargoData.name];

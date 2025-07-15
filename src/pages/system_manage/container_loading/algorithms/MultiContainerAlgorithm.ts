@@ -122,7 +122,11 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
     // 方案4：智能分组
     plans.push(this.createIntelligentPlan(cargos, analysis));
     
-    return plans;
+    // 过滤掉空的分组方案
+    return plans.map(plan => ({
+      ...plan,
+      groups: plan.groups.filter(group => group.length > 0)
+    })).filter(plan => plan.groups.length > 0);
   }
 
   /**
@@ -389,8 +393,25 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
           bestContainerType = optimizedResult.containerType;
         }
       } else {
-        // 默认策略：尝试不同的集装箱类型
-        for (const containerType of CONTAINER_TYPES) {
+        // 默认策略：尝试不同的集装箱类型，但需要考虑高度限制
+        const maxCargoHeight = Math.max(...group.map(cargo => cargo.height));
+        const gap = 0.05; // 默认间隙
+        
+        // 过滤掉高度不足的集装箱类型
+        const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
+          const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
+          if (!canFitSingleCargo) {
+            console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+          }
+          return canFitSingleCargo;
+        });
+        
+        if (feasibleContainerTypes.length === 0) {
+          console.warn(`货物组高度超限，没有合适的集装箱类型`);
+          continue;
+        }
+        
+        for (const containerType of feasibleContainerTypes) {
           const groupResult = this.packIntoContainerType(
             group,
             containerType,
@@ -407,8 +428,14 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
         }
       }
       
-      if (bestGroupResult && bestContainerType) {
-        allPackedItems.push(...bestGroupResult.packedItems);
+      if (bestGroupResult && bestContainerType && bestGroupResult.packedItems.length > 0) {
+        // 重新调整containerIndex，确保连续性
+        const adjustedPackedItems = bestGroupResult.packedItems.map(item => ({
+          ...item,
+          containerIndex: item.containerIndex + containerCount
+        }));
+        
+        allPackedItems.push(...adjustedPackedItems);
         allUnpackedItems.push(...bestGroupResult.unpackedItems);
         totalCost += bestGroupResult.totalCost;
         totalVolume += bestGroupResult.totalVolume;
@@ -420,9 +447,12 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
           usedContainers.push(bestContainerType);
           totalContainerVolume += bestContainerType.length * bestContainerType.width * bestContainerType.height;
         }
+        
+        console.log(`货物组装载成功: 使用${bestGroupResult.containerCount}个${bestContainerType.name}集装箱，装载${bestGroupResult.packedItems.length}件货物，containerIndex范围: ${containerCount - bestGroupResult.containerCount} - ${containerCount - 1}`);
       } else {
         // 如果无法装载，将所有货物标记为未装载
         allUnpackedItems.push(...group);
+        console.log(`货物组装载失败: ${group.length}件货物无法装载`);
       }
     }
     
