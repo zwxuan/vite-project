@@ -67,6 +67,9 @@ import { AdvancedRuleConfigLocale } from './basic_manage/advanced_rule_config';
 import { KpiDefinitionLocale } from './basic_manage/kpi_definition';
 import { RuleKpiItemLocale } from './basic_manage/rule_kpi_item';
 import { KpiScoreReportLocale } from './basic_manage/kpi_score_report';
+import { CustomerLevelLocale } from './basic_manage/customer_level';
+import { CustomerTypeLocale } from './basic_manage/customer_type';
+import { CustomerIndustryLocale } from './basic_manage/customer_industry';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -76,6 +79,7 @@ export {
   BaseSettlementMethodLocale,BaseTradeLanesLocale,BaseTradeLanesGroupingLocale,BaseShipmentTypeLocale,BaseBusinessTypeLocale,BaseTransportationTermsLocale,BaseTradeTermsLocale,BaseFreightTermsLocale,BaseBillTermsLocale,
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
+  CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,
 };
 
 export default {
@@ -87,5 +91,5 @@ export default {
   ...BaseTaxRateLocale,...BaseSettlementMethodLocale,...BaseTradeLanesLocale,...BaseTradeLanesGroupingLocale,...BaseShipmentTypeLocale,...BaseBusinessTypeLocale,...BaseTransportationTermsLocale,...BaseTradeTermsLocale,
   ...BaseFreightTermsLocale,...BaseBillTermsLocale,...BaseContainerTeuLocale,...BaseCargoTypeLocale,...BaseContainerTypeLocale,...ContractsManageLocale,...BusinessPartnerLocale,...ContactLocale,
   ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
-  ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,
+  ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
 };

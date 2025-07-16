@@ -1565,5 +1565,23 @@ export const en = {
         autoscore: "Auto Score",
         manualcorrection: "Manual Adjust",
         finalscore: "Final Score"
-    }
+    },
+    customer_level:{
+        code:"Code",
+        chinesename:"CN Name",
+        englishname:"EN Name",
+        level:"Level",
+    },
+    customer_type:{
+        code:"Code",
+        chinesename:"CN Name",
+        englishname:"EN Name",
+        remark:"Remark",
+    },
+    customer_industry:{
+        code:"Code",
+        chinesename:"CN Name",
+        englishname:"EN Name",
+        remarks:"Remarks",
+    },
 };

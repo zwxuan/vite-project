@@ -116,10 +116,13 @@ const BusinessPartner = React.lazy(() => import("@/pages/basic_manage/business_p
 const ParterDetail = React.lazy(() => import("@/pages/basic_manage/business_partner/detail"));
 const InternalAgentSettlement = React.lazy(() => import("@/pages/cost_manage/internal_agent_settlement"));
 const PartnerPerformance = React.lazy(() => import("@/pages/basic_manage/partner_performance"));
-const ContainerLoadingDemo = React.lazy(() => import("@/pages/system_manage/container_loading/demo"));
+const ContainerLoading = React.lazy(() => import("@/pages/system_manage/container_loading/ContainerLoading"));
+const CustomerLevel = React.lazy(() => import("@/pages/basic_manage/dic_manage/customer_level"));
+const CustomerType = React.lazy(() => import("@/pages/basic_manage/dic_manage/customer_type"));
+const CustomerIndustry = React.lazy(() => import("@/pages/basic_manage/dic_manage/customer_industry"));
 const Home = React.lazy(() => import("@/layout/home"));
 export {
-  Demo,ContainerLoadingDemo,Home,
+  Demo,ContainerLoading,Home,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagement,ExportLog,ImportLog,Login,
   SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,
@@ -127,5 +130,6 @@ export {
   OutstandingReceivablesPayablesReport,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,
   AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseGoods,BaseSeaPort,BaseAirPort,BaseRailwayPort,BaseExchangeRate,BaseTaxRate,BaseSettlementMethod,
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
-  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,
+  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,
+
 };

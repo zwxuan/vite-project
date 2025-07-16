@@ -38,8 +38,11 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   ParterDetail,
   InternalAgentSettlement,
   PartnerPerformance,
-  ContainerLoadingDemo,
-  Home} from "./imports";
+  ContainerLoading,
+  Home,
+  CustomerLevel,
+  CustomerType,
+  CustomerIndustry} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -63,13 +66,6 @@ const routers = createMemoryRouter([
         handle: { title: '测试' },
         element: (
             <Demo />
-          )
-      },
-      {
-        path: "/container-loading",
-        handle: { title: '集装箱装箱' },
-        element: (
-            <ContainerLoadingDemo />
           )
       },
       {
@@ -278,6 +274,21 @@ const routers = createMemoryRouter([
             path: "partner_performance_rule",
             handle: { title: '绩效规则' },
             element: <PartnerPerformance />,
+          },
+          {
+            path: "customer_level",
+            handle: { title: '客户级别' },
+            element: <CustomerLevel />,
+          },
+          {
+            path: "customer_type",
+            handle: { title: '客户分类' },
+            element: <CustomerType />,
+          },
+          {
+            path: "customer_industry",
+            handle: { title: '客户行业' },
+            element: <CustomerIndustry />,
           },
         ]
       },
@@ -881,7 +892,26 @@ const routers = createMemoryRouter([
           },
         ]
       },
-
+      // 集成工具
+      {
+        path: "/container",
+        handle: { title: '集装箱' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "container-loading",
+            handle: { title: '集装箱装箱' },
+            element: (
+              <RouterGuard>
+                <ContainerLoading />
+              </RouterGuard>),
+          },
+        ]
+      },
       
     ], // 如果需要子路由，可以在这里添加
   },

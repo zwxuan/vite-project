@@ -41,6 +41,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "报表管理", key: "report_manage",
             },
+            {
+                name: "集成工具", key: "integration_tool",
+            },
         ]
     },
     {
@@ -101,8 +104,15 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "测试页面", key: "demo",path: "/demo",
         },
+    ]
+},
+{
+    title: "集装箱",
+    key: "container",
+    parentkey: "integration_tool",
+    apps: [
         {
-            name: "集装箱装箱", key: "container_loading",path: "/container-loading",
+            name: "集装箱装箱", key: "container_loading",path: "/container/container-loading",
         },
 
     ]
@@ -221,13 +231,13 @@ const childrenMenuData: MenuGroup[] = [{
             name: "绩效规则", key: "performance",path: "/cooperation_party/partner_performance_rule",
         },
         {
-            name: "客户级别", key: "customer_level",
+            name: "客户级别", key: "customer_level",path: "/cooperation_party/customer_level",
         },
         {
-            name: "客户分类", key: "customer_class",
+            name: "客户分类", key: "customer_type",path: "/cooperation_party/customer_type",
         },
         {
-            name: "客户行业", key: "customer_industry",
+            name: "客户行业", key: "customer_industry",path: "/cooperation_party/customer_industry",
         },
     ]
 },

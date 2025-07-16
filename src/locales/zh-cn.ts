@@ -1574,5 +1574,22 @@ export const cn = {
         manualcorrection:"人工修正",
         finalscore:"最终得分",
     },
-
+    customer_level:{
+        code:"编码",
+        chinesename:"中文名称",
+        englishname:"英文名称",
+        level:"级别",
+    },
+    customer_type:{
+        code:"编码",
+        chinesename:"中文名称",
+        englishname:"英文名称",
+        remark:"备注",
+    },
+    customer_industry:{
+        code:"编码",
+        chinesename:"中文名称",
+        englishname:"英文名称",
+        remarks:"备注",
+    },
 };
