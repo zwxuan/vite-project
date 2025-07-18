@@ -21,6 +21,7 @@
     "@types/three": "^0.158.3",
     "antd": "^5.22.0",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "handsontable": "^15.0.1",
     "i18next": "^24.0.5",
     "i18next-browser-languagedetector": "^8.0.2",

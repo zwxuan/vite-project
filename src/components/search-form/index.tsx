@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Col, Form, Input, Row, Select, DatePicker, Modal, Button, Space, message } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Col, Form, Input, Row, Select, DatePicker, Modal, Button, Space, message, Tag } from 'antd';
 import { Item } from './draggable';
 import TranferRight from './tranfer_right';
 import zhCN from 'antd/es/date-picker/locale/zh_CN';
 import type { TransferProps } from 'antd';
 import DatePickerZH, { RangePickerZH } from '../date-picker';
+import dayjs from 'dayjs';
+import { left } from '@antv/g2/lib/data/utils/d3-sankey/align';
 const { Option } = Select;
 const { RangePicker } = DatePickerZH;
 type Field = {
@@ -86,7 +88,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left' }}
-                                        defaultValue={{ label: '等于', value: 'equal' }}
+                                        value={formOperatorData[config.key] ? { label: operatorItems.find(op => op.value === formOperatorData[config.key])?.label, value: formOperatorData[config.key] } : { label: '等于', value: FilterOperator.EQ }}
                                         dropdownStyle={{width: 'auto'}}
                                         options={operatorItems} 
                                         onChange={(value) => { handleSelectChange(config.key,value,'operator') }}
@@ -94,7 +96,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <Input name={config.key} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
+                                    <Input name={config.key} value={formData[config.key] || ''} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
                                 </div>
 
 
@@ -110,7 +112,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left', width: '140' }}
-                                        defaultValue={{ label: '等于', value: FilterOperator.EQ }}
+                                        value={formOperatorData[config.key] ? { label: '等于', value: formOperatorData[config.key] } : { label: '等于', value: FilterOperator.EQ }}
                                         options={[
                                             { label: '等于', value: FilterOperator.EQ },
                                         ]} 
@@ -119,7 +121,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <Select labelInValue style={{ textAlign: 'left' }} prefix={config.prefix} onSelect={(value) => { handleSelectChange(config.key, value) }}  >
+                                    <Select labelInValue value={formData[config.key] ? { label: config.selectOptions?.find(opt => opt.value === formData[config.key])?.label, value: formData[config.key] } : undefined} style={{ textAlign: 'left' }} prefix={config.prefix} onSelect={(value) => { handleSelectChange(config.key, value) }}  >
                                         {config.selectOptions?.map((option, index) => (
                                             <Option key={index} value={option.value}>
                                                 {option.label}
@@ -138,7 +140,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left', width: '140' }}
-                                        defaultValue={{ label: '等于', value: FilterOperator.EQ }}
+                                        value={formOperatorData[config.key] ? { label: operatorItems.find(op => op.value === formOperatorData[config.key])?.label, value: formOperatorData[config.key] } : { label: '等于', value: FilterOperator.EQ }}
                                         options={[
                                             { label: '等于', value: FilterOperator.EQ },
                                             { label: '大于', value: FilterOperator.GT },
@@ -149,7 +151,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <DatePickerZH style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                    <DatePickerZH value={formData[config.key] ? dayjs(formData[config.key]) : null} style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                                 </div>
                             </div>
 
@@ -161,7 +163,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                 label={config.label}
                                 labelCol={{ span: 7 }}
                             >
-                                <RangePickerZH allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                <RangePickerZH value={formData[config.key] ? [formData[config.key][0] ? dayjs(formData[config.key][0]) : null, formData[config.key][1] ? dayjs(formData[config.key][1]) : null] : [null, null]} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
                             </Form.Item>
                         )
                     }
@@ -172,10 +174,45 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
     };
     const [formData, setFormData] = useState<FormData>({});
     const [formOperatorData, setFormOperatorData] = useState<FormOperatorData>({});
+    const [selectedConditions, setSelectedConditions] = useState<SearchItem[]>([]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    };
+
+    // 更新已选条件
+    const updateSelectedConditions = () => {
+        const conditions: SearchItem[] = [];
+        Object.keys(formData).forEach((key) => {
+            if(formData[key] !== '' && formData[key] !== undefined && formData[key] !== null){
+                const field = fields.find(f => f.key === key);
+                const operator = formOperatorData[key] ?? FilterOperator.EQ;
+                const operatorLabel = operatorItems.find(op => op.value === operator)?.label || '等于';
+                
+                conditions.push({
+                    field: key,
+                    operator: operator,
+                    value: formData[key],
+                    fieldLabel: field?.label || key,
+                    operatorLabel: operatorLabel
+                } as SearchItem & { fieldLabel: string; operatorLabel: string });
+            }
+        });
+        setSelectedConditions(conditions);
+    };
+
+    // 删除已选条件
+    const removeCondition = (fieldKey: string) => {
+        const newFormData = { ...formData };
+        const newFormOperatorData = { ...formOperatorData };
+        delete newFormData[fieldKey];
+        delete newFormOperatorData[fieldKey];
+        setFormData(newFormData);
+        setFormOperatorData(newFormOperatorData);
+        
+        // 同时清空表单对应字段
+        form.setFieldValue(fieldKey, undefined);
     };
     const handleSelectChange = (name: string, value: { value: string; label: React.ReactNode }, type: string = '') => {
         if(type === 'operator'){
@@ -188,6 +225,11 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
     const handleDateChange = (name: string, value: string | Array<string>) => {
         setFormData({ ...formData, [name]: value });
     };
+
+    // 监听formData和formOperatorData变化，实时更新已选条件
+    useEffect(() => {
+        updateSelectedConditions();
+    }, [formData, formOperatorData]);
 
     const handOnFinish = () => {
         const searchData: SearchItem[] = [];
@@ -205,6 +247,8 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
     };
     const handleResetFields = () => {
         setFormData({});
+        setFormOperatorData({});
+        setSelectedConditions([]);
         form.resetFields();
     };
 
@@ -252,6 +296,35 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         </div>
                         <div className="item-contant" style={{display: "block",}}>
                             <Row gutter={[2, 0]}>{getFields(fields)}</Row>
+                            
+                            {/* 已选条件显示区域 */}
+                             {selectedConditions.length > 0 && (
+                                 <div style={{ marginTop: '2px', padding: '2px',  borderRadius: '2px' }}>
+                                     <div style={{textAlign:'left'}}>
+                                         <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#666', marginRight: '2px' }}>
+                                             已选条件:
+                                         </span>
+                                         {selectedConditions.map((condition, index) => {
+                                             const displayValue = Array.isArray(condition.value) 
+                                                 ? condition.value.join(' ~ ') 
+                                                 : condition.value;
+                                             return (
+                                                 <Tag
+                                                     key={`${condition.field}-${index}`}
+                                                     closable
+                                                     onClose={() => removeCondition(condition.field)}
+                                                     style={{ 
+                                                         fontSize: '12px',
+                                                     }}
+                                                 >
+                                                     {(condition as any).fieldLabel}:{displayValue}
+                                                 </Tag>
+                                             );
+                                         })}
+                                     </div>
+                                 </div>
+                             )}
+                            
                             <div className="search-button">
                                 <div className="search-component-rowArea">
                                     <span className="search-component-searchBtn">
