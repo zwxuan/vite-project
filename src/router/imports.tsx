@@ -120,7 +120,10 @@ const ContainerLoading = React.lazy(() => import("@/pages/system_manage/containe
 const CustomerLevel = React.lazy(() => import("@/pages/basic_manage/dic_manage/customer_level"));
 const CustomerType = React.lazy(() => import("@/pages/basic_manage/dic_manage/customer_type"));
 const CustomerIndustry = React.lazy(() => import("@/pages/basic_manage/dic_manage/customer_industry"));
+const ManageOrg = React.lazy(() => import("@/pages/org_manage/manage_org"));
+const AdminOrg = React.lazy(() => import("@/pages/org_manage/admin_org"));
 const Home = React.lazy(() => import("@/layout/home"));
+
 export {
   Demo,ContainerLoading,Home,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
@@ -130,6 +133,5 @@ export {
   OutstandingReceivablesPayablesReport,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,
   AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseGoods,BaseSeaPort,BaseAirPort,BaseRailwayPort,BaseExchangeRate,BaseTaxRate,BaseSettlementMethod,
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
-  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,
-
+  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
 };

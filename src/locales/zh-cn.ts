@@ -1592,4 +1592,18 @@ export const cn = {
         englishname:"英文名称",
         remarks:"备注",
     },
+    manage_org:{
+        orgcode:"编码",
+        orgname:"名称",
+        orgabbr:"简称",
+        orgstatus:"状态",
+        orgremark:"备注",
+    },
+    admin_org:{
+        orgcode:"编码",
+        orgname:"名称",
+        orgabbr:"简称",
+        orgstatus:"状态",
+        orgremark:"备注",
+    },
 };

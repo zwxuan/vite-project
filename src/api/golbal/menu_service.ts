@@ -9,7 +9,7 @@ const menuData: MenuGroup[] = [
         key: "platform",
         apps: [
             {
-                name: "组织管理", key: "org_manage",
+                name: "组织机构", key: "org_manage",
             },
             {
                 name: "基础数据", key: "basic",
@@ -257,7 +257,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "org_manage",
     apps: [
         {
-            name: "组织单元", key: "org_unit",
+            name: "管理组织", key: "manage_org",path: "/org/manage_org",
+        },
+        {
+            name: "行政组织", key: "admin_org",path: "/org/admin_org",
         },
         {
             name: "部门", key: "department",

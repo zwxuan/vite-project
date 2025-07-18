@@ -7,34 +7,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
   ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
   ,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,
-  SalesProfitReport,
-  DepartmentBusinessWeightReport,
-  SingleTicketProfitStatisticsReport,
-  OperatorShipmentSummaryReport,
-  TransportationLineTeuReport,
-  CustomerWeightProfitReport,
-  AccountsReceivableAgingReport,
-  NotPayFeeReport,
-  NotPayOrderReport,
-  BaseSeaPort,
-  BaseAirPort,
-  BaseRailwayPort,
-  Demo,
-  BaseExchangeRate,
-  BaseTaxRate,
-  BaseSettlementMethod,
-  BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods,
-  BaseShipmentType,
-  BaseBusinessType,
-  BaseTransportationTerms,
-  BaseTradeTerms,
-  BaseFreightTerms,
-  BaseBillTerms,
-  BaseContainerTeu,
-  BaseCargoType,
-  BaseContainerType,
-  ContractsManage,
-  BusinessPartner,
+  SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseSeaPort,BaseAirPort,BaseRailwayPort,Demo,BaseExchangeRate,
+  BaseTaxRate,BaseSettlementMethod,BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,BaseContainerType,ContractsManage,BusinessPartner,
   ParterDetail,
   InternalAgentSettlement,
   PartnerPerformance,
@@ -42,7 +16,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   Home,
   CustomerLevel,
   CustomerType,
-  CustomerIndustry} from "./imports";
+  CustomerIndustry,
+  ManageOrg,
+  AdminOrg,
+} from "./imports";
 import RouterGuard from "@/components/router_guard";
 
 const routers = createMemoryRouter([
@@ -549,6 +526,35 @@ const routers = createMemoryRouter([
         ]
       },
       
+      // 组织机构
+      {
+        path: "/org",
+        handle: { title: '组织机构' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "manage_org",
+            handle: { title: '管理组织' },
+            element: (
+              <RouterGuard>
+                <ManageOrg />
+              </RouterGuard>),
+          },
+          {
+            path: "admin_org",
+            handle: { title: '行政组织' },
+            element: (
+              <RouterGuard>
+                <AdminOrg />
+              </RouterGuard>),
+          },
+        ]
+      },
+
       {
         path: "/identity/permission",
         handle: { title: '权限分配' },

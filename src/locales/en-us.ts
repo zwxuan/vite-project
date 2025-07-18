@@ -1584,4 +1584,18 @@ export const en = {
         englishname:"EN Name",
         remarks:"Remarks",
     },
+    manage_org:{
+        orgcode:"Org Code",
+        orgname:"Org Name",
+        orgabbr:"Org Abbr",
+        orgstatus:"Org Status",
+        orgremark:"Org Remark",
+    },
+    admin_org:{
+        orgcode:"Org Code",
+        orgname:"Org Name",
+        orgabbr:"Org Abbr",
+        orgstatus:"Org Status",
+        orgremark:"Org Remark",
+    },
 };
