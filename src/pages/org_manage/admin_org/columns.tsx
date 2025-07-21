@@ -3,6 +3,7 @@ import { TableColumnsType, Tag, Popconfirm } from 'antd';
 import { AdminOrgItemProps } from "@/types/org_manage/admin_org";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -63,7 +64,7 @@ export const getColumns = (handleEdit: (record: AdminOrgItemProps) => void, hand
         render: (_, record) => (
         <>
             <a>启用</a>
-            <a onClick={()=>handleEdit(record)}>编辑</a>
+            <NavLink to={`/org/admin_org/detail?orgCode=${record.OrgCode}`}>编辑</NavLink>
             <Popconfirm title="确定要删除吗?" cancelText="取消" okText="确定" onConfirm={() => handleDelete(record)}>
                 <a>删除</a>
             </Popconfirm>

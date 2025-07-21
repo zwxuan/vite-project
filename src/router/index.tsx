@@ -19,6 +19,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   CustomerIndustry,
   ManageOrg,
   AdminOrg,
+  ChainMap,
+  AdminOrgDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -552,6 +554,14 @@ const routers = createMemoryRouter([
                 <AdminOrg />
               </RouterGuard>),
           },
+          {
+            path: "admin_org/detail",
+            handle: { title: '行政组织明细' },
+            element: (
+              <RouterGuard>
+                <AdminOrgDetail />
+              </RouterGuard>),
+          },
         ]
       },
 
@@ -909,7 +919,7 @@ const routers = createMemoryRouter([
         ),
         children: [
           {
-            path: "container-loading",
+            path: "container_loading",
             handle: { title: '集装箱装箱' },
             element: (
               <RouterGuard>
@@ -918,7 +928,27 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
+      // 3D大屏
+      {
+        path: "/large_screen",
+        handle: { title: '3D大屏' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "china_map",
+            handle: { title: '中国地图' },
+            element: (
+              <RouterGuard>
+                <ChainMap />
+              </RouterGuard>),
+          },
+        ]
+      },
     ], // 如果需要子路由，可以在这里添加
   },
   {

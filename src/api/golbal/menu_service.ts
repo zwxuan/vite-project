@@ -112,7 +112,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "integration_tool",
     apps: [
         {
-            name: "集装箱装箱", key: "container_loading",path: "/container/container-loading",
+            name: "集装箱装箱", key: "container_loading",path: "/container/container_loading",
         },
 
     ]
@@ -656,7 +656,16 @@ const childrenMenuData: MenuGroup[] = [{
         },
     ]
 },
-
+{
+    title: "3D大屏",
+    key: "large_screen",
+    parentkey: "report_manage",
+    apps: [
+        {
+            name: "中国地图", key: "china_map",path: "/large_screen/china_map",
+        },
+    ]
+},
 {
     title: "业务统计",
     key: "business_statistics",
@@ -688,6 +697,7 @@ const childrenMenuData: MenuGroup[] = [{
         },
     ]
 },
+
 {
     title: "财务统计",
     key: "finance_statistics",

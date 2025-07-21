@@ -657,7 +657,7 @@ export const getColumns = (handleEdit: (record: OrdersItemProps) => void, handle
         onHeaderCell: () => ({ style: { width: '200px' } }),
         render: (_, record) => (
         <>
-            <NavLink to={`/orders/detail?businessId=${record.BusinessId}`}>详细</NavLink>
+            <NavLink to={`/entrust_manage/orders/detail?businessId=${record.BusinessId}`}>详细</NavLink>
         </>
         ),
     },

@@ -18,7 +18,6 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
-import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const AdminOrg : React.FC = () => {
@@ -187,18 +186,6 @@ const AdminOrg : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
-            <DetailModal
-                open={open}
-                modalFlag={modalFlag}
-                saving={saving}
-                formData={formData}
-                onCancel={handleCancel}
-                onOk={handleOk}
-                onChange={handleChange}
-                onDateChange={handleDateChange}
-                onNumberChange={handleNumberChange}
-            />
-            
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='admin_org' importType={uploadImportType} />
             <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='admin_org' />
             <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='admin_org' />
