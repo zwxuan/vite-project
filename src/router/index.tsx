@@ -21,6 +21,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   AdminOrg,
   ChainMap,
   AdminOrgDetail,
+  ManageOrgDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -547,6 +548,14 @@ const routers = createMemoryRouter([
               </RouterGuard>),
           },
           {
+            path: "manage_org/detail",
+            handle: { title: '管理组织明细' },
+            element: (
+              <RouterGuard>
+                <ManageOrgDetail />
+              </RouterGuard>),
+          },
+          {
             path: "admin_org",
             handle: { title: '行政组织' },
             element: (
@@ -562,6 +571,7 @@ const routers = createMemoryRouter([
                 <AdminOrgDetail />
               </RouterGuard>),
           },
+
         ]
       },
 

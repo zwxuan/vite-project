@@ -75,7 +75,7 @@ const Detail: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 行政组织明细
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 管理组织明细
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
