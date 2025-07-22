@@ -118,6 +118,7 @@ export class GreedyAlgorithm extends BaseAlgorithm {
    */
   private mergePackingResults(standardResult: PackingResult, frameResult: PackingResult): PackingResult {
     const combinedUtilization = this.calculateCombinedUtilization(standardResult, frameResult);
+    const combinedSpaceOccupancyRate = this.calculateCombinedSpaceOccupancyRate(standardResult, frameResult);
     
     // 调整框架箱货物的容器索引，使其从标准箱容器数量开始
     const adjustedFramePackedItems = frameResult.packedItems.map(item => ({
@@ -130,6 +131,7 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       containerCount: standardResult.containerCount + frameResult.containerCount,
       utilization: combinedUtilization,
       utilizationRate: combinedUtilization,
+      spaceOccupancyRate: combinedSpaceOccupancyRate,
       totalCost: standardResult.totalCost + frameResult.totalCost,
       packedItems: [...standardResult.packedItems, ...adjustedFramePackedItems],
       containers: [...standardResult.containers, ...frameResult.containers],
@@ -139,19 +141,37 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       algorithm: standardResult.algorithm,
       mode: standardResult.mode,
       executionTime: (standardResult.executionTime || 0) + (frameResult.executionTime || 0),
-      iterations: (standardResult.iterations || 0) + (frameResult.iterations || 0)
+      iterations: (standardResult.iterations || 0) + (frameResult.iterations || 0),
+      gap: standardResult.gap || frameResult.gap || 0.05
     };
   }
 
   /**
-   * 计算合并结果的综合利用率
+   * 计算合并结果的综合利用率（框架集装箱不参与计算）
    */
   private calculateCombinedUtilization(standardResult: PackingResult, frameResult: PackingResult): number {
-    const totalContainerVolume = this.calculateTotalContainerVolume(standardResult.containers) + 
-                                this.calculateTotalContainerVolume(frameResult.containers);
-    const totalCargoVolume = standardResult.totalVolume + frameResult.totalVolume;
+    const standardContainerVolume = this.calculateTotalContainerVolume(standardResult.containers);
     
-    return totalContainerVolume > 0 ? (totalCargoVolume / totalContainerVolume) * 100 : 0;
+    // 只基于标准集装箱计算利用率
+    if (standardContainerVolume === 0) return 0;
+    
+    const standardUtilization = (standardResult.totalVolume / standardContainerVolume) * 100;
+    
+    return parseFloat(standardUtilization.toFixed(2));
+  }
+
+  /**
+   * 计算合并结果的综合空间占用率（框架集装箱不参与计算）
+   */
+  private calculateCombinedSpaceOccupancyRate(standardResult: PackingResult, frameResult: PackingResult): number {
+    const standardContainerVolume = this.calculateTotalContainerVolume(standardResult.containers);
+    
+    // 只基于标准集装箱计算空间占用率
+    if (standardContainerVolume === 0) return 0;
+    
+    const standardSpaceOccupancy = standardResult.spaceOccupancyRate || standardResult.utilizationRate || 0;
+    
+    return parseFloat(standardSpaceOccupancy.toFixed(2));
   }
 
   /**

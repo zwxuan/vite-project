@@ -439,16 +439,41 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
             }
             
             if (bestFrameResult) {
-              // 简化合并结果（实际应该有更完善的合并逻辑）
+              // 合并结果并重新计算利用率
+              const combinedContainers = [...bestGroupResult.containers, ...bestFrameResult.containers];
+              const combinedPackedItems = [...bestGroupResult.packedItems, ...bestFrameResult.packedItems.map(item => ({
+                ...item,
+                containerIndex: item.containerIndex + (bestGroupResult?.containers?.length || 0)
+              }))];
+              const combinedTotalVolume = bestGroupResult.totalVolume + bestFrameResult.totalVolume;
+              const combinedTotalWeight = bestGroupResult.totalWeight + bestFrameResult.totalWeight;
+              
+              // 重新计算利用率
+              const totalContainerVolume = combinedContainers.reduce((sum, container) => 
+                sum + (container.length * container.width * container.height), 0
+              );
+              const utilizationRate = totalContainerVolume > 0 ? parseFloat(((combinedTotalVolume / totalContainerVolume) * 100).toFixed(2)) : 0;
+              
+              // 计算实际空间占用率（包含间隙）
+              const gap = config?.gap || 0.05;
+              const totalOccupiedVolume = combinedPackedItems.reduce((sum, item) => {
+                const cargoWithGap = (item.cargo.length + gap) * (item.cargo.width + gap) * (item.cargo.height + gap);
+                return sum + cargoWithGap;
+              }, 0);
+              const spaceOccupancyRate = totalContainerVolume > 0 ? parseFloat(((totalOccupiedVolume / totalContainerVolume) * 100).toFixed(2)) : 0;
+              
               bestGroupResult = {
                 ...bestGroupResult,
                 containerCount: bestGroupResult.containerCount + bestFrameResult.containerCount,
                 totalCost: bestGroupResult.totalCost + bestFrameResult.totalCost,
-                packedItems: [...bestGroupResult.packedItems, ...bestFrameResult.packedItems],
-                containers: [...bestGroupResult.containers, ...bestFrameResult.containers],
+                packedItems: combinedPackedItems,
+                containers: combinedContainers,
                 unpackedItems: [...bestGroupResult.unpackedItems, ...bestFrameResult.unpackedItems],
-                totalVolume: bestGroupResult.totalVolume + bestFrameResult.totalVolume,
-                totalWeight: bestGroupResult.totalWeight + bestFrameResult.totalWeight
+                totalVolume: combinedTotalVolume,
+                totalWeight: combinedTotalWeight,
+                utilization: utilizationRate,
+                utilizationRate: utilizationRate,
+                spaceOccupancyRate: spaceOccupancyRate
               };
             }
           }
@@ -528,8 +553,43 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
     
     if (allPackedItems.length === 0) return null;
     
-    // 计算总体利用率
-    const utilization = totalContainerVolume > 0 ? (totalVolume / totalContainerVolume) * 100 : 0;
+    // 计算总体利用率（框架集装箱不参与计算）
+    let standardContainerVolume = 0;
+    let standardCargoVolume = 0;
+    
+    // 只计算标准集装箱的体积和装载的货物体积
+    usedContainers.forEach(container => {
+      if (!container.isFrameContainer) {
+        standardContainerVolume += container.length * container.width * container.height;
+      }
+    });
+    
+    // 只计算装在标准集装箱中的货物体积
+    allPackedItems.forEach(item => {
+      const containerIndex = item.containerIndex;
+      const container = usedContainers[containerIndex];
+      if (container && !container.isFrameContainer) {
+        standardCargoVolume += item.cargo.length * item.cargo.width * item.cargo.height;
+      }
+    });
+    
+    // 只基于标准集装箱计算利用率
+    const utilization = standardContainerVolume > 0 ? parseFloat(((standardCargoVolume / standardContainerVolume) * 100).toFixed(2)) : 0;
+    
+    // 计算实际空间占用率（包含间隙，框架集装箱不参与计算）
+    const gap = config?.gap || 0.05;
+    const standardOccupiedVolume = allPackedItems.reduce((sum, item) => {
+      // 只计算装在标准集装箱中的货物
+      const containerIndex = item.containerIndex;
+      const container = usedContainers[containerIndex];
+      if (container && !container.isFrameContainer) {
+        const cargoWithGap = (item.cargo.length + gap) * (item.cargo.width + gap) * (item.cargo.height + gap);
+        return sum + cargoWithGap;
+      }
+      return sum;
+    }, 0);
+    
+    const spaceOccupancyRate = standardContainerVolume > 0 ? parseFloat(((standardOccupiedVolume / standardContainerVolume) * 100).toFixed(2)) : 0;
     
     // 选择最常用的集装箱类型作为代表
     const containerTypeMap = new Map<string, number>();
@@ -554,12 +614,14 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
       containers: usedContainers,
       utilization,
       utilizationRate: utilization,
+      spaceOccupancyRate: spaceOccupancyRate,
       totalCost,
       totalVolume,
       totalWeight,
       containerCount,
       algorithm: 'multi-container',
-      mode: 'multi_container'
+      mode: 'multi_container',
+      gap: gap
     };
   }
 

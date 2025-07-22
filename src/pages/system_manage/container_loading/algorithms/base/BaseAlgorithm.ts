@@ -220,10 +220,20 @@ export abstract class BaseAlgorithm {
     }, 0);
     
     const totalContainerVolume = containerCount * containerVolume;
-    // 利用率基于货物本身体积，不包含间隙
-    const utilization = containerCount > 0 ? (totalCargoVolume / totalContainerVolume) * 100 : 0;
-    // 实际空间占用率（包含间隙）
-    const spaceOccupancyRate = containerCount > 0 ? (totalOccupiedVolume / totalContainerVolume) * 100 : 0;
+    
+    // 框架集装箱不参与利用率计算
+    let utilization: number;
+    let spaceOccupancyRate: number;
+    
+    if (containerType.isFrameContainer) {
+      // 框架集装箱不计算利用率，返回0
+      utilization = 0;
+      spaceOccupancyRate = 0;
+    } else {
+      // 标准集装箱正常计算利用率
+      utilization = containerCount > 0 ? parseFloat(((totalCargoVolume / totalContainerVolume) * 100).toFixed(2)) : 0;
+      spaceOccupancyRate = containerCount > 0 ? parseFloat(((totalOccupiedVolume / totalContainerVolume) * 100).toFixed(2)) : 0;
+    }
 
     // 计算总重量
     const totalWeight = cargos.reduce((sum, cargo) => sum + (cargo.weight * cargo.quantity), 0);

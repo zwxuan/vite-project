@@ -93,7 +93,7 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
             value={utilizationRate}
             suffix="%"
             valueStyle={{ color: '#722ed1' }}
-            precision={1}
+            precision={2}
           />
         </Col>
         <Col xs={24} sm={12} md={6}>
@@ -102,7 +102,7 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
             value={spaceOccupancyRate || utilizationRate}
             suffix="%"
             valueStyle={{ color: '#fa8c16' }}
-            precision={1}
+            precision={2}
           />
         </Col>
       </Row>

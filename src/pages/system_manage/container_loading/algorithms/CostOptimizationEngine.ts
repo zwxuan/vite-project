@@ -111,15 +111,52 @@ export class CostOptimizationEngine {
         
         if (bestFrameResult) {
           // 合并结果
+          const combinedContainers = [...bestResult.containers, ...bestFrameResult.containers];
+          const combinedPackedItems = [...bestResult.packedItems, ...bestFrameResult.packedItems.map(item => ({
+            ...item,
+            containerIndex: item.containerIndex + (bestResult?.containers?.length || 0)
+          }))];
+          const combinedTotalVolume = bestResult.totalVolume + bestFrameResult.totalVolume;
+          const combinedTotalWeight = bestResult.totalWeight + bestFrameResult.totalWeight;
+          
+          // 重新计算利用率（框架集装箱不参与计算）
+          let standardContainerVolume = 0;
+          
+          combinedContainers.forEach(container => {
+            const containerVolume = container.length * container.width * container.height;
+            if (!container.isFrameContainer) {
+              standardContainerVolume += containerVolume;
+            }
+          });
+          
+          // 只基于标准集装箱计算利用率
+          const utilizationRate = standardContainerVolume > 0 ? (bestResult.totalVolume / standardContainerVolume) * 100 : 0;
+          
+          // 计算实际空间占用率（包含间隙，只计算标准集装箱）
+          const gap = config?.gap || 0.05;
+          const standardOccupiedVolume = combinedPackedItems.reduce((sum, item) => {
+            const containerIndex = item.containerIndex;
+            const container = combinedContainers[containerIndex];
+            if (container && !container.isFrameContainer) {
+              const cargoWithGap = (item.cargo.length + gap) * (item.cargo.width + gap) * (item.cargo.height + gap);
+              return sum + cargoWithGap;
+            }
+            return sum;
+          }, 0);
+          
+          const spaceOccupancyRate = standardContainerVolume > 0 ? (standardOccupiedVolume / standardContainerVolume) * 100 : 0;
+          
           bestResult = {
             ...bestResult,
             containerCount: bestResult.containerCount + bestFrameResult.containerCount,
             totalCost: bestResult.totalCost + bestFrameResult.totalCost,
-            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
-            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            packedItems: combinedPackedItems,
+            containers: combinedContainers,
             unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
-            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
-            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+            totalVolume: combinedTotalVolume,
+            totalWeight: combinedTotalWeight,
+            utilizationRate: parseFloat(utilizationRate.toFixed(2)),
+            spaceOccupancyRate: parseFloat(spaceOccupancyRate.toFixed(2))
           };
           minContainers = bestResult.containerCount;
         } else {
@@ -256,15 +293,46 @@ export class CostOptimizationEngine {
         
         if (bestFrameResult) {
           // 合并结果
+          const combinedContainers = [...bestResult.containers, ...bestFrameResult.containers];
+          const combinedPackedItems = [...bestResult.packedItems, ...bestFrameResult.packedItems.map(item => ({
+            ...item,
+            containerIndex: item.containerIndex + (bestResult?.containers?.length || 0)
+          }))];
+          const combinedTotalVolume = bestResult.totalVolume + bestFrameResult.totalVolume;
+          const combinedTotalWeight = bestResult.totalWeight + bestFrameResult.totalWeight;
+          
+          // 重新计算利用率（框架集装箱不参与计算）
+          const standardContainerVolume = combinedContainers.reduce((sum, container) => {
+            return container.isFrameContainer ? sum : sum + (container.length * container.width * container.height);
+          }, 0);
+          const utilizationRate = standardContainerVolume > 0 ? (bestResult.totalVolume / standardContainerVolume) * 100 : 0;
+          
+          // 计算实际空间占用率（包含间隙，只计算标准集装箱）
+          const gap = config?.gap || 0.05;
+          const standardOccupiedVolume = combinedPackedItems.reduce((sum, item) => {
+            // 只计算装在标准集装箱中的货物
+            if (item.containerIndex !== undefined) {
+              const container = combinedContainers[item.containerIndex];
+              if (!container.isFrameContainer) {
+                const cargoWithGap = (item.cargo.length + gap) * (item.cargo.width + gap) * (item.cargo.height + gap);
+                return sum + cargoWithGap;
+              }
+            }
+            return sum;
+          }, 0);
+          const spaceOccupancyRate = standardContainerVolume > 0 ? (standardOccupiedVolume / standardContainerVolume) * 100 : 0;
+          
           bestResult = {
             ...bestResult,
             containerCount: bestResult.containerCount + bestFrameResult.containerCount,
             totalCost: bestResult.totalCost + bestFrameResult.totalCost,
-            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
-            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            packedItems: combinedPackedItems,
+            containers: combinedContainers,
             unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
-            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
-            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+            totalVolume: combinedTotalVolume,
+            totalWeight: combinedTotalWeight,
+            utilizationRate: parseFloat(utilizationRate.toFixed(2)),
+            spaceOccupancyRate: parseFloat(spaceOccupancyRate.toFixed(2))
           };
           minCost = bestResult.totalCost;
         } else {
@@ -381,16 +449,40 @@ export class CostOptimizationEngine {
         }
         
         if (bestFrameResult) {
-          // 合并结果（这里简化处理，实际应该有专门的合并方法）
+          // 合并结果
+          const combinedContainers = [...bestResult.containers, ...bestFrameResult.containers];
+          const combinedPackedItems = [...bestResult.packedItems, ...bestFrameResult.packedItems.map(item => ({
+            ...item,
+            containerIndex: item.containerIndex + (bestResult?.containers?.length || 0)
+          }))];
+          const combinedTotalVolume = bestResult.totalVolume + bestFrameResult.totalVolume;
+          const combinedTotalWeight = bestResult.totalWeight + bestFrameResult.totalWeight;
+          
+          // 重新计算利用率
+          const totalContainerVolume = combinedContainers.reduce((sum, container) => 
+            sum + (container.length * container.width * container.height), 0
+          );
+          const utilizationRate = totalContainerVolume > 0 ? (combinedTotalVolume / totalContainerVolume) * 100 : 0;
+          
+          // 计算实际空间占用率（包含间隙）
+          const gap = config?.gap || 0.05;
+          const totalOccupiedVolume = combinedPackedItems.reduce((sum, item) => {
+            const cargoWithGap = (item.cargo.length + gap) * (item.cargo.width + gap) * (item.cargo.height + gap);
+            return sum + cargoWithGap;
+          }, 0);
+          const spaceOccupancyRate = totalContainerVolume > 0 ? (totalOccupiedVolume / totalContainerVolume) * 100 : 0;
+          
           bestResult = {
             ...bestResult,
             containerCount: bestResult.containerCount + bestFrameResult.containerCount,
             totalCost: bestResult.totalCost + bestFrameResult.totalCost,
-            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
-            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            packedItems: combinedPackedItems,
+            containers: combinedContainers,
             unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
-            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
-            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+            totalVolume: combinedTotalVolume,
+            totalWeight: combinedTotalWeight,
+            utilizationRate: parseFloat(utilizationRate.toFixed(2)),
+            spaceOccupancyRate: parseFloat(spaceOccupancyRate.toFixed(2))
           };
         } else {
           // 框架箱货物装载失败，将其加入未装载列表
