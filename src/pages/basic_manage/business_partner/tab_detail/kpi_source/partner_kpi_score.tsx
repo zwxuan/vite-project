@@ -89,7 +89,7 @@ const KPIScoreReport: React.FC = () => {
                 <HotTable
                     ref={hotTableRef}
                     data={kpiScoreList}
-                    height={'calc(100vh - 180px)'}
+                    height={'calc(100vh - 140px)'}
                     dropdownMenu={false}
                     formulas={{
                         engine: HyperFormula,

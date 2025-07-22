@@ -126,7 +126,7 @@ const ParterCustomer: React.FC = () => {
         columnWidth: '20px',
     };
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 180px)', paddingTop: '10px' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 120px)', paddingTop: '10px' }}>
             <div className='nc-bill-table-area'>
                 <Row gutter={24} style={{}} className='ant-tranfer-row'>
                     <Col span={6}>

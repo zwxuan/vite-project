@@ -263,23 +263,20 @@ const childrenMenuData: MenuGroup[] = [{
             name: "行政组织", key: "admin_org",path: "/org/admin_org",
         },
         {
-            name: "部门", key: "department",
+            name: "部门", key: "department",path: "/org/department",
         },
-        {
-            name: "组织形态", key: "org_type",
-        },
-        {
-            name: "职务类别", key: "job_type",
-        },
-        {
-            name: "职务", key: "job",
-        },
-        {
-            name: "职等", key: "grade",
-        },
-        {
-            name: "职级", key: "level",
-        },
+        // {
+        //     name: "职务类别", key: "job_type",
+        // },
+        // {
+        //     name: "职务", key: "job",
+        // },
+        // {
+        //     name: "职等", key: "grade",
+        // },
+        // {
+        //     name: "职级", key: "level",
+        // },
         {
             name: "岗位", key: "position",
         },

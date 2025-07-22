@@ -6,6 +6,7 @@ export interface ContainerType {
   height: number;
   maxWeight: number;
   cost: number;
+  isFrameContainer?: boolean; // 是否为框架集装箱（无高度限制）
 }
 
 // 装箱算法类型

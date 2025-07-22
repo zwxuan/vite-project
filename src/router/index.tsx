@@ -22,6 +22,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   ChainMap,
   AdminOrgDetail,
   ManageOrgDetail,
+  Department,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -571,7 +572,14 @@ const routers = createMemoryRouter([
                 <AdminOrgDetail />
               </RouterGuard>),
           },
-
+          {
+            path: "department",
+            handle: { title: '部门' },
+            element: (
+              <RouterGuard>
+                <Department />  
+              </RouterGuard>),
+          },
         ]
       },
 

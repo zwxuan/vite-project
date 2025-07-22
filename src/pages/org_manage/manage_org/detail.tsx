@@ -87,7 +87,9 @@ const Detail: React.FC = () => {
                     <div style={{ display: "flex" }}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
+                                <Button type="primary" danger >新增</Button>
                                 <Button type="primary" danger >保存</Button>
+                                <Button type="primary" danger >停用</Button>
                             </div>
                         </div>
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
@@ -101,7 +103,7 @@ const Detail: React.FC = () => {
             </div>
             <div className='nc-bill-table-area' style={{ height: 'calc(100vh - 100px)',background: '#f9fbff' }}>
                 <Splitter>
-                    <Splitter.Panel collapsible={{ end: true }} defaultSize='15%' min='10%' max='40%' >
+                    <Splitter.Panel collapsible={{ end: true }} defaultSize='18%' min='10%' max='40%' >
 
                         <Row gutter={24} style={{ paddingTop: '8px', width: '100%', marginBottom: '8px' }}>
                             <Col span={15}>

@@ -22,7 +22,7 @@ registerAllModules();
 const CreditAccount: React.FC = () => {
     const hotTableRef = useRef<any>(null);
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden',width:'60%', height: 'calc(100vh - 180px)', paddingTop: '10px' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden',width:'60%', height: 'calc(100vh - 120px)', paddingTop: '10px' }}>
             <div className="nc-bill-table-area">
                 <CodeBoxMeta title="当前信控">
                     <Row gutter={24} style={{}} className='ant-tranfer-row'>

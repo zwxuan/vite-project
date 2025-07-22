@@ -1,6 +1,6 @@
 import '@/pages/page_list.less';
 import React, { useState } from 'react';
-import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Splitter, Tooltip, Row, Col, Tree, Checkbox, Radio } from 'antd';
+import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Splitter, Tooltip, Row, Col, Tree, Checkbox, Radio, TreeSelect } from 'antd';
 import { AdminOrgItemProps } from "@/types/org_manage/admin_org";
 import dayjs from 'dayjs';
 import { useLocation } from 'react-router-dom';
@@ -9,11 +9,13 @@ import CustomIcon from '@/components/custom-icon';
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
 import { DataNode } from 'antd/es/tree';
 import '../tab_detail.less'
+import DatePickerZH from '@/components/date-picker';
 const { Search, TextArea } = Input;
 
 interface TreeNode extends DataNode {
     title: string;
     key: string;
+    value?: string;
     children?: TreeNode[];
     checked?: boolean;
     // indeterminate?:boolean;
@@ -24,26 +26,31 @@ const initTreeData: TreeNode[] = [
 
         title: '11 集团总部',
         key: 'admin_org_lev1_11',
+        value:'admin_org_lev1_11',
         checked: false,
         children: [
             {
                 title: '1101 青岛分公司',
                 key: 'admin_org_lev2_1101',
+                value:'admin_org_lev2_1101',
                 checked: false,
             },
             {
                 title: '1102 海运事业部',
                 key: 'admin_org_lev2_1102',
+                value:'admin_org_lev2_1102',
                 checked: false,
                 children: [
                     {
                         title: '110201 宁波站',
                         key: 'admin_org_lev3_110201',
+                        value:'110201 宁波站',
                         checked: false,
                     },
                     {
                         title: '110202 天津站',
                         key: 'admin_org_lev3_110202',
+                        value:'admin_org_lev3_110202',
                         checked: false,
                     },
                 ],
@@ -51,19 +58,46 @@ const initTreeData: TreeNode[] = [
             {
                 title: '1103 上海子公司',
                 key: 'admin_org_lev2_1103',
+                value:'admin_org_lev2_1103',
                 checked: false,
             },
             {
                 title: '1104 西安子公司',
                 key: 'admin_org_lev2_1104',
+                value:'admin_org_lev2_1104',
                 checked: false,
             },
         ],
     },
-
-
 ];
-const Detail: React.FC = () => {
+
+const deptmentTreeData: TreeNode[] = [
+    {
+        title: '运营部',
+        key: 'admin_org_lev1_11',
+        checked: false,
+        children: [
+        ],
+    },
+    {
+        title: '订舱部',
+        key: 'admin_org_lev1_12',
+        checked: false,
+        children: [
+            {
+                title: '北美订舱',
+                key: 'admin_org_lev2_1101',
+                checked: false,
+            },
+            {
+                title: '中东订舱',
+                key: 'admin_org_lev2_1102',
+                checked: false,
+            },
+        ],
+    },
+];
+const Department: React.FC = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const orgCode = searchParams.get('orgCode');
@@ -75,7 +109,23 @@ const Detail: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 行政组织明细
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 部门详情
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>行政组织归属</b></span> 用于报税和凭证。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>管理组织归属</b></span> 用于业务部门。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span> 用于统计时，财务口径和业务口径根据不同的维度来出数据。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
@@ -87,9 +137,12 @@ const Detail: React.FC = () => {
                     <div style={{ display: "flex" }}>
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
-                                <Button type="primary" danger >新增</Button>
+                                <Button type="primary" danger >新增下级</Button>
+                                <Button type="primary" danger >新增平级</Button>
                                 <Button type="primary" danger >保存</Button>
-                                <Button type="primary" danger >停用</Button>
+                                <Button>冻结</Button>
+                                <Button>停用</Button>
+                                <Button>全部启用</Button>
                             </div>
                         </div>
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
@@ -101,10 +154,46 @@ const Detail: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className='nc-bill-table-area' style={{ height: 'calc(100vh - 100px)',background: '#f9fbff' }}>
+            <div className='nc-bill-table-area' style={{ height: 'calc(100vh - 100px)', background: '#f9fbff' }}>
                 <Splitter>
                     <Splitter.Panel collapsible={{ end: true }} defaultSize='18%' min='10%' max='40%' >
-
+                        <Row gutter={24} style={{ paddingTop: '8px', width: '100%', marginBottom: '8px' }}>
+                            <Col span={24}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label className='item-lable-title'>行政组织</label>
+                                    <TreeSelect
+                                        showSearch
+                                        style={{ flex: 1,textAlign: 'left',fontSize: '12px'}}
+                                        treeLine={true}
+                                        defaultValue={'110201 宁波站'}
+                                        placeholder="行政组织"
+                                        allowClear
+                                        treeDefaultExpandAll
+                                        treeData={treeData}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row gutter={24} style={{ paddingTop: '8px', width: '100%', marginBottom: '8px' }}>
+                            <Col span={24}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label className='item-lable-title'>部门状态</label>
+                                    <Select style={{ flex: 1 }}
+                                        showSearch
+                                        filterOption={(input, option) =>
+                                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                        }
+                                        mode="multiple"
+                                        maxTagCount={1}
+                                        options={[
+                                            { "value": "未启用", "label": "未启用" },
+                                            { "value": "已启用", "label": "已启用" },
+                                            { "value": "已停用", "label": "已停用" },
+                                        ]}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
                         <Row gutter={24} style={{ paddingTop: '8px', width: '100%', marginBottom: '8px' }}>
                             <Col span={15}>
                                 <Search placeholder="编码/名称" style={{ width: '100%' }} size="small" allowClear />
@@ -112,7 +201,7 @@ const Detail: React.FC = () => {
                             <Col span={9}>
                                 <Select
                                     defaultValue="全部展开"
-                                    style={{ width: '100%',textAlign:'left' }}
+                                    style={{ width: '100%', textAlign: 'left' }}
                                     options={[
                                         { value: '全部展开', label: '全部展开' },
                                         { value: '全部收起', label: '全部收起' },
@@ -128,12 +217,12 @@ const Detail: React.FC = () => {
                                 <Tree
                                     showLine
                                     defaultExpandAll={true}
-                                    treeData={treeData}
+                                    treeData={deptmentTreeData}
                                     showIcon
                                     style={{
                                         background: '#fff',
                                         borderRadius: '2px',
-                                        height: 'calc(100vh - 140px)',
+                                        height: 'calc(100vh - 220px)',
                                         overflowY: 'auto'
                                     }}
                                 />
@@ -141,17 +230,17 @@ const Detail: React.FC = () => {
                         </Row>
                     </Splitter.Panel>
                     <Splitter.Panel>
-                        <Row gutter={24} style={{marginTop:'8px'}} className='ant-tranfer-row'>
+                        <Row gutter={24} style={{ marginTop: '8px' }} className='ant-tranfer-row'>
 
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>编号</label>
+                                    <label className='item-lable-title'>部门编号</label>
                                     <Input style={{ flex: 1 }} defaultValue={30} />
                                 </div>
                             </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>名称</label>
+                                    <label className='item-lable-title'>部门名称</label>
                                     <Input style={{ flex: 1 }} />
                                 </div>
                             </Col>
@@ -163,18 +252,32 @@ const Detail: React.FC = () => {
                             </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>上级组织</label>
+                                    <label className='item-lable-title'>所属行政上级</label>
                                     <Select
-                                    style={{ flex: 1 }} 
-                                    options={[
-                                        { value: '集团总部', label: '集团总部' },
-                                        { value: '海运事业部', label: '海运事业部' },
-                                    ]}
-                                />
+                                        style={{ flex: 1 }}
+                                        options={[
+                                            { value: '集团总部', label: '集团总部' },
+                                            { value: '海运事业部', label: '海运事业部' },
+                                        ]}
+                                    />
                                 </div>
                             </Col>
                         </Row>
                         <Row gutter={24} style={{}} className='ant-tranfer-row'>
+                            <Col span={6}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label className='item-lable-title'>部门性质</label>
+                                    <Select
+                                        style={{ flex: 1 }}
+                                        options={[
+                                            { value: '销售部门', label: '销售部门' },
+                                            { value: '研发部门', label: '研发部门' },
+                                            { value: '订舱部门', label: '订舱部门' },
+                                            { value: '职能部门', label: '职能部门' },
+                                        ]}
+                                    />
+                                </div>
+                            </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <label className='item-lable-title'>负责人</label>
@@ -199,13 +302,7 @@ const Detail: React.FC = () => {
                             </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>统一社会信用代码</label>
-                                    <Input style={{ flex: 1 }} />
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>纳税人名称</label>
+                                    <label className='item-lable-title'>工作地点</label>
                                     <Input style={{ flex: 1 }} />
                                 </div>
                             </Col>
@@ -213,69 +310,31 @@ const Detail: React.FC = () => {
                         <Row gutter={24} style={{}} className='ant-tranfer-row'>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>公司地址</label>
-                                    <Input style={{ flex: 1 }} />
+                                    <label className='item-lable-title'>管理组织归属</label>
+                                    <Select
+                                        style={{ flex: 1 }}
+                                        options={[
+                                            { value: '集团总部', label: '集团总部' },
+                                            { value: '海运事业部', label: '海运事业部' },
+                                        ]}
+                                    />
                                 </div>
                             </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>公司电话</label>
-                                    <Input style={{ flex: 1 }} />
+                                    <label className='item-lable-title'></label>
+                                    <Checkbox.Group
+                                        name="noticeTypeCheckbox"
+                                        style={{ flex: 1 }}
+                                        defaultValue={[1]}
+                                        options={[
+                                            { value: 1, label: '可用于任职' },
+                                        ]}
+                                    />
                                 </div>
                             </Col>
 
                             <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>联系人</label>
-                                    <Input style={{ flex: 1 }} />
-                                </div>
-                            </Col>
-                            <Col span={6}> 
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>纳税人类型</label>
-                                    <Select style={{ flex: 1 }} options={[
-                                        { "value": "1", "label": "一般纳税人" },
-                                        { "value": "2", "label": "小规模纳税人" },
-                                        { "value": "3", "label": "其他" },
-                                    ]}></Select>
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row gutter={24} style={{}} className='ant-tranfer-row'>
-                            <Col span={6}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>汇率类型</label>
-                                    <Select style={{ flex: 1 }} options={[
-                                        { "value": "1", "label": "基准汇率" },
-                                        { "value": "2", "label": "自定义汇率" },
-                                    ]}></Select>
-                                </div>      
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>币制</label>
-                                    <Select style={{ flex: 1 }} options={[
-                                        { "value": "1", "label": "人民币" },
-                                        { "value": "2", "label": "美元" },
-                                        { "value": "3", "label": "欧元" },
-                                        { "value": "3", "label": "英镑" },
-                                        { "value": "3", "label": "日元" },
-                                    ]}></Select>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>组织形态</label>
-                                    <Select style={{ flex: 1 }} options={[
-                                        { "value": "1", "label": "分公司" },
-                                        { "value": "2", "label": "子公司" },
-                                        { "value": "3", "label": "事业部" },
-                                        { "value": "3", "label": "办事处" },
-                                        { "value": "3", "label": "其他" },
-                                    ]}></Select>
-                                </div>
-                            </Col>
-                            <Col span={6}> 
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <label className='item-lable-title'>状态</label>
                                     <Radio.Group
@@ -290,33 +349,21 @@ const Detail: React.FC = () => {
                                     />
                                 </div>
                             </Col>
+                            <Col span={6}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label className='item-lable-title'>冻结状态</label>
+                                    <Select style={{ flex: 1 }} options={[
+                                        { "value": "未冻结", "label": "未冻结" },
+                                        { "value": "已冻结", "label": "已冻结" },
+                                    ]}></Select>
+                                </div>
+                            </Col>
                         </Row>
                         <Row gutter={24} style={{}} className='ant-tranfer-row'>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>核算类型</label>
-                                    <Checkbox.Group
-                                        name="noticeTypeCheckbox"
-                                        style={{ flex: 1 }}
-                                        defaultValue={[2]}
-                                        options={[
-                                            { value: 1, label: '对外核算' },
-                                            { value: 2, label: '对内核算' },
-                                        ]}
-                                    />
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'></label>
-                                    <Checkbox.Group
-                                        name="noticeTypeCheckbox"
-                                        style={{ flex: 1 }}
-                                        defaultValue={[1]}
-                                        options={[
-                                            { value: 1, label: '是否纳税主体' },
-                                        ]}
-                                    />
+                                    <label className='item-lable-title'>冻结日期</label>
+                                    <DatePickerZH style={{ flex: 1 }} />
                                 </div>
                             </Col>
                         </Row>
@@ -337,4 +384,4 @@ const Detail: React.FC = () => {
     );
 };
 
-export default Detail;
+export default Department;

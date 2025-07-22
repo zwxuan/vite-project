@@ -185,7 +185,7 @@ const VisitCustomer : React.FC = () => {
     };
 
     return (
-        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 180px)'}}>
+        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 120px)'}}>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}

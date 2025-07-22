@@ -185,7 +185,7 @@ const ParterDocument: React.FC = () => {
     };
 
     return (
-        <div>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 120px)',background: '#f9fbff', paddingTop: '10px' }}>
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
