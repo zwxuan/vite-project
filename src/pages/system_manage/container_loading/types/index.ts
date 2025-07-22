@@ -56,6 +56,8 @@ export interface PackingResult {
   algorithm: PackingAlgorithmType;
   mode: PackingModeType;
   gap?: number; // 货物间隙，用于3D渲染时计算货物与集装箱内壁的距离
+  executionTime?: number; // 算法执行时间，单位：毫秒
+  iterations?: number; // 算法迭代次数
 }
 
 // 已装箱物品

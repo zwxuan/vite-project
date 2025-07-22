@@ -20,123 +20,247 @@ export const Container3D: React.FC<Container3DProps> = ({
 
   return (
     <group position={position}>
-      {/* 集装箱框架 */}
-      <mesh 
-        onPointerEnter={(event) => {
-          event.stopPropagation();
-          onHover(true);
-        }}
-        onPointerLeave={(event) => {
-          event.stopPropagation();
-          onHover(false);
-        }}
-      >
-        <boxGeometry args={[containerType.length, containerType.height, containerType.width]} />
-        <meshStandardMaterial 
-          color={isHovered ? "#5BA3F5" : "#4A90E2"} 
-          transparent 
-          opacity={0.3} 
-          wireframe={false}
-          roughness={0.4}
-          metalness={0.2}
-        />
-      </mesh>
-      
-      {/* 集装箱边框 */}
-      <lineSegments>
-        <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
-        <lineBasicMaterial color={isHovered ? "#e60012" : "#2C2C2C"} linewidth={4} />
-      </lineSegments>
-      
-      {/* 集装箱底部 */}
-      <mesh 
-        position={[0, -containerType.height/2 + 0.05, 0]} 
-        
-      >
-        <boxGeometry args={[containerType.length, 0.1, containerType.width]} />
-        <meshStandardMaterial 
-          roughness={0.4}
-          metalness={0.3}
-        />
-      </mesh>
-      
-      {/* 集装箱门 */}
-      <mesh 
-        position={[containerType.length/2 - 0.05, 0, 0]} 
-      >
-        <meshStandardMaterial 
-          color="#2E86AB" 
-          transparent 
-          opacity={0.8} 
-          roughness={0.4}
-          metalness={0.2}
-        />
-      </mesh>
-      
-      {/* 门把手 - 现实集装箱门把手形状 */}
-      <group position={[containerType.length/2 + 0.05, 0, -containerType.width/4]}>
-        {/* 门把手主体 - 长方形杆状 */}
-        <mesh 
-          position={[0, 0, 0]} 
-        >
-          <boxGeometry args={[0.08, 0.04, 0.25]} />
-          <meshStandardMaterial 
-            color="#2C2C2C" 
-            roughness={0.4}
-            metalness={0.8}
-          />
-        </mesh>
-        {/* 门把手支架 */}
-        <mesh 
-          position={[-0.03, 0, 0]} 
+      {/* 集装箱框架 - 根据是否为框架集装箱显示不同外观 */}
+      {containerType.isFrameContainer ? (
+        // 框架集装箱 - 只显示框架结构
+        <>
+          {/* 底部框架 */}
+          <mesh 
+            position={[0, -containerType.height/2 + 0.05, 0]}
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
+            <boxGeometry args={[containerType.length, 0.05, containerType.width]} />
+            <meshStandardMaterial color={isHovered ? "#FF6B35" : "#E55100"} roughness={0.4}
+              metalness={0.3} />
+          </mesh>
           
-        >
-          <boxGeometry args={[0.02, 0.06, 0.3]} />
-          <meshStandardMaterial 
-            color="#1A1A1A" 
-            roughness={0.3}
-            metalness={0.9}
-          />
-        </mesh>
-      </group>
-      
-      <group position={[containerType.length/2 + 0.05, 0, containerType.width/4]}>
-        {/* 门把手主体 - 长方形杆状 */}
-        <mesh 
-          position={[0, 0, 0]} 
-        >
-          <boxGeometry args={[0.08, 0.04, 0.25]} />
-          <meshStandardMaterial 
-            color="#2C2C2C" 
-            roughness={0.4}
-            metalness={0.8}
-          />
-        </mesh>
-        {/* 门把手支架 */}
-        <mesh 
-          position={[-0.03, 0, 0]} 
+          {/* 四个角柱 */}
           
+          {/* 框架边框线 */}
+          <lineSegments position={[0, containerType.height/2 - 0.05, 0]}>
+            <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
+            <lineBasicMaterial color={isHovered ? "#FF8A50" : "#BF360C"} linewidth={6} />
+          </lineSegments>
+          
+          {/* 框架集装箱的透明交互区域 - 用于鼠标事件检测 */}
+          <mesh 
+            position={[0, containerType.height/2 - 0.05, 0]}
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
+            <boxGeometry args={[containerType.length, containerType.height, containerType.width]} />
+            <meshStandardMaterial 
+              transparent 
+              opacity={0} 
+              depthWrite={false}
+            />
+          </mesh>
+        </>
+      ) : (
+        // 普通集装箱 - 显示封闭箱体
+        <mesh 
+          onPointerEnter={(event) => {
+            event.stopPropagation();
+            onHover(true);
+          }}
+          onPointerLeave={(event) => {
+            event.stopPropagation();
+            onHover(false);
+          }}
         >
-          <boxGeometry args={[0.02, 0.06, 0.3]} />
+          <boxGeometry args={[containerType.length, containerType.height, containerType.width]} />
           <meshStandardMaterial 
-            color="#1A1A1A" 
-            roughness={0.3}
-            metalness={0.9}
+            color={isHovered ? "#5BA3F5" : "#4A90E2"} 
+            transparent 
+            opacity={0.3} 
+            wireframe={false}
+            roughness={0.4}
+            metalness={0.2}
           />
         </mesh>
-      </group>
+      )}
       
-      {/* 门缝线 */}
-      <mesh 
-        position={[containerType.length/2 + 0.005, 0, 0]} 
-      >
-        <boxGeometry args={[0.02, containerType.height * 0.9, 0.02]} />
-        <meshStandardMaterial 
-          color="#222222" 
-          roughness={0.8}
-          metalness={0.1}
-        />
-      </mesh>
+      {/* 普通集装箱的边框、底部和门 - 框架集装箱不显示这些 */}
+      {!containerType.isFrameContainer && (
+        <>
+          {/* 集装箱边框 */}
+          <lineSegments
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
+            <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
+            <lineBasicMaterial color={isHovered ? "#e60012" : "#2C2C2C"} linewidth={4} />
+          </lineSegments>
+          
+          {/* 集装箱底部 */}
+          <mesh 
+            position={[0, -containerType.height/2 + 0.05, 0]} 
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
+            <boxGeometry args={[containerType.length, 0.1, containerType.width]} />
+            <meshStandardMaterial 
+              roughness={0.4}
+              metalness={0.3}
+            />
+          </mesh>
+          
+          {/* 集装箱门 */}
+          <mesh 
+            position={[containerType.length/2 - 0.05, 0, 0]} 
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
+            <boxGeometry args={[0.1, containerType.height - 0.2, containerType.width - 0.2]} />
+            <meshStandardMaterial 
+              color="#2E86AB" 
+              
+              roughness={0.4}
+              metalness={0.2}
+            />
+          </mesh>
+        </>
+      )}
+      
+      {/* 门把手 - 只有普通集装箱显示 */}
+      {!containerType.isFrameContainer && (
+        <>
+          <group position={[containerType.length/2 + 0.05, 0, -containerType.width/4]}>
+            {/* 门把手主体 - 长方形杆状 */}
+            <mesh 
+              position={[0, 0, 0]} 
+              onPointerEnter={(event) => {
+                event.stopPropagation();
+                onHover(true);
+              }}
+              onPointerLeave={(event) => {
+                event.stopPropagation();
+                onHover(false);
+              }}
+            >
+              <boxGeometry args={[0.08, 0.04, 0.25]} />
+              <meshStandardMaterial 
+                color="#2C2C2C" 
+                roughness={0.4}
+                metalness={0.8}
+              />
+            </mesh>
+            {/* 门把手支架 */}
+            <mesh 
+              position={[-0.03, 0, 0]} 
+              onPointerEnter={(event) => {
+                event.stopPropagation();
+                onHover(true);
+              }}
+              onPointerLeave={(event) => {
+                event.stopPropagation();
+                onHover(false);
+              }}
+            >
+              <boxGeometry args={[0.02, 0.06, 0.3]} />
+              <meshStandardMaterial 
+                color="#1A1A1A" 
+                roughness={0.3}
+                metalness={0.9}
+              />
+            </mesh>
+          </group>
+          
+          <group position={[containerType.length/2 + 0.05, 0, containerType.width/4]}>
+            {/* 门把手主体 - 长方形杆状 */}
+            <mesh 
+              position={[0, 0, 0]} 
+              onPointerEnter={(event) => {
+                event.stopPropagation();
+                onHover(true);
+              }}
+              onPointerLeave={(event) => {
+                event.stopPropagation();
+                onHover(false);
+              }}
+            >
+              <boxGeometry args={[0.08, 0.04, 0.25]} />
+              <meshStandardMaterial 
+                color="#2C2C2C" 
+                roughness={0.4}
+                metalness={0.8}
+              />
+            </mesh>
+            {/* 门把手支架 */}
+            <mesh 
+              position={[-0.03, 0, 0]} 
+              onPointerEnter={(event) => {
+                event.stopPropagation();
+                onHover(true);
+              }}
+              onPointerLeave={(event) => {
+                event.stopPropagation();
+                onHover(false);
+              }}
+            >
+              <boxGeometry args={[0.02, 0.06, 0.3]} />
+              <meshStandardMaterial 
+                color="#1A1A1A" 
+                roughness={0.3}
+                metalness={0.9}
+              />
+            </mesh>
+          </group>
+        </>
+      )}
+      
+      {/* 门缝线 - 只有普通集装箱显示 */}
+      {!containerType.isFrameContainer && (
+        <mesh 
+          position={[containerType.length/2 + 0.005, 0, 0]} 
+          onPointerEnter={(event) => {
+            event.stopPropagation();
+            onHover(true);
+          }}
+          onPointerLeave={(event) => {
+            event.stopPropagation();
+            onHover(false);
+          }}
+        >
+          <boxGeometry args={[0.02, containerType.height * 0.9, 0.02]} />
+          <meshStandardMaterial 
+            color="#222222" 
+            roughness={0.8}
+            metalness={0.1}
+          />
+        </mesh>
+      )}
       
       {/* 集装箱角件 */}
       {[
@@ -149,44 +273,22 @@ export const Container3D: React.FC<Container3DProps> = ({
         [-containerType.length/2, containerType.height/2, containerType.width/2],
         [containerType.length/2, containerType.height/2, containerType.width/2]
       ].map((pos, index) => (
-        <mesh key={index} position={pos as [number, number, number]}>
+        <mesh 
+          key={index} 
+          position={pos as [number, number, number]}
+          onPointerEnter={(event) => {
+            event.stopPropagation();
+            onHover(true);
+          }}
+          onPointerLeave={(event) => {
+            event.stopPropagation();
+            onHover(false);
+          }}
+        >
           <boxGeometry args={[0.15, 0.15, 0.15]} />
           <meshStandardMaterial color="#666666" metalness={0.7} roughness={0.3} />
         </mesh>
       ))}
-      
-      {/* 黄色安全标线 - 地面四角 */}
-      {/* L形安全标线 */}
-      {/* {[
-        [-containerType.length/2, -containerType.height/2 + 0.01, -containerType.width/2],
-        [containerType.length/2, -containerType.height/2 + 0.01, -containerType.width/2],
-        [-containerType.length/2, -containerType.height/2 + 0.01, containerType.width/2],
-        [containerType.length/2, -containerType.height/2 + 0.01, containerType.width/2]
-      ].map((pos, index) => (
-        <group key={`safety-${index}`} position={[pos[0], pos[1], pos[2]]}>
-          <mesh>
-            <boxGeometry args={[0.8, 0.02, 0.05]} />
-            <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.2} />
-          </mesh>
-          <mesh>
-            <boxGeometry args={[0.05, 0.02, 0.8]} />
-            <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.2} />
-          </mesh>
-        </group>
-      ))} */}
-      
-      {/* 作业区域标记 - 圆形标记 */}
-      {/* {[
-        [-containerType.length/2 - 1, -containerType.height/2 + 0.01, -containerType.width/2 - 1],
-        [containerType.length/2 + 1, -containerType.height/2 + 0.01, -containerType.width/2 - 1],
-        [-containerType.length/2 - 1, -containerType.height/2 + 0.01, containerType.width/2 + 1],
-        [containerType.length/2 + 1, -containerType.height/2 + 0.01, containerType.width/2 + 1]
-      ].map((pos, index) => (
-        <mesh key={`work-area-${index}`} position={[pos[0], pos[1], pos[2]]} rotation={[-Math.PI/2, 0, 0]}>
-          <ringGeometry args={[0.2, 0.3, 8]} />
-          <meshStandardMaterial color="#e60012" emissive="#e60012" emissiveIntensity={0.3} />
-        </mesh>
-      ))} */}
       
       {/* 集装箱详细信息提示 - 悬停时显示 */}
       {isHovered && (
@@ -400,12 +502,23 @@ export const Container3D: React.FC<Container3DProps> = ({
           key={`${item.cargo.id}-${index}`}
           position={[
             item.x - containerType.length/2 + item.cargo.length/2 + gap, // 添加与集装箱内壁的间隙
-            -containerType.height/2 + item.y + item.cargo.height/2 + gap, // 从集装箱底部开始计算，添加底部间隙
+            containerType.isFrameContainer 
+              ? -containerType.height/2 + item.y + item.cargo.height/2 + gap // 框架集装箱：从底部框架上表面开始计算
+              : -containerType.height/2 + item.y + item.cargo.height/2 + gap, // 普通集装箱：从集装箱底部开始计算
             item.z - containerType.width/2 + item.cargo.width/2 + gap // 添加与集装箱内壁的间隙
           ]}
         >
           {/* 货物主体 */}
-          <mesh>
+          <mesh
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
             <boxGeometry args={[item.cargo.length, item.cargo.height, item.cargo.width]} />
             <meshStandardMaterial 
               color={item.cargo.color || '#3182CE'} 
@@ -419,7 +532,16 @@ export const Container3D: React.FC<Container3DProps> = ({
           </mesh>
           
           {/* 货物边框 */}
-          <lineSegments>
+          <lineSegments
+            onPointerEnter={(event) => {
+              event.stopPropagation();
+              onHover(true);
+            }}
+            onPointerLeave={(event) => {
+              event.stopPropagation();
+              onHover(false);
+            }}
+          >
             <edgesGeometry args={[new THREE.BoxGeometry(item.cargo.length, item.cargo.height, item.cargo.width)]} />
             <lineBasicMaterial 
               color="#000000" 

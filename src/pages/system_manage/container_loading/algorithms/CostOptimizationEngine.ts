@@ -51,9 +51,15 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let minContainers = Infinity;
 
-    // 预检查：计算货物的最大高度和可能的堆叠层数
-    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    // 智能分离货物：根据货物高度分组
+    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     const gap = 0.05; // 默认间隙
+    
+    // 分离可装入标准箱的货物和需要框架箱的货物
+    const standardCargos = cargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = cargos.filter(cargo => cargo.height > maxStandardHeight);
+    
+    console.log(`成本优化(最少集装箱)：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
     
     // 按体积从大到小排序集装箱类型，优先尝试大容器
     const sortedContainerTypes = [...CONTAINER_TYPES].sort((a, b) => {
@@ -61,16 +67,90 @@ export class CostOptimizationEngine {
       const volumeB = b.length * b.width * b.height;
       return volumeB - volumeA;
     });
-
-    // 过滤掉高度不足的集装箱类型
-    const feasibleContainerTypes = sortedContainerTypes.filter(containerType => {
-      // 检查集装箱是否能容纳至少一个货物（考虑间隙）
-      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
-      if (!canFitSingleCargo) {
-        console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+    
+    // 如果有标准箱货物，优先尝试标准箱方案
+    if (standardCargos.length > 0) {
+      const standardContainerTypes = sortedContainerTypes.filter(containerType => !containerType.isFrameContainer);
+      
+      // 尝试标准箱优化
+      for (const containerType of standardContainerTypes) {
+        const result = algorithm.packIntoContainerType(standardCargos, containerType, cargoNameColors, {
+          algorithm: config?.algorithm || 'greedy',
+          mode: config?.mode || 'multi_container',
+          allowMultipleContainers: true,
+          containerType: config?.containerType,
+          costOptimizationStrategy: config?.costOptimizationStrategy
+        });
+        
+        if (result && result.containerCount < minContainers) {
+          minContainers = result.containerCount;
+          bestResult = result;
+        }
       }
-      return canFitSingleCargo;
-    });
+      
+      // 如果还有框架箱货物，需要额外处理
+      if (frameCargos.length > 0 && bestResult) {
+        const frameContainerTypes = sortedContainerTypes.filter(containerType => containerType.isFrameContainer);
+        let bestFrameResult: PackingResult | null = null;
+        let minFrameContainers = Infinity;
+        
+        for (const containerType of frameContainerTypes) {
+          const frameResult = algorithm.packIntoContainerType(frameCargos, containerType, cargoNameColors, {
+            algorithm: config?.algorithm || 'greedy',
+            mode: config?.mode || 'multi_container',
+            allowMultipleContainers: true,
+            containerType: config?.containerType,
+            costOptimizationStrategy: config?.costOptimizationStrategy
+          });
+          
+          if (frameResult && frameResult.containerCount < minFrameContainers) {
+            minFrameContainers = frameResult.containerCount;
+            bestFrameResult = frameResult;
+          }
+        }
+        
+        if (bestFrameResult) {
+          // 合并结果
+          bestResult = {
+            ...bestResult,
+            containerCount: bestResult.containerCount + bestFrameResult.containerCount,
+            totalCost: bestResult.totalCost + bestFrameResult.totalCost,
+            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
+            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
+            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
+            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+          };
+          minContainers = bestResult.containerCount;
+        } else {
+          // 框架箱货物装载失败，将其加入未装载列表
+          bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
+        }
+      }
+    }
+    
+    // 如果标准箱方案失败，尝试全部使用框架箱
+    if (!bestResult) {
+      const frameContainerTypes = sortedContainerTypes.filter(containerType => containerType.isFrameContainer);
+      console.log('成本优化(最少集装箱)：使用框架箱装载所有货物');
+      
+      for (const containerType of frameContainerTypes) {
+        const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, {
+          algorithm: config?.algorithm || 'greedy',
+          mode: config?.mode || 'multi_container',
+          allowMultipleContainers: true,
+          containerType: config?.containerType,
+          costOptimizationStrategy: config?.costOptimizationStrategy
+        });
+        
+        if (result && result.containerCount < minContainers) {
+          minContainers = result.containerCount;
+          bestResult = result;
+        }
+      }
+    }
+    
+    let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
 
     if (feasibleContainerTypes.length === 0) {
       console.warn('没有找到能够容纳货物高度的集装箱类型');
@@ -116,9 +196,15 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let minCost = Infinity;
 
-    // 预检查：计算货物的最大高度
-    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    // 智能分离货物：根据货物高度分组
+    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     const gap = 0.05; // 默认间隙
+    
+    // 分离可装入标准箱的货物和需要框架箱的货物
+    const standardCargos = cargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = cargos.filter(cargo => cargo.height > maxStandardHeight);
+    
+    console.log(`成本优化(最低成本)：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
 
     // 按成本效益比排序（体积/成本）
     const sortedContainerTypes = [...CONTAINER_TYPES].sort((a, b) => {
@@ -126,15 +212,90 @@ export class CostOptimizationEngine {
       const efficiencyB = (b.length * b.width * b.height) / b.cost;
       return efficiencyB - efficiencyA;
     });
-
-    // 过滤掉高度不足的集装箱类型
-    const feasibleContainerTypes = sortedContainerTypes.filter(containerType => {
-      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
-      if (!canFitSingleCargo) {
-        console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+    
+    // 如果有标准箱货物，优先尝试标准箱方案
+    if (standardCargos.length > 0) {
+      const standardContainerTypes = sortedContainerTypes.filter(containerType => !containerType.isFrameContainer);
+      
+      // 尝试标准箱优化
+      for (const containerType of standardContainerTypes) {
+        const result = algorithm.packIntoContainerType(standardCargos, containerType, cargoNameColors, {
+          algorithm: config?.algorithm || 'greedy',
+          mode: config?.mode || 'multi_container',
+          allowMultipleContainers: true,
+          containerType: config?.containerType,
+          costOptimizationStrategy: config?.costOptimizationStrategy
+        });
+        
+        if (result && result.totalCost < minCost) {
+          minCost = result.totalCost;
+          bestResult = result;
+        }
       }
-      return canFitSingleCargo;
-    });
+      
+      // 如果还有框架箱货物，需要额外处理
+      if (frameCargos.length > 0 && bestResult) {
+        const frameContainerTypes = sortedContainerTypes.filter(containerType => containerType.isFrameContainer);
+        let bestFrameResult: PackingResult | null = null;
+        let minFrameCost = Infinity;
+        
+        for (const containerType of frameContainerTypes) {
+          const frameResult = algorithm.packIntoContainerType(frameCargos, containerType, cargoNameColors, {
+            algorithm: config?.algorithm || 'greedy',
+            mode: config?.mode || 'multi_container',
+            allowMultipleContainers: true,
+            containerType: config?.containerType,
+            costOptimizationStrategy: config?.costOptimizationStrategy
+          });
+          
+          if (frameResult && frameResult.totalCost < minFrameCost) {
+            minFrameCost = frameResult.totalCost;
+            bestFrameResult = frameResult;
+          }
+        }
+        
+        if (bestFrameResult) {
+          // 合并结果
+          bestResult = {
+            ...bestResult,
+            containerCount: bestResult.containerCount + bestFrameResult.containerCount,
+            totalCost: bestResult.totalCost + bestFrameResult.totalCost,
+            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
+            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
+            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
+            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+          };
+          minCost = bestResult.totalCost;
+        } else {
+          // 框架箱货物装载失败，将其加入未装载列表
+          bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
+        }
+      }
+    }
+    
+    // 如果标准箱方案失败，尝试全部使用框架箱
+    if (!bestResult) {
+      const frameContainerTypes = sortedContainerTypes.filter(containerType => containerType.isFrameContainer);
+      console.log('成本优化(最低成本)：使用框架箱装载所有货物');
+      
+      for (const containerType of frameContainerTypes) {
+        const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, {
+          algorithm: config?.algorithm || 'greedy',
+          mode: config?.mode || 'multi_container',
+          allowMultipleContainers: true,
+          containerType: config?.containerType,
+          costOptimizationStrategy: config?.costOptimizationStrategy
+        });
+        
+        if (result && result.totalCost < minCost) {
+          minCost = result.totalCost;
+          bestResult = result;
+        }
+      }
+    }
+    
+    let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
 
     if (feasibleContainerTypes.length === 0) {
       console.warn('没有找到能够容纳货物高度的集装箱类型');
@@ -184,18 +345,75 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let maxUtilization = 0;
 
-    // 预检查：计算货物的最大高度
-    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    // 智能分离货物：根据货物高度分组
+    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     const gap = 0.05; // 默认间隙
-
-    // 过滤掉高度不足的集装箱类型
-    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
-      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
-      if (!canFitSingleCargo) {
-        console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+    
+    // 分离可装入标准箱的货物和需要框架箱的货物
+    const standardCargos = cargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = cargos.filter(cargo => cargo.height > maxStandardHeight);
+    
+    console.log(`成本优化(最高利用率)：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
+    
+    // 如果有标准箱货物，优先尝试标准箱方案
+    if (standardCargos.length > 0) {
+      const standardContainerTypes = CONTAINER_TYPES.filter(containerType => !containerType.isFrameContainer);
+      
+      // 尝试标准箱优化
+      for (const containerType of standardContainerTypes) {
+        const result = algorithm.packIntoContainerType(standardCargos, containerType, cargoNameColors, config);
+        if (result && result.utilization > maxUtilization) {
+          maxUtilization = result.utilization;
+          bestResult = result;
+        }
       }
-      return canFitSingleCargo;
-    });
+      
+      // 如果还有框架箱货物，需要额外处理
+      if (frameCargos.length > 0 && bestResult) {
+        const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+        let bestFrameResult: PackingResult | null = null;
+        
+        for (const containerType of frameContainerTypes) {
+          const frameResult = algorithm.packIntoContainerType(frameCargos, containerType, cargoNameColors, config);
+          if (frameResult && (!bestFrameResult || frameResult.utilization > bestFrameResult.utilization)) {
+            bestFrameResult = frameResult;
+          }
+        }
+        
+        if (bestFrameResult) {
+          // 合并结果（这里简化处理，实际应该有专门的合并方法）
+          bestResult = {
+            ...bestResult,
+            containerCount: bestResult.containerCount + bestFrameResult.containerCount,
+            totalCost: bestResult.totalCost + bestFrameResult.totalCost,
+            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
+            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
+            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
+            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+          };
+        } else {
+          // 框架箱货物装载失败，将其加入未装载列表
+          bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
+        }
+      }
+    }
+    
+    // 如果标准箱方案失败，尝试全部使用框架箱
+    if (!bestResult) {
+      const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+      console.log('成本优化(最高利用率)：使用框架箱装载所有货物');
+      
+      for (const containerType of frameContainerTypes) {
+        const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, config);
+        if (result && result.utilization > maxUtilization) {
+          maxUtilization = result.utilization;
+          bestResult = result;
+        }
+      }
+    }
+    
+    let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
 
     if (feasibleContainerTypes.length === 0) {
       console.warn('没有找到能够容纳货物高度的集装箱类型');
@@ -274,15 +492,106 @@ export class CostOptimizationEngine {
     let bestResult: PackingResult | null = null;
     let maxUtilization = 0;
 
-    // 预检查：计算货物的最大高度
-    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
+    // 智能分离货物：根据货物高度分组
+    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     const gap = 0.05; // 默认间隙
-
-    // 过滤掉高度不足的集装箱类型
-    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
-      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
-      return canFitSingleCargo;
-    });
+    
+    // 分离可装入标准箱的货物和需要框架箱的货物
+    const standardCargos = densitySortedCargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = densitySortedCargos.filter(cargo => cargo.height > maxStandardHeight);
+    
+    console.log(`利用率优化排序：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
+    
+    // 如果有标准箱货物，优先尝试标准箱方案
+    if (standardCargos.length > 0) {
+      const standardContainerTypes = CONTAINER_TYPES.filter(containerType => !containerType.isFrameContainer);
+      
+      for (const containerType of standardContainerTypes) {
+        const result = algorithm.packIntoContainerType(standardCargos, containerType, cargoNameColors, config);
+        
+        if (result) {
+          const volumeUtilization = result.utilization;
+          const weightUtilization = this.calculateWeightUtilization(result, containerType);
+          const comprehensiveUtilization = this.calculateComprehensiveUtilization(
+            volumeUtilization, 
+            weightUtilization
+          );
+          
+          if (comprehensiveUtilization > maxUtilization) {
+            maxUtilization = comprehensiveUtilization;
+            bestResult = result;
+          }
+        }
+      }
+      
+      // 如果还有框架箱货物，需要额外处理
+      if (frameCargos.length > 0 && bestResult) {
+        const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+        let bestFrameResult: PackingResult | null = null;
+        let maxFrameUtilization = 0;
+        
+        for (const containerType of frameContainerTypes) {
+          const frameResult = algorithm.packIntoContainerType(frameCargos, containerType, cargoNameColors, config);
+          
+          if (frameResult) {
+            const volumeUtilization = frameResult.utilization;
+            const weightUtilization = this.calculateWeightUtilization(frameResult, containerType);
+            const comprehensiveUtilization = this.calculateComprehensiveUtilization(
+              volumeUtilization, 
+              weightUtilization
+            );
+            
+            if (comprehensiveUtilization > maxFrameUtilization) {
+              maxFrameUtilization = comprehensiveUtilization;
+              bestFrameResult = frameResult;
+            }
+          }
+        }
+        
+        if (bestFrameResult) {
+          // 合并结果
+          bestResult = {
+            ...bestResult,
+            containerCount: bestResult.containerCount + bestFrameResult.containerCount,
+            totalCost: bestResult.totalCost + bestFrameResult.totalCost,
+            packedItems: [...bestResult.packedItems, ...bestFrameResult.packedItems],
+            containers: [...bestResult.containers, ...bestFrameResult.containers],
+            unpackedItems: [...bestResult.unpackedItems, ...bestFrameResult.unpackedItems],
+            totalVolume: bestResult.totalVolume + bestFrameResult.totalVolume,
+            totalWeight: bestResult.totalWeight + bestFrameResult.totalWeight
+          };
+        } else {
+          // 框架箱货物装载失败，将其加入未装载列表
+          bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
+        }
+      }
+    }
+    
+    // 如果标准箱方案失败，尝试全部使用框架箱
+    if (!bestResult) {
+      const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+      console.log('利用率优化排序：使用框架箱装载所有货物');
+      
+      for (const containerType of frameContainerTypes) {
+        const result = algorithm.packIntoContainerType(densitySortedCargos, containerType, cargoNameColors, config);
+        
+        if (result) {
+          const volumeUtilization = result.utilization;
+          const weightUtilization = this.calculateWeightUtilization(result, containerType);
+          const comprehensiveUtilization = this.calculateComprehensiveUtilization(
+            volumeUtilization, 
+            weightUtilization
+          );
+          
+          if (comprehensiveUtilization > maxUtilization) {
+            maxUtilization = comprehensiveUtilization;
+            bestResult = result;
+          }
+        }
+      }
+    }
+    
+    let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
 
     if (feasibleContainerTypes.length === 0) {
       return null;

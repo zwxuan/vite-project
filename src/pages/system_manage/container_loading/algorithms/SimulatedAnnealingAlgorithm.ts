@@ -45,25 +45,57 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
       return result;
     }
 
-    // 预检查：计算货物的最大高度，过滤掉高度不足的集装箱类型
-    const maxCargoHeight = Math.max(...cargos.map(cargo => cargo.height));
-    const gap = 0.05; // 默认间隙
+    // 智能分离货物：根据货物高度分组
+    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     
-    const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
-      const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
-      if (!canFitSingleCargo) {
-        console.log(`模拟退火算法：集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+    // 分离可装入标准箱的货物和需要框架箱的货物
+    const standardCargos = cargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = cargos.filter(cargo => cargo.height > maxStandardHeight);
+    
+    console.log(`模拟退火算法：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
+    console.log(`标准箱最大高度限制: ${maxStandardHeight}m`);
+    
+    let bestResult: PackingResult | null = null;
+    
+    // 如果有标准箱货物，优先尝试标准箱方案
+    if (standardCargos.length > 0) {
+      const standardContainerTypes = CONTAINER_TYPES.filter(containerType => !containerType.isFrameContainer);
+      const standardResult = this.optimizeWithSimulatedAnnealing(standardCargos, standardContainerTypes, cargoNameColors, config, startTime);
+      
+      if (standardResult) {
+        console.log(`模拟退火算法：标准箱方案 - 利用率: ${standardResult.utilization.toFixed(2)}%, 集装箱数: ${standardResult.containerCount}`);
+        bestResult = standardResult;
+        
+        // 如果还有框架箱货物，需要额外处理
+        if (frameCargos.length > 0) {
+          const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+          const frameResult = this.optimizeWithSimulatedAnnealing(frameCargos, frameContainerTypes, cargoNameColors, config, startTime);
+          
+          if (frameResult) {
+            console.log(`模拟退火算法：框架箱方案 - 利用率: ${frameResult.utilization.toFixed(2)}%, 集装箱数: ${frameResult.containerCount}`);
+            // 合并两个结果
+            bestResult = this.mergePackingResults(standardResult, frameResult);
+          } else {
+            // 框架箱货物装载失败，将其加入未装载列表
+            bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
+          }
+        }
       }
-      return canFitSingleCargo;
-    });
-    
-    if (feasibleContainerTypes.length === 0) {
-      console.warn('模拟退火算法：没有找到合适的集装箱类型，所有集装箱高度都不足以容纳货物');
-      return null;
     }
-
-    // 使用模拟退火算法优化可行的集装箱类型
-    const result = this.optimizeWithSimulatedAnnealing(cargos, feasibleContainerTypes, cargoNameColors, config, startTime);
+    
+    // 如果标准箱方案失败或没有标准箱货物，尝试全部使用框架箱
+    if (!bestResult) {
+      const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+      if (frameContainerTypes.length === 0) {
+        console.warn('模拟退火算法：没有找到合适的集装箱类型');
+        return null;
+      }
+      
+      console.log('模拟退火算法：使用框架箱装载所有货物');
+      bestResult = this.optimizeWithSimulatedAnnealing(cargos, frameContainerTypes, cargoNameColors, config, startTime);
+    }
+    
+    const result = bestResult;
     if (result) {
       this.resultCache.set(cacheKey, result);
       // 限制缓存大小
@@ -84,6 +116,49 @@ export class SimulatedAnnealingAlgorithm extends BaseAlgorithm {
     const cargoKey = cargos.map(c => `${c.id}-${c.quantity}`).sort().join(',');
     const configKey = config?.containerType?.name || 'auto';
     return `${cargoKey}-${configKey}`;
+  }
+
+  /**
+   * 合并两个装箱结果
+   */
+  private mergePackingResults(standardResult: PackingResult, frameResult: PackingResult): PackingResult {
+    const combinedUtilization = this.calculateCombinedUtilization(standardResult, frameResult);
+    return {
+      containerType: standardResult.containerType, // 使用主要结果的容器类型
+      containerCount: standardResult.containerCount + frameResult.containerCount,
+      utilization: combinedUtilization,
+      utilizationRate: combinedUtilization,
+      totalCost: standardResult.totalCost + frameResult.totalCost,
+      packedItems: [...standardResult.packedItems, ...frameResult.packedItems],
+      containers: [...standardResult.containers, ...frameResult.containers],
+      unpackedItems: [...standardResult.unpackedItems, ...frameResult.unpackedItems],
+      totalVolume: standardResult.totalVolume + frameResult.totalVolume,
+      totalWeight: standardResult.totalWeight + frameResult.totalWeight,
+      algorithm: standardResult.algorithm,
+      mode: standardResult.mode,
+      executionTime: (standardResult.executionTime || 0) + (frameResult.executionTime || 0),
+      iterations: (standardResult.iterations || 0) + (frameResult.iterations || 0)
+    };
+  }
+
+  /**
+   * 计算合并结果的综合利用率
+   */
+  private calculateCombinedUtilization(standardResult: PackingResult, frameResult: PackingResult): number {
+    const totalContainerVolume = this.calculateTotalContainerVolume(standardResult.containers) + 
+                                this.calculateTotalContainerVolume(frameResult.containers);
+    const totalCargoVolume = standardResult.totalVolume + frameResult.totalVolume;
+    
+    return totalContainerVolume > 0 ? (totalCargoVolume / totalContainerVolume) * 100 : 0;
+  }
+
+  /**
+   * 计算集装箱总体积
+   */
+  private calculateTotalContainerVolume(containers: any[]): number {
+    return containers.reduce((total, container) => {
+      return total + (container.length * container.width * container.height);
+    }, 0);
   }
 
   /**

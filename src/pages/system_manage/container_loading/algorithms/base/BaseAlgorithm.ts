@@ -32,6 +32,7 @@ export abstract class BaseAlgorithm {
     };
 
     const packedItems: any[] = [];
+    const unpackedItems: Cargo[] = []; // 声明未装载货物列表
     let containerCount = 0;
     let currentContainerWeight = 0;
     let currentContainerVolume = 0;
@@ -55,10 +56,11 @@ export abstract class BaseAlgorithm {
         const cargoWeight = cargo.weight;
         const cargoVolume = cargo.length * cargo.width * cargo.height;
 
-        // 预先检查：如果货物本身就无法装入任何容器，直接跳过
-        if (cargo.height + gap > containerType.height) {
+        // 预先检查：如果货物本身就无法装入任何容器，直接跳过（框架集装箱除外）
+        if (!containerType.isFrameContainer && cargo.height > containerType.height) {
           console.warn(`货物 ${cargo.name} 高度 ${cargo.height}m 超过集装箱高度 ${containerType.height}m，无法装载`);
-          continue; // 跳过这个货物
+          // 跳过当前这一件货物，继续处理下一件
+          continue;
         }
 
         // 检查当前位置是否能放下货物
@@ -69,10 +71,10 @@ export abstract class BaseAlgorithm {
         let tempMaxHeightInLayer = maxHeightInLayer;
         let tempMaxWidthInRow = maxWidthInRow;
         
-        // 预先检查：如果当前货物在当前层就无法放下（高度超限），直接需要新容器
-        if (currentY + cargo.height + gap > containerType.height) {
+        // 预先检查：如果当前货物在当前层就无法放下（高度超限），直接需要新容器（框架集装箱除外）
+        if (!containerType.isFrameContainer && currentY + cargo.height > containerType.height) {
           needNewContainer = true;
-          console.log(`货物 ${cargo.name} 在当前层无法放置，当前层高=${currentY}, 货物高=${cargo.height}, 总高=${currentY + cargo.height + gap} > 容器高=${containerType.height}`);
+          console.log(`货物 ${cargo.name} 在当前层无法放置，当前层高=${currentY}, 货物高=${cargo.height}, 总高=${currentY + cargo.height} > 容器高=${containerType.height}`);
         }
         
         // 只有在不需要新容器时才进行位置调整计算
@@ -90,10 +92,10 @@ export abstract class BaseAlgorithm {
               tempZ = 0;
               const newLayerY = tempY + tempMaxHeightInLayer;
               
-              // 换层前先检查新层高度是否会超限
-              if (newLayerY + cargo.height + gap > containerType.height) {
+              // 换层前先检查新层高度是否会超限（框架集装箱除外）
+              if (!containerType.isFrameContainer && newLayerY + cargo.height > containerType.height) {
                 needNewContainer = true;
-                console.log(`换层会导致高度超限: 当前层高=${tempY}, 当前层最大高度=${tempMaxHeightInLayer}, 新层高=${newLayerY}, 货物高=${cargo.height}, 总高=${newLayerY + cargo.height + gap} > 容器高=${containerType.height}`);
+                console.log(`换层会导致高度超限: 当前层高=${tempY}, 当前层最大高度=${tempMaxHeightInLayer}, 新层高=${newLayerY}, 货物高=${cargo.height}, 总高=${newLayerY + cargo.height} > 容器高=${containerType.height}`);
               } else {
                 tempY = newLayerY;
                 tempMaxHeightInLayer = cargo.height + gap; // 设置新层的高度
@@ -112,7 +114,7 @@ export abstract class BaseAlgorithm {
           if (!needNewContainer) {
             const wouldExceedLength = tempX + cargo.length + gap > containerType.length;
             const wouldExceedWidth = tempZ + cargo.width + gap > containerType.width;
-            const wouldExceedHeight = tempY + cargo.height + gap > containerType.height;
+            const wouldExceedHeight = !containerType.isFrameContainer && tempY + cargo.height > containerType.height;
             
             if (wouldExceedLength || wouldExceedWidth || wouldExceedHeight) {
               needNewContainer = true;
@@ -166,9 +168,9 @@ export abstract class BaseAlgorithm {
 
         // 实际装载货物前再次检查是否能装下
         const finalCheck = (
-          currentX + cargo.length + gap <= containerType.length &&
-          currentZ + cargo.width + gap <= containerType.width &&
-          currentY + cargo.height + gap <= containerType.height &&
+          currentX + cargo.length <= containerType.length &&
+          currentZ + cargo.width <= containerType.width &&
+          (containerType.isFrameContainer || currentY + cargo.height <= containerType.height) &&
           currentContainerWeight + cargoWeight <= containerType.maxWeight &&
           currentContainerVolume + cargoVolume <= containerVolume
         );
@@ -233,7 +235,7 @@ export abstract class BaseAlgorithm {
       packedCargoCount.set(item.cargo.id, count + 1);
     });
 
-    const unpackedItems: Cargo[] = [];
+    // 添加剩余未装载的货物到未装载列表
     cargos.forEach(cargo => {
       const packedCount = packedCargoCount.get(cargo.id) || 0;
       const remainingCount = cargo.quantity - packedCount;

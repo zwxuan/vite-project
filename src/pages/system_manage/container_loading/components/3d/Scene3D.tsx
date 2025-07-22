@@ -176,7 +176,14 @@ export const Scene3D: React.FC<Scene3DProps> = ({
               packedItems={packingResult.packedItems}
               containerIndex={containerIndex}
               isHovered={hoveredContainer === containerIndex}
-              onHover={(hovered) => setHoveredContainer(hovered ? containerIndex : null)}
+              onHover={(hovered) => {
+                if (hovered) {
+                  setHoveredContainer(containerIndex);
+                } else if (hoveredContainer === containerIndex) {
+                  // 只有当前悬停的集装箱离开时才清除状态
+                  setHoveredContainer(null);
+                }
+              }}
               gap={packingResult.gap || 0.05}
             />
           </group>

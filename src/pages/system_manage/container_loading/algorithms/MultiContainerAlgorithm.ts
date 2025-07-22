@@ -393,18 +393,88 @@ export class MultiContainerAlgorithm extends BaseAlgorithm {
           bestContainerType = optimizedResult.containerType;
         }
       } else {
-        // 默认策略：尝试不同的集装箱类型，但需要考虑高度限制
-        const maxCargoHeight = Math.max(...group.map(cargo => cargo.height));
-        const gap = 0.05; // 默认间隙
+        // 默认策略：智能分离货物并选择合适的集装箱类型
+        const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
         
-        // 过滤掉高度不足的集装箱类型
-        const feasibleContainerTypes = CONTAINER_TYPES.filter(containerType => {
-          const canFitSingleCargo = containerType.height >= (maxCargoHeight + gap);
-          if (!canFitSingleCargo) {
-            console.log(`集装箱类型 ${containerType.name} 高度不足，无法容纳最高货物 ${maxCargoHeight}m`);
+        // 分离可装入标准箱的货物和需要框架箱的货物
+        const standardCargos = group.filter(cargo => cargo.height <= maxStandardHeight);
+        const frameCargos = group.filter(cargo => cargo.height > maxStandardHeight);
+        
+        console.log(`多集装箱算法：货物组分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
+        
+        // 如果有标准箱货物，优先尝试标准箱
+        if (standardCargos.length > 0) {
+          const standardContainerTypes = CONTAINER_TYPES.filter(containerType => !containerType.isFrameContainer);
+          
+          for (const containerType of standardContainerTypes) {
+            const groupResult = this.packIntoContainerType(
+              standardCargos,
+              containerType,
+              cargoNameColors,
+              config
+            );
+            
+            if (groupResult && (!bestGroupResult || groupResult.utilization > bestGroupResult.utilization)) {
+              bestGroupResult = groupResult;
+              bestContainerType = containerType;
+            }
           }
-          return canFitSingleCargo;
-        });
+          
+          // 如果还有框架箱货物，需要额外处理
+          if (frameCargos.length > 0 && bestGroupResult) {
+            const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+            let bestFrameResult: PackingResult | null = null;
+            
+            for (const containerType of frameContainerTypes) {
+              const frameResult = this.packIntoContainerType(
+                frameCargos,
+                containerType,
+                cargoNameColors,
+                config
+              );
+              
+              if (frameResult && (!bestFrameResult || frameResult.utilization > bestFrameResult.utilization)) {
+                bestFrameResult = frameResult;
+              }
+            }
+            
+            if (bestFrameResult) {
+              // 简化合并结果（实际应该有更完善的合并逻辑）
+              bestGroupResult = {
+                ...bestGroupResult,
+                containerCount: bestGroupResult.containerCount + bestFrameResult.containerCount,
+                totalCost: bestGroupResult.totalCost + bestFrameResult.totalCost,
+                packedItems: [...bestGroupResult.packedItems, ...bestFrameResult.packedItems],
+                containers: [...bestGroupResult.containers, ...bestFrameResult.containers],
+                unpackedItems: [...bestGroupResult.unpackedItems, ...bestFrameResult.unpackedItems],
+                totalVolume: bestGroupResult.totalVolume + bestFrameResult.totalVolume,
+                totalWeight: bestGroupResult.totalWeight + bestFrameResult.totalWeight
+              };
+            }
+          }
+        }
+        
+        // 如果标准箱方案失败，尝试全部使用框架箱
+        if (!bestGroupResult) {
+          const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+          console.log('多集装箱算法：使用框架箱装载所有货物');
+          
+          for (const containerType of frameContainerTypes) {
+            const groupResult = this.packIntoContainerType(
+              group,
+              containerType,
+              cargoNameColors,
+              config
+            );
+            
+            if (groupResult && (!bestGroupResult || groupResult.utilization > bestGroupResult.utilization)) {
+              bestGroupResult = groupResult;
+              bestContainerType = containerType;
+            }
+          }
+        }
+        
+        let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
         
         if (feasibleContainerTypes.length === 0) {
           console.warn(`货物组高度超限，没有合适的集装箱类型`);

@@ -5,7 +5,8 @@ export const CONTAINER_TYPES: ContainerType[] = [
   { name: '20尺标准箱', length: 5.9, width: 2.35, height: 2.39, maxWeight: 28000, cost: 2000 },
   { name: '40尺标准箱', length: 12.03, width: 2.35, height: 2.39, maxWeight: 30000, cost: 3500 },
   { name: '40尺高箱', length: 12.03, width: 2.35, height: 2.69, maxWeight: 30000, cost: 3800 },
-  { name: '45尺高箱', length: 13.56, width: 2.35, height: 2.69, maxWeight: 32000, cost: 4200 }
+  { name: '45尺高箱', length: 13.56, width: 2.35, height: 2.69, maxWeight: 32000, cost: 4200 },
+  { name: '40FR框架箱', length: 12.03, width: 2.35, height: 99999, maxWeight: 30000, cost: 4000, isFrameContainer: true }
 ];
 
 // 货物颜色配置
