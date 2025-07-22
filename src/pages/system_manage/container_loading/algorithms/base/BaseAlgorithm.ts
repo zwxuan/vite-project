@@ -91,8 +91,10 @@ export abstract class BaseAlgorithm {
             // 检查是否允许堆叠和货物是否可堆叠
             const allowStacking = packingConfig?.allowStacking !== false; // 默认允许堆叠
             const cargoStackable = cargo.stackable !== false; // 默认货物可堆叠
+            // 框架集装箱不允许堆叠，无论全局设置如何
+            const isFrameContainerNoStacking = containerType.isFrameContainer;
             
-            if (allowStacking && cargoStackable) {
+            if (allowStacking && cargoStackable && !isFrameContainerNoStacking) {
               // 换层：移动到上一层
               tempZ = 0;
               const newLayerY = tempY + tempMaxHeightInLayer;
@@ -107,9 +109,11 @@ export abstract class BaseAlgorithm {
                 tempMaxWidthInRow = cargo.width + gap; // 重置行宽度
               }
             } else {
-              // 不允许堆叠或货物不可堆叠，需要新容器
+              // 不允许堆叠或货物不可堆叠或框架集装箱，需要新容器
               needNewContainer = true;
-              console.log(`不允许堆叠或货物不可堆叠，需要新容器: allowStacking=${allowStacking}, cargoStackable=${cargoStackable}`);
+              const reason = isFrameContainerNoStacking ? '框架集装箱不允许堆叠' : 
+                           !allowStacking ? '全局禁止堆叠' : '货物不可堆叠';
+              console.log(`需要新容器: ${reason}, allowStacking=${allowStacking}, cargoStackable=${cargoStackable}, isFrameContainer=${containerType.isFrameContainer}`);
             }
           }
         } else {

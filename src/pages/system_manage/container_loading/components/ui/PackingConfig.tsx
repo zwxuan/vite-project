@@ -269,6 +269,8 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
                                 </li>
                                 <li style={{ marginBottom: '10px' }}>注意：即使开启全局堆叠，标记为"不可堆叠"的货物仍然不会被堆叠。
                                 </li>
+                                <li style={{ marginBottom: '10px' }}>特别说明：框架集装箱无论此设置如何，都不允许货物堆叠，以确保货物安全。
+                                </li>
                             </ol>
                         </div>
                     }
@@ -286,6 +288,8 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           />
           <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
             当前设置：{config.allowStacking !== false ? '允许货物堆叠' : '禁止货物堆叠'}
+            <br />
+            <span style={{ color: '#ff6b35' }}>注意：框架集装箱始终不允许堆叠</span>
           </div>
         </Form.Item>
       </Form>

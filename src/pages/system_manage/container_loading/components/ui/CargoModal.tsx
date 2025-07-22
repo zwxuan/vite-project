@@ -166,24 +166,6 @@ export const CargoModal: React.FC<CargoModalProps> = ({
             className="w-full" 
           />
         </Form.Item>
-        
-        <Form.Item 
-          name="stackable" 
-          label={
-            <span>
-              是否可堆叠
-              <Tooltip title="开启后，该货物可以与其他货物堆叠放置；关闭后，该货物上方不能放置其他货物">
-                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
-              </Tooltip>
-            </span>
-          }
-          valuePropName="checked"
-        >
-          <Switch 
-            checkedChildren="可堆叠" 
-            unCheckedChildren="不可堆叠" 
-          />
-        </Form.Item>
       </Form>
     </Modal>
   );
