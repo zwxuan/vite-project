@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Select, Radio, Tooltip, InputNumber } from 'antd';
+import { Card, Form, Select, Radio, Tooltip, InputNumber, Switch } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { PackingConfig, ContainerType, PackingAlgorithmType, PackingModeType, CostOptimizationStrategy } from '../../types';
 import { CONTAINER_TYPES, PACKING_ALGORITHMS, PACKING_MODES, COST_OPTIMIZATION_STRATEGIES } from '../../constants';
@@ -44,6 +44,13 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
     onChange({
       ...config,
       gap: value || 0.05
+    });
+  };
+
+  const handleStackingChange = (checked: boolean) => {
+    onChange({
+      ...config,
+      allowStacking: checked
     });
   };
 
@@ -248,6 +255,37 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           />
           <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
             当前设置：{((config.gap || 0.05) * 100).toFixed(0)}cm 间隙
+          </div>
+        </Form.Item>
+
+        <Form.Item style={{padding:'4px'}}
+          label={
+            <span>
+              货物堆叠设置
+              <Tooltip title={
+                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                <li style={{ marginBottom: '10px' }}>开启后，算法会尝试将货物堆叠放置以提高空间利用率；关闭后，所有货物将平铺放置，不进行堆叠。
+                                </li>
+                                <li style={{ marginBottom: '10px' }}>注意：即使开启全局堆叠，标记为"不可堆叠"的货物仍然不会被堆叠。
+                                </li>
+                            </ol>
+                        </div>
+                    }
+                    color='white'>
+                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
+              </Tooltip>
+            </span>
+          }
+        >
+          <Switch
+            checked={config.allowStacking !== false} // 默认为true
+            onChange={handleStackingChange}
+            checkedChildren="允许堆叠"
+            unCheckedChildren="禁止堆叠"
+          />
+          <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+            当前设置：{config.allowStacking !== false ? '允许货物堆叠' : '禁止货物堆叠'}
           </div>
         </Form.Item>
       </Form>

@@ -80,14 +80,19 @@ export abstract class BaseAlgorithm {
         // 只有在不需要新容器时才进行位置调整计算
         if (!needNewContainer) {
           // 检查长度方向是否超出（考虑间隙）
-          if (tempX + cargo.length + gap > containerType.length) {
-            // 换行：移动到下一行
-            tempX = 0;
-            tempZ += tempMaxWidthInRow;
-            tempMaxWidthInRow = cargo.width + gap; // 设置新行的宽度
+        if (tempX + cargo.length + gap > containerType.length) {
+          // 换行：移动到下一行
+          tempX = 0;
+          tempZ += tempMaxWidthInRow;
+          tempMaxWidthInRow = cargo.width + gap; // 设置新行的宽度
+          
+          // 检查宽度方向是否超出
+          if (tempZ + cargo.width + gap > containerType.width) {
+            // 检查是否允许堆叠和货物是否可堆叠
+            const allowStacking = packingConfig?.allowStacking !== false; // 默认允许堆叠
+            const cargoStackable = cargo.stackable !== false; // 默认货物可堆叠
             
-            // 检查宽度方向是否超出
-            if (tempZ + cargo.width + gap > containerType.width) {
+            if (allowStacking && cargoStackable) {
               // 换层：移动到上一层
               tempZ = 0;
               const newLayerY = tempY + tempMaxHeightInLayer;
@@ -101,11 +106,16 @@ export abstract class BaseAlgorithm {
                 tempMaxHeightInLayer = cargo.height + gap; // 设置新层的高度
                 tempMaxWidthInRow = cargo.width + gap; // 重置行宽度
               }
+            } else {
+              // 不允许堆叠或货物不可堆叠，需要新容器
+              needNewContainer = true;
+              console.log(`不允许堆叠或货物不可堆叠，需要新容器: allowStacking=${allowStacking}, cargoStackable=${cargoStackable}`);
             }
-          } else {
-            // 在当前行继续放置，更新行宽度
-            tempMaxWidthInRow = Math.max(tempMaxWidthInRow, cargo.width + gap);
           }
+        } else {
+          // 在当前行继续放置，更新行宽度
+          tempMaxWidthInRow = Math.max(tempMaxWidthInRow, cargo.width + gap);
+        }
           
           // 更新当前层的最大高度
           tempMaxHeightInLayer = Math.max(tempMaxHeightInLayer, cargo.height + gap);

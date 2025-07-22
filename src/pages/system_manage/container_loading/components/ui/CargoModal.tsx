@@ -1,6 +1,6 @@
 import React from 'react';
-import { Modal, Form, Input, InputNumber, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Modal, Form, Input, InputNumber, Button, Switch, Tooltip } from 'antd';
+import { PlusOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { Cargo } from '../../types';
 
@@ -63,7 +63,8 @@ export const CargoModal: React.FC<CargoModalProps> = ({
           width: 1.0,
           height: 1.0,
           weight: 100,
-          quantity: 1
+          quantity: 1,
+          stackable: true
         }}
       >
         <Form.Item 
@@ -163,6 +164,24 @@ export const CargoModal: React.FC<CargoModalProps> = ({
             max={10000}
             placeholder="数量" 
             className="w-full" 
+          />
+        </Form.Item>
+        
+        <Form.Item 
+          name="stackable" 
+          label={
+            <span>
+              是否可堆叠
+              <Tooltip title="开启后，该货物可以与其他货物堆叠放置；关闭后，该货物上方不能放置其他货物">
+                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
+              </Tooltip>
+            </span>
+          }
+          valuePropName="checked"
+        >
+          <Switch 
+            checkedChildren="可堆叠" 
+            unCheckedChildren="不可堆叠" 
           />
         </Form.Item>
       </Form>

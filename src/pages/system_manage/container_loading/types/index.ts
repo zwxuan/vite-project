@@ -26,6 +26,7 @@ export interface PackingConfig {
   allowMultipleContainers: boolean;
   costOptimizationStrategy?: CostOptimizationStrategy;
   gap?: number; // 货物间隙，单位：米，默认0.05米(5cm)
+  allowStacking?: boolean; // 是否允许货物堆叠，默认为true
 }
 
 // 货物定义
@@ -38,6 +39,7 @@ export interface Cargo {
   weight: number;
   quantity: number;
   color?: string;
+  stackable?: boolean; // 是否可以堆叠，默认为true（可堆叠）
 }
 
 // 装箱结果

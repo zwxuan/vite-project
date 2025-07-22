@@ -79,6 +79,15 @@ export const CargoTable: React.FC<CargoTableProps> = ({
       ),
     },
     {
+      title: '堆叠属性',
+      key: 'stackable',
+      render: (record: Cargo) => (
+        <Tag color={record.stackable !== false ? 'green' : 'red'}>
+          {record.stackable !== false ? '🔄 可堆叠' : '🚫 不可堆叠'}
+        </Tag>
+      ),
+    },
+    {
       title: '操作',
       key: 'actions',
       render: (record: Cargo) => (

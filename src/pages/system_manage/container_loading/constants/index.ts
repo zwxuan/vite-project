@@ -43,7 +43,8 @@ export const DEFAULT_PACKING_CONFIG = {
   algorithm: 'greedy' as PackingAlgorithmType,
   mode: 'multi_container' as PackingModeType,
   allowMultipleContainers: true,
-  gap: 0.05 // 默认5cm间隙
+  gap: 0.05, // 默认5cm间隙
+  allowStacking: true // 默认允许堆叠
 };
 
 // 3D场景配置
