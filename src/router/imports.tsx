@@ -125,6 +125,7 @@ const ManageOrgDetail = React.lazy(() => import("@/pages/org_manage/manage_org/d
 const AdminOrg = React.lazy(() => import("@/pages/org_manage/admin_org"));
 const AdminOrgDetail = React.lazy(() => import("@/pages/org_manage/admin_org/detail"));
 const Department = React.lazy(() => import("@/pages/org_manage/department/department"));
+const JobPosition = React.lazy(() => import("@/pages/org_manage/job_position"));
 const ChainMap = React.lazy(() => import("@/pages/report/3d_large_screen/china_map"));
 const Home = React.lazy(() => import("@/layout/home"));
 
@@ -138,5 +139,5 @@ export {
   AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseGoods,BaseSeaPort,BaseAirPort,BaseRailwayPort,BaseExchangeRate,BaseTaxRate,BaseSettlementMethod,
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
   BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
-  ChainMap,AdminOrgDetail,ManageOrgDetail,Department,
+  ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,
 };

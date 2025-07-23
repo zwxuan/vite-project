@@ -1606,4 +1606,13 @@ export const cn = {
         orgstatus:"状态",
         orgremark:"备注",
     },
+    job_position:{
+        jobcode:"岗位编码",
+        jobname:"岗位名称",
+        deptbelong:"所属部门",
+        parentjob:"上级岗位",
+        jobstatus:"状态",
+        jobduty:"职责",
+        jobremark:"备注",
+    },
 };

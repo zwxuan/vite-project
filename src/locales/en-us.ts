@@ -1598,4 +1598,13 @@ export const en = {
         orgstatus:"Org Status",
         orgremark:"Org Remark",
     },
+    job_position:{
+        jobcode:"Job Code",
+        jobname:"Job Name",
+        deptbelong:"Dept Belong",
+        parentjob:"Parent Job",
+        jobstatus:"Job Status",
+        jobduty:"Job Duty",
+        jobremark:"Job Remark",
+    },
 };

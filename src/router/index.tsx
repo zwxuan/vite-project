@@ -23,6 +23,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   AdminOrgDetail,
   ManageOrgDetail,
   Department,
+  JobPosition,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -578,6 +579,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <Department />  
+              </RouterGuard>),
+          },
+          {
+            path: "job_position",
+            handle: { title: '岗位' },
+            element: (
+              <RouterGuard>
+                <JobPosition />  
               </RouterGuard>),
           },
         ]

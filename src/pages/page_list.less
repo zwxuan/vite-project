@@ -1529,10 +1529,11 @@ input.u-form-control {
     margin-bottom: 1px !important;
     vertical-align: middle;
 }
+// 这里max-height: 24px; 会影响textarea控件，显示数字时高度
 .ant-input-affix-wrapper {
     padding: 0px 5px;
     min-height: 24px;
-    max-height: 24px;
+    height: 24px;
 }
 .ant-input-affix-wrapper >input.ant-input {
    font-size: 12px; 
@@ -1542,7 +1543,7 @@ input.u-form-control {
 }
 .ant-input-affix-wrapper .ant-input-suffix {
     font-size: 12px;
-    max-height: 24px;
+    height: 24px;
 }
 div>.ant-input-number .ant-input-number-input .ant-picker .ant-select-selector .ant-select-selection-search-input{
     height: 24px;

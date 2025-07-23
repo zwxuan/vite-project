@@ -278,7 +278,7 @@ const childrenMenuData: MenuGroup[] = [{
         //     name: "职级", key: "level",
         // },
         {
-            name: "岗位", key: "position",
+            name: "岗位", key: "job_position",path: "/org/job_position",
         },
     ]
 },
