@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { JobPositionItemProps } from "@/types/org_manage/job_position";
@@ -212,12 +212,29 @@ const JobPosition : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 岗位
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>人员和岗位 (多对多)</b></span> 一个人员可以同时承担多个岗位，并且一个岗位也可以由多个人员承担。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>示例</b></span>
+                                            <p>人员：吴十 岗位：技术主管, 架构师</p>
+                                            <p>岗位：财务经理  人员：郑十一 (全职), 王五 (兼职/备份)</p>
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>设置企业的岗位。岗位是在企业组织中、在一个特定的时间内、由一个特定的人所担负的一个或数个任务所组成。换言之岗位是企业中执行一定任务的位置，即只要是企业的员工就应有其特定的岗位。岗位是组织级节点，基于部门设置企业的岗位。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
                         <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
                             </label>
                         </div>
                     </span>
