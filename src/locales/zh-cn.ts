@@ -1615,4 +1615,23 @@ export const cn = {
         jobduty:"职责",
         jobremark:"备注",
     },
+    employee_category:{
+        categorycode:"员工类别编码",
+        categoryname:"员工类别名称",
+        status:"状态",
+        remarks:"备注",
+    },
+    employee_manage:{
+        employeecode:"员工编码",
+        employeename:"员工姓名",
+        organization:"所属组织",
+        department:"所属部门",
+        email:"邮箱",
+        mobile:"手机号",
+        status:"状态",
+        employeecategory:"员工类别",
+        remarks:"备注",
+        lastupdatedby:"最后修改人",
+        lastupdatedtime:"最后修改时间",
+    },
 };

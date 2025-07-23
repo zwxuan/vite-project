@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Splitter, Tooltip, Row, Col, Tree, Checkbox, Radio } from 'antd';
 import { AdminOrgItemProps } from "@/types/org_manage/admin_org";
 import dayjs from 'dayjs';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { start } from 'repl';
 import CustomIcon from '@/components/custom-icon';
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
@@ -70,7 +70,7 @@ const Detail: React.FC = () => {
     const orgCode = searchParams.get('orgCode');
     const [treeData, setTreeData] = useState<TreeNode[]>(initTreeData);
     const handleBack = () => {
-        navigate('/org/admin_org');
+        navigate('/employee/employee_manage');
     };
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 40px)' }}>
@@ -78,7 +78,7 @@ const Detail: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 行政组织明细
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 员工管理明细
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>

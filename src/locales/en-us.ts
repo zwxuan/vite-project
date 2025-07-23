@@ -1607,4 +1607,23 @@ export const en = {
         jobduty:"Job Duty",
         jobremark:"Job Remark",
     },
+    employee_category: {
+        categorycode: "Category Code",
+        categoryname: "Category Name",
+        status: "Status",
+        remarks: "Remarks"
+    },
+    employee_manage: {
+        employeecode: "Employee Code",
+        employeename: "Employee Name",
+        organization: "Organization",
+        department: "Department",
+        email: "Email",
+        mobile: "Mobile",
+        status:"Status",
+        employeecategory: "Emp Category",
+        remarks: "Remarks",
+        lastupdatedby: "Updated By",
+        lastupdatedtime: "Updated Time"
+    },
 };

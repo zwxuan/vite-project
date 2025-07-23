@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Splitter, Tooltip, Row, Col, Tree, Checkbox, Radio } from 'antd';
 import { AdminOrgItemProps } from "@/types/org_manage/admin_org";
 import dayjs from 'dayjs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { start } from 'repl';
 import CustomIcon from '@/components/custom-icon';
 import { RedoOutlined, DownOutlined, HourglassOutlined } from '@ant-design/icons';
@@ -65,10 +65,13 @@ const initTreeData: TreeNode[] = [
 ];
 const Detail: React.FC = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const orgCode = searchParams.get('orgCode');
     const [treeData, setTreeData] = useState<TreeNode[]>(initTreeData);
-
+    const handleBack = () => {
+        navigate('/org/manage_org');
+    };
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 40px)' }}>
             <div className="nc-bill-header-area">
@@ -90,6 +93,8 @@ const Detail: React.FC = () => {
                                 <Button type="primary" danger >新增</Button>
                                 <Button type="primary" danger >保存</Button>
                                 <Button type="primary" danger >停用</Button>
+
+                                <Button onClick={handleBack}>返回</Button>
                             </div>
                         </div>
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
