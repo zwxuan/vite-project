@@ -42,8 +42,6 @@ export const Container3D: React.FC<Container3DProps> = ({
               metalness={0.3} />
           </mesh>
           
-          {/* 四个角柱 */}
-          
           {/* 框架边框线 */}
           <lineSegments position={[0, containerType.height/2 - 0.05, 0]}>
             <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />

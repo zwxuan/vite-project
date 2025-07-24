@@ -1,13 +1,10 @@
 import React from 'react';
 import { Html, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { ContainerType } from '../../types';
 
 interface Ruler3DProps {
-  containerType: {
-    length: number;
-    width: number;
-    height: number;
-  };
+  containerType: ContainerType;
   position: [number, number, number];
 }
 
@@ -233,60 +230,62 @@ export const Ruler3D: React.FC<Ruler3DProps> = ({
 
       </group>
       
-      {/* 高度标尺 (Y轴) - 左前角30度，整体向左旋转30度 */}
-      <group position={[-containerType.length/2 - dimensionOffset * 0.5, 0, containerType.width/2 + dimensionOffset * 0.866]} rotation={[0, -Math.PI/6, 0]}>
-        {/* 底部延伸线 - 30度向外 */}
-        <mesh position={[-extensionLength/2 * 0.5 + 0.2, -containerType.height/2, extensionLength/2 * 0.866]}>
-          <boxGeometry args={[extensionLength/2 * 0.02, lineThickness, extensionLength * 0.866]} />
-          <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
-        </mesh>
-        
-        {/* 顶部延伸线 - 30度向外 */}
-        <mesh position={[-extensionLength/2 * 0.5 + 0.2, containerType.height/2, extensionLength/2 * 0.866]}>
-          <boxGeometry args={[extensionLength/2 * 0.02, lineThickness, extensionLength * 0.866]} />
-          <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
-        </mesh>
-        
-        {/* 主尺寸线 */}
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[lineThickness/2 * 0.5, containerType.height, lineThickness]} />
-          <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
-        </mesh>
-        
-        {/* 高度刻度线 */}
-        {generateTicks(containerType.height, 'y', containerType.height)}
-        
-        {/* 底部箭头 */}
-        <mesh position={[0, -containerType.height/2 + arrowSize, 0]} rotation={[0, 0, Math.PI]}>
-          <coneGeometry args={[arrowSize/2, arrowSize, 3]} />
-          <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
-        </mesh>
-        
-        {/* 顶部箭头 */}
-        <mesh 
-          position={[0, containerType.height/2 - arrowSize, 0]}
-          onPointerEnter={(event) => event.stopPropagation()}
-          onPointerLeave={(event) => event.stopPropagation()}
-        >
-          <coneGeometry args={[arrowSize/2, arrowSize, 3]} />
-          <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
-        </mesh>
-        
-        {/* 高度单位标签 */}
-        <Text
-          position={[0.1, containerType.height/2 + 0.3, 0]}
-          rotation={[0, 360, 0]}
-          fontSize={0.25}
-          color="#000000"
-          anchorX="left"
-          anchorY="middle"
-          outlineWidth={0.02}
-          outlineColor="#ffffff"
-        >
-          cm
-        </Text>
+      {/* 高度标尺 (Y轴) - 只有非框架集装箱才显示高度标尺 */}
+      {!containerType.isFrameContainer && (
+        <group position={[-containerType.length/2 - dimensionOffset * 0.5, 0, containerType.width/2 + dimensionOffset * 0.866]} rotation={[0, -Math.PI/6, 0]}>
+          {/* 底部延伸线 - 30度向外 */}
+          <mesh position={[-extensionLength/2 * 0.5 + 0.2, -containerType.height/2, extensionLength/2 * 0.866]}>
+            <boxGeometry args={[extensionLength/2 * 0.02, lineThickness, extensionLength * 0.866]} />
+            <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
+          </mesh>
+          
+          {/* 顶部延伸线 - 30度向外 */}
+          <mesh position={[-extensionLength/2 * 0.5 + 0.2, containerType.height/2, extensionLength/2 * 0.866]}>
+            <boxGeometry args={[extensionLength/2 * 0.02, lineThickness, extensionLength * 0.866]} />
+            <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
+          </mesh>
+          
+          {/* 主尺寸线 */}
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[lineThickness/2 * 0.5, containerType.height, lineThickness]} />
+            <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
+          </mesh>
+          
+          {/* 高度刻度线 */}
+          {generateTicks(containerType.height, 'y', containerType.height)}
+          
+          {/* 底部箭头 */}
+          <mesh position={[0, -containerType.height/2 + arrowSize, 0]} rotation={[0, 0, Math.PI]}>
+            <coneGeometry args={[arrowSize/2, arrowSize, 3]} />
+            <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
+          </mesh>
+          
+          {/* 顶部箭头 */}
+          <mesh 
+            position={[0, containerType.height/2 - arrowSize, 0]}
+            onPointerEnter={(event) => event.stopPropagation()}
+            onPointerLeave={(event) => event.stopPropagation()}
+          >
+            <coneGeometry args={[arrowSize/2, arrowSize, 3]} />
+            <meshStandardMaterial color={lineColor} transparent opacity={rulerOpacity} />
+          </mesh>
+          
+          {/* 高度单位标签 */}
+          <Text
+            position={[0.1, containerType.height/2 + 0.3, 0]}
+            rotation={[0, 360, 0]}
+            fontSize={0.25}
+            color="#000000"
+            anchorX="left"
+            anchorY="middle"
+            outlineWidth={0.02}
+            outlineColor="#ffffff"
+          >
+            cm
+          </Text>
 
-      </group>
+        </group>
+      )}
     </group>
   );
 };
