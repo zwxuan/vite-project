@@ -45,13 +45,9 @@ export const Container3D: React.FC<Container3DProps> = ({
       ) : (
         // 普通集装箱 - 显示封闭箱体
         <mesh 
-          onPointerEnter={(event) => {
+          onClick={(event) => { 
             event.stopPropagation();
             onHover(true);
-          }}
-          onPointerLeave={(event) => {
-            event.stopPropagation();
-            // onHover(false);
           }}
         >
           <boxGeometry args={[containerType.length, containerType.height, containerType.width]} />
