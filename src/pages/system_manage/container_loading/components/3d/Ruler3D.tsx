@@ -31,7 +31,7 @@ export const Ruler3D: React.FC<Ruler3DProps> = ({
   
   // 刻度参数
   const majorTickInterval = 1.0; // 大刻度间隔 (1米)
-  const minorTickInterval = 0.1; // 小刻度间隔 (10厘米)
+  const minorTickInterval = 0.2; // 小刻度间隔 (10厘米)
   const majorTickLength = 0.25; // 大刻度长度 - 增加长度
   const minorTickLength = 0.15; // 小刻度长度 - 增加长度
   const tickThickness = 0.02; // 刻度线厚度 - 增加厚度
