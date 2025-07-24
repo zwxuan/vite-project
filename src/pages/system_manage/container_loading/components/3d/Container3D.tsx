@@ -30,42 +30,16 @@ export const Container3D: React.FC<Container3DProps> = ({
             position={[0, -containerType.height/2 + 0.05, 0]}
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
-              onHover(false);
+              // onHover(false);
             }}
           >
             <boxGeometry args={[containerType.length, 0.05, containerType.width]} />
             <meshStandardMaterial color={isHovered ? "#FF6B35" : "#E55100"} roughness={0.4}
               metalness={0.3} />
-          </mesh>
-          
-          {/* 框架边框线 */}
-          <lineSegments position={[0, containerType.height/2 - 0.05, 0]}>
-            <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
-            <lineBasicMaterial color={isHovered ? "#FF8A50" : "#BF360C"} linewidth={6} />
-          </lineSegments>
-          
-          {/* 框架集装箱的透明交互区域 - 用于鼠标事件检测 */}
-          <mesh 
-            position={[0, containerType.height/2 - 0.05, 0]}
-            onPointerEnter={(event) => {
-              event.stopPropagation();
-              // onHover(true);
-            }}
-            onPointerLeave={(event) => {
-              event.stopPropagation();
-              onHover(false);
-            }}
-          >
-            <boxGeometry args={[containerType.length, containerType.height, containerType.width]} />
-            <meshStandardMaterial 
-              transparent 
-              opacity={0} 
-              depthWrite={false}
-            />
           </mesh>
         </>
       ) : (
@@ -262,7 +236,7 @@ export const Container3D: React.FC<Container3DProps> = ({
       )}
       
       {/* 集装箱角件 */}
-      {[
+      {!containerType.isFrameContainer && ([
         [-containerType.length/2, -containerType.height/2, -containerType.width/2],
         [containerType.length/2, -containerType.height/2, -containerType.width/2],
         [-containerType.length/2, containerType.height/2, -containerType.width/2],
@@ -287,7 +261,7 @@ export const Container3D: React.FC<Container3DProps> = ({
           <boxGeometry args={[0.15, 0.15, 0.15]} />
           <meshStandardMaterial color="#666666" metalness={0.7} roughness={0.3} />
         </mesh>
-      ))}
+      )))}
       
       {/* 集装箱详细信息提示 - 悬停时显示 */}
       {isHovered && (

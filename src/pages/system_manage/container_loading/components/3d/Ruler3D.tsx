@@ -124,7 +124,7 @@ export const Ruler3D: React.FC<Ruler3DProps> = ({
   return (
     <group position={position}>
       {/* 长度标尺 (X轴) - 底部 */}
-      <group position={[0, -1.25, containerType.width/2 + 0.5]}>
+      <group position={[0, -containerType.height/2, containerType.width/2 + 0.5]}>
         {/* 左侧延伸线 */}
         <mesh position={[-containerType.length/2, 0, 0.15]}>
           <boxGeometry args={[lineThickness, lineThickness, 1.3]} />
@@ -175,7 +175,7 @@ export const Ruler3D: React.FC<Ruler3DProps> = ({
       </group>
       
       {/* 宽度标尺 (Z轴) - 右侧 */}
-      <group position={[containerType.length/2 + dimensionOffset, -1.25, 0]}>
+      <group position={[containerType.length/2 + dimensionOffset, -containerType.height/2, 0]}>
         {/* 前侧延伸线 */}
         <mesh position={[-0.15, 0, -containerType.width/2]}>
           <boxGeometry args={[1.3, lineThickness, lineThickness]} />
