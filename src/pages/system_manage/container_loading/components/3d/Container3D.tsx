@@ -476,8 +476,8 @@ export const Container3D: React.FC<Container3DProps> = ({
           position={[
             item.x - containerType.length/2 + item.cargo.length/2 + gap, // 添加与集装箱内壁的间隙
             containerType.isFrameContainer 
-              ? -containerType.height/2 + item.y + item.cargo.height/2 + gap // 框架集装箱：从底部框架上表面开始计算
-              : -containerType.height/2 + item.y + item.cargo.height/2 + gap, // 普通集装箱：从集装箱底部开始计算
+              ? -containerType.height/2 + item.y + item.cargo.height/2 // 框架集装箱：从底部框架上表面开始计算，紧贴底部
+              : -containerType.height/2 + item.y + item.cargo.height/2, // 普通集装箱：从集装箱底部开始计算，紧贴底部
             item.z - containerType.width/2 + item.cargo.width/2 + gap // 添加与集装箱内壁的间隙
           ]}
         >
