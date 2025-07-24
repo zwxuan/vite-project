@@ -2,6 +2,7 @@ import React from 'react';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { Container3DProps } from '../../types';
+import { Ruler3D } from './Ruler3D';
 
 /**
  * 3D集装箱组件
@@ -54,7 +55,7 @@ export const Container3D: React.FC<Container3DProps> = ({
             position={[0, containerType.height/2 - 0.05, 0]}
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
@@ -78,7 +79,7 @@ export const Container3D: React.FC<Container3DProps> = ({
           }}
           onPointerLeave={(event) => {
             event.stopPropagation();
-            onHover(false);
+            // onHover(false);
           }}
         >
           <boxGeometry args={[containerType.length, containerType.height, containerType.width]} />
@@ -100,7 +101,7 @@ export const Container3D: React.FC<Container3DProps> = ({
           <lineSegments
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
@@ -108,7 +109,7 @@ export const Container3D: React.FC<Container3DProps> = ({
             }}
           >
             <edgesGeometry args={[new THREE.BoxGeometry(containerType.length, containerType.height, containerType.width)]} />
-            <lineBasicMaterial color={isHovered ? "#e60012" : "#2C2C2C"} linewidth={4} />
+            <lineBasicMaterial color={isHovered ? "#e60012" : "#2C2C2C"} />
           </lineSegments>
           
           {/* 集装箱底部 */}
@@ -116,11 +117,11 @@ export const Container3D: React.FC<Container3DProps> = ({
             position={[0, -containerType.height/2 + 0.05, 0]} 
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
-              onHover(false);
+              // onHover(false);
             }}
           >
             <boxGeometry args={[containerType.length, 0.1, containerType.width]} />
@@ -132,17 +133,17 @@ export const Container3D: React.FC<Container3DProps> = ({
           
           {/* 集装箱门 */}
           <mesh 
-            position={[containerType.length/2 - 0.05, 0, 0]} 
+            position={[containerType.length/2 - 0.002, 0, 0]} 
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
-              onHover(false);
+              // onHover(false);
             }}
           >
-            <boxGeometry args={[0.1, containerType.height - 0.2, containerType.width - 0.2]} />
+            <boxGeometry args={[0.01, containerType.height - 0.01, containerType.width - 0.02]} />
             <meshStandardMaterial 
               color="#2E86AB" 
               
@@ -162,11 +163,11 @@ export const Container3D: React.FC<Container3DProps> = ({
               position={[0, 0, 0]} 
               onPointerEnter={(event) => {
                 event.stopPropagation();
-                onHover(true);
+                // onHover(true);
               }}
               onPointerLeave={(event) => {
                 event.stopPropagation();
-                onHover(false);
+                // onHover(false);
               }}
             >
               <boxGeometry args={[0.08, 0.04, 0.25]} />
@@ -181,11 +182,11 @@ export const Container3D: React.FC<Container3DProps> = ({
               position={[-0.03, 0, 0]} 
               onPointerEnter={(event) => {
                 event.stopPropagation();
-                onHover(true);
+                // onHover(true);
               }}
               onPointerLeave={(event) => {
                 event.stopPropagation();
-                onHover(false);
+                // onHover(false);
               }}
             >
               <boxGeometry args={[0.02, 0.06, 0.3]} />
@@ -203,11 +204,11 @@ export const Container3D: React.FC<Container3DProps> = ({
               position={[0, 0, 0]} 
               onPointerEnter={(event) => {
                 event.stopPropagation();
-                onHover(true);
+                // onHover(true);
               }}
               onPointerLeave={(event) => {
                 event.stopPropagation();
-                onHover(false);
+                // onHover(false);
               }}
             >
               <boxGeometry args={[0.08, 0.04, 0.25]} />
@@ -222,11 +223,11 @@ export const Container3D: React.FC<Container3DProps> = ({
               position={[-0.03, 0, 0]} 
               onPointerEnter={(event) => {
                 event.stopPropagation();
-                onHover(true);
+                // onHover(true);
               }}
               onPointerLeave={(event) => {
                 event.stopPropagation();
-                onHover(false);
+                // onHover(false);
               }}
             >
               <boxGeometry args={[0.02, 0.06, 0.3]} />
@@ -246,11 +247,11 @@ export const Container3D: React.FC<Container3DProps> = ({
           position={[containerType.length/2 + 0.005, 0, 0]} 
           onPointerEnter={(event) => {
             event.stopPropagation();
-            onHover(true);
+            // onHover(true);
           }}
           onPointerLeave={(event) => {
             event.stopPropagation();
-            onHover(false);
+            // onHover(false);
           }}
         >
           <boxGeometry args={[0.02, containerType.height * 0.9, 0.02]} />
@@ -278,11 +279,11 @@ export const Container3D: React.FC<Container3DProps> = ({
           position={pos as [number, number, number]}
           onPointerEnter={(event) => {
             event.stopPropagation();
-            onHover(true);
+            // onHover(true);
           }}
           onPointerLeave={(event) => {
             event.stopPropagation();
-            onHover(false);
+            // onHover(false);
           }}
         >
           <boxGeometry args={[0.15, 0.15, 0.15]} />
@@ -512,11 +513,11 @@ export const Container3D: React.FC<Container3DProps> = ({
           <mesh
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
-              onHover(false);
+              // onHover(false);
             }}
           >
             <boxGeometry args={[item.cargo.length, item.cargo.height, item.cargo.width]} />
@@ -535,11 +536,11 @@ export const Container3D: React.FC<Container3DProps> = ({
           <lineSegments
             onPointerEnter={(event) => {
               event.stopPropagation();
-              onHover(true);
+              // onHover(true);
             }}
             onPointerLeave={(event) => {
               event.stopPropagation();
-              onHover(false);
+              // onHover(false);
             }}
           >
             <edgesGeometry args={[new THREE.BoxGeometry(item.cargo.length, item.cargo.height, item.cargo.width)]} />
@@ -556,6 +557,12 @@ export const Container3D: React.FC<Container3DProps> = ({
           </lineSegments>
         </group>
       ))}
+      
+      {/* 集装箱尺寸标尺 */}
+      <Ruler3D 
+        containerType={containerType}
+        position={[0, 0, 0]}
+      />
     </group>
   );
 };

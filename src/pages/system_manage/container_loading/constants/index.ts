@@ -22,7 +22,7 @@ export const PACKING_ALGORITHMS = [
   { value: 'simulated' as PackingAlgorithmType, label: '模拟退火算法', description: '平衡速度与质量的优化算法，需要平衡计算速度和结果质量的场景' },
   { value: 'hybrid' as PackingAlgorithmType, label: '混合算法', description: '结合多种算法优势的推荐方案，复杂的综合性装箱场景' },
   { value: 'multi-container' as PackingAlgorithmType, label: '多集装箱优化算法', description: '智能选择多种集装箱类型组合，货物总量超过单个集装箱容量' },
-  { value: 'linear-programming' as PackingAlgorithmType, label: '线性规划算法', description: '数学优化方法，追求最高利用率和最低成本，适用于对成本敏感的精确装箱场景' }
+  { value: 'linear-programming' as PackingAlgorithmType, label: '装箱问题求解器', description: '实现经典Bin Packing算法（首次适应、最佳适应、降序首次适应等），最小化容器使用数量，适用于成本敏感的精确装箱场景' }
 ];
 
 // 成本优化策略选项

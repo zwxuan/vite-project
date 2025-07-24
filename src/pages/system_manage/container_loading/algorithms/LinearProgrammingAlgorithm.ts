@@ -5,7 +5,9 @@ import { getConsistentColor } from '../utils';
 
 /**
  * 线性规划装箱算法
- * 使用线性规划方法优化集装箱装箱问题，以最大化利用率和最小化成本
+ * 基于经典装箱问题（Bin Packing Problem）的求解器
+ * 实现多种近似算法：首次适应、最佳适应、降序首次适应等
+ * 参考Google OR-Tools的处理方式，解决NP-难的装箱优化问题
  */
 export class LinearProgrammingAlgorithm extends BaseAlgorithm {
   /**
@@ -38,7 +40,8 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
   }
 
   /**
-   * 使用线性规划方法优化容器选择
+   * 使用多种装箱算法优化容器选择
+   * 实现经典的Bin Packing Problem求解策略
    * @param cargos 货物列表
    * @param cargoNameColors 货物名称颜色映射
    * @param config 装箱配置
@@ -52,21 +55,27 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
     startTime?: number
   ): PackingResult | null {
     let bestResult: PackingResult | null = null;
-    let bestScore = -1;
+    let minContainers = Infinity;
+    let bestUtilization = 0;
 
-    // 为每种容器类型计算装箱方案
+    // 尝试多种装箱算法和容器类型组合
+    const algorithms = ['first-fit', 'best-fit', 'first-fit-decreasing', 'best-fit-decreasing'];
+    
     for (const containerType of CONTAINER_TYPES) {
-      const result = this.solveLinearProgramming(cargos, containerType, cargoNameColors, config);
-      
-      if (result) {
-        // 计算综合评分：利用率权重0.6 + 成本效率权重0.4
-        const utilizationScore = result.utilization / 100;
-        const costEfficiency = 1 / (result.totalCost + 1); // 避免除零
-        const score = utilizationScore * 0.6 + costEfficiency * 0.4;
+      for (const algorithm of algorithms) {
+        const result = this.solveBinPackingProblem(cargos, containerType, algorithm, cargoNameColors, config);
         
-        if (score > bestScore) {
-          bestScore = score;
-          bestResult = result;
+        if (result) {
+          // 优先选择使用容器数量最少的方案，其次考虑利用率
+          const isFewerContainers = result.containerCount < minContainers;
+          const isSameContainersButBetterUtilization = 
+            result.containerCount === minContainers && result.utilization > bestUtilization;
+          
+          if (isFewerContainers || isSameContainersButBetterUtilization) {
+            minContainers = result.containerCount;
+            bestUtilization = result.utilization;
+            bestResult = result;
+          }
         }
       }
     }
@@ -79,16 +88,19 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
   }
 
   /**
-   * 线性规划求解器核心算法
+   * 装箱问题求解器核心算法
+   * 实现经典的Bin Packing Problem求解策略
    * @param cargos 货物列表
    * @param containerType 集装箱类型
+   * @param algorithm 算法类型
    * @param cargoNameColors 货物名称颜色映射
    * @param config 装箱配置
    * @returns 装箱结果
    */
-  private solveLinearProgramming(
+  private solveBinPackingProblem(
     cargos: Cargo[], 
-    containerType: ContainerType, 
+    containerType: ContainerType,
+    algorithm: string,
     cargoNameColors?: Record<string, string>, 
     config?: PackingConfig
   ): PackingResult | null {
@@ -98,8 +110,17 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
     // 展开货物数量
     const expandedCargos = this.expandCargos(cargos);
     
-    // 使用线性规划方法进行装箱优化
-    const solution = this.linearProgrammingSolver(expandedCargos, containerType, gap, allowStacking);
+    // 根据算法类型进行预处理
+    const processedCargos = this.preprocessCargos(expandedCargos, algorithm);
+    
+    // 使用指定算法进行装箱
+    const solution = this.executeBinPackingAlgorithm(
+      processedCargos, 
+      containerType, 
+      algorithm, 
+      gap, 
+      allowStacking
+    );
     
     if (!solution) {
       return null;
@@ -116,51 +137,98 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
   }
 
   /**
-   * 线性规划求解器实现
-   * 使用简化的线性规划方法求解装箱问题
-   * @param cargos 展开后的货物列表
+   * 货物预处理
+   * 根据不同算法对货物进行排序
+   * @param cargos 货物列表
+   * @param algorithm 算法类型
+   * @returns 处理后的货物列表
+   */
+  private preprocessCargos(cargos: Cargo[], algorithm: string): Cargo[] {
+    switch (algorithm) {
+      case 'first-fit-decreasing':
+      case 'best-fit-decreasing':
+        // 降序排列：按体积从大到小排序
+        return [...cargos].sort((a, b) => {
+          const volumeA = a.length * a.width * a.height;
+          const volumeB = b.length * b.width * b.height;
+          return volumeB - volumeA;
+        });
+      case 'first-fit':
+      case 'best-fit':
+      default:
+        // 保持原始顺序或按输入顺序
+        return [...cargos];
+    }
+  }
+
+  /**
+   * 执行装箱算法
+   * 实现经典的Bin Packing算法
+   * @param cargos 预处理后的货物列表
    * @param containerType 集装箱类型
+   * @param algorithm 算法类型
    * @param gap 间隙
    * @param allowStacking 是否允许堆叠
    * @returns 求解方案
    */
-  private linearProgrammingSolver(
+  private executeBinPackingAlgorithm(
     cargos: Cargo[],
     containerType: ContainerType,
+    algorithm: string,
     gap: number,
     allowStacking: boolean
-  ): LinearProgrammingSolution | null {
+  ): BinPackingSolution | null {
     const containers: ContainerSolution[] = [];
     const unpackedCargos: Cargo[] = [];
     
-    // 按价值密度排序（体积/重量比）
-    const sortedCargos = this.sortCargosByValueDensity(cargos);
-    
-    let currentContainer: ContainerSolution | null = null;
-    
-    for (const cargo of sortedCargos) {
+    for (const cargo of cargos) {
       let placed = false;
+      let bestContainer: ContainerSolution | null = null;
+      let bestPosition: Position3D | null = null;
+      let bestScore = Infinity;
       
-      // 尝试在现有容器中放置
-      for (const container of containers) {
-        const position = this.findOptimalPosition(cargo, container, containerType, gap, allowStacking);
-        if (position) {
-          container.packedItems.push({
-            cargo,
-            x: position.x,
-            y: position.y,
-            z: position.z,
-            containerIndex: container.index
-          });
-          container.usedVolume += cargo.length * cargo.width * cargo.height;
-          container.usedWeight += cargo.weight;
-          placed = true;
-          break;
+      // 根据算法类型选择容器
+      if (algorithm === 'first-fit' || algorithm === 'first-fit-decreasing') {
+        // 首次适应算法：选择第一个能放下的容器
+        for (const container of containers) {
+          const position = this.findOptimalPosition(cargo, container, containerType, gap, allowStacking);
+          if (position) {
+            bestContainer = container;
+            bestPosition = position;
+            placed = true;
+            break;
+          }
+        }
+      } else if (algorithm === 'best-fit' || algorithm === 'best-fit-decreasing') {
+        // 最佳适应算法：选择剩余空间最小的容器
+        for (const container of containers) {
+          const position = this.findOptimalPosition(cargo, container, containerType, gap, allowStacking);
+          if (position) {
+            const remainingVolume = this.calculateRemainingVolume(container, containerType) - 
+                                  (cargo.length * cargo.width * cargo.height);
+            if (remainingVolume < bestScore) {
+              bestScore = remainingVolume;
+              bestContainer = container;
+              bestPosition = position;
+              placed = true;
+            }
+          }
         }
       }
       
-      // 如果无法放置在现有容器中，创建新容器
-      if (!placed) {
+      // 如果找到合适的容器，放置货物
+      if (placed && bestContainer && bestPosition) {
+        bestContainer.packedItems.push({
+          cargo,
+          x: bestPosition.x,
+          y: bestPosition.y,
+          z: bestPosition.z,
+          containerIndex: bestContainer.index
+        });
+        bestContainer.usedVolume += cargo.length * cargo.width * cargo.height;
+        bestContainer.usedWeight += cargo.weight;
+      } else {
+        // 创建新容器
         const newContainer: ContainerSolution = {
           index: containers.length,
           packedItems: [],
@@ -196,25 +264,17 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
   }
 
   /**
-   * 按价值密度排序货物
-   * @param cargos 货物列表
-   * @returns 排序后的货物列表
+   * 计算容器剩余体积
+   * @param container 容器解决方案
+   * @param containerType 容器类型
+   * @returns 剩余体积
    */
-  private sortCargosByValueDensity(cargos: Cargo[]): Cargo[] {
-    return [...cargos].sort((a, b) => {
-      // 计算价值密度：体积/重量比，体积越大、重量越轻的货物优先级越高
-      const volumeA = a.length * a.width * a.height;
-      const volumeB = b.length * b.width * b.height;
-      const densityA = volumeA / (a.weight || 1);
-      const densityB = volumeB / (b.weight || 1);
-      
-      // 优先考虑体积大的货物，然后考虑密度
-      if (Math.abs(volumeB - volumeA) > 0.01) {
-        return volumeB - volumeA;
-      }
-      return densityB - densityA;
-    });
+  private calculateRemainingVolume(container: ContainerSolution, containerType: ContainerType): number {
+    const totalVolume = containerType.length * containerType.width * containerType.height;
+    return totalVolume - container.usedVolume;
   }
+
+
 
   /**
    * 寻找货物的最优放置位置
@@ -395,7 +455,7 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
 
   /**
    * 构建装箱结果
-   * @param solution 线性规划解决方案
+   * @param solution 装箱解决方案
    * @param containerType 容器类型
    * @param originalCargos 原始货物列表
    * @param cargoNameColors 货物名称颜色映射
@@ -403,7 +463,7 @@ export class LinearProgrammingAlgorithm extends BaseAlgorithm {
    * @returns 装箱结果
    */
   private buildPackingResult(
-    solution: LinearProgrammingSolution,
+    solution: BinPackingSolution,
     containerType: ContainerType,
     originalCargos: Cargo[],
     cargoNameColors?: Record<string, string>,
@@ -470,7 +530,7 @@ interface ContainerSolution {
   usedWeight: number;
 }
 
-interface LinearProgrammingSolution {
+interface BinPackingSolution {
   containers: ContainerSolution[];
   unpackedCargos: Cargo[];
 }
