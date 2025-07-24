@@ -5,6 +5,7 @@ import { GeneticAlgorithm } from './GeneticAlgorithm';
 import { SimulatedAnnealingAlgorithm } from './SimulatedAnnealingAlgorithm';
 import { HybridOptimizationAlgorithm } from './HybridOptimizationAlgorithm';
 import { MultiContainerAlgorithm } from './MultiContainerAlgorithm';
+import { LinearProgrammingAlgorithm } from './LinearProgrammingAlgorithm';
 
 /**
  * 算法工厂类
@@ -28,6 +29,8 @@ export class AlgorithmFactory {
         return new HybridOptimizationAlgorithm();
       case 'multi-container':
         return new MultiContainerAlgorithm();
+      case 'linear-programming':
+        return new LinearProgrammingAlgorithm();
       default:
         return new GreedyAlgorithm();
     }
@@ -43,7 +46,8 @@ export class AlgorithmFactory {
       'genetic',
       'simulated',
       'hybrid',
-      'multi-container'
+      'multi-container',
+      'linear-programming'
     ];
   }
 }

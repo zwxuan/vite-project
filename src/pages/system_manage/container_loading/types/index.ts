@@ -10,7 +10,7 @@ export interface ContainerType {
 }
 
 // 装箱算法类型
-export type PackingAlgorithmType = 'greedy' | 'genetic' | 'simulated' | 'hybrid' | 'multi-container';
+export type PackingAlgorithmType = 'greedy' | 'genetic' | 'simulated' | 'hybrid' | 'multi-container' | 'linear-programming';
 
 // 成本优化策略类型
 export type CostOptimizationStrategy = 'min_containers' | 'min_cost' | 'max_utilization' | 'none';
