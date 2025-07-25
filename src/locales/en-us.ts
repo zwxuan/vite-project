@@ -1626,4 +1626,26 @@ export const en = {
         lastupdatedby: "Updated By",
         lastupdatedtime: "Updated Time"
     },
+    primary_job: {
+        seqno: "Seq No",
+        organization: "Organization",
+        department: "Department",
+        employeecategory: "Emp Category",
+        position: "Position",
+        supervisor: "Supervisor",
+        startdate: "Start Date",
+        enddate: "End Date",
+        jobduty: "Job Duty"
+    },
+    employee_bank_account: {
+        seqno: "Seq No",
+        bankaccount: "Bank Account",
+        banktype: "Bank Type",
+        bankbranch: "Bank Branch",
+        accounttype: "Account Type",
+        currency: "Currency",
+        isdefault: "Is Default",
+        remarks: "Remarks",
+        accountname: "Account Name"
+    },
 };

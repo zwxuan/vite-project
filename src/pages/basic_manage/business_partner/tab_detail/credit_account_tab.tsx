@@ -99,7 +99,7 @@ const CreditAccount: React.FC = () => {
                                 <Radio.Group
                                     name="radiogroup"
                                     defaultValue={1}
-                                    style={{ flex: 1 }}
+                                    style={{ flex: 1,textAlign:'left' }}
                                     options={[
                                         { value: 1, label: '票结' },
                                         { value: 2, label: '非票结（结算方式：每月指定日期或账期大于0天）' },
@@ -197,7 +197,7 @@ const CreditAccount: React.FC = () => {
                                     disabled
                                     name="radiogroup"
                                     defaultValue={1}
-                                    style={{ flex: 1 }}
+                                    style={{ flex: 1,textAlign: 'left' }}
                                     options={[
                                         { value: 1, label: '票结' },
                                         { value: 2, label: '非票结（结算方式：每月指定日期或账期大于0天）' },

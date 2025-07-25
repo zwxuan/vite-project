@@ -46,3 +46,84 @@ export const EmployeeManageLocale = {
     },
 
 };
+
+export const PrimaryJobLocale = {
+    // 序号
+    getPrimaryJobSeqNo() {
+      return "primary_job.seqno";
+    },
+    // 所属组织
+    getPrimaryJobOrganization() {
+      return "primary_job.organization";
+    },
+    // 所属部门
+    getPrimaryJobDepartment() {
+      return "primary_job.department";
+    },
+    // 员工类别
+    getPrimaryJobEmployeeCategory() {
+      return "primary_job.employeecategory";
+    },
+    // 岗位
+    getPrimaryJobPosition() {
+      return "primary_job.position";
+    },
+    // 上级主管
+    getPrimaryJobSupervisor() {
+      return "primary_job.supervisor";
+    },
+    // 任职开始日期
+    getPrimaryJobStartDate() {
+      return "primary_job.startdate";
+    },
+    // 任职结束日期
+    getPrimaryJobEndDate() {
+      return "primary_job.enddate";
+    },
+    // 工作职责
+    getPrimaryJobJobDuty() {
+      return "primary_job.jobduty";
+    },
+
+};
+
+
+export const EmployeeBankAccountLocale = {
+    // 序号
+    getEmployeeBankAccountSeqNo() {
+      return "employee_bank_account.seqno";
+    },
+    // 银行账号
+    getEmployeeBankAccountBankAccount() {
+      return "employee_bank_account.bankaccount";
+    },
+    // 银行类别
+    getEmployeeBankAccountBankType() {
+      return "employee_bank_account.banktype";
+    },
+    // 银行网点
+    getEmployeeBankAccountBankBranch() {
+      return "employee_bank_account.bankbranch";
+    },
+    // 账号类型
+    getEmployeeBankAccountAccountType() {
+      return "employee_bank_account.accounttype";
+    },
+    // 币种
+    getEmployeeBankAccountCurrency() {
+      return "employee_bank_account.currency";
+    },
+    // 是否默认
+    getEmployeeBankAccountIsDefault() {
+      return "employee_bank_account.isdefault";
+    },
+    // 备注
+    getEmployeeBankAccountRemarks() {
+      return "employee_bank_account.remarks";
+    },
+    // 账户名
+    getEmployeeBankAccountAccountName() {
+      return "employee_bank_account.accountname";
+    },
+
+};

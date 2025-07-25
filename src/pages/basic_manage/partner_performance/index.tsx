@@ -164,7 +164,7 @@ const PartnerPerformance: React.FC = () => {
     const columnsType = getRuleKpiItemColumns(handleEdit, handleDelete);
 
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)', background: '#f9fbff'  }}>
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
