@@ -81,9 +81,7 @@ const ManageOrg : React.FC = () => {
     };
 
     const handleAdd = () => {
-        setModalFlag('add');
-        setFormData(initFormData);
-        showModal();
+        navigate('/org/manage_org/detail');
     };
 
     const initFormData = {} as ManageOrgItemProps;

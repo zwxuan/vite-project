@@ -23,6 +23,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   AdminOrgDetail,
   ManageOrgDetail,
   Department,
+  JobPosition,
+  EmployeeCategory,
+  EmployeeManage,
+  EmployeeManageDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -578,6 +582,51 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <Department />  
+              </RouterGuard>),
+          },
+          {
+            path: "job_position",
+            handle: { title: '岗位' },
+            element: (
+              <RouterGuard>
+                <JobPosition />  
+              </RouterGuard>),
+          },
+        ]
+      },
+
+      // 员工
+      {
+        path: "/employee",
+        handle: { title: '员工' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "employee_category",
+            handle: { title: '员工类别' },
+            element: (
+              <RouterGuard>
+                <EmployeeCategory />
+              </RouterGuard>),
+          },
+          {
+            path: "employee_manage",
+            handle: { title: '员工管理' },
+            element: (
+              <RouterGuard>
+                <EmployeeManage />
+              </RouterGuard>),
+          },
+          {
+            path: "employee_manage/detail",
+            handle: { title: '员工管理明细' },
+            element: (
+              <RouterGuard>
+                <EmployeeManageDetail />
               </RouterGuard>),
           },
         ]

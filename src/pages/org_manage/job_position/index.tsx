@@ -4,8 +4,8 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { AdminOrgItemProps } from "@/types/org_manage/admin_org";
-import { getAdminOrgList,saveAdminOrg } from "@/api/org_manage/admin_org_service";
+import { JobPositionItemProps } from "@/types/org_manage/job_position";
+import { getJobPositionList,saveJobPosition } from "@/api/org_manage/job_position_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -18,30 +18,31 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
+import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const AdminOrg : React.FC = () => {
+const JobPosition : React.FC = () => {
 
-    // 行政组织数据
-    const [adminOrgList, setAdminOrgList] = useState([] as AdminOrgItemProps[]);
+    // 岗位数据
+    const [jobPositionList, setJobPositionList] = useState([] as JobPositionItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取行政组织数据
+    // 获取岗位数据
     useEffect(() => {
         const getData = async () => {
-            const adminOrgData = await getAdminOrgList();
-            // 设置行政组织台账数据
-            setAdminOrgList([...adminOrgData]);
+            const jobPositionData = await getJobPositionList();
+            // 设置岗位台账数据
+            setJobPositionList([...jobPositionData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:AdminOrgItemProps) => {
+    const handleDelete = (record:JobPositionItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:AdminOrgItemProps) => {
-        const newData = adminOrgList.filter((item) => `${item.OrgCode}` === `${record.OrgCode}`);
+    const handleEdit = (record:JobPositionItemProps) => {
+        const newData = jobPositionList.filter((item) => `${item.JobCode}` === `${record.JobCode}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -81,11 +82,13 @@ const AdminOrg : React.FC = () => {
     };
 
     const handleAdd = () => {
-        navigate('/org/admin_org/detail');
+        setModalFlag('add');
+        setFormData(initFormData);
+        showModal();
     };
 
-    const initFormData = {} as AdminOrgItemProps;
-    const [formData, setFormData] = useState<AdminOrgItemProps>(initFormData);
+    const initFormData = {} as JobPositionItemProps;
+    const [formData, setFormData] = useState<JobPositionItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -96,6 +99,9 @@ const AdminOrg : React.FC = () => {
     };
     const handleNumberChange = (name:string,value: number | null) => {
         setFormData({ ...formData, [name]: value });
+    };
+    const handleTextAreaChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        console.log('Change:', e.target.value);
     };
     const handleOk = async () => {
         setSaving(true);
@@ -115,7 +121,7 @@ const AdminOrg : React.FC = () => {
         });
 
         try {
-            const response = await saveAdminOrg(formData, (progress) => {
+            const response = await saveJobPosition(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -161,7 +167,7 @@ const AdminOrg : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<AdminOrgItemProps> = {
+    const rowSelection: TableRowSelection<JobPositionItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -184,26 +190,39 @@ const AdminOrg : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='admin_org' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='admin_org' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='admin_org' />
+            <DetailModal
+                open={open}
+                modalFlag={modalFlag}
+                saving={saving}
+                formData={formData}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                onChange={handleChange}
+                onDateChange={handleDateChange}
+                onNumberChange={handleNumberChange}
+                onChangeTetxtArea={handleTextAreaChange}
+            />
+            
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='job_position' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='job_position' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='job_position' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 行政组织
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 岗位
                             <Tooltip
                                 title={
                                     <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
                                         <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span> 反映企业的法定实体结构和行政管理汇报关系。它定义了员工在法律意义上属于哪个公司、部门、科室等。
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>人员和岗位 (多对多)</b></span> 一个人员可以同时承担多个岗位，并且一个岗位也可以由多个人员承担。
                                             </li>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>本质</b></span>具有独立法人资格的公司,公司内部具体的部门、科室、班组等，体现汇报层级（如：总裁办、财务部、研发中心、华东销售部、北京分公司销售一部）。
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>示例</b></span>
+                                            <p>人员：吴十 岗位：技术主管, 架构师</p>
+                                            <p>岗位：财务经理  人员：郑十一 (全职), 王五 (兼职/备份)</p>
                                             </li>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>关键特征</b></span>稳定性高，法律属性强，汇报关系明确。
-                                            </li>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>应用场景</b></span>劳动合同管理，薪酬核算与发放，法定福利缴纳，个税申报，人员编制管理。
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>设置企业的岗位。岗位是在企业组织中、在一个特定的时间内、由一个特定的人所担负的一个或数个任务所组成。换言之岗位是企业中执行一定任务的位置，即只要是企业的员工就应有其特定的岗位。岗位是组织级节点，基于部门设置企业的岗位。
                                             </li>
                                         </ol>
                                     </div>
@@ -216,7 +235,6 @@ const AdminOrg : React.FC = () => {
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
                         <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
                             </label>
                         </div>
                     </span>
@@ -227,7 +245,9 @@ const AdminOrg : React.FC = () => {
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
                                 <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button>组织结构图</Button>
+                                <Button>修改</Button>
+                                <Button>删除</Button>
+                                <Button>复制</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
@@ -267,16 +287,30 @@ const AdminOrg : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<AdminOrgItemProps>
+                <Table<JobPositionItemProps>
                     columns={columnsType}
-                    // rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.OrgCode}`}
+                    rowSelection={{ ...rowSelection}}
+                    rowKey={(record) => `${record.JobCode}`}
                     showSorterTooltip={false}
-                    dataSource={adminOrgList}
-                    loading={adminOrgList.length === 0}
-                    pagination={false}
+                    dataSource={jobPositionList}
+                    loading={jobPositionList.length === 0}
+                    pagination={{
+                        size:'small',
+                        pageSize:pageSize,
+                        showTotal: (total) => `总共 ${total} 条`,
+                        showQuickJumper:true,
+                        showSizeChanger:true,
+                        onShowSizeChange: (current, size) => {
+                            setPageSize(size);
+                        },
+                        locale:{
+                            items_per_page: '/页',
+                            jump_to: '跳至',
+                            page: '页',
+                        }
+                    }}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 340px)' }}
-                    // footer={() => '底部汇总信息'}
+                    footer={() => '底部汇总信息'}
                     bordered={true}
                 />
             </div>
@@ -285,4 +319,4 @@ const AdminOrg : React.FC = () => {
         
     )
 }
-export default AdminOrg;
+export default JobPosition;

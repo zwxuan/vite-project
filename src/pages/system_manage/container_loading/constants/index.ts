@@ -6,7 +6,7 @@ export const CONTAINER_TYPES: ContainerType[] = [
   { name: '40尺标准箱', length: 12.03, width: 2.35, height: 2.39, maxWeight: 30000, cost: 3500 },
   { name: '40尺高箱', length: 12.03, width: 2.35, height: 2.69, maxWeight: 30000, cost: 3800 },
   { name: '45尺高箱', length: 13.56, width: 2.35, height: 2.69, maxWeight: 32000, cost: 4200 },
-  { name: '40FR框架箱', length: 12.03, width: 2.35, height: 99999, maxWeight: 30000, cost: 4000, isFrameContainer: true }
+  { name: '40FR框架箱', length: 12.03, width: 2.35, height: 99.99, maxWeight: 30000, cost: 4000, isFrameContainer: true }
 ];
 
 // 货物颜色配置
@@ -21,7 +21,8 @@ export const PACKING_ALGORITHMS = [
   { value: 'genetic' as PackingAlgorithmType, label: '遗传算法', description: '全局优化，寻找最优装箱方案，货物种类多样、装箱复杂度高的场景' },
   { value: 'simulated' as PackingAlgorithmType, label: '模拟退火算法', description: '平衡速度与质量的优化算法，需要平衡计算速度和结果质量的场景' },
   { value: 'hybrid' as PackingAlgorithmType, label: '混合算法', description: '结合多种算法优势的推荐方案，复杂的综合性装箱场景' },
-  { value: 'multi-container' as PackingAlgorithmType, label: '多集装箱优化算法', description: '智能选择多种集装箱类型组合，货物总量超过单个集装箱容量' }
+  { value: 'multi-container' as PackingAlgorithmType, label: '多集装箱优化算法', description: '智能选择多种集装箱类型组合，货物总量超过单个集装箱容量' },
+  { value: 'linear-programming' as PackingAlgorithmType, label: '装箱问题求解器', description: '实现经典Bin Packing算法（首次适应、最佳适应、降序首次适应等），最小化容器使用数量，适用于成本敏感的精确装箱场景' }
 ];
 
 // 成本优化策略选项

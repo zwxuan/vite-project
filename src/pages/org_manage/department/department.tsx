@@ -338,13 +338,13 @@ const Department: React.FC = () => {
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                     <label className='item-lable-title'>状态</label>
                                     <Radio.Group
-                                        name="noticeTypeCheckbox"
                                         style={{ flex: 1 }}
-                                        defaultValue={[2]}
+                                        defaultValue={2}
+                                        name='statusRadioBox'
                                         options={[
                                             { value: 1, label: '未启用' },
                                             { value: 2, label: '已启用' },
-                                            { value: 2, label: '已停用' },
+                                            { value: 3, label: '已停用' },
                                         ]}
                                     />
                                 </div>

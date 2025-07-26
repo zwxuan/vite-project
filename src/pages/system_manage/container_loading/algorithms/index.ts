@@ -7,6 +7,7 @@ export { GeneticAlgorithm } from './GeneticAlgorithm';
 export { SimulatedAnnealingAlgorithm } from './SimulatedAnnealingAlgorithm';
 export { HybridOptimizationAlgorithm } from './HybridOptimizationAlgorithm';
 export { MultiContainerAlgorithm } from './MultiContainerAlgorithm';
+export { LinearProgrammingAlgorithm } from './LinearProgrammingAlgorithm';
 
 // 成本优化引擎
 export { CostOptimizationEngine } from './CostOptimizationEngine';

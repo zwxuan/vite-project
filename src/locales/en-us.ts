@@ -1598,4 +1598,54 @@ export const en = {
         orgstatus:"Org Status",
         orgremark:"Org Remark",
     },
+    job_position:{
+        jobcode:"Job Code",
+        jobname:"Job Name",
+        deptbelong:"Dept Belong",
+        parentjob:"Parent Job",
+        jobstatus:"Job Status",
+        jobduty:"Job Duty",
+        jobremark:"Job Remark",
+    },
+    employee_category: {
+        categorycode: "Category Code",
+        categoryname: "Category Name",
+        status: "Status",
+        remarks: "Remarks"
+    },
+    employee_manage: {
+        employeecode: "Employee Code",
+        employeename: "Employee Name",
+        organization: "Organization",
+        department: "Department",
+        email: "Email",
+        mobile: "Mobile",
+        status:"Status",
+        employeecategory: "Emp Category",
+        remarks: "Remarks",
+        lastupdatedby: "Updated By",
+        lastupdatedtime: "Updated Time"
+    },
+    primary_job: {
+        seqno: "Seq No",
+        organization: "Organization",
+        department: "Department",
+        employeecategory: "Emp Category",
+        position: "Position",
+        supervisor: "Supervisor",
+        startdate: "Start Date",
+        enddate: "End Date",
+        jobduty: "Job Duty"
+    },
+    employee_bank_account: {
+        seqno: "Seq No",
+        bankaccount: "Bank Account",
+        banktype: "Bank Type",
+        bankbranch: "Bank Branch",
+        accounttype: "Account Type",
+        currency: "Currency",
+        isdefault: "Is Default",
+        remarks: "Remarks",
+        accountname: "Account Name"
+    },
 };

@@ -1,4 +1,7 @@
 #!/bin/bash
+# 建议在脚本开头清理无效资源（避免影响后续操作）
+echo "清理无效的Docker资源..."
+docker system prune -f
 
 # 停止并删除旧容器（如果存在）
 if [ "$(docker ps -aq -f name=fms_nginx)" ]; then
