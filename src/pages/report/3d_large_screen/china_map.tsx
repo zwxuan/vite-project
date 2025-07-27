@@ -118,6 +118,77 @@ const ChainMap: React.FC = () => {
     };
 
     /**
+     * 创建波动光圈效果
+     * 
+     * 功能说明：
+     * - 创建多层同心圆光圈
+     * - 实现随机波动动画效果
+     * - 支持自定义颜色和动画参数
+     * 
+     * @param position - 光圈中心位置
+     * @param scene - Three.js场景对象
+     * @returns 包含光圈对象和动画函数的对象
+     */
+    const createRippleEffect = (position: THREE.Vector3, scene: THREE.Scene) => {
+        const ripples: THREE.Mesh[] = [];
+        const rippleCount = 3; // 光圈数量
+        
+        // 创建多个光圈
+        for (let i = 0; i < rippleCount; i++) {
+            // 创建圆环几何体
+            const geometry = new THREE.RingGeometry(0.5, 1, 32);
+            
+            // 创建光圈材质，使用随机颜色
+            const colors = [0x00ffff, 0xff6b6b, 0x4ecdc4, 0xffe66d, 0xff8a80];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const material = new THREE.MeshBasicMaterial({
+                color: randomColor,
+                transparent: true,
+                opacity: 0.6,
+                side: THREE.DoubleSide
+            });
+            
+            // 创建光圈网格
+            const ripple = new THREE.Mesh(geometry, material);
+            ripple.position.copy(position);
+            ripple.rotation.z = -Math.PI / 2; // 水平放置
+            
+            // 设置初始缩放和延迟
+            ripple.scale.setScalar(0.1 + i * 0.3);
+            ripple.userData = {
+                initialScale: 0.1 + i * 0.3,
+                maxScale: 2 + i * 0.5,
+                speed: 0.01 + Math.random() * 0.02, // 随机速度
+                delay: i * 0.5, // 延迟启动
+                phase: 0
+            };
+            
+            scene.add(ripple);
+            ripples.push(ripple);
+        }
+        
+        // 动画更新函数
+        const updateRipples = () => {
+            ripples.forEach((ripple) => {
+                const userData = ripple.userData;
+                userData.phase += userData.speed;
+                
+                // 计算波动缩放
+                const wave = Math.sin(userData.phase + userData.delay) * 0.5 + 0.5;
+                const scale = userData.initialScale + wave * (userData.maxScale - userData.initialScale);
+                ripple.scale.setScalar(scale);
+                
+                // 计算透明度变化
+                const opacity = 0.8 - (scale / userData.maxScale) * 0.6;
+                (ripple.material as THREE.MeshBasicMaterial).opacity = Math.max(0.1, opacity);
+            });
+        };
+        
+        return { ripples, updateRipples };
+    };
+
+    /**
      * 创建行政中心标记
      * 
      * 功能说明：
@@ -163,8 +234,12 @@ const ChainMap: React.FC = () => {
         // 将标记添加到场景中
         scene.add(marker);
 
-        // 返回标记对象，便于后续操作
-        return { marker };
+        // 返回标记对象和位置信息，便于后续操作
+        return { 
+            marker,
+            position: new THREE.Vector3(x - 60, y, z - 35),
+            name
+        };
     };
 
     /**
@@ -282,12 +357,20 @@ const ChainMap: React.FC = () => {
         directionalLight.shadow.mapSize.height = 2048; // 阴影贴图高度
         scene.add(directionalLight);
 
+        // ==================== 动画更新函数数组 ====================
+        
+        // 存储所有需要动画更新的函数
+        const animationUpdaters: (() => void)[] = [];
+
         // ==================== 地图数据加载与渲染 ====================
         
         try {
             // 异步加载中国地图GeoJSON数据
             const response = await fetch('/src/pages/report/3d_large_screen/china.json');
             const mapData = await response.json();
+
+            // 存储所有行政中心信息
+            const administrativeCenters: Array<{position: THREE.Vector3, name: string}> = [];
 
             // 遍历地图要素，创建3D地图
             mapData.features.forEach((feature: any, index: number) => {
@@ -359,11 +442,43 @@ const ChainMap: React.FC = () => {
                     if (feature.properties && feature.properties.center && feature.properties.name) {
                         const center = feature.properties.center as [number, number];
                         const name = feature.properties.name;
-                        // 创建并添加行政中心标记
-                        createAdministrativeCenter(center, name, scene);
+                        
+                        // 创建行政中心标记
+                        const centerResult = createAdministrativeCenter(center, name, scene);
+                        
+                        // 收集行政中心信息，用于后续随机选择
+                        administrativeCenters.push({
+                            position: centerResult.position,
+                            name: centerResult.name
+                        });
                     }
                 }
             });
+
+            // ==================== 随机选择3个行政中心添加波动光圈 ====================
+            
+            if (administrativeCenters.length > 0) {
+                // 随机打乱数组
+                const shuffled = [...administrativeCenters].sort(() => Math.random() - 0.5);
+                
+                // 选择前3个（或全部，如果少于3个）
+                const selectedCenters = shuffled.slice(0, Math.min(3, shuffled.length));
+                
+                // 为选中的行政中心添加波动光圈
+                selectedCenters.forEach((centerInfo, index) => {
+                    // 光圈位置稍微高于标记，形成覆盖效果
+                    const ripplePosition = new THREE.Vector3(
+                        centerInfo.position.x,
+                        centerInfo.position.y,
+                        centerInfo.position.z + 0.1  // 稍微高于标记
+                    );
+                    
+                    const rippleEffect = createRippleEffect(ripplePosition, scene);
+                    animationUpdaters.push(rippleEffect.updateRipples);
+                    
+                    console.log(`为 ${centerInfo.name} 添加波动光圈效果 (${index + 1}/3)`);
+                });
+            }
 
             // ==================== 相机定位 ====================
             
@@ -390,10 +505,14 @@ const ChainMap: React.FC = () => {
         
         /**
          * 动画渲染循环
-         * 持续更新控制器状态并重新渲染场景
+         * 持续更新控制器状态、波动光圈动画并重新渲染场景
          */
         const animate = () => {
             requestAnimationFrame(animate); // 请求下一帧动画
+            
+            // 更新所有波动光圈动画
+            animationUpdaters.forEach(updater => updater());
+            
             controls.update();              // 更新控制器状态
             renderer.render(scene, camera); // 渲染场景
         };
