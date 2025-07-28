@@ -187,7 +187,9 @@
   border-radius: 10px;
   border: 1px solid #b7eb8f;
 }
-
+    .ant-card .ant-card-head-title {
+    flex:none;
+  } 
 /* 响应式设计 */
 @media (max-width: 1200px) {
   .menu-manage-container {

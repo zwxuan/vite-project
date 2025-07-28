@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button, Checkbox, Tag, Collapse, Form, Input, Select, Row, Col, Popover, InputNumber, Space, Tooltip } from 'antd';
 import type { TableColumnsType, TableProps, InputNumberProps } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
-import { ImportTemplateFieldItem } from "@/types/dynamic_onfiguration_platform/basic_manage/import_template";
+import { ImportTemplateFieldItem } from "@/types/dynamic_onfiguration_platform/system_manage/import_template";
 import { getTemplateFieldList } from "@/api/dynamic_onfiguration_platform/basic_manage/currency_service";
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import i18n from '@/i18n';

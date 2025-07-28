@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Table, Button, Tooltip, Tag,Space,Radio } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ImportTemplateItem } from "@/types/dynamic_onfiguration_platform/basic_manage/import_template";
+import { ImportTemplateItem } from "@/types/dynamic_onfiguration_platform/system_manage/import_template";
 import { getImportTemplateList } from "@/api/dynamic_onfiguration_platform/basic_manage/currency_service";
 import CustomeExcelTemplate from './custom_template';
 interface ModelExcelImportTemplateProps {
