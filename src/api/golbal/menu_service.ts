@@ -362,7 +362,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "菜单管理", key: "menu_manage",
+            name: "菜单管理", key: "menu_manage",path: "/menu_manage/menu_manage",
         },
     ]
 },

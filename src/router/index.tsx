@@ -27,6 +27,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   EmployeeCategory,
   EmployeeManage,
   EmployeeManageDetail,
+  MenuManage,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -991,6 +992,27 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <ContainerLoading />
+              </RouterGuard>),
+          },
+        ]
+      },
+
+      // 系统管理
+      {
+        path: "/menu_manage",
+        handle: { title: '菜单管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "menu_manage",
+            handle: { title: '菜单管理' },
+            element: (
+              <RouterGuard>
+                <MenuManage />
               </RouterGuard>),
           },
         ]

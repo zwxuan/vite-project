@@ -1,0 +1,216 @@
+/* 菜单管理页面样式 */
+
+/* 主容器 */
+.menu-manage-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 80px);
+  padding: 16px;
+}
+
+/* 页面头部 */
+.menu-manage-header {
+  margin-bottom: 16px;
+}
+
+.menu-manage-title {
+  margin-left: 10px;
+}
+
+/* 主要内容区域 */
+.menu-manage-content {
+  margin-top: 16px;
+}
+
+/* 卡片样式 */
+.menu-card {
+  height: calc(100vh - 200px);
+}
+
+/* 菜单列表容器 */
+.menu-list-container {
+  height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+/* 菜单项基础样式 */
+.menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* 菜单项内容布局 */
+.menu-item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-item-info {
+  display: flex;
+  align-items: center;
+}
+
+.menu-item-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* 菜单项图标 */
+.menu-item-icon {
+  margin-right: 8px;
+}
+
+.menu-item-icon.menu-type {
+  color: #1890ff;
+}
+
+.menu-item-icon.service-type {
+  color: #52c41a;
+}
+
+/* 菜单项文本 */
+.menu-item-text {
+  font-weight: 500;
+}
+
+.menu-item-text.menu-type {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+.menu-item-text.service-type {
+  color: #52c41a;
+  font-weight: normal;
+}
+
+/* 类型标签 */
+.menu-item-type-tag {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #999;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.menu-item-type-tag.menu-type {
+  background-color: #e6f7ff;
+  border: 1px solid #91d5ff;
+}
+
+.menu-item-type-tag.service-type {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+}
+
+/* 选中状态 */
+.menu-item.selected {
+  background-color: transparent;
+}
+
+.menu-item.selected.menu-type {
+  background-color: #e6f7ff;
+  border-left: 3px solid #1890ff;
+}
+
+.menu-item.selected.service-type {
+  background-color: #f6ffed;
+  border-left: 3px solid #52c41a;
+}
+
+/* 未选中状态的边框 */
+.menu-item.menu-type {
+  border-left: 3px solid #d9d9d9;
+}
+
+.menu-item.service-type {
+  border-left: 3px solid #b7eb8f;
+}
+
+/* 操作按钮 */
+.menu-action-btn {
+  padding: 2px 4px;
+}
+
+.menu-action-btn.delete {
+  color: #ff4d4f;
+}
+.menu-action-btn.edit {
+  color: #52c41a;
+}
+.menu-action-btn.status-active {
+  color: #faad14;
+}
+
+.menu-action-btn.status-inactive {
+  color: #52c41a;
+}
+
+/* 四级服务特殊样式 */
+.level4-service-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: transparent;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.level4-service-item:hover {
+  background-color: #f5f5f5;
+}
+
+.level4-service-item.menu-type {
+  border-left: 3px solid #d9d9d9;
+}
+
+.level4-service-item.service-type {
+  border-left: 3px solid #b7eb8f;
+}
+
+/* 四级服务类型标签固定样式 */
+.level4-service-type-tag {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #999;
+  background-color: #f6ffed;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid #b7eb8f;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .menu-manage-container {
+    padding: 8px;
+  }
+  
+  .menu-card {
+    height: calc(100vh - 180px);
+  }
+  
+  .menu-list-container {
+    height: calc(100vh - 280px);
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-item-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .menu-item-actions {
+    align-self: flex-end;
+  }
+}

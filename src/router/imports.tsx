@@ -30,9 +30,9 @@ const PhysicalInvoice = React.lazy(() => import("@/pages/settlement_center/cost_
 import ReconciliationRuleEngine from "@/pages/settlement_center/cost_manage/reconciliation_rule_engine";
 const PermissionManagement = React.lazy(() => import("@/pages/identity/permission"));
 // import PermissionManagement from "@/pages/identity/permission";
-const ExportLog = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/basic_manage/log/export_log"));
+const ExportLog = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/system_manage/log/export_log"));
 // import ExportLog from "@/pages/basic_manage/log/export_log";
-const ImportLog = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/basic_manage/log/import_log"));
+const ImportLog = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/system_manage/log/import_log"));
 // import ImportLog from "@/pages/basic_manage/log/import_log";
 const Login = React.lazy(() => import("@/pages/login"));
 // import Login from "@/pages/login";
@@ -129,6 +129,7 @@ const JobPosition = React.lazy(() => import("@/pages/dynamic_onfiguration_platfo
 const EmployeeCategory = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/org_manage/employee_category"));
 const EmployeeManage = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/org_manage/employee_manage"));
 const EmployeeManageDetail = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/org_manage/employee_manage/detail"));
+const MenuManage = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/system_manage/menu_manage"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Home = React.lazy(() => import("@/layout/home"));
 
@@ -142,5 +143,5 @@ export {
   AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseGoods,BaseSeaPort,BaseAirPort,BaseRailwayPort,BaseExchangeRate,BaseTaxRate,BaseSettlementMethod,
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
   BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
-  ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,
+  ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,
 };

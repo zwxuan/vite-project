@@ -219,8 +219,8 @@ const JobPosition : React.FC = () => {
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>人员和岗位 (多对多)</b></span> 一个人员可以同时承担多个岗位，并且一个岗位也可以由多个人员承担。
                                             </li>
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>示例</b></span>
-                                            <p>人员：吴十 岗位：技术主管, 架构师</p>
-                                            <p>岗位：财务经理  人员：郑十一 (全职), 王五 (兼职/备份)</p>
+                                            <p>1.人员：吴十 岗位：技术主管, 架构师</p>
+                                            <p>2.岗位：财务经理  人员：郑十一 (全职), 王五 (兼职/备份)</p>
                                             </li>
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>设置企业的岗位。岗位是在企业组织中、在一个特定的时间内、由一个特定的人所担负的一个或数个任务所组成。换言之岗位是企业中执行一定任务的位置，即只要是企业的员工就应有其特定的岗位。岗位是组织级节点，基于部门设置企业的岗位。
                                             </li>

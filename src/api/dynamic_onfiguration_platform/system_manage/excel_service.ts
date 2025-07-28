@@ -1,7 +1,7 @@
 //excel_service.ts
-import { ExportLogItem } from '@/types/dynamic_onfiguration_platform/basic_manage/export_template';
+import { ExportLogItem } from '@/types/dynamic_onfiguration_platform/system_manage/export_template';
 import request, { ApiRes, requestWithProgress } from '../../request'
-import { ImportLogItem, ImportTemplateItem, ImportTemplateFieldItem } from '@/types/dynamic_onfiguration_platform/basic_manage/import_template';
+import { ImportLogItem, ImportTemplateItem, ImportTemplateFieldItem } from '@/types/dynamic_onfiguration_platform/system_manage/import_template';
 import Mock from "mockjs";
 
 // 模拟导出日志数据
