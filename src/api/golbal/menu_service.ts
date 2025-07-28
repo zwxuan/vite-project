@@ -296,19 +296,6 @@ const childrenMenuData: MenuGroup[] = [{
     ]
 },
 {
-    title: "菜单管理",
-    key: "menu_manage",
-    parentkey: "permission",
-    apps: [
-        {
-            name: "应用管理", key: "app_manage",
-        },
-        {
-            name: "菜单管理", key: "menu_manage",
-        },
-    ]
-},
-{
     title: "角色管理",
     key: "role",
     parentkey: "permission",
@@ -366,6 +353,16 @@ const childrenMenuData: MenuGroup[] = [{
     apps: [
         {
             name: "编码规则", key: "code_rule",
+        },
+    ]
+},
+{
+    title: "菜单管理",
+    key: "menu_manage",
+    parentkey: "system",
+    apps: [
+        {
+            name: "菜单管理", key: "menu_manage",
         },
     ]
 },

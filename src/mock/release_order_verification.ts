@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { ReleaseOrderVerificationItemProps } from "@/types/cost_manage/release_order_verification";
+import { ReleaseOrderVerificationItemProps } from "@/types/settlement_center/cost_manage/release_order_verification";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串

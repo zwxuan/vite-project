@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { VoucherTypeItemProps } from "@/types/basic_manage/voucher_type";
+import { VoucherTypeItemProps } from "@/types/dynamic_onfiguration_platform/basic_manage/voucher_type";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串

@@ -55,7 +55,7 @@ public string PascalCase(string name)
 }
 </script>
 
-import request, {ApiRes,requestWithProgress } from '../request'
+import request, {ApiRes,requestWithProgress } from '../../request'
 import { <%= PascalCase(this.SourceTable.Name) %>ItemProps } from "@/types/<%= this.SourceTable.Name.ToLower() %>/<%= this.SourceTable.Name.ToLower() %>";
 import Mock from "mockjs";
 //
