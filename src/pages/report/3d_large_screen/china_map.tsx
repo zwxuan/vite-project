@@ -121,9 +121,9 @@ const ChainMap: React.FC = () => {
      * 创建波动光圈效果
      * 
      * 功能说明：
-     * - 创建多层同心圆光圈
+     * - 使用PNG图片纹理创建光圈效果
      * - 实现随机波动动画效果
-     * - 支持自定义颜色和动画参数
+     * - 支持透明度和缩放动画
      * 
      * @param position - 光圈中心位置
      * @param scene - Three.js场景对象
@@ -133,35 +133,52 @@ const ChainMap: React.FC = () => {
         const ripples: THREE.Mesh[] = [];
         const rippleCount = 3; // 光圈数量
         
+        // 定义颜色组合
+        const colorCombinations = [
+            new THREE.Color(0x00c8ff), // 青蓝色
+            new THREE.Color(0xff00c8), // 紫粉色
+            new THREE.Color(0xffff00), // 黄色
+            new THREE.Color(0x00ff64)  // 绿色
+        ];
+        
+        // 加载光圈纹理
+        const textureLoader = new THREE.TextureLoader();
+        const rippleTexture = textureLoader.load('/光圈.png');
+        
         // 创建多个光圈
         for (let i = 0; i < rippleCount; i++) {
-            // 创建圆环几何体
-            const geometry = new THREE.RingGeometry(0.5, 1, 32);
+            // 创建平面几何体
+            const geometry = new THREE.PlaneGeometry(1, 1);
             
-            // 创建光圈材质，使用随机颜色
-            const colors = [0x00ffff, 0xff6b6b, 0x4ecdc4, 0xffe66d, 0xff8a80];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            // 为每个光圈选择不同的颜色
+            const color = colorCombinations[i % colorCombinations.length];
             
+            // 创建光圈材质，使用PNG纹理和颜色
             const material = new THREE.MeshBasicMaterial({
-                color: randomColor,
+                map: rippleTexture,
+                color: color, // 添加颜色
                 transparent: true,
                 opacity: 0.6,
-                side: THREE.DoubleSide
+                alphaTest: 0.1,
+                side: THREE.DoubleSide,
+                blending: THREE.AdditiveBlending // 使用加法混合模式增强发光效果
             });
             
             // 创建光圈网格
             const ripple = new THREE.Mesh(geometry, material);
             ripple.position.copy(position);
-            ripple.rotation.z = -Math.PI / 2; // 水平放置
+            // ripple.rotation.x = -Math.PI / 2; // 水平放置
             
             // 设置初始缩放和延迟
             ripple.scale.setScalar(0.1 + i * 0.3);
             ripple.userData = {
                 initialScale: 0.1 + i * 0.3,
                 maxScale: 2 + i * 0.5,
-                speed: 0.01 + Math.random() * 0.02, // 随机速度
+                speed: 0.005 + Math.random() * 0.005, // 随机速度（降低速度，使波动更缓慢）
                 delay: i * 0.5, // 延迟启动
-                phase: 0
+                phase: 0,
+                colorIndex: i, // 颜色索引
+                baseColor: color.clone() // 保存基础颜色
             };
             
             scene.add(ripple);
@@ -182,6 +199,17 @@ const ChainMap: React.FC = () => {
                 // 计算透明度变化
                 const opacity = 0.8 - (scale / userData.maxScale) * 0.6;
                 (ripple.material as THREE.MeshBasicMaterial).opacity = Math.max(0.1, opacity);
+                
+                // 动态更新颜色
+                const colorPhase = userData.phase * 0.1; // 降低颜色变化速度
+                const baseColor = userData.baseColor;
+                
+                // 创建颜色变化效果
+                const colorIntensity = 0.5 + Math.sin(colorPhase) * 0.5; // 0到1之间变化
+                const newColor = baseColor.clone().multiplyScalar(colorIntensity + 0.5);
+                
+                // 更新材质颜色
+                (ripple.material as THREE.MeshBasicMaterial).color = newColor;
             });
         };
         
@@ -211,7 +239,7 @@ const ChainMap: React.FC = () => {
 
         // 加载行政中心标记贴图
         const textureLoader = new THREE.TextureLoader();
-        const markerTexture = textureLoader.load('/src/pages/report/3d_large_screen/行政中心标记.png');
+        const markerTexture = textureLoader.load('/行政中心标记.png');
         
         // 创建平面几何体作为标记载体
         const planeGeometry = new THREE.PlaneGeometry(1, 1);
