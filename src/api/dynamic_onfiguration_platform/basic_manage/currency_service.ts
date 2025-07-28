@@ -1,5 +1,5 @@
 //currency_service.ts
-import { ImportTemplateFieldItem, ImportTemplateItem } from '@/types/dynamic_onfiguration_platform/basic_manage/import_template';
+import { ImportTemplateFieldItem, ImportTemplateItem } from '@/types/dynamic_onfiguration_platform/system_manage/import_template';
 import request, { ApiRes, requestWithProgress } from '../../request'
 import { CurrencyItemProps } from "@/types/dynamic_onfiguration_platform/basic_manage/currency"
 import Mock from "mockjs";
