@@ -311,7 +311,7 @@ const ChainMap: React.FC = () => {
         
         // 计算容器宽高比
         const aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
-        const frustumSize = 33; // 视锥体大小，控制可视范围，控制地图缩放
+        const frustumSize = 31.5; // 视锥体大小，控制可视范围，控制地图缩放
         
         // 创建正交相机（无透视变形，适合地图显示）
         const camera = new THREE.OrthographicCamera(
@@ -366,7 +366,7 @@ const ChainMap: React.FC = () => {
         
         try {
             // 异步加载中国地图GeoJSON数据
-            const response = await fetch('/src/pages/report/3d_large_screen/china.json');
+            const response = await fetch('/data/china.json');
             const mapData = await response.json();
 
             // 存储所有行政中心信息
@@ -491,7 +491,7 @@ const ChainMap: React.FC = () => {
             const size = box.getSize(new THREE.Vector3());
             
             // 设置相机位置以查看整个地图
-            camera.position.set(center.x, center.y - 50, center.z + 100);
+            camera.position.set(center.x, center.y - 90, center.z + 100);
             camera.lookAt(center);           // 相机朝向场景中心
             controls.target.copy(center);    // 控制器目标点设为场景中心
             controls.update();               // 更新控制器
@@ -584,12 +584,12 @@ const ChainMap: React.FC = () => {
      * 返回一个容器div，Three.js会在其中创建canvas元素
      */
     return (
-        <div className="nc-bill-search-area" style={{ paddingTop: '10px' }}>
+        
             <div 
                 ref={containerRef}
                 style={{ 
                     width: '100%',           // 容器宽度100%
-                    height: '1200px',        // 固定高度1200px
+                    height: 'calc(100vh - 50px)',        // 固定高度1200px
                     border: '1px solid #ccc', // 边框样式
                     borderRadius: '8px',     // 圆角边框
                     overflow: 'hidden'       // 隐藏溢出内容
@@ -597,7 +597,7 @@ const ChainMap: React.FC = () => {
             >
                 {/* Three.js canvas将在此容器中动态创建 */}
             </div>
-        </div>
+        
     );
 };
 
