@@ -135,10 +135,7 @@ const ChainMap: React.FC = () => {
         
         // 定义颜色组合
         const colorCombinations = [
-            new THREE.Color(0x00c8ff), // 青蓝色
-            new THREE.Color(0xff00c8), // 紫粉色
-            new THREE.Color(0xffff00), // 黄色
-            new THREE.Color(0x00ff64)  // 绿色
+            new THREE.Color(0xffff00), // 黄
         ];
         
         // 加载光圈纹理
@@ -151,7 +148,7 @@ const ChainMap: React.FC = () => {
             const geometry = new THREE.PlaneGeometry(1, 1);
             
             // 为每个光圈选择不同的颜色
-            const color = colorCombinations[i % colorCombinations.length];
+            const color = colorCombinations[0];
             
             // 创建光圈材质，使用PNG纹理和颜色
             const material = new THREE.MeshBasicMaterial({
@@ -160,8 +157,7 @@ const ChainMap: React.FC = () => {
                 transparent: true,
                 opacity: 0.6,
                 alphaTest: 0.1,
-                side: THREE.DoubleSide,
-                blending: THREE.AdditiveBlending // 使用加法混合模式增强发光效果
+                // side: THREE.DoubleSide,
             });
             
             // 创建光圈网格
