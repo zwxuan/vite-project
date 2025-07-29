@@ -75,6 +75,7 @@ import { AdminOrgLocale } from '@/utils/locale/dynamic_onfiguration_platform/org
 import { JobPositionLocale } from '@/utils/locale/dynamic_onfiguration_platform/org_manage/job_position';
 import { EmployeeCategoryLocale } from '@/utils/locale/dynamic_onfiguration_platform/org_manage/employee_category';
 import { EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale } from '@/utils/locale/dynamic_onfiguration_platform/org_manage/employee_manage';
+import { RoleManageLocale } from './dynamic_onfiguration_platform/identity/role_manage';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -85,6 +86,7 @@ export {
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
+  RoleManageLocale,
 };
 
 export default {
@@ -97,5 +99,5 @@ export default {
   ...BaseFreightTermsLocale,...BaseBillTermsLocale,...BaseContainerTeuLocale,...BaseCargoTypeLocale,...BaseContainerTypeLocale,...ContractsManageLocale,...BusinessPartnerLocale,...ContactLocale,
   ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
   ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
-  ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,
+  ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,
 };

@@ -1656,4 +1656,15 @@ export const cn = {
         remarks:"备注",
         accountname:"账户名",
     },
+    role_manage:{
+        rolecode:"角色编码",
+        rolename:"角色名称",
+        manageorg:"所属管理组织",
+        systemrole:"系统角色",
+        status:"状态",
+        roletype:"角色类型",
+        roletag:"角色标签",
+        roledesc:"角色描述",
+        rolegroup:"角色组",
+    },
 };

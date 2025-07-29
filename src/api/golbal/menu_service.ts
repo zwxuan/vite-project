@@ -301,7 +301,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "角色管理", key: "role_manage",
+            name: "角色管理", key: "role_manage",path: "/role/role_manage",
         },
         {
             name: "角色组", key: "role_group",

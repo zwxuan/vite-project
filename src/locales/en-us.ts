@@ -1648,4 +1648,15 @@ export const en = {
         remarks: "Remarks",
         accountname: "Account Name"
     },
+    role_manage: {
+        rolecode: "Role Code",
+        rolename: "Role Name",
+        manageorg: "Manage Org",
+        systemrole: "System Role",
+        status: "Status",
+        roletype: "Role Type",
+        roletag: "Role Tag",
+        roledesc: "Role Desc",
+        rolegroup: "Role Group"
+    }
 };

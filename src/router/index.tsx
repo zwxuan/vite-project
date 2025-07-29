@@ -28,6 +28,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   EmployeeManage,
   EmployeeManageDetail,
   MenuManage,
+  RoleManage,
+  RoleManageDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -1013,6 +1015,35 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <MenuManage />
+              </RouterGuard>),
+          },
+        ]
+      },
+
+      // 角色管理
+      {
+        path: "/role",
+        handle: { title: '角色管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "role_manage",
+            handle: { title: '角色管理' },
+            element: (
+              <RouterGuard>
+                <RoleManage />
+              </RouterGuard>),
+          },
+          {
+            path: "role_manage/detail",
+            handle: { title: '角色详情' },
+            element: (
+              <RouterGuard>
+                <RoleManageDetail />
               </RouterGuard>),
           },
         ]
