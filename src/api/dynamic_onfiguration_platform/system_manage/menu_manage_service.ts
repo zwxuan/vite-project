@@ -80,191 +80,123 @@ const deleteMenuItemFromData = (items: MenuManageItemProps[], id: string): boole
     return false;
 };
 
-// 模拟数据
-const mockMenuData: MenuManageItemProps[] = [
-    {
-        id: '1',
-        serviceCode: 'WBP',
-        serviceName: '组件管理',
-        level: 1,
-        sortOrder: 1,
-        isActive: true,
-        type: 'menu',
-        children: [
-            {
-                id: '2',
-                serviceCode: 'XTMENHU0002',
-                serviceName: '我管理的工作台',
-                parentId: '1',
+// 直接导入 menu_service.ts 中的数据
+import { getMainMenuList, getSubMenuList } from '../../golbal/menu_service';
+import { MenuGroup } from '@/types/menu/menu';
+
+// 获取菜单数据的异步函数
+const getMenuData = async (): Promise<{ mainMenuData: MenuGroup[], subMenuData: MenuGroup[] }> => {
+    const [mainMenuData, subMenuData] = await Promise.all([
+        getMainMenuList(),
+        getSubMenuList()
+    ]);
+    return { mainMenuData, subMenuData };
+};
+
+// 转换函数：将 MenuGroup 数据转换为 MenuManageItemProps 格式
+const convertMenuGroupToMenuManageItems = async (): Promise<MenuManageItemProps[]> => {
+    const { mainMenuData, subMenuData } = await getMenuData();
+    const result: MenuManageItemProps[] = [];
+    let currentId = 1;
+    
+    // 创建主菜单映射
+    const mainMenuMap = new Map<string, MenuManageItemProps>();
+    
+    // 处理主菜单
+    mainMenuData.forEach((mainMenu, index) => {
+        const mainMenuItem: MenuManageItemProps = {
+            id: currentId.toString(),
+            serviceCode: mainMenu.key.toUpperCase(),
+            serviceName: mainMenu.title,
+            level: 1,
+            sortOrder: index + 1,
+            isActive: true,
+            type: 'menu',
+            children: []
+        };
+        
+        mainMenuMap.set(mainMenu.key, mainMenuItem);
+        result.push(mainMenuItem);
+        currentId++;
+        
+        // 处理主菜单下的直接子项
+        mainMenu.apps.forEach((app, appIndex) => {
+            const appItem: MenuManageItemProps = {
+                id: currentId.toString(),
+                serviceCode: app.key.toUpperCase(),
+                serviceName: app.name,
+                parentId: mainMenuItem.id,
                 level: 2,
-                sortOrder: 1,
+                sortOrder: appIndex + 1,
                 isActive: true,
                 type: 'menu',
-            },
-            {
-                id: '3',
-                serviceCode: 'XTMENHU0003',
-                serviceName: '导航设置',
-                parentId: '1',
-                level: 2,
-                sortOrder: 2,
+                path: app.path,
+                children: []
+            };
+            
+            mainMenuItem.children!.push(appItem);
+            mainMenuMap.set(app.key, appItem);
+            currentId++;
+        });
+    });
+    
+    // 处理子菜单数据
+    subMenuData.forEach((subMenu) => {
+        const parentItem = mainMenuMap.get(subMenu.parentkey!);
+        if (parentItem) {
+            const subMenuItem: MenuManageItemProps = {
+                id: currentId.toString(),
+                serviceCode: subMenu.key.toUpperCase(),
+                serviceName: subMenu.title,
+                parentId: parentItem.id,
+                level: parentItem.level + 1,
+                sortOrder: (parentItem.children?.length || 0) + 1,
                 isActive: true,
                 type: 'menu',
-            },
-            {
-                id: '4',
-                serviceCode: 'QYFGSZ',
-                serviceName: '企业风格设置',
-                parentId: '1',
-                level: 2,
-                sortOrder: 3,
-                isActive: true,
-                type: 'menu',
-            },
-            {
-                id: '5',
-                serviceCode: 'XTMENHU0001',
-                serviceName: '工作台管理',
-                parentId: '1',
-                level: 2,
-                sortOrder: 4,
-                isActive: true,
-                type: 'menu',
-            },
-            {
-                id: '6',
-                serviceCode: 'XTMENHU0004',
-                serviceName: '组件设置-web广告',
-                parentId: '1',
-                level: 2,
-                sortOrder: 5,
-                isActive: true,
-                type: 'menu',
-            }
-        ]
-    },
-    {
-        id: '7',
-        serviceCode: 'SJHJTQ',
-        serviceName: '数字化建模',
-        level: 1,
-        sortOrder: 2,
-        isActive: true,
-        type: 'menu',
-        children: [
-            {
-                id: '8',
-                serviceCode: 'GZGL',
-                serviceName: '工作台管理',
-                parentId: '7',
-                level: 2,
-                sortOrder: 1,
-                isActive: true,
-                type: 'menu',
-                children: [
-                    {
-                        id: '9',
-                        serviceCode: 'ZYGL',
-                        serviceName: '资产管理',
-                        parentId: '8',
-                        level: 3,
-                        sortOrder: 1,
-                        isActive: true,
-                        type: 'menu',
-                    },
-                    {
-                        id: '10',
-                        serviceCode: 'YWJCSJ',
-                        serviceName: '业务基础数据',
-                        parentId: '8',
-                        level: 3,
-                        sortOrder: 2,
-                        isActive: true,
-                        type: 'menu',
-                    }
-                ]
-            },
-            {
-                id: '11',
-                serviceCode: 'ZZGL',
-                serviceName: '组织管理',
-                parentId: '7',
-                level: 2,
-                sortOrder: 2,
-                isActive: true,
-                type: 'menu',
-            },
-            {
-                id: '12',
-                serviceCode: 'QXGL',
-                serviceName: '权限管理',
-                parentId: '7',
-                level: 2,
-                sortOrder: 3,
-                isActive: true,
-                type: 'menu',
-            },
-            {
-                id: '13',
-                serviceCode: 'XTGL',
-                serviceName: '系统管理',
-                parentId: '7',
-                level: 2,
-                sortOrder: 4,
-                isActive: true,
-                type: 'menu',
-            }
-        ]
-    },
-    {
-        id: '14',
-        serviceCode: 'SJGL',
-        serviceName: '三级菜单',
-        level: 1,
-        sortOrder: 3,
-        isActive: true,
-        type: 'menu',
-        children: [
-            {
-                id: '15',
-                serviceCode: 'SJGL_L2',
-                serviceName: '二级菜单',
-                parentId: '14',
-                level: 2,
-                sortOrder: 1,
-                isActive: true,
-                type: 'menu',
-                children: [
-                    {
-                        id: '16',
-                        serviceCode: 'SJGL_L3',
-                        serviceName: '三级菜单',
-                        parentId: '15',
-                        level: 3,
-                        sortOrder: 1,
-                        isActive: true,
-                        type: 'menu',
-                        children: [
-                            {
-                                id: '17',
-                                serviceCode: 'SJGL_L4',
-                                serviceName: '四级菜单',
-                                parentId: '16',
-                                level: 4,
-                                sortOrder: 1,
-                                isActive: true,
-                                type: 'service',
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+                children: []
+            };
+            
+            parentItem.children!.push(subMenuItem);
+            currentId++;
+            
+            // 处理子菜单下的应用
+            subMenu.apps.forEach((app, appIndex) => {
+                const appItem: MenuManageItemProps = {
+                    id: currentId.toString(),
+                    serviceCode: app.key.toUpperCase(),
+                    serviceName: app.name,
+                    parentId: subMenuItem.id,
+                    level: subMenuItem.level + 1,
+                    sortOrder: appIndex + 1,
+                    isActive: true,
+                    type: app.path ? 'service' : 'menu',
+                    path: app.path
+                };
+                
+                subMenuItem.children!.push(appItem);
+                currentId++;
+            });
+        }
+    });
+    
+    return result;
+};
+
+// 生成模拟数据（异步初始化）
+let mockMenuData: MenuManageItemProps[] = [];
+
+// 初始化数据
+const initMockMenuData = async () => {
+    if (mockMenuData.length === 0) {
+        mockMenuData = await convertMenuGroupToMenuManageItems();
     }
-];
+    return mockMenuData;
+};
 
 // 获取菜单列表
 export const getMenuManageList = async (): Promise<MenuManageItemProps[]> => {
+    // 确保数据已初始化
+    await initMockMenuData();
     // 模拟API调用
     return new Promise((resolve) => {
         setTimeout(() => {

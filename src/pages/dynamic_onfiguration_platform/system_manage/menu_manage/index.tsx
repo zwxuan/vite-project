@@ -1,12 +1,12 @@
 import '@/pages/page_list.less';
 import './menu_manage.css';
 import React, { useState, useEffect, useMemo } from 'react';
-import { Button, Form, Space, notification, Popconfirm, Card, Row, Col, Dropdown, Tooltip } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, StopOutlined, PlayCircleOutlined, AppstoreOutlined, ApiOutlined, ArrowUpOutlined, ArrowDownOutlined, RedoOutlined, DownOutlined } from '@ant-design/icons';
+import { Button, Form, Space, notification, Card, Row, Col, Dropdown, Tooltip } from 'antd';
+import { EditOutlined, DeleteOutlined, StopOutlined, PlayCircleOutlined, AppstoreOutlined, ApiOutlined, ArrowUpOutlined, ArrowDownOutlined, RedoOutlined, DownOutlined } from '@ant-design/icons';
 import { MenuManageItemProps, MenuTreeNode } from '@/types/dynamic_onfiguration_platform/system_manage/menu_manage';
 import { getMenuManageList, saveMenuManage, deleteMenuManage, updateMenuStatus } from '@/api/dynamic_onfiguration_platform/system_manage/menu_manage_service';
 import CustomIcon from '@/components/custom-icon';
-import { statusItems, importItems, exportItems } from './menu_items';
+import { exportItems } from './menu_items';
 import MenuFormModal from './menu_form_modal';
 
 const MenuManage: React.FC = () => {
