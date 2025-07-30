@@ -426,12 +426,12 @@ const feeReconciliationItems: FeeReconciliationItemProps[] = [
 
 const reconciliationRuleEngineItems: ReconciliationRuleEngineItemProps[] = [
   {
-    RowKey: Mock.mock("@id"),
+    SeqNo: Mock.mock("@id"),
     CompanyName: '公司A',
     ReconciliationRuleName: '初始多行汇总对账规则',
   },
   {
-    RowKey: Mock.mock("@id"),
+    SeqNo: Mock.mock("@id"),
     CompanyName: '公司B',
     ReconciliationRuleName: '初始单行明细对账规则',
   },
@@ -439,13 +439,13 @@ const reconciliationRuleEngineItems: ReconciliationRuleEngineItemProps[] = [
 
 const reconciliationMatchItems: ReconciliationMatchFieldsItemProps[] = [
   {
-    RowKey: Mock.mock("@id"),
+    SeqNo: Mock.mock("@id"),
     MatchFieldsName: 'MBL NO.',
     MatchFieldRelation: '与',
     MatchFieldOrderBy: '1',
   },
   {
-    RowKey: Mock.mock("@id"),
+    SeqNo: Mock.mock("@id"),
     MatchFieldsName: '费用名称',
     MatchFieldRelation: '与',
     MatchFieldOrderBy: '2',
@@ -454,14 +454,14 @@ const reconciliationMatchItems: ReconciliationMatchFieldsItemProps[] = [
 
 const reconciliationCompareItems: ReconciliationCompareFieldsItemProps[] = [
   {
-    RowKey: Mock.mock("@id"),
+    SeqNo: Mock.mock("@id"),
     CompareFieldsName: '金额',
     CompareFieldRelation: '与',
     CompareFieldOrderBy: '1',
     CompareFieldOperator: '多行汇总方式',
   },
   {
-    RowKey: Mock.mock("@id"),
+    SeqNo: Mock.mock("@id"),
     CompareFieldsName: '单价',
     CompareFieldRelation: '与',
     CompareFieldOrderBy: '2',

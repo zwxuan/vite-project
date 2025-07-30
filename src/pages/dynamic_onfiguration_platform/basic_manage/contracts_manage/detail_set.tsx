@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, Input, InputNumber, Select, Button, Space, DatePicker, Radio, Col, Row, Table, Modal, Checkbox } from 'antd';
-import { ContractsCompareFieldsItemProps, ContractsManageItemProps, ContractsRuleEngineItemProps } from "@/types/dynamic_onfiguration_platform/basic_manage/contracts_manage";
+import { ContractsCompareFieldsItemProps, ContractsRuleEngineItemProps } from "@/types/dynamic_onfiguration_platform/basic_manage/contracts_manage";
 import dayjs from 'dayjs';
 import TextArea from 'antd/es/input/TextArea';
 import CodeBoxMeta from '@/components/code-box-meta';
 import CustomIcon from '@/components/custom-icon';
 import { TableRowSelection } from 'antd/es/table/interface';
-import { useTableOperations } from './hooks/useTableOperations';
+import { useTableOperations } from '@/hooks/useTableOperations';
 import { getCompareFieldsColumns, getRuleEngineColumns } from './columns';
 import { getContractsCompareFieldsList, getContractsRuleEngineList } from '@/api/dynamic_onfiguration_platform/basic_manage/contracts_manage_service';
 
@@ -56,6 +56,7 @@ const DetailSetModal: React.FC<DetailModalProps> = ({
         dataList: contractsRuleEngineList,
         setDataList: setContractsRuleEngineList,
         createNewRow: () => ({
+            SeqNo: Date.now().toString(),
             ReconciliationRuleName: '',
             MatchFieldRelation: '',
         } as ContractsRuleEngineItemProps)
@@ -66,6 +67,7 @@ const DetailSetModal: React.FC<DetailModalProps> = ({
         dataList: contractsCompareFieldsList,
         setDataList: setContractsCompareFieldsList,
         createNewRow: () => ({
+            SeqNo: Date.now().toString(),
             CompareFieldsName: '',
             CompareFieldRelation: '',
             CompareFieldValue: '',
@@ -154,7 +156,7 @@ const DetailSetModal: React.FC<DetailModalProps> = ({
                                 <Table<ContractsRuleEngineItemProps>
                                     columns={columnsType}
                                     rowSelection={{ ...rowSelection }}
-                                    rowKey={(record) => `${record.RowKey}`}
+                                    rowKey={(record) => `${record.SeqNo}`}
                                     showSorterTooltip={false}
                                     dataSource={contractsRuleEngineList}
                                     pagination={false}
@@ -178,7 +180,7 @@ const DetailSetModal: React.FC<DetailModalProps> = ({
                                         <Table<ContractsCompareFieldsItemProps>
                                             columns={columnsCompareFieldsType}
                                             rowSelection={{ ...rowCompareSelection }}
-                                            rowKey={(record) => `${record.RowKey}`}
+                                            rowKey={(record) => `${record.SeqNo}`}
                                             showSorterTooltip={false}
                                             dataSource={contractsCompareFieldsList}
                                             pagination={false}

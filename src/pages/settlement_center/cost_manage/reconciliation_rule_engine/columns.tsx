@@ -12,7 +12,7 @@ export const getRuleEngineColumns = (handleEdit: (record: ReconciliationRuleEngi
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationRuleEngineItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={record.CompanyName}
@@ -36,7 +36,7 @@ export const getRuleEngineColumns = (handleEdit: (record: ReconciliationRuleEngi
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationRuleEngineItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Input
                     style={{ width: '100%', textAlign: 'left' }}
@@ -55,7 +55,7 @@ export const getRuleEngineColumns = (handleEdit: (record: ReconciliationRuleEngi
         align:'center',
         width: 40,
         render: (_: any, record: ReconciliationRuleEngineItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <>
                     <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>
@@ -83,7 +83,7 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.MatchFieldsName}
@@ -108,7 +108,7 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.MatchFieldRelation}
@@ -133,7 +133,7 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Input
                     // value={editingRow?.MatchFieldOrderBy}
@@ -152,7 +152,7 @@ export const getMatchFieldsColumns = (handleEdit: (record: ReconciliationMatchFi
         align:'center',
         width: 60,
         render: (_: any, record: ReconciliationMatchFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <>
                     <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>
@@ -178,7 +178,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.CompareFieldsName}
@@ -203,7 +203,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: string, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.CompareFieldRelation}
@@ -228,7 +228,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Input
                     // value={editingRow?.CompareFieldOperator}
@@ -249,7 +249,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Input
                     // value={editingRow?.CompareFieldOrderBy}
@@ -268,7 +268,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ReconciliationCompa
         width: 60,
         align:'center',
         render: (_: any, record: ReconciliationCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <>
                     <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>

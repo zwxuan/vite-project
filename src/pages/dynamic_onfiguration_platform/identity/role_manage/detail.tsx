@@ -11,6 +11,7 @@ import { DataNode } from 'antd/es/tree';
 import './tab_detail.less'
 import DatePickerZH from '@/components/date-picker';
 import FunctionManagement from './tabs/function_permission';
+import DataPermission from './tabs/data_permission';
 const { Search, TextArea } = Input;
 
 interface TreeNode extends DataNode {
@@ -108,7 +109,7 @@ const items = [
     {
         label: `数据权限`,
         key: 'data_permission',
-        children: '<div>数据权限</div>',
+        children: <DataPermission />,
     },
     {
         label: `字段权限`,

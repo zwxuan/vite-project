@@ -9,7 +9,7 @@ import CustomIcon from "@/components/custom-icon";
 import { getCompareFieldsColumns,getMatchFieldsColumns,getRuleEngineColumns } from './columns';
 import CodeBoxMeta from '@/components/code-box-meta';
 import { getReconciliationRuleEngineList,getCompareFieldsList,getMatchFieldsList } from '@/api/settlement_center/cost_manage/fee_reconciliation_service';
-import { useTableOperations } from './hooks/useTableOperations';
+import { useTableOperations } from '@/hooks/useTableOperations';
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const ReconciliationRuleEngine: React.FC = () => {
     // 数据
@@ -36,6 +36,7 @@ const ReconciliationRuleEngine: React.FC = () => {
         dataList: reconciliationRuleEngineList,
         setDataList: setReconciliationRuleEngineList,
         createNewRow: () => ({
+            SeqNo: Date.now().toString(),
             CompanyName: '',
             ReconciliationRuleName: '',
         } as ReconciliationRuleEngineItemProps)
@@ -46,6 +47,7 @@ const ReconciliationRuleEngine: React.FC = () => {
         dataList: reconciliationMatchFieldsList,
         setDataList: setReconciliationMatchFieldsList,
         createNewRow: () => ({
+            SeqNo: Date.now().toString(),
             MatchFieldsName: '',
             MatchFieldRelation: '',
             MatchFieldOrderBy: '',
@@ -57,6 +59,7 @@ const ReconciliationRuleEngine: React.FC = () => {
         dataList: reconciliationCompareFieldsList,
         setDataList: setReconciliationCompareFieldsList,
         createNewRow: () => ({
+            SeqNo: Date.now().toString(),
             CompareFieldsName: '',
             CompareFieldRelation: '',
             CompareFieldOperator: '',
@@ -155,7 +158,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                                 <Table<ReconciliationRuleEngineItemProps>
                                     columns={columnsType}
                                     rowSelection={{ ...rowSelection }}
-                                    rowKey={(record) => `${record.RowKey}`}
+                                    rowKey={(record) => `${record.SeqNo}`}
                                     showSorterTooltip={false}
                                     dataSource={reconciliationRuleEngineList}
                                     pagination={false}
@@ -179,7 +182,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                                         <Table<ReconciliationMatchFieldsItemProps>
                                             columns={columnsMatchFieldsType}
                                             rowSelection={{ ...rowMatchSelection }}
-                                            rowKey={(record) => `${record.RowKey}`}
+                                            rowKey={(record) => `${record.SeqNo}`}
                                             showSorterTooltip={false}
                                             dataSource={reconciliationMatchFieldsList}
                                             pagination={false}
@@ -203,7 +206,7 @@ const ReconciliationRuleEngine: React.FC = () => {
                                         <Table<ReconciliationCompareFieldsItemProps>
                                             columns={columnsCompareFieldsType}
                                             rowSelection={{ ...rowCompareSelection }}
-                                            rowKey={(record) => `${record.RowKey}`}
+                                            rowKey={(record) => `${record.SeqNo}`}
                                             showSorterTooltip={false}
                                             dataSource={reconciliationCompareFieldsList}
                                             pagination={false}

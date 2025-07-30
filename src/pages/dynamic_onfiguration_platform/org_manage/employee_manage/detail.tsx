@@ -11,7 +11,7 @@ import { DataNode } from 'antd/es/tree';
 import '../tab_detail.less'
 import CodeBoxMeta from '@/components/code-box-meta';
 import DatePickerZH from '@/components/date-picker';
-import { useTableOperations } from './hooks/useTableOperations';
+import { useTableOperations } from '@/hooks/useTableOperations';
 import { PrimaryJobItemProps, PartTimeJobItemProps, EmployeeBankAccountItemProps, EmployeeManageItemProps } from '@/types/dynamic_onfiguration_platform/org_manage/employee_manage';
 import { getBankAccountColumns, getPartTimeJobColumns, getPrimaryJobColumns } from './columns';
 const { Search, TextArea } = Input;

@@ -64,12 +64,12 @@ const contractsManageItems:ContractsManageItemProps[] = [
 
   const contractsRuleEngineItems: ContractsRuleEngineItemProps[] = [
     {
-      RowKey: Mock.mock("@id"),
+      SeqNo: Mock.mock("@id"),
       ReconciliationRuleName: '合同规则1',
       MatchFieldRelation: '与',
     },
     {
-      RowKey: Mock.mock("@id"),
+      SeqNo: Mock.mock("@id"),
       ReconciliationRuleName: '合同规则2',
       MatchFieldRelation: '或',
     },
@@ -77,13 +77,13 @@ const contractsManageItems:ContractsManageItemProps[] = [
   
   const contractsCompareItems: ContractsCompareFieldsItemProps[] = [
     {
-      RowKey: Mock.mock("@id"),
+      SeqNo: Mock.mock("@id"),
       CompareFieldsName: '业务类型',
       CompareFieldRelation: '等于',
       CompareFieldValue: '海运出口',
     },
     {
-      RowKey: Mock.mock("@id"),
+      SeqNo: Mock.mock("@id"),
       CompareFieldsName: '操作分公司',
       CompareFieldRelation: '等于',
       CompareFieldValue: '青岛分公司',

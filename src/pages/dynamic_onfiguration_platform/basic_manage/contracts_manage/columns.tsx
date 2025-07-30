@@ -244,7 +244,7 @@ export const getRuleEngineColumns = (handleEdit: (record: ContractsRuleEngineIte
         sorter: true,
         align: 'left',
         render: (text: string, record: ContractsRuleEngineItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Input
                     style={{ width: '100%', textAlign: 'left' }}
@@ -263,7 +263,7 @@ export const getRuleEngineColumns = (handleEdit: (record: ContractsRuleEngineIte
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ContractsRuleEngineItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.MatchFieldRelation}
@@ -287,7 +287,7 @@ export const getRuleEngineColumns = (handleEdit: (record: ContractsRuleEngineIte
         align:'center',
         width: 40,
         render: (_: any, record: ContractsRuleEngineItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <>
                     <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>
@@ -313,7 +313,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ContractsCompareFie
         sorter: true,
         align: 'left',
         render: (text: string, record: ContractsCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.CompareFieldsName}
@@ -338,7 +338,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ContractsCompareFie
         sorter: true,
         align: 'left',
         render: (text: string, record: ContractsCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.CompareFieldRelation}
@@ -363,7 +363,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ContractsCompareFie
         sorter: true,
         align: 'left',
         render: (text: boolean, record: ContractsCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <Select
                     // value={editingRow?.CompareFieldRelation}
@@ -387,7 +387,7 @@ export const getCompareFieldsColumns = (handleEdit: (record: ContractsCompareFie
         width: 60,
         align:'center',
         render: (_: any, record: ContractsCompareFieldsItemProps) => {
-            const editable = record.RowKey===editingKey;
+            const editable = record.SeqNo===editingKey;
             return editable ? (
                 <>
                     <i className="iconfont icon-queding" style={{fontSize:'10px',color:'#0073e1',marginRight:'3px',marginLeft:'6px'}} title='保存' onClick={() => handleSave(record)}></i>

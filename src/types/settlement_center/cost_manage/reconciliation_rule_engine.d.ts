@@ -1,6 +1,6 @@
 // 对账规则引擎
 export interface ReconciliationRuleEngineItemProps {
-    RowKey:string;
+    SeqNo:string;
     // 公司名称
     CompanyName:string;
     // 对账规则名称
@@ -8,7 +8,7 @@ export interface ReconciliationRuleEngineItemProps {
 }
 // 对账规则引擎匹配字段
 export interface ReconciliationMatchFieldsItemProps {
-    RowKey:string;
+    SeqNo:string;
     // 匹配字段名称
     MatchFieldsName:string;
     // 匹配字段关系
@@ -18,7 +18,7 @@ export interface ReconciliationMatchFieldsItemProps {
 }
 // 对账规则引擎比较字段
 export interface ReconciliationCompareFieldsItemProps {
-    RowKey:string;
+    SeqNo:string;
     // 对比字段名称
     CompareFieldsName:string;
     // 匹配字段关系

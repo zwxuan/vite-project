@@ -57,7 +57,7 @@ export interface ContractsManageItemProps {
 
 // 合同规则引擎
 export interface ContractsRuleEngineItemProps {
-    RowKey:string;
+    SeqNo:string;
     // 对账规则名称
     ReconciliationRuleName:string;
     // 匹配字段关系
@@ -66,7 +66,7 @@ export interface ContractsRuleEngineItemProps {
 
 // 合同规则比较字段
 export interface ContractsCompareFieldsItemProps {
-    RowKey:string;
+    SeqNo:string;
     // 对比字段名称
     CompareFieldsName:string;
     // 匹配字段关系
