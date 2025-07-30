@@ -1,11 +1,12 @@
 import '@/pages/page_list.less';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button, Table, TableProps } from 'antd';
 import { useLocation } from 'react-router-dom';
 import '../tab_detail.less'
 import { useTableOperations } from '@/hooks/useTableOperations';
 import { getDataPermissionColumns } from '../columns';
 import { DataPermissionItemProps } from '@/types/dynamic_onfiguration_platform/identity/role_manage';
+import {getDataPermissionList} from '@/api/dynamic_onfiguration_platform/identity/role_manage_service';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const DataPermission: React.FC = () => {
@@ -13,20 +14,21 @@ const DataPermission: React.FC = () => {
     const searchParams = new URLSearchParams(location.search);
     const orgCode = searchParams.get('orgCode');
     const [dataPermissionList, setDataPermissionList] = useState([] as DataPermissionItemProps[]);
-
+    useEffect(() => {
+        const getData = async () => {
+            const dataPermissionData = await getDataPermissionList();
+            setDataPermissionList([...dataPermissionData]);
+        };
+        getData();
+    }, []);
     const newPartnerRowId = Date.now().toString();
     const dataPermissionOperations = useTableOperations({
         dataList: dataPermissionList,
         setDataList: setDataPermissionList,
         createNewRow: () => ({
             SeqNo: newPartnerRowId,
-            Organization: '',
-            Department: '',
-            Position: '',
-            JobDuty: '',
-            StartDate: '',
-            EndDate: '',
-            Supervisor: ''
+            DataFullPaths: '',
+            Status: ''
         } as DataPermissionItemProps)
     });
     // 使用自定义Hook处理对比字段表格操作

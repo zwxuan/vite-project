@@ -1,6 +1,6 @@
 
 import request, {ApiRes,requestWithProgress } from '../../request'
-import { RoleManageItemProps } from "@/types/dynamic_onfiguration_platform/identity/role_manage";
+import { RoleManageItemProps,DataPermissionItemProps } from "@/types/dynamic_onfiguration_platform/identity/role_manage";
 import Mock from "mockjs";
 //
 const roleManageItems:RoleManageItemProps[] = [
@@ -149,10 +149,31 @@ const roleManageItems:RoleManageItemProps[] = [
     }
 ];
 
+const dataPermissionItems:DataPermissionItemProps[] = [
+    {
+        "SeqNo": "1",
+        "DataFullPaths": "集团总部/生产部门/生产组/生产主管",
+        "Status": "已启用"
+    },
+    {
+        "SeqNo": "2",
+        "DataFullPaths": "集团总部/生产部门/销售组/销售主管",
+        "Status": "已启用"
+    },
+    {
+        "SeqNo": "3",
+        "DataFullPaths": "集团总部/销售部门/销售组/销售主管",
+        "Status": "已启用"
+    }
+]
 
 // 获取账单管理台账列表
 export const getRoleManageList = async (): Promise<RoleManageItemProps[]> => {
   return roleManageItems;
+}
+
+export const getDataPermissionList = async (): Promise<DataPermissionItemProps[]> => {
+  return dataPermissionItems;
 }
 
 // 保存账单管理
