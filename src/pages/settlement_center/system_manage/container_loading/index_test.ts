@@ -12,7 +12,7 @@ export * from './constants';
 export * from './components';
 
 // 算法
-export * from './algorithms/PackingAlgorithm';
+// PackingAlgorithm已删除，只保留贪心算法
 
 // 工具函数
 export * from './utils';

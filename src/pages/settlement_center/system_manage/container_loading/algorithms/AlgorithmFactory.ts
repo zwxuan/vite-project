@@ -1,11 +1,6 @@
 import { PackingAlgorithmType } from '../types';
 import { BaseAlgorithm } from './base/BaseAlgorithm';
 import { GreedyAlgorithm } from './GreedyAlgorithm';
-import { GeneticAlgorithm } from './GeneticAlgorithm';
-import { SimulatedAnnealingAlgorithm } from './SimulatedAnnealingAlgorithm';
-import { HybridOptimizationAlgorithm } from './HybridOptimizationAlgorithm';
-import { MultiContainerAlgorithm } from './MultiContainerAlgorithm';
-import { LinearProgrammingAlgorithm } from './LinearProgrammingAlgorithm';
 
 /**
  * 算法工厂类
@@ -18,22 +13,8 @@ export class AlgorithmFactory {
    * @returns 算法实例
    */
   static createAlgorithm(algorithmType: PackingAlgorithmType): BaseAlgorithm {
-    switch (algorithmType) {
-      case 'greedy':
-        return new GreedyAlgorithm();
-      case 'genetic':
-        return new GeneticAlgorithm();
-      case 'simulated':
-        return new SimulatedAnnealingAlgorithm();
-      case 'hybrid':
-        return new HybridOptimizationAlgorithm();
-      case 'multi-container':
-        return new MultiContainerAlgorithm();
-      case 'linear-programming':
-        return new LinearProgrammingAlgorithm();
-      default:
-        return new GreedyAlgorithm();
-    }
+    // 只支持贪心算法
+    return new GreedyAlgorithm();
   }
 
   /**
@@ -42,12 +23,7 @@ export class AlgorithmFactory {
    */
   static getAvailableAlgorithms(): PackingAlgorithmType[] {
     return [
-      'greedy',
-      'genetic',
-      'simulated',
-      'hybrid',
-      'multi-container',
-      'linear-programming'
+      'greedy'
     ];
   }
 }
