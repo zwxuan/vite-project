@@ -33,6 +33,7 @@ export abstract class BaseAlgorithm {
 
     const packedItems: any[] = [];
     const unpackedItems: Cargo[] = []; // 声明未装载货物列表
+    const packedCargoCount = new Map<string, number>(); // 跟踪每个货物已装载的数量
     let containerCount = 0;
     let currentContainerWeight = 0;
     let currentContainerVolume = 0;
@@ -59,6 +60,11 @@ export abstract class BaseAlgorithm {
         // 预先检查：如果货物本身就无法装入任何容器，直接跳过（框架集装箱除外）
         if (!containerType.isFrameContainer && cargo.height > containerType.height) {
           console.warn(`货物 ${cargo.name} 高度 ${cargo.height}m 超过集装箱高度 ${containerType.height}m，无法装载`);
+          // 将无法装载的货物添加到未装载列表
+          unpackedItems.push({
+            ...cargo,
+            quantity: cargo.quantity - (packedCargoCount.get(cargo.id) || 0)
+          });
           // 跳过当前这一件货物，继续处理下一件
           continue;
         }
@@ -154,8 +160,22 @@ export abstract class BaseAlgorithm {
         
         // 如果需要新容器或者是第一个货物
         if (needNewContainer || isFirstCargo) {
-          // 在单集装箱模式下，如果需要新容器则停止装载
+          // 在单集装箱模式下，如果需要新容器则将剩余货物标记为未装载
           if (packingConfig.mode === 'single_container' && containerCount > 0) {
+            // 将当前货物及其剩余数量添加到未装载列表
+            const currentPackedCount = packedCargoCount.get(cargo.id) || 0;
+            const remainingQuantity = cargo.quantity - currentPackedCount;
+            if (remainingQuantity > 0) {
+              const existingUnpacked = unpackedItems.find(item => item.id === cargo.id);
+              if (existingUnpacked) {
+                existingUnpacked.quantity += remainingQuantity;
+              } else {
+                unpackedItems.push({
+                  ...cargo,
+                  quantity: remainingQuantity
+                });
+              }
+            }
             break;
           }
           
@@ -192,6 +212,21 @@ export abstract class BaseAlgorithm {
         // 如果最终检查失败，跳过这个货物
         if (!finalCheck) {
           console.warn(`货物 ${cargo.name} 最终检查失败，跳过装载`);
+          // 记录未装载的货物
+          const currentPackedCount = packedCargoCount.get(cargo.id) || 0;
+          const remainingToProcess = cargo.quantity - currentPackedCount;
+          if (remainingToProcess > 0) {
+            // 检查是否已经在未装载列表中
+            const existingUnpacked = unpackedItems.find(item => item.id === cargo.id);
+            if (existingUnpacked) {
+              existingUnpacked.quantity += 1;
+            } else {
+              unpackedItems.push({
+                ...cargo,
+                quantity: 1
+              });
+            }
+          }
           continue;
         }
 
@@ -205,6 +240,10 @@ export abstract class BaseAlgorithm {
           z: currentZ,
           containerIndex: containerCount - 1 // 修复索引：从0开始而不是从1开始
         });
+
+        // 更新已装载货物计数
+        const currentCount = packedCargoCount.get(cargo.id) || 0;
+        packedCargoCount.set(cargo.id, currentCount + 1);
 
         // 更新位置和尺寸记录（添加间隙）
         currentX += cargo.length + gap;
@@ -252,22 +291,23 @@ export abstract class BaseAlgorithm {
     // 计算总重量
     const totalWeight = cargos.reduce((sum, cargo) => sum + (cargo.weight * cargo.quantity), 0);
 
-    // 计算未装载货物
-    const packedCargoCount = new Map<string, number>();
-    packedItems.forEach(item => {
-      const count = packedCargoCount.get(item.cargo.id) || 0;
-      packedCargoCount.set(item.cargo.id, count + 1);
-    });
-
-    // 添加剩余未装载的货物到未装载列表
+    // 最终检查：添加剩余未装载的货物到未装载列表（避免重复）
     cargos.forEach(cargo => {
       const packedCount = packedCargoCount.get(cargo.id) || 0;
       const remainingCount = cargo.quantity - packedCount;
       if (remainingCount > 0) {
-        unpackedItems.push({
-          ...cargo,
-          quantity: remainingCount
-        });
+        // 检查是否已经在未装载列表中
+        const existingUnpacked = unpackedItems.find(item => item.id === cargo.id);
+        if (existingUnpacked) {
+          // 如果已存在，更新数量为剩余总数
+          existingUnpacked.quantity = remainingCount;
+        } else {
+          // 如果不存在，添加新的未装载项
+          unpackedItems.push({
+            ...cargo,
+            quantity: remainingCount
+          });
+        }
       }
     });
 

@@ -23,7 +23,6 @@ export const PACKING_ALGORITHMS = [
 // 成本优化策略选项
 export const COST_OPTIMIZATION_STRATEGIES = [
   { value: 'none' as CostOptimizationStrategy, label: '无优化策略', description: '使用基础算法' },
-  { value: 'max_utilization' as CostOptimizationStrategy, label: '无忧化策略', description: '追求最高的空间利用率，确保装箱效果最优' }
 ];
 
 // 装箱模式选项
