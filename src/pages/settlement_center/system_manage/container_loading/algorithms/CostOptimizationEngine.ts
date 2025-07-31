@@ -29,7 +29,7 @@ export class CostOptimizationEngine {
 
     switch (config.costOptimizationStrategy) {
       case 'max_utilization':
-        return this.optimizeForMaxUtilization(cargos, algorithm, cargoNameColors, config);
+        return this.optimizeForMaxUtilization(cargos, algorithm, cargoNameColors, config, baseResult);
       default:
         return baseResult;
     }
@@ -44,20 +44,32 @@ export class CostOptimizationEngine {
     cargos: Cargo[],
     algorithm: BaseAlgorithm,
     cargoNameColors?: Record<string, string>,
-    config?: PackingConfig
+    config?: PackingConfig,
+    baseResult?: PackingResult | null
   ): PackingResult | null {
     let bestResult: PackingResult | null = null;
     let maxUtilization = 0;
 
+    // 使用已经处理过的货物（如果有的话），否则使用原始货物
+    const effectiveCargos = baseResult?.processedCargos || cargos;
+    
+    console.log('CostOptimizationEngine调试:', {
+      originalCargos: cargos.map(c => `${c.name}:${c.length}x${c.width}x${c.height}`),
+      processedCargos: effectiveCargos.map(c => `${c.name}:${c.length}x${c.width}x${c.height}${c.isRotated ? '(已放倒)' : ''}`),
+      baseResultExists: !!baseResult
+    });
+    
     // 智能分离货物：根据货物高度分组
     const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     const gap = 0.05; // 默认间隙
     
     // 分离可装入标准箱的货物和需要框架箱的货物
-    const standardCargos = cargos.filter(cargo => cargo.height <= maxStandardHeight);
-    const frameCargos = cargos.filter(cargo => cargo.height > maxStandardHeight);
+    const standardCargos = effectiveCargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = effectiveCargos.filter(cargo => cargo.height > maxStandardHeight);
     
     console.log(`无忧化策略(最高利用率)：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
+    console.log('标准箱货物详情:', standardCargos.map(c => `${c.name}:${c.length}x${c.width}x${c.height}`));
+    console.log('框架箱货物详情:', frameCargos.map(c => `${c.name}:${c.length}x${c.width}x${c.height}`));
     
     // 如果有标准箱货物，优先尝试标准箱方案
     if (standardCargos.length > 0) {
@@ -184,6 +196,21 @@ export class CostOptimizationEngine {
       }
     }
 
+    // 如果没有找到更好的结果，或者bestResult装载失败但baseResult成功，则返回baseResult
+    if ((!bestResult || bestResult.packedItems.length === 0) && baseResult && baseResult.packedItems.length > 0) {
+      console.log('CostOptimizationEngine: 使用baseResult作为最终结果，因为优化结果失败但基础结果成功');
+      return baseResult;
+    }
+    
+    console.log('CostOptimizationEngine最终结果:', {
+      bestResult: bestResult ? {
+        packedItems: bestResult.packedItems.length,
+        unpackedItems: bestResult.unpackedItems.length,
+        containers: bestResult.containers.length,
+        utilization: bestResult.utilization
+      } : null
+    });
+    
     return bestResult;
   }
 

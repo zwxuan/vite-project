@@ -58,8 +58,15 @@ export abstract class BaseAlgorithm {
         const cargoVolume = cargo.length * cargo.width * cargo.height;
 
         // 预先检查：如果货物本身就无法装入任何容器，直接跳过（框架集装箱除外）
-        if (!containerType.isFrameContainer && cargo.height > containerType.height) {
-          console.warn(`货物 ${cargo.name} 高度 ${cargo.height}m 超过集装箱高度 ${containerType.height}m，无法装载`);
+        // 检查货物的所有维度是否都能装入集装箱
+        const cannotFitInContainer = !containerType.isFrameContainer && (
+          cargo.height > containerType.height ||
+          cargo.length > containerType.length ||
+          cargo.width > containerType.width
+        );
+        
+        if (cannotFitInContainer) {
+          console.warn(`货物 ${cargo.name} 尺寸 ${cargo.length}×${cargo.width}×${cargo.height}m 无法装入集装箱 ${containerType.length}×${containerType.width}×${containerType.height}m`);
           // 将无法装载的货物添加到未装载列表
           unpackedItems.push({
             ...cargo,
@@ -96,11 +103,10 @@ export abstract class BaseAlgorithm {
           if (tempZ + cargo.width + gap > containerType.width) {
             // 检查是否允许堆叠和货物是否可堆叠
             const allowStacking = packingConfig?.allowStacking !== false; // 默认允许堆叠
-            const cargoStackable = cargo.stackable !== false; // 默认货物可堆叠
             // 框架集装箱不允许堆叠，无论全局设置如何
             const isFrameContainerNoStacking = containerType.isFrameContainer;
             
-            if (allowStacking && cargoStackable && !isFrameContainerNoStacking) {
+            if (allowStacking && !isFrameContainerNoStacking) {
               // 换层：移动到上一层
               tempZ = 0;
               const newLayerY = tempY + tempMaxHeightInLayer;
@@ -119,7 +125,7 @@ export abstract class BaseAlgorithm {
               needNewContainer = true;
               const reason = isFrameContainerNoStacking ? '框架集装箱不允许堆叠' : 
                            !allowStacking ? '全局禁止堆叠' : '货物不可堆叠';
-              console.log(`需要新容器: ${reason}, allowStacking=${allowStacking}, cargoStackable=${cargoStackable}, isFrameContainer=${containerType.isFrameContainer}`);
+              console.log(`需要新容器: ${reason}, allowStacking=${allowStacking}, isFrameContainer=${containerType.isFrameContainer}`);
             }
           }
         } else {
@@ -244,6 +250,7 @@ export abstract class BaseAlgorithm {
         // 更新已装载货物计数
         const currentCount = packedCargoCount.get(cargo.id) || 0;
         packedCargoCount.set(cargo.id, currentCount + 1);
+        console.log(`货物 ${cargo.name} (ID: ${cargo.id}) 装载成功，计数从 ${currentCount} 更新为 ${currentCount + 1}`);
 
         // 更新位置和尺寸记录（添加间隙）
         currentX += cargo.length + gap;
@@ -292,17 +299,21 @@ export abstract class BaseAlgorithm {
     const totalWeight = cargos.reduce((sum, cargo) => sum + (cargo.weight * cargo.quantity), 0);
 
     // 最终检查：添加剩余未装载的货物到未装载列表（避免重复）
+    console.log('最终检查开始，packedCargoCount:', Array.from(packedCargoCount.entries()));
     cargos.forEach(cargo => {
       const packedCount = packedCargoCount.get(cargo.id) || 0;
       const remainingCount = cargo.quantity - packedCount;
+      console.log(`货物 ${cargo.name} (ID: ${cargo.id}): 总数=${cargo.quantity}, 已装载=${packedCount}, 剩余=${remainingCount}`);
       if (remainingCount > 0) {
         // 检查是否已经在未装载列表中
         const existingUnpacked = unpackedItems.find(item => item.id === cargo.id);
         if (existingUnpacked) {
           // 如果已存在，更新数量为剩余总数
+          console.log(`更新未装载货物 ${cargo.name} 数量为 ${remainingCount}`);
           existingUnpacked.quantity = remainingCount;
         } else {
           // 如果不存在，添加新的未装载项
+          console.log(`添加未装载货物 ${cargo.name}，数量 ${remainingCount}`);
           unpackedItems.push({
             ...cargo,
             quantity: remainingCount

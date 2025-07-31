@@ -41,6 +41,15 @@ export const usePackingCalculation = () => {
         };
       const result = CostOptimizationEngine.applyOptimization(baseResult, cargos, algorithm, cargoNameColors, optimizationConfig);
       
+      // 添加调试日志
+      console.log('装箱计算结果:', {
+        baseResult,
+        finalResult: result,
+        packedItemsCount: result?.packedItems?.length || 0,
+        unpackedItemsCount: result?.unpackedItems?.length || 0,
+        containers: result?.containers?.length || 0
+      });
+      
       setPackingResult(result);
       
       if (!result) {

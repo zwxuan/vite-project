@@ -54,6 +54,13 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
     });
   };
 
+  const handleRotationChange = (checked: boolean) => {
+    onChange({
+      ...config,
+      allowRotation: checked
+    });
+  };
+
   return (
     <Card title="装箱配置" style={{ marginBottom: '16px' }}>
       <Form layout="vertical">
@@ -290,6 +297,42 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
             当前设置：{config.allowStacking !== false ? '允许货物堆叠' : '禁止货物堆叠'}
             <br />
             <span style={{ color: '#ff6b35' }}>注意：框架集装箱始终不允许堆叠</span>
+          </div>
+        </Form.Item>
+
+        {/* 货物放倒配置 */}
+        <Form.Item
+          label={
+            <span>
+              货物放倒
+              <Tooltip
+                title={
+                  <div style={{ fontSize: '13px', lineHeight: '1.6' }}>
+                    <div style={{ fontWeight: 'bold', marginBottom: '8px', color: '#1890ff' }}>货物放倒功能说明：</div>
+                    <ol style={{ paddingLeft: '16px', margin: 0 }}>
+                      <li style={{ marginBottom: '10px' }}>允许放倒：对于高度超过标准集装箱的货物，系统会自动尝试将其放倒（长高互换）。</li>
+                      <li style={{ marginBottom: '10px' }}>例如：1×1×4.2m的货物可以放倒成4.2×1×1m，从而装入标准集装箱。</li>
+                      <li style={{ marginBottom: '10px' }}>优先级：系统会优先尝试使用标准集装箱，如果放倒后仍无法装入，才会使用框架集装箱。</li>
+                      <li style={{ marginBottom: '10px' }}>3D显示：放倒的货物在3D可视化中会以放倒后的姿态显示。</li>
+                    </ol>
+                  </div>
+                }
+                color='white'>
+                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
+              </Tooltip>
+            </span>
+          }
+        >
+          <Switch
+            checked={config.allowRotation === true} // 默认为false
+            onChange={handleRotationChange}
+            checkedChildren="允许放倒"
+            unCheckedChildren="禁止放倒"
+          />
+          <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+            当前设置：{config.allowRotation === true ? '允许货物放倒' : '禁止货物放倒'}
+            <br />
+            <span style={{ color: '#52c41a' }}>提示：放倒可以提高标准集装箱的利用率</span>
           </div>
         </Form.Item>
       </Form>

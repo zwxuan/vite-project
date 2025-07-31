@@ -22,12 +22,19 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       return this.packIntoContainerType(cargos, config.containerType, cargoNameColors, config);
     }
 
+    // 处理货物放倒逻辑
+    let processedCargos = [...cargos];
+    if (config?.allowRotation) {
+      processedCargos = this.optimizeCargoRotation(cargos);
+      console.log(`贪心算法：货物放倒优化完成，处理了 ${processedCargos.length} 种货物`);
+    }
+
     // 智能分离货物：根据货物高度分组
     const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
     
     // 分离可装入标准箱的货物和需要框架箱的货物
-    const standardCargos = cargos.filter(cargo => cargo.height <= maxStandardHeight);
-    const frameCargos = cargos.filter(cargo => cargo.height > maxStandardHeight);
+    const standardCargos = processedCargos.filter(cargo => cargo.height <= maxStandardHeight);
+    const frameCargos = processedCargos.filter(cargo => cargo.height > maxStandardHeight);
     
     console.log(`贪心算法：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
     console.log(`标准箱最大高度限制: ${maxStandardHeight}m`);
@@ -69,9 +76,16 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       }
       
       console.log('贪心算法：使用框架箱装载所有货物');
-      bestResult = this.tryContainerTypes(cargos, frameContainerTypes, cargoNameColors, config);
+      bestResult = this.tryContainerTypes(processedCargos, frameContainerTypes, cargoNameColors, config);
+      console.log('贪心算法：框架箱装载结果:', bestResult ? `成功，容器数=${bestResult.containerCount}，装载货物=${bestResult.packedItems.length}` : '失败');
     }
     
+    // 在返回结果中添加处理过的货物信息
+    if (bestResult && config?.allowRotation) {
+      bestResult.processedCargos = processedCargos;
+    }
+    
+    console.log('贪心算法最终结果:', bestResult ? `成功，容器数=${bestResult.containerCount}，装载货物=${bestResult.packedItems.length}，未装载货物=${bestResult.unpackedItems.length}` : '失败');
     return bestResult;
   }
 
@@ -94,11 +108,14 @@ export class GreedyAlgorithm extends BaseAlgorithm {
 
     // 贪心选择：尝试每种集装箱类型，选择当前最优解
     for (const containerType of sortedContainerTypes) {
+      console.log(`尝试集装箱类型: ${containerType.name} (${containerType.length}x${containerType.width}x${containerType.height})`);
       const result = this.packIntoContainerType(sortedCargos, containerType, cargoNameColors, config);
+      console.log(`装箱结果:`, result ? `成功，容器数=${result.containerCount}，装载货物=${result.packedItems.length}` : '失败');
       
       if (result) {
         // 贪心评分：综合考虑利用率和成本效益
         const score = this.calculateGreedyScore(result);
+        console.log(`评分: ${score}, 当前最佳评分: ${bestScore}`);
         
         if (score > bestScore) {
           bestScore = score;
@@ -106,6 +123,7 @@ export class GreedyAlgorithm extends BaseAlgorithm {
             ...result,
             algorithm: 'greedy'
           };
+          console.log(`更新最佳结果: 容器数=${bestResult.containerCount}，装载货物=${bestResult.packedItems.length}`);
         }
       }
     }
@@ -211,7 +229,8 @@ export class GreedyAlgorithm extends BaseAlgorithm {
    * 计算成本效益分数
    */
   private calculateCostEfficiencyScore(result: PackingResult): number {
-    if (result.totalCost === 0) return 100;
+    // 如果没有使用任何容器，成本效益分数为0
+    if (result.totalCost === 0 || result.containerCount === 0) return 0;
     
     // 成本效益 = 装载体积 / 总成本
     const loadedVolume = result.totalVolume;
@@ -229,9 +248,52 @@ export class GreedyAlgorithm extends BaseAlgorithm {
     const unpackedItems = result.unpackedItems.length;
     const totalCargos = totalItems + unpackedItems;
     
-    if (totalCargos === 0) return 100;
+    // 如果没有货物或没有装载任何货物，装载效率为0
+    if (totalCargos === 0 || totalItems === 0) return 0;
     
     // 装载效率 = 已装载货物数量 / 总货物数量
     return (totalItems / totalCargos) * 100;
+  }
+
+  /**
+   * 优化货物放倒
+   * 为每个货物尝试放倒，选择能装入标准集装箱的最优方案
+   */
+  private optimizeCargoRotation(cargos: Cargo[]): Cargo[] {
+    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
+    const optimizedCargos: Cargo[] = [];
+    
+    for (const cargo of cargos) {
+      // 检查是否需要放倒：
+      // 1. 货物高度超过标准集装箱高度，且长度可以作为新高度
+      // 2. 或者货物的某个维度组合无法装入标准箱，但放倒后可以
+      const needsRotation = (
+        cargo.height > maxStandardHeight && cargo.length <= maxStandardHeight
+      ) || (
+        // 检查是否通过放倒可以更好地利用空间
+        cargo.height > cargo.length && cargo.length <= maxStandardHeight
+      );
+      
+      if (needsRotation) {
+        // 创建放倒后的货物（长高互换）
+        const rotatedCargo: Cargo = {
+          ...cargo,
+          length: cargo.height, // 原高度变成长度
+          height: cargo.length, // 原长度变成高度
+          isRotated: true // 标记为已放倒
+        };
+        
+        console.log(`货物 ${cargo.name} 放倒优化: ${cargo.length}x${cargo.width}x${cargo.height}m -> ${rotatedCargo.length}x${rotatedCargo.width}x${rotatedCargo.height}m`);
+        optimizedCargos.push(rotatedCargo);
+      } else {
+        // 保持原状
+        optimizedCargos.push({
+          ...cargo,
+          isRotated: false
+        });
+      }
+    }
+    
+    return optimizedCargos;
   }
 }

@@ -27,6 +27,7 @@ export interface PackingConfig {
   costOptimizationStrategy?: CostOptimizationStrategy;
   gap?: number; // 货物间隙，单位：米，默认0.05米(5cm)
   allowStacking?: boolean; // 是否允许货物堆叠，默认为true
+  allowRotation?: boolean; // 是否允许货物放倒（长高互换），默认为false
 }
 
 // 货物定义
@@ -39,7 +40,7 @@ export interface Cargo {
   weight: number;
   quantity: number;
   color?: string;
-  stackable?: boolean; // 是否可以堆叠，默认为true（可堆叠）
+  isRotated?: boolean; // 是否被放倒（长高互换），用于3D可视化
 }
 
 // 装箱结果
@@ -60,6 +61,7 @@ export interface PackingResult {
   gap?: number; // 货物间隙，用于3D渲染时计算货物与集装箱内壁的距离
   executionTime?: number; // 算法执行时间，单位：毫秒
   iterations?: number; // 算法迭代次数
+  processedCargos?: Cargo[]; // 经过预处理（如放倒优化）的货物列表
 }
 
 // 已装箱物品
