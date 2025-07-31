@@ -42,7 +42,7 @@ const DataPermission: React.FC = () => {
 
     return (
 
-        <div className='nc-bill-table-area' style={{ height: 'calc(100vh - 100px)', background: '#f9fbff' }}>
+        <div className='nc-bill-table-area' style={{ height: 'calc(100vh - 100px)',width:'700px', background: '#f9fbff' }}>
             <div style={{ textAlign: 'right', margin: '0px 4px' }}>
                 <div className="u-button-group">
                     <Button type='primary' size='small' onClick={dataPermissionOperations.handleAdd}>新增</Button>

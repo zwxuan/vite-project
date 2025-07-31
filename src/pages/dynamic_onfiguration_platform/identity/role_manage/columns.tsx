@@ -104,11 +104,11 @@ export const getDataPermissionColumns = (handleEdit: (record: DataPermissionItem
 
     {
         title: '序号',
-        width: 100,
+        width: 40,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SeqNo',
         sorter: true,
-        align: 'left',
+        align: 'center',
         render: (text: string, record: DataPermissionItemProps) => {
             const editable = record.SeqNo===editingKey;
             return editable ? (
@@ -124,7 +124,7 @@ export const getDataPermissionColumns = (handleEdit: (record: DataPermissionItem
     },
     {
         title: '全路径',
-        width: 100,
+        width: 260,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'DataFullPaths',
         sorter: true,
@@ -151,7 +151,7 @@ export const getDataPermissionColumns = (handleEdit: (record: DataPermissionItem
     },
     {
         title: '状态',
-        width: 100,
+        width: 60,
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Status',
         sorter: true,

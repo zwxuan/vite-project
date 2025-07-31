@@ -176,7 +176,11 @@ const Detail: React.FC = () => {
                                 title={
                                     <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
                                         <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>行政组织归属</b></span>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>功能权限</b></span>页面上相关功能按钮是否显示。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>数据权限</b></span>当前角色除了所属组织的数据权限外，还可以看到这里配置的其余公司和人的数据权限。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>字段权限</b></span>用于控制页面上字段是只读、读写、隐藏。
                                             </li>
                                         </ol>
                                     </div>

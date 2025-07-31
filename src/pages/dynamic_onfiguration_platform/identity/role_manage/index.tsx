@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { RoleManageItemProps } from "@/types/dynamic_onfiguration_platform/identity/role_manage";
