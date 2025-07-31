@@ -5,8 +5,9 @@ import type { Key } from 'antd/es/table/interface';
 import type { DataNode } from 'antd/es/tree';
 import type { ColumnsType } from 'antd/es/table';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { menuData } from '@/api/golbal/menu_service';
+import { getMainMenuList } from '@/api/golbal/menu_service';
 import '@/pages/page_list.less';
+import { MenuGroup } from '@/types/menu/menu';
 
 interface TreeNode extends DataNode {
     title: string;
@@ -125,52 +126,64 @@ const FunctionManagement: React.FC = () => {
     const [selectedNodeKey, setSelectedNodeKey] = useState<string>('');
     const [expandedKeys, setExpandedKeys] = useState<Key[]>([]);
 
-    // 将menuData转换为TreeNode格式
-    const buildTreeData = (): TreeNode[] => {
-        const treeNodes: TreeNode[] = [];
-
-        // 遍历主菜单组
-        menuData.forEach(group => {
-            const groupNode: TreeNode = {
-                title: group.title,
-                key: group.key,
-                children: []
-            };
-
-            // 遍历应用
-            group.apps.forEach(app => {
-                const appNode: TreeNode = {
-                    title: app.name,
-                    key: `${group.key}.${app.key}`,
-                    parentKey: group.key
-                };
-                groupNode.children!.push(appNode);
-            });
-
-            treeNodes.push(groupNode);
-        });
-
-        return treeNodes;
-    };
 
     useEffect(() => {
-        // 构建树形数据
-        const builtTreeData = buildTreeData();
-        setTreeData(builtTreeData);
-        setTableData(mockDataMap);
+        const getData = async () => {
+            try {
+                const [menuData] = await Promise.all([
+                    getMainMenuList(),
+                ]);
 
-        // 默认展开所有节点
-        const allKeys: Key[] = [];
-        const collectKeys = (nodes: TreeNode[]) => {
-            nodes.forEach(node => {
-                allKeys.push(node.key);
-                if (node.children) {
-                    collectKeys(node.children);
-                }
-            });
+                // 将menuData转换为TreeNode格式
+                const buildTreeData = (): TreeNode[] => {
+                    const treeNodes: TreeNode[] = [];
+
+                    // 遍历主菜单组
+                    menuData.forEach(group => {
+                        const groupNode: TreeNode = {
+                            title: group.title,
+                            key: group.key,
+                            children: []
+                        };
+
+                        // 遍历应用
+                        group.apps.forEach(app => {
+                            const appNode: TreeNode = {
+                                title: app.name,
+                                key: `${group.key}.${app.key}`,
+                                parentKey: group.key
+                            };
+                            groupNode.children!.push(appNode);
+                        });
+
+                        treeNodes.push(groupNode);
+                    });
+
+                    return treeNodes;
+                };
+                // 构建树形数据
+                const builtTreeData = buildTreeData();
+                setTreeData(builtTreeData);
+                setTableData(mockDataMap);
+
+                // 默认展开所有节点
+                const allKeys: Key[] = [];
+                const collectKeys = (nodes: TreeNode[]) => {
+                    nodes.forEach(node => {
+                        allKeys.push(node.key);
+                        if (node.children) {
+                            collectKeys(node.children);
+                        }
+                    });
+                };
+                collectKeys(builtTreeData);
+                setExpandedKeys(allKeys);
+            } catch (error) {
+                console.error('获取菜单数据失败:', error);
+            }
         };
-        collectKeys(builtTreeData);
-        setExpandedKeys(allKeys);
+
+        getData();
     }, []);
     // Handle menu selection
     const onSelect = (selectedKeys: Key[], info: any) => {
@@ -306,7 +319,7 @@ const FunctionManagement: React.FC = () => {
     ];
 
     return (
-        <div style={{ display: 'flex',paddingTop:'10px' }}>
+        <div style={{ display: 'flex', paddingTop: '10px' }}>
             <div style={{ width: '15%' }}>
                 <div className="nc-bill-table-area">
                     <Tree

@@ -12,6 +12,7 @@ import './tab_detail.less'
 import DatePickerZH from '@/components/date-picker';
 import FunctionManagement from './tabs/function_permission';
 import DataPermission from './tabs/data_permission';
+import FieldsPermission from './tabs/field_permission';
 const { Search, TextArea } = Input;
 
 interface TreeNode extends DataNode {
@@ -114,7 +115,7 @@ const items = [
     {
         label: `字段权限`,
         key: 'field_permission',
-        children: '<div>字段权限</div>',
+        children: <FieldsPermission />,
     },
 ];
 interface Option {

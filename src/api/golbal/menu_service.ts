@@ -721,8 +721,6 @@ const childrenMenuData: MenuGroup[] = [{
     ]
 },
 ]
-// 导出数据
-export { menuData, childrenMenuData };
 
 // 获取当前用户信息
 export const getMainMenuList = async (): Promise<MenuGroup[]> => {
