@@ -57,25 +57,6 @@ export abstract class BaseAlgorithm {
         const cargoWeight = cargo.weight;
         const cargoVolume = cargo.length * cargo.width * cargo.height;
 
-        // 预先检查：如果货物本身就无法装入任何容器，直接跳过（框架集装箱除外）
-        // 检查货物的所有维度是否都能装入集装箱
-        const cannotFitInContainer = !containerType.isFrameContainer && (
-          cargo.height > containerType.height ||
-          cargo.length > containerType.length ||
-          cargo.width > containerType.width
-        );
-        
-        if (cannotFitInContainer) {
-          console.warn(`货物 ${cargo.name} 尺寸 ${cargo.length}×${cargo.width}×${cargo.height}m 无法装入集装箱 ${containerType.length}×${containerType.width}×${containerType.height}m`);
-          // 将无法装载的货物添加到未装载列表
-          unpackedItems.push({
-            ...cargo,
-            quantity: cargo.quantity - (packedCargoCount.get(cargo.id) || 0)
-          });
-          // 跳过当前这一件货物，继续处理下一件
-          continue;
-        }
-
         // 检查当前位置是否能放下货物
         let needNewContainer = false;
         let tempX = currentX;

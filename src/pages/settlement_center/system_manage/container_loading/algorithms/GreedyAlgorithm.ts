@@ -257,43 +257,32 @@ export class GreedyAlgorithm extends BaseAlgorithm {
 
   /**
    * 优化货物放倒
-   * 为每个货物尝试放倒，选择能装入标准集装箱的最优方案
    */
   private optimizeCargoRotation(cargos: Cargo[]): Cargo[] {
     const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
-    const optimizedCargos: Cargo[] = [];
-    
-    for (const cargo of cargos) {
-      // 检查是否需要放倒：
-      // 1. 货物高度超过标准集装箱高度，且长度可以作为新高度
-      // 2. 或者货物的某个维度组合无法装入标准箱，但放倒后可以
-      const needsRotation = (
-        cargo.height > maxStandardHeight && cargo.length <= maxStandardHeight
-      ) || (
-        // 检查是否通过放倒可以更好地利用空间
-        cargo.height > cargo.length && cargo.length <= maxStandardHeight
-      );
-      
-      if (needsRotation) {
-        // 创建放倒后的货物（长高互换）
-        const rotatedCargo: Cargo = {
+
+    return cargos.map(cargo => {
+      // 如果货物高度超过标准集装箱最大高度，尝试放倒
+      if (cargo.height > maxStandardHeight) {
+        console.log(`货物 ${cargo.name} 高度 ${cargo.height}m 超过标准箱限制 ${maxStandardHeight}m，尝试放倒`);
+        
+        // 将高度和长度互换（放倒）
+        const rotatedCargo = {
           ...cargo,
-          length: cargo.height, // 原高度变成长度
-          height: cargo.length, // 原长度变成高度
-          isRotated: true // 标记为已放倒
+          length: cargo.height,
+          height: cargo.length
         };
         
-        console.log(`货物 ${cargo.name} 放倒优化: ${cargo.length}x${cargo.width}x${cargo.height}m -> ${rotatedCargo.length}x${rotatedCargo.width}x${rotatedCargo.height}m`);
-        optimizedCargos.push(rotatedCargo);
-      } else {
-        // 保持原状
-        optimizedCargos.push({
-          ...cargo,
-          isRotated: false
-        });
+        // 检查放倒后是否能装入标准集装箱
+        if (rotatedCargo.height <= maxStandardHeight) {
+          console.log(`货物 ${cargo.name} 放倒后可装入标准箱: ${rotatedCargo.length}x${rotatedCargo.width}x${rotatedCargo.height}`);
+          return rotatedCargo;
+        } else {
+          console.log(`货物 ${cargo.name} 放倒后仍超高，保持原状态，将使用框架箱`);
+        }
       }
-    }
-    
-    return optimizedCargos;
+      
+      return cargo;
+    });
   }
 }

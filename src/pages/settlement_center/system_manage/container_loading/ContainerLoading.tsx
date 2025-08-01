@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import { Button, Card, Form, Input, InputNumber, Table, Space, message, Divider, Tooltip } from 'antd';
-import { PlusOutlined, DeleteOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, PlayCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 import * as THREE from 'three';
 import './ContainerLoading.less';
 
@@ -12,11 +12,16 @@ import { CargoCard, CargoModal, PackingResults, PackingConfigComponent } from '.
 import { useCargoManagement, usePackingCalculation } from './hooks';
 import { PackingConfig } from './types';
 import { DEFAULT_PACKING_CONFIG } from './constants';
+import { PackingSolutionCache, FinalPackingSolution } from './utils/PackingSolutionCache';
+import { PackingSolutionReport } from './components/ui/PackingSolutionReport';
 const ContainerLoading: React.FC = () => {
   // 装箱配置状态
   const [packingConfig, setPackingConfig] = useState<PackingConfig>(DEFAULT_PACKING_CONFIG);
   // 模态窗口状态
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // 装箱方案报告状态
+  const [reportVisible, setReportVisible] = useState(false);
+  const [currentSolution, setCurrentSolution] = useState<FinalPackingSolution | null>(null);
 
   // 使用自定义hooks
   const {
@@ -52,6 +57,42 @@ const ContainerLoading: React.FC = () => {
   // 隐藏添加货物模态窗口
   const hideAddCargoModal = () => {
     setIsModalVisible(false);
+  };
+
+  // 处理查看最终装箱方案
+  const handleViewFinalSolution = () => {
+    if (!packingResult || !packingConfig) {
+      message.error('装箱结果或配置信息不完整');
+      return;
+    }
+
+    try {
+      // 缓存当前装箱方案
+      const solutionId = PackingSolutionCache.cacheSolution(
+        packingResult,
+        cargos,
+        packingConfig
+      );
+
+      // 获取缓存的方案
+      const solution = PackingSolutionCache.getSolutionById(solutionId);
+      if (solution) {
+        setCurrentSolution(solution);
+        setReportVisible(true);
+        message.success('装箱方案已生成并缓存');
+      } else {
+        message.error('装箱方案生成失败');
+      }
+    } catch (error) {
+      console.error('生成装箱方案失败:', error);
+      message.error('生成装箱方案失败');
+    }
+  };
+
+  // 关闭报告弹窗
+  const handleCloseReport = () => {
+    setReportVisible(false);
+    setCurrentSolution(null);
   };
 
 
@@ -109,20 +150,34 @@ const ContainerLoading: React.FC = () => {
               <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
             </Tooltip>} className="scene-3d" style={{ marginBottom: '6px' }}
               extra={
-                <Button
-                  type="primary"
-                  icon={<PlayCircleOutlined />}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleCalculatePacking();
-                  }}
-                  disabled={cargos.length === 0}
-                  loading={isCalculating}
-                  className="calculate-btn"
-                >
-                  {isCalculating ? '计算中...' : '开始装箱计算'}
-                </Button>
+                <Space>
+                  <Button
+                    type="primary"
+                    icon={<PlayCircleOutlined />}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleCalculatePacking();
+                    }}
+                    disabled={cargos.length === 0}
+                    loading={isCalculating}
+                    className="calculate-btn"
+                  >
+                    {isCalculating ? '计算中...' : '开始装箱计算'}
+                  </Button>
+                  <Button
+                    type="primary"
+                    icon={<FileTextOutlined />}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleViewFinalSolution();
+                    }}
+                    disabled={!packingResult}
+                  >
+                    最终装箱方案
+                  </Button>
+                </Space>
               }
             >
               <Scene3D
@@ -145,6 +200,13 @@ const ContainerLoading: React.FC = () => {
           visible={isModalVisible}
           onCancel={hideAddCargoModal}
           onAddCargo={handleAddCargo}
+        />
+
+        {/* 装箱方案报告弹窗 */}
+        <PackingSolutionReport
+          visible={reportVisible}
+          onCancel={handleCloseReport}
+          solution={currentSolution}
         />
       </div>
     </div>

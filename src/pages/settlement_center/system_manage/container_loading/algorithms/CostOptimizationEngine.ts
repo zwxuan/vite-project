@@ -77,7 +77,7 @@ export class CostOptimizationEngine {
     console.log('标准箱货物详情:', standardCargos.map(c => `${c.name}:${c.length}x${c.width}x${c.height}`));
     console.log('框架箱货物详情:', frameCargos.map(c => `${c.name}:${c.length}x${c.width}x${c.height}`));
     
-    // 如果有标准箱货物，优先尝试标准箱方案
+    // 处理标准箱货物
     if (standardCargos.length > 0) {
       const standardContainerTypes = CONTAINER_TYPES.filter(containerType => !containerType.isFrameContainer);
       
@@ -89,21 +89,23 @@ export class CostOptimizationEngine {
           bestResult = result;
         }
       }
+    }
+    
+    // 处理框架箱货物（无论是否有标准箱货物）
+    if (frameCargos.length > 0) {
+      const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
+      let bestFrameResult: PackingResult | null = null;
       
-      // 如果还有框架箱货物，需要额外处理
-      if (frameCargos.length > 0 && bestResult) {
-        const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
-        let bestFrameResult: PackingResult | null = null;
-        
-        for (const containerType of frameContainerTypes) {
-          const frameResult = algorithm.packIntoContainerType(frameCargos, containerType, cargoNameColors, config);
-          if (frameResult && (!bestFrameResult || frameResult.utilization > bestFrameResult.utilization)) {
-            bestFrameResult = frameResult;
-          }
+      for (const containerType of frameContainerTypes) {
+        const frameResult = algorithm.packIntoContainerType(frameCargos, containerType, cargoNameColors, config);
+        if (frameResult && (!bestFrameResult || frameResult.utilization > bestFrameResult.utilization)) {
+          bestFrameResult = frameResult;
         }
-        
-        if (bestFrameResult) {
-          // 合并结果
+      }
+      
+      if (bestFrameResult) {
+        if (bestResult) {
+          // 合并标准箱和框架箱结果
           const combinedContainers = [...bestResult.containers, ...bestFrameResult.containers];
           const combinedPackedItems = [...bestResult.packedItems, ...bestFrameResult.packedItems.map(item => ({
             ...item,
@@ -139,9 +141,13 @@ export class CostOptimizationEngine {
             spaceOccupancyRate: parseFloat(spaceOccupancyRate.toFixed(2))
           };
         } else {
-          // 框架箱货物装载失败，将其加入未装载列表
-          bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
+          // 只有框架箱货物的情况
+          bestResult = bestFrameResult;
+          maxUtilization = bestFrameResult.utilization;
         }
+      } else if (!bestResult) {
+        // 框架箱货物装载失败，且没有标准箱结果
+        console.warn('框架箱货物装载失败');
       }
     }
     
@@ -158,49 +164,19 @@ export class CostOptimizationEngine {
         }
       }
     }
-    
-    let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
 
-    if (feasibleContainerTypes.length === 0) {
-      console.warn('没有找到能够容纳货物高度的集装箱类型');
-      return null;
-    }
-
-    for (const containerType of feasibleContainerTypes) {
-      const result = algorithm.packIntoContainerType(cargos, containerType, cargoNameColors, config);
-      
-      if (result) {
-        // 计算综合利用率（考虑体积和重量）
-        const volumeUtilization = result.utilization;
-        const weightUtilization = this.calculateWeightUtilization(result, containerType);
-        const comprehensiveUtilization = this.calculateComprehensiveUtilization(
-          volumeUtilization, 
-          weightUtilization
-        );
-        
-        if (comprehensiveUtilization > maxUtilization) {
-          maxUtilization = comprehensiveUtilization;
-          bestResult = {
-            ...result,
-            utilization: comprehensiveUtilization,
-            utilizationRate: comprehensiveUtilization
-          };
-        }
-      }
-    }
-
-    // 尝试优化货物排序以提高利用率
-    if (bestResult && config?.allowMultipleContainers) {
-      const optimizedResult = this.tryUtilizationOptimizedSorting(
-        cargos, 
-        algorithm, 
-        cargoNameColors, 
-        config
-      );
-      if (optimizedResult && optimizedResult.utilization > bestResult.utilization) {
-        bestResult = optimizedResult;
-      }
-    }
+    // 注释掉重复的优化逻辑，避免覆盖混合装箱结果
+    // if (bestResult && config?.allowMultipleContainers) {
+    //   const optimizedResult = this.tryUtilizationOptimizedSorting(
+    //     cargos, 
+    //     algorithm, 
+    //     cargoNameColors, 
+    //     config
+    //   );
+    //   if (optimizedResult && optimizedResult.utilization > bestResult.utilization) {
+    //     bestResult = optimizedResult;
+    //   }
+    // }
 
     // 如果没有找到更好的结果，或者bestResult装载失败但baseResult成功，则返回baseResult
     if ((!bestResult || bestResult.packedItems.length === 0) && baseResult && baseResult.packedItems.length > 0) {
@@ -352,34 +328,6 @@ export class CostOptimizationEngine {
       }
     }
     
-    let feasibleContainerTypes: ContainerType[] = CONTAINER_TYPES; // 保持原有逻辑兼容性
-
-    if (feasibleContainerTypes.length === 0) {
-      return null;
-    }
-
-    for (const containerType of feasibleContainerTypes) {
-      const result = algorithm.packIntoContainerType(densitySortedCargos, containerType, cargoNameColors, config);
-      
-      if (result) {
-        const volumeUtilization = result.utilization;
-        const weightUtilization = this.calculateWeightUtilization(result, containerType);
-        const comprehensiveUtilization = this.calculateComprehensiveUtilization(
-          volumeUtilization, 
-          weightUtilization
-        );
-        
-        if (comprehensiveUtilization > maxUtilization) {
-          maxUtilization = comprehensiveUtilization;
-          bestResult = {
-            ...result,
-            utilization: comprehensiveUtilization,
-            utilizationRate: comprehensiveUtilization
-          };
-        }
-      }
-    }
-
     return bestResult;
   }
 
