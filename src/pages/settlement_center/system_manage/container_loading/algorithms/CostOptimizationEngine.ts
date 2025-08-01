@@ -47,6 +47,12 @@ export class CostOptimizationEngine {
     config?: PackingConfig,
     baseResult?: PackingResult | null
   ): PackingResult | null {
+    // 如果用户明确指定了集装箱类型，尊重用户选择，不进行重新优化
+    if (config?.containerType) {
+      console.log(`用户指定了集装箱类型: ${config.containerType.name}，跳过优化，直接返回基础结果`);
+      return baseResult || null;
+    }
+
     let bestResult: PackingResult | null = null;
     let maxUtilization = 0;
 
