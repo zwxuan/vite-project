@@ -1,18 +1,64 @@
-import React from 'react';
-import { Card, Statistic, Row, Col, Progress, Tag, Space, Divider } from 'antd';
-import { ContainerOutlined, BoxPlotOutlined, DollarOutlined, PercentageOutlined, SettingOutlined } from '@ant-design/icons';
-import { PackingResult } from '../../types';
+import React, { useState } from 'react';
+import { Card, Statistic, Row, Col, Progress, Tag, Space, Divider, Button, message } from 'antd';
+import { ContainerOutlined, BoxPlotOutlined, DollarOutlined, PercentageOutlined, SettingOutlined, FileTextOutlined } from '@ant-design/icons';
+import { PackingResult, Cargo, PackingConfig } from '../../types';
 import { PACKING_ALGORITHMS, PACKING_MODES } from '../../constants';
+import { PackingSolutionCache, FinalPackingSolution } from '../../utils/PackingSolutionCache';
+import { PackingSolutionReport } from './PackingSolutionReport';
 
 interface PackingResultsProps {
   packingResult: PackingResult | null;
+  originalCargos?: Cargo[];
+  packingConfig?: PackingConfig;
 }
 
 /**
  * 装箱结果展示组件
  * 负责显示装箱计算的结果统计
  */
-export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult }) => {
+export const PackingResults: React.FC<PackingResultsProps> = ({ 
+  packingResult, 
+  originalCargos = [], 
+  packingConfig 
+}) => {
+  const [reportVisible, setReportVisible] = useState(false);
+  const [currentSolution, setCurrentSolution] = useState<FinalPackingSolution | null>(null);
+
+  // 处理查看最终装箱方案
+  const handleViewFinalSolution = () => {
+    if (!packingResult || !packingConfig) {
+      message.error('装箱结果或配置信息不完整');
+      return;
+    }
+
+    try {
+      // 缓存当前装箱方案
+      const solutionId = PackingSolutionCache.cacheSolution(
+        packingResult,
+        originalCargos,
+        packingConfig
+      );
+
+      // 获取缓存的方案
+      const solution = PackingSolutionCache.getSolutionById(solutionId);
+      if (solution) {
+        setCurrentSolution(solution);
+        setReportVisible(true);
+        message.success('装箱方案已生成并缓存');
+      } else {
+        message.error('装箱方案生成失败');
+      }
+    } catch (error) {
+      console.error('生成装箱方案失败:', error);
+      message.error('生成装箱方案失败');
+    }
+  };
+
+  // 关闭报告弹窗
+  const handleCloseReport = () => {
+    setReportVisible(false);
+    setCurrentSolution(null);
+  };
   if (!packingResult) {
     return (
       <Card title="装箱结果" style={{ marginTop: 16 }}>
@@ -46,7 +92,23 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
   const packingSuccessRate = totalItems > 0 ? (packedCount / totalItems) * 100 : 0;
 
   return (
-    <Card title="装箱结果" style={{ marginTop: 16 }}>
+    <>
+      <Card 
+        title="装箱结果" 
+        style={{ marginTop: 16 }}
+        extra={
+          packingResult && (
+            <Button
+              type="primary"
+              icon={<FileTextOutlined />}
+              onClick={handleViewFinalSolution}
+              size="small"
+            >
+              最终装箱方案
+            </Button>
+          )
+        }
+      >
       {/* 配置信息 */}
       <Card size="small" title={<><SettingOutlined /> 装箱配置</>} style={{ marginBottom: 16, background: '#fafafa' }}>
         <Row gutter={16}>
@@ -238,6 +300,14 @@ export const PackingResults: React.FC<PackingResultsProps> = ({ packingResult })
           </Space>
         </Card>
       )}
-    </Card>
+      </Card>
+
+      {/* 装箱方案报告弹窗 */}
+      <PackingSolutionReport
+        visible={reportVisible}
+        onCancel={handleCloseReport}
+        solution={currentSolution}
+      />
+    </>
   );
 };

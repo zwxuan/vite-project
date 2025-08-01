@@ -1,5 +1,8 @@
 import { CARGO_COLORS } from '../constants';
 
+// 导出装箱方案缓存相关
+export * from './PackingSolutionCache';
+
 /**
  * 获取随机颜色
  * @returns 随机颜色值

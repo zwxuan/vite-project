@@ -132,7 +132,11 @@ const ContainerLoading: React.FC = () => {
             </Card>
 
             {/* 装箱结果 */}
-            <PackingResults packingResult={packingResult} />
+            <PackingResults 
+              packingResult={packingResult} 
+              originalCargos={cargos}
+              packingConfig={packingConfig}
+            />
           </div>
         </div>
 
