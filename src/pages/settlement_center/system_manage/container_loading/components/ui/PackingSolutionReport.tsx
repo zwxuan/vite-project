@@ -13,6 +13,7 @@ import {
 } from '@ant-design/icons';
 import { FinalPackingSolution, PackingStep } from '../../utils/PackingSolutionCache';
 import { Cargo } from '../../types';
+import { PositionVisualization } from './PositionVisualization';
 
 const { Title, Text } = Typography;
 
@@ -90,6 +91,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       title: '货物名称',
       dataIndex: 'name',
       key: 'name',
+      align: 'center' as const,
       width: 120,
       render: (text: string, record: Cargo) => (
         <Space>
@@ -101,6 +103,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       title: '尺寸规格',
       key: 'dimensions',
       width: 140,
+      align: 'center' as const,
       render: (record: Cargo) => (
         <div style={{ textAlign: 'center' }}>
           <Text code style={{ fontSize: '12px', backgroundColor: '#f6f8fa' }}>
@@ -114,7 +117,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       dataIndex: 'weight',
       key: 'weight',
       width: 100,
-      align: 'right' as const,
+      align: 'center' as const,
       render: (weight: number) => (
         <Text strong style={{ color: '#1890ff' }}>
           {weight.toLocaleString()} kg
@@ -135,7 +138,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       title: '总体积',
       key: 'volume',
       width: 100,
-      align: 'right' as const,
+      align: 'center' as const,
       render: (record: Cargo) => {
         const volume = record.length * record.width * record.height * record.quantity;
         return (
@@ -182,6 +185,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       title: '容器类型',
       dataIndex: 'name',
       key: 'name',
+      align: 'center' as const,
       width: 120,
       render: (name: string) => (
         <Text strong style={{ color: '#1890ff' }}>{name}</Text>
@@ -190,6 +194,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
     {
       title: '容器规格',
       key: 'dimensions',
+      align: 'center' as const,
       width: 140,
       render: (record: any) => (
         <div style={{ textAlign: 'center' }}>
@@ -204,11 +209,13 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       dataIndex: 'maxWeight',
       key: 'maxWeight',
       width: 120,
-      align: 'right' as const,
+      align: 'center' as const,
       render: (weight: number) => (
-        <Text strong style={{ color: '#fa8c16' }}>
-          {weight.toLocaleString()} kg
-        </Text>
+        <div style={{ textAlign: 'right' }}>
+          <Text strong style={{ color: '#fa8c16' }}>
+            {weight.toLocaleString()} kg
+          </Text>
+        </div>
       )
     },
     {
@@ -216,11 +223,13 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       dataIndex: 'cost',
       key: 'cost',
       width: 120,
-      align: 'right' as const,
+      align: 'center' as const,
       render: (cost: number) => (
-        <Text strong style={{ color: '#f5222d' }}>
-          ¥ {cost.toLocaleString()}
-        </Text>
+        <div style={{ textAlign: 'right' }}>
+          <Text strong style={{ color: '#fa8c16' }}>
+            ¥ {cost.toLocaleString()}
+          </Text>
+        </div>
       )
     },
     {
@@ -234,17 +243,9 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
         const utilizationRate = maxCapacity > 0 ? (count / maxCapacity) * 100 : 0;
         
         return (
-          <div>
-            <Badge count={count} style={{ backgroundColor: '#52c41a' }} />
             <div style={{ marginTop: '4px' }}>
-              <Progress 
-                percent={Math.min(utilizationRate, 100)} 
-                size="small" 
-                strokeColor={utilizationRate > 80 ? '#52c41a' : utilizationRate > 50 ? '#faad14' : '#f5222d'}
-                showInfo={false}
-              />
+              <Badge count={count} style={{ backgroundColor: '#52c41a' }} />
             </div>
-          </div>
         );
       }
     }
@@ -603,182 +604,262 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
           <Row gutter={[16, 16]}>
             {packingSteps.map((step, index) => {
               const container = packingResult.containers[step.containerIndex];
+              // 根据 cargoId 查找货物信息
+              const cargo = solution.originalCargos.find(c => c.id === step.cargoId);
+              // 根据集装箱索引决定颜色，确保相同集装箱的步骤颜色一致
+              const containerColorIndex = step.containerIndex % 2;
               return (
-                <Col span={12} key={step.stepNumber}>
+                <Col span={24} key={step.stepNumber}>
                   <Card
                     size="small"
                     style={{
-                      background: `linear-gradient(135deg, ${index % 2 === 0 ? '#f0f9ff' : '#fef7f0'} 0%, ${index % 2 === 0 ? '#e0f2fe' : '#fed7aa'} 100%)`,
-                      border: `1px solid ${index % 2 === 0 ? '#0ea5e9' : '#fb923c'}`,
-                      borderRadius: '8px',
+                      background: `linear-gradient(135deg, ${containerColorIndex === 0 ? '#f8fafc' : '#fefbf3'} 0%, ${containerColorIndex === 0 ? '#f1f5f9' : '#fef3e2'} 100%)`,
+                      border: `1px solid ${containerColorIndex === 0 ? '#e2e8f0' : '#fed7aa'}`,
+                      borderRadius: '12px',
                       transition: 'all 0.3s ease',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                      marginBottom: '16px'
                     }}
                     hoverable
-                    bodyStyle={{ padding: '16px' }}
+                    bodyStyle={{ padding: '20px' }}
                   >
-                    {/* 步骤头部 */}
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'space-between',
-                      marginBottom: '12px'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <Badge 
-                          count={step.stepNumber} 
-                          style={{ 
-                            backgroundColor: index % 2 === 0 ? '#0ea5e9' : '#fb923c',
-                            fontSize: '12px',
-                            fontWeight: 'bold'
-                          }} 
-                        />
-                        <Text strong style={{ 
-                          marginLeft: '8px', 
-                          color: index % 2 === 0 ? '#0c4a6e' : '#9a3412',
-                          fontSize: '14px'
+                    {/* 主要内容区域 - 左右布局 */}
+                    <Row gutter={[24, 16]}>
+                      {/* 左侧：文字信息 */}
+                      <Col span={14}>
+                        {/* 步骤头部 */}
+                        <div style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'space-between',
+                          marginBottom: '16px',
+                          paddingBottom: '12px',
+                          borderBottom: `2px solid ${containerColorIndex === 0 ? '#e2e8f0' : '#fed7aa'}`
                         }}>
-                          步骤 {step.stepNumber}
-                        </Text>
-                      </div>
-                      <Tag 
-                        color={index % 2 === 0 ? 'blue' : 'orange'} 
-                        icon={<ContainerOutlined />}
-                        style={{ fontWeight: 'bold' }}
-                      >
-                        集装箱 {step.containerIndex + 1}
-                      </Tag>
-                    </div>
-
-                    {/* 货物信息 */}
-                    <div style={{ marginBottom: '12px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}>
-                        <BoxPlotOutlined style={{ 
-                          color: index % 2 === 0 ? '#0ea5e9' : '#fb923c', 
-                          marginRight: '6px' 
-                        }} />
-                        <Text strong style={{ fontSize: '13px' }}>货物名称：</Text>
-                        <Tag color="geekblue" style={{ 
-                          marginLeft: '6px', 
-                          fontWeight: 'bold',
-                          fontSize: '12px'
-                        }}>
-                          {step.cargoName}
-                        </Tag>
-                      </div>
-                    </div>
-
-                    {/* 集装箱信息 */}
-                    <div style={{ 
-                      backgroundColor: 'rgba(255,255,255,0.7)', 
-                      padding: '8px', 
-                      borderRadius: '6px',
-                      marginBottom: '12px',
-                      border: '1px solid rgba(0,0,0,0.06)'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
-                        <ContainerOutlined style={{ 
-                          color: index % 2 === 0 ? '#0ea5e9' : '#fb923c', 
-                          marginRight: '6px' 
-                        }} />
-                        <Text strong style={{ fontSize: '12px' }}>集装箱类型：</Text>
-                        <Text style={{ marginLeft: '4px', fontSize: '12px', fontWeight: 'bold' }}>
-                          {container.name}
-                        </Text>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <Text style={{ fontSize: '11px', color: '#666' }}>尺寸：</Text>
-                        <div style={{ marginLeft: '4px', display: 'flex', gap: '4px' }}>
-                          <Text code style={{ 
-                            fontSize: '10px', 
-                            backgroundColor: '#f6f8fa', 
-                            padding: '1px 3px',
-                            color: '#d73a49'
-                          }}>
-                            L: {container.length}m
-                          </Text>
-                          <Text code style={{ 
-                            fontSize: '10px', 
-                            backgroundColor: '#f6f8fa', 
-                            padding: '1px 3px',
-                            color: '#28a745'
-                          }}>
-                            W: {container.width}m
-                          </Text>
-                          <Text code style={{ 
-                            fontSize: '10px', 
-                            backgroundColor: '#f6f8fa', 
-                            padding: '1px 3px',
-                            color: '#6f42c1'
-                          }}>
-                            H: {container.isFrameContainer ? '∞' : container.height + 'm'}
-                          </Text>
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Badge 
+                              count={step.stepNumber} 
+                              style={{ 
+                                backgroundColor: containerColorIndex === 0 ? '#3b82f6' : '#f59e0b',
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                minWidth: '28px',
+                                height: '28px',
+                                lineHeight: '28px'
+                              }} 
+                            />
+                            <Text strong style={{ 
+                              marginLeft: '12px', 
+                              color: containerColorIndex === 0 ? '#1e40af' : '#92400e',
+                              fontSize: '16px'
+                            }}>
+                              步骤 {step.stepNumber}
+                            </Text>
+                          </div>
+                          <Tag 
+                            color={containerColorIndex === 0 ? 'blue' : 'orange'} 
+                            icon={<ContainerOutlined />}
+                            style={{ fontWeight: 'bold', fontSize: '12px', padding: '4px 8px' }}
+                          >
+                            集装箱 {step.containerIndex + 1}
+                          </Tag>
                         </div>
-                      </div>
-                    </div>
 
-                    {/* 放置坐标 */}
-                    <div style={{ 
-                      backgroundColor: 'rgba(255,255,255,0.7)', 
-                      padding: '8px', 
-                      borderRadius: '6px',
-                      border: '1px solid rgba(0,0,0,0.06)'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}>
-                        <Text strong style={{ fontSize: '12px' }}>放置坐标：</Text>
-                      </div>
-                      <div style={{ display: 'flex', gap: '6px', justifyContent: 'space-between' }}>
-                        <Text code style={{ 
-                          fontSize: '11px', 
-                          backgroundColor: '#fff2f0', 
-                          padding: '3px 6px',
-                          border: '1px solid #ffccc7',
-                          borderRadius: '4px',
-                          color: '#cf1322',
-                          fontWeight: 'bold'
-                        }}>
-                          X: {step.position.x}
-                        </Text>
-                        <Text code style={{ 
-                          fontSize: '11px', 
-                          backgroundColor: '#f6ffed', 
-                          padding: '3px 6px',
-                          border: '1px solid #b7eb8f',
-                          borderRadius: '4px',
-                          color: '#389e0d',
-                          fontWeight: 'bold'
-                        }}>
-                          Y: {step.position.y}
-                        </Text>
-                        <Text code style={{ 
-                          fontSize: '11px', 
-                          backgroundColor: '#f0f5ff', 
-                          padding: '3px 6px',
-                          border: '1px solid #adc6ff',
-                          borderRadius: '4px',
-                          color: '#1d39c4',
-                          fontWeight: 'bold'
-                        }}>
-                          Z: {step.position.z}
-                        </Text>
-                      </div>
-                    </div>
+                        {/* 货物信息 */}
+                        <div style={{ marginBottom: '16px' }}>
+                          <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            marginBottom: '8px',
+                            padding: '12px',
+                            backgroundColor: 'rgba(255,255,255,0.8)',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(0,0,0,0.06)'
+                          }}>
+                            <BoxPlotOutlined style={{ 
+                              color: containerColorIndex === 0 ? '#3b82f6' : '#f59e0b', 
+                              marginRight: '8px',
+                              fontSize: '16px'
+                            }} />
+                            <Text strong style={{ fontSize: '14px', marginRight: '8px' }}>货物名称：</Text>
+                            <Tag color="geekblue" style={{ 
+                              fontWeight: 'bold',
+                              fontSize: '13px',
+                              padding: '4px 12px'
+                            }}>
+                              {step.cargoName}
+                            </Tag>
+                          </div>
+                        </div>
 
-                    {/* 操作说明 */}
+                        {/* 集装箱信息 */}
+                        <div style={{ 
+                          backgroundColor: 'rgba(255,255,255,0.8)', 
+                          padding: '12px', 
+                          borderRadius: '8px',
+                          marginBottom: '16px',
+                          border: '1px solid rgba(0,0,0,0.06)'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                            <ContainerOutlined style={{ 
+                              color: containerColorIndex === 0 ? '#3b82f6' : '#f59e0b', 
+                              marginRight: '8px',
+                              fontSize: '16px'
+                            }} />
+                            <Text strong style={{ fontSize: '14px', marginRight: '8px' }}>集装箱类型：</Text>
+                            <Text style={{ fontSize: '14px', fontWeight: 'bold', color: '#374151' }}>
+                              {container.name}
+                            </Text>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Text style={{ fontSize: '12px', color: '#6b7280', marginRight: '8px' }}>尺寸：</Text>
+                            <div style={{ display: 'flex', gap: '6px' }}>
+                              <Text code style={{ 
+                                fontSize: '11px', 
+                                backgroundColor: '#fef2f2', 
+                                padding: '4px 8px',
+                                color: '#dc2626',
+                                border: '1px solid #fecaca',
+                                borderRadius: '4px'
+                              }}>
+                                L: {container.length}m
+                              </Text>
+                              <Text code style={{ 
+                                fontSize: '11px', 
+                                backgroundColor: '#f0fdf4', 
+                                padding: '4px 8px',
+                                color: '#16a34a',
+                                border: '1px solid #bbf7d0',
+                                borderRadius: '4px'
+                              }}>
+                                W: {container.width}m
+                              </Text>
+                              <Text code style={{ 
+                                fontSize: '11px', 
+                                backgroundColor: '#eff6ff', 
+                                padding: '4px 8px',
+                                color: '#2563eb',
+                                border: '1px solid #bfdbfe',
+                                borderRadius: '4px'
+                              }}>
+                                H: {container.isFrameContainer ? '∞' : container.height + 'm'}
+                              </Text>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 放置坐标 */}
+                        <div style={{ 
+                          backgroundColor: 'rgba(255,255,255,0.8)', 
+                          padding: '12px', 
+                          borderRadius: '8px',
+                          border: '1px solid rgba(0,0,0,0.06)'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                            <Text strong style={{ fontSize: '14px' }}>放置坐标：</Text>
+                          </div>
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <Text code style={{ 
+                              fontSize: '12px', 
+                              backgroundColor: '#fef2f2', 
+                              padding: '6px 12px',
+                              border: '1px solid #fecaca',
+                              borderRadius: '6px',
+                              color: '#dc2626',
+                              fontWeight: 'bold'
+                            }}>
+                              X: {step.position.x}
+                            </Text>
+                            <Text code style={{ 
+                              fontSize: '12px', 
+                              backgroundColor: '#f0fdf4', 
+                              padding: '6px 12px',
+                              border: '1px solid #bbf7d0',
+                              borderRadius: '6px',
+                              color: '#16a34a',
+                              fontWeight: 'bold'
+                            }}>
+                              Y: {step.position.y}
+                            </Text>
+                            <Text code style={{ 
+                              fontSize: '12px', 
+                              backgroundColor: '#eff6ff', 
+                              padding: '6px 12px',
+                              border: '1px solid #bfdbfe',
+                              borderRadius: '6px',
+                              color: '#2563eb',
+                              fontWeight: 'bold'
+                            }}>
+                              Z: {step.position.z}
+                            </Text>
+                          </div>
+                        </div>
+                      </Col>
+
+                      {/* 右侧：位置示意图 */}
+                      <Col span={10}>
+                        <div style={{ 
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center'
+                        }}>
+                          <div style={{ 
+                            marginBottom: '12px',
+                            textAlign: 'center'
+                          }}>
+                            <Text strong style={{ 
+                              fontSize: '14px', 
+                              color: '#374151',
+                              display: 'block',
+                              marginBottom: '8px'
+                            }}>
+                              位置示意图
+                            </Text>
+                          </div>
+                          {cargo && (
+                            <div style={{ 
+                              backgroundColor: 'rgba(255,255,255,0.9)',
+                              borderRadius: '8px',
+                              padding: '8px',
+                              border: '1px solid rgba(0,0,0,0.06)'
+                            }}>
+                              <PositionVisualization
+                                containerLength={container.length}
+                                containerWidth={container.width}
+                                containerHeight={container.height}
+                                cargoPosition={step.position}
+                                cargoSize={{
+                                  length: cargo.length,
+                                  width: cargo.width,
+                                  height: cargo.height
+                                }}
+                                isFrameContainer={container.isFrameContainer}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </Col>
+                    </Row>
+
+                    {/* 底部：操作说明 */}
                     <div style={{ 
-                      marginTop: '12px',
-                      padding: '8px',
-                      backgroundColor: 'rgba(255,255,255,0.5)',
-                      borderRadius: '6px',
-                      border: '1px solid rgba(0,0,0,0.06)'
+                      marginTop: '16px',
+                      padding: '12px',
+                      backgroundColor: 'rgba(255,255,255,0.6)',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(0,0,0,0.06)',
+                      borderTop: `2px solid ${containerColorIndex === 0 ? '#e2e8f0' : '#fed7aa'}`
                     }}>
                       <Text style={{ 
-                        fontSize: '11px', 
-                        color: '#666',
-                        lineHeight: '1.4',
-                        display: 'block'
+                        fontSize: '12px', 
+                        color: '#6b7280',
+                        lineHeight: '1.5',
+                        display: 'block',
+                        fontStyle: 'italic'
                       }}>
-                        {step.description}
+                        💡 {step.description}
                       </Text>
                     </div>
                   </Card>
