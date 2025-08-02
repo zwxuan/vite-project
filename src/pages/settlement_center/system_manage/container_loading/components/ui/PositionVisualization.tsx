@@ -65,11 +65,14 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
   };
 
   // 计算集装箱的顶点
+  // 根据正确的坐标系定义：X=长度, Y=高度, Z=宽度
   const containerVertices = useMemo(() => {
     // 直接使用scaledContainer.height，已经包含了框架箱的特殊处理
     const displayHeight = scaledContainer.height;
     
     // 所有集装箱都显示完整的8个顶点
+    // 注意：这里需要将坐标系映射到project3D函数的参数
+    // project3D(x, y, z) 中：x=长度, y=宽度, z=高度
     return [
       project3D(0, 0, 0),                                    // 左前下
       project3D(scaledContainer.length, 0, 0),               // 右前下
@@ -83,15 +86,17 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
   }, [containerLength, containerWidth, containerHeight, isFrameContainer, scaledContainer, project3D, scale]);
 
   // 计算货物的8个顶点
+  // 根据正确的坐标系定义：cargoPosition.x=长度, cargoPosition.y=高度, cargoPosition.z=宽度
+  // 但project3D函数期望的参数是：(长度, 宽度, 高度)
   const cargoVertices = [
-    project3D(scaledPosition.x, scaledPosition.y, scaledPosition.z),
-    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.y, scaledPosition.z),
-    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.y + scaledCargo.width, scaledPosition.z),
-    project3D(scaledPosition.x, scaledPosition.y + scaledCargo.width, scaledPosition.z),
-    project3D(scaledPosition.x, scaledPosition.y, scaledPosition.z + scaledCargo.height),
-    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.y, scaledPosition.z + scaledCargo.height),
-    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.y + scaledCargo.width, scaledPosition.z + scaledCargo.height),
-    project3D(scaledPosition.x, scaledPosition.y + scaledCargo.width, scaledPosition.z + scaledCargo.height)
+    project3D(scaledPosition.x, scaledPosition.z, scaledPosition.y),
+    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z, scaledPosition.y),
+    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z + scaledCargo.width, scaledPosition.y),
+    project3D(scaledPosition.x, scaledPosition.z + scaledCargo.width, scaledPosition.y),
+    project3D(scaledPosition.x, scaledPosition.z, scaledPosition.y + scaledCargo.height),
+    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z, scaledPosition.y + scaledCargo.height),
+    project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z + scaledCargo.width, scaledPosition.y + scaledCargo.height),
+    project3D(scaledPosition.x, scaledPosition.z + scaledCargo.width, scaledPosition.y + scaledCargo.height)
   ];
 
   // 简化居中显示逻辑
@@ -206,23 +211,23 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
 
           {/* 坐标轴 */}
            <g stroke="#666" strokeWidth="1" fill="#666" fontSize="10">
-             {/* X轴 */}
+             {/* X轴 - 长度方向 */}
              <line x1={adjustedContainerVertices[0].x - 15} y1={adjustedContainerVertices[0].y} x2={adjustedContainerVertices[1].x - 15} y2={adjustedContainerVertices[1].y} markerEnd="url(#arrowhead)" />
              <text x={adjustedContainerVertices[1].x - 10} y={adjustedContainerVertices[1].y - 5} fontSize="10" fill="#cf1322">X({containerLength})</text>
              
-             {/* Y轴 */}
-             <line x1={adjustedContainerVertices[0].x} y1={adjustedContainerVertices[0].y + 15} x2={adjustedContainerVertices[3].x} y2={adjustedContainerVertices[3].y + 15} markerEnd="url(#arrowhead)" />
-             <text x={adjustedContainerVertices[3].x + 5} y={adjustedContainerVertices[3].y + 20} fontSize="10" fill="#389e0d">Y({containerWidth})</text>
-             
-             {/* Z轴 - 框架箱显示固定5000mm，普通集装箱显示实际高度 */}
+             {/* Y轴 - 高度方向 */}
              {adjustedContainerVertices.length > 4 && (
                <>
                  <line x1={adjustedContainerVertices[0].x - 15} y1={adjustedContainerVertices[0].y} x2={adjustedContainerVertices[4].x - 15} y2={adjustedContainerVertices[4].y} markerEnd="url(#arrowhead)" />
                  <text x={adjustedContainerVertices[4].x - 25} y={adjustedContainerVertices[4].y - 5} fontSize="10" fill="#1d39c4">
-                   Z({isFrameContainer ? '2000' : containerHeight})
+                   Y({isFrameContainer ? '2000' : containerHeight})
                  </text>
                </>
              )}
+             
+             {/* Z轴 - 宽度方向（深度） */}
+             <line x1={adjustedContainerVertices[0].x} y1={adjustedContainerVertices[0].y + 15} x2={adjustedContainerVertices[3].x} y2={adjustedContainerVertices[3].y + 15} markerEnd="url(#arrowhead)" />
+             <text x={adjustedContainerVertices[3].x + 5} y={adjustedContainerVertices[3].y + 20} fontSize="10" fill="#389e0d">Z({containerWidth})</text>
            </g>
 
           {/* 箭头标记定义 */}
