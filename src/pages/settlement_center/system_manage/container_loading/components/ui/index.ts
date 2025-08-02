@@ -3,3 +3,4 @@ export { CargoModal } from './CargoModal';
 export { PackingResults } from './PackingResults';
 export { PackingConfigComponent } from './PackingConfig';
 export { PackingSolutionReport } from './PackingSolutionReport';
+export { SolutionScores } from './SolutionScores';

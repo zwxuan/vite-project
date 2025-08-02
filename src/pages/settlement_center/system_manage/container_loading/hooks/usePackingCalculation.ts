@@ -3,7 +3,6 @@ import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Cargo, PackingResult, PackingConfig } from '../types';
 import { GreedyAlgorithm } from '../algorithms/GreedyAlgorithm';
-import { CostOptimizationEngine } from '../algorithms/CostOptimizationEngine';
 
 /**
  * 装箱计算自定义Hook
@@ -27,24 +26,13 @@ export const usePackingCalculation = () => {
       // 模拟异步计算过程
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // 使用贪心算法和无忧化策略进行装箱计算
+      // 使用贪心算法进行装箱计算
       const algorithm = new GreedyAlgorithm();
-      // 先执行基础算法
-       const baseResult = algorithm.execute(cargos, cargoNameColors, config);
-      // 然后应用成本优化策略
-        const optimizationConfig: PackingConfig = {
-          algorithm: 'greedy',
-          mode: config?.mode || 'multi_container',
-          allowMultipleContainers: config?.allowMultipleContainers ?? true,
-          costOptimizationStrategy: config?.costOptimizationStrategy || 'max_utilization',
-          ...config
-        };
-      const result = CostOptimizationEngine.applyOptimization(baseResult, cargos, algorithm, cargoNameColors, optimizationConfig);
+      const result = algorithm.execute(cargos, cargoNameColors, config);
       
       // 添加调试日志
       console.log('装箱计算结果:', {
-        baseResult,
-        finalResult: result,
+        result,
         packedItemsCount: result?.packedItems?.length || 0,
         unpackedItemsCount: result?.unpackedItems?.length || 0,
         containers: result?.containers?.length || 0

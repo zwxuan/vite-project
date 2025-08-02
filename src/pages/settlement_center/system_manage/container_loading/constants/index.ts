@@ -1,4 +1,4 @@
-import { ContainerType, PackingAlgorithmType, PackingModeType, CostOptimizationStrategy } from '../types';
+import { ContainerType, PackingAlgorithmType, PackingModeType } from '../types';
 
 // 预定义集装箱类型
 export const CONTAINER_TYPES: ContainerType[] = [
@@ -20,10 +20,7 @@ export const PACKING_ALGORITHMS = [
   { value: 'greedy' as PackingAlgorithmType, label: '贪心算法', description: '快速装箱，优先选择当前最优解，货物种类相对简单，数量不太多的场景' }
 ];
 
-// 成本优化策略选项
-export const COST_OPTIMIZATION_STRATEGIES = [
-  { value: 'none' as CostOptimizationStrategy, label: '无优化策略', description: '使用基础算法' },
-];
+
 
 // 装箱模式选项
 export const PACKING_MODES = [

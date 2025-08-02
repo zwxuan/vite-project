@@ -12,8 +12,7 @@ export interface ContainerType {
 // 装箱算法类型
 export type PackingAlgorithmType = 'greedy';
 
-// 成本优化策略类型
-export type CostOptimizationStrategy = 'max_utilization' | 'none';
+
 
 // 装箱模式类型
 export type PackingModeType = 'single_container' | 'multi_container';
@@ -24,7 +23,6 @@ export interface PackingConfig {
   algorithm: PackingAlgorithmType;
   mode: PackingModeType;
   allowMultipleContainers: boolean;
-  costOptimizationStrategy?: CostOptimizationStrategy;
   gap?: number; // 货物间隙，单位：米，默认0.05米(5cm)
   allowStacking?: boolean; // 是否允许货物堆叠，默认为true
   allowRotation?: boolean; // 是否允许货物放倒（长高互换），默认为false
@@ -41,6 +39,17 @@ export interface Cargo {
   quantity: number;
   color?: string;
   isRotated?: boolean; // 是否被放倒（长高互换），用于3D可视化
+}
+
+// 方案评分信息
+export interface SolutionScore {
+  containerType: ContainerType;
+  score: number;
+  utilizationScore: number;
+  costEfficiencyScore: number;
+  loadingEfficiencyScore: number;
+  unpackedItemsCount: number;
+  isSelected: boolean;
 }
 
 // 装箱结果
@@ -62,6 +71,7 @@ export interface PackingResult {
   executionTime?: number; // 算法执行时间，单位：毫秒
   iterations?: number; // 算法迭代次数
   processedCargos?: Cargo[]; // 经过预处理（如放倒优化）的货物列表
+  solutionScores?: SolutionScore[]; // 所有方案的评分信息
 }
 
 // 已装箱物品

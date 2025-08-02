@@ -1,4 +1,4 @@
-import { Cargo, PackingResult, PackingConfig } from '../types';
+import { Cargo, PackingResult, PackingConfig, ContainerType, SolutionScore } from '../types';
 import { CONTAINER_TYPES } from '../constants';
 import { BaseAlgorithm } from './base/BaseAlgorithm';
 
@@ -9,105 +9,94 @@ import { BaseAlgorithm } from './base/BaseAlgorithm';
 export class GreedyAlgorithm extends BaseAlgorithm {
   /**
    * 执行贪心算法
-   * @param cargos 货物列表
-   * @param cargoNameColors 货物名称颜色映射
-   * @param config 装箱配置
-   * @returns 装箱结果
    */
   execute(cargos: Cargo[], cargoNameColors?: Record<string, string>, config?: PackingConfig): PackingResult | null {
-    if (!cargos.length) return null;
+    const packingConfig = config || {
+      algorithm: 'greedy',
+      mode: 'multi_container',
+      allowMultipleContainers: true
+    };
 
-    // 如果指定了集装箱类型，直接使用
-    if (config?.containerType) {
-      return this.packIntoContainerType(cargos, config.containerType, cargoNameColors, config);
-    }
-
-    // 处理货物放倒逻辑
-    let processedCargos = [...cargos];
-    if (config?.allowRotation) {
-      processedCargos = cargos.map(cargo => {
-        // 计算原始体积和旋转后的体积
-        const originalVolume = cargo.length * cargo.width * cargo.height;
-        const rotatedVolume = cargo.width * cargo.height * cargo.length;
+    // 如果指定了特定的集装箱类型，直接使用该类型
+    if (packingConfig.containerType) {
+      const result = this.packIntoContainerType(cargos, packingConfig.containerType, undefined, packingConfig);
+      
+      if (result) {
+        // 为指定集装箱类型生成评分信息
+        const score = this.calculateGreedyScore(result);
+        const utilizationScore = result.utilization;
+        const costEfficiencyScore = this.calculateCostEfficiencyScore(result);
+        const loadingEfficiencyScore = this.calculateLoadingEfficiencyScore(result);
         
-        // 如果旋转后体积更优，则进行旋转
-        if (rotatedVolume > originalVolume) {
-          return {
-            ...cargo,
-            length: cargo.width,
-            width: cargo.height,
-            height: cargo.length
-          };
-        }
-        return cargo;
-      });
-      console.log(`贪心算法：货物放倒优化完成，处理了 ${processedCargos.length} 种货物`);
+        const solutionScore: SolutionScore = {
+          containerType: packingConfig.containerType,
+          score,
+          utilizationScore,
+          costEfficiencyScore,
+          loadingEfficiencyScore,
+          unpackedItemsCount: result.unpackedItems.length,
+          isSelected: true // 指定的类型总是被选中
+        };
+        
+        result.solutionScores = [solutionScore];
+        return result;
+      } else {
+        return this.createEmptyResult(cargos, packingConfig.containerType, packingConfig, cargos);
+      }
     }
 
-    // 智能分离货物：根据货物高度分组
-    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
+    // 分离容器类型
+    const standardContainers = CONTAINER_TYPES.filter(ct => !ct.isFrameContainer);
+    const frameContainers = CONTAINER_TYPES.filter(ct => ct.isFrameContainer);
     
-    // 分离可装入标准箱的货物和需要框架箱的货物
-    const standardCargos = processedCargos.filter(cargo => cargo.height <= maxStandardHeight);
-    const frameCargos = processedCargos.filter(cargo => cargo.height > maxStandardHeight);
-    
-    console.log(`贪心算法：货物分析 - 标准箱货物: ${standardCargos.length}种, 框架箱货物: ${frameCargos.length}种`);
-    console.log(`标准箱最大高度限制: ${maxStandardHeight}m`);
+    // 根据高度分离货物
+    const { standardCargos, frameCargos } = this.separateCargosByHeight(cargos);
     
     let bestResult: PackingResult | null = null;
     
-    // 如果有标准箱货物，优先尝试标准箱方案
-    if (standardCargos.length > 0) {
-      const standardContainerTypes = CONTAINER_TYPES.filter(containerType => !containerType.isFrameContainer);
-      const standardResult = this.tryContainerTypes(standardCargos, standardContainerTypes, cargoNameColors, config);
+    // 如果有标准货物，先尝试标准集装箱
+    if (standardCargos.length > 0 && standardContainers.length > 0) {
+      const standardResult = this.tryContainerTypes(standardCargos, standardContainers, packingConfig);
       
-      if (standardResult) {
-        console.log(`贪心算法：标准箱方案 - 利用率: ${standardResult.utilization.toFixed(2)}%, 集装箱数: ${standardResult.containerCount}`);
+      if (standardResult && standardResult.packedItems.length > 0) {
         bestResult = standardResult;
         
-        // 如果还有框架箱货物，需要额外处理
-        if (frameCargos.length > 0) {
-          const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
-          const frameResult = this.tryContainerTypes(frameCargos, frameContainerTypes, cargoNameColors, config);
+        // 如果有框架货物，尝试框架集装箱
+        if (frameCargos.length > 0 && frameContainers.length > 0) {
+          const frameResult = this.tryContainerTypes(frameCargos, frameContainers, packingConfig);
           
-          if (frameResult) {
-            console.log(`贪心算法：框架箱方案 - 利用率: ${frameResult.utilization.toFixed(2)}%, 集装箱数: ${frameResult.containerCount}`);
-            // 合并两个结果
+          if (frameResult && frameResult.packedItems.length > 0) {
+            // 合并结果
             bestResult = this.mergePackingResults(standardResult, frameResult);
-          } else {
-            // 框架箱货物装载失败，将其加入未装载列表
-            bestResult.unpackedItems = [...bestResult.unpackedItems, ...frameCargos];
           }
         }
+      } else {
+        // 标准集装箱装载失败，尝试将所有货物装入框架集装箱
+        if (frameContainers.length > 0) {
+          bestResult = this.tryContainerTypes(cargos, frameContainers, packingConfig);
+        }
       }
+    } else if (frameCargos.length > 0 && frameContainers.length > 0) {
+      // 只有框架货物，直接使用框架集装箱
+      bestResult = this.tryContainerTypes(frameCargos, frameContainers, packingConfig);
+    } else if (standardCargos.length > 0 && frameContainers.length > 0) {
+      // 只有标准货物但没有标准集装箱，使用框架集装箱
+      bestResult = this.tryContainerTypes(standardCargos, frameContainers, packingConfig);
     }
     
-    // 如果标准箱方案失败或没有标准箱货物，尝试全部使用框架箱
     if (!bestResult) {
-      const frameContainerTypes = CONTAINER_TYPES.filter(containerType => containerType.isFrameContainer);
-      if (frameContainerTypes.length === 0) {
-        console.warn('贪心算法：没有找到合适的集装箱类型');
-        return null;
-      }
-      
-      console.log('贪心算法：使用框架箱装载所有货物');
-      bestResult = this.tryContainerTypes(processedCargos, frameContainerTypes, cargoNameColors, config);
-      console.log('贪心算法：框架箱装载结果:', bestResult ? `成功，容器数=${bestResult.containerCount}，装载货物=${bestResult.packedItems.length}` : '失败');
+      return this.createEmptyResult(cargos, CONTAINER_TYPES[0], packingConfig, cargos);
     }
     
-    // 在返回结果中添加处理过的货物信息
-    if (bestResult && config?.allowRotation) {
-      bestResult.processedCargos = processedCargos;
-    }
-    
-    console.log('贪心算法最终结果:', bestResult ? `成功，容器数=${bestResult.containerCount}，装载货物=${bestResult.packedItems.length}，未装载货物=${bestResult.unpackedItems.length}` : '失败');
     return bestResult;
   }
+
+
 
   /**
    * 尝试多种集装箱类型，选择最优方案
    */
-  private tryContainerTypes(cargos: Cargo[], containerTypes: any[], cargoNameColors?: Record<string, string>, config?: PackingConfig): PackingResult | null {
+  private tryContainerTypes(cargos: Cargo[], containerTypes: ContainerType[], packingConfig: PackingConfig): PackingResult | null {
     // 贪心策略：按体积效率排序可行的集装箱类型
     const sortedContainerTypes = [...containerTypes].sort((a, b) => {
       const efficiencyA = (a.length * a.width * a.height) / a.cost;
@@ -115,35 +104,78 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       return efficiencyB - efficiencyA;
     });
 
-    // 按体积从大到小排序货物，优先装载大件货物
-    const sortedCargos = this.sortCargosByVolume(cargos);
-
     let bestResult: PackingResult | null = null;
     let bestScore = -1;
+    const solutionScores: SolutionScore[] = [];
 
     // 贪心选择：尝试每种集装箱类型，选择当前最优解
     for (const containerType of sortedContainerTypes) {
-      console.log(`尝试集装箱类型: ${containerType.name} (${containerType.length}x${containerType.width}x${containerType.height})`);
-      const result = this.packIntoContainerType(sortedCargos, containerType, cargoNameColors, config);
-      console.log(`装箱结果:`, result ? `成功，容器数=${result.containerCount}，装载货物=${result.packedItems.length}` : '失败');
+      const result = this.packIntoContainerType(cargos, containerType, undefined, packingConfig);
       
       if (result) {
         // 贪心评分：综合考虑利用率和成本效益
         const score = this.calculateGreedyScore(result);
-        console.log(`评分: ${score}, 当前最佳评分: ${bestScore}`);
+        const utilizationScore = result.utilization;
+        const costEfficiencyScore = this.calculateCostEfficiencyScore(result);
+        const loadingEfficiencyScore = this.calculateLoadingEfficiencyScore(result);
+        
+        // 记录方案评分信息
+        const solutionScore: SolutionScore = {
+          containerType,
+          score,
+          utilizationScore,
+          costEfficiencyScore,
+          loadingEfficiencyScore,
+          unpackedItemsCount: result.unpackedItems.length,
+          isSelected: false
+        };
+        solutionScores.push(solutionScore);
         
         if (score > bestScore) {
           bestScore = score;
-          bestResult = {
-            ...result,
-            algorithm: 'greedy'
-          };
-          console.log(`更新最佳结果: 容器数=${bestResult.containerCount}，装载货物=${bestResult.packedItems.length}`);
+          bestResult = result;
         }
       }
     }
 
+    // 标记最优方案
+    if (bestResult) {
+      const bestSolution = solutionScores.find(s => 
+        s.containerType.name === bestResult!.containerType.name && 
+        s.score === bestScore
+      );
+      if (bestSolution) {
+        bestSolution.isSelected = true;
+      }
+      
+      // 将评分信息添加到结果中
+      bestResult.solutionScores = solutionScores;
+    }
+
     return bestResult;
+  }
+
+  /**
+   * 创建空的装箱结果
+   */
+  private createEmptyResult(cargos: Cargo[], containerType: ContainerType, packingConfig: PackingConfig, processedCargos: Cargo[]): PackingResult {
+    return {
+      containerType,
+      containerCount: 0,
+      utilization: 0,
+      totalCost: 0,
+      packedItems: [],
+      containers: [],
+      unpackedItems: cargos,
+      totalVolume: 0,
+      totalWeight: 0,
+      utilizationRate: 0,
+      spaceOccupancyRate: 0,
+      algorithm: packingConfig.algorithm,
+      mode: packingConfig.mode,
+      gap: packingConfig.gap || 0.05,
+      processedCargos: processedCargos
+    };
   }
 
   /**
@@ -175,7 +207,8 @@ export class GreedyAlgorithm extends BaseAlgorithm {
       mode: standardResult.mode,
       executionTime: (standardResult.executionTime || 0) + (frameResult.executionTime || 0),
       iterations: (standardResult.iterations || 0) + (frameResult.iterations || 0),
-      gap: standardResult.gap || frameResult.gap || 0.05
+      gap: standardResult.gap || frameResult.gap || 0.05,
+      solutionScores: standardResult.solutionScores || frameResult.solutionScores // 保留评分信息
     };
   }
 
@@ -216,22 +249,19 @@ export class GreedyAlgorithm extends BaseAlgorithm {
     }, 0);
   }
 
-  /**
-   * 按体积从大到小排序货物
-   */
-  private sortCargosByVolume(cargos: Cargo[]): Cargo[] {
-    return [...cargos].sort((a, b) => {
-      const volumeA = a.length * a.width * a.height;
-      const volumeB = b.length * b.width * b.height;
-      return volumeB - volumeA;
-    });
-  }
+
 
   /**
    * 计算贪心评分
    * 综合考虑利用率、成本效益和装载效率
+   * 如果存在未装载的货物，则评分为0
    */
   private calculateGreedyScore(result: PackingResult): number {
+    // 如果存在未装载的货物，评分为0
+    if (result.unpackedItems && result.unpackedItems.length > 0) {
+      return 0;
+    }
+    
     const utilizationScore = result.utilization; // 利用率分数 (0-100)
     const costEfficiencyScore = this.calculateCostEfficiencyScore(result); // 成本效益分数
     const loadingEfficiencyScore = this.calculateLoadingEfficiencyScore(result); // 装载效率分数

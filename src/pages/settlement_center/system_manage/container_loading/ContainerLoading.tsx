@@ -8,7 +8,7 @@ import './ContainerLoading.less';
 
 // 导入拆分后的模块
 import { Scene3D } from './components/3d';
-import { CargoCard, CargoModal, PackingResults, PackingConfigComponent } from './components/ui';
+import { CargoCard, CargoModal, PackingResults, PackingConfigComponent, SolutionScores } from './components/ui';
 import { useCargoManagement, usePackingCalculation } from './hooks';
 import { PackingConfig } from './types';
 import { DEFAULT_PACKING_CONFIG } from './constants';
@@ -191,6 +191,11 @@ const ContainerLoading: React.FC = () => {
               packingResult={packingResult} 
               originalCargos={cargos}
               packingConfig={packingConfig}
+            />
+
+            {/* 方案评分结果 */}
+            <SolutionScores 
+              solutionScores={packingResult?.solutionScores}
             />
           </div>
         </div>

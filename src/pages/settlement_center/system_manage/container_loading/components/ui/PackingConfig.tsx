@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Form, Select, Radio, Tooltip, InputNumber, Switch } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { PackingConfig, ContainerType, PackingAlgorithmType, PackingModeType, CostOptimizationStrategy } from '../../types';
-import { CONTAINER_TYPES, PACKING_ALGORITHMS, PACKING_MODES, COST_OPTIMIZATION_STRATEGIES } from '../../constants';
+import { PackingConfig, ContainerType, PackingAlgorithmType, PackingModeType } from '../../types';
+import { CONTAINER_TYPES, PACKING_ALGORITHMS, PACKING_MODES } from '../../constants';
 
 interface PackingConfigProps {
   config: PackingConfig;
@@ -33,12 +33,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
     });
   };
 
-  const handleCostOptimizationChange = (value: CostOptimizationStrategy) => {
-    onChange({
-      ...config,
-      costOptimizationStrategy: value
-    });
-  };
+
 
   const handleGapChange = (value: number | null) => {
     onChange({
@@ -184,52 +179,7 @@ export const PackingConfigComponent: React.FC<PackingConfigProps> = ({ config, o
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item  style={{padding:'4px'}}
-          label={
-            <span>
-              成本优化策略
-              <Tooltip title={
-                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
-                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                <li style={{ marginBottom: '10px' }}>选择不同的成本优化策略来获得最佳的装箱方案。
-                                </li>
-                            </ol>
-                        </div>
-                    }
-                    color='white'>
-                <InfoCircleOutlined style={{ marginLeft: 4, color: '#1890ff' }} />
-              </Tooltip>
-            </span>
-          }
-        >
-          <Select
-            value={config.costOptimizationStrategy || 'none'}
-            onChange={handleCostOptimizationChange}
-            placeholder="请选择成本优化策略"
-            dropdownStyle={{ maxWidth: '400px' }}
-            optionLabelProp="label"
-          >
-            {COST_OPTIMIZATION_STRATEGIES.map(strategy => (
-              <Select.Option 
-                key={strategy.value} 
-                value={strategy.value}
-                label={strategy.label}
-              >
-                <div style={{ padding: '4px 0', lineHeight: '1.4' }}>
-                  <div style={{ fontWeight: 'bold', marginBottom: '2px' }}>{strategy.label}</div>
-                  <div style={{ 
-                    fontSize: '12px', 
-                    color: '#666', 
-                    whiteSpace: 'normal',
-                    wordBreak: 'break-word'
-                  }}>
-                    {strategy.description}
-                  </div>
-                </div>
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
+
 
         <Form.Item  style={{padding:'4px'}}
           label={
