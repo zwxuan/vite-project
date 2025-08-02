@@ -39,8 +39,17 @@ export abstract class BaseAlgorithm {
     let currentContainerVolume = 0;
     const containerVolume = containerType.length * containerType.width * containerType.height;
     
+    // 货物预处理：如果允许放倒，对超高货物进行放倒处理
+    let processedCargos = [...cargos];
+    if (packingConfig.allowRotation && !containerType.isFrameContainer) {
+      processedCargos = this.preprocessCargoRotation(cargos, containerType);
+      console.log('货物放倒预处理完成，处理后的货物列表:', processedCargos.map(c => 
+        `${c.name}: ${c.length}×${c.width}×${c.height}m ${c.isRotated ? '(已放倒)' : ''}`
+      ));
+    }
+    
     // 按体积从大到小排序
-    const sortedCargos = [...cargos].sort((a, b) => {
+    const sortedCargos = [...processedCargos].sort((a, b) => {
       const volumeA = a.length * a.width * a.height * a.quantity;
       const volumeB = b.length * b.width * b.height * b.quantity;
       return volumeB - volumeA;
@@ -323,8 +332,53 @@ export abstract class BaseAlgorithm {
       spaceOccupancyRate,
       algorithm: packingConfig.algorithm,
       mode: packingConfig.mode,
-      gap: gap // 保存gap值用于3D渲染
+      gap: gap, // 保存gap值用于3D渲染
+      processedCargos: processedCargos // 保存经过预处理的货物列表，用于显示放倒信息
     };
+  }
+
+  /**
+   * 货物放倒预处理
+   * 对于高度超过集装箱限制的货物，尝试将其放倒（长高互换）
+   * @param cargos 原始货物列表
+   * @param containerType 目标集装箱类型
+   * @returns 处理后的货物列表
+   */
+  protected preprocessCargoRotation(cargos: Cargo[], containerType: ContainerType): Cargo[] {
+    return cargos.map(cargo => {
+      // 如果货物高度超过集装箱高度限制，尝试放倒
+      if (cargo.height > containerType.height) {
+        console.log(`货物 ${cargo.name} 高度 ${cargo.height}m 超过集装箱高度限制 ${containerType.height}m，尝试放倒`);
+        
+        // 检查放倒后是否能装入集装箱（长度和高度互换）
+        const rotatedLength = cargo.height;
+        const rotatedHeight = cargo.length;
+        
+        // 检查放倒后的尺寸是否符合集装箱限制
+        if (rotatedLength <= containerType.length && 
+            rotatedHeight <= containerType.height && 
+            cargo.width <= containerType.width) {
+          
+          console.log(`货物 ${cargo.name} 放倒成功: ${cargo.length}×${cargo.width}×${cargo.height}m → ${rotatedLength}×${cargo.width}×${rotatedHeight}m`);
+          
+          // 返回放倒后的货物
+          return {
+            ...cargo,
+            length: rotatedLength,
+            height: rotatedHeight,
+            isRotated: true // 标记为已放倒
+          };
+        } else {
+          console.log(`货物 ${cargo.name} 放倒后仍无法装入集装箱: ${rotatedLength}×${cargo.width}×${rotatedHeight}m`);
+        }
+      }
+      
+      // 如果不需要放倒或放倒后仍无法装入，返回原货物
+      return {
+        ...cargo,
+        isRotated: false
+      };
+    });
   }
 
   /**

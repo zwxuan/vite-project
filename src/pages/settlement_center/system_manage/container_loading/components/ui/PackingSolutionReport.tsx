@@ -606,6 +606,8 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
               const container = packingResult.containers[step.containerIndex];
               // 根据 cargoId 查找货物信息
               const cargo = solution.originalCargos.find(c => c.id === step.cargoId);
+              // 查找处理后的货物信息（包含放倒状态）
+              const processedCargo = packingResult.processedCargos?.find(c => c.id === step.cargoId) || cargo;
               // 根据集装箱索引决定颜色，确保相同集装箱的步骤颜色一致
               const containerColorIndex = step.containerIndex % 2;
               return (
@@ -690,6 +692,16 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                             }}>
                               {step.cargoName}
                             </Tag>
+                            {processedCargo?.isRotated && (
+                              <Tag color="orange" style={{ 
+                                fontWeight: 'bold',
+                                fontSize: '11px',
+                                padding: '2px 8px',
+                                marginLeft: '8px'
+                              }}>
+                                已放倒
+                              </Tag>
+                            )}
                           </div>
                         </div>
 
@@ -818,7 +830,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                               位置示意图
                             </Text>
                           </div>
-                          {cargo && (
+                          {cargo && processedCargo && (
                             <div style={{ 
                               backgroundColor: 'rgba(255,255,255,0.9)',
                               borderRadius: '8px',
@@ -831,9 +843,9 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                                 containerHeight={container.height}
                                 cargoPosition={step.position}
                                 cargoSize={{
-                                  length: cargo.length,
-                                  width: cargo.width,
-                                  height: cargo.height
+                                  length: processedCargo.length,
+                                  width: processedCargo.width,
+                                  height: processedCargo.height
                                 }}
                                 isFrameContainer={container.isFrameContainer}
                               />

@@ -25,7 +25,22 @@ export class GreedyAlgorithm extends BaseAlgorithm {
     // 处理货物放倒逻辑
     let processedCargos = [...cargos];
     if (config?.allowRotation) {
-      processedCargos = this.optimizeCargoRotation(cargos);
+      processedCargos = cargos.map(cargo => {
+        // 计算原始体积和旋转后的体积
+        const originalVolume = cargo.length * cargo.width * cargo.height;
+        const rotatedVolume = cargo.width * cargo.height * cargo.length;
+        
+        // 如果旋转后体积更优，则进行旋转
+        if (rotatedVolume > originalVolume) {
+          return {
+            ...cargo,
+            length: cargo.width,
+            width: cargo.height,
+            height: cargo.length
+          };
+        }
+        return cargo;
+      });
       console.log(`贪心算法：货物放倒优化完成，处理了 ${processedCargos.length} 种货物`);
     }
 
@@ -255,34 +270,5 @@ export class GreedyAlgorithm extends BaseAlgorithm {
     return (totalItems / totalCargos) * 100;
   }
 
-  /**
-   * 优化货物放倒
-   */
-  private optimizeCargoRotation(cargos: Cargo[]): Cargo[] {
-    const maxStandardHeight = Math.max(...CONTAINER_TYPES.filter(ct => !ct.isFrameContainer).map(ct => ct.height));
 
-    return cargos.map(cargo => {
-      // 如果货物高度超过标准集装箱最大高度，尝试放倒
-      if (cargo.height > maxStandardHeight) {
-        console.log(`货物 ${cargo.name} 高度 ${cargo.height}m 超过标准箱限制 ${maxStandardHeight}m，尝试放倒`);
-        
-        // 将高度和长度互换（放倒）
-        const rotatedCargo = {
-          ...cargo,
-          length: cargo.height,
-          height: cargo.length
-        };
-        
-        // 检查放倒后是否能装入标准集装箱
-        if (rotatedCargo.height <= maxStandardHeight) {
-          console.log(`货物 ${cargo.name} 放倒后可装入标准箱: ${rotatedCargo.length}x${rotatedCargo.width}x${rotatedCargo.height}`);
-          return rotatedCargo;
-        } else {
-          console.log(`货物 ${cargo.name} 放倒后仍超高，保持原状态，将使用框架箱`);
-        }
-      }
-      
-      return cargo;
-    });
-  }
 }
