@@ -848,6 +848,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                                   height: processedCargo.height
                                 }}
                                 isFrameContainer={container.isFrameContainer}
+                                cargoColor={cargo.color || '#1890ff'}
                               />
                             </div>
                           )}

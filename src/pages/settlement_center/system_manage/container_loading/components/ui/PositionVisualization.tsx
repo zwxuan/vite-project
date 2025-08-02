@@ -18,6 +18,7 @@ interface PositionVisualizationProps {
     height: number;
   };
   isFrameContainer?: boolean;
+  cargoColor?: string;
 }
 
 export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
@@ -26,8 +27,44 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
   containerHeight,
   cargoPosition,
   cargoSize,
-  isFrameContainer = false
+  isFrameContainer = false,
+  cargoColor = '#1890ff'
 }) => {
+  // 将颜色转换为rgba格式的函数
+  const colorToRgba = (color: string, alpha: number) => {
+    // 如果已经是rgba格式，直接返回
+    if (color.startsWith('rgba(')) {
+      return color.replace(/[\d\.]+\)$/g, `${alpha})`);
+    }
+    
+    // 如果是rgb格式，转换为rgba
+    if (color.startsWith('rgb(')) {
+      return color.replace('rgb(', 'rgba(').replace(')', `, ${alpha})`);
+    }
+    
+    // 如果是十六进制格式
+    if (color.startsWith('#')) {
+      const hex = color.length === 4 ? 
+        color.replace(/^#(.)(.)(.)$/, '#$1$1$2$2$3$3') : color;
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+    
+    // 如果是命名颜色或其他格式，回退到默认蓝色
+    const r = 24, g = 144, b = 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
+  // 获取不同透明度的颜色
+  const cargoColorRgba = {
+    light: colorToRgba(cargoColor, 0.5),
+    medium: colorToRgba(cargoColor, 0.6),
+    normal: colorToRgba(cargoColor, 0.7),
+    dark: colorToRgba(cargoColor, 0.9)
+  };
+
   // 缩放比例 - 让图形适合显示区域，增大显示尺寸
   // 统一使用长宽作为缩放基准，避免高度差异影响显示比例
   const maxDimension = Math.max(containerLength, containerWidth);
@@ -176,33 +213,33 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
             {/* 货物底面 */}
             <polygon 
               points={`${adjustedCargoVertices[0].x},${adjustedCargoVertices[0].y} ${adjustedCargoVertices[1].x},${adjustedCargoVertices[1].y} ${adjustedCargoVertices[2].x},${adjustedCargoVertices[2].y} ${adjustedCargoVertices[3].x},${adjustedCargoVertices[3].y}`}
-              fill="rgba(24, 144, 255, 0.6)"
-              stroke="#1890ff"
+              fill={cargoColorRgba.medium}
+              stroke={cargoColor}
               strokeWidth="1"
             />
             {/* 货物顶面 - 最亮 */}
             <polygon 
               points={`${adjustedCargoVertices[4].x},${adjustedCargoVertices[4].y} ${adjustedCargoVertices[5].x},${adjustedCargoVertices[5].y} ${adjustedCargoVertices[6].x},${adjustedCargoVertices[6].y} ${adjustedCargoVertices[7].x},${adjustedCargoVertices[7].y}`}
-              fill="rgba(24, 144, 255, 0.9)"
-              stroke="#1890ff"
+              fill={cargoColorRgba.dark}
+              stroke={cargoColor}
               strokeWidth="2"
             />
             {/* 货物右侧面 - 中等亮度 */}
             <polygon 
               points={`${adjustedCargoVertices[1].x},${adjustedCargoVertices[1].y} ${adjustedCargoVertices[2].x},${adjustedCargoVertices[2].y} ${adjustedCargoVertices[6].x},${adjustedCargoVertices[6].y} ${adjustedCargoVertices[5].x},${adjustedCargoVertices[5].y}`}
-              fill="rgba(24, 144, 255, 0.7)"
-              stroke="#1890ff"
+              fill={cargoColorRgba.normal}
+              stroke={cargoColor}
               strokeWidth="2"
             />
             {/* 货物前侧面 - 较暗 */}
             <polygon 
               points={`${adjustedCargoVertices[2].x},${adjustedCargoVertices[2].y} ${adjustedCargoVertices[3].x},${adjustedCargoVertices[3].y} ${adjustedCargoVertices[7].x},${adjustedCargoVertices[7].y} ${adjustedCargoVertices[6].x},${adjustedCargoVertices[6].y}`}
-              fill="rgba(24, 144, 255, 0.5)"
-              stroke="#1890ff"
+              fill={cargoColorRgba.light}
+              stroke={cargoColor}
               strokeWidth="2"
             />
             {/* 货物边缘线 - 增强立体感 */}
-            <g stroke="#0050b3" strokeWidth="1" fill="none">
+            <g stroke={cargoColor} strokeWidth="1" fill="none">
               <line x1={adjustedCargoVertices[0].x} y1={adjustedCargoVertices[0].y} x2={adjustedCargoVertices[4].x} y2={adjustedCargoVertices[4].y} />
               <line x1={adjustedCargoVertices[2].x} y1={adjustedCargoVertices[2].y} x2={adjustedCargoVertices[6].x} y2={adjustedCargoVertices[6].y} />
               <line x1={adjustedCargoVertices[3].x} y1={adjustedCargoVertices[3].y} x2={adjustedCargoVertices[7].x} y2={adjustedCargoVertices[7].y} />
@@ -254,7 +291,7 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
              </span>
            </div>
            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px' }}>
-             <div style={{ width: '16px', height: '10px', backgroundColor: 'rgba(24, 144, 255, 0.6)', border: '1px solid #1890ff' }}></div>
+             <div style={{ width: '16px', height: '10px', backgroundColor: cargoColorRgba.medium, border: `1px solid ${cargoColor}` }}></div>
              <span style={{ color: '#666' }}>货物位置</span>
            </div>
          </div>
