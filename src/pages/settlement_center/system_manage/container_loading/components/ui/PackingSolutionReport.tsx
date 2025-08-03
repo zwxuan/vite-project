@@ -539,6 +539,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                     <div style="flex: 1;">
                       <div class="item-details">
                         <strong>目标集装箱：</strong>集装箱 ${step.containerIndex + 1} (${container.name})<br>
+                        <strong>货物尺寸：</strong>长${processedCargo?.cargo.length}, 宽${processedCargo?.cargo.width}, 高${processedCargo?.cargo.height}<br>
                         <strong>放置坐标：</strong>X: ${step.position.x}, Y: ${step.position.y}, Z: ${step.position.z}<br>
                         <strong>操作说明：</strong>${step.description}
                       </div>
@@ -792,7 +793,6 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       render: (_: any, record: any, index: number) => {
         const count = packingResult.packedItems.filter(item => item.containerIndex === index).length;
         const maxCapacity = Math.floor((record.length * record.width * record.height) / 0.5); // 假设平均每件货物0.5m³
-        const utilizationRate = maxCapacity > 0 ? (count / maxCapacity) * 100 : 0;
         
         return (
             <div style={{ marginTop: '4px' }}>
@@ -800,72 +800,6 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
             </div>
         );
       }
-    }
-  ];
-
-  // 装箱步骤表格列定义
-  const stepColumns = [
-    {
-      title: '步骤序号',
-      dataIndex: 'stepNumber',
-      key: 'stepNumber',
-      width: 80,
-      align: 'center' as const,
-      render: (stepNumber: number) => (
-        <Badge count={stepNumber} style={{ backgroundColor: '#722ed1' }} />
-      )
-    },
-    {
-      title: '货物名称',
-      dataIndex: 'cargoName',
-      key: 'cargoName',
-      width: 120,
-      render: (cargoName: string) => (
-        <Tag color="geekblue" style={{ fontWeight: 'bold' }}>
-          {cargoName}
-        </Tag>
-      )
-    },
-    {
-      title: '目标集装箱',
-      key: 'container',
-      width: 120,
-      align: 'center' as const,
-      render: (record: PackingStep) => (
-        <Tag color="blue" icon={<ContainerOutlined />}>
-          集装箱 {record.containerIndex + 1}
-        </Tag>
-      )
-    },
-    {
-      title: '放置坐标',
-      key: 'position',
-      width: 160,
-      render: (record: PackingStep) => (
-        <div style={{ textAlign: 'center' }}>
-          <Text code style={{ fontSize: '11px', backgroundColor: '#f6f8fa', padding: '2px 4px' }}>
-            X: {record.position.x}
-          </Text>
-          <br />
-          <Text code style={{ fontSize: '11px', backgroundColor: '#f6f8fa', padding: '2px 4px' }}>
-            Y: {record.position.y}
-          </Text>
-          <br />
-          <Text code style={{ fontSize: '11px', backgroundColor: '#f6f8fa', padding: '2px 4px' }}>
-            Z: {record.position.z}
-          </Text>
-        </div>
-      )
-    },
-    {
-      title: '操作说明',
-      dataIndex: 'description',
-      key: 'description',
-      render: (description: string) => (
-        <Text style={{ fontSize: '13px', color: '#666' }}>
-          {description}
-        </Text>
-      )
     }
   ];
 
@@ -1166,7 +1100,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
               // 根据 cargoId 查找货物信息
               const cargo = solution.originalCargos.find(c => c.id === step.cargoId);
               // 查找处理后的货物信息（包含放倒状态）
-              const processedCargo = packingResult.processedCargos?.find(c => c.id === step.cargoId) || cargo;
+              const processedCargo = packingResult.packedItems?.find(c => c.cargo.id === step.cargoId);
               // 根据集装箱索引决定颜色，确保相同集装箱的步骤颜色一致
               const containerColorIndex = step.containerIndex % 2;
               return (
@@ -1251,7 +1185,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                             }}>
                               {step.cargoName}
                             </Tag>
-                            {processedCargo?.isRotated && (
+                            {processedCargo?.cargo.isRotated && (
                               <Tag color="orange" style={{ 
                                 fontWeight: 'bold',
                                 fontSize: '11px',
@@ -1402,9 +1336,9 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                                 containerHeight={container.height}
                                 cargoPosition={step.position}
                                 cargoSize={{
-                                  length: processedCargo.length,
-                                  width: processedCargo.width,
-                                  height: processedCargo.height
+                                  length: processedCargo.cargo.length,
+                                  width: processedCargo.cargo.width,
+                                  height: processedCargo.cargo.height
                                 }}
                                 isFrameContainer={container.isFrameContainer}
                                 cargoColor={cargo.color || '#1890ff'}
