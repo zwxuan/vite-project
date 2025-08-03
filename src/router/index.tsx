@@ -30,6 +30,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   MenuManage,
   RoleManage,
   RoleManageDetail,
+  Lev1Department,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -1065,6 +1066,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <ChainMap />
+              </RouterGuard>),
+          },
+          {
+            path: "lev1_department",
+            handle: { title: '集团大屏' },
+            element: (
+              <RouterGuard>
+                <Lev1Department />
               </RouterGuard>),
           },
         ]

@@ -94,10 +94,11 @@ const MenuManage = React.lazy(() => import("@/pages/dynamic_onfiguration_platfor
 const RoleManage = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/identity/role_manage"));
 const RoleManageDetail = React.lazy(() => import("@/pages/dynamic_onfiguration_platform/identity/role_manage/detail"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
+const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
 
 export {
-  Demo,ContainerLoading,Home,
+  Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagement,ExportLog,ImportLog,Login,
   SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,

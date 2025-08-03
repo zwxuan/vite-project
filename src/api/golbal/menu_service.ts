@@ -658,6 +658,9 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "中国地图", key: "china_map",path: "/large_screen/china_map",
         },
+        {
+            name: "集团大屏", key: "lev1_department",path: "/large_screen/lev1_department",
+        },
     ]
 },
 {

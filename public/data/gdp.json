@@ -1,0 +1,157 @@
+[
+  {
+    "sort": 1,
+    "name": "广东",
+    "gdpvalue": 141633.81
+  },
+  {
+    "sort": 2,
+    "name": "江苏",
+    "gdpvalue": 137008
+  },
+  {
+    "sort": 3,
+    "name": "山东",
+    "gdpvalue": 98566
+  },
+  {
+    "sort": 4,
+    "name": "浙江",
+    "gdpvalue": 90100
+  },
+  {
+    "sort": 5,
+    "name": "四川",
+    "gdpvalue": 64697
+  },
+  {
+    "sort": 6,
+    "name": "河南",
+    "gdpvalue": 63589.99
+  },
+  {
+    "sort": 7,
+    "name": "湖北",
+    "gdpvalue": 60012.97
+  },
+  {
+    "sort": 8,
+    "name": "福建",
+    "gdpvalue": 57761.02
+  },
+  {
+    "sort": 9,
+    "name": "上海",
+    "gdpvalue": 53926.71
+  },
+  {
+    "sort": 10,
+    "name": "湖南",
+    "gdpvalue": 53230.99
+  },
+  {
+    "sort": 11,
+    "name": "安徽",
+    "gdpvalue": 50625
+  },
+  {
+    "sort": 12,
+    "name": "北京",
+    "gdpvalue": 49843.1
+  },
+  {
+    "sort": 13,
+    "name": "河北",
+    "gdpvalue": 47526.9
+  },
+  {
+    "sort": 14,
+    "name": "陕西",
+    "gdpvalue": 35538.77
+  },
+  {
+    "sort": 15,
+    "name": "江西",
+    "gdpvalue": 34202.5
+  },
+  {
+    "sort": 16,
+    "name": "辽宁",
+    "gdpvalue": 32612.7
+  },
+  {
+    "sort": 17,
+    "name": "重庆",
+    "gdpvalue": 32193.15
+  },
+  {
+    "sort": 18,
+    "name": "云南",
+    "gdpvalue": 31534.10
+  },
+  {
+    "sort": 19,
+    "name": "广西",
+    "gdpvalue": 28649.40
+  },
+  {
+    "sort": 20,
+    "name": "内蒙古",
+    "gdpvalue": 26314.6
+  },
+  {
+    "sort": 21,
+    "name": "山西",
+    "gdpvalue": 25494.69
+  },
+  {
+    "sort": 22,
+    "name": "贵州",
+    "gdpvalue": 22667.12
+  },
+  {
+    "sort": 23,
+    "name": "新疆",
+    "gdpvalue": 20534.08
+  },
+  {
+    "sort": 24,
+    "name": "天津",
+    "gdpvalue": 18024.32
+  },
+  {
+    "sort": 25,
+    "name": "黑龙江",
+    "gdpvalue": 16476.9
+  },
+  {
+    "sort": 26,
+    "name": "吉林",
+    "gdpvalue": 14361.22
+  },
+  {
+    "sort": 27,
+    "name": "甘肃",
+    "gdpvalue": 13002.9
+  },
+  {
+    "sort": 28,
+    "name": "海南",
+    "gdpvalue": 7935.69
+  },
+  {
+    "sort": 29,
+    "name": "宁夏",
+    "gdpvalue": 5502.76
+  },
+  {
+    "sort": 30,
+    "name": "青海",
+    "gdpvalue": 3950.8
+  },
+  {
+    "sort": 31,
+    "name": "西藏",
+    "gdpvalue": 2764.94
+  }
+]

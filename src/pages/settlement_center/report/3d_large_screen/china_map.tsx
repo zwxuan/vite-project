@@ -45,6 +45,28 @@ interface MapData {
 }
 
 /**
+ * GDP数据接口
+ * 定义GDP数据的结构
+ */
+interface GDPData {
+    sort: number;        // 排序
+    name: string;        // 省份名称
+    gdpvalue: number;    // GDP值
+}
+
+/**
+ * 省份网格对象接口
+ * 定义省份网格的数据结构
+ */
+interface ProvinceData {
+    mesh: THREE.Mesh;                    // 省份的3D网格对象
+    originalMaterial: THREE.Material;    // 原始材质
+    selectedMaterial: THREE.Material;    // 选中时的材质
+    name: string;                        // 省份名称
+    gdpValue?: number;                   // GDP值（可选）
+}
+
+/**
  * 3D中国地图主组件
  * 
  * 组件功能：
@@ -52,6 +74,7 @@ interface MapData {
  * 2. 加载并渲染中国地图数据
  * 3. 添加行政中心标记
  * 4. 提供交互控制功能
+ * 5. 支持省份点击选中功能
  */
 const ChainMap: React.FC = () => {
     // ==================== React Hooks ====================
@@ -65,10 +88,111 @@ const ChainMap: React.FC = () => {
     /** Three.js渲染器引用 */
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
     
+    /** Three.js相机引用 */
+    const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
+    
     /** 地图包围盒状态，用于相机定位 */
     const [boundingBox, setBoundingBox] = useState<THREE.Box3 | null>(null);
+    
+    /** 省份数据数组，用于点击检测和状态管理 */
+    const provincesRef = useRef<ProvinceData[]>([]);
+    
+    /** 当前选中的省份 */
+    const selectedProvinceRef = useRef<ProvinceData | null>(null);
 
     // ==================== 核心功能函数 ====================
+
+    /**
+     * 根据GDP值计算颜色
+     * 
+     * 功能说明：
+     * - 根据GDP值在最小值和最大值之间的比例计算颜色
+     * - 使用红色系渐变：从浅红色（低GDP）到深红色（高GDP）
+     * - 无GDP数据的省份使用默认灰色
+     * 
+     * @param gdpValue - GDP值
+     * @param minGDP - 最小GDP值
+     * @param maxGDP - 最大GDP值
+     * @returns Three.js颜色对象
+     */
+    const getColorByGDP = (gdpValue: number | undefined, minGDP: number, maxGDP: number): THREE.Color => {
+        if (gdpValue === undefined) {
+            // 无GDP数据的省份使用灰色
+            return new THREE.Color(0x888888);
+        }
+
+        // 计算GDP值在范围内的比例（0-1）
+        const ratio = (gdpValue - minGDP) / (maxGDP - minGDP);
+        
+        // 使用红色系渐变
+        // 浅粉红色 (0xFFCCDD) 到 亮红色 (0xFF3333)
+        const lightRed = { r: 0xFF, g: 0xCC, b: 0xDD }; // 浅粉红色
+        const darkRed = { r: 0xFF, g: 0x33, b: 0x33 };  // 亮红色
+        
+        // 线性插值计算颜色
+        const r = Math.round(lightRed.r + (darkRed.r - lightRed.r) * ratio);
+        const g = Math.round(lightRed.g + (darkRed.g - lightRed.g) * ratio);
+        const b = Math.round(lightRed.b + (darkRed.b - lightRed.b) * ratio);
+        
+        // 转换为16进制颜色值
+        const color = (r << 16) | (g << 8) | b;
+        return new THREE.Color(color);
+    };
+
+    /**
+     * 处理省份点击事件
+     * 
+     * 功能说明：
+     * - 使用射线检测识别点击的省份
+     * - 管理省份选中状态
+     * - 更新省份材质颜色
+     * 
+     * @param event - 鼠标点击事件
+     */
+    const handleProvinceClick = (event: MouseEvent) => {
+        if (!containerRef.current || !cameraRef.current || !sceneRef.current) return;
+
+        // 计算鼠标在容器中的相对位置（标准化坐标 -1 到 1）
+        const rect = containerRef.current.getBoundingClientRect();
+        const mouse = new THREE.Vector2();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        // 创建射线检测器
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, cameraRef.current);
+
+        // 获取所有省份网格对象
+        const provinceObjects = provincesRef.current.map(province => province.mesh);
+        
+        // 进行射线检测
+        const intersects = raycaster.intersectObjects(provinceObjects);
+
+        if (intersects.length > 0) {
+            // 找到被点击的省份
+            const clickedMesh = intersects[0].object as THREE.Mesh;
+            const clickedProvince = provincesRef.current.find(province => province.mesh === clickedMesh);
+
+            if (clickedProvince) {
+                // 如果之前有选中的省份，恢复其原始颜色
+                if (selectedProvinceRef.current && selectedProvinceRef.current !== clickedProvince) {
+                    selectedProvinceRef.current.mesh.material = selectedProvinceRef.current.originalMaterial;
+                }
+
+                // 如果点击的是已选中的省份，取消选中
+                if (selectedProvinceRef.current === clickedProvince) {
+                    clickedProvince.mesh.material = clickedProvince.originalMaterial;
+                    selectedProvinceRef.current = null;
+                    console.log(`取消选中省份: ${clickedProvince.name}`);
+                } else {
+                    // 选中新的省份
+                    clickedProvince.mesh.material = clickedProvince.selectedMaterial;
+                    selectedProvinceRef.current = clickedProvince;
+                    console.log(`选中省份: ${clickedProvince.name}`);
+                }
+            }
+        }
+    };
 
     /**
      * 创建地图几何体
@@ -346,6 +470,9 @@ const ChainMap: React.FC = () => {
             1,                      // 近裁剪面
             1000                    // 远裁剪面
         );
+        
+        // 保存相机引用，用于射线检测
+        cameraRef.current = camera;
 
         // ==================== 渲染器设置 ====================
         
@@ -359,6 +486,11 @@ const ChainMap: React.FC = () => {
         
         rendererRef.current = renderer;
         containerRef.current.appendChild(renderer.domElement);
+
+        // ==================== 鼠标事件监听 ====================
+        
+        // 添加鼠标点击事件监听器
+        renderer.domElement.addEventListener('click', handleProvinceClick);
 
         // ==================== 交互控制器 ====================
         
@@ -389,9 +521,27 @@ const ChainMap: React.FC = () => {
         // ==================== 地图数据加载与渲染 ====================
         
         try {
-            // 异步加载中国地图GeoJSON数据
-            const response = await fetch('/data/china.json');
-            const mapData = await response.json();
+            // 异步加载中国地图GeoJSON数据和GDP数据
+            const [mapResponse, gdpResponse] = await Promise.all([
+                fetch('/data/china.json'),
+                fetch('/data/gdp.json')
+            ]);
+            
+            const mapData = await mapResponse.json();
+            const gdpData: GDPData[] = await gdpResponse.json();
+
+            // 创建GDP数据映射表，便于快速查找
+            const gdpMap = new Map<string, number>();
+            gdpData.forEach(item => {
+                gdpMap.set(item.name, item.gdpvalue);
+            });
+
+            // 计算GDP的最小值和最大值，用于颜色渐变
+            const gdpValues = gdpData.map(item => item.gdpvalue);
+            const minGDP = Math.min(...gdpValues);
+            const maxGDP = Math.max(...gdpValues);
+            
+            console.log(`GDP范围: ${minGDP.toFixed(2)} - ${maxGDP.toFixed(2)}`);
 
             // 存储所有行政中心信息
             const administrativeCenters: Array<{position: THREE.Vector3, name: string}> = [];
@@ -410,17 +560,47 @@ const ChainMap: React.FC = () => {
                     // 创建省份的3D几何体
                     const geometry = createMapGeometry(coordinates, 2);
                     
-                    // 创建地图材质（蓝色Lambert材质，受光照影响）
-                    const material = new THREE.MeshLambertMaterial({
-                        color: 0x4a90e2, // 蓝色
+                    // 获取省份名称
+                    const provinceName = feature.properties?.name || `省份_${index}`;
+                    
+                    // 获取该省份的GDP值
+                    const gdpValue = gdpMap.get(provinceName);
+                    
+                    // 根据GDP值计算颜色
+                    const provinceColor = getColorByGDP(gdpValue, minGDP, maxGDP);
+                    
+                    // 创建原始材质（根据GDP值设置颜色）
+                    const originalMaterial = new THREE.MeshLambertMaterial({
+                        color: provinceColor,
+                    });
+                    
+                    // 创建选中时的材质（橙色，表示选中状态）
+                    const selectedMaterial = new THREE.MeshLambertMaterial({
+                        color: 0xff6b35, // 橙色
                     });
                     
                     // 创建省份网格对象
-                    const mesh = new THREE.Mesh(geometry, material);
+                    const mesh = new THREE.Mesh(geometry, originalMaterial);
                     
                     // 设置地图位置（居中显示）
                     mesh.position.set(-60, 0, -35);
                     scene.add(mesh);
+
+                    // 保存省份数据到数组中，用于点击检测
+                    provincesRef.current.push({
+                        mesh: mesh,
+                        originalMaterial: originalMaterial,
+                        selectedMaterial: selectedMaterial,
+                        name: provinceName,
+                        gdpValue: gdpValue
+                    });
+
+                    // 输出省份GDP信息到控制台
+                    if (gdpValue !== undefined) {
+                        console.log(`${provinceName}: GDP ${gdpValue.toFixed(2)}亿元`);
+                    } else {
+                        console.log(`${provinceName}: 无GDP数据`);
+                    }
 
                     // ==================== 省份边界线绘制 ====================
                     
@@ -577,9 +757,20 @@ const ChainMap: React.FC = () => {
          */
         return () => {
             window.removeEventListener('resize', handleResize);
+            
+            // 移除鼠标点击事件监听器
+            if (renderer.domElement) {
+                renderer.domElement.removeEventListener('click', handleProvinceClick);
+            }
+            
             if (containerRef.current && renderer.domElement) {
                 containerRef.current.removeChild(renderer.domElement);
             }
+            
+            // 清空省份数据和选中状态
+            provincesRef.current = [];
+            selectedProvinceRef.current = null;
+            
             renderer.dispose(); // 释放渲染器资源
         };
     };
