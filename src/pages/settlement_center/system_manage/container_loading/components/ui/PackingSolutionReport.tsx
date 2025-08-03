@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Descriptions, Table, Tag, Divider, Typography, Card, Row, Col, Statistic, Space, Badge, Progress } from 'antd';
+import { Modal, Descriptions, Table, Tag, Divider, Typography, Card, Row, Col, Statistic, Space, Badge, Progress, Button } from 'antd';
 import { 
   ContainerOutlined, 
   BoxPlotOutlined, 
@@ -9,7 +9,8 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   FileTextOutlined,
-  BarChartOutlined
+  BarChartOutlined,
+  PrinterOutlined
 } from '@ant-design/icons';
 import { FinalPackingSolution, PackingStep } from '../../utils/PackingSolutionCache';
 import { Cargo } from '../../types';
@@ -31,6 +32,550 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
   onCancel,
   solution
 }) => {
+  // 打印功能处理函数
+  const handlePrint = () => {
+    if (!solution) return;
+
+    // 生成打印内容的HTML
+    const generatePrintHTML = () => {
+      return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>最终装箱方案报告</title>
+          <style>
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+              margin: 0;
+              padding: 20px;
+              line-height: 1.6;
+              color: #333;
+            }
+            .print-header {
+              text-align: center;
+              margin-bottom: 30px;
+              border-bottom: 3px solid #1890ff;
+              padding-bottom: 20px;
+            }
+            .print-title {
+              font-size: 28px;
+              font-weight: bold;
+              color: #1890ff;
+              margin-bottom: 8px;
+            }
+            .print-subtitle {
+              font-size: 16px;
+              color: #666;
+              margin-bottom: 10px;
+            }
+            .print-info {
+              font-size: 14px;
+              color: #999;
+            }
+            .section {
+              margin-bottom: 30px;
+              page-break-inside: avoid;
+            }
+            .section-title {
+              font-size: 20px;
+              font-weight: bold;
+              color: #2c3e50;
+              margin-bottom: 20px;
+              padding: 15px 20px;
+              background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+              border-radius: 8px;
+              border-left: 4px solid #1890ff;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+            .stats-grid {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 20px;
+              margin-bottom: 30px;
+            }
+            .stat-item {
+              text-align: center;
+              padding: 20px 15px;
+              border: none;
+              border-radius: 12px;
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+              transition: all 0.3s ease;
+              position: relative;
+              overflow: hidden;
+            }
+            .stat-item::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+              pointer-events: none;
+            }
+            .stat-item:nth-child(1) {
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+            .stat-item:nth-child(2) {
+              background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            }
+            .stat-item:nth-child(3) {
+              background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            }
+            .stat-item:nth-child(4) {
+              background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            }
+            .stat-icon {
+              font-size: 28px;
+              color: rgba(255, 255, 255, 0.9);
+              margin-bottom: 8px;
+              display: block;
+            }
+            .stat-value {
+              font-size: 28px;
+              font-weight: bold;
+              color: #ffffff;
+              display: block;
+              text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+              margin-bottom: 5px;
+            }
+            .stat-label {
+              font-size: 13px;
+              color: rgba(255, 255, 255, 0.9);
+              margin-top: 5px;
+              font-weight: 500;
+              letter-spacing: 0.5px;
+            }
+            .overview-header {
+              text-align: center;
+              margin-bottom: 25px;
+              padding: 20px;
+              background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+              border-radius: 12px;
+              border: 1px solid #e1e8ed;
+            }
+            .overview-title {
+              font-size: 24px;
+              font-weight: bold;
+              color: #2c3e50;
+              margin-bottom: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+            }
+            .overview-subtitle {
+              font-size: 14px;
+              color: #7f8c8d;
+              font-style: italic;
+            }
+            .info-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 25px;
+              border-radius: 8px;
+              overflow: hidden;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            }
+            .info-table th,
+            .info-table td {
+              border: none;
+              border-bottom: 1px solid #e8e8e8;
+              padding: 14px 12px;
+              text-align: left;
+              font-size: 13px;
+            }
+            .info-table th {
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              font-weight: 600;
+              color: #ffffff;
+              text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+              letter-spacing: 0.5px;
+            }
+            .info-table tr:nth-child(even) {
+              background-color: #f8f9fa;
+            }
+            .info-table tr:hover {
+              background-color: #e3f2fd;
+              transition: background-color 0.2s ease;
+            }
+            .info-table td {
+              color: #495057;
+            }
+            .cargo-item, .container-item, .step-item {
+              margin-bottom: 15px;
+              padding: 15px;
+              border: 1px solid #e8e8e8;
+              border-radius: 6px;
+              background: #fafafa;
+            }
+            .item-header {
+              font-weight: bold;
+              color: #1890ff;
+              margin-bottom: 8px;
+              font-size: 14px;
+            }
+            .item-details {
+              font-size: 12px;
+              color: #666;
+              line-height: 1.4;
+            }
+            @page {
+              margin: 1.5cm;
+              size: A4;
+            }
+            @media print {
+              body { print-color-adjust: exact; }
+              .section { page-break-inside: avoid; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="print-header">
+            <div class="print-title">最终装箱方案报告</div>
+            <div class="print-subtitle">Container Loading Solution Report</div>
+            <div class="print-info">
+              生成时间：${new Date().toLocaleString()} | 方案ID：${solution.id}
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="overview-header">
+              <div class="overview-title">
+                📊 方案执行概览
+              </div>
+              <div class="overview-subtitle">Solution Execution Overview</div>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-icon">📦</span>
+                <span class="stat-value">${summary.totalContainers}</span>
+                <div class="stat-label">使用集装箱（个）</div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">📈</span>
+                <span class="stat-value">${summary.utilizationRate.toFixed(1)}%</span>
+                <div class="stat-label">空间利用率</div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">💰</span>
+                <span class="stat-value">¥${summary.totalCost.toLocaleString()}</span>
+                <div class="stat-label">总运输成本</div>
+              </div>
+              <div class="stat-item">
+                <span class="stat-icon">📋</span>
+                <span class="stat-value">${summary.packedCargos}/${summary.totalCargos}</span>
+                <div class="stat-label">货物装载（件）</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">ℹ️ 方案基本信息</div>
+            <table class="info-table">
+              <tr><th>方案ID</th><td>${solution.id}</td><th>生成时间</th><td>${new Date(solution.timestamp).toLocaleString()}</td></tr>
+              <tr><th>装箱算法</th><td>${packingResult.algorithm}</td><th>装箱模式</th><td>${packingResult.mode}</td></tr>
+              <tr><th>执行时间</th><td>${packingResult.executionTime ? `${packingResult.executionTime}ms` : '未记录'}</td><th>迭代次数</th><td>${packingResult.iterations || 0}</td></tr>
+            </table>
+          </div>
+
+          <div class="section">
+            <div class="section-title">📦 货物清单明细</div>
+            <table class="info-table">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>货物名称</th>
+                  <th>尺寸规格</th>
+                  <th>重量(kg)</th>
+                  <th>数量</th>
+                  <th>总体积(m³)</th>
+                  <th>装载状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${originalCargos.map((cargo, index) => {
+                  const volume = cargo.length * cargo.width * cargo.height * cargo.quantity;
+                  const isLoaded = packingResult.packedItems.some(item => item.cargo.id === cargo.id);
+                  return `
+                    <tr>
+                      <td>${index + 1}</td>
+                      <td>${cargo.name}</td>
+                      <td>${cargo.length}×${cargo.width}×${cargo.height}m</td>
+                      <td>${cargo.weight.toLocaleString()}</td>
+                      <td>${cargo.quantity}</td>
+                      <td>${volume.toFixed(3)}</td>
+                      <td>${isLoaded ? '已装载' : '未装载'}</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section">
+            <div class="section-title">🚛 集装箱配置明细</div>
+            <table class="info-table">
+              <thead>
+                <tr>
+                  <th>集装箱编号</th>
+                  <th>容器类型</th>
+                  <th>容器规格</th>
+                  <th>最大载重(kg)</th>
+                  <th>使用成本(¥)</th>
+                  <th>装载数量</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${packingResult.containers.map((container, index) => {
+                  const count = packingResult.packedItems.filter(item => item.containerIndex === index).length;
+                  return `
+                    <tr>
+                      <td>集装箱 ${index + 1}</td>
+                      <td>${container.name}</td>
+                      <td>${container.length}×${container.width}×${container.height}m</td>
+                      <td>${container.maxWeight.toLocaleString()}</td>
+                      <td>${container.cost.toLocaleString()}</td>
+                      <td>${count} 件</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section">
+            <div class="section-title">⚙️ 装箱操作步骤</div>
+            ${packingSteps.map((step, index) => {
+              const container = packingResult.containers[step.containerIndex];
+              const cargo = originalCargos.find(c => c.name === step.cargoName);
+              // 先尝试精确匹配
+              let processedCargo = packingResult.packedItems.find(item => 
+                item.cargo.name === step.cargoName && 
+                item.x === step.position.x &&
+                item.y === step.position.y &&
+                item.z === step.position.z
+              );
+              
+              // 如果精确匹配失败，尝试只匹配货物名称
+              if (!processedCargo) {
+                processedCargo = packingResult.packedItems.find(item => 
+                  item.cargo.name === step.cargoName
+                );
+              }
+              
+              // 如果还是找不到，尝试匹配货物ID
+              if (!processedCargo && cargo) {
+                processedCargo = packingResult.packedItems.find(item => 
+                  item.cargo.id === cargo.id
+                );
+              }
+              
+              // 生成位置示意图 SVG
+              const generatePositionSVG = () => {
+                if (!cargo || !processedCargo) return '';
+                
+                // 缩放比例
+                const maxDimension = Math.max(container.length, container.width);
+                const scale = 150 / maxDimension;
+                
+                // 等轴投影参数
+                const cos30 = Math.cos(Math.PI / 6);
+                const sin30 = Math.sin(Math.PI / 6);
+                
+                // 3D到2D投影函数
+                const project3D = (x: number, y: number, z: number) => ({
+                  x: (x - y) * cos30,
+                  y: (x + y) * sin30 - z
+                });
+                
+                // 缩放后的尺寸
+                const scaledContainer = {
+                  length: container.length * scale,
+                  width: container.width * scale,
+                  height: (container.isFrameContainer ? 2000 : container.height) * scale
+                };
+                
+                const scaledCargo = {
+                  length: processedCargo.cargo.length * scale,
+                  width: processedCargo.cargo.width * scale,
+                  height: processedCargo.cargo.height * scale
+                };
+                
+                const scaledPosition = {
+                  x: step.position.x * scale,
+                  y: step.position.y * scale,
+                  z: step.position.z * scale
+                };
+                
+                // 计算顶点
+                const containerVertices = [
+                  project3D(0, 0, 0),
+                  project3D(scaledContainer.length, 0, 0),
+                  project3D(scaledContainer.length, scaledContainer.width, 0),
+                  project3D(0, scaledContainer.width, 0),
+                  project3D(0, 0, scaledContainer.height),
+                  project3D(scaledContainer.length, 0, scaledContainer.height),
+                  project3D(scaledContainer.length, scaledContainer.width, scaledContainer.height),
+                  project3D(0, scaledContainer.width, scaledContainer.height)
+                ];
+                
+                const cargoVertices = [
+                  project3D(scaledPosition.x, scaledPosition.z, scaledPosition.y),
+                  project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z, scaledPosition.y),
+                  project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z + scaledCargo.width, scaledPosition.y),
+                  project3D(scaledPosition.x, scaledPosition.z + scaledCargo.width, scaledPosition.y),
+                  project3D(scaledPosition.x, scaledPosition.z, scaledPosition.y + scaledCargo.height),
+                  project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z, scaledPosition.y + scaledCargo.height),
+                  project3D(scaledPosition.x + scaledCargo.length, scaledPosition.z + scaledCargo.width, scaledPosition.y + scaledCargo.height),
+                  project3D(scaledPosition.x, scaledPosition.z + scaledCargo.width, scaledPosition.y + scaledCargo.height)
+                ];
+                
+                // 居中显示
+                const centerX = 150;
+                const centerY = 100;
+                
+                const adjustedContainerVertices = containerVertices.map(v => ({
+                  x: v.x + centerX,
+                  y: v.y + centerY
+                }));
+                
+                const adjustedCargoVertices = cargoVertices.map(v => ({
+                  x: v.x + centerX,
+                  y: v.y + centerY
+                }));
+                
+                const cargoColor = cargo.color || '#1890ff';
+                // 将颜色转换为rgba格式的函数
+                const colorToRgba = (color: string, alpha: number) => {
+                  // 如果已经是rgba格式，直接返回
+                  if (color.startsWith('rgba(')) {
+                    return color.replace(/[\d\.]+\)$/g, `${alpha})`);
+                  }
+                  
+                  // 如果是rgb格式，转换为rgba
+                  if (color.startsWith('rgb(')) {
+                    return color.replace('rgb(', 'rgba(').replace(')', `, ${alpha})`);
+                  }
+                  
+                  // 如果是十六进制格式
+                  if (color.startsWith('#')) {
+                    const hex = color.length === 4 ? 
+                      color.replace(/^#(.)(.)(.)$/, '#$1$1$2$2$3$3') : color;
+                    const r = parseInt(hex.slice(1, 3), 16);
+                    const g = parseInt(hex.slice(3, 5), 16);
+                    const b = parseInt(hex.slice(5, 7), 16);
+                    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                  }
+                  
+                  // 如果是命名颜色或其他格式，回退到默认蓝色
+                  const r = 24, g = 144, b = 255;
+                  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                };
+
+                // 获取不同透明度的颜色
+                const cargoColorRgba = {
+                  light: colorToRgba(cargoColor, 0.5),
+                  medium: colorToRgba(cargoColor, 0.6),
+                  normal: colorToRgba(cargoColor, 0.7),
+                  dark: colorToRgba(cargoColor, 0.9)
+                };
+                return `
+                  <svg width="300" height="200" viewBox="0 0 300 200" style="border: 1px solid #d9d9d9; border-radius: 4px; background: white; margin: 10px 0;">
+                    <!-- 集装箱线框 -->
+                    <g stroke="#ff4d4f" stroke-width="2" fill="none">
+                      <polygon points="${adjustedContainerVertices[0].x},${adjustedContainerVertices[0].y} ${adjustedContainerVertices[1].x},${adjustedContainerVertices[1].y} ${adjustedContainerVertices[2].x},${adjustedContainerVertices[2].y} ${adjustedContainerVertices[3].x},${adjustedContainerVertices[3].y}" 
+                               stroke-dasharray="${container.isFrameContainer ? '8,4' : 'none'}" 
+                               fill="${container.isFrameContainer ? 'rgba(255, 77, 79, 0.3)' : 'none'}" />
+                      <polygon points="${adjustedContainerVertices[4].x},${adjustedContainerVertices[4].y} ${adjustedContainerVertices[5].x},${adjustedContainerVertices[5].y} ${adjustedContainerVertices[6].x},${adjustedContainerVertices[6].y} ${adjustedContainerVertices[7].x},${adjustedContainerVertices[7].y}" 
+                               stroke-dasharray="${container.isFrameContainer ? '8,4' : 'none'}" 
+                               fill="${container.isFrameContainer ? 'rgba(255, 77, 79, 0.2)' : 'none'}" />
+                      <line x1="${adjustedContainerVertices[0].x}" y1="${adjustedContainerVertices[0].y}" x2="${adjustedContainerVertices[4].x}" y2="${adjustedContainerVertices[4].y}" stroke-dasharray="${container.isFrameContainer ? '8,4' : 'none'}" />
+                      <line x1="${adjustedContainerVertices[1].x}" y1="${adjustedContainerVertices[1].y}" x2="${adjustedContainerVertices[5].x}" y2="${adjustedContainerVertices[5].y}" stroke-dasharray="${container.isFrameContainer ? '8,4' : 'none'}" />
+                      <line x1="${adjustedContainerVertices[2].x}" y1="${adjustedContainerVertices[2].y}" x2="${adjustedContainerVertices[6].x}" y2="${adjustedContainerVertices[6].y}" stroke-dasharray="${container.isFrameContainer ? '8,4' : 'none'}" />
+                      <line x1="${adjustedContainerVertices[3].x}" y1="${adjustedContainerVertices[3].y}" x2="${adjustedContainerVertices[7].x}" y2="${adjustedContainerVertices[7].y}" stroke-dasharray="${container.isFrameContainer ? '8,4' : 'none'}" />
+                    </g>
+                    
+                    <!-- 货物立体块 -->
+                    <g>
+                      <polygon points="${adjustedCargoVertices[0].x},${adjustedCargoVertices[0].y} ${adjustedCargoVertices[1].x},${adjustedCargoVertices[1].y} ${adjustedCargoVertices[2].x},${adjustedCargoVertices[2].y} ${adjustedCargoVertices[3].x},${adjustedCargoVertices[3].y}" 
+                               fill="${cargoColorRgba.medium}" stroke="${cargoColor}" stroke-width="1" />
+                      <polygon points="${adjustedCargoVertices[4].x},${adjustedCargoVertices[4].y} ${adjustedCargoVertices[5].x},${adjustedCargoVertices[5].y} ${adjustedCargoVertices[6].x},${adjustedCargoVertices[6].y} ${adjustedCargoVertices[7].x},${adjustedCargoVertices[7].y}" 
+                               fill="${cargoColorRgba.dark}" stroke="${cargoColor}" stroke-width="2" />
+                      <polygon points="${adjustedCargoVertices[1].x},${adjustedCargoVertices[1].y} ${adjustedCargoVertices[2].x},${adjustedCargoVertices[2].y} ${adjustedCargoVertices[6].x},${adjustedCargoVertices[6].y} ${adjustedCargoVertices[5].x},${adjustedCargoVertices[5].y}" 
+                               fill="${cargoColorRgba.normal}" stroke="${cargoColor}" stroke-width="2" />
+                      <polygon points="${adjustedCargoVertices[2].x},${adjustedCargoVertices[2].y} ${adjustedCargoVertices[3].x},${adjustedCargoVertices[3].y} ${adjustedCargoVertices[7].x},${adjustedCargoVertices[7].y} ${adjustedCargoVertices[6].x},${adjustedCargoVertices[6].y}" 
+                               fill="${cargoColorRgba.light}" stroke="${cargoColor}" stroke-width="2" />
+                    </g>
+                    
+                    <!-- 坐标轴 -->
+                    <g stroke="#666" stroke-width="1" fill="#666" font-size="8">
+                      <line x1="${adjustedContainerVertices[0].x - 10}" y1="${adjustedContainerVertices[0].y}" x2="${adjustedContainerVertices[1].x - 10}" y2="${adjustedContainerVertices[1].y}" marker-end="url(#arrowhead)" />
+                      <text x="${adjustedContainerVertices[1].x - 5}" y="${adjustedContainerVertices[1].y - 3}" font-size="8" fill="#cf1322">X(${container.length})</text>
+                      <line x1="${adjustedContainerVertices[0].x - 10}" y1="${adjustedContainerVertices[0].y}" x2="${adjustedContainerVertices[4].x - 10}" y2="${adjustedContainerVertices[4].y}" marker-end="url(#arrowhead)" />
+                      <text x="${adjustedContainerVertices[4].x - 20}" y="${adjustedContainerVertices[4].y - 3}" font-size="8" fill="#1d39c4">Y(${container.isFrameContainer ? '2000' : container.height})</text>
+                      <line x1="${adjustedContainerVertices[0].x}" y1="${adjustedContainerVertices[0].y + 10}" x2="${adjustedContainerVertices[3].x}" y2="${adjustedContainerVertices[3].y + 10}" marker-end="url(#arrowhead)" />
+                      <text x="${adjustedContainerVertices[3].x + 3}" y="${adjustedContainerVertices[3].y + 15}" font-size="8" fill="#389e0d">Z(${container.width})</text>
+                    </g>
+                    
+                    <defs>
+                      <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#666" />
+                      </marker>
+                    </defs>
+                  </svg>
+                `;
+              };
+              
+              return `
+                <div class="step-item">
+                  <div class="item-header">步骤 ${step.stepNumber}</div>
+                  <div style="display: flex; gap: 20px; align-items: flex-start;">
+                    <div style="flex: 1;">
+                      <div class="item-details">
+                        <strong>目标集装箱：</strong>集装箱 ${step.containerIndex + 1} (${container.name})<br>
+                        <strong>放置坐标：</strong>X: ${step.position.x}, Y: ${step.position.y}, Z: ${step.position.z}<br>
+                        <strong>操作说明：</strong>${step.description}
+                      </div>
+                    </div>
+                    <div style="flex: 0 0 300px;">
+                      ${generatePositionSVG()}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </body>
+        </html>
+      `;
+    };
+
+    // 创建新窗口进行打印
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    if (!printWindow) {
+      alert('无法打开打印窗口，请检查浏览器弹窗设置');
+      return;
+    }
+
+    // 写入HTML内容
+    printWindow.document.write(generatePrintHTML());
+    printWindow.document.close();
+
+    // 等待内容加载完成后打印
+    printWindow.onload = () => {
+      setTimeout(() => {
+        printWindow.focus();
+        printWindow.print();
+      }, 500);
+    };
+  };
+
   if (!solution) {
     return (
       <Modal
@@ -48,7 +593,14 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
         }
         open={visible}
         onCancel={onCancel}
-        footer={null}
+        footer={[
+          <Button key="print" type="primary" icon={<PrinterOutlined />} onClick={handlePrint}>
+            打印报告
+          </Button>,
+          <Button key="close" onClick={onCancel}>
+            关闭
+          </Button>
+        ]}
         width="95vw"
         style={{ top: 20 }}
         bodyStyle={{ 
@@ -339,7 +891,14 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
       }
       open={visible}
       onCancel={onCancel}
-      footer={null}
+      footer={[
+        <Button key="print" type="primary" icon={<PrinterOutlined />} onClick={handlePrint}>
+          打印报告
+        </Button>,
+        <Button key="close" onClick={onCancel}>
+          关闭
+        </Button>
+      ]}
       width="95vw"
       style={{ top: 20 }}
       bodyStyle={{ 
@@ -349,7 +908,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
         backgroundColor: '#fafafa'
       }}
     >
-      {/* 报告头部信息 */}
+        {/* 报告头部信息 */}
       <div style={{ 
         backgroundColor: '#fff', 
         padding: '24px', 
