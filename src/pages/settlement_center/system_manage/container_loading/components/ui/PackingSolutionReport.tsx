@@ -486,7 +486,7 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
                   dark: colorToRgba(cargoColor, 0.9)
                 };
                 return `
-                  <svg width="300" height="200" viewBox="0 0 300 200" style="border: 1px solid #d9d9d9; border-radius: 4px; background: white; margin: 10px 0;">
+                  <svg width="300" height="200" viewBox="50 30 300 200" style="border: 1px solid #d9d9d9; border-radius: 4px; background: white; margin: 5px 0;">
                     <!-- 集装箱线框 -->
                     <g stroke="#ff4d4f" stroke-width="2" fill="none">
                       <polygon points="${adjustedContainerVertices[0].x},${adjustedContainerVertices[0].y} ${adjustedContainerVertices[1].x},${adjustedContainerVertices[1].y} ${adjustedContainerVertices[2].x},${adjustedContainerVertices[2].y} ${adjustedContainerVertices[3].x},${adjustedContainerVertices[3].y}" 

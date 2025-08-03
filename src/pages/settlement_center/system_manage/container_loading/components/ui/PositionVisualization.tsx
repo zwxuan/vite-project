@@ -157,7 +157,7 @@ export const PositionVisualization: React.FC<PositionVisualizationProps> = ({
         <svg 
           width="450" 
           height="300" 
-          viewBox="0 0 450 300" 
+          viewBox="50 30 450 300" 
           style={{ border: '1px solid #d9d9d9', borderRadius: '4px', backgroundColor: 'white' }}
         >
            {/* 集装箱线框 */}
