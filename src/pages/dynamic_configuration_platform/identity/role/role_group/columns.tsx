@@ -3,6 +3,7 @@ import { TableColumnsType, Tag, Popconfirm } from 'antd';
 import { RoleGroupItemProps } from "@/types/dynamic_configuration_platform/identity/role_group";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
+import { RoleManageItemProps } from '@/types/dynamic_configuration_platform/identity/role_manage';
 
 
 
@@ -64,5 +65,23 @@ export const getColumns = (handleEdit: (record: RoleGroupItemProps) => void, han
             </Popconfirm>
         </>
         ),
+    },
+]; 
+
+export const getRoleManageColumns = (): TableColumnsType<RoleManageItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getRoleManageRoleCode()),
+        width: 260,
+        onHeaderCell: () => ({ style: { width: '260px' } }),
+        dataIndex: 'RoleCode',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getRoleManageRoleName()),
+        dataIndex: 'RoleName',
+        sorter: true,
+        align: 'left',
     },
 ]; 
