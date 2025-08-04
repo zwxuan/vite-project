@@ -304,7 +304,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "角色管理", key: "role_manage",path: "/role/role_manage",
         },
         {
-            name: "角色组", key: "role_group",
+            name: "角色组", key: "role_group",path: "/role/role_group",
         },
         {
             name: "角色标签", key: "role_tag",

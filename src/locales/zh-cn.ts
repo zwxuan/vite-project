@@ -1667,4 +1667,11 @@ export const cn = {
         roledesc:"角色描述",
         rolegroup:"角色组",
     },
+    role_group:{
+        rolegroupcode:"角色组编码",
+        rolegroupname:"角色组名称",
+        status:"状态",
+        roletype:"角色类型",
+        includedroles:"包含角色",
+    },
 };

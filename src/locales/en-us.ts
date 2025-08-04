@@ -1658,5 +1658,12 @@ export const en = {
         roletag: "Role Tag",
         roledesc: "Role Desc",
         rolegroup: "Role Group"
+    },
+    role_group: {
+        rolegroupcode: "Group Code",
+        rolegroupname: "Group Name",
+        status: "Status",
+        roletype: "Role Type",
+        includedroles: "Included Roles"
     }
 };
