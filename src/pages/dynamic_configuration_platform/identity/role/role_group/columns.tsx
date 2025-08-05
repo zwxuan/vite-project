@@ -12,16 +12,16 @@ export const getColumns = (handleEdit: (record: RoleGroupItemProps) => void, han
 
     {
         title: i18n.t(LocaleHelper.getRoleGroupRoleGroupCode()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 260,
+        onHeaderCell: () => ({ style: { width: '260px' } }),
         dataIndex: 'RoleGroupCode',
         sorter: true,
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getRoleGroupRoleGroupName()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 260,
+        onHeaderCell: () => ({ style: { width: '260px' } }),
         dataIndex: 'RoleGroupName',
         sorter: true,
         align: 'left',
@@ -44,8 +44,6 @@ export const getColumns = (handleEdit: (record: RoleGroupItemProps) => void, han
     },
     {
         title: i18n.t(LocaleHelper.getRoleGroupIncludedRoles()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'IncludedRoles',
         sorter: true,
         align: 'left',

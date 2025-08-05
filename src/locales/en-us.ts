@@ -1665,5 +1665,10 @@ export const en = {
         status: "Status",
         roletype: "Role Type",
         includedroles: "Included Roles"
-    }
+    },
+    role_tags:{
+        tagcode:"Tag Code",
+        tagname:"Tag Name",
+        status:"Status",
+    },
 };

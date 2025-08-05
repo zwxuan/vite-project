@@ -13,16 +13,16 @@ export const getColumns = (handleEdit: (record: RoleManageItemProps) => void, ha
 
     {
         title: i18n.t(LocaleHelper.getRoleManageRoleCode()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'RoleCode',
         sorter: true,
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getRoleManageRoleName()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'RoleName',
         sorter: true,
         align: 'left',
@@ -41,7 +41,7 @@ export const getColumns = (handleEdit: (record: RoleManageItemProps) => void, ha
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'SystemRole',
         sorter: true,
-        align: 'right',
+        align: 'center',
     },
     {
         title: i18n.t(LocaleHelper.getRoleManageStatus()),
@@ -49,7 +49,7 @@ export const getColumns = (handleEdit: (record: RoleManageItemProps) => void, ha
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Status',
         sorter: true,
-        align: 'right',
+        align: 'center',
     },
     {
         title: i18n.t(LocaleHelper.getRoleManageRoleType()),
@@ -69,8 +69,6 @@ export const getColumns = (handleEdit: (record: RoleManageItemProps) => void, ha
     },
     {
         title: i18n.t(LocaleHelper.getRoleManageRoleDesc()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'RoleDesc',
         sorter: true,
         align: 'left',

@@ -24,4 +24,13 @@ export const fields: AdvancedSearchFormProps["fields"] = [
         key: 'RoleType',
     },
     
-]; 
+];
+ 
+export const assignRoleSearchFields: AdvancedSearchFormProps["fields"] = [
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getRoleGroupRoleGroupName()),
+        key: 'RoleGroupName',
+    },
+    
+];

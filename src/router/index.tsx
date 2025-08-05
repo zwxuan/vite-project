@@ -32,6 +32,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   RoleManageDetail,
   Lev1Department,
   RoleGroup,
+  RoleTags,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -1054,6 +1055,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <RoleGroup />
+              </RouterGuard>),
+          },
+          {
+            path: "role_tags",
+            handle: { title: '角色标签' },
+            element: (
+              <RouterGuard>
+                <RoleTags />
               </RouterGuard>),
           },
         ]

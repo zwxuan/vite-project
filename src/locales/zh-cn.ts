@@ -1674,4 +1674,9 @@ export const cn = {
         roletype:"角色类型",
         includedroles:"包含角色",
     },
+    role_tags:{
+        tagcode:"标签编码",
+        tagname:"标签名称",
+        status:"状态",
+    },
 };

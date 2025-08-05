@@ -1,12 +1,15 @@
 
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker, Table } from 'antd';
+import { Modal, Button, Space, Table } from 'antd';
 import { RoleGroupItemProps } from "@/types/dynamic_configuration_platform/identity/role_group";
 import dayjs from 'dayjs';
 import { TableRowSelection } from 'antd/es/table/interface';
 import { getRoleManageColumns } from './columns';
 import { RoleManageItemProps } from '@/types/dynamic_configuration_platform/identity/role_manage';
 import { getRoleManageList } from '@/api/dynamic_configuration_platform/identity/role_manage_service';
+import { RedoOutlined } from '@ant-design/icons';
+import AdvancedSearchForm from '@/components/search-form';
+import {assignRoleSearchFields} from './search_fields';
 interface DetailModalProps {
     open: boolean;
     saving: boolean;
@@ -52,6 +55,9 @@ const AssignRoleModal: React.FC<DetailModalProps> = ({
         type: 'checkbox',
         columnWidth: '40px',
     };
+    const handleSearch = (values: any) => {
+        console.log('handleSearch', values);
+    };
     return (
         <Modal 
             open={open} 
@@ -72,6 +78,11 @@ const AssignRoleModal: React.FC<DetailModalProps> = ({
                     </>
                 )}
         >
+            
+                <AdvancedSearchForm fields={assignRoleSearchFields} span={8} onSearch={handleSearch} />
+                
+            
+            
             <div className='nc-bill-table-area'>
                 <Table<RoleManageItemProps>
                     columns={columnsType}
