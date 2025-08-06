@@ -113,6 +113,12 @@ const items = [
         children: <DataPermission />,
     },
     {
+        label: `数据权限规则`,
+        key: 'data_permission_rule',
+
+        children: '数据权限规则定义，主要用于根据当前业务实体字段过滤相关数据',
+    },
+    {
         label: `字段权限`,
         key: 'field_permission',
         children: <FieldsPermission />,

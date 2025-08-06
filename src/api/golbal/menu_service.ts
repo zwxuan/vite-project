@@ -319,12 +319,6 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "授权分配", key: "set_authorization", path: "/identity/permission",
         },
-        {
-            name: "数据权限", key: "data_permission",
-        },
-        {
-            name: "数据权限规则定义", key: "data_permission_rule",
-        },
     ]
 },
 {
