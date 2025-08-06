@@ -10,8 +10,7 @@ import { EmployeeManageItemProps } from '@/types/dynamic_configuration_platform/
 
 
 
-export const getColumnsLeft = (): TableColumnsType<RoleManageItemProps> => [
-
+export const getColumnsLeft = (handleAssignEmployee: (record: RoleManageItemProps) => void): TableColumnsType<RoleManageItemProps> => [
     {
         title: i18n.t(LocaleHelper.getRoleManageRoleCode()),
         width: 200,
@@ -41,7 +40,7 @@ export const getColumnsLeft = (): TableColumnsType<RoleManageItemProps> => [
         width: 100,
         render: (_, record) => (
         <>
-            <a>分配用户</a>
+            <a onClick={() => handleAssignEmployee(record)}>分配用户</a>
             <a>复制</a>
             <a>粘贴</a>
         </>
@@ -86,6 +85,52 @@ export const getColumnsRight = (): TableColumnsType<RoleManageItemProps> => [
     },
 ];
 
+export const getEmoloyeeColumnsLeft = (handleAssignRole: (record: EmployeeManageItemProps) => void, handleDelete: (record: EmployeeManageItemProps) => void): TableColumnsType<EmployeeManageItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageEmployeeCode()),
+        width: 120,
+        onHeaderCell: () => ({ style: { width: '120px' } }),
+        dataIndex: 'EmployeeCode',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageEmployeeName()),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
+        dataIndex: 'EmployeeName',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageOrganization()),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
+        dataIndex: 'Organization',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageDepartment()),
+        dataIndex: 'Department',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 100,
+        render: (_, record) => (
+        <>
+            <a onClick={() => handleAssignRole(record)}>分配角色</a>
+            <a>复制</a>
+            <a>粘贴</a>
+        </>
+        ),
+    },
+];
 export const getEmoloyeeColumnsRight = (handleEdit: (record: EmployeeManageItemProps) => void, handleDelete: (record: EmployeeManageItemProps) => void): TableColumnsType<EmployeeManageItemProps> => [
 
     {
@@ -133,7 +178,8 @@ export const getEmoloyeeColumnsRight = (handleEdit: (record: EmployeeManageItemP
     },
 ]; 
 
-export const getEmoloyeeColumnsLeft = (handleEdit: (record: EmployeeManageItemProps) => void, handleDelete: (record: EmployeeManageItemProps) => void): TableColumnsType<EmployeeManageItemProps> => [
+
+export const getAssignEmoloyeeColumnsLeft = (): TableColumnsType<EmployeeManageItemProps> => [
 
     {
         title: i18n.t(LocaleHelper.getEmployeeManageEmployeeCode()),
@@ -165,17 +211,111 @@ export const getEmoloyeeColumnsLeft = (handleEdit: (record: EmployeeManageItemPr
         sorter: true,
         align: 'left',
     },
+];
+
+export const getAssignEmoloyeeColumnsRight = (handleDelete: (record: EmployeeManageItemProps) => void): TableColumnsType<EmployeeManageItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageEmployeeCode()),
+        width: 120,
+        onHeaderCell: () => ({ style: { width: '120px' } }),
+        dataIndex: 'EmployeeCode',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageEmployeeName()),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
+        dataIndex: 'EmployeeName',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageOrganization()),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
+        dataIndex: 'Organization',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getEmployeeManageDepartment()),
+        dataIndex: 'Department',
+        sorter: true,
+        align: 'left',
+    },
     {
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 100,
+        width: 40,
         render: (_, record) => (
         <>
-            <a>分配角色</a>
-            <a>复制</a>
-            <a>粘贴</a>
+            <a>移除</a>
         </>
         ),
     },
-]; 
+];
+ 
+export const getAssignRoleColumnsLeft = (): TableColumnsType<RoleManageItemProps> => [
+    {
+        title: i18n.t(LocaleHelper.getRoleManageRoleCode()),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
+        dataIndex: 'RoleCode',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getRoleManageRoleName()),
+        dataIndex: 'RoleName',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getRoleManageManageOrg()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ManageOrg',
+        sorter: true,
+        align: 'left',
+    },
+];
+
+export const getAssignRoleColumnsRight = (handleDelete: (record: RoleManageItemProps) => void): TableColumnsType<RoleManageItemProps> => [
+
+    {
+        title: i18n.t(LocaleHelper.getRoleManageRoleCode()),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
+        dataIndex: 'RoleCode',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getRoleManageRoleName()),
+        dataIndex: 'RoleName',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: i18n.t(LocaleHelper.getRoleManageManageOrg()),
+        width: 100,
+        onHeaderCell: () => ({ style: { width: '100px' } }),
+        dataIndex: 'ManageOrg',
+        sorter: true,
+        align: 'left',
+    },
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 40,
+        render: (_, record) => (
+        <>
+            <a>移除</a>
+        </>
+        ),
+    },
+];
