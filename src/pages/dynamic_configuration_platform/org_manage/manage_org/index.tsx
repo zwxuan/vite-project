@@ -26,6 +26,7 @@ const ManageOrg : React.FC = () => {
     const [manageOrgList, setManageOrgList] = useState([] as ManageOrgItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
+    const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
     const navigate = useNavigate();
     // 获取管理组织数据
     useEffect(() => {
@@ -33,6 +34,9 @@ const ManageOrg : React.FC = () => {
             const manageOrgData = await getManageOrgList();
             // 设置管理组织台账数据
             setManageOrgList([...manageOrgData]);
+
+            const defaultKeys = getDefaultExpandedKeys(manageOrgData);
+            setExpandedRowKeys(defaultKeys);
         };
         getData();
     }, []);
@@ -178,6 +182,19 @@ const ManageOrg : React.FC = () => {
         columnWidth: '20px',
     };
 
+    const getDefaultExpandedKeys = (data: ManageOrgItemProps[], level: number = 0): string[] => {
+        const keys: string[] = [];
+        if (level < 1) { // 只展开前两级
+            data.forEach(item => {
+                keys.push(item.OrgCode);
+                if (item.children && item.children.length > 0) {
+                    keys.push(...getDefaultExpandedKeys(item.children, level + 1));
+                }
+            });
+        }
+        return keys;
+    };
+
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
@@ -277,6 +294,16 @@ const ManageOrg : React.FC = () => {
                     pagination={false}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 340px)' }}
                     bordered={true}
+                    expandedRowKeys={expandedRowKeys}
+                    onExpand={(expanded, record) => {
+                        const key = record.OrgCode;
+                        if (expanded) {
+                            setExpandedRowKeys([...expandedRowKeys, key]);
+                        } else {
+                            setExpandedRowKeys(expandedRowKeys.filter(k => k !== key));
+                        }
+                    }}
+
                 />
             </div>
         </div>

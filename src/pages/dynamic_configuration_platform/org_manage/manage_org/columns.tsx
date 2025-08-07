@@ -11,24 +11,24 @@ export const getColumns = (handleEdit: (record: ManageOrgItemProps) => void, han
 
     {
         title: i18n.t(LocaleHelper.getManageOrgOrgCode()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'OrgCode',
         sorter: true,
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getManageOrgOrgName()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'OrgName',
         sorter: true,
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getManageOrgOrgAbbr()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
         dataIndex: 'OrgAbbr',
         sorter: true,
         align: 'left',
@@ -39,7 +39,7 @@ export const getColumns = (handleEdit: (record: ManageOrgItemProps) => void, han
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'OrgStatus',
         sorter: true,
-        align: 'left',
+        align: 'center',
         render: (text) => {
             if (text === '已启用') {
                 return <Tag color='green'>已启用</Tag>;
@@ -50,8 +50,6 @@ export const getColumns = (handleEdit: (record: ManageOrgItemProps) => void, han
     },
     {
         title: i18n.t(LocaleHelper.getManageOrgOrgRemark()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'OrgRemark',
         sorter: true,
         align: 'left',

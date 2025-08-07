@@ -26,6 +26,7 @@ const AdminOrg : React.FC = () => {
     const [adminOrgList, setAdminOrgList] = useState([] as AdminOrgItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
+    const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
     const navigate = useNavigate();
     // 获取行政组织数据
     useEffect(() => {
@@ -33,6 +34,9 @@ const AdminOrg : React.FC = () => {
             const adminOrgData = await getAdminOrgList();
             // 设置行政组织台账数据
             setAdminOrgList([...adminOrgData]);
+
+            const defaultKeys = getDefaultExpandedKeys(adminOrgData);
+            setExpandedRowKeys(defaultKeys);
         };
         getData();
     }, []);
@@ -177,7 +181,18 @@ const AdminOrg : React.FC = () => {
         type: 'checkbox',
         columnWidth: '20px',
     };
-
+    const getDefaultExpandedKeys = (data: AdminOrgItemProps[], level: number = 0): string[] => {
+        const keys: string[] = [];
+        if (level < 1) { // 只展开前两级
+            data.forEach(item => {
+                keys.push(item.OrgCode);
+                if (item.children && item.children.length > 0) {
+                    keys.push(...getDefaultExpandedKeys(item.children, level + 1));
+                }
+            });
+        }
+        return keys;
+    };
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
@@ -278,6 +293,15 @@ const AdminOrg : React.FC = () => {
                     scroll={{ x: 'max-content', y: 'calc(100vh - 340px)' }}
                     // footer={() => '底部汇总信息'}
                     bordered={true}
+                    expandedRowKeys={expandedRowKeys}
+                    onExpand={(expanded, record) => {
+                        const key = record.OrgCode;
+                        if (expanded) {
+                            setExpandedRowKeys([...expandedRowKeys, key]);
+                        } else {
+                            setExpandedRowKeys(expandedRowKeys.filter(k => k !== key));
+                        }
+                    }}
                 />
             </div>
         </div>
