@@ -317,7 +317,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "授权分配", key: "set_authorization", path: "/identity/permission",
+            name: "授权分配", key: "set_authorization", path: "/authorization/permission_assign",
         },
     ]
 },
@@ -327,7 +327,8 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "功能权限查询（按角色）", key: "function_permission_role_query",
+            name: "功能权限查询（按角色）", key: "function_permission_by_role",path: "/authorization_query/function_permission_by_role",
+
         },
         {
             name: "数据权限查询（按角色）", key: "data_permission_role_query",

@@ -33,6 +33,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   Lev1Department,
   RoleGroup,
   RoleTags,
+  FunctionPermissionRole,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -638,14 +639,7 @@ const routers = createMemoryRouter([
         ]
       },
 
-      {
-        path: "/identity/permission",
-        handle: { title: '权限分配' },
-        element: (
-          <RouterGuard>
-            <PermissionManagement />
-          </RouterGuard>),
-      },
+      
       {
         path: "/exportlog",
         handle: { title: '导出日志' },
@@ -1067,7 +1061,46 @@ const routers = createMemoryRouter([
           },
         ]
       },
-
+      // 授权
+      {
+        path: "/authorization",
+        handle: { title: '授权' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "permission_assign",
+            handle: { title: '权限分配' },
+            element: (
+              <RouterGuard>
+                <PermissionManagement />
+              </RouterGuard>),
+          },
+        ]
+      },
+      // 权限查询
+      {
+        path: "/authorization_query",
+        handle: { title: '权限查询' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "function_permission_by_role",
+            handle: { title: '功能权限查询（按角色）' },
+            element: (
+              <RouterGuard>
+                <FunctionPermissionRole />
+              </RouterGuard>),
+          },
+        ]
+      },
       // 3D大屏
       {
         path: "/large_screen",

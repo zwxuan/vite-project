@@ -15,7 +15,7 @@ const Invoice = React.lazy(() => import("@/pages/settlement_center/cost_manage/i
 const InvoiceIssuanceReceipt = React.lazy(() => import("@/pages/settlement_center/cost_manage/invoice_issuance_receipt"));
 const PhysicalInvoice = React.lazy(() => import("@/pages/settlement_center/cost_manage/physical_invoice"));
 import ReconciliationRuleEngine from "@/pages/settlement_center/cost_manage/reconciliation_rule_engine";
-const PermissionManagement = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/permission"));
+const PermissionManagement = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/permission/permission_assign"));
 const ExportLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/log/export_log"));
 const ImportLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/log/import_log"));
 const Login = React.lazy(() => import("@/pages/login"));
@@ -95,6 +95,7 @@ const RoleManage = React.lazy(() => import("@/pages/dynamic_configuration_platfo
 const RoleManageDetail = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/role/role_manage/detail"));
 const RoleGroup = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/role/role_group"));
 const RoleTags = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/role/role_tags"));
+const FunctionPermissionRole = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/function/function_permission_by_role"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
@@ -110,4 +111,6 @@ export {
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
   BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
   ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,RoleManage,RoleManageDetail,RoleGroup,RoleTags,
+  FunctionPermissionRole,
+
 };

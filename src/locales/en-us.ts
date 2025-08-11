@@ -1671,4 +1671,12 @@ export const en = {
         tagname:"Tag Name",
         status:"Status",
     },
+    function_permission_by_role:{
+        rolecode:"Role Code",
+        rolename:"Role Name",
+        belongorg:"Org",
+        appname:"App Name",
+        menufullpath:"Menu Full Path",
+        functionname:"Function Name",
+    },
 };

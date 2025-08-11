@@ -78,6 +78,8 @@ import { EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale } from 
 import { RoleManageLocale } from './dynamic_configuration_platform/identity/role_manage';
 import { RoleGroupLocale } from '@/utils/locale/dynamic_configuration_platform/identity/role_group';
 import { RoleTagsLocale } from '@/utils/locale/dynamic_configuration_platform/identity/role_tags';
+import { FunctionPermissionByRoleLocale } from '@/utils/locale/dynamic_configuration_platform/identity/function_permission_by_role';
+
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -88,7 +90,7 @@ export {
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
-  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,
+  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,
 };
 
 export default {
@@ -102,4 +104,5 @@ export default {
   ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
   ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
   ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
+  ...FunctionPermissionByRoleLocale,
 };

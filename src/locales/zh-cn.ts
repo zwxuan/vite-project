@@ -1679,4 +1679,12 @@ export const cn = {
         tagname:"标签名称",
         status:"状态",
     },
+    function_permission_by_role:{
+        rolecode:"角色编码",
+        rolename:"角色名称",
+        belongorg:"所属组织",
+        appname:"应用名称",
+        menufullpath:"菜单全路径",
+        functionname:"功能名称",
+    },
 };
