@@ -4,7 +4,7 @@ import { Modal, Button, Space, Table, Row, Card, Col, Input, Tooltip } from 'ant
 import { RoleGroupItemProps } from "@/types/dynamic_configuration_platform/identity/role_group";
 import dayjs from 'dayjs';
 import { TableRowSelection } from 'antd/es/table/interface';
-import { getAssignEmoloyeeColumnsLeft, getAssignEmoloyeeColumnsRight, getAssignRoleColumnsLeft, getAssignRoleColumnsRight } from './columns';
+import { getAssignRoleColumnsLeft, getAssignRoleColumnsRight } from './columns';
 import { RoleManageItemProps } from '@/types/dynamic_configuration_platform/identity/role_manage';
 import { getRoleManageList } from '@/api/dynamic_configuration_platform/identity/role_manage_service';
 import { RedoOutlined } from '@ant-design/icons';
