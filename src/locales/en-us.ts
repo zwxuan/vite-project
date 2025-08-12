@@ -1679,4 +1679,13 @@ export const en = {
         menufullpath:"Menu Full Path",
         functionname:"Function Name",
     },
+    function_permission_by_user:{
+        usercode:"User Code",
+        username:"User Name",
+        positionname:"Position Name",
+        rolename:"Role Name",
+        appname:"App Name",
+        menufullpath:"Menu Full Path",
+        functionname:"Function Name",
+    },
 };

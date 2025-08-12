@@ -15,7 +15,8 @@ const Invoice = React.lazy(() => import("@/pages/settlement_center/cost_manage/i
 const InvoiceIssuanceReceipt = React.lazy(() => import("@/pages/settlement_center/cost_manage/invoice_issuance_receipt"));
 const PhysicalInvoice = React.lazy(() => import("@/pages/settlement_center/cost_manage/physical_invoice"));
 import ReconciliationRuleEngine from "@/pages/settlement_center/cost_manage/reconciliation_rule_engine";
-const PermissionManagement = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/permission/permission_assign"));
+const PermissionManagementUser = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/permission/permission_assign_user"));
+const PermissionManagementPost = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/permission/permission_assign_post"));
 const ExportLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/log/export_log"));
 const ImportLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/log/import_log"));
 const Login = React.lazy(() => import("@/pages/login"));
@@ -96,6 +97,7 @@ const RoleManageDetail = React.lazy(() => import("@/pages/dynamic_configuration_
 const RoleGroup = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/role/role_group"));
 const RoleTags = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/role/role_tags"));
 const FunctionPermissionRole = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/function/function_permission_by_role"));
+const FunctionPermissionUser = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/function/function_permission_by_user"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
@@ -103,7 +105,7 @@ const Home = React.lazy(() => import("@/layout/home"));
 export {
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
-  OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagement,ExportLog,ImportLog,Login,
+  OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,
   SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,
   PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,
   OutstandingReceivablesPayablesReport,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,
@@ -111,6 +113,6 @@ export {
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
   BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
   ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,RoleManage,RoleManageDetail,RoleGroup,RoleTags,
-  FunctionPermissionRole,
+  FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,
 
 };

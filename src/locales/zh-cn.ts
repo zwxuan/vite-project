@@ -1687,4 +1687,13 @@ export const cn = {
         menufullpath:"菜单全路径",
         functionname:"功能名称",
     },
+    function_permission_by_user:{
+        usercode:"用户编码",
+        username:"用户名称",
+        positionname:"岗位名称",
+        rolename:"角色名称",
+        appname:"应用名称",
+        menufullpath:"菜单全路径",
+        functionname:"功能名称",
+    },
 };

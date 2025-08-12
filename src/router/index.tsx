@@ -2,7 +2,7 @@
 import { createBrowserRouter, createMemoryRouter, Outlet } from "react-router-dom";
 import AppLayout from "@/layout/index";
 import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
-  , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
+  , OrderDetail, PermissionManagementUser, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
   , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
   ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
   ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
@@ -34,6 +34,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   RoleGroup,
   RoleTags,
   FunctionPermissionRole,
+  PermissionManagementPost,
+  FunctionPermissionUser,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -1072,11 +1074,19 @@ const routers = createMemoryRouter([
         ),
         children: [
           {
-            path: "permission_assign",
-            handle: { title: '权限分配' },
+            path: "permission_assign_post",
+            handle: { title: '授权分配岗位' },
             element: (
               <RouterGuard>
-                <PermissionManagement />
+                <PermissionManagementPost />
+              </RouterGuard>),
+          },
+          {
+            path: "permission_assign_user",
+            handle: { title: '授权分配用户' },
+            element: (
+              <RouterGuard>
+                <PermissionManagementUser />
               </RouterGuard>),
           },
         ]
@@ -1097,6 +1107,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <FunctionPermissionRole />
+              </RouterGuard>),
+          },
+          {
+            path: "function_permission_by_user",
+            handle: { title: '功能权限查询（按用户）' },
+            element: (
+              <RouterGuard>
+                <FunctionPermissionUser />
               </RouterGuard>),
           },
         ]

@@ -79,6 +79,7 @@ import { RoleManageLocale } from './dynamic_configuration_platform/identity/role
 import { RoleGroupLocale } from '@/utils/locale/dynamic_configuration_platform/identity/role_group';
 import { RoleTagsLocale } from '@/utils/locale/dynamic_configuration_platform/identity/role_tags';
 import { FunctionPermissionByRoleLocale } from '@/utils/locale/dynamic_configuration_platform/identity/function_permission_by_role';
+import { FunctionPermissionByUserLocale } from '@/utils/locale/dynamic_configuration_platform/identity/function_permission_by_user';
 
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
@@ -90,7 +91,7 @@ export {
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
-  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,
+  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,
 };
 
 export default {
@@ -104,5 +105,5 @@ export default {
   ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
   ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
   ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
-  ...FunctionPermissionByRoleLocale,
+  ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,
 };
