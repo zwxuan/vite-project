@@ -1696,4 +1696,18 @@ export const cn = {
         menufullpath:"菜单全路径",
         functionname:"功能名称",
     },
+    data_permission_by_role:{
+        rolecode:"角色编码",
+        rolename:"角色名称",
+        datapermission:"数据权限",
+        specialdatapermission:"特殊数据权限过滤规则",
+    },
+    data_permission_by_user:{
+        usercode:"用户编码",
+        username:"用户名称",
+        positionname:"岗位名称",
+        rolename:"角色名称",
+        datapermission:"数据权限",
+        specialdatapermission:"特殊数据权限过滤规则",
+    },
 };

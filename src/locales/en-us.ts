@@ -1566,46 +1566,46 @@ export const en = {
         manualcorrection: "Manual Adjust",
         finalscore: "Final Score"
     },
-    customer_level:{
-        code:"Code",
-        chinesename:"CN Name",
-        englishname:"EN Name",
-        level:"Level",
+    customer_level: {
+        code: "Code",
+        chinesename: "CN Name",
+        englishname: "EN Name",
+        level: "Level",
     },
-    customer_type:{
-        code:"Code",
-        chinesename:"CN Name",
-        englishname:"EN Name",
-        remark:"Remark",
+    customer_type: {
+        code: "Code",
+        chinesename: "CN Name",
+        englishname: "EN Name",
+        remark: "Remark",
     },
-    customer_industry:{
-        code:"Code",
-        chinesename:"CN Name",
-        englishname:"EN Name",
-        remarks:"Remarks",
+    customer_industry: {
+        code: "Code",
+        chinesename: "CN Name",
+        englishname: "EN Name",
+        remarks: "Remarks",
     },
-    manage_org:{
-        orgcode:"Org Code",
-        orgname:"Org Name",
-        orgabbr:"Org Abbr",
-        orgstatus:"Org Status",
-        orgremark:"Org Remark",
+    manage_org: {
+        orgcode: "Org Code",
+        orgname: "Org Name",
+        orgabbr: "Org Abbr",
+        orgstatus: "Org Status",
+        orgremark: "Org Remark",
     },
-    admin_org:{
-        orgcode:"Org Code",
-        orgname:"Org Name",
-        orgabbr:"Org Abbr",
-        orgstatus:"Org Status",
-        orgremark:"Org Remark",
+    admin_org: {
+        orgcode: "Org Code",
+        orgname: "Org Name",
+        orgabbr: "Org Abbr",
+        orgstatus: "Org Status",
+        orgremark: "Org Remark",
     },
-    job_position:{
-        jobcode:"Job Code",
-        jobname:"Job Name",
-        deptbelong:"Dept Belong",
-        parentjob:"Parent Job",
-        jobstatus:"Job Status",
-        jobduty:"Job Duty",
-        jobremark:"Job Remark",
+    job_position: {
+        jobcode: "Job Code",
+        jobname: "Job Name",
+        deptbelong: "Dept Belong",
+        parentjob: "Parent Job",
+        jobstatus: "Job Status",
+        jobduty: "Job Duty",
+        jobremark: "Job Remark",
     },
     employee_category: {
         categorycode: "Category Code",
@@ -1620,7 +1620,7 @@ export const en = {
         department: "Department",
         email: "Email",
         mobile: "Mobile",
-        status:"Status",
+        status: "Status",
         employeecategory: "Emp Category",
         remarks: "Remarks",
         lastupdatedby: "Updated By",
@@ -1666,26 +1666,40 @@ export const en = {
         roletype: "Role Type",
         includedroles: "Included Roles"
     },
-    role_tags:{
-        tagcode:"Tag Code",
-        tagname:"Tag Name",
-        status:"Status",
+    role_tags: {
+        tagcode: "Tag Code",
+        tagname: "Tag Name",
+        status: "Status",
     },
-    function_permission_by_role:{
-        rolecode:"Role Code",
-        rolename:"Role Name",
-        belongorg:"Org",
-        appname:"App Name",
-        menufullpath:"Menu Full Path",
-        functionname:"Function Name",
+    function_permission_by_role: {
+        rolecode: "Role Code",
+        rolename: "Role Name",
+        belongorg: "Org",
+        appname: "App Name",
+        menufullpath: "Menu Full Path",
+        functionname: "Function Name",
     },
-    function_permission_by_user:{
-        usercode:"User Code",
-        username:"User Name",
-        positionname:"Position Name",
-        rolename:"Role Name",
-        appname:"App Name",
-        menufullpath:"Menu Full Path",
-        functionname:"Function Name",
+    function_permission_by_user: {
+        usercode: "User Code",
+        username: "User Name",
+        positionname: "Position Name",
+        rolename: "Role Name",
+        appname: "App Name",
+        menufullpath: "Menu Full Path",
+        functionname: "Function Name",
     },
+    data_permission_by_role: {
+        rolecode: "Role Code",
+        rolename: "Role Name",
+        datapermission: "Data Perm",
+        specialdatapermission: "Special Perm"
+    },
+    data_permission_by_user: {
+        usercode: "User Code",
+        username: "User Name",
+        positionname: "Position Name",
+        rolename: "Role Name",
+        datapermission: "Data Perm",
+        specialdatapermission: "Special Perm"
+    }
 };

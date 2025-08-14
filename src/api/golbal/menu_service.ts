@@ -336,10 +336,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "功能权限查询（按用户）", key: "function_permission_by_user",path: "/authorization_query/function_permission_by_user",
         },
         {
-            name: "数据权限查询（按角色）", key: "data_permission_role_query",
+            name: "数据权限查询（按角色）", key: "data_permission_by_role",path: "/authorization_query/data_permission_by_role",
         },
         {
-            name: "数据权限查询（按用户）", key: "data_permission_user_query",
+            name: "数据权限查询（按用户）", key: "data_permission_by_user",path: "/authorization_query/data_permission_by_user",
         },
     ]
 },

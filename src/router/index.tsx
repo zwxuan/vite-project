@@ -36,6 +36,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   FunctionPermissionRole,
   PermissionManagementPost,
   FunctionPermissionUser,
+  DataPermissionRole,
+  DataPermissionUser,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -1117,6 +1119,24 @@ const routers = createMemoryRouter([
                 <FunctionPermissionUser />
               </RouterGuard>),
           },
+          {
+            path: "data_permission_by_role",
+            handle: { title: '数据权限查询（按角色）' },
+            element: (
+              <RouterGuard>
+                <DataPermissionRole />
+              </RouterGuard>),
+          },
+          {
+            path: "data_permission_by_user",
+            handle: { title: '数据权限查询（按用户）' },
+            element: (
+              <RouterGuard>
+                <DataPermissionUser />
+              </RouterGuard>),
+          },
+
+
         ]
       },
       // 3D大屏
