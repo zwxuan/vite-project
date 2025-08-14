@@ -388,7 +388,7 @@ export const getFeeColumns = (handleEdit: (record: FeeAdjustmentFeeItemProps) =>
         width: 40,
         render: (_, record) => (
         <>
-            <NavLink to={`/orders/detail?businessId=${record.BusinessId}`}>详细</NavLink>
+            <NavLink to={`/entrust_manage/orders/detail?businessId=${record.BusinessId}`}>详细</NavLink>
         </>
         ),
     },
