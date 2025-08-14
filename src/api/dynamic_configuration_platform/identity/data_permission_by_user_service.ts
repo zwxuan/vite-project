@@ -6,7 +6,7 @@ import Mock from "mockjs";
 const dataPermissionByUserItems:DataPermissionByUserItemProps[] = [
   {"UserCode":"U20250715001","UserName":"章昊天","PositionName":"人力资源专员","RoleName":"门户管理员","DataPermission":"集团总部/人力资源中心/组织发展部/HR主管","SpecialDataPermission":"① 员工实体：部门字段=组织发展部 ② 合同实体：合同状态≠已作废 ③ 预警任务实体：优先级≥High →（① 或 ②）且 ③"},
   {"UserCode":"U20250715002","UserName":"李思雅","PositionName":"财务专员","RoleName":"基础数据管理员","DataPermission":"集团总部/财务中心/资金管理部/资金主管","SpecialDataPermission":"① 汇率实体：生效日期≥today()-7 ② 发票类型实体：启用状态=启用 ③ 结算方式实体：系统锁定=false → ① 且 ② 且 ③"},
-  {"UserCode":"U20250715003","UserName":"王晨曦","PositionName":"市场推广专员","RoleName":"用户洞察授权用户","DataPermission":"集团总部/数据中心/客户分析部/分析师","SpecialDataPermission":"① 客户实体：客户级别=VIP ② 客户分类实体：分类路径 like '/战略客户%' ③ 客户标签实体：标签JSON→战略=true →（① 或 ②）且 ③"},
+  {"UserCode":"U20250715003","UserName":"王晨曦","PositionName":"市场推广专员","RoleName":"用户洞察授权用户","DataPermission":"集团总部/数据中心/客户分析部/分析师","SpecialDataPermission":"① 客户实体：客户级别=VIP ② 客户分类实体：分类路径 like '/战略客户%' ③ 客户标签实体：标签战略=true →（① 或 ②）且 ③"},
   {"UserCode":"U20250715004","UserName":"刘宇航","PositionName":"前端开发工程师","RoleName":"应用构建人员","DataPermission":"集团总部/研发中心/平台架构部/架构师","SpecialDataPermission":"① 菜单实体：系统标识=动态建模平台 ② 功能按钮实体：可见=true ③ 角色实体：锁定=false → ① 且 ② 且 ③"},
   {"UserCode":"U20250715005","UserName":"陈雨欣","PositionName":"销售代表","RoleName":"运营管理员","DataPermission":"集团总部/营销中心/直销部/销售主管","SpecialDataPermission":"① 订单实体：状态=待审核 ② 开票实体：开票状态=待开票 ③ 付款申请实体：审批节点=运营管理员 →（① 或 ②）且 ③"},
   {"UserCode":"U20250715006","UserName":"杨梓轩","PositionName":"运维工程师","RoleName":"IT管理员","DataPermission":"集团总部/信息中心/运维部/运维工程师","SpecialDataPermission":"① 调度任务实体：状态=运行中 ② 登录日志实体：登录时间≥today()-1 ③ 异常日志实体：级别=ERROR → ① 且 ② 且 ③"},
