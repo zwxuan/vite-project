@@ -1,11 +1,11 @@
-﻿
+
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseTaxRateItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_tax_rate";
-import { getBaseTaxRateList,saveBaseTaxRate } from "@/api/dynamic_configuration_platform/basic_manage/base_tax_rate_service";
+import { BaseBankBranchItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_bank_branch";
+import { getBaseBankBranchList,saveBaseBankBranch } from "@/api/dynamic_configuration_platform/basic_manage/base_bank_branch_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -21,28 +21,28 @@ import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const BaseTaxRate : React.FC = () => {
+const BaseBankBranch : React.FC = () => {
 
-    // 税率管理数据
-    const [baseTaxRateList, setBaseTaxRateList] = useState([] as BaseTaxRateItemProps[]);
+    // 银行网点数据
+    const [baseBankBranchList, setBaseBankBranchList] = useState([] as BaseBankBranchItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取税率管理数据
+    // 获取银行网点数据
     useEffect(() => {
         const getData = async () => {
-            const baseTaxRateData = await getBaseTaxRateList();
-            // 设置税率管理台账数据
-            setBaseTaxRateList([...baseTaxRateData]);
+            const baseBankBranchData = await getBaseBankBranchList();
+            // 设置银行网点台账数据
+            setBaseBankBranchList([...baseBankBranchData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:BaseTaxRateItemProps) => {
+    const handleDelete = (record:BaseBankBranchItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:BaseTaxRateItemProps) => {
-        const newData = baseTaxRateList.filter((item) => ` === `);
+    const handleEdit = (record:BaseBankBranchItemProps) => {
+        const newData = baseBankBranchList.filter((item) => `${item.BankBranchCode}` === `${record.BankBranchCode}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -87,8 +87,8 @@ const BaseTaxRate : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as BaseTaxRateItemProps;
-    const [formData, setFormData] = useState<BaseTaxRateItemProps>(initFormData);
+    const initFormData = {} as BaseBankBranchItemProps;
+    const [formData, setFormData] = useState<BaseBankBranchItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -99,6 +99,9 @@ const BaseTaxRate : React.FC = () => {
     };
     const handleNumberChange = (name:string,value: number | null) => {
         setFormData({ ...formData, [name]: value });
+    };
+    const handleTextAreaChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        console.log('Change:', e.target.value);
     };
     const handleOk = async () => {
         setSaving(true);
@@ -118,7 +121,7 @@ const BaseTaxRate : React.FC = () => {
         });
 
         try {
-            const response = await saveBaseTaxRate(formData, (progress) => {
+            const response = await saveBaseBankBranch(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -164,7 +167,7 @@ const BaseTaxRate : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<BaseTaxRateItemProps> = {
+    const rowSelection: TableRowSelection<BaseBankBranchItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -186,7 +189,7 @@ const BaseTaxRate : React.FC = () => {
     };
 
     return (
-        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
+        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}
@@ -197,17 +200,32 @@ const BaseTaxRate : React.FC = () => {
                 onChange={handleChange}
                 onDateChange={handleDateChange}
                 onNumberChange={handleNumberChange}
+                onChangeTetxtArea={handleTextAreaChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_tax_rate' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_tax_rate' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_tax_rate' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_bank_branch' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_bank_branch' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_bank_branch' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 税率管理
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 银行网点
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
+                                            涉及到员工报销、企业与客户供应商之间收付款业务时，需要明确员工、企业、客户、供应商的银行账户以及其开户行（银行类别）和开户网点（银行网点）。
+                                            <p>银行网点是银行的实际经营地点。</p>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -266,13 +284,13 @@ const BaseTaxRate : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<BaseTaxRateItemProps>
+                <Table<BaseBankBranchItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.TaxRateCode}`}
+                    rowKey={(record) => `${record.BankBranchCode}`}
                     showSorterTooltip={false}
-                    dataSource={baseTaxRateList}
-                    loading={baseTaxRateList.length === 0}
+                    dataSource={baseBankBranchList}
+                    loading={baseBankBranchList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -298,5 +316,4 @@ const BaseTaxRate : React.FC = () => {
         
     )
 }
-export default BaseTaxRate;
-
+export default BaseBankBranch;

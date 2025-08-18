@@ -12,7 +12,7 @@ const menuData: MenuGroup[] = [
                 name: "组织机构", key: "org_manage",
             },
             {
-                name: "基础数据", key: "basic",
+                name: "基础数据", key: "basic_manage",
             },
             {
                 name: "权限管理", key: "permission",
@@ -63,16 +63,31 @@ const menuData: MenuGroup[] = [
 const childrenMenuData: MenuGroup[] = [{
     title: "财务基础数据",
     key: "basic_finance",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
-            name: "币制", key: "currency", path: "/basic_finance/currency",
+            name: "币种", key: "currency", path: "/basic_finance/currency",
         },
         {
-            name: "税率管理", key: "base_tax_rate",path: "/basic_finance/base_tax_rate",
+            name: "税制档案", key: "base_tax_system",path: "/basic_finance/base_tax_system",
+        },
+        {
+            name: "税种档案", key: "base_tax_type",path: "/basic_finance/base_tax_type",
+        },
+        {
+            name: "税率档案", key: "base_tax_rate",path: "/basic_finance/base_tax_rate",
+        },
+        {
+            name: "银行类别", key: "base_bank_type",path: "/basic_finance/base_bank_type",
+        },
+        {
+            name: "银行网点", key: "base_bank_branch",path: "/basic_finance/base_bank_branch",
         },
         {
             name: "结算方式", key: "base_settlement_method",path: "/basic_finance/base_settlement_method",
+        },
+        {
+            name: "结算方式对照", key: "base_settlement_method_contrast",
         },
         {
             name: "开票方式", key: "invoice_method",
@@ -88,18 +103,6 @@ const childrenMenuData: MenuGroup[] = [{
         },
         {
             name: "TMO类型", key: "tmo_type",
-        },
-        {
-            name: "银行信息", key: "bank_info",
-        },
-        {
-            name: "企业规模", key: "company_size",
-        },
-        {
-            name: "企业性质", key: "company_nature",
-        },
-        {
-            name: "企业类型", key: "company_type",
         },
         {
             name: "测试页面", key: "demo",path: "/demo",
@@ -120,7 +123,7 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "凭证设置",
     key: "voucher_setting",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "账套设置", key: "accounting_set", path: "/voucher_setting/accounting_book",
@@ -151,7 +154,7 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "企业基础数据",
     key: "company",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "企业规模", key: "company_size",
@@ -162,12 +165,21 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "企业类型", key: "company_type",
         },
+        {
+            name: "账户用途", key: "account_use",
+        },
+        {
+            name: "企业银行账户", key: "company_bank_account",
+        },
+        {
+            name: "企业现金账户", key: "company_cash_account",
+        },
     ]
 },
 {
     title: "业务基础数据",
     key: "base_business_manage",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "海关编码", key: "base_goods",path: "/base_business_manage/base_goods",
@@ -219,7 +231,7 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "合作伙伴",
     key: "cooperation_party",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "合同管理", key: "contracts_manage",path: "/cooperation_party/contracts_manage",
@@ -244,7 +256,7 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "日期管理",
     key: "date",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "节假日设定", key: "holiday",

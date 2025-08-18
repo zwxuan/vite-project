@@ -15,8 +15,8 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
     },
     {
         title: '币制名称',
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'CurrencyFullName',
         sorter: true,
         fixed: 'left',
@@ -70,8 +70,6 @@ export const getColumns = (handleEdit: (record: CurrencyItemProps) => void, hand
         title: '备注',
         dataIndex: 'Remark',
         sorter: true,
-        width: 150,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
     },
     {
         title: '状态',

@@ -1,6 +1,6 @@
 import React from "react";
 const Demo = React.lazy(() => import("@/pages/demo"));
-const Currency = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/currency"));
+const Currency = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/currency"));
 const Orders = React.lazy(() => import("@/pages/settlement_center/business_manage/index"));
 const FeeReconciliation = React.lazy(() => import("@/pages/settlement_center/cost_manage/fee_reconciliation"));
 const FeeReconciliationCompare = React.lazy(() => import("@/pages/settlement_center/cost_manage/fee_reconciliation/recociliation/reconciliation"));
@@ -40,7 +40,6 @@ const ActualPayment = React.lazy(() => import("@/pages/settlement_center/finance
 const FinanceQuery = React.lazy(() => import("@/pages/settlement_center/finance_manage/finance_query"));
 const VoucherLog = React.lazy(() => import("@/pages/settlement_center/finance_manage/voucher_log"));
 const SalesBusinessAmountReport = React.lazy(() => import("@/pages/settlement_center/report/sales_business_amount"));
-
 const OutstandingReceivablesPayablesReport = React.lazy(() => import("@/pages/settlement_center/report/outstanding_receivables_payables"));
 const NotReceivablesFeeReport = React.lazy(() => import("@/pages/settlement_center/report/not_receivables_fee"));
 const NotReceivablesOrderReport = React.lazy(() => import("@/pages/settlement_center/report/not_receivables_order"));
@@ -59,9 +58,11 @@ const BaseGoods = React.lazy(() => import("@/pages/dynamic_configuration_platfor
 const BaseSeaPort = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/sea_port"));
 const BaseAirPort = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/air_port"));
 const BaseRailwayPort = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/base_railway_port"));
-const BaseExchangeRate = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/base_exchange_rate"));
-const BaseTaxRate = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/base_tax_rate"));
-const BaseSettlementMethod = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/base_settlement_method"));
+const BaseExchangeRate = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_exchange_rate"));
+const BaseTaxRate = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_tax_rate"));
+const BaseTaxSystem = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_tax_system"));
+const BaseTaxType = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_tax_type"));
+const BaseSettlementMethod = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_settlement_method"));
 const BaseTradeLanes = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/base_trade_lanes"));
 const BaseTradeLanesGrouping = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/base_trade_lanes_grouping"));
 const BaseShipmentType = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/dic_manage/base_shipment_type"));
@@ -100,6 +101,8 @@ const FunctionPermissionRole = React.lazy(() => import("@/pages/dynamic_configur
 const FunctionPermissionUser = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/function/function_permission_by_user"));
 const DataPermissionRole = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/data/data_permission_by_role"));
 const DataPermissionUser = React.lazy(() => import("@/pages/dynamic_configuration_platform/identity/data/data_permission_by_user"));
+const BaseBankType = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_bank_type"));
+const BaseBankBranch = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_bank_branch"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
@@ -115,5 +118,6 @@ export {
   BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
   BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
   ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,RoleManage,RoleManageDetail,RoleGroup,RoleTags,
-  FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,DataPermissionRole,DataPermissionUser,
+  FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,DataPermissionRole,DataPermissionUser,BaseTaxSystem,BaseTaxType,BaseBankType,BaseBankBranch,
+
 };

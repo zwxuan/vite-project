@@ -40,6 +40,8 @@ import { BaseSeaportLocale } from '@/utils/locale/dynamic_configuration_platform
 import { BaseRailwayPortLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_railway_port';
 import { BaseExchangeRateLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_exchange_rate';
 import { BaseTaxRateLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_tax_rate';
+import { BaseTaxSystemLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_tax_system';
+import { BaseTaxTypeLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_tax_type';
 import { BaseSettlementMethodLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_settlement_method';
 import { BaseTradeLanesLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_trade_lanes';
 import { BaseTradeLanesGroupingLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_trade_lanes_grouping';
@@ -82,7 +84,8 @@ import { FunctionPermissionByRoleLocale } from '@/utils/locale/dynamic_configura
 import { FunctionPermissionByUserLocale } from '@/utils/locale/dynamic_configuration_platform/identity/function_permission_by_user';
 import { DataPermissionByRoleLocale } from '@/utils/locale/dynamic_configuration_platform/identity/data_permission_by_role';
 import { DataPermissionByUserLocale } from '@/utils/locale/dynamic_configuration_platform/identity/data_permission_by_user';
-
+import { BaseBankTypeLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_bank_type';
+import { BaseBankBranchLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_bank_branch';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -93,7 +96,8 @@ export {
   BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
-  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,
+  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
+  BaseBankTypeLocale,BaseBankBranchLocale,
 };
 
 export default {
@@ -107,5 +111,6 @@ export default {
   ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
   ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
   ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
-  ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,
+  ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
+  ...BaseBankTypeLocale,...BaseBankBranchLocale,
 };

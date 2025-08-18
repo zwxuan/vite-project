@@ -38,6 +38,10 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   FunctionPermissionUser,
   DataPermissionRole,
   DataPermissionUser,
+  BaseTaxSystem,
+  BaseTaxType,
+  BaseBankType,
+  BaseBankBranch,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -82,11 +86,43 @@ const routers = createMemoryRouter([
               </RouterGuard>),
           },
           {
+            path: "base_tax_system",
+            handle: { title: '税制档案' },
+            element: (
+              <RouterGuard>
+                <BaseTaxSystem />
+              </RouterGuard>),
+          },
+          {
+            path: "base_tax_type",
+            handle: { title: '税种档案' },
+            element: (
+              <RouterGuard>
+                <BaseTaxType />
+              </RouterGuard>),
+          },
+          {
             path: "base_tax_rate",
-            handle: { title: '税率管理' },
+            handle: { title: '税率档案' },
             element: (
               <RouterGuard>
                 <BaseTaxRate />
+              </RouterGuard>),
+          },
+          {
+            path: "base_bank_type",
+            handle: { title: '银行类别' },
+            element: (
+              <RouterGuard>
+                <BaseBankType />
+              </RouterGuard>),
+          },
+          {
+            path: "base_bank_branch",
+            handle: { title: '银行网点' },
+            element: (
+              <RouterGuard>
+                <BaseBankBranch />
               </RouterGuard>),
           },
           {

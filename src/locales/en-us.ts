@@ -1701,5 +1701,50 @@ export const en = {
         rolename: "Role Name",
         datapermission: "Data Perm",
         specialdatapermission: "Special Perm"
+    },
+    base_tax_system: {
+        taxsystemcode: "Tax System Code",
+        taxsystemname: "Tax System Name",
+        countryregion: "Country/Region",
+        taxlevel: "Tax Level",
+        defaulttaxcurrency: "Tax Currency",
+        defaultprecision: "Precision",
+        defaultroundingrule: "Rounding Rule",
+        defaultexchangetype: "Exchange Type",
+        effectivedate: "Effective Date",
+        expirydate: "Expiry Date",
+        status: "Status"
+    },
+    base_tax_type: {
+        taxtypecode: "Tax Type Code",
+        taxtypename: "Tax Type Name",
+        taxsystemname: "Tax System",
+        countryregion: "Country/Region",
+        taxperiod: "Tax Period",
+        taxcurrency: "Currency",
+        precisionval: "Precision",
+        roundingrule: "Rounding Rule",
+        exchangetype: "Exchange Type",
+        effectivedate: "Effective Date",
+        expirydate: "Expiry Date",
+        createdby: "Created By",
+        createdtime: "Created Time",
+        status: "Status"
+    },
+    base_bank_type: {
+        banktypecode: "Bank Type Code",
+        banktypename: "Bank Type Name",
+        countryregion: "Country/Region",
+        status: "Status"
+    },
+    base_bank_branch: {
+        bankbranchcode: "Branch Code",
+        bankbranchname: "Branch Name",
+        banktype: "Bank Type",
+        bankunioncode: "Union Code",
+        status: "Status",
+        detailaddress: "Address",
+        swiftcode: "SWIFT Code",
+        iban: "IBAN"
     }
 };

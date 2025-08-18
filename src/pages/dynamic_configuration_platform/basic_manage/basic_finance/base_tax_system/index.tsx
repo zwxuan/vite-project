@@ -1,15 +1,16 @@
-﻿import '@/pages/page_list.less'
+
+import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { CurrencyItemProps } from "@/types/dynamic_configuration_platform/basic_manage/currency";
-import { getCurrencyList,saveCurrency } from "@/api/dynamic_configuration_platform/basic_manage/currency_service";
-// import { requestWithProgress } from "@/api/request";
+import { BaseTaxSystemItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_tax_system";
+import { getBaseTaxSystemList,saveBaseTaxSystem } from "@/api/dynamic_configuration_platform/basic_manage/base_tax_system_service";
+import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
-// import i18n from '@/i18n';
-// import LocaleHelper from '@/utils/localeHelper';
+import i18n from '@/i18n';
+import LocaleHelper from '@/utils/localeHelper';
 import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
@@ -20,28 +21,28 @@ import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const Currency : React.FC = () => {
+const BaseTaxSystem : React.FC = () => {
 
-    // 币制数据
-    const [currentyList, setCurrencyList] = useState([] as CurrencyItemProps[]);
+    // 税制档案数据
+    const [baseTaxSystemList, setBaseTaxSystemList] = useState([] as BaseTaxSystemItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
+    const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取币制数据
+    // 获取税制档案数据
     useEffect(() => {
-        // 获取币制数据
         const getData = async () => {
-            const currencyData = await getCurrencyList();
-            // 设置币制台账数据
-            setCurrencyList([...currencyData]);
+            const baseTaxSystemData = await getBaseTaxSystemList();
+            // 设置税制档案台账数据
+            setBaseTaxSystemList([...baseTaxSystemData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:CurrencyItemProps) => {
-        alert(record.Code);
+    const handleDelete = (record:BaseTaxSystemItemProps) => {
+        alert(record);
     };
-    const handleEdit = (record:CurrencyItemProps) => {
-        const newData = currentyList.filter((item) => item.Code === record.Code);
+    const handleEdit = (record:BaseTaxSystemItemProps) => {
+        const newData = baseTaxSystemList.filter((item) => `${item.TaxSystemCode}` === `${record.TaxSystemCode}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -86,14 +87,22 @@ const Currency : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as CurrencyItemProps;
-    const [formData, setFormData] = useState<CurrencyItemProps>(initFormData);
+    const initFormData = {} as BaseTaxSystemItemProps;
+    const [formData, setFormData] = useState<BaseTaxSystemItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-
+    const handleDateChange = (name: string, value: string | Array<string>) => {
+        setFormData({ ...formData, [name]: value });
+    };
+    const handleNumberChange = (name:string,value: number | null) => {
+        setFormData({ ...formData, [name]: value });
+    };
+    const handleTextAreaChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        console.log('Change:', e.target.value);
+    };
     const handleOk = async () => {
         setSaving(true);
         
@@ -112,7 +121,7 @@ const Currency : React.FC = () => {
         });
 
         try {
-            const response = await saveCurrency(formData, (progress) => {
+            const response = await saveBaseTaxSystem(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -158,7 +167,7 @@ const Currency : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<CurrencyItemProps> = {
+    const rowSelection: TableRowSelection<BaseTaxSystemItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -180,8 +189,8 @@ const Currency : React.FC = () => {
     };
 
     return (
-        <div>
-            <DetailModal 
+        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
+            <DetailModal
                 open={open}
                 modalFlag={modalFlag}
                 saving={saving}
@@ -189,17 +198,33 @@ const Currency : React.FC = () => {
                 onCancel={handleCancel}
                 onOk={handleOk}
                 onChange={handleChange}
+                onDateChange={handleDateChange}
+                onNumberChange={handleNumberChange}
+                onChangeTetxtArea={handleTextAreaChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='currency' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='currency' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='currency' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_tax_system' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_tax_system' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_tax_system' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 币制
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 税制档案
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
+                                            税制档案用来维护全球各国、各级别税收制度。在税制档案中新增税制信息，本部分信息会成为税种档案和税率档案的底层基础数据。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
@@ -258,26 +283,29 @@ const Currency : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<CurrencyItemProps>
+                <Table<BaseTaxSystemItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.Code}-${record.CurrencyShortName}`}
+                    rowKey={(record) => `${record.TaxSystemCode}`}
                     showSorterTooltip={false}
-                    dataSource={currentyList}
-                    pagination={
-                        {
-                            size:'small',
-                            pageSize:50,showTotal: (total) => `总共 ${total} 条`,
-                            showQuickJumper:true,
-                            locale:
-                            {
-                                items_per_page: '/页',
-                                jump_to: '跳至',
-                                page: '页',
-                            }
+                    dataSource={baseTaxSystemList}
+                    loading={baseTaxSystemList.length === 0}
+                    pagination={{
+                        size:'small',
+                        pageSize:pageSize,
+                        showTotal: (total) => `总共 ${total} 条`,
+                        showQuickJumper:true,
+                        showSizeChanger:true,
+                        onShowSizeChange: (current, size) => {
+                            setPageSize(size);
+                        },
+                        locale:{
+                            items_per_page: '/页',
+                            jump_to: '跳至',
+                            page: '页',
                         }
-                    }
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
+                    }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 340px)' }}
                     footer={() => '底部汇总信息'}
                     bordered={true}
                 />
@@ -287,4 +315,4 @@ const Currency : React.FC = () => {
         
     )
 }
-export default Currency;
+export default BaseTaxSystem;
