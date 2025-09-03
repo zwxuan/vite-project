@@ -1746,5 +1746,21 @@ export const en = {
         detailaddress: "Address",
         swiftcode: "SWIFT Code",
         iban: "IBAN"
+    },
+    base_settlement_method_mapper: {
+        "orgname": "Org Name",
+        "settlementmode": "Settlement Mode",
+        "currencycode": "Currency Code",
+        "banktype": "Bank Type",
+        "bankbranch": "Bank Branch",
+        "bankaccount": "Bank Account",
+        "cashaccount": "Cash Account",
+        "isdefault": "Is Default",
+        "remark": "Remark",
+        "createdby": "Created By",
+        "createdtime": "Created Time",
+        "updatedby": "Updated By",
+        "updatedtime": "Updated Time"
     }
+
 };

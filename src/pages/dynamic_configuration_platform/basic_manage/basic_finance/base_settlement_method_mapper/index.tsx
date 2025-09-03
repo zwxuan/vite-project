@@ -1,11 +1,11 @@
-﻿
+
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseSettlementMethodItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_settlement_method";
-import { getBaseSettlementMethodList,saveBaseSettlementMethod } from "@/api/dynamic_configuration_platform/basic_manage/base_settlement_method_service";
+import { BaseSettlementMethodMapperItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_settlement_method_mapper";
+import { getBaseSettlementMethodMapperList,saveBaseSettlementMethodMapper } from "@/api/dynamic_configuration_platform/basic_manage/base_settlement_method_mapper_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -21,28 +21,28 @@ import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const BaseSettlementMethod : React.FC = () => {
+const BaseSettlementMethodMapper : React.FC = () => {
 
-    // 结算方式数据
-    const [baseSettlementMethodList, setBaseSettlementMethodList] = useState([] as BaseSettlementMethodItemProps[]);
+    // 结算方式对照数据
+    const [baseSettlementMethodMapperList, setBaseSettlementMethodMapperList] = useState([] as BaseSettlementMethodMapperItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取结算方式数据
+    // 获取结算方式对照数据
     useEffect(() => {
         const getData = async () => {
-            const baseSettlementMethodData = await getBaseSettlementMethodList();
-            // 设置结算方式台账数据
-            setBaseSettlementMethodList([...baseSettlementMethodData]);
+            const baseSettlementMethodMapperData = await getBaseSettlementMethodMapperList();
+            // 设置结算方式对照台账数据
+            setBaseSettlementMethodMapperList([...baseSettlementMethodMapperData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:BaseSettlementMethodItemProps) => {
+    const handleDelete = (record:BaseSettlementMethodMapperItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:BaseSettlementMethodItemProps) => {
-        const newData = baseSettlementMethodList.filter((item) => `${item.Code}` === `${record.Code}`);
+    const handleEdit = (record:BaseSettlementMethodMapperItemProps) => {
+        const newData = baseSettlementMethodMapperList.filter((item) => `${item.OrgName}` === `${record.OrgName}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -87,8 +87,8 @@ const BaseSettlementMethod : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as BaseSettlementMethodItemProps;
-    const [formData, setFormData] = useState<BaseSettlementMethodItemProps>(initFormData);
+    const initFormData = {} as BaseSettlementMethodMapperItemProps;
+    const [formData, setFormData] = useState<BaseSettlementMethodMapperItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -99,6 +99,9 @@ const BaseSettlementMethod : React.FC = () => {
     };
     const handleNumberChange = (name:string,value: number | null) => {
         setFormData({ ...formData, [name]: value });
+    };
+    const handleTextAreaChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        console.log('Change:', e.target.value);
     };
     const handleOk = async () => {
         setSaving(true);
@@ -118,7 +121,7 @@ const BaseSettlementMethod : React.FC = () => {
         });
 
         try {
-            const response = await saveBaseSettlementMethod(formData, (progress) => {
+            const response = await saveBaseSettlementMethodMapper(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -164,7 +167,7 @@ const BaseSettlementMethod : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<BaseSettlementMethodItemProps> = {
+    const rowSelection: TableRowSelection<BaseSettlementMethodMapperItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -186,7 +189,7 @@ const BaseSettlementMethod : React.FC = () => {
     };
 
     return (
-        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 80px)'}}>
+        <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
             <DetailModal
                 open={open}
                 modalFlag={modalFlag}
@@ -197,22 +200,23 @@ const BaseSettlementMethod : React.FC = () => {
                 onChange={handleChange}
                 onDateChange={handleDateChange}
                 onNumberChange={handleNumberChange}
+                onChangeTetxtArea={handleTextAreaChange}
             />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_settlement_method' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_settlement_method' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_settlement_method' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_settlement_method_mapper' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_settlement_method_mapper' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_settlement_method_mapper' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 结算方式
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 结算方式对照
                             <Tooltip
                                 title={
                                     <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
                                         <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>企业根据管理和业务需求统一定义和管理银行业务、现金业务、票据业务、返利业务的结算方式。
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>结算方式和银行账号之间的对应关系。
                                             </li>
                                         </ol>
                                     </div>
@@ -223,11 +227,11 @@ const BaseSettlementMethod : React.FC = () => {
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
-                            {/* <label className="u-checkbox nc-checkbox">
+                        {/* <div style={{display: "inline"}}>
+                            <label className="u-checkbox nc-checkbox">
                                 <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
-                            </label> */}
-                        </div>
+                            </label>
+                        </div> */}
                     </span>
                 </div>
                 <div className="header-button-area">
@@ -278,13 +282,13 @@ const BaseSettlementMethod : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<BaseSettlementMethodItemProps>
+                <Table<BaseSettlementMethodMapperItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.Code}`}
+                    rowKey={(record) => `${record.OrgName}`}
                     showSorterTooltip={false}
-                    dataSource={baseSettlementMethodList}
-                    loading={baseSettlementMethodList.length === 0}
+                    dataSource={baseSettlementMethodMapperList}
+                    loading={baseSettlementMethodMapperList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -310,5 +314,4 @@ const BaseSettlementMethod : React.FC = () => {
         
     )
 }
-export default BaseSettlementMethod;
-
+export default BaseSettlementMethodMapper;

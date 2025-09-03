@@ -87,7 +87,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "结算方式", key: "base_settlement_method",path: "/basic_finance/base_settlement_method",
         },
         {
-            name: "结算方式对照", key: "base_settlement_method_contrast",
+            name: "结算方式对照", key: "base_settlement_method_mapper",path: "/basic_finance/base_settlement_method_mapper",
         },
         {
             name: "开票方式", key: "invoice_method",

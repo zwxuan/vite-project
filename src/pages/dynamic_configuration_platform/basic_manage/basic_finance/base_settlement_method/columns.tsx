@@ -50,8 +50,6 @@ export const getColumns = (handleEdit: (record: BaseSettlementMethodItemProps) =
     },
     {
         title: i18n.t(LocaleHelper.getBaseSettlementMethodApplicableScenario()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ApplicableScenario',
         sorter: true,
         align: 'left',

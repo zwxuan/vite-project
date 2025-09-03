@@ -43,6 +43,7 @@ import { BaseTaxRateLocale } from '@/utils/locale/dynamic_configuration_platform
 import { BaseTaxSystemLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_tax_system';
 import { BaseTaxTypeLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_tax_type';
 import { BaseSettlementMethodLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_settlement_method';
+import { BaseSettlementMethodMapperLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_settlement_method_mapper';
 import { BaseTradeLanesLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_trade_lanes';
 import { BaseTradeLanesGroupingLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_trade_lanes_grouping';
 import { BaseShipmentTypeLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_shipment_type';
@@ -97,7 +98,7 @@ export {
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
   RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
-  BaseBankTypeLocale,BaseBankBranchLocale,
+  BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,
 };
 
 export default {
@@ -112,5 +113,5 @@ export default {
   ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
   ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
   ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
-  ...BaseBankTypeLocale,...BaseBankBranchLocale,
+  ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,
 };

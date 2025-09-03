@@ -42,6 +42,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseTaxType,
   BaseBankType,
   BaseBankBranch,
+  BaseSettlementMethodMapper,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -131,6 +132,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <BaseSettlementMethod />
+              </RouterGuard>),
+          },
+          {
+            path: "base_settlement_method_mapper",
+            handle: { title: '结算方式映射' },
+            element: (
+              <RouterGuard>
+                <BaseSettlementMethodMapper />
               </RouterGuard>),
           },
           {
