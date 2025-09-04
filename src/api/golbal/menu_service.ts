@@ -99,9 +99,6 @@ const childrenMenuData: MenuGroup[] = [{
             name: "汇率管理", key: "base_exchange_rate",path: "/basic_finance/base_exchange_rate",
         },
         {
-            name: "TMO类型", key: "tmo_type",
-        },
-        {
             name: "测试页面", key: "demo",path: "/demo",
         },
     ]
@@ -150,17 +147,14 @@ const childrenMenuData: MenuGroup[] = [{
 },
 {
     title: "企业基础数据",
-    key: "company",
+    key: "basic_company",
     parentkey: "basic_manage",
     apps: [
         {
-            name: "企业规模", key: "company_size",
+            name: "企业规模", key: "company_size",path: "/basic_company/base_company_size",
         },
         {
-            name: "企业性质", key: "company_nature",
-        },
-        {
-            name: "企业类型", key: "company_type",
+            name: "企业性质", key: "company_nature",path: "/basic_company/base_company_nature",
         },
         {
             name: "账户用途", key: "account_use",

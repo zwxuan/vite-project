@@ -1780,4 +1780,14 @@ export const en = {
         advantage:"Advantage",
         disadvantage:"Disadvantage",
     },
+    base_company_size: {
+        companysizecode: "Size Code",
+        companysizename: "Size Name",
+        remark: "Remark"
+    },
+    base_company_nature:{
+        companynaturecode:"Nature Code",
+        companynaturename:"Nature Name",
+        remark:"Remark",
+    },
 };

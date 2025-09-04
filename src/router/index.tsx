@@ -45,6 +45,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseSettlementMethodMapper,
   BasePeriodicBilling,
   BaseSettlementCycle,
+  BaseCompanySize,
+  BaseCompanyNature,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -301,6 +303,28 @@ const routers = createMemoryRouter([
               <RouterGuard>
                 <BaseRailwayPort />
               </RouterGuard>),
+          },
+        ]
+      },
+      // 企业基础数据
+      {
+        path: "/basic_company",
+        handle: { title: '企业基础数据' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "base_company_size",
+            handle: { title: '企业规模' },
+            element: <BaseCompanySize />,
+          },
+          {
+            path: "base_company_nature",
+            handle: { title: '企业性质' },
+            element: <BaseCompanyNature />,
           },
         ]
       },

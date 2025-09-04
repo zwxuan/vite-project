@@ -1033,7 +1033,7 @@ export const cn = {
         receiptpaymentdate:"收付日期",
         paymenttype:"支付类型",
         statementstatus:"水单状态",
-        receiptpaymentmethod:"收付方式",
+        receiptpaymentmethod:"结算方式",
         isadvancepayment:"是否预付",
         currency:"币种",
         amount:"金额",
@@ -1787,5 +1787,15 @@ export const cn = {
         scenario:"适用场景",
         advantage:"优势",
         disadvantage:"劣势",
+    },
+    base_company_size:{
+        companysizecode:"企业规模编码",
+        companysizename:"企业规模名称",
+        remark:"备注",
+    },
+    base_company_nature:{
+        companynaturecode:"企业性质编码",
+        companynaturename:"企业性质名称",
+        remark:"备注",
     },
 };
