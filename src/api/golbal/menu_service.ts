@@ -90,13 +90,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "结算方式对照", key: "base_settlement_method_mapper",path: "/basic_finance/base_settlement_method_mapper",
         },
         {
-            name: "开票方式", key: "invoice_method",
+            name: "开票周期", key: "base_periodic_billing",path: "/basic_finance/base_periodic_billing",
         },
         {
-            name: "结算周期", key: "settlement_cycle",
-        },
-        {
-            name: "发票类型", key: "invoice_type",
+            name: "结算周期", key: "settlement_cycle",path: "/basic_finance/base_settlement_cycle",
         },
         {
             name: "汇率管理", key: "base_exchange_rate",path: "/basic_finance/base_exchange_rate",

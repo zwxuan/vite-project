@@ -1761,6 +1761,23 @@ export const en = {
         "createdtime": "Created Time",
         "updatedby": "Updated By",
         "updatedtime": "Updated Time"
-    }
-
+    },
+    base_periodic_billing:{
+        code:"Code",
+        enname:"EN Name",
+        cnname:"CN Name",
+        meaning:"Meaning",
+        scenario:"Scenario",
+        advantage:"Advantage",
+        disadvantage:"Disadvantage",
+    },
+    base_settlement_cycle:{
+        code:"Code",
+        enname:"EN Name",
+        cnname:"CN Name",
+        meaning:"Meaning",
+        scenario:"Scenario",
+        advantage:"Advantage",
+        disadvantage:"Disadvantage",
+    },
 };

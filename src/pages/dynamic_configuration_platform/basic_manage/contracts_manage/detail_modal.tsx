@@ -260,7 +260,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         </Col>
                         <Col span={12}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                <label className='item-lable-title'>结算方式</label>
+                                <label className='item-lable-title'>结算周期</label>
                                 <Select style={{ flex: 1 }} options={[
                                     { value: 1, label: '按月' },
                                     { value: 2, label: '按季' },

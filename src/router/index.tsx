@@ -43,6 +43,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseBankType,
   BaseBankBranch,
   BaseSettlementMethodMapper,
+  BasePeriodicBilling,
+  BaseSettlementCycle,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -140,6 +142,22 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <BaseSettlementMethodMapper />
+              </RouterGuard>),
+          },
+          {
+            path: "base_periodic_billing",
+            handle: { title: '开票周期' },
+            element: (
+              <RouterGuard>
+                <BasePeriodicBilling />
+              </RouterGuard>),
+          },
+          {
+            path: "base_settlement_cycle",
+            handle: { title: '结算周期' },
+            element: (
+              <RouterGuard>
+                <BaseSettlementCycle />
               </RouterGuard>),
           },
           {
