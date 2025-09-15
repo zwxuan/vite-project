@@ -157,10 +157,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "企业性质", key: "company_nature",path: "/basic_company/base_company_nature",
         },
         {
-            name: "账户用途", key: "account_use",
+            name: "账户用途", key: "base_account_purpose",path: "/basic_company/base_account_purpose",
         },
         {
-            name: "企业银行账户", key: "company_bank_account",
+            name: "企业资金账户", key: "base_corporate_fund_account",path: "/basic_company/base_corporate_fund_account",
         },
         {
             name: "企业现金账户", key: "company_cash_account",

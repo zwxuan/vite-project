@@ -47,6 +47,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseSettlementCycle,
   BaseCompanySize,
   BaseCompanyNature,
+  BaseAccountPurpose,
+  BaseCorporateFundAccount,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -325,6 +327,16 @@ const routers = createMemoryRouter([
             path: "base_company_nature",
             handle: { title: '企业性质' },
             element: <BaseCompanyNature />,
+          },
+          {
+            path: "base_account_purpose",
+            handle: { title: '账户用途' },
+            element: <BaseAccountPurpose />,
+          },
+          {
+            path: "base_corporate_fund_account",
+            handle: { title: '企业资金账户' },
+            element: <BaseCorporateFundAccount />,
           },
         ]
       },

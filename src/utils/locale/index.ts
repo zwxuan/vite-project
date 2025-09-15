@@ -91,7 +91,8 @@ import { BasePeriodicBillingLocale } from '@/utils/locale/dynamic_configuration_
 import { BaseSettlementCycleLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_settlement_cycle';
 import { BaseCompanySizeLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_company_size';
 import { BaseCompanyNatureLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_company_nature';
-
+import { BaseAccountPurposeLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_account_purpose';
+import { BaseCorporateFundAccountLocale } from './dynamic_configuration_platform/basic_manage/base_corporate_fund_account';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -103,7 +104,7 @@ export {
   SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
   RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
-  BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,BasePeriodicBillingLocale,BaseSettlementCycleLocale,BaseCompanySizeLocale,BaseCompanyNatureLocale,
+  BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,BasePeriodicBillingLocale,BaseSettlementCycleLocale,BaseCompanySizeLocale,BaseCompanyNatureLocale,BaseAccountPurposeLocale,BaseCorporateFundAccountLocale,
 };
 
 export default {
@@ -118,5 +119,6 @@ export default {
   ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
   ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
   ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
-  ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,...BasePeriodicBillingLocale,...BaseSettlementCycleLocale,...BaseCompanySizeLocale,...BaseCompanyNatureLocale,
+  ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,...BasePeriodicBillingLocale,...BaseSettlementCycleLocale,...BaseCompanySizeLocale,...BaseCompanyNatureLocale,...BaseAccountPurposeLocale,
+  ...BaseCorporateFundAccountLocale,
 };

@@ -108,6 +108,8 @@ const BasePeriodicBilling = React.lazy(() => import("@/pages/dynamic_configurati
 const BaseSettlementCycle = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_finance/base_settlement_cycle"));
 const BaseCompanySize = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_company/base_company_size"));
 const BaseCompanyNature = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_company/base_company_nature"));
+const BaseAccountPurpose = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_company/base_account_purpose"));
+const BaseCorporateFundAccount = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_company/base_corporate_fund_account"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
@@ -124,5 +126,5 @@ export {
   BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
   ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,RoleManage,RoleManageDetail,RoleGroup,RoleTags,
   FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,DataPermissionRole,DataPermissionUser,BaseTaxSystem,BaseTaxType,BaseBankType,BaseBankBranch,
-  BaseSettlementMethodMapper,BasePeriodicBilling,BaseSettlementCycle,BaseCompanySize,BaseCompanyNature,
+  BaseSettlementMethodMapper,BasePeriodicBilling,BaseSettlementCycle,BaseCompanySize,BaseCompanyNature,BaseAccountPurpose,BaseCorporateFundAccount,
 };

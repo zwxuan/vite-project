@@ -1790,4 +1790,31 @@ export const en = {
         companynaturename:"Nature Name",
         remark:"Remark",
     },
+    base_account_purpose: {
+        accountpurposecode: "Purpose Code",
+        accountpurposename: "Purpose Name",
+        isdefault: "Is Default",
+        status: "Status",
+        remark: "Remark"
+    },
+     base_corporate_fund_account: {
+        accountcode: "Account Code",
+        openaccounttype: "Open Type",
+        settlementcenter: "Settle Center",
+        owningorg: "Owning Org",
+        openaccountorg: "Open Org",
+        accountname: "Account Name",
+        bankaccountno: "Bank Acc No",
+        accountholdername: "Holder Name",
+        openingbank: "Opening Bank",
+        ebillagentbank: "eBill Bank",
+        accountpurpose: "Purpose",
+        accountlevel: "Account Level",
+        accountnature: "Account Nature",
+        accounttype: "Account Type",
+        opendate: "Open Date",
+        taxregister: "Tax Register",
+        accountstatus: "Status",
+        remark: "Remark"
+  },
 };
