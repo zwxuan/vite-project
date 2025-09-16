@@ -1817,4 +1817,10 @@ export const en = {
         accountstatus: "Status",
         remark: "Remark"
   },
+  base_fund_account_currency:{
+        currencycode:"Currency Code",
+        ibancode:"Iban Code",
+        status:"Status",
+        remark:"Remark",
+    },
 };

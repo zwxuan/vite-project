@@ -18,7 +18,6 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
-import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
 const BaseCorporateFundAccount : React.FC = () => {
@@ -44,8 +43,7 @@ const BaseCorporateFundAccount : React.FC = () => {
     const handleEdit = (record:BaseCorporateFundAccountItemProps) => {
         const newData = baseCorporateFundAccountList.filter((item) => `${item.AccountCode}` === `${record.AccountCode}`);
         setFormData(newData[0]);
-        setModalFlag('edit');
-        showModal();
+        navigate('/basic_company/base_corporate_fund_account/detail');
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
@@ -190,18 +188,6 @@ const BaseCorporateFundAccount : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
-            <DetailModal
-                open={open}
-                modalFlag={modalFlag}
-                saving={saving}
-                formData={formData}
-                onCancel={handleCancel}
-                onOk={handleOk}
-                onChange={handleChange}
-                onDateChange={handleDateChange}
-                onNumberChange={handleNumberChange}
-                onChangeTetxtArea={handleTextAreaChange}
-            />
             
             <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_corporate_fund_account' importType={uploadImportType} />
             <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_corporate_fund_account' />
@@ -215,11 +201,11 @@ const BaseCorporateFundAccount : React.FC = () => {
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
+                        {/* <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
                                 <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
                             </label>
-                        </div>
+                        </div> */}
                     </span>
                 </div>
                 <div className="header-button-area">

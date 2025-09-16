@@ -37,3 +37,17 @@ export interface BaseCorporateFundAccountItemProps {
     // 备注
     Remark:string;
 }
+
+// 企业资金币种属性
+export interface BaseFundAccountCurrencyItemProps {
+    // 序号
+    Id:string;
+    // 币种
+    CurrencyCode:string;
+    // IBAN
+    IbanCode:string;
+    // 状态
+    Status:string;
+    // 备注
+    Remark:string;
+}

@@ -1825,4 +1825,10 @@ export const cn = {
         accountstatus:"账户状态",
         remark:"备注",
     },
+    base_fund_account_currency:{
+        currencycode:"币种",
+        ibancode:"IBAN",
+        status:"状态",
+        remark:"备注",
+    },
 };
