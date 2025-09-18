@@ -22,7 +22,7 @@ const LogItem: React.FC<LogItemProps> = ({
 
     return (
         <div 
-            style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
+            style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',paddingRight: '10px', }}
             onMouseEnter={() => setHoveredItem(itemId)}
             onMouseLeave={() => setHoveredItem(null)}
         >
@@ -52,8 +52,7 @@ const LogItem: React.FC<LogItemProps> = ({
                     onChange={(e) => {
                         onCompare?.(e.target.checked);
                     }}
-                >
-                    对比
+                >对比
                 </Checkbox>
             )}
         </div>

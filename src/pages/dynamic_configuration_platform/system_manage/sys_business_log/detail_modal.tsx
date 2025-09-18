@@ -4,6 +4,7 @@ import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Tim
 import { SysBusinessLogItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_business_log";
 import dayjs from 'dayjs';
 import LogItem from './log_item';
+import DetailDataModal from './detail_data_modal';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -27,7 +28,19 @@ const formItemLayout = {
         sm: { span: 14 },
     },
 };
-
+const jsonData = {
+    ytenant: "idm74nu5",
+    extendData: {
+        masterOrgKeyField: "orgid"
+    },
+    fullName: "bd.enterprise.OrgFinCashacctVO",
+    pubts: "2025-09-16 14:20:33",
+    _status: 2,
+    dr: 0,
+    tenant: "idm74nu5",
+    orgid: "2315263290310656001",
+    metaFullName: "bd.enterprise.OrgFinCashacctVO"
+};
 const DetailModal: React.FC<DetailModalProps> = ({
     open,
     modalFlag,
@@ -41,7 +54,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     onChangeTetxtArea,
 }) => {
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
-
+    const [detailOpen, setDetailOpen] = useState(false);
     const handleCompareChange = (itemId: string, checked: boolean) => {
         if (checked) {
             setSelectedItems(prev => {
@@ -57,7 +70,16 @@ const DetailModal: React.FC<DetailModalProps> = ({
         }
     };
 
+    const handleOpenDetailData = (record: any) => {
+        setDetailOpen(true);
+    };
+    const handleCancelDetailData = () => {
+        setDetailOpen(false);
+    }
     return (
+
+
+        
         <Modal
             open={open}
             title={"业务历史变更"}
@@ -97,10 +119,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 children: (
                                     <LogItem
                                         itemId="item-1"
-                                        userName="周文轩"
-                                        description="周文轩在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        userName="张晓小"
+                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
                                         isChecked={selectedItems.includes('item-1')}
-                                        onViewData={() => console.log('查看数据')}
+                                        onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-1', checked)}
                                     />
                                 ),
@@ -110,10 +132,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 children: (
                                     <LogItem
                                         itemId="item-2"
-                                        userName="周文轩"
-                                        description="周文轩在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        userName="张晓小"
+                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
                                         isChecked={selectedItems.includes('item-2')}
-                                        onViewData={() => console.log('查看数据')}
+                                        onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-2', checked)}
                                     />
                                 ),
@@ -123,10 +145,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 children: (
                                     <LogItem
                                         itemId="item-3"
-                                        userName="周文轩"
-                                        description="周文轩在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        userName="张晓小"
+                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
                                         isChecked={selectedItems.includes('item-3')}
-                                        onViewData={() => console.log('查看数据')}
+                                        onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-3', checked)}
                                     />
                                 )
@@ -136,10 +158,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 children: (
                                     <LogItem
                                         itemId="item-4"
-                                        userName="周文轩"
-                                        description="周文轩在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        userName="张晓小"
+                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
                                         isChecked={selectedItems.includes('item-4')}
-                                        onViewData={() => console.log('查看数据')}
+                                        onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-4', checked)}
                                     />
                                 )
@@ -149,10 +171,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 children: (
                                     <LogItem
                                         itemId="item-5"
-                                        userName="周文轩"
-                                        description="周文轩在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        userName="张晓小"
+                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
                                         isChecked={selectedItems.includes('item-5')}
-                                        onViewData={() => console.log('查看数据')}
+                                        onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-5', checked)}
                                     />
                                 )
@@ -162,10 +184,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 children: (
                                     <LogItem
                                         itemId="item-6"
-                                        userName="周文轩"
-                                        description="周文轩在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        userName="张晓小"
+                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
                                         isChecked={selectedItems.includes('item-6')}
-                                        onViewData={() => console.log('查看数据')}
+                                        onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-6', checked)}
                                     />
                                 )
@@ -173,7 +195,11 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         ]}
                     />
                 </div>
-
+                <DetailDataModal
+                    open={detailOpen}
+                    jsonData={jsonData}
+                    onCancel={handleCancelDetailData}
+                />
             </div>
         </Modal>
     );

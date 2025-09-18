@@ -2273,23 +2273,29 @@ input.ant-input {
 // 时间轴
 .ant-timeline.ant-timeline-label .ant-timeline-item-label {
     position: absolute;
-    inset-block-start: -6px;
+    inset-block-start: 2px;
     width: calc(20% - 12px);
     text-align: end;
 }
 .ant-timeline.ant-timeline-label .ant-timeline-item-left .ant-timeline-item-content {
     inset-inline-start: calc(20% - 4px);
+    inset-block-start: 2px;
     width: calc(80% - 12px);
     text-align: start;
+    // padding: 3px 3px;
 }
 .ant-timeline.ant-timeline-label .ant-timeline-item-tail
 ,.ant-timeline.ant-timeline-label .ant-timeline-item-head{
     inset-inline-start: 20%;
+    inset-block-start: 4px;
+}
+.ant-timeline .ant-timeline-item-tail {
+    height: calc(100%);
 }
 .ant-timeline .ant-timeline-item {
     font-size: 12px;
 }
-.ant-timeline-item-content:hover{
+.ant-timeline-item:hover{
     background: #b4b5b6;
 }
 
