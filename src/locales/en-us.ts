@@ -1823,4 +1823,28 @@ export const en = {
         status:"Status",
         remark:"Remark",
     },
+    base_corporate_cash_account: {
+        accountcode: "Account Code",
+        accountname: "Account Name",
+        owningorg: "Owning Org",
+        currencycode: "Currency Code",
+        opendate: "Open Date",
+        isdefault: "Is Default",
+        accountstatus: "Status",
+        remark: "Remark"
+    },
+    sys_business_log: {
+        usercode: "User Code",
+        username: "User Name",
+        domain: "Domain",
+        application: "Application",
+        service: "Service",
+        logtype: "Log Type",
+        operationcat: "Op Category",
+        objectcode: "Object Code",
+        objectname: "Object Name",
+        ipaddress: "IP Address",
+        logtime: "Log Time",
+        status: "Status"
+    },
 };

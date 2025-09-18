@@ -163,7 +163,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "企业资金账户", key: "base_corporate_fund_account",path: "/basic_company/base_corporate_fund_account",
         },
         {
-            name: "企业现金账户", key: "company_cash_account",
+            name: "企业现金账户", key: "base_corporate_cash_account",path: "/basic_company/base_corporate_cash_account",
         },
     ]
 },
@@ -402,7 +402,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "登录日志", key: "login_log",
         },
         {
-            name: "操作日志", key: "operation_log",
+            name: "操作日志", key: "sys_business_log",path: "/log_manage/sys_business_log",
         },
         {
             name: "异常日志", key: "exception_log",
@@ -411,10 +411,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "操作日志统计", key: "business_log_statistics",
         },
         {
-            name: "导入日志", key: "import_log",
+            name: "导入日志", key: "import_log",path: "/log_manage/importlog",
         },
         {
-            name: "导出日志", key: "export_log",
+            name: "导出日志", key: "export_log",path: "/log_manage/exportlog",
         },
     ]
 },

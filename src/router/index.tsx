@@ -1,14 +1,15 @@
 //router/index.tsx
 import { createBrowserRouter, createMemoryRouter, Outlet } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
-  , OrderDetail, PermissionManagementUser, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
-  , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
-  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
-  ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
-  ,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,
-  SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseSeaPort,BaseAirPort,BaseRailwayPort,Demo,BaseExchangeRate,
-  BaseTaxRate,BaseSettlementMethod,BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,BaseContainerType,ContractsManage,BusinessPartner,
+import {
+  Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderFeeSplit, LCLFeeShare, ReconciliationRuleEngine
+  , OrderDetail, PermissionManagementUser, ExportLog, ImportLog, Login, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice
+  , SetFeeSchedule, ChargingStandard, NotOffSetting, HasOffSetting, AccountingBook, VoucherGroupingRule, EntryGroupingRule
+  , SummaryRule, VoucherType, VoucherCodeMapping, AccountMapping, PaymentApplication, ReleaseOrderVerification, BlRelease, ExpenseReview
+  , FeeAdjustment, ActualPayment, FinanceQuery, VoucherLog, SalesBusinessAmountReport, OutstandingReceivablesPayablesReport
+  , NotReceivablesFeeReport, NotReceivablesOrderReport, SalesBusinessWeightReport, CustomerArrearsAnalysisReport,
+  SalesProfitReport, DepartmentBusinessWeightReport, SingleTicketProfitStatisticsReport, OperatorShipmentSummaryReport, TransportationLineTeuReport, CustomerWeightProfitReport, AccountsReceivableAgingReport, NotPayFeeReport, NotPayOrderReport, BaseSeaPort, BaseAirPort, BaseRailwayPort, Demo, BaseExchangeRate,
+  BaseTaxRate, BaseSettlementMethod, BaseTradeLanes, BaseTradeLanesGrouping, BaseGoods, BaseShipmentType, BaseBusinessType, BaseTransportationTerms, BaseTradeTerms, BaseFreightTerms, BaseBillTerms, BaseContainerTeu, BaseCargoType, BaseContainerType, ContractsManage, BusinessPartner,
   ParterDetail,
   InternalAgentSettlement,
   PartnerPerformance,
@@ -50,6 +51,8 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   BaseAccountPurpose,
   BaseCorporateFundAccount,
   AccountDetail,
+  BaseCorporateCashAccount,
+  SysBusinessLog,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -73,8 +76,8 @@ const routers = createMemoryRouter([
         path: "/demo",
         handle: { title: '测试' },
         element: (
-            <Demo />
-          )
+          <Demo />
+        )
       },
       {
         path: "/basic_finance",
@@ -175,7 +178,7 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
       // 业务基础数据
       {
         path: "/base_business_manage",
@@ -274,7 +277,7 @@ const routers = createMemoryRouter([
                 <BaseContainerTeu />
               </RouterGuard>),
           },
-          
+
           {
             path: "base_goods",
             handle: { title: '海关商品' },
@@ -343,6 +346,11 @@ const routers = createMemoryRouter([
             path: "base_corporate_fund_account/detail",
             handle: { title: '企业资金账户详情' },
             element: <AccountDetail />,
+          },
+          {
+            path: "base_corporate_cash_account",
+            handle: { title: '企业现金账户' },
+            element: <BaseCorporateCashAccount />,
           },
         ]
       },
@@ -441,7 +449,7 @@ const routers = createMemoryRouter([
           },
           {
             path: "fee_reconciliation/compare",
-            handle: { title: '自动对账' }, 
+            handle: { title: '自动对账' },
             element: (
               <RouterGuard>
                 <FeeReconciliationCompare />
@@ -649,7 +657,7 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
       // 组织机构
       {
         path: "/org",
@@ -697,7 +705,7 @@ const routers = createMemoryRouter([
             handle: { title: '部门' },
             element: (
               <RouterGuard>
-                <Department />  
+                <Department />
               </RouterGuard>),
           },
           {
@@ -705,7 +713,7 @@ const routers = createMemoryRouter([
             handle: { title: '岗位' },
             element: (
               <RouterGuard>
-                <JobPosition />  
+                <JobPosition />
               </RouterGuard>),
           },
         ]
@@ -748,23 +756,45 @@ const routers = createMemoryRouter([
         ]
       },
 
-      
+      // 日志管理
       {
-        path: "/exportlog",
-        handle: { title: '导出日志' },
+        path: "/log_manage",
+        handle: { title: '日志管理' },
         element: (
           <RouterGuard>
-            <ExportLog />
-          </RouterGuard>),
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "exportlog",
+            handle: { title: '导出日志' },
+            element: (
+              <RouterGuard>
+                <ExportLog />
+              </RouterGuard>),
+          },
+          {
+            path: "importlog",
+            handle: { title: '导入日志' },
+            element: (
+              <RouterGuard>
+                <ImportLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_business_log",
+            handle: { title: '系统业务日志' },
+            element: (
+              <RouterGuard>
+                <SysBusinessLog />
+              </RouterGuard>),
+          },
+        ]
       },
-      {
-        path: "/importlog",
-        handle: { title: '导入日志' },
-        element: (
-          <RouterGuard>
-            <ImportLog />
-          </RouterGuard>),
-      },
+
+
+
       // 模板管理
       {
         path: "/template_manage",
@@ -793,7 +823,7 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
       // 财务审核
       {
         path: "/finance_audit",
@@ -1048,7 +1078,7 @@ const routers = createMemoryRouter([
                 <NotReceivablesOrderReport />
               </RouterGuard>),
           },
-          
+
           {
             path: "customer_arrears_analysis_report",
             handle: { title: '客户欠款分析表' },
@@ -1057,7 +1087,7 @@ const routers = createMemoryRouter([
                 <CustomerArrearsAnalysisReport />
               </RouterGuard>),
           },
-          
+
           {
             path: "accounts_receivable_aging_report",
             handle: { title: '应收未收对账表（按业务单号）' },
@@ -1278,6 +1308,6 @@ const routers = createMemoryRouter([
     path: "/login",
     element: <Login />,
   },
-]); 
- 
+]);
+
 export default routers;

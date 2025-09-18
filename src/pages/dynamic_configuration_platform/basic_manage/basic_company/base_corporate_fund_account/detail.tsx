@@ -9,21 +9,7 @@ import zh from 'antd/es/date-picker/locale/zh_CN';
 import CurrencyTab from './currency_tab';
 import '@/pages/page_list.less';
 import './currency.less'
-
-
-// const zh_CNLocale: typeof zh = {
-//     ...zh,
-//     lang: {
-//       ...zh.lang,
-//       locale: 'zh_CN',
-//       fieldDateFormat: 'YYYY-MM-DD',
-//       fieldDateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-//       yearFormat: 'YYYY 年',
-//       monthFormat: 'MM 月',
-//       cellYearFormat: 'YYYY',
-//       "shortWeekDays": ["日", "一", "二", "三", "四", "五", "六"],
-//     },
-//   };
+import { useNavigate } from 'react-router-dom';
 
 const items = [
     {
@@ -32,8 +18,14 @@ const items = [
         children: <CurrencyTab />,
     },
 ];
+
+
 const AccountDetail: React.FC = () => {
     const [value, setValue] = useState([]);
+    const navigate = useNavigate();
+    const handleBack = () => {
+        navigate('/basic_company/base_corporate_fund_account');
+    };
     return (
         <>
             <div className="nc-bill-header-area">
@@ -75,6 +67,8 @@ const AccountDetail: React.FC = () => {
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
                                 <Button type="primary" danger>保存</Button>
+                                <Button>取消</Button>
+                                <Button onClick={handleBack}>返回</Button>
                             </div>
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>

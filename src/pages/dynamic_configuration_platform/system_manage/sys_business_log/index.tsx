@@ -1,11 +1,11 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseCorporateFundAccountItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_corporate_fund_account";
-import { getBaseCorporateFundAccountList,saveBaseCorporateFundAccount } from "@/api/dynamic_configuration_platform/basic_manage/base_corporate_fund_account_service";
+import { SysBusinessLogItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_business_log";
+import { getSysBusinessLogList,saveSysBusinessLog } from "@/api/dynamic_configuration_platform/system_manage/sys_business_log_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -18,32 +18,34 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
+import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const BaseCorporateFundAccount : React.FC = () => {
+const SysBusinessLog : React.FC = () => {
 
-    // 企业资金账户数据
-    const [baseCorporateFundAccountList, setBaseCorporateFundAccountList] = useState([] as BaseCorporateFundAccountItemProps[]);
+    // 业务日志数据
+    const [sysBusinessLogList, setSysBusinessLogList] = useState([] as SysBusinessLogItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取企业资金账户数据
+    // 获取业务日志数据
     useEffect(() => {
         const getData = async () => {
-            const baseCorporateFundAccountData = await getBaseCorporateFundAccountList();
-            // 设置企业资金账户台账数据
-            setBaseCorporateFundAccountList([...baseCorporateFundAccountData]);
+            const sysBusinessLogData = await getSysBusinessLogList();
+            // 设置业务日志台账数据
+            setSysBusinessLogList([...sysBusinessLogData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:BaseCorporateFundAccountItemProps) => {
+    const handleDelete = (record:SysBusinessLogItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:BaseCorporateFundAccountItemProps) => {
-        const newData = baseCorporateFundAccountList.filter((item) => `${item.AccountCode}` === `${record.AccountCode}`);
+    const handleEdit = (record:SysBusinessLogItemProps) => {
+        const newData = sysBusinessLogList.filter((item) => `${item.UserCode}` === `${record.UserCode}`);
         setFormData(newData[0]);
-        navigate('/basic_company/base_corporate_fund_account/detail');
+        setModalFlag('edit');
+        showModal();
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
@@ -85,8 +87,8 @@ const BaseCorporateFundAccount : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as BaseCorporateFundAccountItemProps;
-    const [formData, setFormData] = useState<BaseCorporateFundAccountItemProps>(initFormData);
+    const initFormData = {} as SysBusinessLogItemProps;
+    const [formData, setFormData] = useState<SysBusinessLogItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -119,7 +121,7 @@ const BaseCorporateFundAccount : React.FC = () => {
         });
 
         try {
-            const response = await saveBaseCorporateFundAccount(formData, (progress) => {
+            const response = await saveSysBusinessLog(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -165,7 +167,7 @@ const BaseCorporateFundAccount : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<BaseCorporateFundAccountItemProps> = {
+    const rowSelection: TableRowSelection<SysBusinessLogItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -188,38 +190,36 @@ const BaseCorporateFundAccount : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
+            <DetailModal
+                open={open}
+                modalFlag={modalFlag}
+                saving={saving}
+                formData={formData}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                onChange={handleChange}
+                onDateChange={handleDateChange}
+                onNumberChange={handleNumberChange}
+                onChangeTetxtArea={handleTextAreaChange}
+            />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_corporate_fund_account' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_corporate_fund_account' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_corporate_fund_account' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='sys_business_log' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='sys_business_log' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='sys_business_log' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 企业资金账户
-                            <Tooltip
-                                title={
-                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
-                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
-                                                企业银行账户是指企业的对公账户，用于企业的收付款业务。
-                                                企业银行账户数据受组织权限控制。
-                                            </li>
-                                        </ol>
-                                    </div>
-                                }
-                                color='white'>
-                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
-                            </Tooltip>
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 业务日志
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        {/* <div style={{display: "inline"}}>
+                        <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
                                 <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
                             </label>
-                        </div> */}
+                        </div>
                     </span>
                 </div>
                 <div className="header-button-area">
@@ -261,7 +261,6 @@ const BaseCorporateFundAccount : React.FC = () => {
                                     </Space>
                                 </Button>   
                             </Dropdown>
-                            <Button>查看业务日志</Button>
                         </div>
                         <span className="u-button">
                             <RedoOutlined className='iconfont' />
@@ -271,13 +270,13 @@ const BaseCorporateFundAccount : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<BaseCorporateFundAccountItemProps>
+                <Table<SysBusinessLogItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
-                    rowKey={(record) => `${record.AccountCode}`}
+                    rowKey={(record) => `${record.UserCode}`}
                     showSorterTooltip={false}
-                    dataSource={baseCorporateFundAccountList}
-                    loading={baseCorporateFundAccountList.length === 0}
+                    dataSource={sysBusinessLogList}
+                    loading={sysBusinessLogList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -303,4 +302,4 @@ const BaseCorporateFundAccount : React.FC = () => {
         
     )
 }
-export default BaseCorporateFundAccount;
+export default SysBusinessLog;

@@ -4,8 +4,8 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { BaseCorporateFundAccountItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_corporate_fund_account";
-import { getBaseCorporateFundAccountList,saveBaseCorporateFundAccount } from "@/api/dynamic_configuration_platform/basic_manage/base_corporate_fund_account_service";
+import { BaseCorporateCashAccountItemProps } from "@/types/dynamic_configuration_platform/basic_manage/base_corporate_cash_account";
+import { getBaseCorporateCashAccountList,saveBaseCorporateCashAccount } from "@/api/dynamic_configuration_platform/basic_manage/base_corporate_cash_account_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -18,32 +18,34 @@ import ModelExcelImportTemplateUpdate from '@/components/excel/modal_import_temp
 import { getColumns } from './columns';
 import { statusItems, importItems, exportItems } from './menu_items';
 import { fields } from './search_fields';
+import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const BaseCorporateFundAccount : React.FC = () => {
+const BaseCorporateCashAccount : React.FC = () => {
 
-    // 企业资金账户数据
-    const [baseCorporateFundAccountList, setBaseCorporateFundAccountList] = useState([] as BaseCorporateFundAccountItemProps[]);
+    // 企业现金账户数据
+    const [baseCorporateCashAccountList, setBaseCorporateCashAccountList] = useState([] as BaseCorporateCashAccountItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取企业资金账户数据
+    // 获取企业现金账户数据
     useEffect(() => {
         const getData = async () => {
-            const baseCorporateFundAccountData = await getBaseCorporateFundAccountList();
-            // 设置企业资金账户台账数据
-            setBaseCorporateFundAccountList([...baseCorporateFundAccountData]);
+            const baseCorporateCashAccountData = await getBaseCorporateCashAccountList();
+            // 设置企业现金账户台账数据
+            setBaseCorporateCashAccountList([...baseCorporateCashAccountData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:BaseCorporateFundAccountItemProps) => {
+    const handleDelete = (record:BaseCorporateCashAccountItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:BaseCorporateFundAccountItemProps) => {
-        const newData = baseCorporateFundAccountList.filter((item) => `${item.AccountCode}` === `${record.AccountCode}`);
+    const handleEdit = (record:BaseCorporateCashAccountItemProps) => {
+        const newData = baseCorporateCashAccountList.filter((item) => `${item.AccountCode}` === `${record.AccountCode}`);
         setFormData(newData[0]);
-        navigate('/basic_company/base_corporate_fund_account/detail');
+        setModalFlag('edit');
+        showModal();
     };
     
     const columnsType = getColumns(handleEdit, handleDelete);
@@ -85,8 +87,8 @@ const BaseCorporateFundAccount : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as BaseCorporateFundAccountItemProps;
-    const [formData, setFormData] = useState<BaseCorporateFundAccountItemProps>(initFormData);
+    const initFormData = {} as BaseCorporateCashAccountItemProps;
+    const [formData, setFormData] = useState<BaseCorporateCashAccountItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -119,7 +121,7 @@ const BaseCorporateFundAccount : React.FC = () => {
         });
 
         try {
-            const response = await saveBaseCorporateFundAccount(formData, (progress) => {
+            const response = await saveBaseCorporateCashAccount(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -165,7 +167,7 @@ const BaseCorporateFundAccount : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<BaseCorporateFundAccountItemProps> = {
+    const rowSelection: TableRowSelection<BaseCorporateCashAccountItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -188,23 +190,35 @@ const BaseCorporateFundAccount : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
+            <DetailModal
+                open={open}
+                modalFlag={modalFlag}
+                saving={saving}
+                formData={formData}
+                onCancel={handleCancel}
+                onOk={handleOk}
+                onChange={handleChange}
+                onDateChange={handleDateChange}
+                onNumberChange={handleNumberChange}
+                onChangeTetxtArea={handleTextAreaChange}
+            />
             
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_corporate_fund_account' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_corporate_fund_account' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_corporate_fund_account' />
+            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='base_corporate_cash_account' importType={uploadImportType} />
+            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='base_corporate_cash_account' />
+            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='base_corporate_cash_account' />
 
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 企业资金账户
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 企业现金账户
                             <Tooltip
                                 title={
                                     <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
                                         <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
                                             <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
-                                                企业银行账户是指企业的对公账户，用于企业的收付款业务。
-                                                企业银行账户数据受组织权限控制。
+                                                企业除了银行账户的资金外，还会有现金储备，需要进行现金账户的管理。
+                                                企业现金账户数据受组织权限控制。
                                             </li>
                                         </ol>
                                     </div>
@@ -271,13 +285,13 @@ const BaseCorporateFundAccount : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<BaseCorporateFundAccountItemProps>
+                <Table<BaseCorporateCashAccountItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
                     rowKey={(record) => `${record.AccountCode}`}
                     showSorterTooltip={false}
-                    dataSource={baseCorporateFundAccountList}
-                    loading={baseCorporateFundAccountList.length === 0}
+                    dataSource={baseCorporateCashAccountList}
+                    loading={baseCorporateCashAccountList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -303,4 +317,4 @@ const BaseCorporateFundAccount : React.FC = () => {
         
     )
 }
-export default BaseCorporateFundAccount;
+export default BaseCorporateCashAccount;
