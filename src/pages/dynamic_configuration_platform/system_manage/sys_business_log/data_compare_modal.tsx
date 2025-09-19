@@ -44,7 +44,7 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
                                 display: 'inline-block',
                                 width: '32px',
                                 height: '12px',
-                                backgroundColor: '#dc3545',
+                                backgroundColor: '#ffecec',
                                 marginRight: '4px',
                                 borderRadius: '2px'
                             }}></span>
@@ -60,11 +60,27 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
                                 display: 'inline-block',
                                 width: '32px',
                                 height: '12px',
-                                backgroundColor: '#28a745',
+                                backgroundColor: '#e6ffed',
                                 marginRight: '4px',
                                 borderRadius: '2px'
                             }}></span>
-                            新增/修改
+                            新增
+                        </span>
+                        <span style={{ 
+                            display: 'inline-flex', 
+                            alignItems: 'center', 
+                            fontSize: '12px',
+                            color: '#666'
+                        }}>
+                            <span style={{
+                                display: 'inline-block',
+                                width: '32px',
+                                height: '12px',
+                                backgroundColor: '#e6f3ff',
+                                marginRight: '4px',
+                                borderRadius: '2px'
+                            }}></span>
+                            修改
                         </span>
                     </div>
                     <Button type="primary" onClick={onCancel}>

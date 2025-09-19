@@ -70,7 +70,8 @@ const SysBusinessLog : React.FC = () => {
     };
 
     
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false); // 直接设置为true进行测试
+    
     const [openExcel, setExcelOpen] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
@@ -215,44 +216,23 @@ const SysBusinessLog : React.FC = () => {
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
+                        {/* <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
                                 <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
                             </label>
-                        </div>
+                        </div> */}
                     </span>
                 </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{display: "flex"}}>
                         <div className="buttonGroup-component">
-                            <div className="u-button-group">
-                                <Button type="primary" danger onClick={handleAdd}>新增</Button>
-                                <Button>修改</Button>
-                                <Button>删除</Button>
-                                <Button>复制</Button>
-                            </div>
+                            
                         </div> 
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
                         <div className="divider-button-wrapper">
-                            <Dropdown menu={{items:statusItems}}>
-                                <Button>
-                                    <Space>
-                                        启用
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
-                            <Dropdown menu={{items:importItems,onClick:excelImportOnClick}}>
-                                <Button>
-                                    <Space>
-                                        导入
-                                    <DownOutlined />
-                                    </Space>
-                                </Button>   
-                            </Dropdown>
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>

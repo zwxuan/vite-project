@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Timeline, Checkbox } from 'antd';
 import { SysBusinessLogItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_business_log";
 import dayjs from 'dayjs';
@@ -57,6 +57,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [detailOpen, setDetailOpen] = useState(false);
     const [compareOpen, setCompareOpen] = useState(false);
+    
     const handleCompareChange = (itemId: string, checked: boolean) => {
         if (checked) {
             setSelectedItems(prev => {
@@ -223,7 +224,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 <DataCompareModal
                     open={compareOpen}
                     newJsonData={{
-                        sysRole: false,
+                        sysRole: true,
                         modifiedTime: "1753753825231",
                         versionNum: 0,
                         isactive: 1,
