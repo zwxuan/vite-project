@@ -29,14 +29,26 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
     }, [oldData, newData]);
 
     return (
-        <div style={{ height, overflow: 'auto', border: '1px solid #d9d9d9', borderRadius: '6px', backgroundColor: '#fafafa' }}>
-            <div style={{ display: 'flex', height: '100%' }}>
-                {/* 左侧：旧数据 */}
+        <div style={{ height, border: '1px solid #d9d9d9', borderRadius: '6px', backgroundColor: '#fafafa', position: 'relative' }}>
+            {/* 固定表头 */}
+            <div style={{ display: 'flex', position: 'sticky', top: 0, zIndex: 10, backgroundColor: '#fafafa' }}>
                 <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
                     <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
-                        旧数据
+                        旧数据 2025-07-29 09:50:06
                     </div>
-                    <div style={{ padding: '8px' }}>
+                </div>
+                <div style={{ flex: 1 }}>
+                    <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+                        新数据 2025-07-29 09:50:25
+                    </div>
+                </div>
+            </div>
+            
+            {/* 可滚动内容区域 */}
+            <div style={{ display: 'flex', height: 'calc(100% - 40px)', overflow: 'hidden' }}>
+                {/* 左侧：旧数据 */}
+                <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
+                    <div style={{ padding: '8px 12px',height: 'calc(100% - 20px)', overflow: 'auto'  }}>
                         {diffData.map((part, index) => {
                             if (part.removed) {
                                 return part.value.split('\n').map((line, lineIndex) => {
@@ -81,10 +93,7 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
 
                 {/* 右侧：新数据 */}
                 <div style={{ flex: 1 }}>
-                    <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
-                        新数据
-                    </div>
-                    <div style={{ padding: '8px' }}>
+                    <div style={{ padding: '8px 12px',height: 'calc(100% - 20px)', overflow: 'auto' }}>
                         {diffData.map((part, index) => {
                             if (part.added) {
                                 return part.value.split('\n').map((line, lineIndex) => {
