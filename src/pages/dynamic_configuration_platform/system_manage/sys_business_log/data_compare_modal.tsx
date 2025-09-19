@@ -32,9 +32,45 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
             style={{ top: 20 }}
             width={'55%'}
             footer={[
-                <Button type="primary" onClick={onCancel}>
-                    关闭
-                </Button>,
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'right', gap: '12px',paddingLeft: '32px' }}>
+                        <span style={{ 
+                            display: 'inline-flex', 
+                            alignItems: 'center', 
+                            fontSize: '12px',
+                            color: '#666'
+                        }}>
+                            <span style={{
+                                display: 'inline-block',
+                                width: '32px',
+                                height: '12px',
+                                backgroundColor: '#dc3545',
+                                marginRight: '4px',
+                                borderRadius: '2px'
+                            }}></span>
+                            删除
+                        </span>
+                        <span style={{ 
+                            display: 'inline-flex', 
+                            alignItems: 'center', 
+                            fontSize: '12px',
+                            color: '#666'
+                        }}>
+                            <span style={{
+                                display: 'inline-block',
+                                width: '32px',
+                                height: '12px',
+                                backgroundColor: '#28a745',
+                                marginRight: '4px',
+                                borderRadius: '2px'
+                            }}></span>
+                            新增/修改
+                        </span>
+                    </div>
+                    <Button type="primary" onClick={onCancel}>
+                        关闭
+                    </Button>
+                </div>,
             ]}
         >
             <div className="nc-bill-search-area" style={{ height: '650px' }}>
