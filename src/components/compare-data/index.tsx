@@ -5,6 +5,7 @@ interface CompareDataProps {
     oldData: any;
     newData: any;
     height?: string;
+    jsonFormat?: boolean; // 是否使用标准JSON格式展示
 }
 
 // 扩展diff库的Change类型，添加modified属性
@@ -15,7 +16,7 @@ interface ExtendedChange extends Change {
     newNestedKeys?: string[]; // 新增的嵌套字段
 }
 
-const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '580px' }) => {
+const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '580px', jsonFormat = false }) => {
     // 格式化JSON数据为字符串
     const formatJsonString = (data: any): string => {
         if (typeof data === 'string') {
@@ -231,6 +232,140 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
         
         return processedDiff;
     }, [oldData, newData]);
+
+    // 标准JSON格式展示（带差异标记）
+    if (jsonFormat) {
+        const oldJsonStr = formatJsonString(oldData);
+        const newJsonStr = formatJsonString(newData);
+        
+        // 解析JSON对象用于差异分析
+        let oldObj: any = {};
+        let newObj: any = {};
+        
+        try {
+            oldObj = typeof oldData === 'string' ? JSON.parse(oldData) : oldData || {};
+            newObj = typeof newData === 'string' ? JSON.parse(newData) : newData || {};
+        } catch (e) {
+            console.error('JSON解析错误:', e);
+        }
+        
+        // 渲染带差异标记的JSON
+        const renderJsonWithDiff = (jsonStr: string, obj: any, isOld: boolean) => {
+            const lines = jsonStr.split('\n');
+            return lines.map((line, index) => {
+                const trimmed = line.trim();
+                const match = trimmed.match(/^"([^"]+)"\s*:/);
+                
+                let backgroundColor = 'transparent';
+                let borderLeft = 'none';
+                let symbol = '';
+                let symbolColor = 'transparent';
+                
+                if (match) {
+                    const key = match[1];
+                    const hasOldValue = oldObj.hasOwnProperty(key);
+                    const hasNewValue = newObj.hasOwnProperty(key);
+                    
+                    if (isOld) {
+                        // 左侧（旧数据）
+                        if (hasOldValue && !hasNewValue) {
+                            // 被删除的字段
+                            backgroundColor = '#ffecec';
+                            borderLeft = '3px solid #dc3545';
+                            symbol = '-';
+                            symbolColor = '#dc3545';
+                        } else if (hasOldValue && hasNewValue) {
+                            const oldValue = JSON.stringify(oldObj[key]);
+                            const newValue = JSON.stringify(newObj[key]);
+                            if (oldValue !== newValue) {
+                                // 修改的字段（旧值）
+                                backgroundColor = '#e6f3ff';
+                                borderLeft = '3px solid #1890ff';
+                                symbol = '~';
+                                symbolColor = '#1890ff';
+                            }
+                        }
+                    } else {
+                        // 右侧（新数据）
+                        if (!hasOldValue && hasNewValue) {
+                            // 新增的字段
+                            backgroundColor = '#e6ffed';
+                            borderLeft = '3px solid #28a745';
+                            symbol = '+';
+                            symbolColor = '#28a745';
+                        } else if (hasOldValue && hasNewValue) {
+                            const oldValue = JSON.stringify(oldObj[key]);
+                            const newValue = JSON.stringify(newObj[key]);
+                            if (oldValue !== newValue) {
+                                // 修改的字段（新值）
+                                backgroundColor = '#e6f3ff';
+                                borderLeft = '3px solid #1890ff';
+                                symbol = '~';
+                                symbolColor = '#1890ff';
+                            }
+                        }
+                    }
+                }
+                
+                return (
+                    <div key={index} style={{
+                        backgroundColor,
+                        borderLeft,
+                        padding: '0 8px',
+                        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                        fontSize: '12px',
+                        lineHeight: '1.5',
+                        whiteSpace: 'pre',
+                        display: 'flex'
+                    }}>
+                        <span style={{ 
+                            color: symbolColor, 
+                            marginRight: '8px',
+                            minWidth: '12px'
+                        }}>
+                            {symbol}
+                        </span>
+                        <span>{line}</span>
+                    </div>
+                );
+            });
+        };
+        
+        return (
+            <div style={{ height, border: '1px solid #d9d9d9', borderRadius: '6px', backgroundColor: '#fafafa', position: 'relative' }}>
+                {/* 固定表头 */}
+                <div style={{ display: 'flex', position: 'sticky', top: 0, zIndex: 10, backgroundColor: '#fafafa' }}>
+                    <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
+                        <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+                            旧数据 (JSON格式)
+                        </div>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+                            新数据 (JSON格式)
+                        </div>
+                    </div>
+                </div>
+                
+                {/* JSON内容区域 */}
+                <div style={{ display: 'flex', height: 'calc(100% - 40px)', overflow: 'hidden' }}>
+                    {/* 左侧：旧数据JSON */}
+                    <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
+                        <div style={{ padding: '12px', height: 'calc(100% - 24px)', overflow: 'auto' }}>
+                            {renderJsonWithDiff(oldJsonStr, oldObj, true)}
+                        </div>
+                    </div>
+                    
+                    {/* 右侧：新数据JSON */}
+                    <div style={{ flex: 1 }}>
+                        <div style={{ padding: '12px', height: 'calc(100% - 24px)', overflow: 'auto' }}>
+                            {renderJsonWithDiff(newJsonStr, newObj, false)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div style={{ height, border: '1px solid #d9d9d9', borderRadius: '6px', backgroundColor: '#fafafa', position: 'relative' }}>

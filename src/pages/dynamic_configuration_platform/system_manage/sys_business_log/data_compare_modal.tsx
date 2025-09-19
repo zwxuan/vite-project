@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
+import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Switch } from 'antd';
 import dayjs from 'dayjs';
 import CompareData from '@/components/compare-data';
 
@@ -19,6 +19,7 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
     oldJsonData,
     onCancel,
 }) => {
+    const [jsonFormat, setJsonFormat] = useState(false);
 
     
 
@@ -92,15 +93,25 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
             <div className="nc-bill-search-area" style={{ height: '650px' }}>
                 <div className="nc-bill-header-area">
                     <div className="header-title-search-area">
-                        <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span className="bill-info-title" style={{ marginLeft: "10px",fontSize: "14px" }}>
                                 2025-09-16 14:20:33  张晓小
                             </span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '10px' }}>
+                                <span style={{ fontSize: '12px', color: '#666' }}>标准JSON格式:</span>
+                                <Switch 
+                                    size="small"
+                                    checked={jsonFormat}
+                                    onChange={setJsonFormat}
+                                    checkedChildren="开"
+                                    unCheckedChildren="关"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="search-area-contant" style={{ padding: '10px 10px', overflowY: 'auto', overflowX: 'hidden' }}>
-                    <CompareData oldData={oldJsonData} newData={newJsonData} />
+                    <CompareData oldData={oldJsonData} newData={newJsonData} jsonFormat={jsonFormat} />
                 </div>
             </div>
             
