@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
 import dayjs from 'dayjs';
+import CompareData from '@/components/compare-data';
+
+
 interface DataCompareModalProps {
     open: boolean;
     newJsonData: any;
@@ -16,8 +19,9 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
     oldJsonData,
     onCancel,
 }) => {
+
     
-    
+
     return (
         <Modal 
             open={open} 
@@ -44,7 +48,7 @@ const DataCompareModal: React.FC<DataCompareModalProps> = ({
                     </div>
                 </div>
                 <div className="search-area-contant" style={{ padding: '10px 10px', overflowY: 'auto', overflowX: 'hidden' }}>
-                    
+                    <CompareData oldData={oldJsonData} newData={newJsonData} />
                 </div>
             </div>
             

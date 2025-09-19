@@ -78,7 +78,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     const handleCancelDetailData = () => {
         setDetailOpen(false);
     }
-    
+
     const handleOpenCompareData = (record: any) => {
         setCompareOpen(true);
     };
@@ -88,7 +88,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     return (
 
 
-        
+
         <Modal
             open={open}
             title={"业务历史变更"}
@@ -116,7 +116,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         </span>
                     </div>
                     <div className="header-button-area">
-                        <Button 
+                        <Button
                             onClick={handleOpenCompareData}
                             disabled={selectedItems.length !== 2}
                         >
@@ -222,8 +222,66 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 />
                 <DataCompareModal
                     open={compareOpen}
-                    newJsonData={jsonData}
-                    oldJsonData={jsonData}
+                    newJsonData={{
+                        sysRole: false,
+                        modifiedTime: "1753753825231",
+                        versionNum: 0,
+                        isactive: 1,
+                        modifier: "cf04df33-50e5-4d23-96ba-043e49960679",
+                        description: "测试角色",
+                        roleType: 1,
+                        orgId: "666666",
+                        enable: 1,
+                        roleCode: "test",
+                        hideRole: false,
+                        multilingualDesc: "测试角色",
+                        creator: "cf04df33-50e5-4d23-96ba-043e49960679",
+                        orgName: "",
+                        threeMemberType: 0,
+                        roleId: "d6d602b2-200e-482e-ab88-bb5df8beacdd",
+                        yxyTenantId: "4149696075275056",
+                        label: "common",
+                        ytenantId: "idm74nu5",
+                        subTenantId: "0",
+                        systemCode: "diwork",
+                        createTime: "1753752995000",
+                        editMode: 1,
+                        roleName: "测试说明",
+                        name: "测试说明",
+                        tenantId: "idm74nu5",
+                        ts: "1753753805000",
+                        snowflakeId: "2324032531219873797"
+                    }}
+                    oldJsonData={{
+                        sysRole: false,
+                        versionNum: 0,
+                        isactive: 1,
+                        modifier: "cf04df33-50e5-4d23-96ba-043e49960679",
+                        description: "测试角色",
+                        roleType: 1,
+                        orgId: "666666",
+                        enable: 1,
+                        roleCode: "test",
+                        hideRole: false,
+                        multilingualDesc: "测试角色",
+                        createDate: "2025-07-29 09:36:35",
+                        creator: "cf04df33-50e5-4d23-96ba-043e49960679",
+                        orgName: "",
+                        threeMemberType: 0,
+                        roleId: "d6d602b2-200e-482e-ab88-bb5df8beacdd",
+                        yxyTenantId: "4149696075275056",
+                        label: "common",
+                        ytenantId: "idm74nu5",
+                        subTenantId: "0",
+                        systemCode: "diwork",
+                        createTime: "1753752995000",
+                        editMode: 1,
+                        roleName: "测试说明",
+                        name: "测试说明",
+                        tenantId: "idm74nu5",
+                        ts: "1753753805000",
+                        snowflakeId: "2324032531219873797"
+                    }}
                     onCancel={handleCancelCompareData}
                 />
             </div>
