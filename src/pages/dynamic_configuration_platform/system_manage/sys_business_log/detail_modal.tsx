@@ -5,6 +5,7 @@ import { SysBusinessLogItemProps } from "@/types/dynamic_configuration_platform/
 import dayjs from 'dayjs';
 import LogItem from './log_item';
 import DetailDataModal from './detail_data_modal';
+import DataCompareModal from './data_compare_modal';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -55,6 +56,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
 }) => {
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [detailOpen, setDetailOpen] = useState(false);
+    const [compareOpen, setCompareOpen] = useState(false);
     const handleCompareChange = (itemId: string, checked: boolean) => {
         if (checked) {
             setSelectedItems(prev => {
@@ -76,6 +78,13 @@ const DetailModal: React.FC<DetailModalProps> = ({
     const handleCancelDetailData = () => {
         setDetailOpen(false);
     }
+    
+    const handleOpenCompareData = (record: any) => {
+        setCompareOpen(true);
+    };
+    const handleCancelCompareData = () => {
+        setCompareOpen(false);
+    };
     return (
 
 
@@ -107,7 +116,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         </span>
                     </div>
                     <div className="header-button-area">
-                        <Button>对比操作</Button>
+                        <Button 
+                            onClick={handleOpenCompareData}
+                            disabled={selectedItems.length !== 2}
+                        >
+                            对比操作
+                        </Button>
                     </div>
                 </div>
                 <div className="search-area-contant" style={{ padding: '10px 10px', overflowY: 'auto', overflowX: 'hidden' }}>
@@ -116,11 +130,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         items={[
                             {
                                 label: '2025-09-15 14:42:28',
+                                color: 'green',
                                 children: (
                                     <LogItem
                                         itemId="item-1"
                                         userName="张晓小"
-                                        description="张晓小在2025-09-15 14:42:28对查询资源列表:hrStaffModify(员工信息变更移动端子集模板)进行了查询"
+                                        description='张晓小在2025-07-29 09:50:06在测试说明设置功能权限["用户管理:[导入]","用户管理:[导出]","用户管理:[设置管理员]","用户管理:[移除]","数据权限:[编辑]","数据权限:[删除]","数据权限:[新增]","用户管理:[新增]","授权:[授权角色复制]","授权:[授权角色粘贴]","授权:[复制]","授权:[粘贴]","授权:[分配组织]","授权:[分配IT组织]","授权:[分配用户]","授权:[分配角色]","授权:[删除]","授权:[导出]","授权:[查看]","角色管理:[新增]","角色管理:[标签设置]","角色管理:[删除]","角色管理:[编辑]","角色管理:[Excel导出]","角色管理:[导入]","角色管理:[查看]","角色管理:[模板下载]","授权:[导入]","角色管理:[复制]","授权:[批量操作]"]'
                                         isChecked={selectedItems.includes('item-1')}
                                         onViewData={() => handleOpenDetailData(jsonData)}
                                         onCompare={(checked) => handleCompareChange('item-1', checked)}
@@ -129,6 +144,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             },
                             {
                                 label: '2025-09-15 13:56:28',
+                                color: 'green',
                                 children: (
                                     <LogItem
                                         itemId="item-2"
@@ -142,6 +158,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             },
                             {
                                 label: '2025-09-15 13:56:28',
+                                color: 'green',
                                 children: (
                                     <LogItem
                                         itemId="item-3"
@@ -155,6 +172,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             },
                             {
                                 label: '2025-09-15 13:56:28',
+                                color: 'green',
                                 children: (
                                     <LogItem
                                         itemId="item-4"
@@ -168,6 +186,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             },
                             {
                                 label: '2025-09-15 13:56:28',
+                                color: 'green',
                                 children: (
                                     <LogItem
                                         itemId="item-5"
@@ -181,6 +200,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             },
                             {
                                 label: '2025-09-15 13:56:28',
+                                color: 'green',
                                 children: (
                                     <LogItem
                                         itemId="item-6"
@@ -199,6 +219,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
                     open={detailOpen}
                     jsonData={jsonData}
                     onCancel={handleCancelDetailData}
+                />
+                <DataCompareModal
+                    open={compareOpen}
+                    newJsonData={jsonData}
+                    oldJsonData={jsonData}
+                    onCancel={handleCancelCompareData}
                 />
             </div>
         </Modal>

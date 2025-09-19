@@ -2,33 +2,26 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker } from 'antd';
 import dayjs from 'dayjs';
-import { githubDarkTheme, JsonEditor } from 'json-edit-react';
-import TextArea from 'antd/es/input/TextArea';
-interface DetailModalProps {
+interface DataCompareModalProps {
     open: boolean;
-    jsonData: any;
+    newJsonData: any;
+    oldJsonData: any;
     onCancel: () => void;
 }
 
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 4 },
-    },
-    wrapperCol: {
-        xs: { span: 20 },
-    },
-};
 
-const DetailDataModal: React.FC<DetailModalProps> = ({
+const DataCompareModal: React.FC<DataCompareModalProps> = ({
     open,
-    jsonData,
+    newJsonData,
+    oldJsonData,
     onCancel,
 }) => {
+    
     
     return (
         <Modal 
             open={open} 
-            title={'详细数据'}
+            title={'对比操作'}
             onCancel={onCancel}
             destroyOnClose={true}
             maskClosable={false}
@@ -51,14 +44,7 @@ const DetailDataModal: React.FC<DetailModalProps> = ({
                     </div>
                 </div>
                 <div className="search-area-contant" style={{ padding: '10px 10px', overflowY: 'auto', overflowX: 'hidden' }}>
-                    <JsonEditor minWidth={'100%'}
-                        data={jsonData}
-                        showCollectionCount={false}
-                        onUpdate={ ({ newData }) => {
-                            console.log(newData);
-                    }}
-                theme={githubDarkTheme}
-            />
+                    
                 </div>
             </div>
             
@@ -66,4 +52,4 @@ const DetailDataModal: React.FC<DetailModalProps> = ({
     );
 };
 
-export default DetailDataModal;
+export default DataCompareModal;

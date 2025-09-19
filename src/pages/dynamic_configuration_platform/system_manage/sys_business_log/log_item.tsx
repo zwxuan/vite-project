@@ -43,18 +43,19 @@ const LogItem: React.FC<LogItemProps> = ({
                         </a>
                     )}
                 </div>
-                <div>{description}</div>
+                <div style={{ lineHeight: 2 }}>{description}</div>
             </div>
-            {(hoveredItem === itemId || isChecked) && (
-                <Checkbox 
-                    style={{ marginLeft: '16px' }}
-                    checked={isChecked}
-                    onChange={(e) => {
-                        onCompare?.(e.target.checked);
-                    }}
-                >对比
-                </Checkbox>
-            )}
+            <Checkbox 
+                style={{ 
+                    marginLeft: '16px',
+                    visibility: (hoveredItem === itemId || isChecked) ? 'visible' : 'hidden'
+                }}
+                checked={isChecked}
+                onChange={(e) => {
+                    onCompare?.(e.target.checked);
+                }}
+            >对比
+            </Checkbox>
         </div>
     );
 };
