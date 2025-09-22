@@ -4,8 +4,8 @@ import React, { useState,useEffect } from 'react';
 import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { SysBusinessLogItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_business_log";
-import { getSysBusinessLogList,saveSysBusinessLog } from "@/api/dynamic_configuration_platform/system_manage/sys_business_log_service";
+import { SysOperatorLogItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_operator_log";
+import { getSysOperatorLogList,saveSysOperatorLog } from "@/api/dynamic_configuration_platform/system_manage/sys_operator_log_service";
 import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -21,28 +21,28 @@ import { fields } from './search_fields';
 import DetailModal from './detail_modal';
 
 type TableRowSelection<T extends object = object> = TableProps<T>['rowSelection'];
-const SysBusinessLog : React.FC = () => {
+const SysOperatorLog : React.FC = () => {
 
-    // 业务日志数据
-    const [sysBusinessLogList, setSysBusinessLogList] = useState([] as SysBusinessLogItemProps[]);
+    // 操作日志数据
+    const [sysOperatorLogList, setSysOperatorLogList] = useState([] as SysOperatorLogItemProps[]);
     const [uploadImportType,setUploadImportType] = useState(1);
     const [pageSize, setPageSize] = useState(50);
     const navigate = useNavigate();
-    // 获取业务日志数据
+    // 获取操作日志数据
     useEffect(() => {
         const getData = async () => {
-            const sysBusinessLogData = await getSysBusinessLogList();
-            // 设置业务日志台账数据
-            setSysBusinessLogList([...sysBusinessLogData]);
+            const sysOperatorLogData = await getSysOperatorLogList();
+            // 设置操作日志台账数据
+            setSysOperatorLogList([...sysOperatorLogData]);
         };
         getData();
     }, []);
       
-    const handleDelete = (record:SysBusinessLogItemProps) => {
+    const handleDelete = (record:SysOperatorLogItemProps) => {
         alert(record);
     };
-    const handleEdit = (record:SysBusinessLogItemProps) => {
-        const newData = sysBusinessLogList.filter((item) => `${item.UserCode}` === `${record.UserCode}`);
+    const handleEdit = (record:SysOperatorLogItemProps) => {
+        const newData = sysOperatorLogList.filter((item) => `${item.UserCode}` === `${record.UserCode}`);
         setFormData(newData[0]);
         setModalFlag('edit');
         showModal();
@@ -70,8 +70,7 @@ const SysBusinessLog : React.FC = () => {
     };
 
     
-    const [open, setOpen] = useState(false); // 直接设置为true进行测试
-    
+    const [open, setOpen] = useState(false);
     const [openExcel, setExcelOpen] = useState(false);
     const [openExcelTemplate, setExcelTemplateOpen] = useState(false);
     const [openExcelTemplateUpdate, setExcelTemplateOpenUpdate] = useState(false);
@@ -88,8 +87,8 @@ const SysBusinessLog : React.FC = () => {
         showModal();
     };
 
-    const initFormData = {} as SysBusinessLogItemProps;
-    const [formData, setFormData] = useState<SysBusinessLogItemProps>(initFormData);
+    const initFormData = {} as SysOperatorLogItemProps;
+    const [formData, setFormData] = useState<SysOperatorLogItemProps>(initFormData);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -122,7 +121,7 @@ const SysBusinessLog : React.FC = () => {
         });
 
         try {
-            const response = await saveSysBusinessLog(formData, (progress) => {
+            const response = await saveSysOperatorLog(formData, (progress) => {
                 // 更新通知中的进度条
                 notification.open({
                     key,
@@ -168,7 +167,7 @@ const SysBusinessLog : React.FC = () => {
         setExcelTemplateOpenUpdate(false);
     };
     //表格选中和取消时触发的函数
-    const rowSelection: TableRowSelection<SysBusinessLogItemProps> = {
+    const rowSelection: TableRowSelection<SysOperatorLogItemProps> = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('onchange');
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -191,48 +190,21 @@ const SysBusinessLog : React.FC = () => {
 
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
-            <DetailModal
-                open={open}
-                modalFlag={modalFlag}
-                saving={saving}
-                formData={formData}
-                onCancel={handleCancel}
-                onOk={handleOk}
-                onChange={handleChange}
-                onDateChange={handleDateChange}
-                onNumberChange={handleNumberChange}
-                onChangeTetxtArea={handleTextAreaChange}
-            />
-            
-            <ModelExcelImport open={openExcel} onCancel={handleExcelCancel} businessType='sys_business_log' importType={uploadImportType} />
-            <ModelExcelImportTemplate open={openExcelTemplate} onCancel={handleExcelTemplateCancel}  businessType='sys_business_log' />
-            <ModelExcelImportTemplateUpdate open={openExcelTemplateUpdate} onCancel={handleExcelTemplateUpdateCancel}  businessType='sys_business_log' />
-
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
-                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 业务日志
+                            <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 操作日志
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        {/* <div style={{display: "inline"}}>
-                            <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
-                            </label>
-                        </div> */}
                     </span>
                 </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{display: "flex"}}>
-                        <div className="buttonGroup-component">
-                            
-                        </div> 
-                        <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
-                            <div className="u-button-group"></div>
-                        </div>
                         <div className="divider-button-wrapper">
+                            
                             <Dropdown menu={{items:exportItems}}>
                                 <Button>
                                     <Space>
@@ -250,13 +222,13 @@ const SysBusinessLog : React.FC = () => {
             </div>
             <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
             <div className='nc-bill-table-area'>
-                <Table<SysBusinessLogItemProps>
+                <Table<SysOperatorLogItemProps>
                     columns={columnsType}
                     rowSelection={{ ...rowSelection}}
                     rowKey={(record) => `${record.UserCode}`}
                     showSorterTooltip={false}
-                    dataSource={sysBusinessLogList}
-                    loading={sysBusinessLogList.length === 0}
+                    dataSource={sysOperatorLogList}
+                    loading={sysOperatorLogList.length === 0}
                     pagination={{
                         size:'small',
                         pageSize:pageSize,
@@ -272,7 +244,7 @@ const SysBusinessLog : React.FC = () => {
                             page: '页',
                         }
                     }}
-                    scroll={{ x: 'max-content', y: 'calc(100vh - 280px)' }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 340px)' }}
                     footer={() => '底部汇总信息'}
                     bordered={true}
                 />
@@ -282,4 +254,4 @@ const SysBusinessLog : React.FC = () => {
         
     )
 }
-export default SysBusinessLog;
+export default SysOperatorLog;

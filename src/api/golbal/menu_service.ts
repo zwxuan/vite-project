@@ -399,13 +399,16 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "登录日志", key: "login_log",
+            name: "登录日志", key: "sys_login_log",path: "/log_manage/sys_login_log",
         },
         {
-            name: "操作日志", key: "sys_business_log",path: "/log_manage/sys_business_log",
+            name: "业务日志", key: "sys_business_log",path: "/log_manage/sys_business_log",
         },
         {
-            name: "异常日志", key: "exception_log",
+            name: "操作日志", key: "sys_operator_log",path: "/log_manage/sys_operator_log",
+        },
+        {
+            name: "异常日志", key: "sys_exception_log",path: "/log_manage/sys_exception_log",
         },
         {
             name: "操作日志统计", key: "business_log_statistics",

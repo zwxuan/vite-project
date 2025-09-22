@@ -113,6 +113,9 @@ const BaseCorporateFundAccount = React.lazy(() => import("@/pages/dynamic_config
 const AccountDetail = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_company/base_corporate_fund_account/detail"));
 const BaseCorporateCashAccount = React.lazy(() => import("@/pages/dynamic_configuration_platform/basic_manage/basic_company/base_corporate_cash_account"));
 const SysBusinessLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_business_log"));
+const SysLoginLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_login_log"));
+const SysOperatorLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_operator_log"));
+const SysExceptionLog = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_exception_log"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
@@ -130,5 +133,5 @@ export {
   ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,RoleManage,RoleManageDetail,RoleGroup,RoleTags,
   FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,DataPermissionRole,DataPermissionUser,BaseTaxSystem,BaseTaxType,BaseBankType,BaseBankBranch,
   BaseSettlementMethodMapper,BasePeriodicBilling,BaseSettlementCycle,BaseCompanySize,BaseCompanyNature,BaseAccountPurpose,BaseCorporateFundAccount,AccountDetail,
-  BaseCorporateCashAccount,SysBusinessLog,
+  BaseCorporateCashAccount,SysBusinessLog,SysLoginLog,SysOperatorLog,SysExceptionLog,
 };

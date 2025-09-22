@@ -53,6 +53,9 @@ import {
   AccountDetail,
   BaseCorporateCashAccount,
   SysBusinessLog,
+  SysLoginLog,
+  SysOperatorLog,
+  SysExceptionLog,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -784,12 +787,37 @@ const routers = createMemoryRouter([
           },
           {
             path: "sys_business_log",
-            handle: { title: '系统业务日志' },
+            handle: { title: '业务日志' },
             element: (
               <RouterGuard>
                 <SysBusinessLog />
               </RouterGuard>),
           },
+          {
+            path: "sys_login_log",
+            handle: { title: '登录日志' },
+            element: (
+              <RouterGuard>
+                <SysLoginLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_operator_log",
+            handle: { title: '操作日志' },
+            element: (
+              <RouterGuard>
+                <SysOperatorLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_exception_log",
+            handle: { title: '异常日志' },
+            element: (
+              <RouterGuard>
+                <SysExceptionLog />
+              </RouterGuard>),
+          },
+
         ]
       },
 

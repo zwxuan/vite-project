@@ -96,6 +96,9 @@ import { BaseCorporateFundAccountLocale } from './dynamic_configuration_platform
 import { BaseFundAccountCurrencyLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_fund_account_currency';
 import { BaseCorporateCashAccountLocale } from '@/utils/locale/dynamic_configuration_platform/basic_manage/base_corporate_cash_account';
 import { SysBusinessLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_business_log';
+import { SysLoginLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_login_log';
+import { SysOperatorLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_operator_log';
+import { SysExceptionLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_exception_log';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -108,7 +111,7 @@ export {
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
   RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
   BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,BasePeriodicBillingLocale,BaseSettlementCycleLocale,BaseCompanySizeLocale,BaseCompanyNatureLocale,BaseAccountPurposeLocale,BaseCorporateFundAccountLocale,
-  BaseFundAccountCurrencyLocale,BaseCorporateCashAccountLocale,SysBusinessLogLocale,
+  BaseFundAccountCurrencyLocale,BaseCorporateCashAccountLocale,SysBusinessLogLocale,SysLoginLogLocale,SysOperatorLogLocale,SysExceptionLogLocale,
 };
 
 export default {
@@ -124,5 +127,5 @@ export default {
   ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
   ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
   ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,...BasePeriodicBillingLocale,...BaseSettlementCycleLocale,...BaseCompanySizeLocale,...BaseCompanyNatureLocale,...BaseAccountPurposeLocale,
-  ...BaseCorporateFundAccountLocale,...BaseFundAccountCurrencyLocale,...BaseCorporateCashAccountLocale,...SysBusinessLogLocale,
+  ...BaseCorporateFundAccountLocale,...BaseFundAccountCurrencyLocale,...BaseCorporateCashAccountLocale,...SysBusinessLogLocale,...SysLoginLogLocale,...SysOperatorLogLocale,...SysExceptionLogLocale,
 };

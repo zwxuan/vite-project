@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Change } from 'diff';
+import './compare_data.css';
 
 interface CompareDataProps {
     oldData: any;
@@ -256,10 +257,9 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
                 const trimmed = line.trim();
                 const match = trimmed.match(/^"([^"]+)"\s*:/);
                 
-                let backgroundColor = 'transparent';
-                let borderLeft = 'none';
+                let lineClass = 'compare-data-json-line compare-data-json-line-unchanged';
+                let symbolClass = 'compare-data-json-symbol compare-data-symbol-transparent';
                 let symbol = '';
-                let symbolColor = 'transparent';
                 
                 if (match) {
                     const key = match[1];
@@ -270,59 +270,42 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
                         // 左侧（旧数据）
                         if (hasOldValue && !hasNewValue) {
                             // 被删除的字段
-                            backgroundColor = '#ffecec';
-                            borderLeft = '3px solid #dc3545';
+                            lineClass = 'compare-data-json-line compare-data-json-line-removed';
+                            symbolClass = 'compare-data-json-symbol compare-data-symbol-removed';
                             symbol = '-';
-                            symbolColor = '#dc3545';
                         } else if (hasOldValue && hasNewValue) {
                             const oldValue = JSON.stringify(oldObj[key]);
                             const newValue = JSON.stringify(newObj[key]);
                             if (oldValue !== newValue) {
                                 // 修改的字段（旧值）
-                                backgroundColor = '#e6f3ff';
-                                borderLeft = '3px solid #1890ff';
+                                lineClass = 'compare-data-json-line compare-data-json-line-modified';
+                                symbolClass = 'compare-data-json-symbol compare-data-symbol-modified';
                                 symbol = '~';
-                                symbolColor = '#1890ff';
                             }
                         }
                     } else {
                         // 右侧（新数据）
                         if (!hasOldValue && hasNewValue) {
                             // 新增的字段
-                            backgroundColor = '#e6ffed';
-                            borderLeft = '3px solid #28a745';
+                            lineClass = 'compare-data-json-line compare-data-json-line-added';
+                            symbolClass = 'compare-data-json-symbol compare-data-symbol-added';
                             symbol = '+';
-                            symbolColor = '#28a745';
                         } else if (hasOldValue && hasNewValue) {
                             const oldValue = JSON.stringify(oldObj[key]);
                             const newValue = JSON.stringify(newObj[key]);
                             if (oldValue !== newValue) {
                                 // 修改的字段（新值）
-                                backgroundColor = '#e6f3ff';
-                                borderLeft = '3px solid #1890ff';
+                                lineClass = 'compare-data-json-line compare-data-json-line-modified';
+                                symbolClass = 'compare-data-json-symbol compare-data-symbol-modified';
                                 symbol = '~';
-                                symbolColor = '#1890ff';
                             }
                         }
                     }
                 }
                 
                 return (
-                    <div key={index} style={{
-                        backgroundColor,
-                        borderLeft,
-                        padding: '0 8px',
-                        fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-                        fontSize: '12px',
-                        lineHeight: '1.5',
-                        whiteSpace: 'pre',
-                        display: 'flex'
-                    }}>
-                        <span style={{ 
-                            color: symbolColor, 
-                            marginRight: '8px',
-                            minWidth: '12px'
-                        }}>
+                    <div key={index} className={lineClass}>
+                        <span className={symbolClass}>
                             {symbol}
                         </span>
                         <span>{line}</span>
@@ -332,33 +315,33 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
         };
         
         return (
-            <div style={{ height, border: '1px solid #d9d9d9', borderRadius: '6px', backgroundColor: '#fafafa', position: 'relative' }}>
+            <div className="compare-data-container" style={{ height }}>
                 {/* 固定表头 */}
-                <div style={{ display: 'flex', position: 'sticky', top: 0, zIndex: 10, backgroundColor: '#fafafa' }}>
-                    <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
-                        <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+                <div className="compare-data-header">
+                    <div className="compare-data-header-left">
+                        <div className="compare-data-header-title">
                             旧数据 (JSON格式)
                         </div>
                     </div>
-                    <div style={{ flex: 1 }}>
-                        <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+                    <div className="compare-data-header-right">
+                        <div className="compare-data-header-title">
                             新数据 (JSON格式)
                         </div>
                     </div>
                 </div>
                 
                 {/* JSON内容区域 */}
-                <div style={{ display: 'flex', height: 'calc(100% - 40px)', overflow: 'hidden' }}>
+                <div className="compare-data-content">
                     {/* 左侧：旧数据JSON */}
-                    <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
-                        <div style={{ padding: '12px', height: 'calc(100% - 24px)', overflow: 'auto' }}>
+                    <div className="compare-data-content-left">
+                        <div className="compare-data-json-scroll-area">
                             {renderJsonWithDiff(oldJsonStr, oldObj, true)}
                         </div>
                     </div>
                     
                     {/* 右侧：新数据JSON */}
-                    <div style={{ flex: 1 }}>
-                        <div style={{ padding: '12px', height: 'calc(100% - 24px)', overflow: 'auto' }}>
+                    <div className="compare-data-content-right">
+                        <div className="compare-data-json-scroll-area">
                             {renderJsonWithDiff(newJsonStr, newObj, false)}
                         </div>
                     </div>
@@ -368,26 +351,26 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
     }
 
     return (
-        <div style={{ height, border: '1px solid #d9d9d9', borderRadius: '6px', backgroundColor: '#fafafa', position: 'relative' }}>
+        <div className="compare-data-container" style={{ height }}>
             {/* 固定表头 */}
-            <div style={{ display: 'flex', position: 'sticky', top: 0, zIndex: 10, backgroundColor: '#fafafa' }}>
-                <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
-                    <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+            <div className="compare-data-header">
+                <div className="compare-data-header-left">
+                    <div className="compare-data-header-title">
                         旧数据 2025-07-29 09:50:06
                     </div>
                 </div>
-                <div style={{ flex: 1 }}>
-                    <div style={{ padding: '8px 12px', backgroundColor: '#f5f5f5', borderBottom: '1px solid #e8e8e8', fontWeight: 'bold', fontSize: '12px' }}>
+                <div className="compare-data-header-right">
+                    <div className="compare-data-header-title">
                         新数据 2025-07-29 09:50:25
                     </div>
                 </div>
             </div>
             
             {/* 可滚动内容区域 */}
-            <div style={{ display: 'flex', height: 'calc(100% - 40px)', overflow: 'hidden' }}>
+            <div className="compare-data-content">
                 {/* 左侧：旧数据 */}
-                <div style={{ flex: 1, borderRight: '1px solid #e8e8e8' }}>
-                    <div style={{ padding: '8px 12px',height: 'calc(100% - 20px)', overflow: 'auto'  }}>
+                <div className="compare-data-content-left">
+                    <div className="compare-data-scroll-area">
                         {diffData.map((part, index) => {
                             // 左侧只显示删除的内容和修改的旧值
                             if (part.added || part.modifiedNew) return null;
@@ -397,22 +380,27 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
                                 const isModified = part.modifiedOld;
                                 const keyPrefix = part.removed ? 'old' : isModified ? 'modified-old' : 'same';
                                 
+                                let lineClass = 'compare-data-line';
+                                let symbolClass = 'compare-data-symbol';
+                                let symbol = ' ';
+                                
+                                if (part.removed) {
+                                    lineClass += ' compare-data-line-removed';
+                                    symbolClass += ' compare-data-symbol-removed';
+                                    symbol = '-';
+                                } else if (isModified) {
+                                    lineClass += ' compare-data-line-modified-old';
+                                    symbolClass += ' compare-data-symbol-modified';
+                                    symbol = '~';
+                                } else {
+                                    lineClass += ' compare-data-line-unchanged';
+                                    symbolClass += ' compare-data-symbol-transparent';
+                                }
+                                
                                 return (
-                                    <div key={`${keyPrefix}-${index}-${lineIndex}`} style={{
-                                        backgroundColor: part.removed ? '#ffecec' : isModified ? '#e6f3ff' : 'transparent',
-                                        padding: '2px 8px',
-                                        fontFamily: 'monospace',
-                                        fontSize: '12px',
-                                        borderLeft: part.removed ? '3px solid #dc3545' : isModified ? '3px solid #1890ff' : 'none',
-                                        marginBottom: '1px',
-                                        whiteSpace: 'pre-wrap',
-                                        color: part.removed ? 'inherit' : isModified ? 'inherit' : '#666'
-                                    }}>
-                                        <span style={{ 
-                                            color: part.removed ? '#dc3545' : isModified ? '#1890ff' : 'transparent', 
-                                            marginRight: '8px' 
-                                        }}>
-                                            {part.removed ? '-' : isModified ? '~' : ' '}
+                                    <div key={`${keyPrefix}-${index}-${lineIndex}`} className={lineClass}>
+                                        <span className={symbolClass}>
+                                            {symbol}
                                         </span>
                                         {line}
                                     </div>
@@ -423,8 +411,8 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
                 </div>
 
                 {/* 右侧：新数据 */}
-                <div style={{ flex: 1 }}>
-                    <div style={{ padding: '8px 12px',height: 'calc(100% - 20px)', overflow: 'auto' }}>
+                <div className="compare-data-content-right">
+                    <div className="compare-data-scroll-area">
                         {diffData.map((part, index) => {
                             // 右侧只显示添加的内容和修改的新值
                             if (part.removed || part.modifiedOld) return null;
@@ -440,45 +428,31 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
                                     return match && match[1] === key;
                                 });
                                 
-                                // 确定样式
-                                let backgroundColor, borderColor, textColor, symbol;
+                                // 确定样式类
+                                let lineClass = 'compare-data-line';
+                                let symbolClass = 'compare-data-symbol';
+                                let symbol = ' ';
+                                
                                 if (part.added) {
-                                    backgroundColor = '#e6ffed';
-                                    borderColor = '#28a745';
-                                    textColor = 'inherit';
+                                    lineClass += ' compare-data-line-added';
+                                    symbolClass += ' compare-data-symbol-added';
                                     symbol = '+';
                                 } else if (isNewNestedField) {
-                                    backgroundColor = '#fff2e6'; // 橙色背景表示新增嵌套字段
-                                    borderColor = '#fa8c16';
-                                    textColor = 'inherit';
+                                    lineClass += ' compare-data-line-new-nested';
+                                    symbolClass += ' compare-data-symbol-new-nested';
                                     symbol = '+';
                                 } else if (isModified) {
-                                    backgroundColor = '#e6f3ff';
-                                    borderColor = '#1890ff';
-                                    textColor = 'inherit';
+                                    lineClass += ' compare-data-line-modified-new';
+                                    symbolClass += ' compare-data-symbol-modified';
                                     symbol = '~';
                                 } else {
-                                    backgroundColor = 'transparent';
-                                    borderColor = 'none';
-                                    textColor = '#666';
-                                    symbol = ' ';
+                                    lineClass += ' compare-data-line-unchanged';
+                                    symbolClass += ' compare-data-symbol-transparent';
                                 }
                                 
                                 return (
-                                    <div key={`${keyPrefix}-${index}-${lineIndex}`} style={{
-                                        backgroundColor,
-                                        padding: '2px 8px',
-                                        fontFamily: 'monospace',
-                                        fontSize: '12px',
-                                        borderLeft: borderColor !== 'none' ? `3px solid ${borderColor}` : 'none',
-                                        marginBottom: '1px',
-                                        whiteSpace: 'pre-wrap',
-                                        color: textColor
-                                    }}>
-                                        <span style={{ 
-                                            color: borderColor !== 'none' ? borderColor : 'transparent', 
-                                            marginRight: '8px' 
-                                        }}>
+                                    <div key={`${keyPrefix}-${index}-${lineIndex}`} className={lineClass}>
+                                        <span className={symbolClass}>
                                             {symbol}
                                         </span>
                                         {line}
@@ -491,7 +465,7 @@ const CompareData: React.FC<CompareDataProps> = ({ oldData, newData, height = '5
             </div>
 
             {diffData.every(part => !part.added && !part.removed) && (
-                <div style={{ padding: '20px', textAlign: 'center', color: '#999' }}>
+                <div className="compare-data-no-diff">
                     数据无差异
                 </div>
             )}

@@ -1762,33 +1762,33 @@ export const en = {
         "updatedby": "Updated By",
         "updatedtime": "Updated Time"
     },
-    base_periodic_billing:{
-        code:"Code",
-        enname:"EN Name",
-        cnname:"CN Name",
-        meaning:"Meaning",
-        scenario:"Scenario",
-        advantage:"Advantage",
-        disadvantage:"Disadvantage",
+    base_periodic_billing: {
+        code: "Code",
+        enname: "EN Name",
+        cnname: "CN Name",
+        meaning: "Meaning",
+        scenario: "Scenario",
+        advantage: "Advantage",
+        disadvantage: "Disadvantage",
     },
-    base_settlement_cycle:{
-        code:"Code",
-        enname:"EN Name",
-        cnname:"CN Name",
-        meaning:"Meaning",
-        scenario:"Scenario",
-        advantage:"Advantage",
-        disadvantage:"Disadvantage",
+    base_settlement_cycle: {
+        code: "Code",
+        enname: "EN Name",
+        cnname: "CN Name",
+        meaning: "Meaning",
+        scenario: "Scenario",
+        advantage: "Advantage",
+        disadvantage: "Disadvantage",
     },
     base_company_size: {
         companysizecode: "Size Code",
         companysizename: "Size Name",
         remark: "Remark"
     },
-    base_company_nature:{
-        companynaturecode:"Nature Code",
-        companynaturename:"Nature Name",
-        remark:"Remark",
+    base_company_nature: {
+        companynaturecode: "Nature Code",
+        companynaturename: "Nature Name",
+        remark: "Remark",
     },
     base_account_purpose: {
         accountpurposecode: "Purpose Code",
@@ -1797,7 +1797,7 @@ export const en = {
         status: "Status",
         remark: "Remark"
     },
-     base_corporate_fund_account: {
+    base_corporate_fund_account: {
         accountcode: "Account Code",
         openaccounttype: "Open Type",
         settlementcenter: "Settle Center",
@@ -1816,12 +1816,12 @@ export const en = {
         taxregister: "Tax Register",
         accountstatus: "Status",
         remark: "Remark"
-  },
-  base_fund_account_currency:{
-        currencycode:"Currency Code",
-        ibancode:"Iban Code",
-        status:"Status",
-        remark:"Remark",
+    },
+    base_fund_account_currency: {
+        currencycode: "Currency Code",
+        ibancode: "Iban Code",
+        status: "Status",
+        remark: "Remark",
     },
     base_corporate_cash_account: {
         accountcode: "Account Code",
@@ -1845,6 +1845,43 @@ export const en = {
         objectname: "Object Name",
         ipaddress: "IP Address",
         logtime: "Log Time",
+        status: "Status"
+    },
+    sys_login_log: {
+        usercode: "User Code",
+        username: "User Name",
+        operation: "Operation",
+        ipaddress: "IP Address",
+        logintime: "Login Time",
+        logindevice: "Login Device",
+        status: "Status"
+    },
+    sys_operator_log: {
+        usercode: "User Code",
+        username: "User Name",
+        domain: "Domain",
+        application: "Application",
+        service: "Service",
+        operationbtn: "Op Button",
+        ipaddress: "IP Address",
+        operatetime: "Operate Time",
+        operatedevice: "Operate Device",
+        status: "Status"
+    },
+    sys_exception_log: {
+        usercode: "User Code",
+        username: "User Name",
+        domain: "Domain",
+        application: "Application",
+        service: "Service",
+        exceptionlvl: "Exception Lvl",
+        exceptionmsg: "Exception Msg",
+        requesturl: "Request URL",
+        requestparam: "Request Param",
+        requestheader: "Request Header",
+        ipaddress: "IP Address",
+        exceptiontime: "Exception Time",
+        operatedevice: "Operate Device",
         status: "Status"
     },
 };

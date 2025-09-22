@@ -1,0 +1,201 @@
+/* CompareData 组件样式 */
+
+/* 主容器 */
+.compare-data-container {
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  position: relative;
+}
+
+/* 固定表头容器 */
+.compare-data-header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #fafafa;
+}
+
+/* 表头左侧 */
+.compare-data-header-left {
+  flex: 1;
+  border-right: 1px solid #e8e8e8;
+}
+
+/* 表头右侧 */
+.compare-data-header-right {
+  flex: 1;
+}
+
+/* 表头标题 */
+.compare-data-header-title {
+  padding: 8px 12px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e8e8e8;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* 内容区域容器 */
+.compare-data-content {
+  display: flex;
+  height: calc(100% - 40px);
+  overflow: hidden;
+}
+
+/* 左侧内容区域 */
+.compare-data-content-left {
+  flex: 1;
+  border-right: 1px solid #e8e8e8;
+}
+
+/* 右侧内容区域 */
+.compare-data-content-right {
+  flex: 1;
+}
+
+/* 内容滚动区域 */
+.compare-data-scroll-area {
+  padding: 8px 12px;
+  height: calc(100% - 20px);
+  overflow: auto;
+}
+
+/* JSON格式滚动区域 */
+.compare-data-json-scroll-area {
+  padding: 12px;
+  height: calc(100% - 24px);
+  overflow: auto;
+}
+
+/* 差异行样式 */
+.compare-data-line {
+  padding: 2px 8px;
+  font-family: monospace;
+  font-size: 12px;
+  margin-bottom: 1px;
+  white-space: pre-wrap;
+}
+
+/* 删除的行 */
+.compare-data-line-removed {
+  background-color: #ffecec;
+  border-left: 3px solid #dc3545;
+  color: inherit;
+}
+
+/* 修改的旧值行 */
+.compare-data-line-modified-old {
+  background-color: #e6f3ff;
+  border-left: 3px solid #1890ff;
+  color: inherit;
+}
+
+/* 修改的新值行 */
+.compare-data-line-modified-new {
+  background-color: #e6f3ff;
+  border-left: 3px solid #1890ff;
+  color: inherit;
+}
+
+/* 新增的行 */
+.compare-data-line-added {
+  background-color: #e6ffed;
+  border-left: 3px solid #28a745;
+  color: inherit;
+}
+
+/* 新增嵌套字段行 */
+.compare-data-line-new-nested {
+  background-color: #fff2e6;
+  border-left: 3px solid #fa8c16;
+  color: inherit;
+}
+
+/* 未变化的行 */
+.compare-data-line-unchanged {
+  background-color: transparent;
+  border-left: none;
+  color: #666;
+}
+
+/* 符号样式 */
+.compare-data-symbol {
+  margin-right: 8px;
+}
+
+/* 删除符号 */
+.compare-data-symbol-removed {
+  color: #dc3545;
+}
+
+/* 修改符号 */
+.compare-data-symbol-modified {
+  color: #1890ff;
+}
+
+/* 新增符号 */
+.compare-data-symbol-added {
+  color: #28a745;
+}
+
+/* 新增嵌套字段符号 */
+.compare-data-symbol-new-nested {
+  color: #fa8c16;
+}
+
+/* 透明符号 */
+.compare-data-symbol-transparent {
+  color: transparent;
+}
+
+/* JSON格式差异行 */
+.compare-data-json-line {
+  font-family: Monaco, Menlo, "Ubuntu Mono", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+  display: flex;
+}
+
+/* JSON格式符号 */
+.compare-data-json-symbol {
+  margin-right: 8px;
+  min-width: 12px;
+}
+
+/* JSON格式删除行 */
+.compare-data-json-line-removed {
+  background-color: #ffecec;
+  border-left: 3px solid #dc3545;
+  padding: 0 8px;
+}
+
+/* JSON格式修改行 */
+.compare-data-json-line-modified {
+  background-color: #e6f3ff;
+  border-left: 3px solid #1890ff;
+  padding: 0 8px;
+}
+
+/* JSON格式新增行 */
+.compare-data-json-line-added {
+  background-color: #e6ffed;
+  border-left: 3px solid #28a745;
+  padding: 0 8px;
+}
+
+/* JSON格式未变化行 */
+.compare-data-json-line-unchanged {
+  background-color: transparent;
+  border-left: none;
+  padding: 0 8px;
+}
+
+/* 无差异提示 */
+.compare-data-no-diff {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+}
