@@ -56,6 +56,7 @@ import {
   SysLoginLog,
   SysOperatorLog,
   SysExceptionLog,
+  SysOperatorLogReport,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -807,6 +808,14 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <SysOperatorLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_operator_log_report",
+            handle: { title: '操作日志统计' },
+            element: (
+              <RouterGuard>
+                <SysOperatorLogReport />
               </RouterGuard>),
           },
           {

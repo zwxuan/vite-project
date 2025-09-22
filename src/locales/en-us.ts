@@ -1884,4 +1884,12 @@ export const en = {
         operatedevice: "Operate Device",
         status: "Status"
     },
+    sys_operator_log_report: {
+        department: "Department",
+        username: "User Name",
+        application: "Application",
+        service: "Service",
+        operatedevice: "Operate Device",
+        visitcount: "Visit Count"
+    },
 };

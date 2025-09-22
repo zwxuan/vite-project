@@ -411,7 +411,7 @@ const childrenMenuData: MenuGroup[] = [{
             name: "异常日志", key: "sys_exception_log",path: "/log_manage/sys_exception_log",
         },
         {
-            name: "操作日志统计", key: "business_log_statistics",
+            name: "操作日志统计", key: "sys_operator_log_report",path: "/log_manage/sys_operator_log_report",
         },
         {
             name: "导入日志", key: "import_log",path: "/log_manage/importlog",

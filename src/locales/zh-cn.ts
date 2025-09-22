@@ -1892,4 +1892,12 @@ export const cn = {
         operatedevice:"操作设备",
         status:"状态",
     },
+    sys_operator_log_report:{
+        department:"部门",
+        username:"用户名称",
+        application:"应用名称",
+        service:"服务名称",
+        operatedevice:"操作设备",
+        visitcount:"访问次数",
+    },
 };

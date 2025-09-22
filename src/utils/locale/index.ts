@@ -99,6 +99,7 @@ import { SysBusinessLogLocale } from '@/utils/locale/dynamic_configuration_platf
 import { SysLoginLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_login_log';
 import { SysOperatorLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_operator_log';
 import { SysExceptionLogLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_exception_log';
+import { SysOperatorLogReportLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_operator_log_report';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -111,7 +112,7 @@ export {
   CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
   RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
   BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,BasePeriodicBillingLocale,BaseSettlementCycleLocale,BaseCompanySizeLocale,BaseCompanyNatureLocale,BaseAccountPurposeLocale,BaseCorporateFundAccountLocale,
-  BaseFundAccountCurrencyLocale,BaseCorporateCashAccountLocale,SysBusinessLogLocale,SysLoginLogLocale,SysOperatorLogLocale,SysExceptionLogLocale,
+  BaseFundAccountCurrencyLocale,BaseCorporateCashAccountLocale,SysBusinessLogLocale,SysLoginLogLocale,SysOperatorLogLocale,SysExceptionLogLocale,SysOperatorLogReportLocale,
 };
 
 export default {
@@ -128,4 +129,5 @@ export default {
   ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
   ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,...BasePeriodicBillingLocale,...BaseSettlementCycleLocale,...BaseCompanySizeLocale,...BaseCompanyNatureLocale,...BaseAccountPurposeLocale,
   ...BaseCorporateFundAccountLocale,...BaseFundAccountCurrencyLocale,...BaseCorporateCashAccountLocale,...SysBusinessLogLocale,...SysLoginLogLocale,...SysOperatorLogLocale,...SysExceptionLogLocale,
+  ...SysOperatorLogReportLocale,
 };
