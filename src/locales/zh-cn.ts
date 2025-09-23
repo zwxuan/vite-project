@@ -1900,4 +1900,23 @@ export const cn = {
         operatedevice:"操作设备",
         visitcount:"访问次数",
     },
+    sys_warning_type:{
+        appcode:"所属应用",
+        typecode:"类型编码",
+        typename:"类型名称",
+        typeschema:"类型模式",
+        reportcenter:"报表中心",
+        createdby:"创建人",
+        createdtime:"创建时间",
+    },
+    sys_warning_type_param:{
+        seqno:"序号",
+        paramname:"参数名称",
+        paramcode:"参数编码",
+        datatype:"数据类型",
+        valuerange:"取值范围",
+        defaultvalue:"默认值",
+        required:"是否必填",
+        paramdesc:"参数说明",
+    },
 };

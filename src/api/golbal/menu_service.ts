@@ -388,11 +388,32 @@ const childrenMenuData: MenuGroup[] = [{
             name: "预警任务", key: "warning_task",
         },
         {
-            name: "预警类型", key: "warning_type",
+            name: "预警类型", key: "sys_warning_type",path: "/warning_task/sys_warning_type",
         },
     ]
 },
-
+{
+    title: "消息平台",
+    key: "message_platform",
+    parentkey: "system",
+    apps: [
+        {
+            name: "消息模版", key: "message_template",
+        },
+        {
+            name: "消息通道", key: "message_channel",
+        },
+        {
+            name: "消息配置", key: "message_config",
+        },
+        {
+            name: "消息发送策略", key: "message_send_strategy",
+        },
+        {
+            name: "消息日志查询", key: "message_log_query",
+        },
+    ]
+},
 {
     title: "日志管理",
     key: "log_manage",

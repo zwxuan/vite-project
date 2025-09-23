@@ -57,6 +57,8 @@ import {
   SysOperatorLog,
   SysExceptionLog,
   SysOperatorLogReport,
+  SysWarningType,
+  SysWarningTypeDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -759,7 +761,34 @@ const routers = createMemoryRouter([
           },
         ]
       },
-
+      // 预警任务
+      {
+        path: "/warning_task",
+        handle: { title: '预警任务' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "sys_warning_type",
+            handle: { title: '预警类型' },
+            element: (
+              <RouterGuard>
+                <SysWarningType />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_warning_type/detail",
+            handle: { title: '预警类型明细' },
+            element: (
+              <RouterGuard>
+                <SysWarningTypeDetail />
+              </RouterGuard>),
+          },
+        ]
+      },
       // 日志管理
       {
         path: "/log_manage",

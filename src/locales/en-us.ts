@@ -1892,4 +1892,23 @@ export const en = {
         operatedevice: "Operate Device",
         visitcount: "Visit Count"
     },
+    sys_warning_type: {
+        appcode: "App Code",
+        typecode: "Type Code",
+        typename: "Type Name",
+        typeschema: "Type Schema",
+        reportcenter: "Report Center",
+        createdby: "Created By",
+        createdtime: "Created Time",
+    },
+    sys_warning_type_param:{
+        seqno:"Seq No",
+        paramname:"Param Name",
+        paramcode:"Param Code",
+        datatype:"Data Type",
+        valuerange:"Value Range",
+        defaultvalue:"Default Value",
+        required:"Required",
+        paramdesc:"Description",
+    },
 };
