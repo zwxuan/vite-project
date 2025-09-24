@@ -58,7 +58,15 @@ export const getColumns = (handleEdit: (record: SysWarningTypeItemProps) => void
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeCreatedTime()),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
         dataIndex: 'CreatedTime',
+        sorter: true,
+        align: 'center',
+    },
+    {
+        title: '',
+        dataIndex: '',
         sorter: true,
         align: 'left',
     },
@@ -104,8 +112,8 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeParamParamName()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'ParamName',
         sorter: true,
         align: 'left',
@@ -132,8 +140,8 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeParamParamCode()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 260,
+        onHeaderCell: () => ({ style: { width: '260px' } }),
         dataIndex: 'ParamCode',
         sorter: true,
         align: 'left',
@@ -159,8 +167,8 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeParamDataType()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
         dataIndex: 'DataType',
         sorter: true,
         align: 'left',
@@ -187,8 +195,8 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeParamValueRange()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'ValueRange',
         sorter: true,
         align: 'left',
@@ -207,8 +215,8 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeParamDefaultValue()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
         dataIndex: 'DefaultValue',
         sorter: true,
         align: 'left',
@@ -231,7 +239,7 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
         onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Required',
         sorter: true,
-        align: 'left',
+        align: 'center',
         render: (text: string, record: SysWarningTypeParamItemProps) => {
             const editable = record.SeqNo===editingKey;
             const isChecked = record.Required === 'true';
@@ -250,8 +258,6 @@ export const getSysWarningTypeParamColumns = (handleEdit: (record: SysWarningTyp
     },
     {
         title: i18n.t(LocaleHelper.getSysWarningTypeParamParamDesc()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ParamDesc',
         sorter: true,
         align: 'left',

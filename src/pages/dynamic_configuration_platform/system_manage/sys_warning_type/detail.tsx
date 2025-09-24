@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker, Col, Row, Table, Radio, Checkbox } from 'antd';
+import { Modal, Form, Input, InputNumber, Select, Button, Space, DatePicker, Col, Row, Table, Radio, Checkbox, Tooltip } from 'antd';
 import { SysWarningTypeItemProps, SysWarningTypeParamItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_warning_type";
 import { RedoOutlined, DownOutlined, HourglassOutlined, PlusOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
@@ -15,6 +15,7 @@ import { getSysWarningTypeParamColumns } from './columns';
 const WarningTypeDetail: React.FC = () => {
     const navigate = useNavigate();
     const [sysWarningTypeParamList, setSysWarningTypeParamList] = useState([] as SysWarningTypeParamItemProps[]);
+    const [warningMode, setWarningMode] = useState(2); // 默认接口模式
     const handleBack = () => {
         navigate('/warning_task/sys_warning_type');
     };
@@ -47,6 +48,22 @@ const WarningTypeDetail: React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 预警类型明细
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>报表订阅模式</b></span>
+                                                ✅ 报表模式，有现成报表，逻辑简单，不想麻烦IT，自己就能配。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>接口模式</b></span>
+                                                🌐 接口模式，要查多个系统、复杂计算、动态逻辑	有开发资源，追求极致灵活。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{ marginLeft: "10px" }}>
@@ -76,119 +93,207 @@ const WarningTypeDetail: React.FC = () => {
             </div>
             <div className='nc-bill-table-area' style={{ height: 'calc(100vh - 100px)', background: '#f9fbff' }}>
                 <Row gutter={24} style={{ marginTop: '8px' }} className='ant-tranfer-row'>
-                    <Col span={22} className='ant-tranfer-col'>
+                    <Col span={24} className='ant-tranfer-col'>
                         <Row gutter={24} style={{ marginTop: '8px' }} className='ant-tranfer-row'>
 
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>员工编号</label>
-                                    <Input style={{ flex: 1 }} defaultValue={30} />
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>员工姓名</label>
-                                    <Input style={{ flex: 1 }} />
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>身份证号</label>
-                                    <Input style={{ flex: 1 }} />
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>性别</label>
+                                    <label className='item-lable-title'>所属应用</label>
                                     <Select
-                                        style={{ flex: 1 }}
+                                        style={{ flex: 1,textAlign:'left' }}
                                         options={[
-                                            { value: '男', label: '男' },
-                                            { value: '女', label: '女' },
-                                            { value: '未知', label: '未知' },
-                                        ]}
-                                    />
-                                    <Checkbox.Group
-                                        name="noticeTypeCheckbox"
-                                        style={{ flex: 1 }}
-                                        options={[
-                                            { value: 1, label: '销售员' },
+                                            { value: '结算中心', label: '结算中心' },
+                                            { value: '关务中心', label: '关务中心' },
+                                            { value: '仓储中心', label: '仓储中心' },
                                         ]}
                                     />
                                 </div>
                             </Col>
-                        </Row>
-                        <Row gutter={24} style={{}} className='ant-tranfer-row'>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>出生日期</label>
-                                    <DatePickerZH style={{ flex: 1 }}></DatePickerZH>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>电子邮箱</label>
+                                    <label className='item-lable-title'>类型名称</label>
                                     <Input style={{ flex: 1 }} />
                                 </div>
                             </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>手机号</label>
+                                    <label className='item-lable-title'>类型编号</label>
                                     <Input style={{ flex: 1 }} />
                                 </div>
                             </Col>
                             <Col span={6}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>状态</label>
+                                    <label className='item-lable-title'>预警模式</label>
                                     <Radio.Group
-                                        style={{ flex: 1, textAlign: 'left' }}
-                                        defaultValue={2}
+                                        name="noticeTypeCheckbox"
+                                        style={{ flex: 1,textAlign:'left' }}
+                                        value={warningMode}
+                                        onChange={(e) => setWarningMode(e.target.value)}
                                         options={[
-                                            { value: 1, label: '未启用' },
-                                            { value: 2, label: '已启用' },
-                                            { value: 3, label: '已停用' },
+                                            { value: 1, label: '报表订阅模式' },
+                                            { value: 2, label: '接口模式' },
                                         ]}
                                     />
-
                                 </div>
                             </Col>
                         </Row>
-                        <Row gutter={24} style={{}} className='ant-tranfer-row'>
-                            <Col span={24}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                    <label className='item-lable-title'>备注</label>
-                                    <TextArea style={{ flex: 1 }} rows={4} />
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col span={2} className='ant-tranfer-col' >
-                        
+                        {/* 报表订阅模式 */}
+                        {warningMode === 1 && (
+                            <Row gutter={24} style={{}} className='ant-tranfer-row'>
+                                <Col span={6}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label className='item-lable-title'>报表中心</label>
+                                        <Select
+                                            style={{ flex: 1 }}
+                                            options={[
+                                                { value: '报表一', label: '报表一' },
+                                                { value: '报表二', label: '报表二' },
+                                                { value: '报表三', label: '报表三' },
+                                            ]}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col span={6}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label className='item-lable-title'>是否启用</label>
+                                        <Radio.Group
+                                            name="noticeTypeCheckbox"
+                                            style={{ flex: 1 }}
+                                            options={[
+                                                { value: 1, label: '是' },
+                                                { value: 2, label: '否' },
+                                            ]}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col span={6}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <label className='item-lable-title'>描述信息</label>
+                                        <TextArea style={{ flex: 1 }} />
+                                    </div>
+                                </Col>
+                            </Row>
+                        )}
+                        {/* 接口模式                 */}
+                        {warningMode === 2 && (
+                            <>
+                                <Row gutter={24} style={{}} className='ant-tranfer-row'>
+                                    <Col span={6}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            <label className='item-lable-title'>
+                                                接口
+                                                <Tooltip
+                                                    title={
+                                                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
+                                                                    内部接口指系统内部的服务接口，URL以变量形式的相对网址方式提供。系统内部环境的网址替换，推荐使用。
+                                                                    <p>外部接口指系统外部的服务接口，URL以绝对网址方式提供。不支持接口权限校验等，不推荐使用。</p>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    }
+                                                    color='white'>
+                                                    <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                                                </Tooltip>
+                                            </label>
+                                            
+                                            <Select
+                                                style={{ width:'85px',textAlign:'left' }}
+                                                options={[
+                                                    { value: '内部接口', label: '内部接口' },
+                                                    { value: '外部接口', label: '外部接口' },
+                                                ]} />
+                                            <Input style={{ flex: 1 }} />
+                                        </div>
+                                    </Col>
+                                    <Col span={6}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            <label className='item-lable-title'>是否启用</label>
+                                            <Radio.Group
+                                                name="noticeTypeCheckbox"
+                                                style={{ flex: 1,textAlign:'left' }}
+                                                value={2}
+                                                options={[
+                                                    { value: 1, label: '是' },
+                                                    { value: 2, label: '否' },
+                                                ]} />
+                                        </div>
+                                    </Col>
+                                    <Col span={6}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            <label className='item-lable-title'>
+                                                是否组织过滤
+                                                <Tooltip
+                                                    title={
+                                                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
+                                                                    主组织权限过滤是指，预警结果按消息接收人配置的角色，按用户-角色的主组织权限发送相应的消息；
+                                                                    <p>所属组织过滤是指，预警结果按消息接收人配置的用户、角色的所属组织发送相应的消息；</p>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    }
+                                                    color='white'>
+                                                    <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                                                </Tooltip>
+                                            </label>
+                                            <Select
+                                                style={{ flex: 1,textAlign:'left' }}
+                                                options={[
+                                                    { value: '无过滤', label: '无过滤' },
+                                                    { value: '主组织权限过滤', label: '主组织权限过滤' },
+                                                    { value: '所属组织过滤', label: '所属组织过滤' },
+                                                ]} />
+                                        </div>
+                                    </Col>
+                                    <Col span={6}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            <label className='item-lable-title'>时间间隔</label>
+                                            <Input style={{ flex: 1 }} />
+                                            <Select
+                                                style={{ flex: 1,textAlign:'left' }}
+                                                options={[
+                                                    { value: '小时', label: '小时' },
+                                                    { value: '分钟', label: '分钟' },
+                                                ]} />
+                                        </div>
+                                    </Col>
+                                </Row><Row gutter={24} style={{}} className='ant-tranfer-row'>
+                                    <Col span={6}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            <label className='item-lable-title'>描述信息</label>
+                                            <TextArea style={{ flex: 1 }} />
+                                        </div>
+                                    </Col>
+                                </Row><Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
+                                    <Col span={24} className='ant-tranfer-col-left'>
+                                        <CodeBoxMeta title="条件">
+
+                                            <div style={{ textAlign: 'left', margin: '0px 4px' }}>
+                                                <div className="u-button-group">
+                                                    <Button type='primary' size='small' onClick={primaryJobOperations.handleAdd}>新增</Button>
+                                                </div>
+                                            </div>
+                                            <Table<SysWarningTypeParamItemProps>
+                                                columns={columnsPrimaryJobType}
+                                                rowKey={(record) => `${record.SeqNo}`}
+                                                showSorterTooltip={false}
+                                                dataSource={sysWarningTypeParamList}
+                                                pagination={false}
+                                                scroll={{ x: 'max-content', y: '130px' }}
+                                                footer={() => ''}
+                                                bordered={true} />
+
+                                        </CodeBoxMeta>
+                                    </Col>
+                                </Row>
+                            </>
+                        )}
                     </Col>
                 </Row>
-                <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
-                    <Col span={24} className='ant-tranfer-col-left'>
-                        <CodeBoxMeta title="条件">
 
-                            <div style={{ textAlign: 'left', margin: '0px 4px' }}>
-                                <div className="u-button-group">
-                                    <Button type='primary' size='small' onClick={primaryJobOperations.handleAdd}>新增</Button>
-                                </div>
-                            </div>
-                            <Table<SysWarningTypeParamItemProps>
-                                columns={columnsPrimaryJobType}
-                                rowKey={(record) => `${record.SeqNo}`}
-                                showSorterTooltip={false}
-                                dataSource={sysWarningTypeParamList}
-                                pagination={false}
-                                scroll={{ x: 'max-content', y: '130px' }}
-                                footer={() => ''}
-                                bordered={true}
-                            />
-
-                        </CodeBoxMeta>
-                    </Col>
-                </Row>
             </div>
 
         </div>

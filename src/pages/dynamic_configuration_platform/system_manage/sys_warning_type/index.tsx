@@ -1,7 +1,7 @@
 
 import '@/pages/page_list.less';
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification } from 'antd';
+import { Table,Button,Dropdown, Space,Modal,Form,Input,InputNumber,Select,Progress,notification, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { SysWarningTypeItemProps } from "@/types/dynamic_configuration_platform/system_manage/sys_warning_type";
@@ -198,14 +198,40 @@ const SysWarningType : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 预警类型
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
+                                                预警类型是指系统中定义的一种预警机制，用于监控和通知系统中发生的异常或异常情况。
+                                                <p>业务系统中经常会有需要定时执行的操作，比如定时进行考勤日报的生成，定时垃圾回收，库存计算，成本结转，员工生日祝福等等。</p>
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>接口模式</b></span>
+                                                系统调用一个你指定的‘判断程序’，程序说‘要报警’才报警 —— 完全自定义，灵活但需开发。
+                                                <p>1.配接口 → 让IT开发一个判断接口（如：/api/check_sales）</p>
+                                                <p>2.填参数 → 你填客户编码、阈值等，系统会传给接口</p>
+                                                <p>3.等结果 → 接口内部查数据、做判断，返回“是/否”，系统按结果决定是否发消息</p>
+                                                <p>💡 示例：你填“客户A + 5万”，接口查完说“超了” → 系统发预警；说“超了” → 发送消息</p>
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>报表模式</b></span>
+                                                用一张你熟悉的业务报表来判断是否触发预警 —— 报表里有数据就报警，没数据就不报。
+                                                <p>1.选报表 → 从系统里选一张已有的业务报表（如“客户销售超限检查表”），或者自己配置一张报表</p>
+                                                <p>2.等结果 → 根据报表数据、做判断，系统按结果决定是否发消息</p>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
+                        {/* <div style={{display: "inline"}}>
                             <label className="u-checkbox nc-checkbox">
                                 <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
                             </label>
-                        </div>
+                        </div> */}
                     </span>
                 </div>
                 <div className="header-button-area">
