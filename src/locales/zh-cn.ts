@@ -4,6 +4,9 @@ export const cn = {
         chinese: "中文",
         english: "英语",
         code: "编码",
+        receivetype: "接收类型",
+        receiveobject: "接收对象",
+        seqno: "序号",
     },
     sideMenu: {
         home: "主页",
@@ -1918,5 +1921,17 @@ export const cn = {
         defaultvalue:"默认值",
         required:"是否必填",
         paramdesc:"参数说明",
+    },
+    sys_warning_task:{
+        appcode:"所属应用",
+        taskcode:"任务编码",
+        taskname:"任务名称",
+        warningtype:"预警类型",
+        typeschema:"类型模式",
+        status:"状态",
+        successcnt:"成功次数",
+        failcnt:"失败次数",
+        taskremark:"任务备注",
+        createdtime:"创建时间",
     },
 };

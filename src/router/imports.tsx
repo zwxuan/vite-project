@@ -119,6 +119,8 @@ const SysExceptionLog = React.lazy(() => import("@/pages/dynamic_configuration_p
 const SysOperatorLogReport = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_operator_log_report"));
 const SysWarningType = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_warning_type"));
 const SysWarningTypeDetail = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_warning_type/detail"));
+const SysWarningTask = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_warning_task"));
+const SysWarningTaskDetail = React.lazy(() => import("@/pages/dynamic_configuration_platform/system_manage/sys_warning_task/detail"));
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
@@ -137,4 +139,5 @@ export {
   FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,DataPermissionRole,DataPermissionUser,BaseTaxSystem,BaseTaxType,BaseBankType,BaseBankBranch,
   BaseSettlementMethodMapper,BasePeriodicBilling,BaseSettlementCycle,BaseCompanySize,BaseCompanyNature,BaseAccountPurpose,BaseCorporateFundAccount,AccountDetail,
   BaseCorporateCashAccount,SysBusinessLog,SysLoginLog,SysOperatorLog,SysExceptionLog,SysOperatorLogReport,SysWarningType,SysWarningTypeDetail,
+  SysWarningTask,SysWarningTaskDetail,
 };

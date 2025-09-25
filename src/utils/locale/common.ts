@@ -15,5 +15,17 @@ export const CommonLocale = {
   /** 币制页面 */
   getCode() {
     return "common.code";
-  }
+  },
+  /** 接收类型 */
+  getReceiveType() {
+    return "common.receivetype";
+  },
+  /** 接收对象 */
+  getReceiveObject() {
+    return "common.receiveobject";
+  },
+  /// 序号
+  getSeqNo() {
+    return "common.seqno";
+  },
 };

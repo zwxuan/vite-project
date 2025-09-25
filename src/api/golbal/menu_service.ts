@@ -385,7 +385,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "预警任务", key: "warning_task",
+            name: "预警任务", key: "sys_warning_task",path: "/warning_task/sys_warning_task",
         },
         {
             name: "预警类型", key: "sys_warning_type",path: "/warning_task/sys_warning_type",

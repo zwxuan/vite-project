@@ -260,14 +260,16 @@ const WarningTypeDetail: React.FC = () => {
                                                 ]} />
                                         </div>
                                     </Col>
-                                </Row><Row gutter={24} style={{}} className='ant-tranfer-row'>
+                                </Row>
+                                <Row gutter={24} style={{}} className='ant-tranfer-row'>
                                     <Col span={6}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                             <label className='item-lable-title'>描述信息</label>
                                             <TextArea style={{ flex: 1 }} />
                                         </div>
                                     </Col>
-                                </Row><Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
+                                </Row>
+                                <Row gutter={24} style={{ paddingRight: '6px' }} className='ant-tranfer-row'>
                                     <Col span={24} className='ant-tranfer-col-left'>
                                         <CodeBoxMeta title="条件">
 

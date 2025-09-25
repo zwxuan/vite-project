@@ -6,6 +6,9 @@ export const en = {
         chinese: "cn",
         english: "en",
         code: "code",
+        receivetype: "Receive Type",
+        receiveobject: "Receive Object",
+        seqno: "Seq No.",
     },
     sideMenu: {
         "home": "Home",
@@ -1910,5 +1913,17 @@ export const en = {
         defaultvalue:"Default Value",
         required:"Required",
         paramdesc:"Description",
+    },
+    sys_warning_task:{
+        appcode:"App Code",
+        taskcode:"Task Code",
+        taskname:"Task Name",
+        warningtype:"Warning Type",
+        typeschema:"Type Schema",
+        status:"Status",
+        successcnt:"Success Count",
+        failcnt:"Fail Count",
+        taskremark:"Task Remark",
+        createdtime:"Created Time",
     },
 };
