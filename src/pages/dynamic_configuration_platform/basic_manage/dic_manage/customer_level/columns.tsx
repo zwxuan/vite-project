@@ -41,6 +41,12 @@ export const getColumns = (handleEdit: (record: CustomerLevelItemProps) => void,
         align: 'left',
     },
     {
+        title: '',
+        dataIndex: '',
+        sorter: true,
+        align: 'left',
+    },
+    {
         title: '操作',
         key: 'operation',
         fixed: 'right',

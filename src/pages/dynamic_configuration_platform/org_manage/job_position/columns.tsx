@@ -60,16 +60,14 @@ export const getColumns = (handleEdit: (record: JobPositionItemProps) => void, h
     },
     {
         title: i18n.t(LocaleHelper.getJobPositionJobDuty()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 300,
+        onHeaderCell: () => ({ style: { width: '300px' } }),
         dataIndex: 'JobDuty',
         sorter: true,
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getJobPositionJobRemark()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'JobRemark',
         sorter: true,
         align: 'left',

@@ -90,8 +90,7 @@ export const getColumns = (handleEdit: (record: InternalAgentSettlementItemProps
     },
     {
         title: i18n.t(LocaleHelper.getInternalAgentSettlementStatus()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        
         dataIndex: 'Status',
         sorter: true,
         align: 'left',
@@ -100,7 +99,7 @@ export const getColumns = (handleEdit: (record: InternalAgentSettlementItemProps
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 100,
+        width: 40,
         render: (_, record) => (
         <>
             <a onClick={()=>handleEdit(record)}>详细</a>

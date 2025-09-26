@@ -58,8 +58,6 @@ export const getColumns = (handleEdit: (record: BaseBillTermsItemProps) => void,
     },
     {
         title: i18n.t(LocaleHelper.getBaseBillTermsRemarks()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Remarks',
         sorter: true,
         align: 'left',

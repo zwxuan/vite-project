@@ -188,7 +188,9 @@ const SysBusinessLog : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-
+    const handleBack = () => {
+        navigate(-1);
+    }
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
             <DetailModal
@@ -242,6 +244,7 @@ const SysBusinessLog : React.FC = () => {
                                 </Button>   
                             </Dropdown>
                         </div>
+                        <Button onClick={handleBack}>返回</Button>
                         <span className="u-button">
                             <RedoOutlined className='iconfont' />
                         </span>

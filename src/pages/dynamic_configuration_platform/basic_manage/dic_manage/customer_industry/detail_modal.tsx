@@ -42,13 +42,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
             open={open} 
             title={modalFlag === 'add' ? "新增客户行业" : "编辑客户行业"}
             onCancel={onCancel}
-            width={'95%'}
-            height={'95%'}
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
             footer={null}
-            centered={true}
         >
             <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
                         <Form.Item label="编码" name="Code" rules={[{ required: true, message: '' }]}>

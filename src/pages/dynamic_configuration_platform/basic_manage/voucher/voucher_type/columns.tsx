@@ -42,8 +42,6 @@ export const getColumns = (handleEdit: (record: VoucherTypeItemProps) => void, h
     },
     {
         title: i18n.t(LocaleHelper.getVoucherTypeTypeRemark()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'TypeRemark',
         sorter: true,
         align: 'left',

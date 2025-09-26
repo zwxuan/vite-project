@@ -70,7 +70,7 @@ const Detail: React.FC = () => {
     const orgCode = searchParams.get('orgCode');
     const [treeData, setTreeData] = useState<TreeNode[]>(initTreeData);
     const handleBack = () => {
-        navigate('/org/manage_org');
+        navigate(-1);
     };
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 40px)' }}>
@@ -100,9 +100,9 @@ const Detail: React.FC = () => {
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
                             <div className="u-button-group"></div>
                         </div>
-                        <span className="u-button">
+                        {/* <span className="u-button">
                             <RedoOutlined className='iconfont' />
-                        </span>
+                        </span> */}
                     </div>
                 </div>
             </div>

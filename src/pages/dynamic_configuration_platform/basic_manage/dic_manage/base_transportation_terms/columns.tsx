@@ -42,8 +42,6 @@ export const getColumns = (handleEdit: (record: BaseTransportationTermsItemProps
     },
     {
         title: i18n.t(LocaleHelper.getBaseTransportationTermsApplicableScenarios()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'ApplicableScenarios',
         sorter: true,
         align: 'left',

@@ -10,14 +10,19 @@ import { getOrderFeeList, getFeeNameList } from "@/api/settlement_center/busines
 import { OrderFeeItemProps, FeeNameItemProps } from "@/types/settlement_center/business_manage/order_fee";
 import '@/pages/page_list.less';
 import './invoice_detail.less';
+import { useNavigate } from 'react-router-dom';
 const { Title, } = Typography;
 const { TextArea } = Input;
 
 const InvoiceDetail: React.FC = () => {
   // 表格列配置
   const hotTableRef = useRef<any>(null);
+  const navigate = useNavigate();
 
   const [orderFeeList, setOrderFeeList] = useState([] as OrderFeeItemProps[]);
+  const handleBack = () => {
+        navigate(-1);
+    };
   // 获取order_fee数据
   useEffect(() => {
     const getData = async () => {
@@ -369,7 +374,7 @@ const InvoiceDetail: React.FC = () => {
               <Button type='primary'>全部打印</Button>
               <Button type='primary'>金税导出</Button>
               <Button type='primary'>金税作废</Button>
-              {/* <Button>关闭</Button> */}
+              <Button onClick={handleBack}>关闭</Button>
             </Space>
           </Space>
         </Col>

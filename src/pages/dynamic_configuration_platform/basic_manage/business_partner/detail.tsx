@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Form, Input, InputNumber, Select, Button, Space,DatePicker, Tabs } from 'antd';
 import { BusinessPartnerItemProps } from "@/types/dynamic_configuration_platform/basic_manage/business_partner";
 import dayjs from 'dayjs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ParterBaseInfo from './tab_detail/base_info_tab';
 import Contact from './tab_detail/contact_tab';
 import ParterCustomer from './tab_detail/customer_tab';
@@ -43,8 +43,12 @@ const formItemLayout = {
 const Detail: React.FC = () => {
     //获取路由参数
     const location = useLocation();
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const businessId = searchParams.get('businessId');
+    const handleBack = () => {
+        navigate(-1);
+    };
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 40px)' }}>
             <div className="nc-bill-header-area">
@@ -61,6 +65,7 @@ const Detail: React.FC = () => {
                         <div className="buttonGroup-component">
                             <div className="u-button-group">
                                 <Button type="primary" >保存</Button>
+                                <Button onClick={handleBack} style={{ marginLeft: "10px" }}>返回</Button>
                             </div>
                         </div>
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>

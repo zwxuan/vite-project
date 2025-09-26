@@ -34,8 +34,6 @@ export const getColumns = (handleEdit: (record: CustomerIndustryItemProps) => vo
     },
     {
         title: i18n.t(LocaleHelper.getCustomerIndustryRemarks()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Remarks',
         sorter: true,
         align: 'left',

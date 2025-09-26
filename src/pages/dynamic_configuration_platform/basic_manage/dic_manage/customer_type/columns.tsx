@@ -34,8 +34,6 @@ export const getColumns = (handleEdit: (record: CustomerTypeItemProps) => void, 
     },
     {
         title: i18n.t(LocaleHelper.getCustomerTypeRemark()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Remark',
         sorter: true,
         align: 'left',

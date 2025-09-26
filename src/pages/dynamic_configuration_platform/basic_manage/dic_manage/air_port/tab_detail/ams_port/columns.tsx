@@ -42,8 +42,7 @@ export const getColumns = (handleEdit: (record: BaseAmsPortItemProps) => void, h
     },
     {
         title: i18n.t(LocaleHelper.getBaseAmsPortRemarks()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        
         dataIndex: 'Remarks',
         sorter: true,
         align: 'left',

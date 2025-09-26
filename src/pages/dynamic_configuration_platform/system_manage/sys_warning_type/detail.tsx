@@ -17,7 +17,7 @@ const WarningTypeDetail: React.FC = () => {
     const [sysWarningTypeParamList, setSysWarningTypeParamList] = useState([] as SysWarningTypeParamItemProps[]);
     const [warningMode, setWarningMode] = useState(2); // 默认接口模式
     const handleBack = () => {
-        navigate('/warning_task/sys_warning_type');
+        navigate(-1);
     };
     const newPartnerRowId = Date.now().toString();
     const primaryJobOperations = useTableOperations({

@@ -24,7 +24,7 @@ const AccountDetail: React.FC = () => {
     const [value, setValue] = useState([]);
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate('/basic_company/base_corporate_fund_account');
+        navigate(-1);
     };
     return (
         <>

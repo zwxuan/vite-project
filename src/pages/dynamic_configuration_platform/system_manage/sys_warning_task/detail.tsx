@@ -9,7 +9,7 @@ import { SysWarningTypeParamItemProps } from '@/types/dynamic_configuration_plat
 import CustomIcon from '@/components/custom-icon';
 import { RedoOutlined, DownOutlined, HourglassOutlined, PlusOutlined } from '@ant-design/icons';
 import { useTableOperations } from '@/hooks/useTableOperations';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getMessageReviceColumns, getSysWarningTaskCronColumns, getSysWarningTypeParamColumns } from './columns';
 const WarningTaskDetail: React.FC = () => {
     const navigate = useNavigate();
@@ -71,7 +71,8 @@ const WarningTaskDetail: React.FC = () => {
         getData();
     }, []);
     const handleBack = () => {
-        navigate('/warning_task/sys_warning_task');
+        // 返回到上一页
+        navigate(-1);
     };
 
     const newPartnerRowId = Date.now().toString();
@@ -163,9 +164,6 @@ const WarningTaskDetail: React.FC = () => {
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
                             <div className="u-button-group"></div>
                         </div>
-                        <span className="u-button">
-                            <RedoOutlined className='iconfont' />
-                        </span>
                     </div>
                 </div>
             </div>

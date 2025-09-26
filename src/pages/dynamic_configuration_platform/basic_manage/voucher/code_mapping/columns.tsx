@@ -6,16 +6,16 @@ import LocaleHelper from '@/utils/locale';
 export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, handleDelete: (record: CodeMappingItemProps) => void, handleSave: (record: CodeMappingItemProps) => void, handleCancel: () => void, isEditing: (record: CodeMappingItemProps) => boolean, editingRow: CodeMappingItemProps | null, setEditingRow: (row: CodeMappingItemProps | null) => void): TableColumnsType<CodeMappingItemProps> => [
     {
         title: i18n.t(LocaleHelper.getCodeMappingBookingName()),
-        width: 60,
-        onHeaderCell: () => ({ style: { width: '60px' } }),
+        width: 160,
+        onHeaderCell: () => ({ style: { width: '160px' } }),
         dataIndex: 'BookingName',
         sorter: true,
         align: 'left',
     },
     {
         title: i18n.t(LocaleHelper.getCodeMappingBusinessName()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'BusinessName',
         sorter: true,
         align: 'left',
@@ -38,8 +38,8 @@ export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, h
     },
     {
         title: i18n.t(LocaleHelper.getCodeMappingFinanceCode()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
+        width: 200,
+        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'FinanceCode',
         sorter: true,
         align: 'left',
@@ -57,8 +57,6 @@ export const getColumns = (handleEdit: (record: CodeMappingItemProps) => void, h
     },
     {
         title: i18n.t(LocaleHelper.getCodeMappingRemark()),
-        width: 200,
-        onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'Remark',
         sorter: true,
         align: 'left',

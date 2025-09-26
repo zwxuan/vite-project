@@ -185,7 +185,9 @@ const BaseCorporateFundAccount : React.FC = () => {
     const handleSearch = (values:any) => {
         console.log('handleSearch',values);
     };
-
+    const handleViewLog = () => {
+        navigate('/log_manage/sys_business_log');
+    }
     return (
         <div  style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 60px)', background: '#f9fbff'}}>
             
@@ -261,7 +263,7 @@ const BaseCorporateFundAccount : React.FC = () => {
                                     </Space>
                                 </Button>   
                             </Dropdown>
-                            <Button>查看业务日志</Button>
+                            <Button onClick={handleViewLog}>查看业务日志</Button>
                         </div>
                         <span className="u-button">
                             <RedoOutlined className='iconfont' />

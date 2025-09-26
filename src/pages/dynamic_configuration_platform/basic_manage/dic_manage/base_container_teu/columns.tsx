@@ -89,6 +89,12 @@ export const getColumns = (handleEdit: (record: BaseContainerTeuItemProps) => vo
         align: 'center',
     },
     {
+        title: '',
+        dataIndex: '',
+        sorter: true,
+        align: 'center',
+    },
+    {
         title: '操作',
         key: 'operation',
         fixed: 'right',

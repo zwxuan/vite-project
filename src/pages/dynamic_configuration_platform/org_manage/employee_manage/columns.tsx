@@ -84,8 +84,6 @@ export const getColumns = (handleEdit: (record: EmployeeManageItemProps) => void
     },
     {
         title: i18n.t(LocaleHelper.getEmployeeManageRemarks()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Remarks',
         sorter: true,
         align: 'left',

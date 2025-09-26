@@ -72,6 +72,12 @@ export const getColumns = (handleEdit: (record: BaseRailwayPortItemProps) => voi
         align: 'left',
     },
     {
+        title: '',
+        dataIndex: '',
+        sorter: true,
+        align: 'left',
+    },
+    {
         title: '操作',
         key: 'operation',
         fixed: 'right',

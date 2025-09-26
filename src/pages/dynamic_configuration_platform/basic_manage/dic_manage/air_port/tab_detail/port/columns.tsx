@@ -96,8 +96,6 @@ export const getColumns = (handleEdit: (record: BaseAirPortItemProps) => void, h
     },
     {
         title: i18n.t(LocaleHelper.getBaseSeaportPortRequirements()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'PortRequirements',
         sorter: true,
         align: 'left',

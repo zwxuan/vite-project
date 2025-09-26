@@ -49,7 +49,7 @@ const Detail: React.FC = () => {
         </button>
     );
     const handleBack = () => {
-        navigate('/employee/employee_manage');
+        navigate(-1);
     };
 
     const newPartnerRowId = Date.now().toString();
@@ -153,9 +153,6 @@ const Detail: React.FC = () => {
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>
                             <div className="u-button-group"></div>
                         </div>
-                        <span className="u-button">
-                            <RedoOutlined className='iconfont' />
-                        </span>
                     </div>
                 </div>
             </div>

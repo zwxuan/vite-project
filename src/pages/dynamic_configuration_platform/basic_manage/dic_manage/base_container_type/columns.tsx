@@ -34,8 +34,6 @@ export const getColumns = (handleEdit: (record: BaseContainerTypeItemProps) => v
     },
     {
         title: i18n.t(LocaleHelper.getBaseContainerTypeRemark()),
-        width: 100,
-        onHeaderCell: () => ({ style: { width: '100px' } }),
         dataIndex: 'Remark',
         sorter: true,
         align: 'left',

@@ -42,13 +42,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
             open={open} 
             title={modalFlag === 'add' ? "新增汇率管理" : "编辑汇率管理"}
             onCancel={onCancel}
-            width={'95%'}
-            height={'95%'}
             destroyOnClose={true}
             maskClosable={false}
             closable={!saving}
             footer={null}
-            centered={true}
         >
             <Form {...formItemLayout} style={{ maxWidth: 600 }} initialValues={formData} disabled={saving} onFinish={onOk}>
                         <Form.Item label="目的币种" name="PurposeCurrency" >

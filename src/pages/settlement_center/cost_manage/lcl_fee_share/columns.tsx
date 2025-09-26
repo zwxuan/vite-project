@@ -11,7 +11,7 @@ export const expandColumns: TableColumnsType<OrderFeeItemProps> = [
         title: i18n.t(LocaleHelper.getOrdersBusinessId()),
         width: 100,
         onHeaderCell: () => ({ style: { width: '100px' } }),
-        dataIndex: 'BusinessId',
+        dataIndex: 'BusinessNumber',
         align: 'left',
     },
     {

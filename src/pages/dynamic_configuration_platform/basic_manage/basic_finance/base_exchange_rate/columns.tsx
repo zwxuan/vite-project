@@ -57,6 +57,12 @@ export const getColumns = (handleEdit: (record: BaseExchangeRateItemProps) => vo
         align: 'right',
     },
     {
+        title: '',
+        dataIndex: '',
+        sorter: true,
+        align: 'right',
+    },
+    {
         title: '操作',
         key: 'operation',
         fixed: 'right',
