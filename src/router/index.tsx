@@ -61,6 +61,7 @@ import {
   SysWarningTypeDetail,
   SysWarningTask,
   SysWarningTaskDetail,
+  TaskCalendarView,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -878,7 +879,26 @@ const routers = createMemoryRouter([
       },
 
 
-
+      // 日期管理
+      {
+        path: "/date",
+        handle: { title: '日期管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "task_calendar_view",
+            handle: { title: '节假日设定' },
+            element: (
+              <RouterGuard>
+                <TaskCalendarView />
+              </RouterGuard>),
+          },
+        ]
+      },
       // 模板管理
       {
         path: "/template_manage",
