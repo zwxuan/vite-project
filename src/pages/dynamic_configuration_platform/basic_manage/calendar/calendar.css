@@ -38,7 +38,18 @@
     position: relative !important;
     min-height: 100px;
 }
-
+.ant-picker-calendar .ant-picker-calendar-header .ant-picker-calendar-year-select {
+    height: 100%;
+}
+.ant-picker-calendar .ant-picker-calendar-header .ant-picker-calendar-month-select {
+    height: 100%;
+}
+.ant-picker-calendar .ant-picker-calendar-header .ant-picker-calendar-year-select {
+    min-width: 120px;
+}
+.ant-picker-calendar .ant-picker-calendar-header .ant-picker-calendar-month-select {
+    min-width: 100px;
+}
 /* 任务条基础样式 */
 .task-bar-segment {
     position: absolute;

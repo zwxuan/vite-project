@@ -1,12 +1,18 @@
 ﻿
 import '@/pages/page_list.less';
 import React, { useState } from 'react';
-import { Tooltip, Calendar, Modal, Input, Button, List, Badge, Typography, Space, message, DatePicker, Form, Popconfirm } from 'antd';
+import { Tooltip, Calendar, Modal, Input, Button, List, Badge, Typography, Space, message, DatePicker, Form, Popconfirm, ConfigProvider } from 'antd';
 import { CalendarMode } from 'antd/es/calendar/generateCalendar';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import zhCN from 'antd/locale/zh_CN';
 import CustomIcon from "@/components/custom-icon";
 import './calendar.css'; // 引入自定义样式
+import { RangePickerZH } from '@/components/date-picker';
+
+// 设置dayjs为中文
+dayjs.locale('zh-cn');
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -23,22 +29,7 @@ interface Task {
 
 const TaskCalendarView: React.FC = () => {
     const [tasks, setTasks] = useState<Task[]>([
-        {
-            id: '1',
-            startDate: '2024-12-15',
-            endDate: '2024-12-17',
-            title: '项目规划会议',
-            description: '讨论下季度项目规划',
-            createdAt: '2024-12-10 10:00:00'
-        },
-        {
-            id: '2',
-            startDate: '2024-12-20',
-            endDate: '2024-12-20',
-            title: '客户拜访',
-            description: '拜访重要客户',
-            createdAt: '2024-12-10 11:00:00'
-        }
+        
     ]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
@@ -57,7 +48,16 @@ const TaskCalendarView: React.FC = () => {
             return (currentDate.isAfter(startDate, 'day') || currentDate.isSame(startDate, 'day')) && (currentDate.isBefore(endDate, 'day') || currentDate.isSame(endDate, 'day'));
         });
     };
-
+    const formItemLayout = {
+        labelCol: {
+            xs: { span: 24 },
+            sm: { span: 6 },
+        },
+        wrapperCol: {
+            xs: { span: 24 },
+            sm: { span: 14 },
+        },
+    };
     // 检查任务是否在指定日期开始
     const isTaskStartDate = (task: Task, date: Dayjs) => {
         return dayjs(task.startDate).isSame(date, 'day');
@@ -97,7 +97,7 @@ const TaskCalendarView: React.FC = () => {
         const currentTasks = getTasksForDate(value);
         
         return (
-            <div style={{ position: 'relative', height: '100px', minHeight: '80px' }}>
+            <div style={{ position: 'relative', height: '10px', minHeight: '80px' }}>
                 {currentTasks.map((task, index) => {
                     const isStart = isTaskStartDate(task, value);
                     const isEnd = isTaskEndDate(task, value);
@@ -294,20 +294,21 @@ const TaskCalendarView: React.FC = () => {
     };
 
     return (
-        <div style={{  }}>
-            <div className="nc-bill-header-area">
-                <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-                        <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 任务日历管理
-                            <Tooltip
-                                title={
-                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
-                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>任务管理</b></span>点击日历上的任意日期可以为该日期添加任务和日程安排。
-                                            </li>
-                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>任务显示</b></span>已添加任务的日期会显示蓝色标记，月视图下会显示任务数量徽章。
-                                            </li>
+        <ConfigProvider locale={zhCN}>
+            <div style={{  }}>
+                <div className="nc-bill-header-area">
+                    <div className="header-title-search-area">
+                        <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                            <span className="bill-info-title" style={{ marginLeft: "10px" }}>
+                                <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 任务日历管理
+                                <Tooltip
+                                    title={
+                                        <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                            <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>任务管理</b></span>点击日历上的任意日期可以为该日期添加任务和日程安排。
+                                                </li>
+                                                <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>任务显示</b></span>已添加任务的日期会显示蓝色标记，月视图下会显示任务数量徽章。
+                                                </li>
                                         </ol>
                                     </div>
                                 }
@@ -327,8 +328,15 @@ const TaskCalendarView: React.FC = () => {
 
             <div className='nc-bill-table-area' style={{ padding: '20px' ,overflowY: 'auto', overflowX: 'hidden',height: 'calc(100vh - 80px)' }}>
                 <Calendar 
-                    dateCellRender={dateCellRender}
-                    monthCellRender={monthCellRender}
+                    cellRender={(current, info) => {
+                        if (info.type === 'date') {
+                            return dateCellRender(current as Dayjs);
+                        }
+                        if (info.type === 'month') {
+                            return monthCellRender(current as Dayjs);
+                        }
+                        return info.originNode;
+                    }}
                     onSelect={onDateSelect}
                     style={{ 
                         backgroundColor: 'white', 
@@ -340,49 +348,7 @@ const TaskCalendarView: React.FC = () => {
 
             {/* 统一任务模态框 */}
             <Modal
-                title={
-                    <div style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: '12px',
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        color: editingTask ? '#1890ff' : '#52c41a',
-                        padding: '4px 0'
-                    }}>
-                        <div style={{
-                            width: '32px',
-                            height: '32px',
-                            borderRadius: '50%',
-                            background: editingTask 
-                                ? 'linear-gradient(135deg, #1890ff, #40a9ff)' 
-                                : 'linear-gradient(135deg, #52c41a, #73d13d)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            boxShadow: editingTask 
-                                ? '0 2px 8px rgba(24, 144, 255, 0.3)' 
-                                : '0 2px 8px rgba(82, 196, 26, 0.3)'
-                        }}>
-                            <CustomIcon 
-                                type={editingTask ? "icon-edit" : "icon-plus"} 
-                                style={{ fontSize: '16px' }} 
-                            />
-                        </div>
-                        <div>
-                            <div style={{ fontSize: '16px', marginBottom: '2px' }}>
-                                {editingTask ? '编辑任务' : '新建任务'}
-                            </div>
-                            <div style={{ fontSize: '12px', color: '#8c8c8c', fontWeight: 400 }}>
-                                {editingTask 
-                                    ? `${dayjs(editingTask.startDate).format('MM月DD日')} - ${dayjs(editingTask.endDate).format('MM月DD日')}`
-                                    : selectedDate?.format('YYYY年MM月DD日')
-                                }
-                            </div>
-                        </div>
-                    </div>
-                }
+                title={editingTask ? '编辑任务' : '添加任务'}
                 open={isModalVisible}
                 onCancel={handleCancelTask}
                 width={480}
@@ -436,124 +402,56 @@ const TaskCalendarView: React.FC = () => {
                         </div>
                     </div>
                 ]}
-                styles={{
-                    header: {
-                        borderBottom: 'none',
-                        paddingBottom: '8px',
-                        marginBottom: '0',
-                        background: editingTask 
-                            ? 'linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%)' 
-                            : 'linear-gradient(135deg, #f6ffed 0%, #f0f9ff 100%)',
-                        borderRadius: '8px 8px 0 0'
-                    },
-                    body: {
-                        padding: '0'
-                    },
-                    content: {
-                        borderRadius: '8px',
-                        overflow: 'hidden',
-                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
-                    }
-                }}
             >
-                <div style={{ 
-                    padding: '20px 24px',
-                    background: 'linear-gradient(135deg, #fafafa 0%, #ffffff 100%)'
-                }}>
-                    <Form
+                <div>
+                    <Form {...formItemLayout}
                         form={taskForm}
-                        layout="vertical"
-                        initialValues={{
-                            title: '',
-                            description: '',
-                            dateRange: null
-                        }}
                     >
                         <Form.Item
-                            label={
-                                <span style={{ 
-                                    fontWeight: 500, 
-                                    color: '#262626',
-                                    fontSize: '13px'
-                                }}>
-                                    任务标题
-                                </span>
-                            }
+                            label={'任务标题'}
                             name="title"
                             rules={[
                                 { required: true, message: '请输入任务标题' },
                                 { max: 50, message: '任务标题不能超过50个字符' }
                             ]}
-                            style={{ marginBottom: '16px' }}
                         >
                             <Input
                                 placeholder="请输入任务标题"
                                 maxLength={50}
                                 showCount
-                                style={{ 
-                                    borderRadius: '6px',
-                                    border: '1px solid #e8e8e8',
-                                    fontSize: '13px'
-                                }}
                             />
                         </Form.Item>
 
                         <Form.Item
-                            label={
-                                <span style={{ 
-                                    fontWeight: 500, 
-                                    color: '#262626',
-                                    fontSize: '13px'
-                                }}>
-                                    日期区间
-                                </span>
-                            }
+                            label='日期区间'
                             name="dateRange"
                             rules={[
                                 { required: true, message: '请选择日期区间' }
                             ]}
-                            style={{ marginBottom: '16px' }}
                         >
-                            <RangePicker
-                                style={{ 
-                                    width: '100%', 
-                                    borderRadius: '6px',
-                                    border: '1px solid #e8e8e8'
-                                }}
+                            <RangePickerZH
                                 placeholder={['开始日期', '结束日期']}
                                 format="YYYY-MM-DD"
                             />
                         </Form.Item>
 
                         <Form.Item
-                            label={
-                                <span style={{ 
-                                    fontWeight: 500, 
-                                    color: '#262626',
-                                    fontSize: '13px'
-                                }}>
-                                    任务描述
-                                </span>
-                            }
+                            label='任务描述'
                             name="description"
                         >
                             <TextArea
                                 placeholder="请输入任务描述（可选）"
                                 rows={3}
+                                style={{ height: 60, resize: 'none' }}
                                 maxLength={200}
                                 showCount
-                                style={{ 
-                                    borderRadius: '6px',
-                                    border: '1px solid #e8e8e8',
-                                    resize: 'none',
-                                    fontSize: '13px'
-                                }}
                             />
                         </Form.Item>
                     </Form>
                 </div>
             </Modal>
         </div>
+        </ConfigProvider>
     );
 }
 
