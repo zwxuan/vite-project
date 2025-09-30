@@ -76,17 +76,17 @@ const TaskCalendarView: React.FC = () => {
         return currentDate.isAfter(startDate, 'day') && currentDate.isBefore(endDate, 'day');
     };
 
-    // 生成任务条的浅色系颜色
+    // 生成任务条的配色方案（参考项目色系）
     const getTaskColor = (taskId: string) => {
         const colors = [
-            { bg: '#e8f4fd', border: '#91caff', text: '#1677ff' }, // 浅蓝色
-            { bg: '#f6ffed', border: '#b7eb8f', text: '#52c41a' }, // 浅绿色
-            { bg: '#fff2e8', border: '#ffbb96', text: '#fa8c16' }, // 浅橙色
-            { bg: '#f9f0ff', border: '#d3adf7', text: '#722ed1' }, // 浅紫色
-            { bg: '#fff0f6', border: '#ffadd2', text: '#eb2f96' }, // 浅粉色
-            { bg: '#e6fffb', border: '#87e8de', text: '#13c2c2' }, // 浅青色
-            { bg: '#feffe6', border: '#eaff8f', text: '#a0d911' }, // 浅黄绿色
-            { bg: '#fff7e6', border: '#ffd591', text: '#fa541c' }, // 浅黄色
+            { bg: '#f0f8ff', border: '#1890ff', text: '#1890ff' }, // 主蓝色
+            { bg: '#f6ffed', border: '#52c41a', text: '#52c41a' }, // 成功绿色
+            { bg: '#fff2f0', border: '#ff4d4f', text: '#ff4d4f' }, // 错误红色
+            { bg: '#fff7e6', border: '#fa8c16', text: '#fa8c16' }, // 警告橙色
+            { bg: '#f9f0ff', border: '#722ed1', text: '#722ed1' }, // 紫色
+            { bg: '#e6fffb', border: '#13c2c2', text: '#13c2c2' }, // 青色
+            { bg: '#fffbe6', border: '#faad14', text: '#faad14' }, // 黄色
+            { bg: '#f9fbff', border: '#2B2C42', text: '#2B2C42' }, // 深灰色
         ];
         const index = (taskId.charCodeAt(0) * 137) % colors.length;
         return colors[index];
@@ -300,7 +300,7 @@ const TaskCalendarView: React.FC = () => {
                     <div className="header-title-search-area">
                         <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                             <span className="bill-info-title" style={{ marginLeft: "10px" }}>
-                                <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 任务日历管理
+                                <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} /> 日历管理
                                 <Tooltip
                                     title={
                                         <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>

@@ -1,9 +1,10 @@
 /* 日历容器样式 */
 .continuous-task-calendar {
-    background: #fafafa;
-    border-radius: 12px;
+    background: #fff;
+    border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     overflow: hidden;
+    border: 1px solid #f0f0f0;
 }
 
 .continuous-task-calendar .ant-picker-calendar-date-content {
@@ -11,18 +12,19 @@
     position: relative !important;
 }
 
-/* 移除所有单元格边框以实现连续效果 */
+/* 移除单元格边框 */
 .continuous-task-calendar .ant-picker-cell {
-    border-right: 1px solid #f0f0f0 !important;
-    border-bottom: 1px solid #f0f0f0 !important;
-    border-left: none !important;
-    border-top: none !important;
+    border-right: none !important;
     background: #ffffff;
     transition: background-color 0.2s ease;
+    padding: 4px;
+    min-height: 90px;
+    position: relative;
 }
 
 .continuous-task-calendar .ant-picker-cell:hover {
-    background: #f8f9ff !important;
+    background-color: #f9fbff;
+    transition: background-color 0.2s ease;
 }
 
 .continuous-task-calendar .ant-picker-cell-inner {
@@ -107,10 +109,11 @@
 
 /* 日历头部样式优化 */
 .continuous-task-calendar .ant-picker-calendar-header {
-    padding: 2px 4px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 3px 16px;
+    background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
     color: white;
-    border-radius: 12px 12px 0 0;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #e3e7ee;
 }
 
 .continuous-task-calendar .ant-picker-calendar-header .ant-picker-calendar-year-select,
@@ -138,12 +141,12 @@
 }
 
 .continuous-task-calendar thead th {
-    background: #f8f9fa !important;
-    color: #495057 !important;
+    background: #f9fbff !important;
+    color: #2B2C42 !important;
     font-weight: 600 !important;
     text-align: center !important;
     padding: 12px 8px !important;
-    border-bottom: 2px solid #e9ecef !important;
+    border-bottom: 2px solid #e3e7ee !important;
     font-size: 13px !important;
 }
 
@@ -151,40 +154,42 @@
 .continuous-task-calendar .ant-picker-calendar-date-value {
     position: relative;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
-    padding: 4px 8px;
-    margin: 4px;
+    background: transparent;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin: 2px;
     display: inline-block;
-    font-weight: 600;
-    color: #2c3e50;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    color: #2B2C42;
     transition: all 0.2s ease;
 }
 
 .continuous-task-calendar .ant-picker-calendar-date-value:hover {
-    background: rgba(102, 126, 234, 0.1);
+    background: #f0f8ff;
+    color: #1890ff;
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 8px rgba(24, 144, 255, 0.15);
 }
 
 /* 今天的日期高亮 */
 .continuous-task-calendar .ant-picker-cell-today .ant-picker-calendar-date-value {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
     color: white;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(24, 144, 255, 0.3);
 }
 
 /* 选中日期样式 */
 .continuous-task-calendar .ant-picker-cell-selected .ant-picker-calendar-date {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(82, 196, 26, 0.1) 0%, rgba(115, 209, 61, 0.1) 100%);
     border-radius: 8px;
 }
 
 .continuous-task-calendar .ant-picker-cell-selected .ant-picker-calendar-date-value {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
     color: white;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(82, 196, 26, 0.3);
 }
 .ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-selected .ant-picker-calendar-date-today .ant-picker-calendar-date-value
 ,.ant-picker-calendar.ant-picker-calendar-full .ant-picker-cell-selected .ant-picker-calendar-date .ant-picker-calendar-date-value 
@@ -193,6 +198,6 @@
 }
 /* 其他月份日期样式 */
 .continuous-task-calendar .ant-picker-cell-disabled .ant-picker-calendar-date-value {
-    color: #bdc3c7;
+    color: #999;
     background: rgba(255, 255, 255, 0.6);
 }

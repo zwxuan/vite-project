@@ -250,7 +250,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic_manage",
     apps: [
         {
-            name: "节假日设定", key: "task_calendar_view",path: "/date/task_calendar_view",
+            name: "日历管理", key: "task_calendar_view",path: "/date/task_calendar_view",
         },
     ]
 },
