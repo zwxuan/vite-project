@@ -4,6 +4,14 @@ export const cn = {
         chinese: "中文",
         english: "英语",
         code: "编码",
+        add: "新增",
+        edit: "编辑",
+        delete: "删除",
+        save: "保存",
+        cancel: "取消",
+        submit: "提交",
+        operation: "操作",
+        confirm: "确认",
     },
     sideMenu: {
         home: "主页",
@@ -1666,5 +1674,18 @@ export const cn = {
         roletag:"角色标签",
         roledesc:"角色描述",
         rolegroup:"角色组",
+    },
+    freight_forwarding: {
+        order_management: {
+            page_title: "订单管理",
+            order_no: "订单编号",
+            customer_name: "客户名称",
+            order_type: "订单类型",
+            order_status: "订单状态",
+            booking_date: "订舱日期",
+            origin: "起运地",
+            destination: "目的地",
+            create_time: "创建时间",
+        }
     },
 };

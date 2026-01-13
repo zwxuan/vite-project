@@ -58,6 +58,15 @@ const menuData: MenuGroup[] = [
             },
         ]
     },
+    {
+        title: "货代操作系统",
+        key: "freight_forwarding",
+        apps: [
+            {
+                name: "订单管理", key: "order_management",
+            },
+        ]
+    },
 
 ];
 const childrenMenuData: MenuGroup[] = [{
@@ -721,6 +730,22 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "客户欠账分析", key: "customer_arrears_analysis_report",path: "/finance_statistics/customer_arrears_analysis_report",
         },
+    ]
+},
+{
+    title: "订单管理",
+    key: "order_management",
+    parentkey: "order_management",
+    apps: [
+        { name: "订单列表", key: "order_list", path: "/order_management/list" },
+        { name: "新建订单", key: "new_order", path: "/order_management/new_order" },
+        { name: "订单查询", key: "order_query", path: "/order_management/order_query" },
+        { name: "订单审核", key: "order_audit", path: "/order_management/order_audit" },
+        { name: "订单拆解", key: "order_breakdown", path: "/order_management/order_breakdown" },
+        { name: "拆解规则配置", key: "breakdown_rules", path: "/order_management/breakdown_rules" },
+        { name: "订单统计报表", key: "order_statistics", path: "/order_management/order_statistics" },
+        { name: "单项服务管理", key: "standalone_service", path: "/order_management/standalone_service" },
+        { name: "服务组合模板", key: "service_template", path: "/order_management/service_template" },
     ]
 },
 ]

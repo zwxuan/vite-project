@@ -6,6 +6,14 @@ export const en = {
         chinese: "cn",
         english: "en",
         code: "code",
+        add: "Add",
+        edit: "Edit",
+        delete: "Delete",
+        save: "Save",
+        cancel: "Cancel",
+        submit: "Submit",
+        operation: "Operation",
+        confirm: "Confirm",
     },
     sideMenu: {
         "home": "Home",
@@ -1658,5 +1666,18 @@ export const en = {
         roletag: "Role Tag",
         roledesc: "Role Desc",
         rolegroup: "Role Group"
+    },
+    freight_forwarding: {
+        order_management: {
+            page_title: "Order Management",
+            order_no: "Order No",
+            customer_name: "Customer Name",
+            order_type: "Order Type",
+            order_status: "Order Status",
+            booking_date: "Booking Date",
+            origin: "Origin",
+            destination: "Destination",
+            create_time: "Create Time",
+        }
     }
 };

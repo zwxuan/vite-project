@@ -96,8 +96,18 @@ const RoleManageDetail = React.lazy(() => import("@/pages/dynamic_onfiguration_p
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
+const OrderList = React.lazy(() => import("@/pages/freight_forwarding/order_management/list"));
+const NewOrder = React.lazy(() => import("@/pages/freight_forwarding/order_management/new_order"));
+const OrderQuery = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_query"));
+const OrderAudit = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_audit"));
+const OrderBreakdown = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_breakdown"));
+const BreakdownRules = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown_rules"));
+const OrderStatistics = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_statistics"));
+const StandaloneService = React.lazy(() => import("@/pages/freight_forwarding/order_management/standalone_service"));
+const ServiceTemplate = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_template"));
 
 export {
+  OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate,
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagement,ExportLog,ImportLog,Login,

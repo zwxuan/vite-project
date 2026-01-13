@@ -31,6 +31,7 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   RoleManage,
   RoleManageDetail,
   Lev1Department,
+  OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -56,6 +57,26 @@ const routers = createMemoryRouter([
         element: (
             <Demo />
           )
+      },
+      {
+        path: "/order_management",
+        handle: { title: '订单管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+            { path: "list", handle: { title: '订单列表' }, element: <RouterGuard><OrderList /></RouterGuard> },
+            { path: "new_order", handle: { title: '新建订单' }, element: <RouterGuard><NewOrder /></RouterGuard> },
+            { path: "order_query", handle: { title: '订单查询' }, element: <RouterGuard><OrderQuery /></RouterGuard> },
+            { path: "order_audit", handle: { title: '订单审核' }, element: <RouterGuard><OrderAudit /></RouterGuard> },
+            { path: "order_breakdown", handle: { title: '订单拆解' }, element: <RouterGuard><OrderBreakdown /></RouterGuard> },
+            { path: "breakdown_rules", handle: { title: '拆解规则配置' }, element: <RouterGuard><BreakdownRules /></RouterGuard> },
+            { path: "order_statistics", handle: { title: '订单统计报表' }, element: <RouterGuard><OrderStatistics /></RouterGuard> },
+            { path: "standalone_service", handle: { title: '单项服务管理' }, element: <RouterGuard><StandaloneService /></RouterGuard> },
+            { path: "service_template", handle: { title: '服务组合模板' }, element: <RouterGuard><ServiceTemplate /></RouterGuard> },
+        ]
       },
       {
         path: "/basic_finance",
