@@ -5,6 +5,7 @@ import { DatePickerZH } from '@/components/date-picker/index';
 import { HasOffSettingItemProps, OffSettingDetailItemProps } from "@/types/settlement_center/finance_manage/has_off_setting";
 import { getHasOffDetailList } from "@/api/settlement_center/finance_manage/has_off_setting_service";
 import { getDetailColumns } from './columns';
+import { right } from '@antv/g2/lib/data/utils/d3-sankey/align';
 interface DetailModalProps {
     open: boolean;
     modalFlag: 'add' | 'edit';
@@ -83,31 +84,31 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 <Row gutter={24} style={{ paddingRight: '6px',marginBottom:'2px' }}>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>付款方式</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>付款方式</label>
                             <Input defaultValue={'银行转账'} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>水单状态</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>水单状态</label>
                             <Input defaultValue={'未使用'} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>我方银行</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>我方银行</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>我方账号</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>我方账号</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={4} style={{ textAlign: 'right' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>凭证号</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>凭证号</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>
@@ -115,31 +116,31 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 <Row gutter={24} style={{ paddingRight: '6px',marginBottom:'2px' }}>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>币种</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>币种</label>
                             <Input defaultValue={'RMB'} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>付款金额</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>付款金额</label>
                             <InputNumber defaultValue={1000} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>对方单位</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>对方单位</label>
                             <Input defaultValue={'上海大洋行'} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>对方银行</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>对方银行</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={4} style={{ textAlign: 'right' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>对方账号</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>对方账号</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>
@@ -147,25 +148,25 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 <Row gutter={24} style={{ paddingRight: '6px',marginBottom:'2px' }}>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>汇兑损益</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>汇兑损益</label>
                             <Input defaultValue={'0.00'} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>财务费用</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>财务费用</label>
                             <InputNumber defaultValue={0.00} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={5}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>零头短账</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>零头短账</label>
                             <Input defaultValue={'0.00'} style={{ flex: 1 }} />
                         </div>
                     </Col>
                     <Col span={9}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>备注</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>备注</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>
@@ -173,7 +174,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 <Row gutter={24} style={{ paddingRight: '6px',marginBottom:'2px' }}>
                     <Col span={24}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label className='item-lable-title'>预收付备注</label>
+                            <label className='item-lable-title' style={{ width: '80px',textAlign:'right' }}>预收付备注</label>
                             <Input style={{ flex: 1 }} />
                         </div>
                     </Col>

@@ -815,12 +815,12 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
           padding: '8px 0'
         }}>
           <FileTextOutlined style={{ marginRight: 12, fontSize: '24px' }} />
-          <div>
+          
             <div>最终装箱方案报告</div>
-            <div style={{ fontSize: '12px', color: '#666', fontWeight: 'normal', marginTop: '2px' }}>
+            <div style={{ fontSize: '12px', color: '#666', fontWeight: 'normal', marginTop: '2px',marginLeft: '8px' }}>
               Container Loading Solution Report
             </div>
-          </div>
+          
         </div>
       }
       open={visible}
@@ -834,11 +834,11 @@ export const PackingSolutionReport: React.FC<PackingSolutionReportProps> = ({
         </Button>
       ]}
       width="95vw"
-      style={{ top: 20 }}
+      style={{ top: 2 }}
       bodyStyle={{ 
-        height: '85vh', 
+        height: '80vh', 
         overflowY: 'auto',
-        padding: '24px',
+        padding: '14px',
         backgroundColor: '#fafafa'
       }}
     >

@@ -1,5 +1,5 @@
 import Mock from "mockjs";
-import { SummaryRuleItemProps } from "@/types/dynamic_onfiguration_platform/basic_manage/summary_rule";
+import { SummaryRuleItemProps } from "@/types/dynamic_configuration_platform/basic_manage/summary_rule";
 import { IncomingMessage, ServerResponse } from 'http';
 
 // 修正icon的类型问题，因为JSX元素不能作为JSON对象的一部分，这里已经改为字符串

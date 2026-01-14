@@ -6,6 +6,7 @@ import * as XLSX from 'xlsx';
 import './reconciliation.less';
 import CodeBoxMeta from '@/components/code-box-meta';
 import CustomIcon from '@/components/custom-icon';
+import { useNavigate } from 'react-router-dom';
 
 interface ExcelDataItem {
   [key: string]: any;
@@ -39,7 +40,7 @@ const FeeReconciliation: React.FC = () => {
   const [systemColumns, setSystemColumns] = useState<any[]>([]);
   const [excelHeaders, setExcelHeaders] = useState<string[]>([]);
   const [systemHeaders, setSystemHeaders] = useState<string[]>([]);
-
+  const navigate = useNavigate();
   const matchFields: MatchField[] = [
     { excelField: '主单号', systemField: '主单号' },
     { excelField: '费用名称', systemField: '费用名称' },
@@ -48,6 +49,9 @@ const FeeReconciliation: React.FC = () => {
   const compareFields: CompareField[] = [
     { excelField: '含税价', systemField: '金额' },
   ];
+  const handleBack = () => {
+    navigate(-1);
+  }
   // 模拟获取系统数据
   useEffect(() => {
     // 这里应该是从API获取系统数据
@@ -368,6 +372,7 @@ const FeeReconciliation: React.FC = () => {
                 </Select>
                 <Button type="primary" onClick={performReconciliation} disabled={excelData.length === 0}>执行对账</Button>
                 <Button type="primary" danger onClick={exportReconciliationResult}>导出对账结果</Button>
+                <Button onClick={handleBack}>返回</Button>
               </div>
             </div>
             <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>

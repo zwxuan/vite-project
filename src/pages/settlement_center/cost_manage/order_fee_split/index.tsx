@@ -156,13 +156,13 @@ const OrderFeeSplit : React.FC = () => {
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{display: "flex"}}>
-                        <div className="buttonGroup-component">
+                        {/* <div className="buttonGroup-component">
                             <div className="u-button-group">
                                 <Button type="primary" danger >开票|收票</Button>
                                 <Button type="primary" danger >申请付款</Button>
                                 <Button type="primary" danger >销账</Button>
                             </div>
-                        </div> 
+                        </div>  */}
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
@@ -186,7 +186,7 @@ const OrderFeeSplit : React.FC = () => {
             <div className='nc-bill-table-area'>
                 <Table<OrderFeeItemProps>
                     columns={expandColumns}
-                    rowSelection={{ ...rowSelection}}
+                    // rowSelection={{ ...rowSelection}}
                     rowKey={(record) => `${record.FeeId}`}
                     expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}

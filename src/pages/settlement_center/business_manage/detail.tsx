@@ -2,13 +2,17 @@
 import React from 'react';
 import { Tabs, Card, Button } from 'antd';
 import { HighlightOutlined, UserOutlined, AccountBookOutlined, WindowsOutlined, GithubOutlined, SplitCellsOutlined, OneToOneOutlined, VerifiedOutlined, GoldOutlined, FolderOutlined } from '@ant-design/icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BaseBusiness, Fee, FeeCAP, OrderBill, OrderBillForeign, FeeQuickInput, FinancialState, OrderFeeRelation, OrderProft, OrderDocument } from './details';
 const Detail: React.FC = () => {
     //获取路由参数
     const location = useLocation();
+    const navigate = useNavigate();
     const searchParams = new URLSearchParams(location.search);
     const businessId = searchParams.get('businessId');
+    const handleBack = () => {
+        navigate(-1);
+    };
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
             <div className="nc-bill-header-area">
@@ -26,6 +30,7 @@ const Detail: React.FC = () => {
                                 <Button>更新汇率</Button>
                                 <Button>计提</Button>
                                 <Button>日志记录</Button>
+                                <Button onClick={handleBack}>返回</Button>
                             </div>
                         </div>
                         <div className="buttonGroup-component" style={{ marginLeft: "10px" }}>

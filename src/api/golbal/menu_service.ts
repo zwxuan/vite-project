@@ -12,7 +12,7 @@ const menuData: MenuGroup[] = [
                 name: "组织机构", key: "org_manage",
             },
             {
-                name: "基础数据", key: "basic",
+                name: "基础数据", key: "basic_manage",
             },
             {
                 name: "权限管理", key: "permission",
@@ -72,43 +72,40 @@ const menuData: MenuGroup[] = [
 const childrenMenuData: MenuGroup[] = [{
     title: "财务基础数据",
     key: "basic_finance",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
-            name: "币制", key: "currency", path: "/basic_finance/currency",
+            name: "币种", key: "currency", path: "/basic_finance/currency",
         },
         {
-            name: "税率管理", key: "base_tax_rate",path: "/basic_finance/base_tax_rate",
+            name: "税制档案", key: "base_tax_system",path: "/basic_finance/base_tax_system",
+        },
+        {
+            name: "税种档案", key: "base_tax_type",path: "/basic_finance/base_tax_type",
+        },
+        {
+            name: "税率档案", key: "base_tax_rate",path: "/basic_finance/base_tax_rate",
+        },
+        {
+            name: "银行类别", key: "base_bank_type",path: "/basic_finance/base_bank_type",
+        },
+        {
+            name: "银行网点", key: "base_bank_branch",path: "/basic_finance/base_bank_branch",
         },
         {
             name: "结算方式", key: "base_settlement_method",path: "/basic_finance/base_settlement_method",
         },
         {
-            name: "开票方式", key: "invoice_method",
+            name: "结算方式对照", key: "base_settlement_method_mapper",path: "/basic_finance/base_settlement_method_mapper",
         },
         {
-            name: "结算周期", key: "settlement_cycle",
+            name: "开票周期", key: "base_periodic_billing",path: "/basic_finance/base_periodic_billing",
         },
         {
-            name: "发票类型", key: "invoice_type",
+            name: "结算周期", key: "settlement_cycle",path: "/basic_finance/base_settlement_cycle",
         },
         {
             name: "汇率管理", key: "base_exchange_rate",path: "/basic_finance/base_exchange_rate",
-        },
-        {
-            name: "TMO类型", key: "tmo_type",
-        },
-        {
-            name: "银行信息", key: "bank_info",
-        },
-        {
-            name: "企业规模", key: "company_size",
-        },
-        {
-            name: "企业性质", key: "company_nature",
-        },
-        {
-            name: "企业类型", key: "company_type",
         },
         {
             name: "测试页面", key: "demo",path: "/demo",
@@ -129,7 +126,7 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "凭证设置",
     key: "voucher_setting",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "账套设置", key: "accounting_set", path: "/voucher_setting/accounting_book",
@@ -159,24 +156,30 @@ const childrenMenuData: MenuGroup[] = [{
 },
 {
     title: "企业基础数据",
-    key: "company",
-    parentkey: "basic",
+    key: "basic_company",
+    parentkey: "basic_manage",
     apps: [
         {
-            name: "企业规模", key: "company_size",
+            name: "企业规模", key: "company_size",path: "/basic_company/base_company_size",
         },
         {
-            name: "企业性质", key: "company_nature",
+            name: "企业性质", key: "company_nature",path: "/basic_company/base_company_nature",
         },
         {
-            name: "企业类型", key: "company_type",
+            name: "账户用途", key: "base_account_purpose",path: "/basic_company/base_account_purpose",
+        },
+        {
+            name: "企业资金账户", key: "base_corporate_fund_account",path: "/basic_company/base_corporate_fund_account",
+        },
+        {
+            name: "企业现金账户", key: "base_corporate_cash_account",path: "/basic_company/base_corporate_cash_account",
         },
     ]
 },
 {
     title: "业务基础数据",
     key: "base_business_manage",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "海关编码", key: "base_goods",path: "/base_business_manage/base_goods",
@@ -228,7 +231,7 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "合作伙伴",
     key: "cooperation_party",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
             name: "合同管理", key: "contracts_manage",path: "/cooperation_party/contracts_manage",
@@ -253,10 +256,10 @@ const childrenMenuData: MenuGroup[] = [{
 {
     title: "日期管理",
     key: "date",
-    parentkey: "basic",
+    parentkey: "basic_manage",
     apps: [
         {
-            name: "节假日设定", key: "holiday",
+            name: "日历管理", key: "task_calendar_view",path: "/date/task_calendar_view",
         },
     ]
 },
@@ -313,13 +316,10 @@ const childrenMenuData: MenuGroup[] = [{
             name: "角色管理", key: "role_manage",path: "/role/role_manage",
         },
         {
-            name: "角色组", key: "role_group",
+            name: "角色组", key: "role_group",path: "/role/role_group",
         },
         {
-            name: "角色标签", key: "role_tag",
-        },
-        {
-            name: "功能权限分配", key: "set_function_permission", path: "/identity/permission",
+            name: "角色标签", key: "role_tag",path: "/role/role_tags",
         },
     ]
 },
@@ -329,13 +329,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "功能权限", key: "function_permission",
+            name: "授权分配岗位", key: "permission_assign_post", path: "/authorization/permission_assign_post",
         },
         {
-            name: "数据权限", key: "data_permission",
-        },
-        {
-            name: "数据权限规则定义", key: "data_permission_rule",
+            name: "授权分配用户", key: "permission_assign_user", path: "/authorization/permission_assign_user",
         },
     ]
 },
@@ -345,13 +342,16 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "功能权限查询（按角色）", key: "function_permission_role_query",
+            name: "功能权限查询（按角色）", key: "function_permission_by_role",path: "/authorization_query/function_permission_by_role",
         },
         {
-            name: "数据权限查询（按角色）", key: "data_permission_role_query",
+            name: "功能权限查询（按用户）", key: "function_permission_by_user",path: "/authorization_query/function_permission_by_user",
         },
         {
-            name: "数据权限查询（按用户）", key: "data_permission_user_query",
+            name: "数据权限查询（按角色）", key: "data_permission_by_role",path: "/authorization_query/data_permission_by_role",
+        },
+        {
+            name: "数据权限查询（按用户）", key: "data_permission_by_user",path: "/authorization_query/data_permission_by_user",
         },
     ]
 },
@@ -373,6 +373,9 @@ const childrenMenuData: MenuGroup[] = [{
         {
             name: "菜单管理", key: "menu_manage",path: "/menu_manage/menu_manage",
         },
+        {
+            name: "功能按钮", key: "function_button",
+        },
     ]
 },
 {
@@ -391,36 +394,60 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "预警任务", key: "warning_task",
+            name: "预警任务", key: "sys_warning_task",path: "/warning_task/sys_warning_task",
         },
         {
-            name: "预警类型", key: "warning_type",
+            name: "预警类型", key: "sys_warning_type",path: "/warning_task/sys_warning_type",
         },
     ]
 },
-
+{
+    title: "消息平台",
+    key: "message_platform",
+    parentkey: "system",
+    apps: [
+        {
+            name: "消息模版", key: "message_template",
+        },
+        {
+            name: "消息通道", key: "message_channel",
+        },
+        {
+            name: "消息配置", key: "message_config",
+        },
+        {
+            name: "消息发送策略", key: "message_send_strategy",
+        },
+        {
+            name: "消息日志查询", key: "message_log_query",
+        },
+    ]
+},
 {
     title: "日志管理",
     key: "log_manage",
     parentkey: "system",
     apps: [
         {
-            name: "登录日志", key: "login_log",
+            name: "登录日志", key: "sys_login_log",path: "/log_manage/sys_login_log",
         },
         {
-            name: "操作日志", key: "operation_log",
+            name: "业务日志", key: "sys_business_log",path: "/log_manage/sys_business_log",
         },
         {
-            name: "异常日志", key: "exception_log",
+            name: "操作日志", key: "sys_operator_log",path: "/log_manage/sys_operator_log",
         },
         {
-            name: "操作日志统计", key: "business_log_statistics",
+            name: "异常日志", key: "sys_exception_log",path: "/log_manage/sys_exception_log",
         },
         {
-            name: "导入日志", key: "import_log",
+            name: "操作日志统计", key: "sys_operator_log_report",path: "/log_manage/sys_operator_log_report",
         },
         {
-            name: "导出日志", key: "export_log",
+            name: "导入日志", key: "import_log",path: "/log_manage/importlog",
+        },
+        {
+            name: "导出日志", key: "export_log",path: "/log_manage/exportlog",
         },
     ]
 },

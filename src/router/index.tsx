@@ -1,14 +1,15 @@
 //router/index.tsx
 import { createBrowserRouter, createMemoryRouter, Outlet } from "react-router-dom";
 import AppLayout from "@/layout/index";
-import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderFeeSplit,LCLFeeShare,ReconciliationRuleEngine
-  , OrderDetail, PermissionManagement, ExportLog, ImportLog, Login, InvoiceDetail,Invoice, InvoiceIssuanceReceipt,PhysicalInvoice 
-  , SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule
-  ,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview
-  ,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,OutstandingReceivablesPayablesReport
-  ,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,
-  SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseSeaPort,BaseAirPort,BaseRailwayPort,Demo,BaseExchangeRate,
-  BaseTaxRate,BaseSettlementMethod,BaseTradeLanes,BaseTradeLanesGrouping,BaseGoods,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,BaseContainerType,ContractsManage,BusinessPartner,
+import {
+  Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderFeeSplit, LCLFeeShare, ReconciliationRuleEngine
+  , OrderDetail, PermissionManagementUser, ExportLog, ImportLog, Login, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice
+  , SetFeeSchedule, ChargingStandard, NotOffSetting, HasOffSetting, AccountingBook, VoucherGroupingRule, EntryGroupingRule
+  , SummaryRule, VoucherType, VoucherCodeMapping, AccountMapping, PaymentApplication, ReleaseOrderVerification, BlRelease, ExpenseReview
+  , FeeAdjustment, ActualPayment, FinanceQuery, VoucherLog, SalesBusinessAmountReport, OutstandingReceivablesPayablesReport
+  , NotReceivablesFeeReport, NotReceivablesOrderReport, SalesBusinessWeightReport, CustomerArrearsAnalysisReport,
+  SalesProfitReport, DepartmentBusinessWeightReport, SingleTicketProfitStatisticsReport, OperatorShipmentSummaryReport, TransportationLineTeuReport, CustomerWeightProfitReport, AccountsReceivableAgingReport, NotPayFeeReport, NotPayOrderReport, BaseSeaPort, BaseAirPort, BaseRailwayPort, Demo, BaseExchangeRate,
+  BaseTaxRate, BaseSettlementMethod, BaseTradeLanes, BaseTradeLanesGrouping, BaseGoods, BaseShipmentType, BaseBusinessType, BaseTransportationTerms, BaseTradeTerms, BaseFreightTerms, BaseBillTerms, BaseContainerTeu, BaseCargoType, BaseContainerType, ContractsManage, BusinessPartner,
   ParterDetail,
   InternalAgentSettlement,
   PartnerPerformance,
@@ -32,6 +33,36 @@ import { Currency, Orders, FeeReconciliation,FeeReconciliationCompare,BillManage
   RoleManageDetail,
   Lev1Department,
   OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate,
+  RoleGroup,
+  RoleTags,
+  FunctionPermissionRole,
+  PermissionManagementPost,
+  FunctionPermissionUser,
+  DataPermissionRole,
+  DataPermissionUser,
+  BaseTaxSystem,
+  BaseTaxType,
+  BaseBankType,
+  BaseBankBranch,
+  BaseSettlementMethodMapper,
+  BasePeriodicBilling,
+  BaseSettlementCycle,
+  BaseCompanySize,
+  BaseCompanyNature,
+  BaseAccountPurpose,
+  BaseCorporateFundAccount,
+  AccountDetail,
+  BaseCorporateCashAccount,
+  SysBusinessLog,
+  SysLoginLog,
+  SysOperatorLog,
+  SysExceptionLog,
+  SysOperatorLogReport,
+  SysWarningType,
+  SysWarningTypeDetail,
+  SysWarningTask,
+  SysWarningTaskDetail,
+  TaskCalendarView,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -55,8 +86,8 @@ const routers = createMemoryRouter([
         path: "/demo",
         handle: { title: '测试' },
         element: (
-            <Demo />
-          )
+          <Demo />
+        )
       },
       {
         path: "/order_management",
@@ -96,11 +127,43 @@ const routers = createMemoryRouter([
               </RouterGuard>),
           },
           {
+            path: "base_tax_system",
+            handle: { title: '税制档案' },
+            element: (
+              <RouterGuard>
+                <BaseTaxSystem />
+              </RouterGuard>),
+          },
+          {
+            path: "base_tax_type",
+            handle: { title: '税种档案' },
+            element: (
+              <RouterGuard>
+                <BaseTaxType />
+              </RouterGuard>),
+          },
+          {
             path: "base_tax_rate",
-            handle: { title: '税率管理' },
+            handle: { title: '税率档案' },
             element: (
               <RouterGuard>
                 <BaseTaxRate />
+              </RouterGuard>),
+          },
+          {
+            path: "base_bank_type",
+            handle: { title: '银行类别' },
+            element: (
+              <RouterGuard>
+                <BaseBankType />
+              </RouterGuard>),
+          },
+          {
+            path: "base_bank_branch",
+            handle: { title: '银行网点' },
+            element: (
+              <RouterGuard>
+                <BaseBankBranch />
               </RouterGuard>),
           },
           {
@@ -109,6 +172,30 @@ const routers = createMemoryRouter([
             element: (
               <RouterGuard>
                 <BaseSettlementMethod />
+              </RouterGuard>),
+          },
+          {
+            path: "base_settlement_method_mapper",
+            handle: { title: '结算方式映射' },
+            element: (
+              <RouterGuard>
+                <BaseSettlementMethodMapper />
+              </RouterGuard>),
+          },
+          {
+            path: "base_periodic_billing",
+            handle: { title: '开票周期' },
+            element: (
+              <RouterGuard>
+                <BasePeriodicBilling />
+              </RouterGuard>),
+          },
+          {
+            path: "base_settlement_cycle",
+            handle: { title: '结算周期' },
+            element: (
+              <RouterGuard>
+                <BaseSettlementCycle />
               </RouterGuard>),
           },
           {
@@ -121,7 +208,7 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
       // 业务基础数据
       {
         path: "/base_business_manage",
@@ -220,7 +307,7 @@ const routers = createMemoryRouter([
                 <BaseContainerTeu />
               </RouterGuard>),
           },
-          
+
           {
             path: "base_goods",
             handle: { title: '海关商品' },
@@ -252,6 +339,48 @@ const routers = createMemoryRouter([
               <RouterGuard>
                 <BaseRailwayPort />
               </RouterGuard>),
+          },
+        ]
+      },
+      // 企业基础数据
+      {
+        path: "/basic_company",
+        handle: { title: '企业基础数据' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "base_company_size",
+            handle: { title: '企业规模' },
+            element: <BaseCompanySize />,
+          },
+          {
+            path: "base_company_nature",
+            handle: { title: '企业性质' },
+            element: <BaseCompanyNature />,
+          },
+          {
+            path: "base_account_purpose",
+            handle: { title: '账户用途' },
+            element: <BaseAccountPurpose />,
+          },
+          {
+            path: "base_corporate_fund_account",
+            handle: { title: '企业资金账户' },
+            element: <BaseCorporateFundAccount />,
+          },
+          {
+            path: "base_corporate_fund_account/detail",
+            handle: { title: '企业资金账户详情' },
+            element: <AccountDetail />,
+          },
+          {
+            path: "base_corporate_cash_account",
+            handle: { title: '企业现金账户' },
+            element: <BaseCorporateCashAccount />,
           },
         ]
       },
@@ -350,7 +479,7 @@ const routers = createMemoryRouter([
           },
           {
             path: "fee_reconciliation/compare",
-            handle: { title: '自动对账' }, 
+            handle: { title: '自动对账' },
             element: (
               <RouterGuard>
                 <FeeReconciliationCompare />
@@ -558,7 +687,7 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
       // 组织机构
       {
         path: "/org",
@@ -606,7 +735,7 @@ const routers = createMemoryRouter([
             handle: { title: '部门' },
             element: (
               <RouterGuard>
-                <Department />  
+                <Department />
               </RouterGuard>),
           },
           {
@@ -614,7 +743,7 @@ const routers = createMemoryRouter([
             handle: { title: '岗位' },
             element: (
               <RouterGuard>
-                <JobPosition />  
+                <JobPosition />
               </RouterGuard>),
           },
         ]
@@ -656,30 +785,140 @@ const routers = createMemoryRouter([
           },
         ]
       },
+      // 预警任务
+      {
+        path: "/warning_task",
+        handle: { title: '预警任务' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "sys_warning_task",
+            handle: { title: '预警任务' },
+            element: (
+              <RouterGuard>
+                <SysWarningTask />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_warning_task/detail",
+            handle: { title: '预警任务明细' },
+            element: (
+              <RouterGuard>
+                <SysWarningTaskDetail />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_warning_type",
+            handle: { title: '预警类型' },
+            element: (
+              <RouterGuard>
+                <SysWarningType />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_warning_type/detail",
+            handle: { title: '预警类型明细' },
+            element: (
+              <RouterGuard>
+                <SysWarningTypeDetail />
+              </RouterGuard>),
+          },
+        ]
+      },
+      // 日志管理
+      {
+        path: "/log_manage",
+        handle: { title: '日志管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "exportlog",
+            handle: { title: '导出日志' },
+            element: (
+              <RouterGuard>
+                <ExportLog />
+              </RouterGuard>),
+          },
+          {
+            path: "importlog",
+            handle: { title: '导入日志' },
+            element: (
+              <RouterGuard>
+                <ImportLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_business_log",
+            handle: { title: '业务日志' },
+            element: (
+              <RouterGuard>
+                <SysBusinessLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_login_log",
+            handle: { title: '登录日志' },
+            element: (
+              <RouterGuard>
+                <SysLoginLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_operator_log",
+            handle: { title: '操作日志' },
+            element: (
+              <RouterGuard>
+                <SysOperatorLog />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_operator_log_report",
+            handle: { title: '操作日志统计' },
+            element: (
+              <RouterGuard>
+                <SysOperatorLogReport />
+              </RouterGuard>),
+          },
+          {
+            path: "sys_exception_log",
+            handle: { title: '异常日志' },
+            element: (
+              <RouterGuard>
+                <SysExceptionLog />
+              </RouterGuard>),
+          },
 
-      {
-        path: "/identity/permission",
-        handle: { title: '权限分配' },
-        element: (
-          <RouterGuard>
-            <PermissionManagement />
-          </RouterGuard>),
+        ]
       },
+
+
+      // 日期管理
       {
-        path: "/exportlog",
-        handle: { title: '导出日志' },
+        path: "/date",
+        handle: { title: '日期管理' },
         element: (
           <RouterGuard>
-            <ExportLog />
-          </RouterGuard>),
-      },
-      {
-        path: "/importlog",
-        handle: { title: '导入日志' },
-        element: (
-          <RouterGuard>
-            <ImportLog />
-          </RouterGuard>),
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "task_calendar_view",
+            handle: { title: '节假日设定' },
+            element: (
+              <RouterGuard>
+                <TaskCalendarView />
+              </RouterGuard>),
+          },
+        ]
       },
       // 模板管理
       {
@@ -709,7 +948,7 @@ const routers = createMemoryRouter([
           },
         ]
       },
-      
+
       // 财务审核
       {
         path: "/finance_audit",
@@ -964,7 +1203,7 @@ const routers = createMemoryRouter([
                 <NotReceivablesOrderReport />
               </RouterGuard>),
           },
-          
+
           {
             path: "customer_arrears_analysis_report",
             handle: { title: '客户欠款分析表' },
@@ -973,7 +1212,7 @@ const routers = createMemoryRouter([
                 <CustomerArrearsAnalysisReport />
               </RouterGuard>),
           },
-          
+
           {
             path: "accounts_receivable_aging_report",
             handle: { title: '应收未收对账表（按业务单号）' },
@@ -1068,9 +1307,98 @@ const routers = createMemoryRouter([
                 <RoleManageDetail />
               </RouterGuard>),
           },
+          {
+            path: "role_group",
+            handle: { title: '角色组' },
+            element: (
+              <RouterGuard>
+                <RoleGroup />
+              </RouterGuard>),
+          },
+          {
+            path: "role_tags",
+            handle: { title: '角色标签' },
+            element: (
+              <RouterGuard>
+                <RoleTags />
+              </RouterGuard>),
+          },
         ]
       },
+      // 授权
+      {
+        path: "/authorization",
+        handle: { title: '授权' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "permission_assign_post",
+            handle: { title: '授权分配岗位' },
+            element: (
+              <RouterGuard>
+                <PermissionManagementPost />
+              </RouterGuard>),
+          },
+          {
+            path: "permission_assign_user",
+            handle: { title: '授权分配用户' },
+            element: (
+              <RouterGuard>
+                <PermissionManagementUser />
+              </RouterGuard>),
+          },
+        ]
+      },
+      // 权限查询
+      {
+        path: "/authorization_query",
+        handle: { title: '权限查询' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "function_permission_by_role",
+            handle: { title: '功能权限查询（按角色）' },
+            element: (
+              <RouterGuard>
+                <FunctionPermissionRole />
+              </RouterGuard>),
+          },
+          {
+            path: "function_permission_by_user",
+            handle: { title: '功能权限查询（按用户）' },
+            element: (
+              <RouterGuard>
+                <FunctionPermissionUser />
+              </RouterGuard>),
+          },
+          {
+            path: "data_permission_by_role",
+            handle: { title: '数据权限查询（按角色）' },
+            element: (
+              <RouterGuard>
+                <DataPermissionRole />
+              </RouterGuard>),
+          },
+          {
+            path: "data_permission_by_user",
+            handle: { title: '数据权限查询（按用户）' },
+            element: (
+              <RouterGuard>
+                <DataPermissionUser />
+              </RouterGuard>),
+          },
 
+
+        ]
+      },
       // 3D大屏
       {
         path: "/large_screen",
@@ -1105,6 +1433,6 @@ const routers = createMemoryRouter([
     path: "/login",
     element: <Login />,
   },
-]); 
- 
+]);
+
 export default routers;

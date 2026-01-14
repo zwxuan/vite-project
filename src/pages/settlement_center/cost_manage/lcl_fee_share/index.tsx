@@ -1,6 +1,6 @@
 ﻿
 import React, { useState,useEffect } from 'react';
-import { Table,Button,Dropdown, Space } from 'antd';
+import { Table,Button,Dropdown, Space, Tooltip } from 'antd';
 import type { MenuProps,TableProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrderBillItemProps } from "@/types/settlement_center/business_manage/order_bill";
@@ -126,26 +126,47 @@ const LCLFeeShare : React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{marginLeft: "10px"}}>
                             <CustomIcon type="icon-Currency"  style={{color:'red',fontSize:'24px'}} /> 拼箱分摊模式
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>将多个货主的小批量货物整合装入同一个集装箱，通过共享集装箱资源来降低单个货主的运输成本。这种模式的核心在于费用分摊机制和操作流程整合。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>费用分摊原则</b></span>按比例，比如重量、体积、数量等。
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>优势</b></span>
+                                                成本低：小批量货物无需支付整柜费用；
+                                                <p>灵活性高：适合试单、样品、电商小批量发货；</p>
+                                                <p>门槛低：发货人无需具备整柜操作经验。</p>
+                                            </li>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>劣势</b></span>
+                                                时效慢：需等待集货（通常3–7天），目的港还需拆箱分拨；
+                                                <p>操作依赖货代：无法监装，货物混装易受损；</p>
+                                                <p>费用不透明：部分货代隐藏附加费（如亏舱费、最低收费）；</p>
+                                                <p>连带风险：若其他货主瞒报、侵权，可能导致整柜被查扣。</p>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
                         </span>
                     </div>
                     <span className="orgunit-customize-showOff" style={{marginLeft: "10px"}}>
-                        <div style={{display: "inline"}}>
-                            <label className="u-checkbox nc-checkbox">
-                                <input type="checkbox" className='u-checkbox-middle' /><label className="u-checkbox-label u-checkbox-label-middle">显示停用</label>
-                            </label>
-                        </div>
+                        
                     </span>
                 </div>
                 <div className="header-button-area">
                     <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
                     <div style={{display: "flex"}}>
-                        <div className="buttonGroup-component">
+                        {/* <div className="buttonGroup-component">
                             <div className="u-button-group">
                                 <Button type="primary" danger >开票|收票</Button>
                                 <Button type="primary" danger >申请付款</Button>
                                 <Button type="primary" danger >销账</Button>
                             </div>
-                        </div> 
+                        </div>  */}
                         <div className="buttonGroup-component" style={{marginLeft: "10px"}}>
                             <div className="u-button-group"></div>
                         </div>
@@ -169,7 +190,7 @@ const LCLFeeShare : React.FC = () => {
             <div className='nc-bill-table-area'>
                 <Table<OrderFeeItemProps>
                     columns={expandColumns}
-                    rowSelection={{ ...rowSelection}}
+                    // rowSelection={{ ...rowSelection}}
                     rowKey={(record) => `${record.FeeId}`}
                     expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'],onExpand: (expanded, record) => {handExpand(expanded, record);} }}
                     showSorterTooltip={false}
