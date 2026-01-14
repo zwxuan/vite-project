@@ -40,6 +40,11 @@ import {
   FunctionPermissionUser,
   DataPermissionRole,
   DataPermissionUser,
+  JobList,
+  JobDetail,
+  JobMonitoring,
+  MyJobs,
+  TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
   BaseTaxSystem,
   BaseTaxType,
   BaseBankType,
@@ -107,6 +112,25 @@ const routers = createMemoryRouter([
             { path: "order_statistics", handle: { title: '订单统计报表' }, element: <RouterGuard><OrderStatistics /></RouterGuard> },
             { path: "standalone_service", handle: { title: '单项服务管理' }, element: <RouterGuard><StandaloneService /></RouterGuard> },
             { path: "service_template", handle: { title: '服务组合模板' }, element: <RouterGuard><ServiceTemplate /></RouterGuard> },
+        ]
+      },
+      {
+        path: "/job_management",
+        handle: { title: '作业管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+            { path: "list", handle: { title: '作业列表' }, element: <RouterGuard><JobList /></RouterGuard> },
+            { path: "detail/:id", handle: { title: '作业详情' }, element: <RouterGuard><JobDetail /></RouterGuard> },
+            { path: "monitoring", handle: { title: '作业监控' }, element: <RouterGuard><JobMonitoring /></RouterGuard> },
+            { path: "my_jobs", handle: { title: '我的作业' }, element: <RouterGuard><MyJobs /></RouterGuard> },
+            { path: "team_jobs", handle: { title: '团队作业' }, element: <RouterGuard><TeamJobs /></RouterGuard> },
+            { path: "assignment", handle: { title: '作业分派' }, element: <RouterGuard><JobAssignment /></RouterGuard> },
+            { path: "rules", handle: { title: '分派规则配置' }, element: <RouterGuard><AssignmentRules /></RouterGuard> },
+            { path: "analysis", handle: { title: '作业绩效分析' }, element: <RouterGuard><PerformanceAnalysis /></RouterGuard> },
         ]
       },
       {

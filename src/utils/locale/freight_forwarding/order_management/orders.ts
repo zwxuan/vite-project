@@ -1,69 +1,65 @@
-export default class LocaleHelper {
-    static getModuleKey() {
-        return 'freight_forwarding.order_management';
-    }
+export const OrdersLocale = {
+    getPageTitle() {
+        return 'freight_forwarding.order_management.page_title';
+    },
 
-    static getPageTitle() {
-        return `${this.getModuleKey()}.page_title`;
-    }
+    getOrderNo() {
+        return 'freight_forwarding.order_management.order_no';
+    },
 
-    static getOrderNo() {
-        return `${this.getModuleKey()}.order_no`;
-    }
+    getCustomerName() {
+        return 'freight_forwarding.order_management.customer_name';
+    },
 
-    static getCustomerName() {
-        return `${this.getModuleKey()}.customer_name`;
-    }
+    getOrderType() {
+        return 'freight_forwarding.order_management.order_type';
+    },
 
-    static getOrderType() {
-        return `${this.getModuleKey()}.order_type`;
-    }
+    getOrderStatus() {
+        return 'freight_forwarding.order_management.order_status';
+    },
 
-    static getOrderStatus() {
-        return `${this.getModuleKey()}.order_status`;
-    }
+    getBookingDate() {
+        return 'freight_forwarding.order_management.booking_date';
+    },
 
-    static getBookingDate() {
-        return `${this.getModuleKey()}.booking_date`;
-    }
+    getOrigin() {
+        return 'freight_forwarding.order_management.origin';
+    },
 
-    static getOrigin() {
-        return `${this.getModuleKey()}.origin`;
-    }
+    getDestination() {
+        return 'freight_forwarding.order_management.destination';
+    },
 
-    static getDestination() {
-        return `${this.getModuleKey()}.destination`;
-    }
-
-    static getCreateTime() {
-        return `${this.getModuleKey()}.create_time`;
-    }
+    getCreateTime() {
+        return 'freight_forwarding.order_management.create_time';
+    },
     
-    static getAction() {
-        return 'common.operation'; // Reuse common if possible, or define new
-    }
+    getAction() {
+        return 'common.operation';
+    },
 
-    static getButtonAdd() {
+    getButtonAdd() {
         return 'common.add';
-    }
+    },
     
-    static getButtonEdit() {
+    getButtonEdit() {
         return 'common.edit';
-    }
+    },
 
-    static getButtonDelete() {
+    getButtonDelete() {
         return 'common.delete';
-    }
+    },
 
-    static getButtonSave() {
+    getButtonSave() {
         return 'common.save';
-    }
+    },
 
-    static getButtonCancel() {
+    getButtonCancel() {
         return 'common.cancel';
-    }
+    },
 
-    static getButtonSubmit() {
+    getButtonSubmit() {
         return 'common.submit';
     }
-}
+};

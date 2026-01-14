@@ -135,9 +135,18 @@ const BreakdownRules = React.lazy(() => import("@/pages/freight_forwarding/order
 const OrderStatistics = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_statistics"));
 const StandaloneService = React.lazy(() => import("@/pages/freight_forwarding/order_management/standalone_service"));
 const ServiceTemplate = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_template"));
+const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
+const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
+const JobMonitoring = React.lazy(() => import("@/pages/freight_forwarding/job_management/monitoring"));
+const MyJobs = React.lazy(() => import("@/pages/freight_forwarding/job_management/my_jobs"));
+const TeamJobs = React.lazy(() => import("@/pages/freight_forwarding/job_management/team_jobs"));
+const JobAssignment = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_assignment"));
+const AssignmentRules = React.lazy(() => import("@/pages/freight_forwarding/job_management/rules"));
+const PerformanceAnalysis = React.lazy(() => import("@/pages/freight_forwarding/job_management/analysis"));
 
 export {
-  OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate,
+  OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate, JobList, JobDetail, JobMonitoring, MyJobs,
+  TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,

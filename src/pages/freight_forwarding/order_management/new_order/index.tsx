@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, DatePicker, Select, Card, message, Row, Col, Radio, Divider, Space, Checkbox } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import LocaleHelper from '@/utils/locale/freight_forwarding/order_management/orders';
+import { OrdersLocale } from '@/utils/locale/freight_forwarding/order_management/orders';
 import i18n from '@/i18n';
 import CustomIcon from "@/components/custom-icon";
 import '@/pages/page_list.less';
@@ -58,7 +58,7 @@ const NewOrder: React.FC = () => {
                             <Button>保存草稿</Button>
                             <Button>预览</Button>
                             <Button type="primary" onClick={() => form.submit()} loading={loading}>
-                                {i18n.t(LocaleHelper.getButtonSubmit())}
+                                {i18n.t(OrdersLocale.getButtonSubmit())}
                             </Button>
                         </div>
                     </div>

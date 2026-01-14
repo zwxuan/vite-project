@@ -5,7 +5,7 @@ import { OrderItem } from "@/types/freight_forwarding/order_management";
 import { getOrderList, deleteOrder } from "@/api/freight_forwarding/order_management/order_service";
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
-import LocaleHelper from '@/utils/locale/freight_forwarding/order_management/orders';
+import { OrdersLocale } from '@/utils/locale/freight_forwarding/order_management/orders';
 import AdvancedSearchForm from "@/components/search-form";
 import { getColumns } from './columns';
 import { fields } from './search_fields';
@@ -35,7 +35,7 @@ const OrderList: React.FC = () => {
     const handleDelete = (record: OrderItem) => {
         Modal.confirm({
             title: i18n.t('common.delete') + '?',
-            content: `${i18n.t(LocaleHelper.getOrderNo())}: ${record.orderNo}`,
+            content: `${i18n.t(OrdersLocale.getOrderNo())}: ${record.orderNo}`,
             okText: i18n.t('common.confirm') || 'Yes',
             cancelText: i18n.t('common.cancel') || 'No',
             onOk: async () => {
@@ -68,7 +68,7 @@ const OrderList: React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
-                            {i18n.t(LocaleHelper.getPageTitle())}
+                            {i18n.t(OrdersLocale.getPageTitle())}
                         </span>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ const OrderList: React.FC = () => {
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
                             <Button type="primary" danger onClick={handleAdd}>
-                                {i18n.t(LocaleHelper.getButtonAdd())}
+                                {i18n.t(OrdersLocale.getButtonAdd())}
                             </Button>
                         </div>
                     </div>

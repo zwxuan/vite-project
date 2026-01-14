@@ -1997,6 +1997,73 @@ export const en = {
             origin: "Origin",
             destination: "Destination",
             create_time: "Create Time",
+        },
+        job_management: {
+            job_list: {
+                title: "Job List",
+                job_id: "Job ID",
+                job_type: "Job Type",
+                order_no: "Order No",
+                priority: "Priority",
+                status: "Status",
+                assignee: "Assignee",
+                deadline: "Deadline",
+                created_at: "Created At",
+                actions: "Actions",
+                detail: "Detail",
+                update: "Update",
+                assign: "Assign",
+                auto_assign: "Auto Assign",
+                manual_assign: "Manual Assign"
+            },
+            job_detail: {
+                title: "Job Detail",
+                basic_info: "Basic Info",
+                job_content: "Job Content",
+                execution_record: "Execution Record",
+                related_info: "Related Info",
+                save: "Save",
+                cancel: "Cancel",
+                edit: "Edit",
+                back: "Back",
+                job_id: "Job ID",
+                job_type: "Job Type",
+                order_no: "Order No",
+                status: "Status",
+                priority: "Priority",
+                assignee: "Assignee",
+                description: "Description",
+                remark: "Remark",
+                attachments: "Attachments"
+            },
+            monitoring: {
+                title: "Job Monitoring",
+                total_jobs: "Total Jobs",
+                pending_jobs: "Pending",
+                completed_jobs: "Completed",
+                efficiency: "Efficiency",
+                job_trend: "Job Trend",
+                resource_load: "Resource Load",
+                job_distribution: "Job Distribution",
+                warning: "Warning"
+            },
+            my_jobs: {
+                title: "My Jobs",
+                my_pending: "My Pending",
+                my_completed: "My Completed"
+            },
+            team_jobs: {
+                title: "Team Jobs"
+            },
+            job_assignment: {
+                title: "Job Assignment"
+            },
+            rules: {
+                title: "Assignment Rules"
+            },
+            analysis: {
+                title: "Performance Analysis"
+            }
         }
     }
 };

@@ -65,6 +65,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "订单管理", key: "order_management",
             },
+            {
+                name: "作业管理", key: "job_management",
+            },
         ]
     },
 
@@ -773,6 +776,20 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "订单统计报表", key: "order_statistics", path: "/order_management/order_statistics" },
         { name: "单项服务管理", key: "standalone_service", path: "/order_management/standalone_service" },
         { name: "服务组合模板", key: "service_template", path: "/order_management/service_template" },
+    ]
+},
+{
+    title: "作业管理",
+    key: "job_management",
+    parentkey: "job_management",
+    apps: [
+        { name: "作业列表", key: "job_list", path: "/job_management/list" },
+        { name: "作业分派", key: "job_assignment", path: "/job_management/assignment" },
+        { name: "我的作业", key: "my_jobs", path: "/job_management/my_jobs" },
+        { name: "团队作业", key: "team_jobs", path: "/job_management/team_jobs" },
+        { name: "作业监控", key: "job_monitoring", path: "/job_management/monitoring" },
+        { name: "分派规则配置", key: "assignment_rules", path: "/job_management/rules" },
+        { name: "作业绩效分析", key: "performance_analysis", path: "/job_management/analysis" },
     ]
 },
 ]

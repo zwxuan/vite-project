@@ -103,6 +103,14 @@ import { SysOperatorLogReportLocale } from '@/utils/locale/dynamic_configuration
 import { SysWarningTypeLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_warning_type';
 import { SysWarningTypeParamLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_warning_type_param';
 import { SysWarningTaskLocale } from '@/utils/locale/dynamic_configuration_platform/sys_manage/sys_warning_task';
+import { JobListLocale } from '@/utils/locale/freight_forwarding/job_management/job_list';
+import { JobDetailLocale } from '@/utils/locale/freight_forwarding/job_management/job_detail';
+import { JobMonitoringLocale } from '@/utils/locale/freight_forwarding/job_management/monitoring';
+import { MyJobsLocale } from '@/utils/locale/freight_forwarding/job_management/my_jobs';
+import { TeamJobsLocale } from '@/utils/locale/freight_forwarding/job_management/team_jobs';
+import { JobAssignmentLocale } from '@/utils/locale/freight_forwarding/job_management/job_assignment';
+import { AssignmentRulesLocale } from '@/utils/locale/freight_forwarding/job_management/rules';
+import { PerformanceAnalysisLocale } from '@/utils/locale/freight_forwarding/job_management/analysis';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -116,7 +124,9 @@ export {
   RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
   BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,BasePeriodicBillingLocale,BaseSettlementCycleLocale,BaseCompanySizeLocale,BaseCompanyNatureLocale,BaseAccountPurposeLocale,BaseCorporateFundAccountLocale,
   BaseFundAccountCurrencyLocale,BaseCorporateCashAccountLocale,SysBusinessLogLocale,SysLoginLogLocale,SysOperatorLogLocale,SysExceptionLogLocale,SysOperatorLogReportLocale,
-  SysWarningTypeLocale,SysWarningTypeParamLocale,SysWarningTaskLocale,
+  SysWarningTypeLocale,SysWarningTypeParamLocale,SysWarningTaskLocale,JobListLocale,
+  JobDetailLocale,JobMonitoringLocale,MyJobsLocale,
+  TeamJobsLocale,JobAssignmentLocale,AssignmentRulesLocale,PerformanceAnalysisLocale,
 };
 
 export default {
@@ -133,5 +143,7 @@ export default {
   ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
   ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,...BasePeriodicBillingLocale,...BaseSettlementCycleLocale,...BaseCompanySizeLocale,...BaseCompanyNatureLocale,...BaseAccountPurposeLocale,
   ...BaseCorporateFundAccountLocale,...BaseFundAccountCurrencyLocale,...BaseCorporateCashAccountLocale,...SysBusinessLogLocale,...SysLoginLogLocale,...SysOperatorLogLocale,...SysExceptionLogLocale,
-  ...SysOperatorLogReportLocale,...SysWarningTypeLocale,...SysWarningTypeParamLocale,...SysWarningTaskLocale,
+  ...SysOperatorLogReportLocale,...SysWarningTypeLocale,...SysWarningTypeParamLocale,...SysWarningTaskLocale,...JobListLocale,
+  ...JobDetailLocale,...JobMonitoringLocale,...MyJobsLocale,
+  ...TeamJobsLocale,...JobAssignmentLocale,...AssignmentRulesLocale,...PerformanceAnalysisLocale,
 };
