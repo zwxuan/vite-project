@@ -68,6 +68,8 @@ import {
   SysWarningTask,
   SysWarningTaskDetail,
   TaskCalendarView,
+  WaybillArchive, WaybillList, WaybillCreate,
+  WaybillQuery, WaybillTemplate, WaybillStatistics,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -131,6 +133,23 @@ const routers = createMemoryRouter([
             { path: "assignment", handle: { title: '作业分派' }, element: <RouterGuard><JobAssignment /></RouterGuard> },
             { path: "rules", handle: { title: '分派规则配置' }, element: <RouterGuard><AssignmentRules /></RouterGuard> },
             { path: "analysis", handle: { title: '作业绩效分析' }, element: <RouterGuard><PerformanceAnalysis /></RouterGuard> },
+        ]
+      },
+      {
+        path: "/waybill_management",
+        handle: { title: '运单管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+            { path: "list", handle: { title: '运单列表' }, element: <RouterGuard><WaybillList /></RouterGuard> },
+            { path: "create", handle: { title: '新建运单' }, element: <RouterGuard><WaybillCreate /></RouterGuard> },
+            { path: "query", handle: { title: '运单查询' }, element: <RouterGuard><WaybillQuery /></RouterGuard> },
+            { path: "template", handle: { title: '运单模板' }, element: <RouterGuard><WaybillTemplate /></RouterGuard> },
+            { path: "statistics", handle: { title: '统计分析' }, element: <RouterGuard><WaybillStatistics /></RouterGuard> },
+            { path: "archive", handle: { title: '归档管理' }, element: <RouterGuard><WaybillArchive /></RouterGuard> },
         ]
       },
       {

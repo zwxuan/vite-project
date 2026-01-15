@@ -143,10 +143,17 @@ const TeamJobs = React.lazy(() => import("@/pages/freight_forwarding/job_managem
 const JobAssignment = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_assignment"));
 const AssignmentRules = React.lazy(() => import("@/pages/freight_forwarding/job_management/rules"));
 const PerformanceAnalysis = React.lazy(() => import("@/pages/freight_forwarding/job_management/analysis"));
+const WaybillList = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/list"));
+const WaybillCreate = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/create"));
+const WaybillQuery = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/query"));
+const WaybillTemplate = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/template"));
+const WaybillStatistics = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/statistics"));
+const WaybillArchive = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/archive"));
 
 export {
   OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate, JobList, JobDetail, JobMonitoring, MyJobs,
   TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
+  WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillStatistics, WaybillArchive,
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,

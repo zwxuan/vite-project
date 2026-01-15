@@ -68,6 +68,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "作业管理", key: "job_management",
             },
+            {
+                name: "运单管理", key: "waybill_management",
+            },
         ]
     },
 
@@ -779,19 +782,32 @@ const childrenMenuData: MenuGroup[] = [{
     ]
 },
 {
-    title: "作业管理",
-    key: "job_management",
-    parentkey: "job_management",
-    apps: [
-        { name: "作业列表", key: "job_list", path: "/job_management/list" },
-        { name: "作业分派", key: "job_assignment", path: "/job_management/assignment" },
-        { name: "我的作业", key: "my_jobs", path: "/job_management/my_jobs" },
-        { name: "团队作业", key: "team_jobs", path: "/job_management/team_jobs" },
-        { name: "作业监控", key: "job_monitoring", path: "/job_management/monitoring" },
-        { name: "分派规则配置", key: "assignment_rules", path: "/job_management/rules" },
-        { name: "作业绩效分析", key: "performance_analysis", path: "/job_management/analysis" },
-    ]
-},
+        title: "作业管理",
+        key: "job_management",
+        parentkey: "job_management",
+        apps: [
+            { name: "作业列表", key: "job_list", path: "/job_management/list" },
+            { name: "作业分派", key: "job_assignment", path: "/job_management/assignment" },
+            { name: "我的作业", key: "my_jobs", path: "/job_management/my_jobs" },
+            { name: "团队作业", key: "team_jobs", path: "/job_management/team_jobs" },
+            { name: "作业监控", key: "job_monitoring", path: "/job_management/monitoring" },
+            { name: "分派规则配置", key: "assignment_rules", path: "/job_management/rules" },
+            { name: "作业绩效分析", key: "performance_analysis", path: "/job_management/analysis" },
+        ]
+    },
+    {
+        title: "运单管理",
+        key: "waybill_management",
+        parentkey: "waybill_management",
+        apps: [
+            { name: "运单列表", key: "waybill_list", path: "/waybill_management/list" },
+            { name: "新建运单", key: "waybill_create", path: "/waybill_management/create" },
+            { name: "运单查询", key: "waybill_query", path: "/waybill_management/query" },
+            { name: "运单模板", key: "waybill_template", path: "/waybill_management/template" },
+            { name: "统计分析", key: "waybill_statistics", path: "/waybill_management/statistics" },
+            { name: "归档管理", key: "waybill_archive", path: "/waybill_management/archive" },
+        ]
+    },
 ]
 
 // 获取当前用户信息

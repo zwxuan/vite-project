@@ -11,6 +11,7 @@ const { Option } = Select;
 const { RangePicker } = DatePickerZH;
 type Field = {
     key: string;
+    name?: string; // Add name as optional alias
     label: string;
     required?: boolean;
     initialValue?: string;
@@ -77,26 +78,27 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
         let count = expand ? fieldConfigs.length : Math.min(spanCount, fieldConfigs.length);
         for (let i = 0; i < count; i++) {
             const config = fieldConfigs[i];
+            const fieldKey = config.key || config.name || `field-${i}`; // Fallback to name or index
             children.push(
-                <Col span={span} key={i} style={{padding: '0 6px'}}>
+                <Col span={span} key={fieldKey} style={{padding: '0 6px'}}>
                     {config.type === 'input' ? (
                         <Form.Item
-                            name={config.key}
+                            name={fieldKey}
                             label={config.label}
                             labelCol={{ span: 7 }}
                         >
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left' }}
-                                        value={formOperatorData[config.key] ? { label: operatorItems.find(op => op.value === formOperatorData[config.key])?.label, value: formOperatorData[config.key] } : { label: '等于', value: FilterOperator.EQ }}
+                                        value={formOperatorData[fieldKey] ? { label: operatorItems.find(op => op.value === formOperatorData[fieldKey])?.label, value: formOperatorData[fieldKey] } : { label: '等于', value: FilterOperator.EQ }}
                                         dropdownStyle={{width: 'auto'}}
                                         options={operatorItems} 
-                                        onChange={(value) => { handleSelectChange(config.key,value,'operator') }}
+                                        onChange={(value) => { handleSelectChange(fieldKey,value,'operator') }}
                                         >
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <Input name={config.key} value={formData[config.key] || ''} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
+                                    <Input name={fieldKey} value={formData[fieldKey] || ''} prefix={config.prefix} suffix={config.suffix} onChange={handleInputChange} />
                                 </div>
 
 
@@ -104,7 +106,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         </Form.Item>
                     ) : config.type === 'select' ? (
                         <Form.Item
-                            name={config.key}
+                            name={fieldKey}
                             label={config.label}
                             labelCol={{ span: 7 }}
                         >
@@ -112,16 +114,16 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left', width: '140' }}
-                                        value={formOperatorData[config.key] ? { label: '等于', value: formOperatorData[config.key] } : { label: '等于', value: FilterOperator.EQ }}
+                                        value={formOperatorData[fieldKey] ? { label: '等于', value: formOperatorData[fieldKey] } : { label: '等于', value: FilterOperator.EQ }}
                                         options={[
                                             { label: '等于', value: FilterOperator.EQ },
                                         ]} 
-                                        onSelect={(value) => { handleSelectChange(config.key, value,'operator') }}
+                                        onSelect={(value) => { handleSelectChange(fieldKey, value,'operator') }}
                                         >
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <Select labelInValue value={formData[config.key] ? { label: config.selectOptions?.find(opt => opt.value === formData[config.key])?.label, value: formData[config.key] } : undefined} style={{ textAlign: 'left' }} prefix={config.prefix} onSelect={(value) => { handleSelectChange(config.key, value) }}  >
+                                    <Select labelInValue value={formData[fieldKey] ? { label: config.selectOptions?.find(opt => opt.value === formData[fieldKey])?.label, value: formData[fieldKey] } : undefined} style={{ textAlign: 'left' }} prefix={config.prefix} onSelect={(value) => { handleSelectChange(fieldKey, value) }}  >
                                         {config.selectOptions?.map((option, index) => (
                                             <Option key={index} value={option.value}>
                                                 {option.label}
@@ -133,25 +135,25 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                         </Form.Item>
                     ) : config.type === 'date' ? (
                         <Form.Item
-                            name={config.key}
+                            name={fieldKey}
                             label={config.label}
                             labelCol={{ span: 7 }}
                         >
                             <div style={{ width: '100%', display: 'flex' }}>
                                 <div style={{ width: '30%' }}>
                                     <Select labelInValue style={{ textAlign: 'left', width: '140' }}
-                                        value={formOperatorData[config.key] ? { label: operatorItems.find(op => op.value === formOperatorData[config.key])?.label, value: formOperatorData[config.key] } : { label: '等于', value: FilterOperator.EQ }}
+                                        value={formOperatorData[fieldKey] ? { label: operatorItems.find(op => op.value === formOperatorData[fieldKey])?.label, value: formOperatorData[fieldKey] } : { label: '等于', value: FilterOperator.EQ }}
                                         options={[
                                             { label: '等于', value: FilterOperator.EQ },
                                             { label: '大于', value: FilterOperator.GT },
                                             { label: '小于', value: FilterOperator.LT },
                                         ]} 
-                                        onSelect={(value) => { handleSelectChange(config.key, value,'operator') }}
+                                        onSelect={(value) => { handleSelectChange(fieldKey, value,'operator') }}
                                         >
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <DatePickerZH value={formData[config.key] ? dayjs(formData[config.key]) : null} style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                    <DatePickerZH value={formData[fieldKey] ? dayjs(formData[fieldKey]) : null} style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(fieldKey, dateStrings) }} />
                                 </div>
                             </div>
 
@@ -159,11 +161,11 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                     ) :
                         (
                             <Form.Item
-                                name={config.key}
+                                name={fieldKey}
                                 label={config.label}
                                 labelCol={{ span: 7 }}
                             >
-                                <RangePickerZH value={formData[config.key] ? [formData[config.key][0] ? dayjs(formData[config.key][0]) : null, formData[config.key][1] ? dayjs(formData[config.key][1]) : null] : [null, null]} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(config.key, dateStrings) }} />
+                                <RangePickerZH value={formData[fieldKey] ? [formData[fieldKey][0] ? dayjs(formData[fieldKey][0]) : null, formData[fieldKey][1] ? dayjs(formData[fieldKey][1]) : null] : [null, null]} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(fieldKey, dateStrings) }} />
                             </Form.Item>
                         )
                     }
@@ -186,7 +188,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
         const conditions: SearchItem[] = [];
         Object.keys(formData).forEach((key) => {
             if(formData[key] !== '' && formData[key] !== undefined && formData[key] !== null){
-                const field = fields.find(f => f.key === key);
+                const field = fields.find(f => (f.key || f.name) === key);
                 const operator = formOperatorData[key] ?? FilterOperator.EQ;
                 const operatorLabel = operatorItems.find(op => op.value === operator)?.label || '等于';
                 

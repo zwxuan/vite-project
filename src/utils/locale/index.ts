@@ -111,6 +111,12 @@ import { TeamJobsLocale } from '@/utils/locale/freight_forwarding/job_management
 import { JobAssignmentLocale } from '@/utils/locale/freight_forwarding/job_management/job_assignment';
 import { AssignmentRulesLocale } from '@/utils/locale/freight_forwarding/job_management/rules';
 import { PerformanceAnalysisLocale } from '@/utils/locale/freight_forwarding/job_management/analysis';
+import { WaybillListLocale } from '@/utils/locale/freight_forwarding/waybill_management/list';
+import { WaybillCreateLocale } from '@/utils/locale/freight_forwarding/waybill_management/create';
+import { WaybillQueryLocale } from '@/utils/locale/freight_forwarding/waybill_management/query';
+import { WaybillTemplateLocale } from '@/utils/locale/freight_forwarding/waybill_management/template';
+import { WaybillStatisticsLocale } from '@/utils/locale/freight_forwarding/waybill_management/statistics';
+import { WaybillArchiveLocale } from '@/utils/locale/freight_forwarding/waybill_management/archive';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -127,6 +133,7 @@ export {
   SysWarningTypeLocale,SysWarningTypeParamLocale,SysWarningTaskLocale,JobListLocale,
   JobDetailLocale,JobMonitoringLocale,MyJobsLocale,
   TeamJobsLocale,JobAssignmentLocale,AssignmentRulesLocale,PerformanceAnalysisLocale,
+  WaybillListLocale, WaybillCreateLocale, WaybillQueryLocale, WaybillTemplateLocale, WaybillStatisticsLocale, WaybillArchiveLocale,
 };
 
 export default {
@@ -146,4 +153,5 @@ export default {
   ...SysOperatorLogReportLocale,...SysWarningTypeLocale,...SysWarningTypeParamLocale,...SysWarningTaskLocale,...JobListLocale,
   ...JobDetailLocale,...JobMonitoringLocale,...MyJobsLocale,
   ...TeamJobsLocale,...JobAssignmentLocale,...AssignmentRulesLocale,...PerformanceAnalysisLocale,
+  ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale
 };
