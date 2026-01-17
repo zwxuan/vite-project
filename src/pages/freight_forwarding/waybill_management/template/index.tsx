@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, message, Modal } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { WaybillTemplateItem, WaybillTemplateListParams } from "@/types/freight_forwarding/waybill_management/template";
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
@@ -10,6 +11,7 @@ import { fields } from './search_fields';
 import '@/pages/page_list.less';
 
 const WaybillTemplate: React.FC = () => {
+    const navigate = useNavigate();
     const [data, setData] = useState<WaybillTemplateItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
@@ -44,7 +46,7 @@ const WaybillTemplate: React.FC = () => {
     };
 
     const handleEdit = (record: WaybillTemplateItem) => {
-        message.info(`Edit template: ${record.templateName}`);
+        navigate(`/waybill_management/template/detail/${record.templateId}`);
     };
 
     const handleCopy = (record: WaybillTemplateItem) => {
@@ -73,6 +75,10 @@ const WaybillTemplate: React.FC = () => {
 
     const columns = getColumns(handleEdit, handleCopy, handleToggleStatus, handleDelete);
 
+    const handleBatchAction = (action: string) => {
+        message.success(`Batch ${action} successful`);
+    };
+
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
              <div className="nc-bill-header-area">
@@ -87,10 +93,10 @@ const WaybillTemplate: React.FC = () => {
                 <div className="header-button-area">
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
-                            <Button type="primary" danger>
+                            <Button type="primary" danger onClick={() => navigate('/waybill_management/template/create')}>
                                 {i18n.t(LocaleHelper.getWaybillTemplateNewTemplate())}
                             </Button>
-                            <Button>
+                            <Button onClick={() => message.info('Import Template')}>
                                 {i18n.t(LocaleHelper.getWaybillTemplateImport())}
                             </Button>
                         </div>
@@ -101,6 +107,12 @@ const WaybillTemplate: React.FC = () => {
             <AdvancedSearchForm fields={fields as any} onSearch={handleSearch} />
 
             <div className='nc-bill-table-area'>
+                <div style={{ marginBottom: 16 }}>
+                    <Button style={{ marginRight: 8 }} onClick={() => handleBatchAction('Enable')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchEnable())}</Button>
+                    <Button style={{ marginRight: 8 }} onClick={() => handleBatchAction('Disable')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchDisable())}</Button>
+                    <Button style={{ marginRight: 8 }} onClick={() => handleBatchAction('Export')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchExport())}</Button>
+                    <Button danger onClick={() => handleBatchAction('Delete')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchDelete())}</Button>
+                </div>
                 <Table<WaybillTemplateItem>
                     columns={columns}
                     dataSource={data}

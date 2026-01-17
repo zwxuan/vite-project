@@ -147,13 +147,14 @@ const WaybillList = React.lazy(() => import("@/pages/freight_forwarding/waybill_
 const WaybillCreate = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/create"));
 const WaybillQuery = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/query"));
 const WaybillTemplate = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/template"));
+const WaybillTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/template/detail"));
 const WaybillStatistics = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/statistics"));
 const WaybillArchive = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/archive"));
 
 export {
   OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate, JobList, JobDetail, JobMonitoring, MyJobs,
   TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
-  WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillStatistics, WaybillArchive,
+  WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics, WaybillArchive,
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,

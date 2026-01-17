@@ -57,12 +57,11 @@ export const getColumns = (
         width: 200,
         render: (_, record) => (
             <Space size="middle">
-                <a onClick={() => onEdit(record)}>{i18n.t(LocaleHelper.getWaybillListEdit())}</a>
+                <a onClick={() => onEdit(record)}>{i18n.t(LocaleHelper.getWaybillTemplateDetail())}</a>
                 <a onClick={() => onCopy(record)}>{i18n.t(LocaleHelper.getWaybillTemplateCopy())}</a>
                 <a onClick={() => onToggleStatus(record)}>
                     {record.status === 'ENABLED' ? i18n.t(LocaleHelper.getWaybillTemplateDisable()) : i18n.t(LocaleHelper.getWaybillTemplateEnable())}
                 </a>
-                <a onClick={() => onDelete(record)} style={{ color: 'red' }}>{i18n.t(LocaleHelper.getWaybillListDelete())}</a>
             </Space>
         ),
     },

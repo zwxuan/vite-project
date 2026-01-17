@@ -69,7 +69,7 @@ import {
   SysWarningTaskDetail,
   TaskCalendarView,
   WaybillArchive, WaybillList, WaybillCreate,
-  WaybillQuery, WaybillTemplate, WaybillStatistics,
+  WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -148,6 +148,8 @@ const routers = createMemoryRouter([
             { path: "create", handle: { title: '新建运单' }, element: <RouterGuard><WaybillCreate /></RouterGuard> },
             { path: "query", handle: { title: '运单查询' }, element: <RouterGuard><WaybillQuery /></RouterGuard> },
             { path: "template", handle: { title: '运单模板' }, element: <RouterGuard><WaybillTemplate /></RouterGuard> },
+            { path: "template/create", handle: { title: '新建模板' }, element: <RouterGuard><WaybillTemplateDetail /></RouterGuard> },
+            { path: "template/detail/:id", handle: { title: '模板详情' }, element: <RouterGuard><WaybillTemplateDetail /></RouterGuard> },
             { path: "statistics", handle: { title: '统计分析' }, element: <RouterGuard><WaybillStatistics /></RouterGuard> },
             { path: "archive", handle: { title: '归档管理' }, element: <RouterGuard><WaybillArchive /></RouterGuard> },
         ]

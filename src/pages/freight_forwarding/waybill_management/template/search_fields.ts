@@ -31,5 +31,24 @@ export const fields = [
             { label: 'ENABLED', value: 'ENABLED' },
             { label: 'DISABLED', value: 'DISABLED' },
         ]
+    },
+    {
+        name: 'scope',
+        label: i18n.t(LocaleHelper.getWaybillTemplateScope()),
+        type: 'select',
+        options: [
+            { label: 'Global', value: 'GLOBAL' },
+            { label: 'Personal', value: 'PERSONAL' },
+        ]
+    },
+    {
+        name: 'keyword',
+        label: i18n.t(LocaleHelper.getWaybillTemplateKeyword()),
+        type: 'input',
+    },
+    {
+        name: 'updateTime',
+        label: i18n.t(LocaleHelper.getWaybillTemplateUpdateTime()),
+        type: 'dateRange',
     }
 ];
