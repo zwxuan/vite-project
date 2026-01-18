@@ -197,271 +197,313 @@ const WaybillTemplateDetail: React.FC = () => {
     ];
 
     return (
-        <div style={{ height: 'calc(100vh - 80px)', overflowY: 'auto', padding: '16px' }}>
-            <Card>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <span style={{ fontSize: '20px', fontWeight: 'bold' }}>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+            <div className="nc-bill-header-area">
+                <div className="header-title-search-area">
+                    <div className="BillHeadInfoWrap">
+                        <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             {i18n.t(LocaleHelper.getWaybillTemplateDetail())}: 海运标准模板 (SEA_STD)
                         </span>
                     </div>
-                    <Button onClick={handleCancel}>{i18n.t(LocaleHelper.getWaybillTemplateBack())}</Button>
+                </div>
+                <div className="header-button-area">
+                    <span className="button-app-wrapper header-button-area-button-app-wrapper"></span>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <div className="buttonGroup-component">
+                            <div className="u-button-group">
+                                <Button type="primary" onClick={handleSave}>{i18n.t(LocaleHelper.getWaybillTemplateSave())}</Button>
+                                <Button>{i18n.t(LocaleHelper.getWaybillTemplateCreateVersion())}</Button>
+                                <Button>{i18n.t(LocaleHelper.getWaybillTemplateEnable())}/{i18n.t(LocaleHelper.getWaybillTemplateDisable())}</Button>
+                                <Button>{i18n.t(LocaleHelper.getWaybillTemplateCopy())}</Button>
+                                <Button>预览录入页</Button>
+                                <Button>预览打印</Button>
+                                <Button>导出模板包</Button>
+                                <Button>更多 <CustomIcon type="icon-Down" /></Button>
+                                <Button onClick={handleCancel}>{i18n.t(LocaleHelper.getWaybillTemplateBack())}</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='nc-bill-table-area'>
+                <div style={{ padding: '16px 20px 0 20px' }}>
+                    <div style={{ background: '#f5f5f5', padding: '16px', marginBottom: '16px', borderRadius: '4px' }}>
+                        <Descriptions size="small" column={4}>
+                            <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateStatus())}>
+                                <Tag color="green">{i18n.t(LocaleHelper.getWaybillTemplateActive())}</Tag>
+                            </Descriptions.Item>
+                            <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateVersion())}>v12</Descriptions.Item>
+                            <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateTransportMode())}>海运</Descriptions.Item>
+                            <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateType())}>标准模板</Descriptions.Item>
+                            
+                            <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateCreatedBy())}>张三</Descriptions.Item>
+                            <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateUpdatedAt())}>2024-03-15 17:20</Descriptions.Item>
+                            <Descriptions.Item label="修改人">李四</Descriptions.Item>
+                            <Descriptions.Item label="最近修改">2024-03-18 09:10</Descriptions.Item>
+                        </Descriptions>
+                    </div>
                 </div>
 
-                <div style={{ background: '#f5f5f5', padding: '16px', marginBottom: '16px', borderRadius: '4px' }}>
-                    <Descriptions size="small" column={4}>
-                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateStatus())}>
-                            <Tag color="green">{i18n.t(LocaleHelper.getWaybillTemplateActive())}</Tag>
-                        </Descriptions.Item>
-                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateVersion())}>v12</Descriptions.Item>
-                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateTransportMode())}>海运</Descriptions.Item>
-                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateType())}>标准模板</Descriptions.Item>
-                        
-                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateCreatedBy())}>张三</Descriptions.Item>
-                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateUpdatedAt())}>2024-03-15 17:20</Descriptions.Item>
-                        <Descriptions.Item label="修改人">李四</Descriptions.Item>
-                        <Descriptions.Item label="最近修改">2024-03-18 09:10</Descriptions.Item>
-                    </Descriptions>
-                </div>
-
-                <div style={{ marginBottom: '16px' }}>
-                    <Space>
-                        <Button onClick={handleSave}>{i18n.t(LocaleHelper.getWaybillTemplateSave())}</Button>
-                        <Button>{i18n.t(LocaleHelper.getWaybillTemplateCreateVersion())}</Button>
-                        <Button>{i18n.t(LocaleHelper.getWaybillTemplateEnable())}/{i18n.t(LocaleHelper.getWaybillTemplateDisable())}</Button>
-                        <Button>{i18n.t(LocaleHelper.getWaybillTemplateCopy())}</Button>
-                        <Button>预览录入页</Button>
-                        <Button>预览打印</Button>
-                        <Button>导出模板包</Button>
-                        <Button>更多 <CustomIcon type="icon-Down" /></Button>
-                    </Space>
-                </div>
-
-                <Tabs defaultActiveKey="1">
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabBasic())} key="1">
-                        <Form form={form} layout="vertical" initialValues={{ templateType: 'BOOKING', transportMode: 'SEA', status: 'ENABLED' }}>
-                            <Row gutter={24}>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateName())} name="templateName" rules={[{ required: true }]}>
-                                        <Input placeholder={i18n.t(LocaleHelper.getWaybillTemplateEnterName())} />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateCode())} name="templateCode" rules={[{ required: true }]}>
-                                        <Input placeholder="Enter template code" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTransportMode())} name="transportMode">
-                                        <Select>
-                                            <Option value="SEA">Sea</Option>
-                                            <Option value="AIR">Air</Option>
-                                            <Option value="RAIL">Rail</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row gutter={24}>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateType())} name="templateType">
-                                        <Select>
-                                            <Option value="BOOKING">Booking</Option>
-                                            <Option value="ARRIVAL">Arrival Notice</Option>
-                                            <Option value="LOADING">Loading List</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label="币种默认" name="currency">
-                                        <Select defaultValue="USD">
-                                            <Option value="USD">USD</Option>
-                                            <Option value="CNY">CNY</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label="时区" name="timezone">
-                                        <Select defaultValue="UTC+8">
-                                            <Option value="UTC+8">UTC+8</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row gutter={24}>
-                                <Col span={24}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateDescription())} name="description">
-                                        <Input.TextArea rows={4} />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row gutter={24}>
-                                <Col span={8}>
-                                    <Form.Item label="是否内置" name="isBuiltin" valuePropName="checked">
-                                        <Switch disabled />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label="是否默认" name="isDefault" valuePropName="checked">
-                                        <Switch />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Form>
-                    </TabPane>
+                <Tabs defaultActiveKey="1" items={[
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabBasic()),
+                        key: '1',
+                        children: (
+                            <Form form={form} layout="vertical" initialValues={{ templateType: 'BOOKING', transportMode: 'SEA', status: 'ENABLED' }} style={{ padding: '0 20px' }}>
+                                <Row gutter={24}>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateName())} name="templateName" rules={[{ required: true }]}>
+                                            <Input placeholder={i18n.t(LocaleHelper.getWaybillTemplateEnterName())} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateCode())} name="templateCode" rules={[{ required: true }]}>
+                                            <Input placeholder="Enter template code" />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTransportMode())} name="transportMode">
+                                            <Select>
+                                                <Option value="SEA">Sea</Option>
+                                                <Option value="AIR">Air</Option>
+                                                <Option value="RAIL">Rail</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={24}>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateTemplateType())} name="templateType">
+                                            <Select>
+                                                <Option value="BOOKING">Booking</Option>
+                                                <Option value="ARRIVAL">Arrival Notice</Option>
+                                                <Option value="LOADING">Loading List</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label="币种默认" name="currency">
+                                            <Select defaultValue="USD">
+                                                <Option value="USD">USD</Option>
+                                                <Option value="CNY">CNY</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label="时区" name="timezone">
+                                            <Select defaultValue="UTC+8">
+                                                <Option value="UTC+8">UTC+8</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={24}>
+                                    <Col span={24}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateDescription())} name="description">
+                                            <Input.TextArea rows={4} />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={24}>
+                                    <Col span={8}>
+                                        <Form.Item label="是否内置" name="isBuiltin" valuePropName="checked">
+                                            <Switch disabled />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label="是否默认" name="isDefault" valuePropName="checked">
+                                            <Switch />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        )
+                    },
                     
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabRules())} key="2">
-                        <Form layout="vertical">
-                            <Row gutter={24}>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplatePriority())} name="priority">
-                                        <InputNumber style={{ width: '100%' }} defaultValue={10} />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateMatchStrategy())} name="strategy">
-                                        <Select defaultValue="Exact">
-                                            <Option value="Exact">Exact Match</Option>
-                                            <Option value="Fuzzy">Fuzzy Match</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateMutexGroup())} name="mutexGroup">
-                                        <Input placeholder="Enter mutex group" />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Divider orientation="left">Condition Group A (AND)</Divider>
-                            <Row gutter={24}>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateCustomer())}>
-                                        <Select mode="multiple" placeholder="Select Customers" defaultValue={['All']}>
-                                            <Option value="All">All Customers</Option>
-                                            <Option value="CUST001">Customer A</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateCargoType())}>
-                                        <Select placeholder="Select Cargo Type" defaultValue="General">
-                                            <Option value="General">General Cargo</Option>
-                                            <Option value="Dangerous">Dangerous Goods</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Divider orientation="left">Condition Group B (AND)</Divider>
-                            <Row gutter={24}>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillCreateOrigin())}>
-                                        <Select showSearch placeholder="Select Origin" defaultValue="CNSHA">
-                                            <Option value="CNSHA">Shanghai</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item label={i18n.t(LocaleHelper.getWaybillCreateDestination())}>
-                                        <Select showSearch placeholder="Select Destination" defaultValue="USLAX">
-                                            <Option value="USLAX">Los Angeles</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Form>
-                    </TabPane>
-
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabFields())} key="3">
-                        <Row gutter={24}>
-                            <Col span={4} style={{ borderRight: '1px solid #f0f0f0' }}>
-                                <Menu 
-                                    mode="inline" 
-                                    selectedKeys={[selectedFieldGroup]} 
-                                    onClick={({ key }) => setSelectedFieldGroup(key)}
-                                    style={{ borderRight: 0 }}
-                                >
-                                    <Menu.Item key="basic">{i18n.t(LocaleHelper.getWaybillTemplateTabBasic())}</Menu.Item>
-                                    <Menu.Item key="parties">Parties</Menu.Item>
-                                    <Menu.Item key="cargo">Cargo</Menu.Item>
-                                    <Menu.Item key="transport">Transport</Menu.Item>
-                                </Menu>
-                            </Col>
-                            <Col span={20}>
-                                <Table dataSource={mockFieldsConfig} columns={columnsFields} pagination={false} size="small" scroll={{ x: 'max-content' }} />
-                            </Col>
-                        </Row>
-                    </TabPane>
-
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabValidation())} key="4">
-                        <div style={{ marginBottom: 16, textAlign: 'right' }}>
-                            <Button type="primary" icon={<PlusOutlined />} onClick={handleAddValidationRule}>
-                                {i18n.t(LocaleHelper.getWaybillTemplateAddRule())}
-                            </Button>
-                        </div>
-                        <Table dataSource={validationRules} columns={columnsValidation} pagination={false} size="small" scroll={{ x: 'max-content' }} />
-                    </TabPane>
-
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabPrint())} key="5">
-                        <Row gutter={24}>
-                            <Col span={8}>
-                                <Card title="Settings" size="small">
-                                    <Form layout="vertical">
-                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplatePaperSize())}>
-                                            <Select defaultValue="A4">
-                                                <Option value="A4">A4</Option>
-                                                <Option value="Letter">Letter</Option>
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabRules()),
+                        key: '2',
+                        children: (
+                            <Form layout="vertical" style={{ padding: '0 20px' }}>
+                                <Row gutter={24}>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplatePriority())} name="priority">
+                                            <InputNumber style={{ width: '100%' }} defaultValue={10} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateMatchStrategy())} name="strategy">
+                                            <Select defaultValue="Exact">
+                                                <Option value="Exact">Exact Match</Option>
+                                                <Option value="Fuzzy">Fuzzy Match</Option>
                                             </Select>
                                         </Form.Item>
-                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateOrientation())}>
-                                            <Radio.Group defaultValue="Portrait">
-                                                <Radio value="Portrait">Portrait</Radio>
-                                                <Radio value="Landscape">Landscape</Radio>
-                                            </Radio.Group>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateMutexGroup())} name="mutexGroup">
+                                            <Input placeholder="Enter mutex group" />
                                         </Form.Item>
-                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateLanguage())}>
-                                            <Select defaultValue="Bilingual">
-                                                <Option value="En">English</Option>
-                                                <Option value="Zh">Chinese</Option>
-                                                <Option value="Bilingual">Bilingual</Option>
+                                    </Col>
+                                </Row>
+                                <Divider orientation="left">Condition Group A (AND)</Divider>
+                                <Row gutter={24}>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateCustomer())}>
+                                            <Select mode="multiple" placeholder="Select Customers" defaultValue={['All']}>
+                                                <Option value="All">All Customers</Option>
+                                                <Option value="CUST001">Customer A</Option>
                                             </Select>
                                         </Form.Item>
-                                        <Form.Item label="File">
-                                             <Button icon={<FileSearchOutlined />}>{i18n.t(LocaleHelper.getWaybillTemplateUploadBtn())}</Button>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateCargoType())}>
+                                            <Select placeholder="Select Cargo Type" defaultValue="General">
+                                                <Option value="General">General Cargo</Option>
+                                                <Option value="Dangerous">Dangerous Goods</Option>
+                                            </Select>
                                         </Form.Item>
-                                    </Form>
-                                </Card>
-                            </Col>
-                            <Col span={16}>
-                                <Card title="Field Mapping" size="small">
-                                    <Table dataSource={mockPrintMapping} columns={columnsPrintMapping} pagination={false} size="small" />
-                                </Card>
-                            </Col>
-                        </Row>
-                    </TabPane>
+                                    </Col>
+                                </Row>
+                                <Divider orientation="left">Condition Group B (AND)</Divider>
+                                <Row gutter={24}>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillCreateOrigin())}>
+                                            <Select showSearch placeholder="Select Origin" defaultValue="CNSHA">
+                                                <Option value="CNSHA">Shanghai</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getWaybillCreateDestination())}>
+                                            <Select showSearch placeholder="Select Destination" defaultValue="USLAX">
+                                                <Option value="USLAX">Los Angeles</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        )
+                    },
 
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabPermissions())} key="6">
-                        <Card title={i18n.t(LocaleHelper.getWaybillTemplateVersionInfo())} size="small" style={{ marginBottom: 16 }} extra={<Button type="primary" size="small">{i18n.t(LocaleHelper.getWaybillTemplateCreateVersion())}</Button>}>
-                            <Descriptions column={2} size="small">
-                                <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateCurrentVersion())}>v1.0</Descriptions.Item>
-                                <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateStatus())}><Tag color="green">Active</Tag></Descriptions.Item>
-                                <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateApprovalNeeded())}>
-                                    <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked />
-                                </Descriptions.Item>
-                                <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateApprover())}>Manager A</Descriptions.Item>
-                            </Descriptions>
-                        </Card>
-                        <div style={{ marginBottom: 16, textAlign: 'right' }}>
-                            <Button type="primary" icon={<PlusOutlined />} onClick={handleAddPermission}>
-                                {i18n.t(LocaleHelper.getWaybillTemplateAddPermission())}
-                            </Button>
-                        </div>
-                        <Table dataSource={permissions} columns={columnsPermissions} pagination={false} size="small" scroll={{ x: 'max-content' }} />
-                    </TabPane>
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabFields()),
+                        key: '3',
+                        children: (
+                            <Row gutter={24} style={{ padding: '0 20px' }}>
+                                <Col span={4} style={{ borderRight: '1px solid #f0f0f0' }}>
+                                    <Menu 
+                                        mode="inline" 
+                                        selectedKeys={[selectedFieldGroup]} 
+                                        onClick={({ key }) => setSelectedFieldGroup(key)}
+                                        style={{ borderRight: 0 }}
+                                    >
+                                        <Menu.Item key="basic">{i18n.t(LocaleHelper.getWaybillTemplateTabBasic())}</Menu.Item>
+                                        <Menu.Item key="parties">Parties</Menu.Item>
+                                        <Menu.Item key="cargo">Cargo</Menu.Item>
+                                        <Menu.Item key="transport">Transport</Menu.Item>
+                                    </Menu>
+                                </Col>
+                                <Col span={20}>
+                                    <Table dataSource={mockFieldsConfig} columns={columnsFields} pagination={false} size="small" scroll={{ x: 'max-content' }} />
+                                </Col>
+                            </Row>
+                        )
+                    },
 
-                    <TabPane tab={i18n.t(LocaleHelper.getWaybillTemplateTabChangeLog())} key="7">
-                        <Table dataSource={mockChangeLog} columns={columnsChangeLog} pagination={false} size="small" scroll={{ x: 'max-content' }} />
-                    </TabPane>
-                </Tabs>
-            </Card>
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabValidation()),
+                        key: '4',
+                        children: (
+                            <div style={{ padding: '0 20px' }}>
+                                <div style={{ marginBottom: 16, textAlign: 'right' }}>
+                                    <Button type="primary" icon={<PlusOutlined />} onClick={handleAddValidationRule}>
+                                        {i18n.t(LocaleHelper.getWaybillTemplateAddRule())}
+                                    </Button>
+                                </div>
+                                <Table dataSource={validationRules} columns={columnsValidation} pagination={false} size="small" scroll={{ x: 'max-content' }} />
+                            </div>
+                        )
+                    },
+
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabPrint()),
+                        key: '5',
+                        children: (
+                            <Row gutter={24} style={{ padding: '0 20px' }}>
+                                <Col span={8}>
+                                    <Card title="Settings" size="small">
+                                        <Form layout="vertical">
+                                            <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplatePaperSize())}>
+                                                <Select defaultValue="A4">
+                                                    <Option value="A4">A4</Option>
+                                                    <Option value="Letter">Letter</Option>
+                                                </Select>
+                                            </Form.Item>
+                                            <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateOrientation())}>
+                                                <Radio.Group defaultValue="Portrait">
+                                                    <Radio value="Portrait">Portrait</Radio>
+                                                    <Radio value="Landscape">Landscape</Radio>
+                                                </Radio.Group>
+                                            </Form.Item>
+                                            <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateLanguage())}>
+                                                <Select defaultValue="Bilingual">
+                                                    <Option value="En">English</Option>
+                                                    <Option value="Zh">Chinese</Option>
+                                                    <Option value="Bilingual">Bilingual</Option>
+                                                </Select>
+                                            </Form.Item>
+                                            <Form.Item label="File">
+                                                    <Button icon={<FileSearchOutlined />}>{i18n.t(LocaleHelper.getWaybillTemplateUploadBtn())}</Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </Card>
+                                </Col>
+                                <Col span={16}>
+                                    <Card title="Field Mapping" size="small">
+                                        <Table dataSource={mockPrintMapping} columns={columnsPrintMapping} pagination={false} size="small" />
+                                    </Card>
+                                </Col>
+                            </Row>
+                        )
+                    },
+
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabPermissions()),
+                        key: '6',
+                        children: (
+                            <div style={{ padding: '0 20px' }}>
+                                <Card title={i18n.t(LocaleHelper.getWaybillTemplateVersionInfo())} size="small" style={{ marginBottom: 16 }} extra={<Button type="primary" size="small">{i18n.t(LocaleHelper.getWaybillTemplateCreateVersion())}</Button>}>
+                                    <Descriptions column={2} size="small">
+                                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateCurrentVersion())}>v1.0</Descriptions.Item>
+                                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateStatus())}><Tag color="green">Active</Tag></Descriptions.Item>
+                                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateApprovalNeeded())}>
+                                            <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked />
+                                        </Descriptions.Item>
+                                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillTemplateApprover())}>Manager A</Descriptions.Item>
+                                    </Descriptions>
+                                </Card>
+                                <div style={{ marginBottom: 16, textAlign: 'right' }}>
+                                    <Button type="primary" icon={<PlusOutlined />} onClick={handleAddPermission}>
+                                        {i18n.t(LocaleHelper.getWaybillTemplateAddPermission())}
+                                    </Button>
+                                </div>
+                                <Table dataSource={permissions} columns={columnsPermissions} pagination={false} size="small" scroll={{ x: 'max-content' }} />
+                            </div>
+                        )
+                    },
+
+                    {
+                        label: i18n.t(LocaleHelper.getWaybillTemplateTabChangeLog()),
+                        key: '7',
+                        children: (
+                            <div style={{ padding: '0 20px' }}>
+                                <Table dataSource={mockChangeLog} columns={columnsChangeLog} pagination={false} size="small" scroll={{ x: 'max-content' }} />
+                            </div>
+                        )
+                    }
+                ]} />
+            </div>
         </div>
     );
 };

@@ -96,6 +96,10 @@ const WaybillTemplate: React.FC = () => {
                             <Button type="primary" danger onClick={() => navigate('/waybill_management/template/create')}>
                                 {i18n.t(LocaleHelper.getWaybillTemplateNewTemplate())}
                             </Button>
+                            <Button onClick={() => handleBatchAction('Enable')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchEnable())}</Button>
+                            <Button onClick={() => handleBatchAction('Disable')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchDisable())}</Button>
+                            <Button onClick={() => handleBatchAction('Export')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchExport())}</Button>
+                            <Button onClick={() => handleBatchAction('Delete')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchDelete())}</Button>
                             <Button onClick={() => message.info('Import Template')}>
                                 {i18n.t(LocaleHelper.getWaybillTemplateImport())}
                             </Button>
@@ -108,10 +112,7 @@ const WaybillTemplate: React.FC = () => {
 
             <div className='nc-bill-table-area'>
                 <div style={{ marginBottom: 16 }}>
-                    <Button style={{ marginRight: 8 }} onClick={() => handleBatchAction('Enable')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchEnable())}</Button>
-                    <Button style={{ marginRight: 8 }} onClick={() => handleBatchAction('Disable')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchDisable())}</Button>
-                    <Button style={{ marginRight: 8 }} onClick={() => handleBatchAction('Export')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchExport())}</Button>
-                    <Button danger onClick={() => handleBatchAction('Delete')}>{i18n.t(LocaleHelper.getWaybillTemplateBatchDelete())}</Button>
+                    
                 </div>
                 <Table<WaybillTemplateItem>
                     columns={columns}
