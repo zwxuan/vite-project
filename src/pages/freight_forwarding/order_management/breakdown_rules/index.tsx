@@ -1,71 +1,46 @@
-import React, { useState } from 'react';
-import { Table, Button, Space, Tag } from 'antd';
-import CustomIcon from "@/components/custom-icon";
-import AdvancedSearchForm from "@/components/search-form";
-import { fields } from './search_fields';
 import '@/pages/page_list.less';
+import React from 'react';
+import { Table, Button, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { RedoOutlined } from '@ant-design/icons';
+import CustomIcon from "@/components/custom-icon";
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
+
+interface RuleItem {
+    id: string;
+    name: string;
+    type: string;
+    condition: string;
+    lastModified: string;
+}
 
 const BreakdownRules: React.FC = () => {
-    const [dataSource] = useState([
-        {
-            key: '1',
-            ruleName: '海运出口标准流程',
-            applicableType: '海运出口',
-            status: '启用',
-            lastModified: '03-15',
-        },
-        {
-            key: '2',
-            ruleName: '空运进口快速流程',
-            applicableType: '空运进口',
-            status: '启用',
-            lastModified: '03-10',
-        },
-        {
-            key: '3',
-            ruleName: '危险品处理流程',
-            applicableType: '全部',
-            status: '启用',
-            lastModified: '03-08',
-        },
-    ]);
+    const navigate = useNavigate();
 
-    const handleSearch = (values: any) => {
-        console.log('Search', values);
+    // Mock Data
+    const mockData: RuleItem[] = [
+        { id: '1', name: 'Standard Sea Export', type: 'Sea Export', condition: 'General Cargo', lastModified: '2023-10-01' },
+        { id: '2', name: 'US Line Special', type: 'Sea Export', condition: 'Dest=US', lastModified: '2023-10-05' },
+    ];
+
+    const handleEdit = () => {
+        navigate('/order_management/breakdown_rules/detail');
     };
 
     const columns = [
+        { title: i18n.t(LocaleHelper.getBreakdownRulesRuleName()), dataIndex: 'name', key: 'name' },
+        { title: i18n.t(LocaleHelper.getBreakdownRulesApplicableType()), dataIndex: 'type', key: 'type' },
+        { title: i18n.t(LocaleHelper.getBreakdownRulesApplicableCondition()), dataIndex: 'condition', key: 'condition' },
+        { title: i18n.t(LocaleHelper.getBreakdownRulesLastModified()), dataIndex: 'lastModified', key: 'lastModified' },
         {
-            title: '规则名称',
-            dataIndex: 'ruleName',
-            key: 'ruleName',
-        },
-        {
-            title: '适用类型',
-            dataIndex: 'applicableType',
-            key: 'applicableType',
-        },
-        {
-            title: '状态',
-            dataIndex: 'status',
-            key: 'status',
-            render: (text: string) => (
-                <Tag color={text === '启用' ? 'green' : 'red'}>{text}</Tag>
-            ),
-        },
-        {
-            title: '最后修改',
-            dataIndex: 'lastModified',
-            key: 'lastModified',
-        },
-        {
-            title: '操作',
+            title: i18n.t(LocaleHelper.getOrderListActions()),
             key: 'action',
-            render: (_: any, record: any) => (
+            render: (_: any, record: RuleItem) => (
                 <Space size="middle">
-                    <a style={{ color: '#1890ff' }}>编辑</a>
-                    <a style={{ color: '#1890ff' }}>复制</a>
-                    <a style={{ color: 'red' }}>停用</a>
+                    <a onClick={handleEdit}>{i18n.t(LocaleHelper.getOrderListEdit())}</a>
+                    <a>{i18n.t(LocaleHelper.getBreakdownRulesTest())}</a>
+                    <a>{i18n.t(LocaleHelper.getOrderListDelete())}</a>
                 </Space>
             ),
         },
@@ -78,37 +53,33 @@ const BreakdownRules: React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
-                            <span>订单管理 {'>'} 拆解规则配置</span>
+                            {i18n.t(LocaleHelper.getBreakdownRulesTitle())}
                         </span>
                     </div>
                 </div>
                 <div className="header-button-area">
-                    <div className="buttonGroup-component">
-                        <div className="u-button-group">
-                            <Button type="primary" danger>
-                                新建规则
-                            </Button>
-                            <Button>
-                                导入
-                            </Button>
+                    <div style={{ display: "flex" }}>
+                        <div className="buttonGroup-component">
+                            <div className="u-button-group">
+                                <Button type="primary" danger onClick={handleEdit}>{i18n.t(LocaleHelper.getBreakdownRulesNewRule())}</Button>
+                            </div>
                         </div>
+                        <span className="u-button">
+                            <RedoOutlined className='iconfont' />
+                        </span>
                     </div>
                 </div>
             </div>
-
-            <AdvancedSearchForm fields={fields as any} onSearch={handleSearch} />
-
-            <div style={{ padding: '0 10px' }}>
-                <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>规则列表：</div>
-                <div className='nc-bill-table-area'>
-                    <Table
-                        columns={columns}
-                        dataSource={dataSource}
-                        pagination={false}
-                        size="small"
-                        bordered
-                    />
-                </div>
+            
+            <div className='nc-bill-table-area'>
+                <Table<RuleItem>
+                    columns={columns}
+                    dataSource={mockData}
+                    rowKey="id"
+                    pagination={false}
+                    bordered
+                    size="small"
+                />
             </div>
         </div>
     );

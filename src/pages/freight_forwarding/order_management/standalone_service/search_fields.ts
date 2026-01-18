@@ -1,34 +1,43 @@
+import { AdvancedSearchFormProps } from "@/components/search-form";
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
 
-export const fields = [
+export const fields: AdvancedSearchFormProps["fields"] = [
     {
-        name: 'serviceType',
-        label: '服务类型',
         type: 'select',
-        options: [
-            { label: '全部', value: 'all' },
-        ],
+        label: i18n.t(LocaleHelper.getStandaloneServiceServiceType()),
+        key: 'serviceType',
+        selectOptions: [
+            { value: 'Customs', label: i18n.t(LocaleHelper.getStandaloneServiceCustomsClearance()) },
+            { value: 'Warehouse', label: i18n.t(LocaleHelper.getStandaloneServiceWarehousing()) },
+            { value: 'Document', label: i18n.t(LocaleHelper.getStandaloneServiceDocumentation()) },
+            { value: 'Insurance', label: i18n.t(LocaleHelper.getStandaloneServiceInsurance()) },
+            { value: 'Consulting', label: i18n.t(LocaleHelper.getStandaloneServiceConsulting()) },
+        ]
     },
     {
-        name: 'status',
-        label: '服务状态',
         type: 'select',
-        options: [
-            { label: '全部', value: 'all' },
-        ],
+        label: i18n.t(LocaleHelper.getStandaloneServiceServiceStatus()),
+        key: 'status',
+        selectOptions: [
+            { value: 'Pending', label: 'Pending' },
+            { value: 'In Progress', label: 'In Progress' },
+            { value: 'Completed', label: 'Completed' },
+        ]
     },
     {
-        name: 'customer',
-        label: '客户',
         type: 'input',
+        label: i18n.t(LocaleHelper.getQueryCustomerName()),
+        key: 'customerName',
     },
     {
-        name: 'location',
-        label: '服务地点',
         type: 'input',
+        label: i18n.t(LocaleHelper.getStandaloneServiceServiceLocation()),
+        key: 'location',
     },
     {
-        name: 'dateRange',
-        label: '日期范围',
         type: 'dateRange',
+        label: i18n.t(LocaleHelper.getQueryDateRange()),
+        key: 'dateRange',
     },
 ];

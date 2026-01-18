@@ -126,15 +126,6 @@ const TaskCalendarView = React.lazy(() => import("@/pages/dynamic_configuration_
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
 const Home = React.lazy(() => import("@/layout/home"));
-const OrderList = React.lazy(() => import("@/pages/freight_forwarding/order_management/list"));
-const NewOrder = React.lazy(() => import("@/pages/freight_forwarding/order_management/new_order"));
-const OrderQuery = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_query"));
-const OrderAudit = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_audit"));
-const OrderBreakdown = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_breakdown"));
-const BreakdownRules = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown_rules"));
-const OrderStatistics = React.lazy(() => import("@/pages/freight_forwarding/order_management/order_statistics"));
-const StandaloneService = React.lazy(() => import("@/pages/freight_forwarding/order_management/standalone_service"));
-const ServiceTemplate = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_template"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
 const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
 const JobMonitoring = React.lazy(() => import("@/pages/freight_forwarding/job_management/monitoring"));
@@ -150,12 +141,29 @@ const WaybillTemplate = React.lazy(() => import("@/pages/freight_forwarding/wayb
 const WaybillTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/template/detail"));
 const WaybillStatistics = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/statistics"));
 const WaybillArchive = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/archive"));
+const OrderManagementList = React.lazy(() => import("@/pages/freight_forwarding/order_management/list"));
+const OrderManagementDetail = React.lazy(() => import("@/pages/freight_forwarding/order_management/detail"));
+const OrderManagementStatistics = React.lazy(() => import("@/pages/freight_forwarding/order_management/statistics"));
+const OrderQuery = React.lazy(() => import("@/pages/freight_forwarding/order_management/query"));
+const StandaloneService = React.lazy(() => import("@/pages/freight_forwarding/order_management/standalone_service"));
+const StandaloneServiceDetail = React.lazy(() => import("@/pages/freight_forwarding/order_management/standalone_service/detail"));
+const ServiceConfig = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_config"));
+const ServiceConfigDetail = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_config/detail"));
+const ServiceTemplate = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_template"));
+const ServiceTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_template/detail"));
+const ServicePerformance = React.lazy(() => import("@/pages/freight_forwarding/order_management/service_performance"));
+const OrderAudit = React.lazy(() => import("@/pages/freight_forwarding/order_management/audit"));
+const OrderBreakdown = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown"));
+const BreakdownRules = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown_rules"));
+const BreakdownRulesDetail = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown_rules/detail"));
 
 export {
-  OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate, JobList, JobDetail, JobMonitoring, MyJobs,
+  JobList, JobDetail, JobMonitoring, MyJobs,
   TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
   WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics, WaybillArchive,
-  Demo,ContainerLoading,Home,Lev1Department,
+  OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
+  OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
+ Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,
   SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,

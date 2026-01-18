@@ -32,7 +32,6 @@ import {
   RoleManage,
   RoleManageDetail,
   Lev1Department,
-  OrderList, NewOrder, OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, OrderStatistics, StandaloneService, ServiceTemplate,
   RoleGroup,
   RoleTags,
   FunctionPermissionRole,
@@ -70,6 +69,8 @@ import {
   TaskCalendarView,
   WaybillArchive, WaybillList, WaybillCreate,
   WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics,
+  OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
+  OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -105,15 +106,22 @@ const routers = createMemoryRouter([
           </RouterGuard>
         ),
         children: [
-            { path: "list", handle: { title: '订单列表' }, element: <RouterGuard><OrderList /></RouterGuard> },
-            { path: "new_order", handle: { title: '新建订单' }, element: <RouterGuard><NewOrder /></RouterGuard> },
+            { path: "list", handle: { title: '订单列表' }, element: <RouterGuard><OrderManagementList /></RouterGuard> },
+            { path: "new_order", handle: { title: '新建订单' }, element: <RouterGuard><OrderManagementDetail /></RouterGuard> },
+            { path: "detail", handle: { title: '订单详情' }, element: <RouterGuard><OrderManagementDetail /></RouterGuard> },
             { path: "order_query", handle: { title: '订单查询' }, element: <RouterGuard><OrderQuery /></RouterGuard> },
             { path: "order_audit", handle: { title: '订单审核' }, element: <RouterGuard><OrderAudit /></RouterGuard> },
             { path: "order_breakdown", handle: { title: '订单拆解' }, element: <RouterGuard><OrderBreakdown /></RouterGuard> },
             { path: "breakdown_rules", handle: { title: '拆解规则配置' }, element: <RouterGuard><BreakdownRules /></RouterGuard> },
-            { path: "order_statistics", handle: { title: '订单统计报表' }, element: <RouterGuard><OrderStatistics /></RouterGuard> },
+            { path: "breakdown_rules/detail", handle: { title: '拆解规则详情' }, element: <RouterGuard><BreakdownRulesDetail /></RouterGuard> },
+            { path: "order_statistics", handle: { title: '订单统计报表' }, element: <RouterGuard><OrderManagementStatistics /></RouterGuard> },
             { path: "standalone_service", handle: { title: '单项服务管理' }, element: <RouterGuard><StandaloneService /></RouterGuard> },
+            { path: "standalone_service/detail", handle: { title: '单项服务详情' }, element: <RouterGuard><StandaloneServiceDetail /></RouterGuard> },
+            { path: "service_config", handle: { title: '服务配置' }, element: <RouterGuard><ServiceConfig /></RouterGuard> },
+            { path: "service_config/detail", handle: { title: '服务配置详情' }, element: <RouterGuard><ServiceConfigDetail /></RouterGuard> },
             { path: "service_template", handle: { title: '服务组合模板' }, element: <RouterGuard><ServiceTemplate /></RouterGuard> },
+            { path: "service_template/detail", handle: { title: '模板详情' }, element: <RouterGuard><ServiceTemplateDetail /></RouterGuard> },
+            { path: "service_performance", handle: { title: '服务绩效分析' }, element: <RouterGuard><ServicePerformance /></RouterGuard> },
         ]
       },
       {

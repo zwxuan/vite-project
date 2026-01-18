@@ -1,0 +1,17 @@
+export const OrderQueryLocale = {
+    getQueryTitle: () => 'freight_forwarding.order_management.query.title',
+    getQueryAdvancedSearch: () => 'freight_forwarding.order_management.query.advanced_search',
+    getQueryQuickSearch: () => 'freight_forwarding.order_management.query.quick_search',
+    getQueryCustomerName: () => 'freight_forwarding.order_management.query.customer_name',
+    getQuerySalesman: () => 'freight_forwarding.order_management.query.salesman',
+    getQueryOrderType: () => 'freight_forwarding.order_management.query.order_type',
+    getQueryOrderStatus: () => 'freight_forwarding.order_management.query.order_status',
+    getQueryDateRange: () => 'freight_forwarding.order_management.query.date_range',
+    getQueryOrigin: () => 'freight_forwarding.order_management.query.origin',
+    getQueryDestination: () => 'freight_forwarding.order_management.query.destination',
+    getQueryCommodity: () => 'freight_forwarding.order_management.query.commodity',
+    getQueryHSCode: () => 'freight_forwarding.order_management.query.hs_code',
+    getQuerySearchResults: () => 'freight_forwarding.order_management.query.search_results',
+    getQueryTrack: () => 'freight_forwarding.order_management.query.track',
+    getQueryTotalRecords: () => 'freight_forwarding.order_management.query.total_records',
+};

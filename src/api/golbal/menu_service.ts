@@ -778,7 +778,9 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "拆解规则配置", key: "breakdown_rules", path: "/order_management/breakdown_rules" },
         { name: "订单统计报表", key: "order_statistics", path: "/order_management/order_statistics" },
         { name: "单项服务管理", key: "standalone_service", path: "/order_management/standalone_service" },
+        { name: "服务配置", key: "service_config", path: "/order_management/service_config" },
         { name: "服务组合模板", key: "service_template", path: "/order_management/service_template" },
+        { name: "服务绩效分析", key: "service_performance", path: "/order_management/service_performance" },
     ]
 },
 {

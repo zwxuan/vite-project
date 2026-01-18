@@ -1,0 +1,17 @@
+export const OrderBreakdownLocale = {
+    getOrderBreakdownTitle: () => 'freight_forwarding.order_management.breakdown.title',
+    getOrderBreakdownBatchBreakdown: () => 'freight_forwarding.order_management.breakdown.batch_breakdown',
+    getOrderBreakdownRuleManagement: () => 'freight_forwarding.order_management.breakdown.rule_management',
+    getOrderBreakdownPendingBreakdown: () => 'freight_forwarding.order_management.breakdown.pending_breakdown',
+    getOrderBreakdownRuleSelection: () => 'freight_forwarding.order_management.breakdown.rule_selection',
+    getOrderBreakdownPreviewResult: () => 'freight_forwarding.order_management.breakdown.preview_result',
+    getOrderBreakdownJobType: () => 'freight_forwarding.order_management.breakdown.job_type',
+    getOrderBreakdownJobName: () => 'freight_forwarding.order_management.breakdown.job_name',
+    getOrderBreakdownEstDuration: () => 'freight_forwarding.order_management.breakdown.est_duration',
+    getOrderBreakdownResponsibleDept: () => 'freight_forwarding.order_management.breakdown.responsible_dept',
+    getOrderBreakdownPriority: () => 'freight_forwarding.order_management.breakdown.priority',
+    getOrderBreakdownParamAdjustment: () => 'freight_forwarding.order_management.breakdown.param_adjustment',
+    getOrderBreakdownTotalDuration: () => 'freight_forwarding.order_management.breakdown.total_duration',
+    getOrderBreakdownSpecialRequirements: () => 'freight_forwarding.order_management.breakdown.special_requirements',
+    getOrderBreakdownExecuteBreakdown: () => 'freight_forwarding.order_management.breakdown.execute_breakdown',
+};

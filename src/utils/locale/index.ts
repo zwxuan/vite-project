@@ -117,6 +117,17 @@ import { WaybillQueryLocale } from '@/utils/locale/freight_forwarding/waybill_ma
 import { WaybillTemplateLocale } from '@/utils/locale/freight_forwarding/waybill_management/template';
 import { WaybillStatisticsLocale } from '@/utils/locale/freight_forwarding/waybill_management/statistics';
 import { WaybillArchiveLocale } from '@/utils/locale/freight_forwarding/waybill_management/archive';
+import { OrderListLocale } from '@/utils/locale/freight_forwarding/order_management/list';
+import { OrderDetailLocale } from '@/utils/locale/freight_forwarding/order_management/detail';
+import { OrderStatisticsLocale } from '@/utils/locale/freight_forwarding/order_management/statistics';
+import { OrderQueryLocale } from '@/utils/locale/freight_forwarding/order_management/query';
+import { OrderAuditLocale } from '@/utils/locale/freight_forwarding/order_management/audit';
+import { OrderBreakdownLocale } from '@/utils/locale/freight_forwarding/order_management/breakdown';
+import { BreakdownRulesLocale } from '@/utils/locale/freight_forwarding/order_management/breakdown_rules';
+import { StandaloneServiceLocale } from '@/utils/locale/freight_forwarding/order_management/standalone_service';
+import { ServiceConfigLocale } from '@/utils/locale/freight_forwarding/order_management/service_config';
+import { ServiceTemplateLocale } from '@/utils/locale/freight_forwarding/order_management/service_template';
+import { ServicePerformanceLocale } from '@/utils/locale/freight_forwarding/order_management/service_performance';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -134,6 +145,8 @@ export {
   JobDetailLocale,JobMonitoringLocale,MyJobsLocale,
   TeamJobsLocale,JobAssignmentLocale,AssignmentRulesLocale,PerformanceAnalysisLocale,
   WaybillListLocale, WaybillCreateLocale, WaybillQueryLocale, WaybillTemplateLocale, WaybillStatisticsLocale, WaybillArchiveLocale,
+  OrderListLocale, OrderDetailLocale, OrderStatisticsLocale,
+  OrderQueryLocale, OrderAuditLocale, OrderBreakdownLocale, BreakdownRulesLocale, StandaloneServiceLocale, ServiceConfigLocale, ServiceTemplateLocale, ServicePerformanceLocale,
 };
 
 export default {
@@ -153,5 +166,7 @@ export default {
   ...SysOperatorLogReportLocale,...SysWarningTypeLocale,...SysWarningTypeParamLocale,...SysWarningTaskLocale,...JobListLocale,
   ...JobDetailLocale,...JobMonitoringLocale,...MyJobsLocale,
   ...TeamJobsLocale,...JobAssignmentLocale,...AssignmentRulesLocale,...PerformanceAnalysisLocale,
-  ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale
+  ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale,
+  ...OrderListLocale,...OrderDetailLocale, ...OrderStatisticsLocale,
+  ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale
 };

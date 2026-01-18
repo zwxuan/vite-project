@@ -1,52 +1,43 @@
+import '@/pages/page_list.less';
 import React, { useState } from 'react';
-import { Table, Button, Space, Tag } from 'antd';
+import { Table, Button, Dropdown, Space, MenuProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { DownOutlined, RedoOutlined } from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import AdvancedSearchForm from "@/components/search-form";
+import { getColumns, StandaloneServiceItem } from './columns';
 import { fields } from './search_fields';
-import '@/pages/page_list.less';
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
 
 const StandaloneService: React.FC = () => {
-    const [dataSource] = useState([
-        { key: '1', serviceId: 'SRV-001', customerName: 'ABC公司', serviceType: '单独报关', content: '出口报关服务', status: '进行中', cost: '2,800' },
-        { key: '2', serviceId: 'SRV-002', customerName: 'DEF公司', serviceType: '单独仓储', content: '保税仓储30天', status: '已完成', cost: '3,000' },
-        { key: '3', serviceId: 'SRV-003', customerName: 'GHI公司', serviceType: '单证代理', content: '提单制作', status: '待开始', cost: '500' },
-        { key: '4', serviceId: 'SRV-004', customerName: 'JKL公司', serviceType: '保险代理', content: '货物运输险', status: '已完成', cost: '300' },
-    ]);
+    const navigate = useNavigate();
+    const [pageSize, setPageSize] = useState(50);
+    
+    // Mock Data
+    const mockData: StandaloneServiceItem[] = [
+        { id: 'SRV-001', customerName: 'ABC Company', serviceType: 'Customs', serviceContent: 'Export Clearance', status: 'In Progress', fee: 2800 },
+        { id: 'SRV-002', customerName: 'DEF Company', serviceType: 'Warehouse', serviceContent: 'Bonded Storage 30 Days', status: 'Completed', fee: 3000 },
+        { id: 'SRV-003', customerName: 'GHI Company', serviceType: 'Document', serviceContent: 'BL Creation', status: 'Pending', fee: 500 },
+        { id: 'SRV-004', customerName: 'JKL Company', serviceType: 'Insurance', serviceContent: 'Cargo Insurance', status: 'Completed', fee: 300 },
+    ];
+
+    const handleDetail = (record: StandaloneServiceItem) => {
+        navigate('/order_management/standalone_service/detail');
+    };
+
+    const handleEdit = (record: StandaloneServiceItem) => {
+        navigate('/order_management/standalone_service/detail');
+    };
 
     const handleSearch = (values: any) => {
         console.log('Search', values);
     };
 
-    const columns = [
-        { title: '服务ID', dataIndex: 'serviceId', key: 'serviceId' },
-        { title: '客户名称', dataIndex: 'customerName', key: 'customerName' },
-        { title: '服务类型', dataIndex: 'serviceType', key: 'serviceType' },
-        { title: '服务内容', dataIndex: 'content', key: 'content' },
-        { 
-            title: '状态', 
-            dataIndex: 'status', 
-            key: 'status',
-            render: (text: string) => {
-                let color = 'default';
-                if (text === '进行中') color = 'processing';
-                if (text === '已完成') color = 'success';
-                if (text === '待开始') color = 'warning';
-                return <Tag color={color}>{text}</Tag>;
-            }
-        },
-        { title: '费用', dataIndex: 'cost', key: 'cost' },
-        {
-            title: '操作',
-            key: 'action',
-            render: (_: any, record: any) => (
-                <Space size="middle">
-                    <a style={{ color: '#1890ff' }}>[详情]</a>
-                    {record.status === '待开始' ? <a style={{ color: '#52c41a' }}>[开始]</a> : null}
-                    {record.status === '已完成' ? <a style={{ color: '#1890ff' }}>[结算]</a> : null}
-                    {record.status === '进行中' ? <a style={{ color: '#1890ff' }}>[编辑]</a> : null}
-                </Space>
-            ),
-        },
+    const columns = getColumns(handleDetail, handleEdit);
+
+    const exportItems: MenuProps['items'] = [
+        { key: '1', label: i18n.t(LocaleHelper.getOrderListExport()) },
     ];
 
     return (
@@ -56,33 +47,52 @@ const StandaloneService: React.FC = () => {
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
-                            <span>订单管理 {'>'} 单项服务管理</span>
+                            {i18n.t(LocaleHelper.getStandaloneServiceTitle())}
                         </span>
                     </div>
                 </div>
                 <div className="header-button-area">
-                    <div className="buttonGroup-component">
-                        <div className="u-button-group">
-                            <Button type="primary" danger>新建服务</Button>
-                            <Button>批量操作</Button>
-                            <Button>导出</Button>
+                    <div style={{ display: "flex" }}>
+                        <div className="buttonGroup-component">
+                            <div className="u-button-group">
+                                <Button type="primary" danger onClick={() => navigate('/order_management/standalone_service/detail')}>{i18n.t(LocaleHelper.getStandaloneServiceNewService())}</Button>
+                                <Button>{i18n.t(LocaleHelper.getStandaloneServiceBatchAction())}</Button>
+                            </div>
                         </div>
+                        <div className="divider-button-wrapper">
+                            <Dropdown menu={{ items: exportItems }}>
+                                <Button>
+                                    <Space>
+                                        {i18n.t(LocaleHelper.getOrderListExport())}
+                                        <DownOutlined />
+                                    </Space>
+                                </Button>
+                            </Dropdown>
+                        </div>
+                        <span className="u-button">
+                            <RedoOutlined className='iconfont' />
+                        </span>
                     </div>
                 </div>
             </div>
-
-            <AdvancedSearchForm fields={fields as any} onSearch={handleSearch} />
-
-            <div style={{ padding: '0 10px' }}>
-                <div className='nc-bill-table-area'>
-                    <Table
-                        columns={columns}
-                        dataSource={dataSource}
-                        pagination={false}
-                        size="small"
-                        bordered
-                    />
-                </div>
+            <AdvancedSearchForm fields={fields} onSearch={handleSearch} />
+            <div className='nc-bill-table-area'>
+                <Table<StandaloneServiceItem>
+                    columns={columns}
+                    rowKey={(record) => record.id}
+                    dataSource={mockData}
+                    pagination={{
+                        size: 'small',
+                        pageSize: pageSize,
+                        showTotal: (total) => `Total ${total}`,
+                        showQuickJumper: true,
+                        showSizeChanger: true,
+                        onShowSizeChange: (current, size) => setPageSize(size),
+                    }}
+                    scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
+                    bordered={true}
+                    size="small"
+                />
             </div>
         </div>
     );

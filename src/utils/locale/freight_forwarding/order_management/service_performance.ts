@@ -1,0 +1,17 @@
+export const ServicePerformanceLocale = {
+    getServicePerformanceTitle: () => 'freight_forwarding.order_management.service_performance.title',
+    getServicePerformanceCustomReport: () => 'freight_forwarding.order_management.service_performance.custom_report',
+    getServicePerformancePrint: () => 'freight_forwarding.order_management.service_performance.print',
+    getServicePerformanceTimeRange: () => 'freight_forwarding.order_management.service_performance.time_range',
+    getServicePerformanceCustomerGroup: () => 'freight_forwarding.order_management.service_performance.customer_group',
+    getServicePerformanceGenerateReport: () => 'freight_forwarding.order_management.service_performance.generate_report',
+    getServicePerformanceServiceTypeStats: () => 'freight_forwarding.order_management.service_performance.service_type_stats',
+    getServicePerformanceTotalIncome: () => 'freight_forwarding.order_management.service_performance.total_income',
+    getServicePerformanceAvgDuration: () => 'freight_forwarding.order_management.service_performance.avg_duration',
+    getServicePerformanceAvgUnitPrice: () => 'freight_forwarding.order_management.service_performance.avg_unit_price',
+    getServicePerformanceCustomerSatisfaction: () => 'freight_forwarding.order_management.service_performance.customer_satisfaction',
+    getServicePerformanceResponseTimeliness: () => 'freight_forwarding.order_management.service_performance.response_timeliness',
+    getServicePerformanceServiceQuality: () => 'freight_forwarding.order_management.service_performance.service_quality',
+    getServicePerformancePriceReasonableness: () => 'freight_forwarding.order_management.service_performance.price_reasonableness',
+    getServicePerformanceImprovementSuggestion: () => 'freight_forwarding.order_management.service_performance.improvement_suggestion',
+};

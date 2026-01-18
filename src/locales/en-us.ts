@@ -14,6 +14,7 @@ export const en = {
         submit: "Submit",
         operation: "Operation",
         confirm: "Confirm",
+        detail: "Detail",
     },
     sideMenu: {
         "home": "Home",

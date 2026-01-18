@@ -1,25 +1,44 @@
-import { OrdersLocale } from '@/utils/locale/freight_forwarding/order_management/orders';
+import { AdvancedSearchFormProps } from "@/components/search-form";
+import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 
-export const fields = [
+export const fields: AdvancedSearchFormProps["fields"] = [
     {
-        name: 'orderNo',
-        label: i18n.t(OrdersLocale.getOrderNo()),
         type: 'input',
+        label: i18n.t(LocaleHelper.getOrderManagementOrderNo()),
+        key: 'orderNo',
     },
     {
-        name: 'customerName',
-        label: i18n.t(OrdersLocale.getCustomerName()),
         type: 'input',
+        label: i18n.t(LocaleHelper.getOrderManagementCustomerName()),
+        key: 'customerName',
     },
     {
-        name: 'status',
-        label: i18n.t(OrdersLocale.getOrderStatus()),
         type: 'select',
-        options: [
-            { label: 'Draft', value: 'draft' },
-            { label: 'Pending', value: 'pending' },
-            { label: 'Confirmed', value: 'confirmed' },
+        label: i18n.t(LocaleHelper.getOrderManagementOrderType()),
+        key: 'orderType',
+        selectOptions: [
+            { value: 'Sea Export', label: 'Sea Export' },
+            { value: 'Sea Import', label: 'Sea Import' },
+            { value: 'Air Export', label: 'Air Export' },
+            { value: 'Air Import', label: 'Air Import' },
+            { value: 'Rail Export', label: 'Rail Export' },
+            { value: 'Rail Import', label: 'Rail Import' },
         ]
-    }
+    },
+    {
+        type: 'date',
+        label: i18n.t(LocaleHelper.getOrderManagementBookingDate()),
+        key: 'bookingDate',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getOrderManagementOrigin()),
+        key: 'origin',
+    },
+    {
+        type: 'input',
+        label: i18n.t(LocaleHelper.getOrderManagementDestination()),
+        key: 'destination',
+    },
 ];

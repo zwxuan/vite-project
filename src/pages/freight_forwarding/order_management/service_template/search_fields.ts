@@ -1,16 +1,21 @@
+import { AdvancedSearchFormProps } from "@/components/search-form";
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
 
-export const fields = [
+export const fields: AdvancedSearchFormProps["fields"] = [
     {
-        name: 'templateName',
-        label: '模板名称',
         type: 'input',
+        label: i18n.t(LocaleHelper.getServiceTemplateTemplateName()),
+        key: 'templateName',
     },
     {
-        name: 'scenario',
-        label: '适用场景',
         type: 'select',
-        options: [
-            { label: '全部', value: 'all' },
-        ],
+        label: i18n.t(LocaleHelper.getServiceTemplateApplicableScenario()),
+        key: 'scenario',
+        selectOptions: [
+            { value: 'Import', label: 'Import Trade' },
+            { value: 'Export', label: 'Export Trade' },
+            { value: 'Ecommerce', label: 'E-commerce' },
+        ]
     },
 ];
