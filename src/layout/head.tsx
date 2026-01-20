@@ -36,6 +36,7 @@ interface MenuGroup {
 interface BreadcrumbItem {
     title: React.ReactNode;
     href?: string;
+    [key: string]: any;
 }
 
 const AppHeader  : React.FC<AppSiderProps> = ({collapsed,i18n_page}) => {

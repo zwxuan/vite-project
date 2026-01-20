@@ -2,8 +2,9 @@
  * 路由守卫，判断用户是否登录，是否具有访问当前路由的权限
  */
 import { UserLogin } from "@/types/user";
+import React from 'react';
 import { useLocation,Navigate } from "react-router-dom";
-const RouterGuard = ({ children }: { children: JSX.Element }) => {
+const RouterGuard = ({ children }: { children: React.JSX.Element }) => {
     const locationPath = useLocation();
     
     const userLoginString =  sessionStorage.getItem('userlogin')

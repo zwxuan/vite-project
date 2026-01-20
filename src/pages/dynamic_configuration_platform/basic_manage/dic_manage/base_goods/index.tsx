@@ -1,4 +1,4 @@
-﻿
+
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Space, Modal, Form, Input, InputNumber, Select, Progress, notification, Popconfirm } from 'antd';
@@ -338,15 +338,19 @@ const BaseGoods: React.FC = () => {
 
                                     // 替换最后一个单元格，在其中添加浮动按钮
                                     childrenWithButtons[lastCellIndex] = React.cloneElement(
-                                        lastCell as React.ReactElement,
+                                        lastCell as any,
                                         {},
                                         <>
-                                            {React.Children.toArray((lastCell as React.ReactElement).props.children)}
-                                            <div style={rowActionButtonStyle}>
-                                                <Button size="small" onClick={(e) => {
-                                                    handleEdit(record);
+                                            {React.Children.toArray((lastCell as any).props.children)}
+                                            <div style={rowActionButtonStyle} onClick={(e) => e.stopPropagation()}>
+                                                <Button size="small" onClick={() => {
+                                                    if (record) handleEdit(record);
                                                 }}>编辑</Button>
-                                                <Button size="small" type="primary" onClick={(e) => { handleDelete(record);}}>删除</Button>
+                                                <Popconfirm title="确定删除吗?" onConfirm={() => {
+                                                    if (record) handleDelete(record);
+                                                }}>
+                                                    <Button size="small" type="primary" danger>删除</Button>
+                                                </Popconfirm>
                                             </div>
                                         </>
                                     );
