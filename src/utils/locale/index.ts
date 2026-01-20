@@ -111,6 +111,9 @@ import { TeamJobsLocale } from '@/utils/locale/freight_forwarding/job_management
 import { JobAssignmentLocale } from '@/utils/locale/freight_forwarding/job_management/job_assignment';
 import { AssignmentRulesLocale } from '@/utils/locale/freight_forwarding/job_management/rules';
 import { PerformanceAnalysisLocale } from '@/utils/locale/freight_forwarding/job_management/analysis';
+import { BookingCommonLocale } from '@/utils/locale/freight_forwarding/booking_management/common';
+import { BookingListLocale } from '@/utils/locale/freight_forwarding/booking_management/list';
+import { BookingCreateLocale } from '@/utils/locale/freight_forwarding/booking_management/create';
 import { WaybillListLocale } from '@/utils/locale/freight_forwarding/waybill_management/list';
 import { WaybillCreateLocale } from '@/utils/locale/freight_forwarding/waybill_management/create';
 import { WaybillQueryLocale } from '@/utils/locale/freight_forwarding/waybill_management/query';
@@ -144,6 +147,7 @@ export {
   SysWarningTypeLocale,SysWarningTypeParamLocale,SysWarningTaskLocale,JobListLocale,
   JobDetailLocale,JobMonitoringLocale,MyJobsLocale,
   TeamJobsLocale,JobAssignmentLocale,AssignmentRulesLocale,PerformanceAnalysisLocale,
+  BookingCommonLocale,BookingListLocale,BookingCreateLocale,
   WaybillListLocale, WaybillCreateLocale, WaybillQueryLocale, WaybillTemplateLocale, WaybillStatisticsLocale, WaybillArchiveLocale,
   OrderListLocale, OrderDetailLocale, OrderStatisticsLocale,
   OrderQueryLocale, OrderAuditLocale, OrderBreakdownLocale, BreakdownRulesLocale, StandaloneServiceLocale, ServiceConfigLocale, ServiceTemplateLocale, ServicePerformanceLocale,
@@ -166,6 +170,7 @@ export default {
   ...SysOperatorLogReportLocale,...SysWarningTypeLocale,...SysWarningTypeParamLocale,...SysWarningTaskLocale,...JobListLocale,
   ...JobDetailLocale,...JobMonitoringLocale,...MyJobsLocale,
   ...TeamJobsLocale,...JobAssignmentLocale,...AssignmentRulesLocale,...PerformanceAnalysisLocale,
+  ...BookingCommonLocale,...BookingListLocale,...BookingCreateLocale,
   ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale,
   ...OrderListLocale,...OrderDetailLocale, ...OrderStatisticsLocale,
   ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale

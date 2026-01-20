@@ -71,6 +71,7 @@ import {
   WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics,
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance,
+  BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -141,6 +142,28 @@ const routers = createMemoryRouter([
             { path: "assignment", handle: { title: '作业分派' }, element: <RouterGuard><JobAssignment /></RouterGuard> },
             { path: "rules", handle: { title: '分派规则配置' }, element: <RouterGuard><AssignmentRules /></RouterGuard> },
             { path: "analysis", handle: { title: '作业绩效分析' }, element: <RouterGuard><PerformanceAnalysis /></RouterGuard> },
+        ]
+      },
+      {
+        path: "/booking_management",
+        handle: { title: '订舱管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+            { path: "list", handle: { title: '订舱列表' }, element: <RouterGuard><BookingList /></RouterGuard> },
+            { path: "create", handle: { title: '新建订舱' }, element: <RouterGuard><BookingCreate /></RouterGuard> },
+            { path: "query", handle: { title: '订舱查询' }, element: <RouterGuard><BookingQuery /></RouterGuard> },
+            { path: "pickup_plan", handle: { title: '提货计划' }, element: <RouterGuard><BookingPickupPlan /></RouterGuard> },
+            { path: "carrier_integration", handle: { title: '承运商对接' }, element: <RouterGuard><BookingCarrierIntegration /></RouterGuard> },
+            { path: "space", handle: { title: '舱位管理' }, element: <RouterGuard><BookingSpace /></RouterGuard> },
+            { path: "statistics", handle: { title: '订舱统计' }, element: <RouterGuard><BookingStatistics /></RouterGuard> },
+            { path: "template", handle: { title: '订舱模板' }, element: <RouterGuard><BookingTemplate /></RouterGuard> },
+            { path: "template/create", handle: { title: '新建模板' }, element: <RouterGuard><BookingTemplateEdit /></RouterGuard> },
+            { path: "template/edit/:id", handle: { title: '编辑模板' }, element: <RouterGuard><BookingTemplateEdit /></RouterGuard> },
+            { path: "template/detail/:id", handle: { title: '模板详情' }, element: <RouterGuard><BookingTemplateDetail /></RouterGuard> },
         ]
       },
       {

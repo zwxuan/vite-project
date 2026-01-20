@@ -69,6 +69,9 @@ const menuData: MenuGroup[] = [
                 name: "作业管理", key: "job_management",
             },
             {
+                name: "订舱管理", key: "booking_management",
+            },
+            {
                 name: "运单管理", key: "waybill_management",
             },
         ]
@@ -781,6 +784,21 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "服务配置", key: "service_config", path: "/order_management/service_config" },
         { name: "服务组合模板", key: "service_template", path: "/order_management/service_template" },
         { name: "服务绩效分析", key: "service_performance", path: "/order_management/service_performance" },
+    ]
+},
+{
+    title: "订舱管理",
+    key: "booking_management",
+    parentkey: "booking_management",
+    apps: [
+        { name: "订舱列表", key: "booking_list", path: "/booking_management/list" },
+        { name: "新建订舱", key: "booking_create", path: "/booking_management/create" },
+        { name: "订舱查询", key: "booking_query", path: "/booking_management/query" },
+        { name: "提箱计划", key: "booking_pickup_plan", path: "/booking_management/pickup_plan" },
+        { name: "承运商对接", key: "booking_carrier_integration", path: "/booking_management/carrier_integration" },
+        { name: "舱位管理", key: "booking_space", path: "/booking_management/space" },
+        { name: "订舱统计", key: "booking_statistics", path: "/booking_management/statistics" },
+        { name: "订舱模板", key: "booking_template", path: "/booking_management/template" },
     ]
 },
 {

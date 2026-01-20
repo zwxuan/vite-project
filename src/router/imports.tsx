@@ -134,6 +134,16 @@ const TeamJobs = React.lazy(() => import("@/pages/freight_forwarding/job_managem
 const JobAssignment = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_assignment"));
 const AssignmentRules = React.lazy(() => import("@/pages/freight_forwarding/job_management/rules"));
 const PerformanceAnalysis = React.lazy(() => import("@/pages/freight_forwarding/job_management/analysis"));
+const BookingList = React.lazy(() => import("@/pages/freight_forwarding/booking_management/list"));
+const BookingCreate = React.lazy(() => import("@/pages/freight_forwarding/booking_management/create"));
+const BookingQuery = React.lazy(() => import("@/pages/freight_forwarding/booking_management/query"));
+const BookingPickupPlan = React.lazy(() => import("@/pages/freight_forwarding/booking_management/pickup_plan"));
+const BookingCarrierIntegration = React.lazy(() => import("@/pages/freight_forwarding/booking_management/carrier_integration"));
+const BookingSpace = React.lazy(() => import("@/pages/freight_forwarding/booking_management/space"));
+const BookingStatistics = React.lazy(() => import("@/pages/freight_forwarding/booking_management/statistics"));
+const BookingTemplate = React.lazy(() => import("@/pages/freight_forwarding/booking_management/template"));
+const BookingTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/booking_management/template/detail"));
+const BookingTemplateEdit = React.lazy(() => import("@/pages/freight_forwarding/booking_management/template/edit"));
 const WaybillList = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/list"));
 const WaybillCreate = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/create"));
 const WaybillQuery = React.lazy(() => import("@/pages/freight_forwarding/waybill_management/query"));
@@ -160,6 +170,7 @@ const BreakdownRulesDetail = React.lazy(() => import("@/pages/freight_forwarding
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
   TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
+  BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
   WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics, WaybillArchive,
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
