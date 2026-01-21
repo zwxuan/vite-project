@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/pro-components": "^2.8.10",
     "@antv/g2": "^5.3.2",
     "@antv/s2": "^2.4.0",
     "@antv/s2-react": "^2.2.0",
