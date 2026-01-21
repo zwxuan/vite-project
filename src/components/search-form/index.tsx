@@ -153,7 +153,14 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                     </Select>
                                 </div>
                                 <div style={{ width: '70%' }}>
-                                    <DatePickerZH value={formData[fieldKey] ? dayjs(formData[fieldKey]) : null} style={{ display: 'block' }} placeholder='' onChange={(_, dateStrings) => { handleDateChange(fieldKey, dateStrings) }} />
+                                    <DatePickerZH 
+                                        value={formData[fieldKey] ? dayjs(formData[fieldKey]) : undefined} 
+                                        style={{ display: 'block' }} 
+                                        placeholder='' 
+                                        onChange={(_, dateStrings) => { 
+                                            handleDateChange(fieldKey, dateStrings || ''); 
+                                        }} 
+                                    />
                                 </div>
                             </div>
 

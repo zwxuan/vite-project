@@ -19,7 +19,7 @@
     "@react-three/fiber": "^9.5.0",
     "@reduxjs/toolkit": "^2.3.0",
     "@types/three": "^0.182.0",
-    "antd": "^5.29.3",
+    "antd": "^6.2.1",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "diff": "^8.0.2",

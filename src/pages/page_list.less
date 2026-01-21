@@ -547,7 +547,7 @@ label.u-checkbox.u-checkbox-info.is-checked .u-checkbox-label:after {
 div .u-button,
 div .nc-button-wrapper {
     min-width: 60px;
-    height: 26px;
+    height: 24px;
     padding: 0 10px;
     color: #2B2C42;
     background-color: #fff;
@@ -1293,7 +1293,7 @@ input.u-form-control {
 .ant-table-wrapper .ant-table-cell-scrollbar:not([rowspan]) {
     box-shadow: 0 1px 0 1px #d9d9d9;
 }
-
+.ant-table-cell-fix-end>a,
 .ant-table-cell-fix-right>a {
     // color: #000;
     background-color: #555;
@@ -1304,10 +1304,11 @@ input.u-form-control {
     margin-left: 2px;
     font-size: 11px;
 }
-
+.ant-table-cell-fix-end>a:hover,
 .ant-table-cell-fix-right>a:hover {
     font-weight: bolder;
 }
+
 
 .ant-table-wrapper .ant-table-pagination.ant-pagination {
     margin: 5px 0;
@@ -1416,7 +1417,7 @@ input.u-form-control {
 
 .ant-btn {
     min-width: 60px;
-    height: 26px;
+    height: 24px;
     padding: 0 12px;
     color: #2B2C42;
     // background-color: #f9fbff;
@@ -1692,6 +1693,15 @@ input.ant-input {
     border: 1px solid #9ca3af;
     border-radius: 3px;
 }
+.ant-select-outlined:not(.ant-select-customize-input) {
+    border: 1px solid #9ca3af;
+    border-radius: 3px;
+}
+.ant-select-single {
+    display: inline-flex;
+    padding-left: 3px;
+    padding-right: 3px;
+}
 
 .ant-select-outlined:focus,
 .ant-select-outlined:hover,
@@ -1944,6 +1954,7 @@ input.ant-input {
 .ant-select-single .ant-select-selector {
     font-size: 12px;
 }
+
 
 .ant-modal .ant-modal-title {
     font-size: 14px;

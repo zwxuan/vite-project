@@ -18,7 +18,7 @@ export const getColumns = (handleEdit: (record: OrdersItemProps) => void, handle
     },
     {
         title: '服务类型',
-        width: '80px',
+        width: '200px',
         onHeaderCell: () => ({ style: { width: '200px' } }),
         dataIndex: 'ServiceType',
         sorter: true,
@@ -654,7 +654,7 @@ export const getColumns = (handleEdit: (record: OrdersItemProps) => void, handle
         key: 'operation',
         fixed: 'right',
         width: 80,
-        onHeaderCell: () => ({ style: { width: '200px' } }),
+        onHeaderCell: () => ({ style: { width: '80px' } }),
         render: (_, record) => (
         <>
             <NavLink to={`/entrust_manage/orders/detail?businessId=${record.BusinessId}`}>详细</NavLink>
