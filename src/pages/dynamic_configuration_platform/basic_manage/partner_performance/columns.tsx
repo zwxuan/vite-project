@@ -92,7 +92,10 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
                     defaultValue={record.EffectiveDate ? moment(record.EffectiveDate) : undefined}
-                    onChange={(_, dateStrings) => record.EffectiveDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
+                    onChange={(_, dateStrings) => {
+                        const val = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings;
+                        record.EffectiveDate = val ?? '';
+                    }}
                 />
             ) : (
                 text
@@ -112,7 +115,10 @@ export const getPartnerPerformanceRuleColumns = (handleEdit: (record: PartnerPer
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
                     defaultValue={record.ExpireDate ? moment(record.ExpireDate) : undefined}
-                    onChange={(_, dateStrings) => record.ExpireDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
+                    onChange={(_, dateStrings) => {
+                        const val = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings;
+                        record.ExpireDate = val ?? '';
+                    }}
                 />
             ) : (
                 text

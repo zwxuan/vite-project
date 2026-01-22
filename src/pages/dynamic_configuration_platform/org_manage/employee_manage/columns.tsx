@@ -295,7 +295,7 @@ export const getPrimaryJobColumns = (handleEdit: (record: PrimaryJobItemProps) =
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
                     defaultValue={record.StartDate ? moment(record.StartDate) : undefined}
-                    onChange={(_, dateStrings) => record.StartDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
+                    onChange={(_, dateStrings) => record.StartDate = (Array.isArray(dateStrings) ? dateStrings[0] : dateStrings) || ''}
                 />
             ) : (
                 text
@@ -315,7 +315,7 @@ export const getPrimaryJobColumns = (handleEdit: (record: PrimaryJobItemProps) =
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
                     defaultValue={record.EndDate ? moment(record.EndDate) : undefined}
-                    onChange={(_, dateStrings) => record.EndDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
+                    onChange={(_, dateStrings) => record.EndDate = (Array.isArray(dateStrings) ? dateStrings[0] : dateStrings) || ''}
                 />
             ) : (
                 text
@@ -541,7 +541,7 @@ export const getPartTimeJobColumns = (handleEdit: (record: PartTimeJobItemProps)
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
                     defaultValue={record.StartDate ? moment(record.StartDate) : undefined}
-                    onChange={(_, dateStrings) => record.StartDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
+                    onChange={(_, dateStrings) => record.StartDate = (Array.isArray(dateStrings) ? dateStrings[0] : dateStrings) || ''}
                 />
             ) : (
                 text
@@ -561,7 +561,7 @@ export const getPartTimeJobColumns = (handleEdit: (record: PartTimeJobItemProps)
                 <DatePickerZH
                     style={{ width: '100%', textAlign: 'left' }}
                     defaultValue={record.EndDate ? moment(record.EndDate) : undefined}
-                    onChange={(_, dateStrings) => record.EndDate = Array.isArray(dateStrings) ? dateStrings[0] : dateStrings}
+                    onChange={(_, dateStrings) => record.EndDate = (Array.isArray(dateStrings) ? dateStrings[0] : dateStrings) || ''}
                 />
             ) : (
                 text
