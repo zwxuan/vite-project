@@ -59,7 +59,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="实际进港日期"  >
-                            <DatePicker name="ActualPortEntryDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualPortEntryDate)}  onChange={(_, dateStrings) => {onDateChange("ActualPortEntryDate", dateStrings) }} />
+                            <DatePicker name="ActualPortEntryDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualPortEntryDate)}  onChange={(_, dateStrings) => {onDateChange("ActualPortEntryDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="业务模式" name="BusinessModel" >
                             <Input onChange={onChange} />
@@ -74,7 +74,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="截单日期"  >
-                            <DatePicker name="CutoffDate" style={{ display: 'block' }} defaultValue={dayjs(formData.CutoffDate)}  onChange={(_, dateStrings) => {onDateChange("CutoffDate", dateStrings) }} />
+                            <DatePicker name="CutoffDate" style={{ display: 'block' }} defaultValue={dayjs(formData.CutoffDate)}  onChange={(_, dateStrings) => {onDateChange("CutoffDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="项目编号" name="ProjectNumber" >
                             <Input onChange={onChange} />
@@ -95,16 +95,16 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="预计到港时间"  >
-                            <DatePicker name="Eta" style={{ display: 'block' }} defaultValue={dayjs(formData.Eta)}  onChange={(_, dateStrings) => {onDateChange("Eta", dateStrings) }} />
+                            <DatePicker name="Eta" style={{ display: 'block' }} defaultValue={dayjs(formData.Eta)}  onChange={(_, dateStrings) => {onDateChange("Eta", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="预计开船时间"  >
-                            <DatePicker name="Etd" style={{ display: 'block' }} defaultValue={dayjs(formData.Etd)}  onChange={(_, dateStrings) => {onDateChange("Etd", dateStrings) }} />
+                            <DatePicker name="Etd" style={{ display: 'block' }} defaultValue={dayjs(formData.Etd)}  onChange={(_, dateStrings) => {onDateChange("Etd", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="实际开船时间"  >
-                            <DatePicker name="Atd" style={{ display: 'block' }} defaultValue={dayjs(formData.Atd)}  onChange={(_, dateStrings) => {onDateChange("Atd", dateStrings) }} />
+                            <DatePicker name="Atd" style={{ display: 'block' }} defaultValue={dayjs(formData.Atd)}  onChange={(_, dateStrings) => {onDateChange("Atd", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="实际到港时间"  >
-                            <DatePicker name="Ata" style={{ display: 'block' }} defaultValue={dayjs(formData.Ata)}  onChange={(_, dateStrings) => {onDateChange("Ata", dateStrings) }} />
+                            <DatePicker name="Ata" style={{ display: 'block' }} defaultValue={dayjs(formData.Ata)}  onChange={(_, dateStrings) => {onDateChange("Ata", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="汇率" name="ExchangeRate" >
                             <InputNumber onChange={(value)=>onNumberChange("ExchangeRate", value as number)} />
@@ -131,7 +131,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="业务日期"  >
-                            <DatePicker name="BusinessDate" style={{ display: 'block' }} defaultValue={dayjs(formData.BusinessDate)}  onChange={(_, dateStrings) => {onDateChange("BusinessDate", dateStrings) }} />
+                            <DatePicker name="BusinessDate" style={{ display: 'block' }} defaultValue={dayjs(formData.BusinessDate)}  onChange={(_, dateStrings) => {onDateChange("BusinessDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="是否FBA" name="IsFba" >
                             <Select onChange={onChange} />
@@ -191,7 +191,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <InputNumber onChange={(value)=>onNumberChange("AccrualAmount", value as number)} />
                         </Form.Item>
                         <Form.Item label="财务日期"  >
-                            <DatePicker name="FinancialDate" style={{ display: 'block' }} defaultValue={dayjs(formData.FinancialDate)}  onChange={(_, dateStrings) => {onDateChange("FinancialDate", dateStrings) }} />
+                            <DatePicker name="FinancialDate" style={{ display: 'block' }} defaultValue={dayjs(formData.FinancialDate)}  onChange={(_, dateStrings) => {onDateChange("FinancialDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="国内/国外" name="DomesticOrForeign" >
                             <Input onChange={onChange} />
@@ -260,7 +260,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="确认日期"  >
-                            <DatePicker name="ConfirmationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ConfirmationDate)}  onChange={(_, dateStrings) => {onDateChange("ConfirmationDate", dateStrings) }} />
+                            <DatePicker name="ConfirmationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ConfirmationDate)}  onChange={(_, dateStrings) => {onDateChange("ConfirmationDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="费用确认人" name="FeeConfirmationPerson" >
                             <Input onChange={onChange} />
@@ -269,7 +269,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="开票日期"  >
-                            <DatePicker name="InvoiceDate" style={{ display: 'block' }} defaultValue={dayjs(formData.InvoiceDate)}  onChange={(_, dateStrings) => {onDateChange("InvoiceDate", dateStrings) }} />
+                            <DatePicker name="InvoiceDate" style={{ display: 'block' }} defaultValue={dayjs(formData.InvoiceDate)}  onChange={(_, dateStrings) => {onDateChange("InvoiceDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="发票号码" name="InvoiceNumber" >
                             <Input onChange={onChange} />
@@ -281,13 +281,13 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Select onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="销账日期"  >
-                            <DatePicker name="WriteOffDate" style={{ display: 'block' }} defaultValue={dayjs(formData.WriteOffDate)}  onChange={(_, dateStrings) => {onDateChange("WriteOffDate", dateStrings) }} />
+                            <DatePicker name="WriteOffDate" style={{ display: 'block' }} defaultValue={dayjs(formData.WriteOffDate)}  onChange={(_, dateStrings) => {onDateChange("WriteOffDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="业务状态" name="BusinessStatus" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="驳船开航日期"  >
-                            <DatePicker name="BargeSailingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.BargeSailingDate)}  onChange={(_, dateStrings) => {onDateChange("BargeSailingDate", dateStrings) }} />
+                            <DatePicker name="BargeSailingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.BargeSailingDate)}  onChange={(_, dateStrings) => {onDateChange("BargeSailingDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="驳船船名" name="BargeName" >
                             <Input onChange={onChange} />
@@ -299,13 +299,13 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="收付日期"  >
-                            <DatePicker name="PaymentDate" style={{ display: 'block' }} defaultValue={dayjs(formData.PaymentDate)}  onChange={(_, dateStrings) => {onDateChange("PaymentDate", dateStrings) }} />
+                            <DatePicker name="PaymentDate" style={{ display: 'block' }} defaultValue={dayjs(formData.PaymentDate)}  onChange={(_, dateStrings) => {onDateChange("PaymentDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="销售部门" name="SalesDepartment" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="送货时间"  >
-                            <DatePicker name="DeliveryTime" style={{ display: 'block' }} defaultValue={dayjs(formData.DeliveryTime)}  onChange={(_, dateStrings) => {onDateChange("DeliveryTime", dateStrings) }} />
+                            <DatePicker name="DeliveryTime" style={{ display: 'block' }} defaultValue={dayjs(formData.DeliveryTime)}  onChange={(_, dateStrings) => {onDateChange("DeliveryTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="确认备注" name="ConfirmationRemark" >
                             <Input onChange={onChange} />
@@ -314,25 +314,25 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="操作日期"  >
-                            <DatePicker name="OperationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.OperationDate)}  onChange={(_, dateStrings) => {onDateChange("OperationDate", dateStrings) }} />
+                            <DatePicker name="OperationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.OperationDate)}  onChange={(_, dateStrings) => {onDateChange("OperationDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="预计装箱日期"  >
-                            <DatePicker name="EstimatedLoadingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.EstimatedLoadingDate)}  onChange={(_, dateStrings) => {onDateChange("EstimatedLoadingDate", dateStrings) }} />
+                            <DatePicker name="EstimatedLoadingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.EstimatedLoadingDate)}  onChange={(_, dateStrings) => {onDateChange("EstimatedLoadingDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="实际还空时间"  >
-                            <DatePicker name="ActualReturnEmptyTime" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualReturnEmptyTime)}  onChange={(_, dateStrings) => {onDateChange("ActualReturnEmptyTime", dateStrings) }} />
+                            <DatePicker name="ActualReturnEmptyTime" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualReturnEmptyTime)}  onChange={(_, dateStrings) => {onDateChange("ActualReturnEmptyTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="箱量描述" name="ContainerQuantityDescription" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="费用创建日期"  >
-                            <DatePicker name="FeeCreationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.FeeCreationDate)}  onChange={(_, dateStrings) => {onDateChange("FeeCreationDate", dateStrings) }} />
+                            <DatePicker name="FeeCreationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.FeeCreationDate)}  onChange={(_, dateStrings) => {onDateChange("FeeCreationDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="客户级别" name="CustomerLevel" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="送货完成时间"  >
-                            <DatePicker name="DeliveryCompletionTime" style={{ display: 'block' }} defaultValue={dayjs(formData.DeliveryCompletionTime)}  onChange={(_, dateStrings) => {onDateChange("DeliveryCompletionTime", dateStrings) }} />
+                            <DatePicker name="DeliveryCompletionTime" style={{ display: 'block' }} defaultValue={dayjs(formData.DeliveryCompletionTime)}  onChange={(_, dateStrings) => {onDateChange("DeliveryCompletionTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="费用变更人" name="FeeChanger" >
                             <Input onChange={onChange} />
@@ -347,7 +347,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="费用修改时间"  >
-                            <DatePicker name="FeeModificationTime" style={{ display: 'block' }} defaultValue={dayjs(formData.FeeModificationTime)}  onChange={(_, dateStrings) => {onDateChange("FeeModificationTime", dateStrings) }} />
+                            <DatePicker name="FeeModificationTime" style={{ display: 'block' }} defaultValue={dayjs(formData.FeeModificationTime)}  onChange={(_, dateStrings) => {onDateChange("FeeModificationTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="费用修改人" name="FeeModifier" >
                             <Input onChange={onChange} />
@@ -356,7 +356,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="账单到期日"  >
-                            <DatePicker name="InvoiceDueDate" style={{ display: 'block' }} defaultValue={dayjs(formData.InvoiceDueDate)}  onChange={(_, dateStrings) => {onDateChange("InvoiceDueDate", dateStrings) }} />
+                            <DatePicker name="InvoiceDueDate" style={{ display: 'block' }} defaultValue={dayjs(formData.InvoiceDueDate)}  onChange={(_, dateStrings) => {onDateChange("InvoiceDueDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="对方账单号" name="CounterpartyInvoiceNumber" >
                             <Input onChange={onChange} />
@@ -368,13 +368,13 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="实际装箱日期"  >
-                            <DatePicker name="ActualLoadingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualLoadingDate)}  onChange={(_, dateStrings) => {onDateChange("ActualLoadingDate", dateStrings) }} />
+                            <DatePicker name="ActualLoadingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualLoadingDate)}  onChange={(_, dateStrings) => {onDateChange("ActualLoadingDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="对方对账单号" name="CounterpartyCounterNumber" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="费用到期日"  >
-                            <DatePicker name="FeeDueDate" style={{ display: 'block' }} defaultValue={dayjs(formData.FeeDueDate)}  onChange={(_, dateStrings) => {onDateChange("FeeDueDate", dateStrings) }} />
+                            <DatePicker name="FeeDueDate" style={{ display: 'block' }} defaultValue={dayjs(formData.FeeDueDate)}  onChange={(_, dateStrings) => {onDateChange("FeeDueDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="关联费用ID" name="RelatedFeeId" >
                             <Input onChange={onChange} />
@@ -392,7 +392,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="拖车实际提货时间"  >
-                            <DatePicker name="ActualPickupTime" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualPickupTime)}  onChange={(_, dateStrings) => {onDateChange("ActualPickupTime", dateStrings) }} />
+                            <DatePicker name="ActualPickupTime" style={{ display: 'block' }} defaultValue={dayjs(formData.ActualPickupTime)}  onChange={(_, dateStrings) => {onDateChange("ActualPickupTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="销账银行" name="WriteOffBank" >
                             <Input onChange={onChange} />
@@ -434,7 +434,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="审核日期"  >
-                            <DatePicker name="AuditDate" style={{ display: 'block' }} defaultValue={dayjs(formData.AuditDate)}  onChange={(_, dateStrings) => {onDateChange("AuditDate", dateStrings) }} />
+                            <DatePicker name="AuditDate" style={{ display: 'block' }} defaultValue={dayjs(formData.AuditDate)}  onChange={(_, dateStrings) => {onDateChange("AuditDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="GP说明" name="GpDescription" >
                             <Input onChange={onChange} />

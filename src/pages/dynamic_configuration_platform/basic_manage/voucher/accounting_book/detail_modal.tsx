@@ -79,10 +79,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Select onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="创建时间"  >
-                            <DatePicker name="CreatedAt" style={{ display: 'block' }} defaultValue={dayjs(formData.CreatedAt)}  onChange={(_, dateStrings) => {onDateChange("CreatedAt", dateStrings) }} />
+                            <DatePicker name="CreatedAt" style={{ display: 'block' }} defaultValue={dayjs(formData.CreatedAt)}  onChange={(_, dateStrings) => {onDateChange("CreatedAt", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="更新时间"  >
-                            <DatePicker name="UpdatedAt" style={{ display: 'block' }} defaultValue={dayjs(formData.UpdatedAt)}  onChange={(_, dateStrings) => {onDateChange("UpdatedAt", dateStrings) }} />
+                            <DatePicker name="UpdatedAt" style={{ display: 'block' }} defaultValue={dayjs(formData.UpdatedAt)}  onChange={(_, dateStrings) => {onDateChange("UpdatedAt", dateStrings || '') }} />
                         </Form.Item>
                 <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>
                 <div style={{ textAlign: 'right' }}>

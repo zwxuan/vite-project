@@ -172,7 +172,7 @@ const AdvancedSearchForm: React.FC<AdvancedSearchFormProps> = ({ fields, span = 
                                 label={config.label}
                                 labelCol={{ span: 7 }}
                             >
-                                <RangePickerZH value={formData[fieldKey] ? [formData[fieldKey][0] ? dayjs(formData[fieldKey][0]) : null, formData[fieldKey][1] ? dayjs(formData[fieldKey][1]) : null] : [null, null]} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(fieldKey, dateStrings) }} />
+                                <RangePickerZH value={formData[fieldKey] ? [formData[fieldKey][0] ? dayjs(formData[fieldKey][0]) : null, formData[fieldKey][1] ? dayjs(formData[fieldKey][1]) : null] : [null, null]} allowEmpty={[true, true]} style={{ display: 'flex' }} onChange={(_, dateStrings) => { handleDateChange(fieldKey, dateStrings || '') }} />
                             </Form.Item>
                         )
                     }

@@ -4,6 +4,34 @@ import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
 const Overview: React.FC = () => {
+    const stepsItems = [
+        {
+            title: 'Booking Confirmed',
+            description: '2024-03-15 10:00',
+            status: 'finish' as const
+        },
+        {
+            title: 'Cargo Picked Up',
+            description: '2024-03-16 14:30',
+            status: 'finish' as const
+        },
+        {
+            title: 'Gate In',
+            description: '2024-03-18',
+            status: 'process' as const
+        },
+        {
+            title: 'Loaded on Vessel',
+            description: '2024-03-20',
+            status: 'wait' as const
+        },
+        {
+            title: 'Arrival',
+            description: '2024-04-15',
+            status: 'wait' as const
+        }
+    ];
+
     return (
         <div style={{ padding: '0 20px' }}>
             <Card title={i18n.t(LocaleHelper.getWaybillCreateRoute())} size="small" style={{ marginBottom: 16 }}>
@@ -12,13 +40,7 @@ const Overview: React.FC = () => {
                     <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillCreateEtd())}>2024-03-20</Descriptions.Item>
                     <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillCreateEta())}>2024-04-15</Descriptions.Item>
                 </Descriptions>
-                <Steps current={1} size="small">
-                    <Steps.Step title="Booking Confirmed" description="2024-03-15 10:00" status="finish" />
-                    <Steps.Step title="Cargo Picked Up" description="2024-03-16 14:30" status="finish" />
-                    <Steps.Step title="Gate In" description="2024-03-18" status="process" />
-                    <Steps.Step title="Loaded on Vessel" description="2024-03-20" status="wait" />
-                    <Steps.Step title="Arrival" description="2024-04-15" status="wait" />
-                </Steps>
+                <Steps current={1} size="small" items={stepsItems} />
             </Card>
 
             <Row gutter={16}>

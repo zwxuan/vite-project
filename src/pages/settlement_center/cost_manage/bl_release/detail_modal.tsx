@@ -67,7 +67,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="开航日期"  >
-                            <DatePicker name="SailingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.SailingDate)}  onChange={(_, dateStrings) => {onDateChange("SailingDate", dateStrings) }} />
+                            <DatePicker name="SailingDate" style={{ display: 'block' }} defaultValue={dayjs(formData.SailingDate)}  onChange={(_, dateStrings) => {onDateChange("SailingDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="船名/航次" name="VesselVoyage" >
                             <Input onChange={onChange} />
@@ -82,7 +82,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="审核时间"  >
-                            <DatePicker name="AuditTime" style={{ display: 'block' }} defaultValue={dayjs(formData.AuditTime)}  onChange={(_, dateStrings) => {onDateChange("AuditTime", dateStrings) }} />
+                            <DatePicker name="AuditTime" style={{ display: 'block' }} defaultValue={dayjs(formData.AuditTime)}  onChange={(_, dateStrings) => {onDateChange("AuditTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="销售" name="SalesPerson" >
                             <Input onChange={onChange} />

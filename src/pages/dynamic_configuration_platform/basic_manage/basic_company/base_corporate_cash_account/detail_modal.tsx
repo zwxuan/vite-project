@@ -63,7 +63,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="开户日期"  rules={[{ required: true, message: '' }]}>
-                            <DatePicker name="OpenDate" style={{ display: 'block' }} defaultValue={dayjs(formData.OpenDate)}  onChange={(_, dateStrings) => {onDateChange("OpenDate", dateStrings) }} />
+                            <DatePicker name="OpenDate" style={{ display: 'block' }} defaultValue={dayjs(formData.OpenDate)}  onChange={(_, dateStrings) => {onDateChange("OpenDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="是否默认" name="IsDefault" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />

@@ -131,7 +131,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                     <%} %>
                     <% else if(typeNamesDate.Contains(DbHelpter.GetPropertyType(columnSchema))){ %>
                         <Form.Item label="<%= DbHelpter.GetPropertyDescription(columnSchema) %>"  <%= columnSchema.AllowDBNull?"":"rules={[{ required: true, message: '' }]}" %>>
-                            <DatePicker name="<%= PascalCase(columnSchema.Name) %>" style={{ display: 'block' }} defaultValue={dayjs(formData.<%= PascalCase(columnSchema.Name) %>)}  onChange={(_, dateStrings) => {onDateChange("<%= PascalCase(columnSchema.Name) %>", dateStrings) }} />
+                            <DatePicker name="<%= PascalCase(columnSchema.Name) %>" style={{ display: 'block' }} defaultValue={dayjs(formData.<%= PascalCase(columnSchema.Name) %>)}  onChange={(_, dateStrings) => {onDateChange("<%= PascalCase(columnSchema.Name) %>", dateStrings || '') }} />
                         </Form.Item>
                     <%} %>
                     <% else { %>

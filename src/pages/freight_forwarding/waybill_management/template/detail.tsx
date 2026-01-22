@@ -346,7 +346,7 @@ const WaybillTemplateDetail: React.FC = () => {
                                         </Form.Item>
                                     </Col>
                                 </Row>
-                                <Divider orientation="left">Condition Group A (AND)</Divider>
+                                <Divider orientation="horizontal">Condition Group A (AND)</Divider>
                                 <Row gutter={24}>
                                     <Col span={8}>
                                         <Form.Item label={i18n.t(LocaleHelper.getWaybillTemplateCustomer())}>
@@ -365,7 +365,7 @@ const WaybillTemplateDetail: React.FC = () => {
                                         </Form.Item>
                                     </Col>
                                 </Row>
-                                <Divider orientation="left">Condition Group B (AND)</Divider>
+                                <Divider orientation="horizontal">Condition Group B (AND)</Divider>
                                 <Row gutter={24}>
                                     <Col span={8}>
                                         <Form.Item label={i18n.t(LocaleHelper.getWaybillCreateOrigin())}>

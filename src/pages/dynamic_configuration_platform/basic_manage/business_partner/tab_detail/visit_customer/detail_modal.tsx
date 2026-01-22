@@ -56,13 +56,13 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="拜访时间"  >
-                            <DatePicker name="VisitTime" style={{ display: 'block' }} defaultValue={dayjs(formData.VisitTime)}  onChange={(_, dateStrings) => {onDateChange("VisitTime", dateStrings) }} />
+                            <DatePicker name="VisitTime" style={{ display: 'block' }} defaultValue={dayjs(formData.VisitTime)}  onChange={(_, dateStrings) => {onDateChange("VisitTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="记录入" name="Recorder" >
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="记录时间"  >
-                            <DatePicker name="RecordTime" style={{ display: 'block' }} defaultValue={dayjs(formData.RecordTime)}  onChange={(_, dateStrings) => {onDateChange("RecordTime", dateStrings) }} />
+                            <DatePicker name="RecordTime" style={{ display: 'block' }} defaultValue={dayjs(formData.RecordTime)}  onChange={(_, dateStrings) => {onDateChange("RecordTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="拜访状态" name="Status" >
                             <Input onChange={onChange} />

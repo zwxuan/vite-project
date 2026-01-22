@@ -75,10 +75,10 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="生效日期"  rules={[{ required: true, message: '' }]}>
-                            <DatePicker name="EffectiveDate" style={{ display: 'block' }} defaultValue={dayjs(formData.EffectiveDate)}  onChange={(_, dateStrings) => {onDateChange("EffectiveDate", dateStrings) }} />
+                            <DatePicker name="EffectiveDate" style={{ display: 'block' }} defaultValue={dayjs(formData.EffectiveDate)}  onChange={(_, dateStrings) => {onDateChange("EffectiveDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="失效日期"  >
-                            <DatePicker name="ExpiryDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ExpiryDate)}  onChange={(_, dateStrings) => {onDateChange("ExpiryDate", dateStrings) }} />
+                            <DatePicker name="ExpiryDate" style={{ display: 'block' }} defaultValue={dayjs(formData.ExpiryDate)}  onChange={(_, dateStrings) => {onDateChange("ExpiryDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="状态" name="Status" rules={[{ required: true, message: '' }]}>
                             <Input onChange={onChange} />

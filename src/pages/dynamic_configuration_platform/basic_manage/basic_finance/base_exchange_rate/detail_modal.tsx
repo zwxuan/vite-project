@@ -58,7 +58,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="报价日期"  >
-                            <DatePicker name="QuotationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.QuotationDate)}  onChange={(_, dateStrings) => {onDateChange("QuotationDate", dateStrings) }} />
+                            <DatePicker name="QuotationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.QuotationDate)}  onChange={(_, dateStrings) => {onDateChange("QuotationDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="直接汇率" name="DirectExchangeRate" >
                             <InputNumber onChange={(value)=>onNumberChange("DirectExchangeRate", value as number)} />

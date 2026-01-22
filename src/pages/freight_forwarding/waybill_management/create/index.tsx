@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Form, message, Tabs, Tag, Descriptions, Dropdown } from 'antd';
+import { Card, Button, Form, message, Tabs, Tag, Descriptions, Dropdown, MenuProps } from 'antd';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { DownOutlined } from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
@@ -76,13 +76,21 @@ const WaybillCreate: React.FC = () => {
         message.info(`Action triggered: ${action}`);
     };
 
-    const moreActionsMenu = (
-        <div style={{ padding: 8, background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', borderRadius: 4 }}>
-            <div style={{ padding: '4px 8px', cursor: 'pointer' }} onClick={() => handleAction('Copy')}>{i18n.t(LocaleHelper.getWaybillTemplateCopy())}</div>
-            <div style={{ padding: '4px 8px', cursor: 'pointer' }} onClick={() => handleAction('Archive')}>{i18n.t(LocaleHelper.getWaybillArchiveDoArchive())}</div>
-            <div style={{ padding: '4px 8px', cursor: 'pointer', color: 'red' }} onClick={() => handleAction('Void')}>{i18n.t(LocaleHelper.getWaybillListDelete())}</div>
-        </div>
-    );
+    // 定义菜单项
+    const menuItems: MenuProps['items'] = [
+        {
+            key: 'copy',
+            label: <div style={{ padding: '4px 8px', cursor: 'pointer' }} onClick={() => handleAction('Copy')}>{i18n.t(LocaleHelper.getWaybillTemplateCopy())}</div>,
+        },
+        {
+            key: 'archive',
+            label: <div style={{ padding: '4px 8px', cursor: 'pointer' }} onClick={() => handleAction('Archive')}>{i18n.t(LocaleHelper.getWaybillArchiveDoArchive())}</div>,
+        },
+        {
+            key: 'void',
+            label: <div style={{ padding: '4px 8px', cursor: 'pointer', color: 'red' }} onClick={() => handleAction('Void')}>{i18n.t(LocaleHelper.getWaybillListDelete())}</div>,
+        },
+    ];
 
     const items = [
         { key: '1', label: i18n.t(LocaleHelper.getWaybillCreateTabOverview()), children: <Overview /> },
@@ -121,8 +129,10 @@ const WaybillCreate: React.FC = () => {
                                         <Button onClick={() => handleAction('Sync')}>{i18n.t(LocaleHelper.getWaybillCreateSyncStatus())}</Button>
                                         <Button onClick={() => handleAction('Doc')}>{i18n.t(LocaleHelper.getWaybillCreateGenerateDoc())}</Button>
                                         <Button onClick={() => handleAction('Print')}>{i18n.t(LocaleHelper.getWaybillCreatePrint())}</Button>
-                                        <Dropdown overlay={moreActionsMenu}>
-                                            <Button>{i18n.t(LocaleHelper.getWaybillCreateMore())} <DownOutlined /></Button>
+                                        <Dropdown menu={{ items: menuItems }}>
+                                            <Button>
+                                                {i18n.t(LocaleHelper.getWaybillCreateMore())} <DownOutlined />
+                                            </Button>
                                         </Dropdown>
                                     </>
                                 )}

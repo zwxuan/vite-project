@@ -82,7 +82,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="创建日期"  rules={[{ required: true, message: '' }]}>
-                            <DatePicker name="CreationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.CreationDate)}  onChange={(_, dateStrings) => {onDateChange("CreationDate", dateStrings) }} />
+                            <DatePicker name="CreationDate" style={{ display: 'block' }} defaultValue={dayjs(formData.CreationDate)}  onChange={(_, dateStrings) => {onDateChange("CreationDate", dateStrings || '') }} />
                         </Form.Item>
                 <Form.Item wrapperCol={{ offset: 14 }}></Form.Item>
                 <div style={{ textAlign: 'right' }}>

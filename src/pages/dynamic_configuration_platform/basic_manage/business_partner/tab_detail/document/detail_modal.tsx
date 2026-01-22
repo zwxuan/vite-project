@@ -68,7 +68,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="创建日期"  >
-                            <DatePicker name="CreatedDate" style={{ display: 'block' }} defaultValue={dayjs(formData.CreatedDate)}  onChange={(_, dateStrings) => {onDateChange("CreatedDate", dateStrings) }} />
+                            <DatePicker name="CreatedDate" style={{ display: 'block' }} defaultValue={dayjs(formData.CreatedDate)}  onChange={(_, dateStrings) => {onDateChange("CreatedDate", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="文件来源" name="FileSource" >
                             <Input onChange={onChange} />
@@ -83,7 +83,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             <Input onChange={onChange} />
                         </Form.Item>
                         <Form.Item label="最后同步时间"  >
-                            <DatePicker name="LastSyncTime" style={{ display: 'block' }} defaultValue={dayjs(formData.LastSyncTime)}  onChange={(_, dateStrings) => {onDateChange("LastSyncTime", dateStrings) }} />
+                            <DatePicker name="LastSyncTime" style={{ display: 'block' }} defaultValue={dayjs(formData.LastSyncTime)}  onChange={(_, dateStrings) => {onDateChange("LastSyncTime", dateStrings || '') }} />
                         </Form.Item>
                         <Form.Item label="操作" name="Operation" >
                             <Input onChange={onChange} />
