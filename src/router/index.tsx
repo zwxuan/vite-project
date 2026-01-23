@@ -72,6 +72,7 @@ import {
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance,
   BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
+  TrackingOverview,TrackingOverviewDetail,TrackingReport,RealtimeTracking,MilestoneConfig,MilestoneConfigEdit,InterfaceManagement,InterfaceConfigEdit,ExceptionAlert,CustomerNotification,TemplateList,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -183,6 +184,30 @@ const routers = createMemoryRouter([
             { path: "template/detail/:id", handle: { title: '模板详情' }, element: <RouterGuard><WaybillTemplateDetail /></RouterGuard> },
             { path: "statistics", handle: { title: '统计分析' }, element: <RouterGuard><WaybillStatistics /></RouterGuard> },
             { path: "archive", handle: { title: '归档管理' }, element: <RouterGuard><WaybillArchive /></RouterGuard> },
+        ]
+      },
+      {
+        path: "/milestone_tracking",
+        handle: { title: '里程碑跟踪' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+            { path: "tracking_overview", handle: { title: '跟踪总览' }, element: <RouterGuard><TrackingOverview /></RouterGuard> },
+            { path: "tracking_overview/detail/:id", handle: { title: '跟踪详情' }, element: <RouterGuard><TrackingOverviewDetail /></RouterGuard> },
+            { path: "milestone_config", handle: { title: '里程碑配置' }, element: <RouterGuard><MilestoneConfig /></RouterGuard> },
+            { path: "milestone_config/create", handle: { title: '新建配置' }, element: <RouterGuard><MilestoneConfigEdit /></RouterGuard> },
+            { path: "milestone_config/edit/:id", handle: { title: '编辑配置' }, element: <RouterGuard><MilestoneConfigEdit /></RouterGuard> },
+            { path: "realtime_tracking", handle: { title: '实时跟踪' }, element: <RouterGuard><RealtimeTracking /></RouterGuard> },
+            { path: "exception_alert", handle: { title: '异常预警' }, element: <RouterGuard><ExceptionAlert /></RouterGuard> },
+            { path: "customer_notification", handle: { title: '客户通知' }, element: <RouterGuard><CustomerNotification /></RouterGuard> },
+            { path: "customer_notification/templates", handle: { title: '模板管理' }, element: <RouterGuard><TemplateList /></RouterGuard> },
+            { path: "tracking_report", handle: { title: '跟踪报表' }, element: <RouterGuard><TrackingReport /></RouterGuard> },
+            { path: "interface_management", handle: { title: '第三方接口管理' }, element: <RouterGuard><InterfaceManagement /></RouterGuard> },
+            { path: "interface_management/create", handle: { title: '新建接口' }, element: <RouterGuard><InterfaceConfigEdit /></RouterGuard> },
+            { path: "interface_management/edit/:id", handle: { title: '编辑接口' }, element: <RouterGuard><InterfaceConfigEdit /></RouterGuard> },
         ]
       },
       {

@@ -2411,6 +2411,50 @@ export const en = {
                 status_changed: "Status Updated",
             }
         },
+        milestone_tracking: {
+            tracking_overview: {
+                title: "Tracking Overview",
+                waybill_number: "Waybill No.",
+                customer: "Customer",
+                status: "Status",
+                route: "Route",
+                progress: "Progress"
+            },
+            milestone_config: {
+                title: "Milestone Config",
+                milestone_name: "Milestone Name",
+                trigger_condition: "Trigger Condition",
+                notification_settings: "Notification Settings"
+            },
+            realtime_tracking: {
+                title: "Real-time Tracking",
+                current_location: "Current Location",
+                estimated_arrival: "Est. Arrival"
+            },
+            exception_alert: {
+                title: "Exception Alert",
+                alert_type: "Alert Type",
+                severity: "Severity",
+                alert_time: "Alert Time"
+            },
+            customer_notification: {
+                title: "Customer Notification",
+                template_type: "Template Type",
+                notification_method: "Notification Method"
+            },
+            tracking_report: {
+                title: "Tracking Report",
+                report_type: "Report Type",
+                on_time_rate: "On-time Rate",
+                exception_rate: "Exception Rate"
+            },
+            interface_management: {
+                title: "Interface Management",
+                interface_name: "Interface Name",
+                interface_type: "Interface Type",
+                last_sync: "Last Sync"
+            }
+        },
         waybill_management: {
             list: {
                 title: "Waybill List",

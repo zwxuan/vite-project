@@ -72,6 +72,9 @@ const menuData: MenuGroup[] = [
                 name: "订舱管理", key: "booking_management",
             },
             {
+                name: "里程碑跟踪", key: "milestone_tracking",
+            },
+            {
                 name: "运单管理", key: "waybill_management",
             },
         ]
@@ -799,9 +802,23 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "舱位管理", key: "booking_space", path: "/booking_management/space" },
         { name: "订舱统计", key: "booking_statistics", path: "/booking_management/statistics" },
         { name: "订舱模板", key: "booking_template", path: "/booking_management/template" },
-    ]
-},
-{
+        ]
+    },
+    {
+        title: "里程碑跟踪",
+        key: "milestone_tracking",
+        parentkey: "milestone_tracking",
+        apps: [
+            { name: "跟踪总览", key: "tracking_overview", path: "/milestone_tracking/tracking_overview" },
+            { name: "里程碑配置", key: "milestone_config", path: "/milestone_tracking/milestone_config" },
+            { name: "实时跟踪", key: "realtime_tracking", path: "/milestone_tracking/realtime_tracking" },
+            { name: "异常预警", key: "exception_alert", path: "/milestone_tracking/exception_alert" },
+            { name: "客户通知", key: "customer_notification", path: "/milestone_tracking/customer_notification" },
+            { name: "跟踪报表", key: "tracking_report", path: "/milestone_tracking/tracking_report" },
+            { name: "第三方接口管理", key: "interface_management", path: "/milestone_tracking/interface_management" },
+        ]
+    },
+    {
         title: "作业管理",
         key: "job_management",
         parentkey: "job_management",

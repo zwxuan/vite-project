@@ -127,6 +127,7 @@ import { OrderQueryLocale } from '@/utils/locale/freight_forwarding/order_manage
 import { OrderAuditLocale } from '@/utils/locale/freight_forwarding/order_management/audit';
 import { OrderBreakdownLocale } from '@/utils/locale/freight_forwarding/order_management/breakdown';
 import { BreakdownRulesLocale } from '@/utils/locale/freight_forwarding/order_management/breakdown_rules';
+import { MilestoneTrackingLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/index';
 import { StandaloneServiceLocale } from '@/utils/locale/freight_forwarding/order_management/standalone_service';
 import { ServiceConfigLocale } from '@/utils/locale/freight_forwarding/order_management/service_config';
 import { ServiceTemplateLocale } from '@/utils/locale/freight_forwarding/order_management/service_template';
@@ -173,5 +174,6 @@ export default {
   ...BookingCommonLocale,...BookingListLocale,...BookingCreateLocale,
   ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale,
   ...OrderListLocale,...OrderDetailLocale, ...OrderStatisticsLocale,
-  ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale
+  ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale,
+  ...MilestoneTrackingLocale
 };

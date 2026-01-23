@@ -166,6 +166,18 @@ const OrderAudit = React.lazy(() => import("@/pages/freight_forwarding/order_man
 const OrderBreakdown = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown"));
 const BreakdownRules = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown_rules"));
 const BreakdownRulesDetail = React.lazy(() => import("@/pages/freight_forwarding/order_management/breakdown_rules/detail"));
+const TrackingOverview = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/tracking_overview"));
+const TrackingOverviewDetail = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/tracking_overview/detail"));
+const MilestoneConfig = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/milestone_config"));
+const RealtimeTracking = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/realtime_tracking"));
+const ExceptionAlert = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/exception_alert"));
+const CustomerNotification = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/customer_notification"));
+const TrackingReport = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/tracking_report"));
+const InterfaceManagement = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/interface_management"));
+
+const MilestoneConfigEdit = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/milestone_config/edit"));
+const TemplateList = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/customer_notification/template_list"));
+const InterfaceConfigEdit = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/interface_management/edit"));
 
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
@@ -174,7 +186,8 @@ export {
   WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics, WaybillArchive,
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
- Demo,ContainerLoading,Home,Lev1Department,
+  TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
+  Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,
   SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,

@@ -2734,6 +2734,50 @@ export const cn = {
                 status_changed: "状态已更新",
             }
         },
+        milestone_tracking: {
+            tracking_overview: {
+                title: "跟踪总览",
+                waybill_number: "运单号",
+                customer: "客户",
+                status: "状态",
+                route: "路线",
+                progress: "进度"
+            },
+            milestone_config: {
+                title: "里程碑配置",
+                milestone_name: "里程碑名称",
+                trigger_condition: "触发条件",
+                notification_settings: "通知设置"
+            },
+            realtime_tracking: {
+                title: "实时跟踪",
+                current_location: "当前位置",
+                estimated_arrival: "预计到达"
+            },
+            exception_alert: {
+                title: "异常预警",
+                alert_type: "预警类型",
+                severity: "严重程度",
+                alert_time: "预警时间"
+            },
+            customer_notification: {
+                title: "客户通知",
+                template_type: "模板类型",
+                notification_method: "通知方式"
+            },
+            tracking_report: {
+                title: "跟踪报表",
+                report_type: "报表类型",
+                on_time_rate: "准时率",
+                exception_rate: "异常率"
+            },
+            interface_management: {
+                title: "第三方接口管理",
+                interface_name: "接口名称",
+                interface_type: "接口类型",
+                last_sync: "最后同步"
+            }
+        },
         waybill_management: {
             list: {
                 title: "运单列表",
