@@ -33,22 +33,22 @@ const TrackingDetail: React.FC = () => {
     ];
 
     const columns = [
-        { title: 'Time', dataIndex: 'time', key: 'time' },
-        { title: 'Milestone', dataIndex: 'milestone', key: 'milestone' },
-        { title: 'Status', dataIndex: 'status', key: 'status', render: (text: string) => <Tag color="blue">{text}</Tag> },
-        { title: 'Location/Note', dataIndex: 'location', key: 'location' },
-        { title: 'Action', key: 'action', render: () => <a>Detail</a> },
+        { title: i18n.t(LocaleHelper.getTime()), dataIndex: 'time', key: 'time' },
+        { title: i18n.t(LocaleHelper.getMilestone()), dataIndex: 'milestone', key: 'milestone' },
+        { title: i18n.t(LocaleHelper.getStatus()), dataIndex: 'status', key: 'status', render: (text: string) => <Tag color="blue">{text}</Tag> },
+        { title: i18n.t(LocaleHelper.getLocationNote()), dataIndex: 'location', key: 'location' },
+        { title: i18n.t(LocaleHelper.getAction()), key: 'action', render: () => <a>{i18n.t(LocaleHelper.getDetail())}</a> },
     ];
 
     // 步骤数据
     const stepsData = [
-        { title: 'Booking', description: 'Confirmed' },
-        { title: 'Loading', description: 'Completed' },
-        { title: 'Departure', description: 'Completed' },
-        { title: 'In Transit', description: 'In Progress' },
-        { title: 'Arrival', description: 'Pending' },
-        { title: 'Customs', description: 'Pending' },
-        { title: 'Delivery', description: 'Pending' },
+        { title: i18n.t(LocaleHelper.getBooking()), description: 'Confirmed' },
+        { title: i18n.t(LocaleHelper.getLoading()), description: 'Completed' },
+        { title: i18n.t(LocaleHelper.getDeparture()), description: 'Completed' },
+        { title: i18n.t(LocaleHelper.getInTransit()), description: 'In Progress' },
+        { title: i18n.t(LocaleHelper.getArrival()), description: 'Pending' },
+        { title: i18n.t(LocaleHelper.getCustoms()), description: 'Pending' },
+        { title: i18n.t(LocaleHelper.getDelivery()), description: 'Pending' },
     ];
 
     return (
@@ -57,35 +57,35 @@ const TrackingDetail: React.FC = () => {
                 <div className="header-title-search-area">
                     <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: '10px' }}>
-                            <Button icon={<ArrowLeftOutlined />} onClick={handleBack} style={{ marginRight: 8 }} />
-                            Tracking Detail - {basicInfo.waybillNumber}
+                            {i18n.t(LocaleHelper.getTrackingDetail())} - {basicInfo.waybillNumber}
                         </span>
                     </div>
                 </div>
                 <div className="header-button-area">
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
-                            <Button>Manual Update</Button>
-                            <Button>Send Notification</Button>
-                            <Button>Export</Button>
+                            <Button>{i18n.t(LocaleHelper.getManualUpdate())}</Button>
+                            <Button>{i18n.t(LocaleHelper.getSendNotification())}</Button>
+                            <Button>{i18n.t(LocaleHelper.getExport())}</Button>
+                            <Button onClick={handleBack} style={{ marginRight: 8 }}>{i18n.t(LocaleHelper.getBack())}</Button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div style={{ padding: '16px' }}>
-                <Card title="Basic Information" bordered={false} style={{ marginBottom: 16 }}>
+                <Card title={i18n.t(LocaleHelper.getBasicInformation())} variant="outlined" style={{ marginBottom: 16 }}>
                     <Descriptions column={3}>
-                        <Descriptions.Item label="Waybill No">{basicInfo.waybillNumber}</Descriptions.Item>
-                        <Descriptions.Item label="Customer">{basicInfo.customer}</Descriptions.Item>
-                        <Descriptions.Item label="Route">{basicInfo.route}</Descriptions.Item>
-                        <Descriptions.Item label="Carrier">{basicInfo.carrier}</Descriptions.Item>
-                        <Descriptions.Item label="Estimated ETD">{basicInfo.etd}</Descriptions.Item>
-                        <Descriptions.Item label="Estimated ETA">{basicInfo.eta}</Descriptions.Item>
+                        <Descriptions.Item label={i18n.t(LocaleHelper.getWaybillNumber())}>{basicInfo.waybillNumber}</Descriptions.Item>
+                        <Descriptions.Item label={i18n.t(LocaleHelper.getCustomer())}>{basicInfo.customer}</Descriptions.Item>
+                        <Descriptions.Item label={i18n.t(LocaleHelper.getRoute())}>{basicInfo.route}</Descriptions.Item>
+                        <Descriptions.Item label={i18n.t(LocaleHelper.getCarrier())}>{basicInfo.carrier}</Descriptions.Item>
+                        <Descriptions.Item label={i18n.t(LocaleHelper.getEstimatedEtd())}>{basicInfo.etd}</Descriptions.Item>
+                        <Descriptions.Item label={i18n.t(LocaleHelper.getEstimatedEta())}>{basicInfo.eta}</Descriptions.Item>
                     </Descriptions>
                 </Card>
 
-                <Card title="Milestone Progress" bordered={false} style={{ marginBottom: 16 }}>
+                <Card title={i18n.t(LocaleHelper.getMilestoneProgress())} bordered={false} style={{ marginBottom: 16 }}>
                     <Steps 
                         current={3} 
                         type="dot"

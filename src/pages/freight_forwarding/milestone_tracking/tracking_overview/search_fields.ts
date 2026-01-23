@@ -23,7 +23,7 @@ export const searchFields = [
         ],
     },
     {
-        label: 'Date Range',
+        label: i18n.t(LocaleHelper.getDateRange()),
         name: 'dateRange',
         type: 'dateRange',
     },

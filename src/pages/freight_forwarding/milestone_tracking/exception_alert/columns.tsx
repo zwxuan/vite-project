@@ -32,16 +32,16 @@ export const getColumns = (handleProcess: (record: ExceptionAlertItem) => void) 
         key: 'alertTime',
     },
     {
-        title: 'Status',
+        title: i18n.t(LocaleHelper.getStatus()),
         dataIndex: 'status',
         key: 'status',
     },
     {
-        title: 'Action',
+        title: i18n.t(LocaleHelper.getAction()),
         key: 'action',
         render: (_: any, record: ExceptionAlertItem) => (
             <Space size="middle">
-                <a onClick={() => handleProcess(record)}>Process</a>
+                <a onClick={() => handleProcess(record)}>{i18n.t(LocaleHelper.getProcess())}</a>
             </Space>
         ),
     },

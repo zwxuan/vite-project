@@ -1,25 +1,22 @@
-import LocaleHelper from '@/utils/locale';
-import i18n from '@/i18n';
-
 export const searchFields = [
     {
-        label: 'Transport Mode',
+        label: '运输方式',
         name: 'transportMode',
         type: 'select',
         options: [
-            { label: 'Sea', value: 'Sea' },
-            { label: 'Air', value: 'Air' },
-            { label: 'Land', value: 'Land' },
+            { label: '海运', value: '海运' },
+            { label: '空运', value: '空运' },
+            { label: '陆运', value: '陆运' },
         ],
     },
     {
-        label: 'Route Type',
+        label: '路线类型',
         name: 'routeType',
         type: 'select',
         options: [
-            { label: 'All', value: 'All' },
-            { label: 'Direct', value: 'Direct' },
-            { label: 'Transshipment', value: 'Transshipment' },
+            { label: '全部', value: '全部' },
+            { label: '直达', value: '直达' },
+            { label: '中转', value: '中转' },
         ],
     },
 ];

@@ -16,14 +16,17 @@ export const getColumns = (handleConfig: (record: InterfaceConfigItem) => void) 
         key: 'interfaceType',
     },
     {
-        title: 'Status',
+        title: '状态',
         dataIndex: 'status',
         key: 'status',
-        render: (status: string) => {
-            let color = 'green';
-            if (status === 'Error') color = 'red';
-            if (status === 'Maintenance') color = 'orange';
-            return <Tag color={color}>{status}</Tag>;
+        render: (status: InterfaceConfigItem['status']) => {
+            const statusMap = {
+                Normal: { label: '正常', color: 'green' },
+                Error: { label: '异常', color: 'red' },
+                Maintenance: { label: '维护中', color: 'orange' },
+            } as const;
+            const current = statusMap[status] || { label: status, color: 'default' };
+            return <Tag color={current.color}>{current.label}</Tag>;
         },
     },
     {
@@ -32,13 +35,13 @@ export const getColumns = (handleConfig: (record: InterfaceConfigItem) => void) 
         key: 'lastSyncTime',
     },
     {
-        title: 'Action',
+        title: '操作',
         key: 'action',
         render: (_: any, record: InterfaceConfigItem) => (
             <Space size="middle">
-                <a onClick={() => handleConfig(record)}>Config</a>
-                <a>Test</a>
-                <a>Log</a>
+                <a onClick={() => handleConfig(record)}>配置</a>
+                <a>测试</a>
+                <a>日志</a>
             </Space>
         ),
     },

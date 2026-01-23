@@ -19,7 +19,7 @@ export const searchFields = [
         ],
     },
     {
-        label: 'Status',
+        label: i18n.t(LocaleHelper.getStatus()),
         name: 'status',
         type: 'select',
         options: [
@@ -29,7 +29,7 @@ export const searchFields = [
         ],
     },
     {
-        label: 'Date Range',
+        label: i18n.t(LocaleHelper.getDateRange()),
         name: 'dateRange',
         type: 'dateRange',
     },

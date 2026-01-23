@@ -127,11 +127,17 @@ import { OrderQueryLocale } from '@/utils/locale/freight_forwarding/order_manage
 import { OrderAuditLocale } from '@/utils/locale/freight_forwarding/order_management/audit';
 import { OrderBreakdownLocale } from '@/utils/locale/freight_forwarding/order_management/breakdown';
 import { BreakdownRulesLocale } from '@/utils/locale/freight_forwarding/order_management/breakdown_rules';
-import { MilestoneTrackingLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/index';
 import { StandaloneServiceLocale } from '@/utils/locale/freight_forwarding/order_management/standalone_service';
 import { ServiceConfigLocale } from '@/utils/locale/freight_forwarding/order_management/service_config';
 import { ServiceTemplateLocale } from '@/utils/locale/freight_forwarding/order_management/service_template';
 import { ServicePerformanceLocale } from '@/utils/locale/freight_forwarding/order_management/service_performance';
+import { TrackingOverviewLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/tracking_overview';
+import { MilestoneConfigLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/milestone_config';
+import { RealtimeTrackingLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/realtime_tracking';
+import { ExceptionAlertLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/exception_alert';
+import { CustomerNotificationLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/customer_notification';
+import { TrackingReportLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/tracking_report';
+import { InterfaceManagementLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/interface_management';
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -152,6 +158,7 @@ export {
   WaybillListLocale, WaybillCreateLocale, WaybillQueryLocale, WaybillTemplateLocale, WaybillStatisticsLocale, WaybillArchiveLocale,
   OrderListLocale, OrderDetailLocale, OrderStatisticsLocale,
   OrderQueryLocale, OrderAuditLocale, OrderBreakdownLocale, BreakdownRulesLocale, StandaloneServiceLocale, ServiceConfigLocale, ServiceTemplateLocale, ServicePerformanceLocale,
+  TrackingOverviewLocale, MilestoneConfigLocale, RealtimeTrackingLocale, ExceptionAlertLocale, CustomerNotificationLocale, TrackingReportLocale, InterfaceManagementLocale,  
 };
 
 export default {
@@ -175,5 +182,6 @@ export default {
   ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale,
   ...OrderListLocale,...OrderDetailLocale, ...OrderStatisticsLocale,
   ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale,
-  ...MilestoneTrackingLocale
+  ...TrackingOverviewLocale, ...MilestoneConfigLocale, ...RealtimeTrackingLocale, ...ExceptionAlertLocale, ...CustomerNotificationLocale, ...TrackingReportLocale, ...InterfaceManagementLocale,
+
 };

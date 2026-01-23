@@ -811,7 +811,7 @@ const childrenMenuData: MenuGroup[] = [{
         apps: [
             { name: "跟踪总览", key: "tracking_overview", path: "/milestone_tracking/tracking_overview" },
             { name: "里程碑配置", key: "milestone_config", path: "/milestone_tracking/milestone_config" },
-            { name: "实时跟踪", key: "realtime_tracking", path: "/milestone_tracking/realtime_tracking" },
+            // { name: "实时跟踪", key: "realtime_tracking", path: "/milestone_tracking/realtime_tracking" },
             { name: "异常预警", key: "exception_alert", path: "/milestone_tracking/exception_alert" },
             { name: "客户通知", key: "customer_notification", path: "/milestone_tracking/customer_notification" },
             { name: "跟踪报表", key: "tracking_report", path: "/milestone_tracking/tracking_report" },

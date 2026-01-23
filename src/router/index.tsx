@@ -72,7 +72,7 @@ import {
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance,
   BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
-  TrackingOverview,TrackingOverviewDetail,TrackingReport,RealtimeTracking,MilestoneConfig,MilestoneConfigEdit,InterfaceManagement,InterfaceConfigEdit,ExceptionAlert,CustomerNotification,TemplateList,
+  TrackingOverview,TrackingOverviewDetail,TrackingReport,RealtimeTracking,MilestoneConfig,MilestoneConfigEdit,InterfaceManagement,InterfaceConfigEdit,ExceptionAlert,CustomerNotification,TemplateList,TemplateDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -204,6 +204,7 @@ const routers = createMemoryRouter([
             { path: "exception_alert", handle: { title: '异常预警' }, element: <RouterGuard><ExceptionAlert /></RouterGuard> },
             { path: "customer_notification", handle: { title: '客户通知' }, element: <RouterGuard><CustomerNotification /></RouterGuard> },
             { path: "customer_notification/templates", handle: { title: '模板管理' }, element: <RouterGuard><TemplateList /></RouterGuard> },
+            { path: "customer_notification/templates/detail/:id", handle: { title: '模板详情' }, element: <RouterGuard><TemplateDetail /></RouterGuard> },
             { path: "tracking_report", handle: { title: '跟踪报表' }, element: <RouterGuard><TrackingReport /></RouterGuard> },
             { path: "interface_management", handle: { title: '第三方接口管理' }, element: <RouterGuard><InterfaceManagement /></RouterGuard> },
             { path: "interface_management/create", handle: { title: '新建接口' }, element: <RouterGuard><InterfaceConfigEdit /></RouterGuard> },

@@ -1,10 +1,14 @@
 import React from 'react';
-import { Space, Switch, Tag } from 'antd';
+import { Space, Tag } from 'antd';
 import { MilestoneConfigItem } from '@/types/freight_forwarding/milestone_tracking';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 
-export const getColumns = (handleEdit: (record: MilestoneConfigItem) => void) => [
+export const getColumns = (
+    handleEdit: (record: MilestoneConfigItem) => void,
+    handleCopy: (record: MilestoneConfigItem) => void,
+    handleToggle: (record: MilestoneConfigItem) => void
+) => [
     {
         title: i18n.t(LocaleHelper.getMilestoneName()),
         dataIndex: 'milestoneName',
@@ -20,23 +24,27 @@ export const getColumns = (handleEdit: (record: MilestoneConfigItem) => void) =>
         dataIndex: 'notificationSettings',
         key: 'notificationSettings',
         render: (settings: string[]) => (
-            <Space>
-                {settings.map(s => <Tag key={s}>{s}</Tag>)}
-            </Space>
+            <span>{settings.join('+')}</span>
         ),
     },
     {
-        title: 'Status',
+        title: '状态',
         dataIndex: 'status',
         key: 'status',
-        render: (status: boolean) => <Switch checked={status} disabled />,
+        render: (status: boolean) => (
+            <Tag color={status ? 'green' : 'red'}>{status ? '启用' : '停用'}</Tag>
+        ),
     },
     {
-        title: 'Action',
+        title: '操作',
         key: 'action',
         render: (_: any, record: MilestoneConfigItem) => (
             <Space size="middle">
-                <a onClick={() => handleEdit(record)}>Edit</a>
+                <a onClick={(event) => { event.stopPropagation(); handleEdit(record); }}>编辑</a>
+                <a onClick={(event) => { event.stopPropagation(); handleCopy(record); }}>复制</a>
+                <a onClick={(event) => { event.stopPropagation(); handleToggle(record); }}>
+                    {record.status ? '停用' : '启用'}
+                </a>
             </Space>
         ),
     },

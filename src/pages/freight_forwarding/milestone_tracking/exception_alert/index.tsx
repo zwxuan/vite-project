@@ -13,7 +13,7 @@ import '@/pages/page_list.less';
 const ExceptionAlert: React.FC = () => {
     const [data, setData] = useState<ExceptionAlertItem[]>([]);
     const [loading, setLoading] = useState(false);
-
+    const [pageSize, setPageSize] = useState(50);
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -51,8 +51,8 @@ const ExceptionAlert: React.FC = () => {
                 <div className="header-button-area">
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
-                            <Button>Alert Settings</Button>
-                            <Button>Export</Button>
+                            <Button>{i18n.t(LocaleHelper.getAlertSettings())}</Button>
+                            <Button>{i18n.t(LocaleHelper.getExport())}</Button>
                         </div>
                     </div>
                 </div>
@@ -97,9 +97,19 @@ const ExceptionAlert: React.FC = () => {
                     bordered={true}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 500px)' }}
                     pagination={{
-                        showTotal: (total) => `Total ${total} items`,
-                        showQuickJumper: true,
-                        showSizeChanger: true,
+                        size:'small',
+                        pageSize:pageSize,
+                        showTotal: (total) => `总共 ${total} 条`,
+                        showQuickJumper:true,
+                        showSizeChanger:true,
+                        onShowSizeChange: (current, size) => {
+                            setPageSize(size);
+                        },
+                        locale:{
+                            items_per_page: '/页',
+                            jump_to: '跳至',
+                            page: '页',
+                        }
                     }}
                 />
             </div>

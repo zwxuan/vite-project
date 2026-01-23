@@ -37,11 +37,11 @@ export const getColumns = (handleDetail: (record: TrackingOverviewItem) => void)
         ),
     },
     {
-        title: 'Action',
+        title: i18n.t(LocaleHelper.getAction()),
         key: 'action',
         render: (_: any, record: TrackingOverviewItem) => (
             <Space size="middle">
-                <a onClick={() => handleDetail(record)}>Detail</a>
+                <a onClick={() => handleDetail(record)}>{i18n.t(LocaleHelper.getDetail())}</a>
             </Space>
         ),
     },

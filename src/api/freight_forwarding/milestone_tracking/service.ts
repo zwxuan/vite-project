@@ -18,10 +18,10 @@ const trackingOverviewData: TrackingOverviewItem[] = [
 ];
 
 const milestoneConfigData: MilestoneConfigItem[] = [
-    { id: '1', milestoneName: 'Booking Confirmed', triggerCondition: 'Auto', notificationSettings: ['Customer', 'Internal'], status: true, sequence: 1 },
-    { id: '2', milestoneName: 'Cargo Picked Up', triggerCondition: 'Manual', notificationSettings: ['Internal'], status: true, sequence: 2 },
-    { id: '3', milestoneName: 'Departure', triggerCondition: 'EDI', notificationSettings: ['Customer', 'Internal'], status: true, sequence: 3 },
-    { id: '4', milestoneName: 'Arrival', triggerCondition: 'Auto Calculation', notificationSettings: ['Customer'], status: true, sequence: 4 },
+    { id: '1', milestoneName: '订舱确认', triggerCondition: '自动触发', notificationSettings: ['客户通知', '内部通知'], status: true, sequence: 1, delayThreshold: 2 },
+    { id: '2', milestoneName: '装箱完成', triggerCondition: '手动录入', notificationSettings: ['内部通知'], status: true, sequence: 2, delayThreshold: 2 },
+    { id: '3', milestoneName: '货物起运', triggerCondition: 'EDI接收', notificationSettings: ['客户通知', '内部通知'], status: true, sequence: 3, delayThreshold: 2 },
+    { id: '4', milestoneName: '到港通知', triggerCondition: '自动计算', notificationSettings: ['客户通知'], status: true, sequence: 4, delayThreshold: 2 },
 ];
 
 const realtimeTrackingData: RealtimeTrackingItem[] = [

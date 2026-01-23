@@ -63,8 +63,8 @@ const TrackingOverview: React.FC = () => {
                 <div className="header-button-area">
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
-                            <Button type="primary" danger>New Tracking</Button>
-                            <Button>Export</Button>
+                            <Button type="primary" danger>{i18n.t(LocaleHelper.getNewTracking())}</Button>
+                            <Button>{i18n.t(LocaleHelper.getExport())}</Button>
                         </div>
                     </div>
                 </div>

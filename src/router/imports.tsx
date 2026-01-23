@@ -177,6 +177,7 @@ const InterfaceManagement = React.lazy(() => import("@/pages/freight_forwarding/
 
 const MilestoneConfigEdit = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/milestone_config/edit"));
 const TemplateList = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/customer_notification/template_list"));
+const TemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/customer_notification/template_detail"));
 const InterfaceConfigEdit = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/interface_management/edit"));
 
 export {
@@ -186,7 +187,7 @@ export {
   WaybillList, WaybillCreate, WaybillQuery, WaybillTemplate, WaybillTemplateDetail, WaybillStatistics, WaybillArchive,
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
-  TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
+  TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,
