@@ -96,7 +96,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
             onCancel={onCancel}
             style={{ top: 20 }}
             width={'55%'}
-            destroyOnClose={true}
+            destroyOnHidden = {true}
             maskClosable={false}
             closable={!saving}
             footer={[
@@ -125,7 +125,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                         </Button>
                     </div>
                 </div>
-                <div className="search-area-contant" style={{ padding: '10px 10px', overflowY: 'auto', overflowX: 'hidden' }}>
+                <div className="search-area-contant" style={{ padding: '10px 10px', overflowY: 'auto',height: '550px', overflowX: 'hidden' }}>
                     <Timeline
                         mode="left"
                         items={[
