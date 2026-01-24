@@ -1,0 +1,18 @@
+export const DocumentBatchLocale = {
+  getDocumentBatchTitle: () => 'freight_forwarding.document_management.batch.title',
+  getDocumentBatchOperationType: () => 'freight_forwarding.document_management.batch.operation_type',
+  getDocumentBatchGenerate: () => 'freight_forwarding.document_management.batch.generate',
+  getDocumentBatchAudit: () => 'freight_forwarding.document_management.batch.audit',
+  getDocumentBatchIssue: () => 'freight_forwarding.document_management.batch.issue',
+  getDocumentBatchPrint: () => 'freight_forwarding.document_management.batch.print',
+  getDocumentBatchTaskConfig: () => 'freight_forwarding.document_management.batch.task_config',
+  getDocumentBatchDataSource: () => 'freight_forwarding.document_management.batch.data_source',
+  getDocumentBatchTemplate: () => 'freight_forwarding.document_management.batch.template',
+  getDocumentBatchSettings: () => 'freight_forwarding.document_management.batch.settings',
+  getDocumentBatchStart: () => 'freight_forwarding.document_management.batch.start',
+  getDocumentBatchProgress: () => 'freight_forwarding.document_management.batch.progress',
+  getDocumentBatchSuccess: () => 'freight_forwarding.document_management.batch.success',
+  getDocumentBatchFail: () => 'freight_forwarding.document_management.batch.fail',
+  getDocumentBatchDownloadReport: () => 'freight_forwarding.document_management.batch.download_report',
+  getDocumentBatchViewTask: () => 'freight_forwarding.document_management.batch.view_task',
+};

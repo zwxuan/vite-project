@@ -28,4 +28,40 @@ export const CommonLocale = {
   getSeqNo() {
     return "common.seqno";
   },
+  /** 操作 */
+  getOperation() {
+    return "common.operation";
+  },
+  /** 编辑 */
+  getEdit() {
+    return "common.edit";
+  },
+  /** 删除 */
+  getDelete() {
+    return "common.delete";
+  },
+  /** 详情 */
+  getDetail() {
+    return "common.detail";
+  },
+  /** 保存 */
+  getSave() {
+    return "common.save";
+  },
+  /** 取消 */
+  getCancel() {
+    return "common.cancel";
+  },
+  /** 新增 */
+  getAdd() {
+    return "common.add";
+  },
+  /** 成功 */
+  getSuccess() {
+    return "common.success";
+  },
+  /** 失败 */
+  getFail() {
+    return "common.fail";
+  },
 };

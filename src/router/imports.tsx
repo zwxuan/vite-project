@@ -180,6 +180,24 @@ const TemplateList = React.lazy(() => import("@/pages/freight_forwarding/milesto
 const TemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/customer_notification/template_detail"));
 const InterfaceConfigEdit = React.lazy(() => import("@/pages/freight_forwarding/milestone_tracking/interface_management/edit"));
 
+const DocumentOverview = React.lazy(() => import("@/pages/freight_forwarding/document_management/overview"));
+const DocumentList = React.lazy(() => import("@/pages/freight_forwarding/document_management/list"));
+const DocumentCreate = React.lazy(() => import("@/pages/freight_forwarding/document_management/create"));
+const DocumentQuery = React.lazy(() => import("@/pages/freight_forwarding/document_management/query"));
+const DocumentReview = React.lazy(() => import("@/pages/freight_forwarding/document_management/review"));
+const DocumentTemplate = React.lazy(() => import("@/pages/freight_forwarding/document_management/template"));
+const DocumentSignature = React.lazy(() => import("@/pages/freight_forwarding/document_management/signature"));
+const DocumentVersion = React.lazy(() => import("@/pages/freight_forwarding/document_management/version"));
+const DocumentDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/detail"));
+const DocumentArchive = React.lazy(() => import("@/pages/freight_forwarding/document_management/archive"));
+const DocumentCompliance = React.lazy(() => import("@/pages/freight_forwarding/document_management/compliance"));
+const DocumentBatch = React.lazy(() => import("@/pages/freight_forwarding/document_management/batch"));
+const DocumentInterface = React.lazy(() => import("@/pages/freight_forwarding/document_management/interface"));
+const DocumentReport = React.lazy(() => import("@/pages/freight_forwarding/document_management/report"));
+const DocumentTemplateEdit = React.lazy(() => import("@/pages/freight_forwarding/document_management/template/edit"));
+const DocumentTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/template/detail"));
+const DocumentSignatureEdit = React.lazy(() => import("@/pages/freight_forwarding/document_management/signature/edit"));
+
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
   TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
@@ -188,6 +206,8 @@ export {
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
   TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
+  DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentDetail,
+  DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
   Demo,ContainerLoading,Home,Lev1Department,
   Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
   OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,

@@ -1,0 +1,21 @@
+
+export const DocumentListLocale = {
+  getDocumentListTitle: () => 'freight_forwarding.document_management.list.title',
+  getDocumentListCode: () => 'freight_forwarding.document_management.list.code',
+  getDocumentListType: () => 'freight_forwarding.document_management.list.type',
+  getDocumentListWaybillNo: () => 'freight_forwarding.document_management.list.waybill_no',
+  getDocumentListCustomer: () => 'freight_forwarding.document_management.list.customer',
+  getDocumentListStatus: () => 'freight_forwarding.document_management.list.status',
+  getDocumentListCreateTime: () => 'freight_forwarding.document_management.list.create_time',
+  getDocumentListCarrier: () => 'freight_forwarding.document_management.list.carrier',
+  getDocumentListNew: () => 'freight_forwarding.document_management.list.new',
+  getDocumentListExport: () => 'freight_forwarding.document_management.list.export',
+  getDocumentListBatchReview: () => 'freight_forwarding.document_management.list.batch_review',
+  getDocumentListBatchIssue: () => 'freight_forwarding.document_management.list.batch_issue',
+  getDocumentListBatchDownload: () => 'freight_forwarding.document_management.list.batch_download',
+  getDocumentListDetail: () => 'freight_forwarding.document_management.list.detail',
+  getDocumentListEdit: () => 'freight_forwarding.document_management.list.edit',
+  getDocumentListDelete: () => 'freight_forwarding.document_management.list.delete',
+  getDocumentListReview: () => 'freight_forwarding.document_management.list.review',
+  getDocumentListDownload: () => 'freight_forwarding.document_management.list.download',
+};

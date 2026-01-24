@@ -138,6 +138,21 @@ import { ExceptionAlertLocale } from '@/utils/locale/freight_forwarding/mileston
 import { CustomerNotificationLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/customer_notification';
 import { TrackingReportLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/tracking_report';
 import { InterfaceManagementLocale } from '@/utils/locale/freight_forwarding/milestone_tracking/interface_management';
+import { DocumentOverviewLocale } from '@/utils/locale/freight_forwarding/document_management/overview';
+import { DocumentListLocale } from '@/utils/locale/freight_forwarding/document_management/list';
+import { DocumentCreateLocale } from '@/utils/locale/freight_forwarding/document_management/create';
+import { DocumentQueryLocale } from '@/utils/locale/freight_forwarding/document_management/query';
+import { DocumentReviewLocale } from '@/utils/locale/freight_forwarding/document_management/review';
+import { DocumentTemplateLocale } from '@/utils/locale/freight_forwarding/document_management/template';
+import { DocumentSignatureLocale } from '@/utils/locale/freight_forwarding/document_management/signature';
+import { DocumentVersionLocale } from '@/utils/locale/freight_forwarding/document_management/version';
+import { DocumentDetailLocale } from '@/utils/locale/freight_forwarding/document_management/detail';
+import { DocumentArchiveLocale } from '@/utils/locale/freight_forwarding/document_management/archive';
+import { DocumentComplianceLocale } from '@/utils/locale/freight_forwarding/document_management/compliance';
+import { DocumentBatchLocale } from '@/utils/locale/freight_forwarding/document_management/batch';
+import { DocumentInterfaceLocale } from '@/utils/locale/freight_forwarding/document_management/interface';
+import { DocumentReportLocale } from '@/utils/locale/freight_forwarding/document_management/report';
+
 export {
   OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
   OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
@@ -159,6 +174,8 @@ export {
   OrderListLocale, OrderDetailLocale, OrderStatisticsLocale,
   OrderQueryLocale, OrderAuditLocale, OrderBreakdownLocale, BreakdownRulesLocale, StandaloneServiceLocale, ServiceConfigLocale, ServiceTemplateLocale, ServicePerformanceLocale,
   TrackingOverviewLocale, MilestoneConfigLocale, RealtimeTrackingLocale, ExceptionAlertLocale, CustomerNotificationLocale, TrackingReportLocale, InterfaceManagementLocale,  
+  DocumentOverviewLocale, DocumentListLocale, DocumentCreateLocale, DocumentQueryLocale, DocumentReviewLocale, DocumentTemplateLocale, DocumentSignatureLocale, DocumentVersionLocale, DocumentDetailLocale,
+  DocumentArchiveLocale, DocumentComplianceLocale, DocumentBatchLocale, DocumentInterfaceLocale, DocumentReportLocale,
 };
 
 export default {
@@ -183,5 +200,6 @@ export default {
   ...OrderListLocale,...OrderDetailLocale, ...OrderStatisticsLocale,
   ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale,
   ...TrackingOverviewLocale, ...MilestoneConfigLocale, ...RealtimeTrackingLocale, ...ExceptionAlertLocale, ...CustomerNotificationLocale, ...TrackingReportLocale, ...InterfaceManagementLocale,
-
+  ...DocumentOverviewLocale, ...DocumentListLocale, ...DocumentCreateLocale, ...DocumentQueryLocale, ...DocumentReviewLocale, ...DocumentTemplateLocale, ...DocumentSignatureLocale, ...DocumentVersionLocale, ...DocumentDetailLocale,
+  ...DocumentArchiveLocale, ...DocumentComplianceLocale, ...DocumentBatchLocale, ...DocumentInterfaceLocale, ...DocumentReportLocale,
 };

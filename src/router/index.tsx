@@ -73,6 +73,8 @@ import {
   OrderQuery, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance,
   BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
   TrackingOverview,TrackingOverviewDetail,TrackingReport,RealtimeTracking,MilestoneConfig,MilestoneConfigEdit,InterfaceManagement,InterfaceConfigEdit,ExceptionAlert,CustomerNotification,TemplateList,TemplateDetail,
+  DocumentCreate,DocumentQuery,DocumentDetail,DocumentOverview,DocumentList,DocumentReview,DocumentSignature,DocumentTemplate,DocumentVersion,
+  DocumentArchive,DocumentCompliance,DocumentBatch,DocumentInterface,DocumentReport,DocumentTemplateDetail,DocumentSignatureEdit,DocumentTemplateEdit,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -209,6 +211,36 @@ const routers = createMemoryRouter([
             { path: "interface_management", handle: { title: '第三方接口管理' }, element: <RouterGuard><InterfaceManagement /></RouterGuard> },
             { path: "interface_management/create", handle: { title: '新建接口' }, element: <RouterGuard><InterfaceConfigEdit /></RouterGuard> },
             { path: "interface_management/edit/:id", handle: { title: '编辑接口' }, element: <RouterGuard><InterfaceConfigEdit /></RouterGuard> },
+        ]
+      },
+      {
+        path: "/document_management",
+        handle: { title: '单证管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+            { path: "overview", handle: { title: '单证概览' }, element: <RouterGuard><DocumentOverview /></RouterGuard> },
+            { path: "list", handle: { title: '单证列表' }, element: <RouterGuard><DocumentList /></RouterGuard> },
+            { path: "create", handle: { title: '单证生成' }, element: <RouterGuard><DocumentCreate /></RouterGuard> },
+            { path: "query", handle: { title: '单证查询' }, element: <RouterGuard><DocumentQuery /></RouterGuard> },
+            { path: "review", handle: { title: '单证审核' }, element: <RouterGuard><DocumentReview /></RouterGuard> },
+            { path: "template", handle: { title: '模板管理' }, element: <RouterGuard><DocumentTemplate /></RouterGuard> },
+            { path: "template/detail/:id", handle: { title: '模板详情' }, element: <RouterGuard><DocumentTemplateDetail /></RouterGuard> },
+            { path: "template/edit/:id", handle: { title: '模板编辑' }, element: <RouterGuard><DocumentTemplateEdit /></RouterGuard> },
+            { path: "template/create", handle: { title: '新建模板' }, element: <RouterGuard><DocumentTemplateEdit /></RouterGuard> },
+            { path: "signature", handle: { title: '电子签章' }, element: <RouterGuard><DocumentSignature /></RouterGuard> },
+            { path: "signature/edit/:id", handle: { title: '编辑电子签章' }, element: <RouterGuard><DocumentSignatureEdit /></RouterGuard> },
+            { path: "signature/create", handle: { title: '新建电子签章' }, element: <RouterGuard><DocumentSignatureEdit /></RouterGuard> },
+            { path: "version", handle: { title: '版本控制' }, element: <RouterGuard><DocumentVersion /></RouterGuard> },
+            { path: "archive", handle: { title: '单证归档' }, element: <RouterGuard><DocumentArchive /></RouterGuard> },
+            { path: "compliance", handle: { title: '合规检查' }, element: <RouterGuard><DocumentCompliance /></RouterGuard> },
+            { path: "batch", handle: { title: '批量操作' }, element: <RouterGuard><DocumentBatch /></RouterGuard> },
+            { path: "interface", handle: { title: '第三方接口' }, element: <RouterGuard><DocumentInterface /></RouterGuard> },
+            { path: "report", handle: { title: '单证统计报表' }, element: <RouterGuard><DocumentReport /></RouterGuard> },
+            { path: "detail/:id", handle: { title: '单证详情' }, element: <RouterGuard><DocumentDetail /></RouterGuard> },
         ]
       },
       {

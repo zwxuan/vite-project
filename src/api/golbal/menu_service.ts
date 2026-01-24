@@ -77,6 +77,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "运单管理", key: "waybill_management",
             },
+            {
+                name: "单证管理", key: "document_management",
+            },
         ]
     },
 
@@ -843,6 +846,26 @@ const childrenMenuData: MenuGroup[] = [{
             { name: "运单模板", key: "waybill_template", path: "/waybill_management/template" },
             { name: "统计分析", key: "waybill_statistics", path: "/waybill_management/statistics" },
             { name: "归档管理", key: "waybill_archive", path: "/waybill_management/archive" },
+        ]
+    },
+    {
+        title: "单证管理",
+        key: "document_management",
+        parentkey: "document_management",
+        apps: [
+            { name: "单证概览", key: "document_overview", path: "/document_management/overview" },
+            { name: "单证列表", key: "document_list", path: "/document_management/list" },
+            { name: "单证生成", key: "document_create", path: "/document_management/create" },
+            { name: "单证查询", key: "document_query", path: "/document_management/query" },
+            { name: "单证审核", key: "document_review", path: "/document_management/review" },
+            { name: "模板管理", key: "document_template", path: "/document_management/template" },
+            { name: "电子签章", key: "document_signature", path: "/document_management/signature" },
+            { name: "版本控制", key: "document_version", path: "/document_management/version" },
+            { name: "单证归档", key: "document_archive", path: "/document_management/archive" },
+            { name: "合规检查", key: "document_compliance", path: "/document_management/compliance" },
+            { name: "批量操作", key: "document_batch", path: "/document_management/batch" },
+            { name: "第三方接口", key: "document_interface", path: "/document_management/interface" },
+            { name: "单证统计报表", key: "document_report", path: "/document_management/report" },
         ]
     },
 ]
