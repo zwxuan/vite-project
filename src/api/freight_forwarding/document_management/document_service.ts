@@ -70,6 +70,12 @@ export const DocumentService = {
             ],
             versions: [
               { id: '1', version: 'v1.0', create_time: '2024-01-01', creator: 'Admin', change_log: 'Initial Create' }
+            ],
+            cargo: [
+              { id: '1', name: 'Apple iPhone 14 Pro', quantity: 1, unit_price: 9999.99, total_price: 9999.99, unit: 'piece' }
+            ],
+            transport: [
+              { id: '1', name: 'COSCO SHIPPING GEMINI', voyage: '045E', pol: 'Shanghai', pod: 'Los Angeles', status: 'In Transit' }
             ]
           },
           success: true,
