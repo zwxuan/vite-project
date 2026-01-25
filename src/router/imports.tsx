@@ -197,6 +197,7 @@ const DocumentReport = React.lazy(() => import("@/pages/freight_forwarding/docum
 const DocumentTemplateEdit = React.lazy(() => import("@/pages/freight_forwarding/document_management/template/edit"));
 const DocumentTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/template/detail"));
 const DocumentSignatureEdit = React.lazy(() => import("@/pages/freight_forwarding/document_management/signature/edit"));
+const DocumentReviewDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/review/detail"));
 
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
@@ -206,20 +207,20 @@ export {
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
   TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
-  DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentDetail,
+  DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentReviewDetail, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentDetail,
   DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
-  Demo,ContainerLoading,Home,Lev1Department,
-  Currency,Orders,FeeReconciliation,FeeReconciliationCompare,BillManage,StatementOfAccount,OrderFeeRelation,OrderDetail,
-  OrderFeeSplit,LCLFeeShare,InvoiceDetail,Invoice,InvoiceIssuanceReceipt,PhysicalInvoice,ReconciliationRuleEngine,PermissionManagementUser,ExportLog,ImportLog,Login,
-  SetFeeSchedule,ChargingStandard,NotOffSetting,HasOffSetting,AccountingBook,VoucherGroupingRule,EntryGroupingRule,SummaryRule,VoucherType,VoucherCodeMapping,AccountMapping,
-  PaymentApplication,ReleaseOrderVerification,BlRelease,ExpenseReview,FeeAdjustment,ActualPayment,FinanceQuery,VoucherLog,SalesBusinessAmountReport,
-  OutstandingReceivablesPayablesReport,NotReceivablesFeeReport,NotReceivablesOrderReport,SalesBusinessWeightReport,CustomerArrearsAnalysisReport,SalesProfitReport,DepartmentBusinessWeightReport,SingleTicketProfitStatisticsReport,OperatorShipmentSummaryReport,TransportationLineTeuReport,CustomerWeightProfitReport,
-  AccountsReceivableAgingReport,NotPayFeeReport,NotPayOrderReport,BaseGoods,BaseSeaPort,BaseAirPort,BaseRailwayPort,BaseExchangeRate,BaseTaxRate,BaseSettlementMethod,
-  BaseTradeLanes,BaseTradeLanesGrouping,BaseShipmentType,BaseBusinessType,BaseTransportationTerms,BaseTradeTerms,BaseFreightTerms,BaseBillTerms,BaseContainerTeu,BaseCargoType,
-  BaseContainerType,ContractsManage,BusinessPartner,ParterDetail,InternalAgentSettlement,PartnerPerformance,CustomerLevel,CustomerType,CustomerIndustry,ManageOrg,AdminOrg,
-  ChainMap,AdminOrgDetail,ManageOrgDetail,Department,JobPosition,EmployeeCategory,EmployeeManage,EmployeeManageDetail,MenuManage,RoleManage,RoleManageDetail,RoleGroup,RoleTags,
-  FunctionPermissionRole,PermissionManagementPost,FunctionPermissionUser,DataPermissionRole,DataPermissionUser,BaseTaxSystem,BaseTaxType,BaseBankType,BaseBankBranch,
-  BaseSettlementMethodMapper,BasePeriodicBilling,BaseSettlementCycle,BaseCompanySize,BaseCompanyNature,BaseAccountPurpose,BaseCorporateFundAccount,AccountDetail,
-  BaseCorporateCashAccount,SysBusinessLog,SysLoginLog,SysOperatorLog,SysExceptionLog,SysOperatorLogReport,SysWarningType,SysWarningTypeDetail,
-  SysWarningTask,SysWarningTaskDetail,TaskCalendarView,
+  Demo, ContainerLoading, Home, Lev1Department,
+  Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
+  OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,
+  SetFeeSchedule, ChargingStandard, NotOffSetting, HasOffSetting, AccountingBook, VoucherGroupingRule, EntryGroupingRule, SummaryRule, VoucherType, VoucherCodeMapping, AccountMapping,
+  PaymentApplication, ReleaseOrderVerification, BlRelease, ExpenseReview, FeeAdjustment, ActualPayment, FinanceQuery, VoucherLog, SalesBusinessAmountReport,
+  OutstandingReceivablesPayablesReport, NotReceivablesFeeReport, NotReceivablesOrderReport, SalesBusinessWeightReport, CustomerArrearsAnalysisReport, SalesProfitReport, DepartmentBusinessWeightReport, SingleTicketProfitStatisticsReport, OperatorShipmentSummaryReport, TransportationLineTeuReport, CustomerWeightProfitReport,
+  AccountsReceivableAgingReport, NotPayFeeReport, NotPayOrderReport, BaseGoods, BaseSeaPort, BaseAirPort, BaseRailwayPort, BaseExchangeRate, BaseTaxRate, BaseSettlementMethod,
+  BaseTradeLanes, BaseTradeLanesGrouping, BaseShipmentType, BaseBusinessType, BaseTransportationTerms, BaseTradeTerms, BaseFreightTerms, BaseBillTerms, BaseContainerTeu, BaseCargoType,
+  BaseContainerType, ContractsManage, BusinessPartner, ParterDetail, InternalAgentSettlement, PartnerPerformance, CustomerLevel, CustomerType, CustomerIndustry, ManageOrg, AdminOrg,
+  ChainMap, AdminOrgDetail, ManageOrgDetail, Department, JobPosition, EmployeeCategory, EmployeeManage, EmployeeManageDetail, MenuManage, RoleManage, RoleManageDetail, RoleGroup, RoleTags,
+  FunctionPermissionRole, PermissionManagementPost, FunctionPermissionUser, DataPermissionRole, DataPermissionUser, BaseTaxSystem, BaseTaxType, BaseBankType, BaseBankBranch,
+  BaseSettlementMethodMapper, BasePeriodicBilling, BaseSettlementCycle, BaseCompanySize, BaseCompanyNature, BaseAccountPurpose, BaseCorporateFundAccount, AccountDetail,
+  BaseCorporateCashAccount, SysBusinessLog, SysLoginLog, SysOperatorLog, SysExceptionLog, SysOperatorLogReport, SysWarningType, SysWarningTypeDetail,
+  SysWarningTask, SysWarningTaskDetail, TaskCalendarView,
 };

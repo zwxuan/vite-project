@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Table, Button, message, Tag, Space } from 'antd';
+import { Table, Button, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { DocumentItem, DocumentListParams } from "@/types/freight_forwarding/document_management";
 import { DocumentService } from "@/api/freight_forwarding/document_management/document_service";
@@ -8,12 +8,15 @@ import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import AdvancedSearchForm from "@/components/search-form";
+import { getReviewColumns } from './columns';
+import { searchFields } from './search_fields';
 import '@/pages/page_list.less';
-import { searchFields } from '../list/search_fields';
 
 const DocumentReview: React.FC = () => {
     const [data, setData] = useState<DocumentItem[]>([]);
     const [loading, setLoading] = useState(false);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [total, setTotal] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,52 +26,72 @@ const DocumentReview: React.FC = () => {
     const loadData = async (params: DocumentListParams) => {
         setLoading(true);
         try {
-            const res = await DocumentService.getDocumentList(params);
+            const res = await DocumentService.getDocumentList({ ...params, status: 'PendingReview' });
             if (res.success && res.data) {
                 setData(res.data);
+                setTotal(res.total);
             }
         } catch (error) {
             console.error(error);
+            message.error('Load failed');
         }
         setLoading(false);
     };
 
-    const handleReview = (record: DocumentItem, pass: boolean) => {
-        message.success(`${pass ? 'Passed' : 'Rejected'} ${record.code}`);
-        loadData({ status: 'PendingReview' });
+    const handleReview = (record: DocumentItem) => {
+        navigate(`/document_management/review/detail/${record.id}`);
     };
 
-    const columns = [
-        { title: i18n.t(LocaleHelper.getDocumentListCode()), dataIndex: 'code', key: 'code' },
-        { title: i18n.t(LocaleHelper.getDocumentListType()), dataIndex: 'type', key: 'type' },
-        { title: i18n.t(LocaleHelper.getDocumentListStatus()), dataIndex: 'status', key: 'status', render: (s: string) => <Tag color="warning">{s}</Tag> },
-        { 
-            title: 'Action', 
-            key: 'action',
-            render: (_: any, record: DocumentItem) => (
-                <Space>
-                    <a onClick={() => handleReview(record, true)}>{i18n.t(LocaleHelper.getDocumentReviewPass())}</a>
-                    <a onClick={() => handleReview(record, false)} style={{ color: 'red' }}>{i18n.t(LocaleHelper.getDocumentReviewReject())}</a>
-                </Space>
-            )
+    const handleBatchReview = () => {
+        if (selectedRowKeys.length === 0) {
+            message.warning('Please select at least one document');
+            return;
         }
-    ];
+        message.info(`Batch review ${selectedRowKeys.length} documents`);
+    };
+
+    const handleExport = () => {
+        message.success('Export started');
+    };
+
+    const handleSearch = (values: DocumentListParams) => {
+        loadData(values);
+    };
+
+    const columns = getReviewColumns(handleReview);
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: (keys: React.Key[]) => setSelectedRowKeys(keys),
+    };
 
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap">
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
                         <span className="bill-info-title" style={{ marginLeft: "10px" }}>
                             <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
                             {i18n.t(LocaleHelper.getDocumentReviewTitle())}
                         </span>
                     </div>
                 </div>
+                <div className="header-button-area">
+                    <div className="buttonGroup-component">
+                        <div className="u-button-group">
+                            <Button type="primary" danger onClick={handleBatchReview}>
+                                {i18n.t(LocaleHelper.getDocumentReviewBatchReview())}
+                            </Button>
+                            <Button onClick={handleExport}>
+                                {i18n.t(LocaleHelper.getDocumentReviewExport())}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <AdvancedSearchForm fields={searchFields as any} onSearch={(v) => loadData({...v, status: 'PendingReview'})} />
-            
+
+            <AdvancedSearchForm fields={searchFields as any} onSearch={handleSearch} />
+
             <div className='nc-bill-table-area'>
                 <Table<DocumentItem>
                     columns={columns}
@@ -77,7 +100,15 @@ const DocumentReview: React.FC = () => {
                     size="small"
                     bordered={true}
                     loading={loading}
+                    rowSelection={rowSelection}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
+                    pagination={{
+                        size: 'small',
+                        total: total,
+                        showTotal: (total) => `Total ${total} items`,
+                        showQuickJumper: true,
+                        showSizeChanger: true,
+                    }}
                 />
             </div>
         </div>
