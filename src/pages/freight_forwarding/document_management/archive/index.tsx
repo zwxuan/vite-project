@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Table, Button, Tag, Space } from 'antd';
+import { Table, Button } from 'antd';
 import { ExportOutlined, InboxOutlined } from '@ant-design/icons';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import CustomIcon from '@/components/custom-icon';
 import AdvancedSearchForm from '@/components/search-form';
 import { fields } from './search_fields';
+import { columns } from './columns';
 import '@/pages/page_list.less';
 
 const DocumentArchive: React.FC = () => {
@@ -30,54 +31,6 @@ const DocumentArchive: React.FC = () => {
             status: 'Lent',
         },
     ]);
-
-    const columns = [
-        {
-            title: 'Archive No.',
-            dataIndex: 'archiveNo',
-            key: 'archiveNo',
-        },
-        {
-            title: 'Document No.',
-            dataIndex: 'docNo',
-            key: 'docNo',
-        },
-        {
-            title: 'Type',
-            dataIndex: 'type',
-            key: 'type',
-        },
-        {
-            title: i18n.t(LocaleHelper.getDocumentArchiveArchiveDate()),
-            dataIndex: 'archiveDate',
-            key: 'archiveDate',
-        },
-        {
-            title: 'Location',
-            dataIndex: 'location',
-            key: 'location',
-        },
-        {
-            title: i18n.t(LocaleHelper.getDocumentArchiveStatus()),
-            dataIndex: 'status',
-            key: 'status',
-            render: (status: string) => {
-                let color = 'green';
-                if (status === 'Lent') color = 'orange';
-                return <Tag color={color}>{status}</Tag>;
-            }
-        },
-        {
-            title: i18n.t(LocaleHelper.getDocumentArchiveOperation()),
-            key: 'action',
-            render: (_: any, record: any) => (
-                <Space size="middle">
-                    <a>{i18n.t(LocaleHelper.getDocumentArchiveView())}</a>
-                    {record.status === 'Normal' ? <a>Borrow</a> : <a>Return</a>}
-                </Space>
-            ),
-        },
-    ];
 
     const handleSearch = (values: any) => {
         setLoading(true);

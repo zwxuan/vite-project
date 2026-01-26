@@ -47,7 +47,7 @@ export const getReviewColumns = (
             },
         },
         {
-            title: 'Action',
+            title: i18n.t(LocaleHelper.getAction()),
             key: 'action',
             fixed: 'right' as const,
             width: 100,

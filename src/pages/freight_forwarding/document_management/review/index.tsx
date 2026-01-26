@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Table, Button, message } from 'antd';
+import { Table, Button, message, Typography, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { DocumentItem, DocumentListParams } from "@/types/freight_forwarding/document_management";
 import { DocumentService } from "@/api/freight_forwarding/document_management/document_service";
@@ -11,6 +11,8 @@ import AdvancedSearchForm from "@/components/search-form";
 import { getReviewColumns } from './columns';
 import { searchFields } from './search_fields';
 import '@/pages/page_list.less';
+
+const { Title } = Typography;
 
 const DocumentReview: React.FC = () => {
     const [data, setData] = useState<DocumentItem[]>([]);
@@ -90,7 +92,12 @@ const DocumentReview: React.FC = () => {
                 </div>
             </div>
 
-            <AdvancedSearchForm fields={searchFields as any} onSearch={handleSearch} />
+            <div style={{ padding: '0 20px' }}>
+                <Title level={5} style={{ marginTop: 10, marginBottom: 10 }}>{i18n.t(LocaleHelper.getDocumentReviewFilter())}</Title>
+                <AdvancedSearchForm fields={searchFields as any} onSearch={handleSearch} />
+                <Divider style={{ margin: '12px 0' }} />
+                <Title level={5} style={{ marginBottom: 10 }}>{i18n.t(LocaleHelper.getDocumentReviewList())}</Title>
+            </div>
 
             <div className='nc-bill-table-area'>
                 <Table<DocumentItem>

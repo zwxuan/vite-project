@@ -1,40 +1,73 @@
-
-import React, { useState, useEffect } from 'react';
-import { Table, Tag, Space } from 'antd';
-import { DocumentItem } from "@/types/freight_forwarding/document_management";
-import { DocumentService } from "@/api/freight_forwarding/document_management/document_service";
+import React, { useState } from 'react';
+import { Table, Button, Space } from 'antd';
+import { SwapOutlined, ExportOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import CustomIcon from "@/components/custom-icon";
+import AdvancedSearchForm from '@/components/search-form';
+import { fields } from './search_fields';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import '@/pages/page_list.less';
 
-const DocumentVersion: React.FC = () => {
-    const [data, setData] = useState<DocumentItem[]>([]);
-    const [loading, setLoading] = useState(false);
+interface VersionItem {
+    id: string;
+    version: string;
+    modify_time: string;
+    modifier: string;
+    description: string;
+}
 
-    useEffect(() => {
-        setLoading(true);
-        DocumentService.getDocumentList({}).then(res => {
-            if (res.success) setData(res.data);
-            setLoading(false);
-        });
-    }, []);
+const DocumentVersion: React.FC = () => {
+    const navigate = useNavigate();
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+    // Mock data
+    const versionHistory: VersionItem[] = [
+        { id: '1', version: 'v1.3', modify_time: '2023-03-19 15:30', modifier: 'Operator A', description: 'Update Consignee Address' },
+        { id: '2', version: 'v1.2', modify_time: '2023-03-18 10:20', modifier: 'Operator B', description: 'Correct Cargo Weight' },
+        { id: '3', version: 'v1.1', modify_time: '2023-03-17 14:15', modifier: 'Operator A', description: 'Initial Creation' },
+    ];
+
+    const handleView = (record: VersionItem) => {
+        navigate(`/document_management/version/detail/${record.id}`);
+    };
+
+    const handleSearch = (values: any) => {
+        console.log('Search values:', values);
+    };
+
+    const handleCompare = () => {
+        if (selectedRowKeys.length !== 2) {
+            // In a real app, use message.warning()
+            alert('Please select exactly two versions to compare.');
+            return;
+        }
+        navigate(`/document_management/version/compare?v1=${selectedRowKeys[0]}&v2=${selectedRowKeys[1]}`);
+    };
 
     const columns = [
-        { title: i18n.t(LocaleHelper.getDocumentListCode()), dataIndex: 'code', key: 'code' },
-        { title: 'Current Version', dataIndex: 'version', key: 'version' },
-        { title: i18n.t(LocaleHelper.getDocumentListCreateTime()), dataIndex: 'create_time', key: 'create_time' },
+        { title: i18n.t(LocaleHelper.getDocumentVersionNumber()), dataIndex: 'version', key: 'version' },
+        { title: i18n.t(LocaleHelper.getDocumentVersionModifyTime()), dataIndex: 'modify_time', key: 'modify_time' },
+        { title: i18n.t(LocaleHelper.getDocumentVersionModifier()), dataIndex: 'modifier', key: 'modifier' },
+        { title: i18n.t(LocaleHelper.getDocumentVersionDescription()), dataIndex: 'description', key: 'description' },
         { 
-            title: 'Action', 
+            title: i18n.t(LocaleHelper.getDocumentVersionAction()), 
             key: 'action',
-            render: () => (
+            render: (_: any, record: VersionItem) => (
                 <Space>
-                    <a>{i18n.t(LocaleHelper.getDocumentVersionHistory())}</a>
-                    <a>{i18n.t(LocaleHelper.getDocumentVersionCompare())}</a>
+                    <a onClick={() => handleView(record)}>{i18n.t(LocaleHelper.getDocumentVersionView())}</a>
+                    <a>{i18n.t(LocaleHelper.getDocumentVersionRollback())}</a>
                 </Space>
             )
         }
     ];
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: (newSelectedRowKeys: React.Key[]) => {
+            setSelectedRowKeys(newSelectedRowKeys);
+        },
+    };
 
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
@@ -47,16 +80,29 @@ const DocumentVersion: React.FC = () => {
                         </span>
                     </div>
                 </div>
+                <div className="header-button-area">
+                    <div className="buttonGroup-component">
+                        <div className="u-button-group">
+                            <Button icon={<SwapOutlined />} onClick={handleCompare}>{i18n.t(LocaleHelper.getDocumentVersionContrast())}</Button>
+                            <Button icon={<ExportOutlined />}>{i18n.t(LocaleHelper.getDocumentVersionExport())}</Button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
+            <AdvancedSearchForm
+                fields={fields}
+                onSearch={handleSearch}
+            />
+
             <div className='nc-bill-table-area'>
-                <Table<DocumentItem>
+                <Table
+                    rowSelection={rowSelection}
                     columns={columns}
-                    dataSource={data}
+                    dataSource={versionHistory}
                     rowKey="id"
                     size="small"
                     bordered={true}
-                    loading={loading}
                 />
             </div>
         </div>

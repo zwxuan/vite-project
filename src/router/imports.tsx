@@ -198,6 +198,8 @@ const DocumentTemplateEdit = React.lazy(() => import("@/pages/freight_forwarding
 const DocumentTemplateDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/template/detail"));
 const DocumentSignatureEdit = React.lazy(() => import("@/pages/freight_forwarding/document_management/signature/edit"));
 const DocumentReviewDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/review/detail"));
+const DocumentVersionDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/version/detail"));
+const DocumentVersionCompare = React.lazy(() => import("@/pages/freight_forwarding/document_management/version/compare"));
 
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
@@ -207,7 +209,7 @@ export {
   OrderManagementList, OrderManagementDetail, OrderManagementStatistics,
   OrderQuery, StandaloneService, StandaloneServiceDetail, ServiceConfig, ServiceConfigDetail, ServiceTemplate, ServiceTemplateDetail, ServicePerformance, OrderAudit, OrderBreakdown, BreakdownRules, BreakdownRulesDetail,
   TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
-  DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentReviewDetail, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentDetail,
+  DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentReviewDetail, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentVersionDetail, DocumentVersionCompare, DocumentDetail,
   DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
   Demo, ContainerLoading, Home, Lev1Department,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,

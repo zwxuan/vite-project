@@ -16,4 +16,8 @@ export const DocumentArchiveLocale = {
   getDocumentArchiveReturnDate: () => 'freight_forwarding.document_management.archive.return_date',
   getDocumentArchiveBatchArchive: () => 'freight_forwarding.document_management.archive.batch_archive',
   getDocumentArchiveExport: () => 'freight_forwarding.document_management.archive.export',
+  getDocumentArchiveNormal: () => 'freight_forwarding.document_management.archive.normal',
+  getDocumentArchiveLent: () => 'freight_forwarding.document_management.archive.lent',
+  getDocumentArchiveLost: () => 'freight_forwarding.document_management.archive.lost',
+  getDocumentArchiveDestroyed: () => 'freight_forwarding.document_management.archive.destroyed',
 };

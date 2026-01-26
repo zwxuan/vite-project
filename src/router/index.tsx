@@ -74,7 +74,7 @@ import {
   BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
   TrackingOverview, TrackingOverviewDetail, TrackingReport, RealtimeTracking, MilestoneConfig, MilestoneConfigEdit, InterfaceManagement, InterfaceConfigEdit, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail,
   DocumentCreate, DocumentQuery, DocumentDetail, DocumentOverview, DocumentList, DocumentReview, DocumentReviewDetail, DocumentSignature, DocumentTemplate, DocumentVersion,
-  DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit,
+  DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit,DocumentVersionDetail,DocumentVersionCompare,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -236,6 +236,8 @@ const routers = createMemoryRouter([
           { path: "signature/edit/:id", handle: { title: '编辑电子签章' }, element: <RouterGuard><DocumentSignatureEdit /></RouterGuard> },
           { path: "signature/create", handle: { title: '新建电子签章' }, element: <RouterGuard><DocumentSignatureEdit /></RouterGuard> },
           { path: "version", handle: { title: '版本控制' }, element: <RouterGuard><DocumentVersion /></RouterGuard> },
+          { path: "version/detail/:id", handle: { title: '版本详情' }, element: <RouterGuard><DocumentVersionDetail /></RouterGuard> },
+          { path: "version/compare", handle: { title: '版本对比' }, element: <RouterGuard><DocumentVersionCompare /></RouterGuard> },
           { path: "archive", handle: { title: '单证归档' }, element: <RouterGuard><DocumentArchive /></RouterGuard> },
           { path: "compliance", handle: { title: '合规检查' }, element: <RouterGuard><DocumentCompliance /></RouterGuard> },
           { path: "batch", handle: { title: '批量操作' }, element: <RouterGuard><DocumentBatch /></RouterGuard> },

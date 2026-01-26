@@ -1,25 +1,21 @@
-import { FilterOperator } from '@/components/search-form';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 
 export const fields = [
     {
         key: 'archiveNo',
-        label: 'Archive No.',
-        type: 'input',
-        operator: FilterOperator.LIKE
+        label: i18n.t(LocaleHelper.getDocumentArchiveArchiveNo()),
+        type: 'input'
     },
     {
         key: 'docNo',
-        label: 'Document No.',
-        type: 'input',
-        operator: FilterOperator.LIKE
+        label: i18n.t(LocaleHelper.getDocumentArchiveDocumentNo()),
+        type: 'input'
     },
     {
         key: 'type',
-        label: 'Type',
+        label: i18n.t(LocaleHelper.getDocumentArchiveType()),
         type: 'select',
-        operator: FilterOperator.EQ,
         selectOptions: [
             { label: 'Bill of Lading', value: 'Bill of Lading' },
             { label: 'Invoice', value: 'Invoice' },
@@ -30,24 +26,21 @@ export const fields = [
         key: 'archiveDate',
         label: i18n.t(LocaleHelper.getDocumentArchiveArchiveDate()),
         type: 'rangePicker',
-        operator: FilterOperator.EQ // Range picker usually handles logic internally or maps to GTE/LTE
     },
     {
         key: 'location',
-        label: 'Location',
+        label: i18n.t(LocaleHelper.getDocumentArchiveLocation()),
         type: 'input',
-        operator: FilterOperator.LIKE
     },
     {
         key: 'status',
         label: i18n.t(LocaleHelper.getDocumentArchiveStatus()),
         type: 'select',
-        operator: FilterOperator.EQ,
         selectOptions: [
-            { label: 'Normal', value: 'Normal' },
-            { label: 'Lent', value: 'Lent' },
-            { label: 'Lost', value: 'Lost' },
-            { label: 'Destroyed', value: 'Destroyed' }
+            { label: i18n.t(LocaleHelper.getDocumentArchiveNormal()), value: 'Normal' },
+            { label: i18n.t(LocaleHelper.getDocumentArchiveLent()), value: 'Lent' },
+            { label: i18n.t(LocaleHelper.getDocumentArchiveLost()), value: 'Lost' },
+            { label: i18n.t(LocaleHelper.getDocumentArchiveDestroyed()), value: 'Destroyed' }
         ]
     }
 ];
