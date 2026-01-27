@@ -74,7 +74,7 @@ import {
   BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
   TrackingOverview, TrackingOverviewDetail, TrackingReport, RealtimeTracking, MilestoneConfig, MilestoneConfigEdit, InterfaceManagement, InterfaceConfigEdit, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail,
   DocumentCreate, DocumentQuery, DocumentDetail, DocumentOverview, DocumentList, DocumentReview, DocumentReviewDetail, DocumentSignature, DocumentTemplate, DocumentVersion,
-  DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit,DocumentVersionDetail,DocumentVersionCompare,
+  DocumentArchive, DocumentCompliance, DocumentComplianceDetail, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit,DocumentVersionDetail,DocumentVersionCompare,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -240,6 +240,7 @@ const routers = createMemoryRouter([
           { path: "version/compare", handle: { title: '版本对比' }, element: <RouterGuard><DocumentVersionCompare /></RouterGuard> },
           { path: "archive", handle: { title: '单证归档' }, element: <RouterGuard><DocumentArchive /></RouterGuard> },
           { path: "compliance", handle: { title: '合规检查' }, element: <RouterGuard><DocumentCompliance /></RouterGuard> },
+          { path: "compliance/detail/:id", handle: { title: '合规检查详情' }, element: <RouterGuard><DocumentComplianceDetail /></RouterGuard> },
           { path: "batch", handle: { title: '批量操作' }, element: <RouterGuard><DocumentBatch /></RouterGuard> },
           { path: "interface", handle: { title: '第三方接口' }, element: <RouterGuard><DocumentInterface /></RouterGuard> },
           { path: "report", handle: { title: '单证统计报表' }, element: <RouterGuard><DocumentReport /></RouterGuard> },

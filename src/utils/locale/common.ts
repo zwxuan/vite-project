@@ -64,4 +64,25 @@ export const CommonLocale = {
   getFail() {
     return "common.fail";
   },
+  /** 每页显示条数 */
+  getItemsPerPage() {
+    return "common.items_per_page";
+  },
+  /** 跳转至 */
+  getJumpTo() {
+    return "common.jump_to";
+  },
+  /** 页 */
+  getPage() {
+    return "common.page";
+  },
+  getTotal() {
+    return "common.total";
+  },
+  getItems() {
+    return "common.items";
+  },
+  getBack() {
+    return "common.back";
+  },
 };

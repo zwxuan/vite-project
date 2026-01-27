@@ -110,6 +110,11 @@ const MyJobs: React.FC = () => {
                             showTotal: (total) => i18n.t(LocaleHelper.getTotalItems(), { total }),
                             showQuickJumper: true,
                             showSizeChanger: true,
+                            locale: {
+                                items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                                jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                                page: i18n.t(LocaleHelper.getPage()),
+                            },
                         }}
                     />
                 </div>

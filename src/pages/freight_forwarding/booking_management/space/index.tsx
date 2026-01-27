@@ -392,7 +392,16 @@ const SpaceManagement: React.FC = () => {
             size="small"
             bordered={true}
             loading={loading}
-            pagination={{ size: 'small', showQuickJumper: true, showSizeChanger: true }}
+            pagination={{
+              size: 'small',
+              showQuickJumper: true,
+              showSizeChanger: true,
+              locale: {
+                items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                page: i18n.t(LocaleHelper.getPage()),
+              },
+            }}
             scroll={{ x: 'max-content' }}
           />
         </Card>

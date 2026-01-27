@@ -115,6 +115,11 @@ const OrderList: React.FC = () => {
                         showQuickJumper: true,
                         showSizeChanger: true,
                         onShowSizeChange: (current, size) => setPageSize(size),
+                        locale: {
+                            items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                            jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                            page: i18n.t(LocaleHelper.getPage()),
+                        },
                     }}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
                     bordered={true}

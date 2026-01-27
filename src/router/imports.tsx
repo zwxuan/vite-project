@@ -191,6 +191,7 @@ const DocumentVersion = React.lazy(() => import("@/pages/freight_forwarding/docu
 const DocumentDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/detail"));
 const DocumentArchive = React.lazy(() => import("@/pages/freight_forwarding/document_management/archive"));
 const DocumentCompliance = React.lazy(() => import("@/pages/freight_forwarding/document_management/compliance"));
+const DocumentComplianceDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/compliance/detail"));
 const DocumentBatch = React.lazy(() => import("@/pages/freight_forwarding/document_management/batch"));
 const DocumentInterface = React.lazy(() => import("@/pages/freight_forwarding/document_management/interface"));
 const DocumentReport = React.lazy(() => import("@/pages/freight_forwarding/document_management/report"));
@@ -211,6 +212,7 @@ export {
   TrackingOverview, TrackingOverviewDetail, MilestoneConfig, MilestoneConfigEdit, RealtimeTracking, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail, TrackingReport, InterfaceManagement, InterfaceConfigEdit,
   DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentReviewDetail, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentVersionDetail, DocumentVersionCompare, DocumentDetail,
   DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
+  DocumentComplianceDetail,
   Demo, ContainerLoading, Home, Lev1Department,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

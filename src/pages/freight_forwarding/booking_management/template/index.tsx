@@ -229,7 +229,16 @@ const BookingTemplate: React.FC = () => {
             bordered={true}
             loading={loading}
             scroll={{ x: 'max-content', y: 'calc(100vh - 420px)' }}
-            pagination={{ size: 'small', showQuickJumper: true, showSizeChanger: true }}
+            pagination={{
+              size: 'small',
+              showQuickJumper: true,
+              showSizeChanger: true,
+              locale: {
+                items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                page: i18n.t(LocaleHelper.getPage()),
+              },
+            }}
           />
         </div>
       </div>

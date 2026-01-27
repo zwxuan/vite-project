@@ -5,7 +5,7 @@ import LocaleHelper from '@/utils/locale';
 export const fields = [
     {
         key: 'docNo',
-        label: 'Document No.',
+        label: i18n.t(LocaleHelper.getDocumentComplianceDocumentNo()),
         type: 'input',
         operator: FilterOperator.LIKE
     },
@@ -15,8 +15,8 @@ export const fields = [
         type: 'select',
         operator: FilterOperator.EQ,
         selectOptions: [
-            { label: 'Pass', value: 'Pass' },
-            { label: 'Fail', value: 'Fail' }
+            { label: i18n.t(LocaleHelper.getDocumentCompliancePass()), value: 'pass' },
+            { label: i18n.t(LocaleHelper.getDocumentComplianceFail()), value: 'fail' }
         ]
     },
     {
@@ -25,9 +25,9 @@ export const fields = [
         type: 'select',
         operator: FilterOperator.EQ,
         selectOptions: [
-            { label: 'High Risk', value: 'High Risk' },
-            { label: 'Medium Risk', value: 'Medium Risk' },
-            { label: 'Low Risk', value: 'Low Risk' }
+            { label: i18n.t(LocaleHelper.getDocumentComplianceHighRisk()), value: 'high' },
+            { label: i18n.t(LocaleHelper.getDocumentComplianceMediumRisk()), value: 'medium' },
+            { label: i18n.t(LocaleHelper.getDocumentComplianceLowRisk()), value: 'low' }
         ]
     }
 ];

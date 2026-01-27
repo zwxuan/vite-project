@@ -2,7 +2,13 @@ import { Tag, Space } from 'antd';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 
-export const columns = [
+interface ColumnProps {
+    onView: (record: any) => void;
+    onBorrow: (record: any) => void;
+    onReturn: (record: any) => void;
+}
+
+export const getColumns = ({ onView, onBorrow, onReturn }: ColumnProps) => [
     {
         title: i18n.t(LocaleHelper.getDocumentArchiveArchiveNo()),
         dataIndex: 'archiveNo',
@@ -50,8 +56,12 @@ export const columns = [
         key: 'action',
         render: (_: any, record: any) => (
             <Space size="middle">
-                <a>{i18n.t(LocaleHelper.getDocumentArchiveView())}</a>
-                {record.status === 'Normal' ? <a>{i18n.t(LocaleHelper.getDocumentArchiveBorrow())}</a> : <a>{i18n.t(LocaleHelper.getDocumentArchiveReturn())}</a>}
+                <a onClick={() => onView(record)}>{i18n.t(LocaleHelper.getDocumentArchiveView())}</a>
+                {record.status === 'Normal' ? (
+                    <a onClick={() => onBorrow(record)}>{i18n.t(LocaleHelper.getDocumentArchiveBorrow())}</a>
+                ) : (
+                    <a onClick={() => onReturn(record)}>{i18n.t(LocaleHelper.getDocumentArchiveReturn())}</a>
+                )}
             </Space>
         ),
     },

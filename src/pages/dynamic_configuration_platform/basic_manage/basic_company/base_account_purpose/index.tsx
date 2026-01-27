@@ -10,7 +10,7 @@ import { requestWithProgress } from "@/api/request";
 import {RedoOutlined,DownOutlined,HourglassOutlined} from '@ant-design/icons';
 import CustomIcon from "@/components/custom-icon";
 import i18n from '@/i18n';
-import LocaleHelper from '@/utils/localeHelper';
+import LocaleHelper from '@/utils/locale';
 import AdvancedSearchForm from "@/components/search-form";
 import ModelExcelImport from '@/components/excel/modal_import';
 import ModelExcelImportTemplate from '@/components/excel/modal_import_template';
@@ -287,9 +287,9 @@ const BaseAccountPurpose : React.FC = () => {
                             setPageSize(size);
                         },
                         locale:{
-                            items_per_page: '/页',
-                            jump_to: '跳至',
-                            page: '页',
+                            items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                            jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                            page: i18n.t(LocaleHelper.getPage()),
                         }
                     }}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 340px)' }}

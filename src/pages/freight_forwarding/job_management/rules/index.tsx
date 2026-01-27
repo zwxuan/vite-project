@@ -53,7 +53,14 @@ const AssignmentRules: React.FC = () => {
                         columns={columns as any}
                         dataSource={dataSource}
                         size="small"
-                        pagination={{ pageSize: 10 }}
+                        pagination={{
+                            pageSize: 10,
+                            locale: {
+                                items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                                jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                                page: i18n.t(LocaleHelper.getPage()),
+                            },
+                        }}
                     />
                 </Card>
             </div>

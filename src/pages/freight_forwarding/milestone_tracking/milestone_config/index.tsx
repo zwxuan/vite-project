@@ -179,6 +179,11 @@ const MilestoneConfig: React.FC = () => {
                         showTotal: (total) => `总共 ${total} 条`,
                         showQuickJumper: true,
                         showSizeChanger: true,
+                        locale: {
+                            items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                            jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                            page: i18n.t(LocaleHelper.getPage()),
+                        },
                     }}
                 />
             </div>

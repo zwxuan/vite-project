@@ -97,19 +97,19 @@ const ExceptionAlert: React.FC = () => {
                     bordered={true}
                     scroll={{ x: 'max-content', y: 'calc(100vh - 500px)' }}
                     pagination={{
-                        size:'small',
-                        pageSize:pageSize,
+                        size: 'small',
+                        pageSize: pageSize,
                         showTotal: (total) => `总共 ${total} 条`,
-                        showQuickJumper:true,
-                        showSizeChanger:true,
+                        showQuickJumper: true,
+                        showSizeChanger: true,
                         onShowSizeChange: (current, size) => {
                             setPageSize(size);
                         },
-                        locale:{
-                            items_per_page: '/页',
-                            jump_to: '跳至',
-                            page: '页',
-                        }
+                        locale: {
+                            items_per_page: i18n.t(LocaleHelper.getItemsPerPage()),
+                            jump_to: i18n.t(LocaleHelper.getJumpTo()),
+                            page: i18n.t(LocaleHelper.getPage()),
+                        },
                     }}
                 />
             </div>
