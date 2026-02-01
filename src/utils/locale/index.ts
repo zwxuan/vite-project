@@ -77,7 +77,7 @@ import { ManageOrgLocale } from '@/utils/locale/dynamic_configuration_platform/o
 import { AdminOrgLocale } from '@/utils/locale/dynamic_configuration_platform/org_manage/admin_org';
 import { JobPositionLocale } from '@/utils/locale/dynamic_configuration_platform/org_manage/job_position';
 import { EmployeeCategoryLocale } from '@/utils/locale/dynamic_configuration_platform/org_manage/employee_category';
-import { EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale } from '@/utils/locale/dynamic_configuration_platform/org_manage/employee_manage';
+import { EmployeeManageLocale, PrimaryJobLocale, EmployeeBankAccountLocale } from '@/utils/locale/dynamic_configuration_platform/org_manage/employee_manage';
 import { RoleManageLocale } from './dynamic_configuration_platform/identity/role_manage';
 import { RoleGroupLocale } from '@/utils/locale/dynamic_configuration_platform/identity/role_group';
 import { RoleTagsLocale } from '@/utils/locale/dynamic_configuration_platform/identity/role_tags';
@@ -152,54 +152,60 @@ import { DocumentComplianceLocale } from '@/utils/locale/freight_forwarding/docu
 import { DocumentBatchLocale } from '@/utils/locale/freight_forwarding/document_management/batch';
 import { DocumentInterfaceLocale } from '@/utils/locale/freight_forwarding/document_management/interface';
 import { DocumentReportLocale } from '@/utils/locale/freight_forwarding/document_management/report';
+import { CostOverviewLocale } from '@/utils/locale/freight_forwarding/cost_management/cost_overview';
+import { ReceivableCostLocale } from '@/utils/locale/freight_forwarding/cost_management/receivable_cost';
+import { PayableCostLocale } from '@/utils/locale/freight_forwarding/cost_management/payable_cost';
+import { CostReviewCenterLocale } from '@/utils/locale/freight_forwarding/cost_management/cost_review_center';
 
 export {
-  OrdersLocale,OrderFeeLocale,FeeReconciliationLocale,OrderBillLocale,
-  OrderDocumentLocale,CommonLocale,PhysicalInvoiceLocale,InvoiceLocale,StatementOfAccountLocale,BillManageLocale,SetFeeScheduleLocale,ChargingStandardLocale,NotOffSettingLocale,
-  CashBasisAccountingLocale,HasOffSettingLocale,OffSettingDetailLocale,AccountingBookLocale,VoucherGroupingRuleLocale,EntryGroupingRuleLocale,SummaryRuleLocale,VoucherTypeLocale,CodeMappingLocale,AccountMappingLocale,
-  PaymentApplicationLocale,PaymentApplicationFeeLocale,PaymentApplicationBusinessLocale,ReleaseOrderVerificationLocale,ReleaseOrderVerificationFeeLocale,BlReleaseLocale,ReconciliationRuleEngineLocale,ExpenseReviewLocale,FeeAdjustmentFeeLocale,FeeAdjustmentLocale,
-  ActualPaymentLocale,StatementObjectLocale,VoucherLogLocale,VoucherDetailLocale,BaseGoodsLocale,BaseAmsPortLocale,BaseEdiPortLocale,BaseSeaportLocale,BaseRailwayPortLocale,BaseExchangeRateLocale,BaseTaxRateLocale,
-  BaseSettlementMethodLocale,BaseTradeLanesLocale,BaseTradeLanesGroupingLocale,BaseShipmentTypeLocale,BaseBusinessTypeLocale,BaseTransportationTermsLocale,BaseTradeTermsLocale,BaseFreightTermsLocale,BaseBillTermsLocale,
-  BaseContainerTeuLocale,BaseCargoTypeLocale,BaseContainerTypeLocale,ContractsManageLocale,BusinessPartnerLocale,ContactLocale,PortDestinationAgentLocale,InvoiceRequirementLocale,DeliveryAgentLocale,
-  SpaceCarrierLocale,EdiConfigLocale,VisitCustomerLocale,InternalAgentSettlementLocale,PartnerPerformanceRuleLocale,AdvancedRuleConfigLocale,KpiDefinitionLocale,RuleKpiItemLocale,KpiScoreReportLocale,
-  CustomerLevelLocale,CustomerTypeLocale,CustomerIndustryLocale,ManageOrgLocale,AdminOrgLocale,JobPositionLocale,EmployeeCategoryLocale,EmployeeManageLocale,PrimaryJobLocale,EmployeeBankAccountLocale,
-  RoleManageLocale,RoleGroupLocale,RoleTagsLocale,FunctionPermissionByRoleLocale,FunctionPermissionByUserLocale,DataPermissionByRoleLocale,DataPermissionByUserLocale,BaseTaxSystemLocale,BaseTaxTypeLocale,
-  BaseBankTypeLocale,BaseBankBranchLocale,BaseSettlementMethodMapperLocale,BasePeriodicBillingLocale,BaseSettlementCycleLocale,BaseCompanySizeLocale,BaseCompanyNatureLocale,BaseAccountPurposeLocale,BaseCorporateFundAccountLocale,
-  BaseFundAccountCurrencyLocale,BaseCorporateCashAccountLocale,SysBusinessLogLocale,SysLoginLogLocale,SysOperatorLogLocale,SysExceptionLogLocale,SysOperatorLogReportLocale,
-  SysWarningTypeLocale,SysWarningTypeParamLocale,SysWarningTaskLocale,JobListLocale,
-  JobDetailLocale,JobMonitoringLocale,MyJobsLocale,
-  TeamJobsLocale,JobAssignmentLocale,AssignmentRulesLocale,PerformanceAnalysisLocale,
-  BookingCommonLocale,BookingListLocale,BookingCreateLocale,
+  OrdersLocale, OrderFeeLocale, FeeReconciliationLocale, OrderBillLocale,
+  OrderDocumentLocale, CommonLocale, PhysicalInvoiceLocale, InvoiceLocale, StatementOfAccountLocale, BillManageLocale, SetFeeScheduleLocale, ChargingStandardLocale, NotOffSettingLocale,
+  CashBasisAccountingLocale, HasOffSettingLocale, OffSettingDetailLocale, AccountingBookLocale, VoucherGroupingRuleLocale, EntryGroupingRuleLocale, SummaryRuleLocale, VoucherTypeLocale, CodeMappingLocale, AccountMappingLocale,
+  PaymentApplicationLocale, PaymentApplicationFeeLocale, PaymentApplicationBusinessLocale, ReleaseOrderVerificationLocale, ReleaseOrderVerificationFeeLocale, BlReleaseLocale, ReconciliationRuleEngineLocale, ExpenseReviewLocale, FeeAdjustmentFeeLocale, FeeAdjustmentLocale,
+  ActualPaymentLocale, StatementObjectLocale, VoucherLogLocale, VoucherDetailLocale, BaseGoodsLocale, BaseAmsPortLocale, BaseEdiPortLocale, BaseSeaportLocale, BaseRailwayPortLocale, BaseExchangeRateLocale, BaseTaxRateLocale,
+  BaseSettlementMethodLocale, BaseTradeLanesLocale, BaseTradeLanesGroupingLocale, BaseShipmentTypeLocale, BaseBusinessTypeLocale, BaseTransportationTermsLocale, BaseTradeTermsLocale, BaseFreightTermsLocale, BaseBillTermsLocale,
+  BaseContainerTeuLocale, BaseCargoTypeLocale, BaseContainerTypeLocale, ContractsManageLocale, BusinessPartnerLocale, ContactLocale, PortDestinationAgentLocale, InvoiceRequirementLocale, DeliveryAgentLocale,
+  SpaceCarrierLocale, EdiConfigLocale, VisitCustomerLocale, InternalAgentSettlementLocale, PartnerPerformanceRuleLocale, AdvancedRuleConfigLocale, KpiDefinitionLocale, RuleKpiItemLocale, KpiScoreReportLocale,
+  CustomerLevelLocale, CustomerTypeLocale, CustomerIndustryLocale, ManageOrgLocale, AdminOrgLocale, JobPositionLocale, EmployeeCategoryLocale, EmployeeManageLocale, PrimaryJobLocale, EmployeeBankAccountLocale,
+  RoleManageLocale, RoleGroupLocale, RoleTagsLocale, FunctionPermissionByRoleLocale, FunctionPermissionByUserLocale, DataPermissionByRoleLocale, DataPermissionByUserLocale, BaseTaxSystemLocale, BaseTaxTypeLocale,
+  BaseBankTypeLocale, BaseBankBranchLocale, BaseSettlementMethodMapperLocale, BasePeriodicBillingLocale, BaseSettlementCycleLocale, BaseCompanySizeLocale, BaseCompanyNatureLocale, BaseAccountPurposeLocale, BaseCorporateFundAccountLocale,
+  BaseFundAccountCurrencyLocale, BaseCorporateCashAccountLocale, SysBusinessLogLocale, SysLoginLogLocale, SysOperatorLogLocale, SysExceptionLogLocale, SysOperatorLogReportLocale,
+  SysWarningTypeLocale, SysWarningTypeParamLocale, SysWarningTaskLocale, JobListLocale,
+  JobDetailLocale, JobMonitoringLocale, MyJobsLocale,
+  TeamJobsLocale, JobAssignmentLocale, AssignmentRulesLocale, PerformanceAnalysisLocale,
+  BookingCommonLocale, BookingListLocale, BookingCreateLocale,
   WaybillListLocale, WaybillCreateLocale, WaybillQueryLocale, WaybillTemplateLocale, WaybillStatisticsLocale, WaybillArchiveLocale,
   OrderListLocale, OrderDetailLocale, OrderStatisticsLocale,
   OrderQueryLocale, OrderAuditLocale, OrderBreakdownLocale, BreakdownRulesLocale, StandaloneServiceLocale, ServiceConfigLocale, ServiceTemplateLocale, ServicePerformanceLocale,
-  TrackingOverviewLocale, MilestoneConfigLocale, RealtimeTrackingLocale, ExceptionAlertLocale, CustomerNotificationLocale, TrackingReportLocale, InterfaceManagementLocale,  
+  TrackingOverviewLocale, MilestoneConfigLocale, RealtimeTrackingLocale, ExceptionAlertLocale, CustomerNotificationLocale, TrackingReportLocale, InterfaceManagementLocale,
   DocumentOverviewLocale, DocumentListLocale, DocumentCreateLocale, DocumentQueryLocale, DocumentReviewLocale, DocumentTemplateLocale, DocumentSignatureLocale, DocumentVersionLocale, DocumentDetailLocale,
   DocumentArchiveLocale, DocumentComplianceLocale, DocumentBatchLocale, DocumentInterfaceLocale, DocumentReportLocale,
+  CostOverviewLocale, ReceivableCostLocale, PayableCostLocale, CostReviewCenterLocale,
 };
 
 export default {
-  ...OrdersLocale,...OrderFeeLocale,...FeeReconciliationLocale,...PhysicalInvoiceLocale,...OrderBillLocale,...OrderDocumentLocale,...CommonLocale,...InvoiceLocale,...BillManageLocale,...StatementOfAccountLocale,
-  ...SetFeeScheduleLocale,...ChargingStandardLocale,...NotOffSettingLocale,...HasOffSettingLocale,...CashBasisAccountingLocale,...OffSettingDetailLocale,...AccountingBookLocale,...VoucherGroupingRuleLocale,...EntryGroupingRuleLocale,
-  ...SummaryRuleLocale,...VoucherTypeLocale,...CodeMappingLocale,...AccountMappingLocale,...PaymentApplicationLocale,...PaymentApplicationFeeLocale,...PaymentApplicationBusinessLocale,...ReleaseOrderVerificationLocale,
-  ...ReleaseOrderVerificationFeeLocale,...BlReleaseLocale,...ReconciliationRuleEngineLocale,...ExpenseReviewLocale,...FeeAdjustmentFeeLocale,...FeeAdjustmentLocale,...ActualPaymentLocale,...StatementObjectLocale,
-  ...VoucherLogLocale,...VoucherDetailLocale,...BaseGoodsLocale,...BaseAmsPortLocale,...BaseEdiPortLocale,...BaseSeaportLocale,...BaseRailwayPortLocale,...BaseExchangeRateLocale,
-  ...BaseTaxRateLocale,...BaseSettlementMethodLocale,...BaseTradeLanesLocale,...BaseTradeLanesGroupingLocale,...BaseShipmentTypeLocale,...BaseBusinessTypeLocale,...BaseTransportationTermsLocale,...BaseTradeTermsLocale,
-  ...BaseFreightTermsLocale,...BaseBillTermsLocale,...BaseContainerTeuLocale,...BaseCargoTypeLocale,...BaseContainerTypeLocale,...ContractsManageLocale,...BusinessPartnerLocale,...ContactLocale,
-  ...PortDestinationAgentLocale,...InvoiceRequirementLocale,...DeliveryAgentLocale,...SpaceCarrierLocale,...EdiConfigLocale,...VisitCustomerLocale,...InternalAgentSettlementLocale,
-  ...PartnerPerformanceRuleLocale,...AdvancedRuleConfigLocale,...KpiDefinitionLocale,...RuleKpiItemLocale,...KpiScoreReportLocale,...CustomerLevelLocale,...CustomerTypeLocale,...CustomerIndustryLocale,
-  ...ManageOrgLocale,...AdminOrgLocale,...JobPositionLocale,...EmployeeCategoryLocale,...EmployeeManageLocale,...PrimaryJobLocale,...EmployeeBankAccountLocale,...RoleManageLocale,...RoleGroupLocale,...RoleTagsLocale,
-  ...FunctionPermissionByRoleLocale,...FunctionPermissionByUserLocale,...DataPermissionByRoleLocale,...DataPermissionByUserLocale,...BaseTaxSystemLocale,...BaseTaxTypeLocale,
-  ...BaseBankTypeLocale,...BaseBankBranchLocale,...BaseSettlementMethodMapperLocale,...BasePeriodicBillingLocale,...BaseSettlementCycleLocale,...BaseCompanySizeLocale,...BaseCompanyNatureLocale,...BaseAccountPurposeLocale,
-  ...BaseCorporateFundAccountLocale,...BaseFundAccountCurrencyLocale,...BaseCorporateCashAccountLocale,...SysBusinessLogLocale,...SysLoginLogLocale,...SysOperatorLogLocale,...SysExceptionLogLocale,
-  ...SysOperatorLogReportLocale,...SysWarningTypeLocale,...SysWarningTypeParamLocale,...SysWarningTaskLocale,...JobListLocale,
-  ...JobDetailLocale,...JobMonitoringLocale,...MyJobsLocale,
-  ...TeamJobsLocale,...JobAssignmentLocale,...AssignmentRulesLocale,...PerformanceAnalysisLocale,
-  ...BookingCommonLocale,...BookingListLocale,...BookingCreateLocale,
-  ...WaybillListLocale,...WaybillCreateLocale,...WaybillQueryLocale,...WaybillTemplateLocale,...WaybillStatisticsLocale,...WaybillArchiveLocale,
-  ...OrderListLocale,...OrderDetailLocale, ...OrderStatisticsLocale,
+  ...OrdersLocale, ...OrderFeeLocale, ...FeeReconciliationLocale, ...PhysicalInvoiceLocale, ...OrderBillLocale, ...OrderDocumentLocale, ...CommonLocale, ...InvoiceLocale, ...BillManageLocale, ...StatementOfAccountLocale,
+  ...SetFeeScheduleLocale, ...ChargingStandardLocale, ...NotOffSettingLocale, ...HasOffSettingLocale, ...CashBasisAccountingLocale, ...OffSettingDetailLocale, ...AccountingBookLocale, ...VoucherGroupingRuleLocale, ...EntryGroupingRuleLocale,
+  ...SummaryRuleLocale, ...VoucherTypeLocale, ...CodeMappingLocale, ...AccountMappingLocale, ...PaymentApplicationLocale, ...PaymentApplicationFeeLocale, ...PaymentApplicationBusinessLocale, ...ReleaseOrderVerificationLocale,
+  ...ReleaseOrderVerificationFeeLocale, ...BlReleaseLocale, ...ReconciliationRuleEngineLocale, ...ExpenseReviewLocale, ...FeeAdjustmentFeeLocale, ...FeeAdjustmentLocale, ...ActualPaymentLocale, ...StatementObjectLocale,
+  ...VoucherLogLocale, ...VoucherDetailLocale, ...BaseGoodsLocale, ...BaseAmsPortLocale, ...BaseEdiPortLocale, ...BaseSeaportLocale, ...BaseRailwayPortLocale, ...BaseExchangeRateLocale,
+  ...BaseTaxRateLocale, ...BaseSettlementMethodLocale, ...BaseTradeLanesLocale, ...BaseTradeLanesGroupingLocale, ...BaseShipmentTypeLocale, ...BaseBusinessTypeLocale, ...BaseTransportationTermsLocale, ...BaseTradeTermsLocale,
+  ...BaseFreightTermsLocale, ...BaseBillTermsLocale, ...BaseContainerTeuLocale, ...BaseCargoTypeLocale, ...BaseContainerTypeLocale, ...ContractsManageLocale, ...BusinessPartnerLocale, ...ContactLocale,
+  ...PortDestinationAgentLocale, ...InvoiceRequirementLocale, ...DeliveryAgentLocale, ...SpaceCarrierLocale, ...EdiConfigLocale, ...VisitCustomerLocale, ...InternalAgentSettlementLocale,
+  ...PartnerPerformanceRuleLocale, ...AdvancedRuleConfigLocale, ...KpiDefinitionLocale, ...RuleKpiItemLocale, ...KpiScoreReportLocale, ...CustomerLevelLocale, ...CustomerTypeLocale, ...CustomerIndustryLocale,
+  ...ManageOrgLocale, ...AdminOrgLocale, ...JobPositionLocale, ...EmployeeCategoryLocale, ...EmployeeManageLocale, ...PrimaryJobLocale, ...EmployeeBankAccountLocale, ...RoleManageLocale, ...RoleGroupLocale, ...RoleTagsLocale,
+  ...FunctionPermissionByRoleLocale, ...FunctionPermissionByUserLocale, ...DataPermissionByRoleLocale, ...DataPermissionByUserLocale, ...BaseTaxSystemLocale, ...BaseTaxTypeLocale,
+  ...BaseBankTypeLocale, ...BaseBankBranchLocale, ...BaseSettlementMethodMapperLocale, ...BasePeriodicBillingLocale, ...BaseSettlementCycleLocale, ...BaseCompanySizeLocale, ...BaseCompanyNatureLocale, ...BaseAccountPurposeLocale,
+  ...BaseCorporateFundAccountLocale, ...BaseFundAccountCurrencyLocale, ...BaseCorporateCashAccountLocale, ...SysBusinessLogLocale, ...SysLoginLogLocale, ...SysOperatorLogLocale, ...SysExceptionLogLocale,
+  ...SysOperatorLogReportLocale, ...SysWarningTypeLocale, ...SysWarningTypeParamLocale, ...SysWarningTaskLocale, ...JobListLocale,
+  ...JobDetailLocale, ...JobMonitoringLocale, ...MyJobsLocale,
+  ...TeamJobsLocale, ...JobAssignmentLocale, ...AssignmentRulesLocale, ...PerformanceAnalysisLocale,
+  ...BookingCommonLocale, ...BookingListLocale, ...BookingCreateLocale,
+  ...WaybillListLocale, ...WaybillCreateLocale, ...WaybillQueryLocale, ...WaybillTemplateLocale, ...WaybillStatisticsLocale, ...WaybillArchiveLocale,
+  ...OrderListLocale, ...OrderDetailLocale, ...OrderStatisticsLocale,
   ...OrderQueryLocale, ...StandaloneServiceLocale, ...ServiceConfigLocale, ...ServiceTemplateLocale, ...ServicePerformanceLocale, ...OrderAuditLocale, ...OrderBreakdownLocale, ...BreakdownRulesLocale,
   ...TrackingOverviewLocale, ...MilestoneConfigLocale, ...RealtimeTrackingLocale, ...ExceptionAlertLocale, ...CustomerNotificationLocale, ...TrackingReportLocale, ...InterfaceManagementLocale,
   ...DocumentOverviewLocale, ...DocumentListLocale, ...DocumentCreateLocale, ...DocumentQueryLocale, ...DocumentReviewLocale, ...DocumentTemplateLocale, ...DocumentSignatureLocale, ...DocumentVersionLocale, ...DocumentDetailLocale,
   ...DocumentArchiveLocale, ...DocumentComplianceLocale, ...DocumentBatchLocale, ...DocumentInterfaceLocale, ...DocumentReportLocale,
+  ...CostOverviewLocale, ...ReceivableCostLocale, ...PayableCostLocale, ...CostReviewCenterLocale,
 };

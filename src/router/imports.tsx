@@ -202,6 +202,18 @@ const DocumentReviewDetail = React.lazy(() => import("@/pages/freight_forwarding
 const DocumentVersionDetail = React.lazy(() => import("@/pages/freight_forwarding/document_management/version/detail"));
 const DocumentVersionCompare = React.lazy(() => import("@/pages/freight_forwarding/document_management/version/compare"));
 
+// 费用管理
+const ReceivableCostList = React.lazy(() => import("@/pages/freight_forwarding/cost_management/receivable_cost"));
+const ReceivableCostForm = React.lazy(() => import("@/pages/freight_forwarding/cost_management/receivable_cost/form"));
+const PayableCostList = React.lazy(() => import("@/pages/freight_forwarding/cost_management/payable_cost"));
+const PayableCostForm = React.lazy(() => import("@/pages/freight_forwarding/cost_management/payable_cost/form"));
+const CostOverview = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview"));
+const CostDetail = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview/detail"));
+const CostCalculation = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview/calculation"));
+const ProfitAnalysis = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview/profit_analysis"));
+const CostReviewCenter = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_review_center"));
+
+
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
   TeamJobs, JobAssignment, AssignmentRules, PerformanceAnalysis,
@@ -213,6 +225,7 @@ export {
   DocumentOverview, DocumentList, DocumentCreate, DocumentQuery, DocumentReview, DocumentReviewDetail, DocumentTemplate, DocumentTemplateDetail, DocumentTemplateEdit, DocumentSignature, DocumentSignatureEdit, DocumentVersion, DocumentVersionDetail, DocumentVersionCompare, DocumentDetail,
   DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
   DocumentComplianceDetail,
+  ReceivableCostList, ReceivableCostForm, PayableCostList, PayableCostForm, CostOverview, CostDetail, CostCalculation, ProfitAnalysis, CostReviewCenter,
   Demo, ContainerLoading, Home, Lev1Department,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

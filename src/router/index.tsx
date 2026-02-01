@@ -74,7 +74,8 @@ import {
   BookingList, BookingCreate, BookingQuery, BookingPickupPlan, BookingCarrierIntegration, BookingSpace, BookingStatistics, BookingTemplate, BookingTemplateDetail, BookingTemplateEdit,
   TrackingOverview, TrackingOverviewDetail, TrackingReport, RealtimeTracking, MilestoneConfig, MilestoneConfigEdit, InterfaceManagement, InterfaceConfigEdit, ExceptionAlert, CustomerNotification, TemplateList, TemplateDetail,
   DocumentCreate, DocumentQuery, DocumentDetail, DocumentOverview, DocumentList, DocumentReview, DocumentReviewDetail, DocumentSignature, DocumentTemplate, DocumentVersion,
-  DocumentArchive, DocumentCompliance, DocumentComplianceDetail, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit,DocumentVersionDetail,DocumentVersionCompare,
+  DocumentArchive, DocumentCompliance, DocumentComplianceDetail, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit, DocumentVersionDetail, DocumentVersionCompare,
+  ReceivableCostList, ReceivableCostForm, PayableCostList, PayableCostForm, CostOverview, CostDetail, CostCalculation, ProfitAnalysis, CostReviewCenter,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -245,6 +246,29 @@ const routers = createMemoryRouter([
           { path: "interface", handle: { title: '第三方接口' }, element: <RouterGuard><DocumentInterface /></RouterGuard> },
           { path: "report", handle: { title: '单证统计报表' }, element: <RouterGuard><DocumentReport /></RouterGuard> },
           { path: "detail/:id", handle: { title: '单证详情' }, element: <RouterGuard><DocumentDetail /></RouterGuard> },
+        ]
+      },
+      // 费用管理
+      {
+        path: "/cost_management",
+        handle: { title: '费用管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          { path: "cost_overview", handle: { title: '费用总览' }, element: <RouterGuard><CostOverview /></RouterGuard> },
+          { path: "cost_detail/:id", handle: { title: '费用详情' }, element: <RouterGuard><CostDetail /></RouterGuard> },
+          { path: "cost_calculation", handle: { title: '费用计算' }, element: <RouterGuard><CostCalculation /></RouterGuard> },
+          { path: "profit_analysis", handle: { title: '毛利分析' }, element: <RouterGuard><ProfitAnalysis /></RouterGuard> },
+          { path: "receivable_cost", handle: { title: '应收费用管理' }, element: <RouterGuard><ReceivableCostList /></RouterGuard> },
+          { path: "receivable_cost/create", handle: { title: '新建应收费用' }, element: <RouterGuard><ReceivableCostForm /></RouterGuard> },
+          { path: "receivable_cost/edit/:id", handle: { title: '编辑应收费用' }, element: <RouterGuard><ReceivableCostForm /></RouterGuard> },
+          { path: "payable_cost", handle: { title: '应付费用管理' }, element: <RouterGuard><PayableCostList /></RouterGuard> },
+          { path: "payable_cost/create", handle: { title: '新建应付费用' }, element: <RouterGuard><PayableCostForm /></RouterGuard> },
+          { path: "payable_cost/edit/:id", handle: { title: '编辑应付费用' }, element: <RouterGuard><PayableCostForm /></RouterGuard> },
+          { path: "cost_review_center", handle: { title: '费用审核中心' }, element: <RouterGuard><CostReviewCenter /></RouterGuard> },
         ]
       },
       {

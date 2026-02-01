@@ -80,6 +80,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "单证管理", key: "document_management",
             },
+            {
+                name: "费用管理", key: "cost_management",
+            },
         ]
     },
 
@@ -93,37 +96,37 @@ const childrenMenuData: MenuGroup[] = [{
             name: "币种", key: "currency", path: "/basic_finance/currency",
         },
         {
-            name: "税制档案", key: "base_tax_system",path: "/basic_finance/base_tax_system",
+            name: "税制档案", key: "base_tax_system", path: "/basic_finance/base_tax_system",
         },
         {
-            name: "税种档案", key: "base_tax_type",path: "/basic_finance/base_tax_type",
+            name: "税种档案", key: "base_tax_type", path: "/basic_finance/base_tax_type",
         },
         {
-            name: "税率档案", key: "base_tax_rate",path: "/basic_finance/base_tax_rate",
+            name: "税率档案", key: "base_tax_rate", path: "/basic_finance/base_tax_rate",
         },
         {
-            name: "银行类别", key: "base_bank_type",path: "/basic_finance/base_bank_type",
+            name: "银行类别", key: "base_bank_type", path: "/basic_finance/base_bank_type",
         },
         {
-            name: "银行网点", key: "base_bank_branch",path: "/basic_finance/base_bank_branch",
+            name: "银行网点", key: "base_bank_branch", path: "/basic_finance/base_bank_branch",
         },
         {
-            name: "结算方式", key: "base_settlement_method",path: "/basic_finance/base_settlement_method",
+            name: "结算方式", key: "base_settlement_method", path: "/basic_finance/base_settlement_method",
         },
         {
-            name: "结算方式对照", key: "base_settlement_method_mapper",path: "/basic_finance/base_settlement_method_mapper",
+            name: "结算方式对照", key: "base_settlement_method_mapper", path: "/basic_finance/base_settlement_method_mapper",
         },
         {
-            name: "开票周期", key: "base_periodic_billing",path: "/basic_finance/base_periodic_billing",
+            name: "开票周期", key: "base_periodic_billing", path: "/basic_finance/base_periodic_billing",
         },
         {
-            name: "结算周期", key: "settlement_cycle",path: "/basic_finance/base_settlement_cycle",
+            name: "结算周期", key: "settlement_cycle", path: "/basic_finance/base_settlement_cycle",
         },
         {
-            name: "汇率管理", key: "base_exchange_rate",path: "/basic_finance/base_exchange_rate",
+            name: "汇率管理", key: "base_exchange_rate", path: "/basic_finance/base_exchange_rate",
         },
         {
-            name: "测试页面", key: "demo",path: "/demo",
+            name: "测试页面", key: "demo", path: "/demo",
         },
     ]
 },
@@ -133,7 +136,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "integration_tool",
     apps: [
         {
-            name: "集装箱装箱", key: "container_loading",path: "/container/container_loading",
+            name: "集装箱装箱", key: "container_loading", path: "/container/container_loading",
         },
 
     ]
@@ -175,19 +178,19 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic_manage",
     apps: [
         {
-            name: "企业规模", key: "company_size",path: "/basic_company/base_company_size",
+            name: "企业规模", key: "company_size", path: "/basic_company/base_company_size",
         },
         {
-            name: "企业性质", key: "company_nature",path: "/basic_company/base_company_nature",
+            name: "企业性质", key: "company_nature", path: "/basic_company/base_company_nature",
         },
         {
-            name: "账户用途", key: "base_account_purpose",path: "/basic_company/base_account_purpose",
+            name: "账户用途", key: "base_account_purpose", path: "/basic_company/base_account_purpose",
         },
         {
-            name: "企业资金账户", key: "base_corporate_fund_account",path: "/basic_company/base_corporate_fund_account",
+            name: "企业资金账户", key: "base_corporate_fund_account", path: "/basic_company/base_corporate_fund_account",
         },
         {
-            name: "企业现金账户", key: "base_corporate_cash_account",path: "/basic_company/base_corporate_cash_account",
+            name: "企业现金账户", key: "base_corporate_cash_account", path: "/basic_company/base_corporate_cash_account",
         },
     ]
 },
@@ -197,49 +200,49 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic_manage",
     apps: [
         {
-            name: "海关编码", key: "base_goods",path: "/base_business_manage/base_goods",
+            name: "海关编码", key: "base_goods", path: "/base_business_manage/base_goods",
         },
         {
-            name: "海港", key: "base_seaport",path: "/base_business_manage/base_seaport",
+            name: "海港", key: "base_seaport", path: "/base_business_manage/base_seaport",
         },
         {
-            name: "空港", key: "base_airport",path: "/base_business_manage/base_airport",
+            name: "空港", key: "base_airport", path: "/base_business_manage/base_airport",
         },
         {
-            name: "铁港", key: "base_railwayport",path: "/base_business_manage/base_railwayport",
+            name: "铁港", key: "base_railwayport", path: "/base_business_manage/base_railwayport",
         },
         {
-            name: "航线", key: "base_trade_lanes",path: "/base_business_manage/base_trade_lanes",
+            name: "航线", key: "base_trade_lanes", path: "/base_business_manage/base_trade_lanes",
         },
         {
-            name: "航线归类", key: "base_trade_lanes_grouping",path: "/base_business_manage/base_trade_lanes_grouping",
+            name: "航线归类", key: "base_trade_lanes_grouping", path: "/base_business_manage/base_trade_lanes_grouping",
         },
         {
-            name: "业务类型", key: "base_business_type",path: "/base_business_manage/base_business_type",
+            name: "业务类型", key: "base_business_type", path: "/base_business_manage/base_business_type",
         },
         {
-            name: "出运类型", key: "base_shipment_type",path: "/base_business_manage/base_shipment_type",
+            name: "出运类型", key: "base_shipment_type", path: "/base_business_manage/base_shipment_type",
         },
         {
-            name: "运输条款", key: "base_transportation_terms",path: "/base_business_manage/base_transportation_terms",
+            name: "运输条款", key: "base_transportation_terms", path: "/base_business_manage/base_transportation_terms",
         },
         {
-            name: "贸易条款", key: "transport_method",path: "/base_business_manage/base_trade_terms",
+            name: "贸易条款", key: "transport_method", path: "/base_business_manage/base_trade_terms",
         },
         {
-            name: "运费条款", key: "base_freight_terms",path: "/base_business_manage/base_freight_terms",
+            name: "运费条款", key: "base_freight_terms", path: "/base_business_manage/base_freight_terms",
         },
         {
-            name: "提单条款", key: "base_bill_terms",path: "/base_business_manage/base_bill_terms",
+            name: "提单条款", key: "base_bill_terms", path: "/base_business_manage/base_bill_terms",
         },
         {
-            name: "货物类型", key: "base_cargo_type",path: "/base_business_manage/base_cargo_type",
+            name: "货物类型", key: "base_cargo_type", path: "/base_business_manage/base_cargo_type",
         },
         {
-            name: "箱型种类", key: "base_container_type",path: "/base_business_manage/base_container_type",
+            name: "箱型种类", key: "base_container_type", path: "/base_business_manage/base_container_type",
         },
         {
-            name: "箱型TEU", key: "base_container_teu",path: "/base_business_manage/base_container_teu",
+            name: "箱型TEU", key: "base_container_teu", path: "/base_business_manage/base_container_teu",
         },
     ]
 },
@@ -249,22 +252,22 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic_manage",
     apps: [
         {
-            name: "合同管理", key: "contracts_manage",path: "/cooperation_party/contracts_manage",
+            name: "合同管理", key: "contracts_manage", path: "/cooperation_party/contracts_manage",
         },
         {
-            name: "基本信息", key: "business_partner",path: "/cooperation_party/business_partner",
+            name: "基本信息", key: "business_partner", path: "/cooperation_party/business_partner",
         },
         {
-            name: "绩效规则", key: "performance",path: "/cooperation_party/partner_performance_rule",
+            name: "绩效规则", key: "performance", path: "/cooperation_party/partner_performance_rule",
         },
         {
-            name: "客户级别", key: "customer_level",path: "/cooperation_party/customer_level",
+            name: "客户级别", key: "customer_level", path: "/cooperation_party/customer_level",
         },
         {
-            name: "客户分类", key: "customer_type",path: "/cooperation_party/customer_type",
+            name: "客户分类", key: "customer_type", path: "/cooperation_party/customer_type",
         },
         {
-            name: "客户行业", key: "customer_industry",path: "/cooperation_party/customer_industry",
+            name: "客户行业", key: "customer_industry", path: "/cooperation_party/customer_industry",
         },
     ]
 },
@@ -274,7 +277,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "basic_manage",
     apps: [
         {
-            name: "日历管理", key: "task_calendar_view",path: "/date/task_calendar_view",
+            name: "日历管理", key: "task_calendar_view", path: "/date/task_calendar_view",
         },
     ]
 },
@@ -284,13 +287,13 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "org_manage",
     apps: [
         {
-            name: "管理组织", key: "manage_org",path: "/org/manage_org",
+            name: "管理组织", key: "manage_org", path: "/org/manage_org",
         },
         {
-            name: "行政组织", key: "admin_org",path: "/org/admin_org",
+            name: "行政组织", key: "admin_org", path: "/org/admin_org",
         },
         {
-            name: "部门", key: "department",path: "/org/department",
+            name: "部门", key: "department", path: "/org/department",
         },
         // {
         //     name: "职务类别", key: "job_type",
@@ -305,7 +308,7 @@ const childrenMenuData: MenuGroup[] = [{
         //     name: "职级", key: "level",
         // },
         {
-            name: "岗位", key: "job_position",path: "/org/job_position",
+            name: "岗位", key: "job_position", path: "/org/job_position",
         },
     ]
 },
@@ -315,10 +318,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "org_manage",
     apps: [
         {
-            name: "员工类别", key: "employee_category",path: "/employee/employee_category",
+            name: "员工类别", key: "employee_category", path: "/employee/employee_category",
         },
         {
-            name: "员工管理", key: "employee_manage",path: "/employee/employee_manage",
+            name: "员工管理", key: "employee_manage", path: "/employee/employee_manage",
         },
     ]
 },
@@ -328,13 +331,13 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "角色管理", key: "role_manage",path: "/role/role_manage",
+            name: "角色管理", key: "role_manage", path: "/role/role_manage",
         },
         {
-            name: "角色组", key: "role_group",path: "/role/role_group",
+            name: "角色组", key: "role_group", path: "/role/role_group",
         },
         {
-            name: "角色标签", key: "role_tag",path: "/role/role_tags",
+            name: "角色标签", key: "role_tag", path: "/role/role_tags",
         },
     ]
 },
@@ -357,16 +360,16 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "permission",
     apps: [
         {
-            name: "功能权限查询（按角色）", key: "function_permission_by_role",path: "/authorization_query/function_permission_by_role",
+            name: "功能权限查询（按角色）", key: "function_permission_by_role", path: "/authorization_query/function_permission_by_role",
         },
         {
-            name: "功能权限查询（按用户）", key: "function_permission_by_user",path: "/authorization_query/function_permission_by_user",
+            name: "功能权限查询（按用户）", key: "function_permission_by_user", path: "/authorization_query/function_permission_by_user",
         },
         {
-            name: "数据权限查询（按角色）", key: "data_permission_by_role",path: "/authorization_query/data_permission_by_role",
+            name: "数据权限查询（按角色）", key: "data_permission_by_role", path: "/authorization_query/data_permission_by_role",
         },
         {
-            name: "数据权限查询（按用户）", key: "data_permission_by_user",path: "/authorization_query/data_permission_by_user",
+            name: "数据权限查询（按用户）", key: "data_permission_by_user", path: "/authorization_query/data_permission_by_user",
         },
     ]
 },
@@ -386,7 +389,7 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "菜单管理", key: "menu_manage",path: "/menu_manage/menu_manage",
+            name: "菜单管理", key: "menu_manage", path: "/menu_manage/menu_manage",
         },
         {
             name: "功能按钮", key: "function_button",
@@ -409,10 +412,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "预警任务", key: "sys_warning_task",path: "/warning_task/sys_warning_task",
+            name: "预警任务", key: "sys_warning_task", path: "/warning_task/sys_warning_task",
         },
         {
-            name: "预警类型", key: "sys_warning_type",path: "/warning_task/sys_warning_type",
+            name: "预警类型", key: "sys_warning_type", path: "/warning_task/sys_warning_type",
         },
     ]
 },
@@ -444,25 +447,25 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "system",
     apps: [
         {
-            name: "登录日志", key: "sys_login_log",path: "/log_manage/sys_login_log",
+            name: "登录日志", key: "sys_login_log", path: "/log_manage/sys_login_log",
         },
         {
-            name: "业务日志", key: "sys_business_log",path: "/log_manage/sys_business_log",
+            name: "业务日志", key: "sys_business_log", path: "/log_manage/sys_business_log",
         },
         {
-            name: "操作日志", key: "sys_operator_log",path: "/log_manage/sys_operator_log",
+            name: "操作日志", key: "sys_operator_log", path: "/log_manage/sys_operator_log",
         },
         {
-            name: "异常日志", key: "sys_exception_log",path: "/log_manage/sys_exception_log",
+            name: "异常日志", key: "sys_exception_log", path: "/log_manage/sys_exception_log",
         },
         {
-            name: "操作日志统计", key: "sys_operator_log_report",path: "/log_manage/sys_operator_log_report",
+            name: "操作日志统计", key: "sys_operator_log_report", path: "/log_manage/sys_operator_log_report",
         },
         {
-            name: "导入日志", key: "import_log",path: "/log_manage/importlog",
+            name: "导入日志", key: "import_log", path: "/log_manage/importlog",
         },
         {
-            name: "导出日志", key: "export_log",path: "/log_manage/exportlog",
+            name: "导出日志", key: "export_log", path: "/log_manage/exportlog",
         },
     ]
 },
@@ -631,10 +634,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "finance_manage",
     apps: [
         {
-            name: "综合财务查询", key: "finance_query",path: "/finance_query/finance_query",
+            name: "综合财务查询", key: "finance_query", path: "/finance_query/finance_query",
         },
         {
-            name: "凭证查询", key: "voucher_log",path: "/finance_query/voucher_log",
+            name: "凭证查询", key: "voucher_log", path: "/finance_query/voucher_log",
         },
     ]
 },
@@ -707,10 +710,10 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "中国地图", key: "china_map",path: "/large_screen/china_map",
+            name: "中国地图", key: "china_map", path: "/large_screen/china_map",
         },
         {
-            name: "集团大屏", key: "lev1_department",path: "/large_screen/lev1_department",
+            name: "集团大屏", key: "lev1_department", path: "/large_screen/lev1_department",
         },
     ]
 },
@@ -720,28 +723,28 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "销售箱量统计表", key: "sales_business_weight_report",path: "/business_statistics/sales_business_weight_report",
+            name: "销售箱量统计表", key: "sales_business_weight_report", path: "/business_statistics/sales_business_weight_report",
         },
         {
-            name: "业务对比分析表", key: "sales_business_amount_report",path: "/business_statistics/sales_business_amount_report",
+            name: "业务对比分析表", key: "sales_business_amount_report", path: "/business_statistics/sales_business_amount_report",
         },
         {
-            name: "销售毛利润统计表", key: "sales_profit_report",path: "/business_statistics/sales_profit_report",
+            name: "销售毛利润统计表", key: "sales_profit_report", path: "/business_statistics/sales_profit_report",
         },
         {
             name: "接单部门箱量利润汇总表", key: "department_business_weight_report", path: "/business_statistics/department_business_weight_report",
         },
         {
-            name: "单票利润统计", key: "single_ticket_profit_statistics_report",path: "/business_statistics/single_ticket_profit_statistics_report",
+            name: "单票利润统计", key: "single_ticket_profit_statistics_report", path: "/business_statistics/single_ticket_profit_statistics_report",
         },
         {
-            name: "操作员票数箱量利润汇总表", key: "operator_shipment_summary_report",path: "/business_statistics/operator_shipment_summary_report",
+            name: "操作员票数箱量利润汇总表", key: "operator_shipment_summary_report", path: "/business_statistics/operator_shipment_summary_report",
         },
         {
-            name: "航线货量分析", key: "transportation_line_teu_report",path: "/business_statistics/transportation_line_teu_report",
+            name: "航线货量分析", key: "transportation_line_teu_report", path: "/business_statistics/transportation_line_teu_report",
         },
         {
-            name: "客户箱量利润汇总表", key: "customer_weight_profit_report",path: "/business_statistics/customer_weight_profit_report",
+            name: "客户箱量利润汇总表", key: "customer_weight_profit_report", path: "/business_statistics/customer_weight_profit_report",
         },
     ]
 },
@@ -752,25 +755,25 @@ const childrenMenuData: MenuGroup[] = [{
     parentkey: "report_manage",
     apps: [
         {
-            name: "未收未付统计对账表", key: "outstanding_receivables_payables_report",path: "/finance_statistics/outstanding_receivables_payables_report",
+            name: "未收未付统计对账表", key: "outstanding_receivables_payables_report", path: "/finance_statistics/outstanding_receivables_payables_report",
         },
         {
-            name: "未收对账表（按费用）", key: "not_receivables_fee_report",path: "/finance_statistics/not_receivables_fee_report",
+            name: "未收对账表（按费用）", key: "not_receivables_fee_report", path: "/finance_statistics/not_receivables_fee_report",
         },
         {
-            name: "未收对账表（按业务单号）", key: "not_receivables_order_report",path: "/finance_statistics/not_receivables_order_report",
+            name: "未收对账表（按业务单号）", key: "not_receivables_order_report", path: "/finance_statistics/not_receivables_order_report",
         },
         {
-            name: "应收未收对账表（按业务单号）", key: "accounts_receivable_aging_report",path: "/finance_statistics/accounts_receivable_aging_report",
+            name: "应收未收对账表（按业务单号）", key: "accounts_receivable_aging_report", path: "/finance_statistics/accounts_receivable_aging_report",
         },
         {
-            name: "未付对账表（按费用）", key: "not_pay_fee_report",path: "/finance_statistics/not_pay_fee_report",
+            name: "未付对账表（按费用）", key: "not_pay_fee_report", path: "/finance_statistics/not_pay_fee_report",
         },
         {
-            name: "未付对账表（按业务单号）", key: "unpaid_work_order_statement",path: "/finance_statistics/not_pay_order_report",
+            name: "未付对账表（按业务单号）", key: "unpaid_work_order_statement", path: "/finance_statistics/not_pay_order_report",
         },
         {
-            name: "客户欠账分析", key: "customer_arrears_analysis_report",path: "/finance_statistics/customer_arrears_analysis_report",
+            name: "客户欠账分析", key: "customer_arrears_analysis_report", path: "/finance_statistics/customer_arrears_analysis_report",
         },
     ]
 },
@@ -805,69 +808,80 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "舱位管理", key: "booking_space", path: "/booking_management/space" },
         { name: "订舱统计", key: "booking_statistics", path: "/booking_management/statistics" },
         { name: "订舱模板", key: "booking_template", path: "/booking_management/template" },
-        ]
-    },
-    {
-        title: "里程碑跟踪",
-        key: "milestone_tracking",
-        parentkey: "milestone_tracking",
-        apps: [
-            { name: "跟踪总览", key: "tracking_overview", path: "/milestone_tracking/tracking_overview" },
-            { name: "里程碑配置", key: "milestone_config", path: "/milestone_tracking/milestone_config" },
-            // { name: "实时跟踪", key: "realtime_tracking", path: "/milestone_tracking/realtime_tracking" },
-            { name: "异常预警", key: "exception_alert", path: "/milestone_tracking/exception_alert" },
-            { name: "客户通知", key: "customer_notification", path: "/milestone_tracking/customer_notification" },
-            { name: "跟踪报表", key: "tracking_report", path: "/milestone_tracking/tracking_report" },
-            { name: "第三方接口管理", key: "interface_management", path: "/milestone_tracking/interface_management" },
-        ]
-    },
-    {
-        title: "作业管理",
-        key: "job_management",
-        parentkey: "job_management",
-        apps: [
-            { name: "作业列表", key: "job_list", path: "/job_management/list" },
-            { name: "作业分派", key: "job_assignment", path: "/job_management/assignment" },
-            { name: "我的作业", key: "my_jobs", path: "/job_management/my_jobs" },
-            { name: "团队作业", key: "team_jobs", path: "/job_management/team_jobs" },
-            { name: "作业监控", key: "job_monitoring", path: "/job_management/monitoring" },
-            { name: "分派规则配置", key: "assignment_rules", path: "/job_management/rules" },
-            { name: "作业绩效分析", key: "performance_analysis", path: "/job_management/analysis" },
-        ]
-    },
-    {
-        title: "运单管理",
-        key: "waybill_management",
-        parentkey: "waybill_management",
-        apps: [
-            { name: "运单列表", key: "waybill_list", path: "/waybill_management/list" },
-            { name: "新建运单", key: "waybill_create", path: "/waybill_management/create" },
-            { name: "运单查询", key: "waybill_query", path: "/waybill_management/query" },
-            { name: "运单模板", key: "waybill_template", path: "/waybill_management/template" },
-            { name: "统计分析", key: "waybill_statistics", path: "/waybill_management/statistics" },
-            { name: "归档管理", key: "waybill_archive", path: "/waybill_management/archive" },
-        ]
-    },
-    {
-        title: "单证管理",
-        key: "document_management",
-        parentkey: "document_management",
-        apps: [
-            { name: "单证概览", key: "document_overview", path: "/document_management/overview" },
-            { name: "单证列表", key: "document_list", path: "/document_management/list" },
-            { name: "单证生成", key: "document_create", path: "/document_management/create" },
-            { name: "单证查询", key: "document_query", path: "/document_management/query" },
-            { name: "单证审核", key: "document_review", path: "/document_management/review" },
-            { name: "模板管理", key: "document_template", path: "/document_management/template" },
-            { name: "电子签章", key: "document_signature", path: "/document_management/signature" },
-            { name: "版本控制", key: "document_version", path: "/document_management/version" },
-            { name: "单证归档", key: "document_archive", path: "/document_management/archive" },
-            { name: "合规检查", key: "document_compliance", path: "/document_management/compliance" },
-            { name: "批量操作", key: "document_batch", path: "/document_management/batch" },
-            { name: "第三方接口", key: "document_interface", path: "/document_management/interface" },
-            { name: "单证统计报表", key: "document_report", path: "/document_management/report" },
-        ]
-    },
+    ]
+},
+{
+    title: "里程碑跟踪",
+    key: "milestone_tracking",
+    parentkey: "milestone_tracking",
+    apps: [
+        { name: "跟踪总览", key: "tracking_overview", path: "/milestone_tracking/tracking_overview" },
+        { name: "里程碑配置", key: "milestone_config", path: "/milestone_tracking/milestone_config" },
+        // { name: "实时跟踪", key: "realtime_tracking", path: "/milestone_tracking/realtime_tracking" },
+        { name: "异常预警", key: "exception_alert", path: "/milestone_tracking/exception_alert" },
+        { name: "客户通知", key: "customer_notification", path: "/milestone_tracking/customer_notification" },
+        { name: "跟踪报表", key: "tracking_report", path: "/milestone_tracking/tracking_report" },
+        { name: "第三方接口管理", key: "interface_management", path: "/milestone_tracking/interface_management" },
+    ]
+},
+{
+    title: "作业管理",
+    key: "job_management",
+    parentkey: "job_management",
+    apps: [
+        { name: "作业列表", key: "job_list", path: "/job_management/list" },
+        { name: "作业分派", key: "job_assignment", path: "/job_management/assignment" },
+        { name: "我的作业", key: "my_jobs", path: "/job_management/my_jobs" },
+        { name: "团队作业", key: "team_jobs", path: "/job_management/team_jobs" },
+        { name: "作业监控", key: "job_monitoring", path: "/job_management/monitoring" },
+        { name: "分派规则配置", key: "assignment_rules", path: "/job_management/rules" },
+        { name: "作业绩效分析", key: "performance_analysis", path: "/job_management/analysis" },
+    ]
+},
+{
+    title: "运单管理",
+    key: "waybill_management",
+    parentkey: "waybill_management",
+    apps: [
+        { name: "运单列表", key: "waybill_list", path: "/waybill_management/list" },
+        { name: "新建运单", key: "waybill_create", path: "/waybill_management/create" },
+        { name: "运单查询", key: "waybill_query", path: "/waybill_management/query" },
+        { name: "运单模板", key: "waybill_template", path: "/waybill_management/template" },
+        { name: "统计分析", key: "waybill_statistics", path: "/waybill_management/statistics" },
+        { name: "归档管理", key: "waybill_archive", path: "/waybill_management/archive" },
+    ]
+},
+{
+    title: "单证管理",
+    key: "document_management",
+    parentkey: "document_management",
+    apps: [
+        { name: "单证概览", key: "document_overview", path: "/document_management/overview" },
+        { name: "单证列表", key: "document_list", path: "/document_management/list" },
+        { name: "单证生成", key: "document_create", path: "/document_management/create" },
+        { name: "单证查询", key: "document_query", path: "/document_management/query" },
+        { name: "单证审核", key: "document_review", path: "/document_management/review" },
+        { name: "模板管理", key: "document_template", path: "/document_management/template" },
+        { name: "电子签章", key: "document_signature", path: "/document_management/signature" },
+        { name: "版本控制", key: "document_version", path: "/document_management/version" },
+        { name: "单证归档", key: "document_archive", path: "/document_management/archive" },
+        { name: "合规检查", key: "document_compliance", path: "/document_management/compliance" },
+        { name: "批量操作", key: "document_batch", path: "/document_management/batch" },
+        { name: "第三方接口", key: "document_interface", path: "/document_management/interface" },
+        { name: "单证统计报表", key: "document_report", path: "/document_management/report" },
+    ]
+},
+{
+    title: "费用管理",
+    key: "cost_management",
+    parentkey: "cost_management",
+    apps: [
+        { name: "费用总览", key: "cost_overview", path: "/cost_management/cost_overview" },
+        { name: "应收费用管理", key: "receivable_cost", path: "/cost_management/receivable_cost" },
+        { name: "应付费用管理", key: "payable_cost", path: "/cost_management/payable_cost" },
+        { name: "费用审核中心", key: "cost_review_center", path: "/cost_management/cost_review_center" },
+    ]
+},
 ]
 
 // 获取当前用户信息
