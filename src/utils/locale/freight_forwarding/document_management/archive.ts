@@ -29,4 +29,8 @@ export const DocumentArchiveLocale = {
   getDocumentArchiveLent: () => 'freight_forwarding.document_management.archive.lent',
   getDocumentArchiveLost: () => 'freight_forwarding.document_management.archive.lost',
   getDocumentArchiveDestroyed: () => 'freight_forwarding.document_management.archive.destroyed',
+  getDocumentArchiveBorrowerRequired: () => 'freight_forwarding.document_management.archive.borrower_required',
+  getDocumentArchiveBorrowDateRequired: () => 'freight_forwarding.document_management.archive.borrow_date_required',
+  getDocumentArchiveViewModalTitle: () => 'freight_forwarding.document_management.archive.view_modal_title',
+  getDocumentArchiveClose: () => 'freight_forwarding.document_management.archive.close',
 };
