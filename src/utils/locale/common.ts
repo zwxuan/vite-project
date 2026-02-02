@@ -85,4 +85,10 @@ export const CommonLocale = {
   getBack() {
     return "common.back";
   },
+  getLoading() {
+    return "common.loading";
+  },
+  getSelectPlaceholder() {
+    return "common.select_placeholder";
+  },
 };

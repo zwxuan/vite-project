@@ -186,9 +186,9 @@ const CostOverview: React.FC = () => {
             {/* 页面头部 */}
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap">
-                        <CustomIcon type="icon-Currency" style={{ fontSize: 24, marginRight: 8 }} />
-                        <span style={{ fontSize: 18, fontWeight: 500 }}>
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
                             {i18n.t(LocaleHelper.getCostOverviewTitle())}
                         </span>
                     </div>

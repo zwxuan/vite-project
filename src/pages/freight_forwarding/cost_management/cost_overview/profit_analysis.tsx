@@ -2,9 +2,13 @@
  * 毛利分析报表页面
  */
 import React, { useState, useEffect } from 'react';
-import { Card, Form, Select, DatePicker, Button, Table, Statistic, Row, Col, Space, message, Empty } from 'antd';
-import { LineChartOutlined, BarChartOutlined, ExportOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Card, Form, Select, DatePicker, Button, Table, Statistic, Row, Col, Space, message, Empty, Tooltip } from 'antd';
+import { LineChartOutlined, BarChartOutlined, ExportOutlined, ReloadOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import CustomIcon from '@/components/custom-icon';
 import type { ColumnsType } from 'antd/es/table';
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
 import '@/pages/page_list.less';
 
 const { RangePicker } = DatePicker;
@@ -27,6 +31,7 @@ interface TrendData {
 }
 
 const ProfitAnalysis: React.FC = () => {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [customerData, setCustomerData] = useState<CustomerProfitData[]>([]);
@@ -41,7 +46,7 @@ const ProfitAnalysis: React.FC = () => {
     // 客户盈利排行列定义
     const columns: ColumnsType<CustomerProfitData> = [
         {
-            title: '排名',
+            title: i18n.t(LocaleHelper.getCostOverviewColRank()),
             key: 'rank',
             width: 80,
             align: 'center',
@@ -55,21 +60,21 @@ const ProfitAnalysis: React.FC = () => {
             },
         },
         {
-            title: '客户名称',
+            title: i18n.t(LocaleHelper.getCostOverviewColCustomerName()),
             dataIndex: 'customerName',
             key: 'customerName',
             width: 150,
         },
         {
-            title: '订单数量',
+            title: i18n.t(LocaleHelper.getCostOverviewColOrderCount()),
             dataIndex: 'orderCount',
             key: 'orderCount',
             width: 100,
             align: 'right',
-            render: (value) => `${value} 个`,
+            render: (value) => `${value}`,
         },
         {
-            title: '总收入',
+            title: i18n.t(LocaleHelper.getCostOverviewColTotalRevenue()),
             dataIndex: 'totalRevenue',
             key: 'totalRevenue',
             width: 150,
@@ -77,7 +82,7 @@ const ProfitAnalysis: React.FC = () => {
             render: (value) => `¥${value.toLocaleString()}`,
         },
         {
-            title: '总成本',
+            title: i18n.t(LocaleHelper.getCostOverviewColTotalCost()),
             dataIndex: 'totalCost',
             key: 'totalCost',
             width: 150,
@@ -85,7 +90,7 @@ const ProfitAnalysis: React.FC = () => {
             render: (value) => `¥${value.toLocaleString()}`,
         },
         {
-            title: '毛利润',
+            title: i18n.t(LocaleHelper.getCostOverviewCardGrossProfit()),
             dataIndex: 'grossProfit',
             key: 'grossProfit',
             width: 150,
@@ -97,7 +102,7 @@ const ProfitAnalysis: React.FC = () => {
             ),
         },
         {
-            title: '利润率',
+            title: i18n.t(LocaleHelper.getCostOverviewCardProfitMargin()),
             dataIndex: 'profitMargin',
             key: 'profitMargin',
             width: 120,
@@ -162,7 +167,7 @@ const ProfitAnalysis: React.FC = () => {
             setCustomerData(mockCustomerData);
             setTrendData(mockTrendData);
         } catch (error) {
-            message.error('加载数据失败');
+            message.error(i18n.t(LocaleHelper.getCostOverviewMsgLoadFail()));
         } finally {
             setLoading(false);
         }
@@ -177,9 +182,9 @@ const ProfitAnalysis: React.FC = () => {
         try {
             await form.validateFields();
             loadData();
-            message.success('分析完成！');
+            message.success(i18n.t(LocaleHelper.getCostOverviewMsgAnalysisComplete()));
         } catch (error) {
-            message.error('请完善分析条件');
+            message.error(i18n.t(LocaleHelper.getCostOverviewMsgCompleteAnalysisCondition()));
         }
     };
 
@@ -190,154 +195,193 @@ const ProfitAnalysis: React.FC = () => {
 
     // 导出
     const handleExport = () => {
-        message.info('导出功能开发中...');
+        message.info(i18n.t(LocaleHelper.getCostOverviewMsgExportWip()));
+    };
+
+    // 返回
+    const handleBack = () => {
+        navigate('/cost_management/cost_overview');
     };
 
     return (
-        <div style={{ padding: '24px', background: '#f0f2f5', minHeight: 'calc(100vh - 80px)' }}>
-            {/* 分析条件 */}
-            <Card title="分析维度" style={{ marginBottom: '16px' }}>
-                <Form form={form} layout="inline">
-                    <Form.Item name="timeDimension" label="时间维度" initialValue="month">
-                        <Select style={{ width: 150 }}>
-                            <Select.Option value="day">按日</Select.Option>
-                            <Select.Option value="week">按周</Select.Option>
-                            <Select.Option value="month">按月</Select.Option>
-                            <Select.Option value="quarter">按季度</Select.Option>
-                            <Select.Option value="year">按年</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item name="dateRange" label="时间范围">
-                        <RangePicker />
-                    </Form.Item>
-
-                    <Form.Item name="customer" label="客户维度">
-                        <Select placeholder="全部客户" style={{ width: 200 }} allowClear>
-                            <Select.Option value="all">全部客户</Select.Option>
-                            <Select.Option value="vip">VIP客户</Select.Option>
-                            <Select.Option value="normal">普通客户</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item name="route" label="航线">
-                        <Select placeholder="全部航线" style={{ width: 200 }} allowClear>
-                            <Select.Option value="all">全部航线</Select.Option>
-                            <Select.Option value="asia">亚洲航线</Select.Option>
-                            <Select.Option value="europe">欧洲航线</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item name="salesman" label="业务员">
-                        <Select placeholder="全部业务员" style={{ width: 150 }} allowClear>
-                            <Select.Option value="all">全部</Select.Option>
-                            <Select.Option value="zhang">张三</Select.Option>
-                            <Select.Option value="li">李四</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item name="transportMode" label="运输方式">
-                        <Select placeholder="全部方式" style={{ width: 150 }} allowClear>
-                            <Select.Option value="all">全部</Select.Option>
-                            <Select.Option value="sea">海运</Select.Option>
-                            <Select.Option value="air">空运</Select.Option>
-                        </Select>
-                    </Form.Item>
-                </Form>
-
-                <div style={{ marginTop: '16px' }}>
-                    <Space>
-                        <Button type="primary" icon={<LineChartOutlined />} onClick={handleAnalyze}>
-                            开始分析
-                        </Button>
-                        <Button icon={<ReloadOutlined />} onClick={handleReset}>
-                            重置
-                        </Button>
-                        <Button icon={<ExportOutlined />} onClick={handleExport}>
-                            导出报表
-                        </Button>
-                    </Space>
+        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
+            <div className="nc-bill-header-area">
+                <div className="header-title-search-area">
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
+                            {i18n.t(LocaleHelper.getCostOverviewAnalysisTitle())}
+                            <Tooltip
+                                title={
+                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                                            <li style={{ marginBottom: '10px' }}><span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}><b>说明</b></span>
+                                                本页面提供多维度的毛利分析报表，支持按时间、客户、航线等维度统计收入、成本及利润情况。
+                                                帮助企业掌握经营效益，辅助决策。
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                                color='white'>
+                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+                            </Tooltip>
+                        </span>
+                    </div>
                 </div>
-            </Card>
+                <div className="header-button-area">
+                    <div className="buttonGroup-component">
+                        <div className="u-button-group">
+                            <Button icon={<ArrowLeftOutlined />} onClick={handleBack}>
+                                {i18n.t(LocaleHelper.getCostOverviewBtnBack())}
+                            </Button>
+                            <Button type="primary" icon={<LineChartOutlined />} onClick={handleAnalyze}>
+                                {i18n.t(LocaleHelper.getCostOverviewBtnStartAnalyze())}
+                            </Button>
+                            <Button icon={<ReloadOutlined />} onClick={handleReset}>
+                                {i18n.t(LocaleHelper.getCostOverviewBtnReset())}
+                            </Button>
+                            <Button icon={<ExportOutlined />} onClick={handleExport}>
+                                {i18n.t(LocaleHelper.getCostOverviewBtnExportReport())}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            {/* 盈利概况 */}
-            <Card title="盈利概况" style={{ marginBottom: '16px' }}>
-                <Row gutter={16}>
-                    <Col span={6}>
-                        <Card>
-                            <Statistic
-                                title="总收入"
-                                value={summary.totalRevenue}
-                                precision={2}
-                                prefix="¥"
-                                valueStyle={{ color: '#52c41a' }}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card>
-                            <Statistic
-                                title="总成本"
-                                value={summary.totalCost}
-                                precision={2}
-                                prefix="¥"
-                                valueStyle={{ color: '#ff4d4f' }}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card>
-                            <Statistic
-                                title="毛利润"
-                                value={summary.grossProfit}
-                                precision={2}
-                                prefix="¥"
-                                valueStyle={{ color: '#1890ff' }}
-                            />
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card>
-                            <Statistic
-                                title="平均利润率"
-                                value={summary.avgProfitMargin}
-                                precision={1}
-                                suffix="%"
-                                valueStyle={{ color: '#722ed1' }}
-                            />
-                        </Card>
-                    </Col>
-                </Row>
-            </Card>
+            <div style={{ padding: '24px', background: '#f0f2f5' }}>
+                {/* 分析条件 */}
+                <Card title={i18n.t(LocaleHelper.getCostOverviewSectionAnalysisDimension())} style={{ marginBottom: '16px' }}>
+                    <Form form={form} layout="inline">
+                        <Form.Item name="timeDimension" label={i18n.t(LocaleHelper.getCostOverviewLabelTimeDimension())} initialValue="month">
+                            <Select style={{ width: 150 }}>
+                                <Select.Option value="day">{i18n.t(LocaleHelper.getCostOverviewOptionTimeDay())}</Select.Option>
+                                <Select.Option value="week">{i18n.t(LocaleHelper.getCostOverviewOptionTimeWeek())}</Select.Option>
+                                <Select.Option value="month">{i18n.t(LocaleHelper.getCostOverviewOptionTimeMonth())}</Select.Option>
+                                <Select.Option value="quarter">{i18n.t(LocaleHelper.getCostOverviewOptionTimeQuarter())}</Select.Option>
+                                <Select.Option value="year">{i18n.t(LocaleHelper.getCostOverviewOptionTimeYear())}</Select.Option>
+                            </Select>
+                        </Form.Item>
 
-            {/* 利润率趋势图 */}
-            <Card title="利润率趋势图" style={{ marginBottom: '16px' }}>
-                <Empty
-                    description="图表功能开发中，需要安装 @ant-design/plots 库"
-                    style={{ padding: '60px 0' }}
-                />
-            </Card>
+                        <Form.Item name="dateRange" label={i18n.t(LocaleHelper.getCostOverviewLabelTimeRange())}>
+                            <RangePicker />
+                        </Form.Item>
 
-            {/* 收入成本对比图 */}
-            <Card title="收入成本对比" style={{ marginBottom: '16px' }}>
-                <Empty
-                    description="图表功能开发中，需要安装 @ant-design/plots 库"
-                    style={{ padding: '60px 0' }}
-                />
-            </Card>
+                        <Form.Item name="customer" label={i18n.t(LocaleHelper.getCostOverviewLabelCustomerDimension())}>
+                            <Select placeholder={i18n.t(LocaleHelper.getCostOverviewOptionCustomerAll())} style={{ width: 200 }} allowClear>
+                                <Select.Option value="all">{i18n.t(LocaleHelper.getCostOverviewOptionCustomerAll())}</Select.Option>
+                                <Select.Option value="vip">{i18n.t(LocaleHelper.getCostOverviewOptionCustomerVip())}</Select.Option>
+                                <Select.Option value="normal">{i18n.t(LocaleHelper.getCostOverviewOptionCustomerNormal())}</Select.Option>
+                            </Select>
+                        </Form.Item>
 
-            {/* 客户盈利排行 */}
-            <Card title="客户盈利排行">
-                <Table
-                    columns={columns}
-                    dataSource={customerData}
-                    rowKey="id"
-                    loading={loading}
-                    size="small"
-                    bordered
-                    pagination={false}
-                />
-            </Card>
+                        <Form.Item name="route" label={i18n.t(LocaleHelper.getCostOverviewLabelRoute())}>
+                            <Select placeholder={i18n.t(LocaleHelper.getCostOverviewPlaceholderAllRoutes())} style={{ width: 200 }} allowClear>
+                                <Select.Option value="all">{i18n.t(LocaleHelper.getCostOverviewPlaceholderAllRoutes())}</Select.Option>
+                                <Select.Option value="asia">{i18n.t(LocaleHelper.getCostOverviewOptionRouteAsia())}</Select.Option>
+                                <Select.Option value="europe">{i18n.t(LocaleHelper.getCostOverviewOptionRouteEurope())}</Select.Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item name="salesman" label={i18n.t(LocaleHelper.getCostOverviewLabelSalesman())}>
+                            <Select placeholder={i18n.t(LocaleHelper.getCostOverviewPlaceholderAllSalesmen())} style={{ width: 150 }} allowClear>
+                                <Select.Option value="all">{i18n.t(LocaleHelper.getCostOverviewPlaceholderAllSalesmen())}</Select.Option>
+                                <Select.Option value="zhang">张三</Select.Option>
+                                <Select.Option value="li">李四</Select.Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item name="transportMode" label={i18n.t(LocaleHelper.getCostOverviewLabelTransportMode())}>
+                            <Select placeholder={i18n.t(LocaleHelper.getCostOverviewPlaceholderAllModes())} style={{ width: 150 }} allowClear>
+                                <Select.Option value="all">{i18n.t(LocaleHelper.getCostOverviewPlaceholderAllModes())}</Select.Option>
+                                <Select.Option value="sea">{i18n.t(LocaleHelper.getCostOverviewOptionModeSea())}</Select.Option>
+                                <Select.Option value="air">{i18n.t(LocaleHelper.getCostOverviewOptionModeAir())}</Select.Option>
+                            </Select>
+                        </Form.Item>
+                    </Form>
+                </Card>
+
+                {/* 盈利概况 */}
+                <Card title={i18n.t(LocaleHelper.getCostOverviewSectionProfitOverview())} style={{ marginBottom: '16px' }}>
+                    <Row gutter={16}>
+                        <Col span={6}>
+                            <Card>
+                                <Statistic
+                                    title={i18n.t(LocaleHelper.getCostOverviewCardTotalRevenue())}
+                                    value={summary.totalRevenue}
+                                    precision={2}
+                                    prefix="¥"
+                                    valueStyle={{ color: '#52c41a' }}
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={6}>
+                            <Card>
+                                <Statistic
+                                    title={i18n.t(LocaleHelper.getCostOverviewCardTotalCost())}
+                                    value={summary.totalCost}
+                                    precision={2}
+                                    prefix="¥"
+                                    valueStyle={{ color: '#ff4d4f' }}
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={6}>
+                            <Card>
+                                <Statistic
+                                    title={i18n.t(LocaleHelper.getCostOverviewCardGrossProfit())}
+                                    value={summary.grossProfit}
+                                    precision={2}
+                                    prefix="¥"
+                                    valueStyle={{ color: '#1890ff' }}
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={6}>
+                            <Card>
+                                <Statistic
+                                    title={i18n.t(LocaleHelper.getCostOverviewCardAvgProfitMargin())}
+                                    value={summary.avgProfitMargin}
+                                    precision={1}
+                                    suffix="%"
+                                    valueStyle={{ color: '#722ed1' }}
+                                />
+                            </Card>
+                        </Col>
+                    </Row>
+                </Card>
+
+                {/* 利润率趋势图 */}
+                <Card title={i18n.t(LocaleHelper.getCostOverviewSectionProfitTrend())} style={{ marginBottom: '16px' }}>
+                    <Empty
+                        description={i18n.t(LocaleHelper.getCostOverviewMsgChartWip())}
+                        style={{ padding: '60px 0' }}
+                    />
+                </Card>
+
+                {/* 收入成本对比图 */}
+                <Card title={i18n.t(LocaleHelper.getCostOverviewSectionRevenueCostComparison())} style={{ marginBottom: '16px' }}>
+                    <Empty
+                        description={i18n.t(LocaleHelper.getCostOverviewMsgChartWip())}
+                        style={{ padding: '60px 0' }}
+                    />
+                </Card>
+
+                {/* 客户盈利排行 */}
+                <Card title={i18n.t(LocaleHelper.getCostOverviewSectionCustomerRanking())}>
+                    <div className="nc-bill-table-area">
+                        <Table
+                            columns={columns}
+                            dataSource={customerData}
+                            rowKey="id"
+                            loading={loading}
+                            size="small"
+                            bordered
+                            pagination={false}
+                        />
+                    </div>
+
+                </Card>
+            </div>
         </div>
     );
 };
