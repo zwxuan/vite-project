@@ -880,6 +880,18 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "应收费用管理", key: "receivable_cost", path: "/cost_management/receivable_cost" },
         { name: "应付费用管理", key: "payable_cost", path: "/cost_management/payable_cost" },
         { name: "费用审核中心", key: "cost_review_center", path: "/cost_management/cost_review_center" },
+        { name: "订单费用分配总览", key: "allocation_overview", path: "/cost_management/allocation_overview" },
+        { name: "分配规则管理", key: "allocation_rules", path: "/cost_management/allocation_rules" },
+        { name: "手动调整审核", key: "manual_adjustment_approval", path: "/cost_management/manual_adjustment_approval" },
+        { name: "分配历史记录", key: "allocation_history", path: "/cost_management/allocation_history" },
+        { name: "销售部门业绩", key: "sales_department_performance", path: "/cost_management/sales_department_performance" },
+        { name: "作业部门利润", key: "operation_department_profit", path: "/cost_management/operation_department_profit" },
+        { name: "利润趋势分析", key: "profit_trend_analysis", path: "/cost_management/profit_trend_analysis" },
+        { name: "部门绩效对比", key: "department_performance_comparison", path: "/cost_management/department_performance_comparison" },
+        { name: "同步状态监控", key: "financial_data_sync_status_monitoring", path: "/cost_management/financial_data_sync/status_monitoring" },
+        { name: "同步任务管理", key: "financial_data_sync_task_management", path: "/cost_management/financial_data_sync/task_management" },
+        { name: "同步日志查询", key: "financial_data_sync_log_query", path: "/cost_management/financial_data_sync/log_query" },
+        { name: "异常处理中心", key: "financial_data_sync_exception_center", path: "/cost_management/financial_data_sync/exception_center" },
     ]
 },
 ]

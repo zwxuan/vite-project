@@ -47,12 +47,13 @@ const CostReviewCenter: React.FC = () => {
     const [form] = Form.useForm();
 
     // 统计数据
-    const [statistics, setStatistics] = useState({
+    const defaultStatistics = {
         pendingTotal: 0,
         urgentCount: 0,
         overdueCount: 0,
         todayReviewed: 0,
-    });
+    };
+    const [statistics, setStatistics] = useState(defaultStatistics);
 
 
 
@@ -63,7 +64,7 @@ const CostReviewCenter: React.FC = () => {
             const response = await getCostReviewList(searchParams);
             setDataSource(response.list);
             setTotal(response.total);
-            setStatistics(response.statistics || statistics);
+            setStatistics((response.statistics as typeof defaultStatistics) || defaultStatistics);
         } catch (error) {
             message.error('加载数据失败');
         } finally {

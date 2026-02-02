@@ -76,6 +76,9 @@ import {
   DocumentCreate, DocumentQuery, DocumentDetail, DocumentOverview, DocumentList, DocumentReview, DocumentReviewDetail, DocumentSignature, DocumentTemplate, DocumentVersion,
   DocumentArchive, DocumentCompliance, DocumentComplianceDetail, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit, DocumentVersionDetail, DocumentVersionCompare,
   ReceivableCostList, ReceivableCostForm, PayableCostList, PayableCostForm, CostOverview, CostDetail, CostCalculation, ProfitAnalysis, CostReviewCenter,
+  AllocationRules, AllocationOverview, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
+  SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
+  FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -269,6 +272,19 @@ const routers = createMemoryRouter([
           { path: "payable_cost/create", handle: { title: '新建应付费用' }, element: <RouterGuard><PayableCostForm /></RouterGuard> },
           { path: "payable_cost/edit/:id", handle: { title: '编辑应付费用' }, element: <RouterGuard><PayableCostForm /></RouterGuard> },
           { path: "cost_review_center", handle: { title: '费用审核中心' }, element: <RouterGuard><CostReviewCenter /></RouterGuard> },
+          { path: "allocation_overview", handle: { title: '订单费用分配总览' }, element: <RouterGuard><AllocationOverview /></RouterGuard> },
+          { path: "allocation_rules", handle: { title: '分配规则管理' }, element: <RouterGuard><AllocationRules /></RouterGuard> },
+          { path: "allocation_rules/detail", handle: { title: '分配规则配置' }, element: <RouterGuard><AllocationRulesDetail /></RouterGuard> },
+          { path: "manual_adjustment_approval", handle: { title: '手动调整审核' }, element: <RouterGuard><ManualAdjustmentApproval /></RouterGuard> },
+          { path: "allocation_history", handle: { title: '分配历史记录' }, element: <RouterGuard><AllocationHistory /></RouterGuard> },
+          { path: "sales_department_performance", handle: { title: '销售部门业绩' }, element: <RouterGuard><SalesDepartmentPerformance /></RouterGuard> },
+          { path: "operation_department_profit", handle: { title: '作业部门利润' }, element: <RouterGuard><OperationDepartmentProfit /></RouterGuard> },
+          { path: "profit_trend_analysis", handle: { title: '利润趋势分析' }, element: <RouterGuard><ProfitTrendAnalysis /></RouterGuard> },
+          { path: "department_performance_comparison", handle: { title: '部门绩效对比' }, element: <RouterGuard><DepartmentPerformanceComparison /></RouterGuard> },
+          { path: "financial_data_sync/status_monitoring", handle: { title: '同步状态监控' }, element: <RouterGuard><FinancialDataSyncStatusMonitoring /></RouterGuard> },
+          { path: "financial_data_sync/task_management", handle: { title: '同步任务管理' }, element: <RouterGuard><FinancialDataSyncTaskManagement /></RouterGuard> },
+          { path: "financial_data_sync/log_query", handle: { title: '同步日志查询' }, element: <RouterGuard><FinancialDataSyncLogQuery /></RouterGuard> },
+          { path: "financial_data_sync/exception_center", handle: { title: '异常处理中心' }, element: <RouterGuard><FinancialDataSyncExceptionCenter /></RouterGuard> },
         ]
       },
       {

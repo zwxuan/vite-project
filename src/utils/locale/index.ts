@@ -156,6 +156,12 @@ import { CostOverviewLocale } from '@/utils/locale/freight_forwarding/cost_manag
 import { ReceivableCostLocale } from '@/utils/locale/freight_forwarding/cost_management/receivable_cost';
 import { PayableCostLocale } from '@/utils/locale/freight_forwarding/cost_management/payable_cost';
 import { CostReviewCenterLocale } from '@/utils/locale/freight_forwarding/cost_management/cost_review_center';
+import { AllocationOverviewLocale } from '@/utils/locale/freight_forwarding/cost_management/allocation_overview';
+import { AllocationRulesLocale } from '@/utils/locale/freight_forwarding/cost_management/allocation_rules';
+import { ManualAdjustmentApprovalLocale } from '@/utils/locale/freight_forwarding/cost_management/manual_adjustment_approval';
+import { AllocationHistoryLocale } from '@/utils/locale/freight_forwarding/cost_management/allocation_history';
+import { DepartmentProfitAnalysisLocale } from '@/utils/locale/freight_forwarding/cost_management/department_profit_analysis';
+import { FinancialDataSyncLocale } from '@/utils/locale/freight_forwarding/cost_management/financial_data_sync';
 
 export {
   OrdersLocale, OrderFeeLocale, FeeReconciliationLocale, OrderBillLocale,
@@ -181,6 +187,7 @@ export {
   DocumentOverviewLocale, DocumentListLocale, DocumentCreateLocale, DocumentQueryLocale, DocumentReviewLocale, DocumentTemplateLocale, DocumentSignatureLocale, DocumentVersionLocale, DocumentDetailLocale,
   DocumentArchiveLocale, DocumentComplianceLocale, DocumentBatchLocale, DocumentInterfaceLocale, DocumentReportLocale,
   CostOverviewLocale, ReceivableCostLocale, PayableCostLocale, CostReviewCenterLocale,
+  AllocationOverviewLocale, AllocationRulesLocale, ManualAdjustmentApprovalLocale, AllocationHistoryLocale, DepartmentProfitAnalysisLocale, FinancialDataSyncLocale,
 };
 
 export default {
@@ -208,4 +215,5 @@ export default {
   ...DocumentOverviewLocale, ...DocumentListLocale, ...DocumentCreateLocale, ...DocumentQueryLocale, ...DocumentReviewLocale, ...DocumentTemplateLocale, ...DocumentSignatureLocale, ...DocumentVersionLocale, ...DocumentDetailLocale,
   ...DocumentArchiveLocale, ...DocumentComplianceLocale, ...DocumentBatchLocale, ...DocumentInterfaceLocale, ...DocumentReportLocale,
   ...CostOverviewLocale, ...ReceivableCostLocale, ...PayableCostLocale, ...CostReviewCenterLocale,
+  ...AllocationOverviewLocale, ...AllocationRulesLocale, ...ManualAdjustmentApprovalLocale, ...AllocationHistoryLocale, ...DepartmentProfitAnalysisLocale, ...FinancialDataSyncLocale,
 };

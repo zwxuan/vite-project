@@ -144,7 +144,7 @@ export interface PageResponse<T> {
     total: number;
     pageNum: number;
     pageSize: number;
-    statistics?: any;
+    statistics?: unknown;
 }
 
 // 费用审核项
@@ -175,5 +175,249 @@ export interface ReviewRequest {
 export interface BatchReviewRequest {
     ids: string[];
     comment?: string;
+}
+
+export enum ManualAdjustmentApprovalStatus {
+    PENDING = 'PENDING',
+    APPROVED = 'APPROVED',
+    REJECTED = 'REJECTED',
+}
+
+export interface ManualAdjustmentApprovalItem {
+    id: string;
+    adjustmentNo: string;
+    orderNo: string;
+    customerName: string;
+    adjustmentType: string;
+    adjustmentAmount: number;
+    currency: string;
+    reason: string;
+    applicant: string;
+    applyTime: string;
+    status: ManualAdjustmentApprovalStatus;
+    reviewer?: string;
+    reviewTime?: string;
+}
+
+export interface ManualAdjustmentApprovalStats {
+    totalAdjustmentAmount: number;
+    pendingCount: number;
+    approvedCount: number;
+    rejectedCount: number;
+}
+
+export enum AllocationHistoryStatus {
+    SUCCESS = 'SUCCESS',
+    FAILED = 'FAILED',
+}
+
+export interface AllocationHistoryItem {
+    id: string;
+    allocationNo: string;
+    orderNo: string;
+    customerName: string;
+    allocationType: string;
+    allocationBasis: string;
+    allocationAmount: number;
+    currency: string;
+    operator: string;
+    allocateTime: string;
+    status: AllocationHistoryStatus;
+    source: string;
+}
+
+export interface AllocationHistoryStats {
+    totalCount: number;
+    totalAmount: number;
+    successCount: number;
+    failedCount: number;
+}
+
+export interface SalesDepartmentPerformanceItem {
+    id: string;
+    department: string;
+    manager: string;
+    orderCount: number;
+    totalRevenue: number;
+    totalCost: number;
+    grossProfit: number;
+    profitMargin: number;
+    completionRate: number;
+    period: string;
+}
+
+export interface SalesDepartmentPerformanceStats {
+    totalRevenue: number;
+    totalCost: number;
+    grossProfit: number;
+    avgProfitMargin: number;
+}
+
+export interface OperationDepartmentProfitItem {
+    id: string;
+    department: string;
+    operatorCount: number;
+    ticketCount: number;
+    teuCount: number;
+    totalRevenue: number;
+    totalCost: number;
+    grossProfit: number;
+    profitMargin: number;
+}
+
+export interface OperationDepartmentProfitStats {
+    totalRevenue: number;
+    totalCost: number;
+    grossProfit: number;
+    avgProfitMargin: number;
+}
+
+export interface ProfitTrendAnalysisItem {
+    id: string;
+    period: string;
+    revenue: number;
+    cost: number;
+    totalProfit: number;
+    profitMargin: number;
+    salesProfit: number;
+    opsProfit: number;
+}
+
+export interface ProfitTrendAnalysisStats {
+    totalRevenue: number;
+    totalCost: number;
+    grossProfit: number;
+    avgProfitMargin: number;
+}
+
+export interface DepartmentPerformanceComparisonItem {
+    id: string;
+    rank: number;
+    department: string;
+    orderCount: number;
+    revenue: number;
+    cost: number;
+    grossProfit: number;
+    profitMargin: number;
+    kpiScore: number;
+}
+
+export interface DepartmentPerformanceComparisonStats {
+    totalRevenue: number;
+    totalCost: number;
+    highestProfit: number;
+    avgKpiScore: number;
+}
+
+export enum SyncType {
+    COST_ALLOCATION = 'COST_ALLOCATION',
+    ORDER_FEE = 'ORDER_FEE',
+    BILLING = 'BILLING',
+    INVOICE = 'INVOICE',
+}
+
+export enum SyncStatus {
+    PENDING = 'PENDING',
+    RUNNING = 'RUNNING',
+    SUCCESS = 'SUCCESS',
+    FAILED = 'FAILED',
+}
+
+export enum SyncScheduleType {
+    REAL_TIME = 'REAL_TIME',
+    HOURLY = 'HOURLY',
+    DAILY = 'DAILY',
+    WEEKLY = 'WEEKLY',
+}
+
+export enum SyncLogLevel {
+    INFO = 'INFO',
+    WARN = 'WARN',
+    ERROR = 'ERROR',
+}
+
+export enum SyncExceptionStatus {
+    PENDING = 'PENDING',
+    PROCESSING = 'PROCESSING',
+    RESOLVED = 'RESOLVED',
+}
+
+export interface SyncStatusItem {
+    id: string;
+    syncType: SyncType;
+    status: SyncStatus;
+    lastSyncTime: string;
+    nextSyncTime: string;
+    successRate: number;
+    failedCount: number;
+    pendingCount: number;
+}
+
+export interface SyncStatusStats {
+    todayCount: number;
+    successCount: number;
+    failedCount: number;
+    pendingCount: number;
+}
+
+export interface SyncTaskItem {
+    id: string;
+    taskNo: string;
+    syncType: SyncType;
+    scheduleType: SyncScheduleType;
+    status: SyncStatus;
+    lastRunTime: string;
+    nextRunTime: string;
+    owner: string;
+    createdTime: string;
+}
+
+export interface SyncTaskStats {
+    totalCount: number;
+    pendingCount: number;
+    successCount: number;
+    failedCount: number;
+    averageDuration: number;
+}
+
+export interface SyncLogItem {
+    id: string;
+    logNo: string;
+    syncId: string;
+    syncType: SyncType;
+    level: SyncLogLevel;
+    status: SyncStatus;
+    message: string;
+    startTime: string;
+    endTime: string;
+    duration: number;
+}
+
+export interface SyncLogStats {
+    totalCount: number;
+    successCount: number;
+    failedCount: number;
+    averageDuration: number;
+}
+
+export interface SyncExceptionItem {
+    id: string;
+    exceptionNo: string;
+    syncId: string;
+    syncType: SyncType;
+    errorType: string;
+    errorMessage: string;
+    status: SyncExceptionStatus;
+    occurredTime: string;
+    handler: string;
+    handleTime: string;
+    retryCount: number;
+}
+
+export interface SyncExceptionStats {
+    totalCount: number;
+    pendingCount: number;
+    processingCount: number;
+    resolvedCount: number;
 }
 

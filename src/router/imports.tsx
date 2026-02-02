@@ -212,7 +212,20 @@ const CostDetail = React.lazy(() => import("@/pages/freight_forwarding/cost_mana
 const CostCalculation = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview/calculation"));
 const ProfitAnalysis = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview/profit_analysis"));
 const CostReviewCenter = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_review_center"));
+const AllocationOverview = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_overview"));
+const AllocationRules = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_rules"));
+const AllocationRulesDetail = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_rules/detail"));
+const ManualAdjustmentApproval = React.lazy(() => import("@/pages/freight_forwarding/cost_management/manual_adjustment_approval"));
+const AllocationHistory = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_history"));
+const SalesDepartmentPerformance = React.lazy(() => import("@/pages/freight_forwarding/cost_management/sales_department_performance"));
+const OperationDepartmentProfit = React.lazy(() => import("@/pages/freight_forwarding/cost_management/operation_department_profit"));
+const ProfitTrendAnalysis = React.lazy(() => import("@/pages/freight_forwarding/cost_management/profit_trend_analysis"));
+const DepartmentPerformanceComparison = React.lazy(() => import("@/pages/freight_forwarding/cost_management/department_performance_comparison"));
 
+const FinancialDataSyncStatusMonitoring = React.lazy(() => import("@/pages/freight_forwarding/cost_management/financial_data_sync/status_monitoring"));
+const FinancialDataSyncTaskManagement = React.lazy(() => import("@/pages/freight_forwarding/cost_management/financial_data_sync/task_management"));
+const FinancialDataSyncLogQuery = React.lazy(() => import("@/pages/freight_forwarding/cost_management/financial_data_sync/log_query"));
+const FinancialDataSyncExceptionCenter = React.lazy(() => import("@/pages/freight_forwarding/cost_management/financial_data_sync/exception_center"));
 
 export {
   JobList, JobDetail, JobMonitoring, MyJobs,
@@ -226,6 +239,9 @@ export {
   DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
   DocumentComplianceDetail,
   ReceivableCostList, ReceivableCostForm, PayableCostList, PayableCostForm, CostOverview, CostDetail, CostCalculation, ProfitAnalysis, CostReviewCenter,
+  AllocationOverview, AllocationRules, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
+  SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
+  FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
   Demo, ContainerLoading, Home, Lev1Department,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,
