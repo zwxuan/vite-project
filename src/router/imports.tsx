@@ -213,6 +213,7 @@ const CostCalculation = React.lazy(() => import("@/pages/freight_forwarding/cost
 const ProfitAnalysis = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_overview/profit_analysis"));
 const CostReviewCenter = React.lazy(() => import("@/pages/freight_forwarding/cost_management/cost_review_center"));
 const AllocationOverview = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_overview"));
+const AllocationOverviewDetail = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_overview/detail"));
 const AllocationRules = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_rules"));
 const AllocationRulesDetail = React.lazy(() => import("@/pages/freight_forwarding/cost_management/allocation_rules/detail"));
 const ManualAdjustmentApproval = React.lazy(() => import("@/pages/freight_forwarding/cost_management/manual_adjustment_approval"));
@@ -239,7 +240,7 @@ export {
   DocumentArchive, DocumentCompliance, DocumentBatch, DocumentInterface, DocumentReport,
   DocumentComplianceDetail,
   ReceivableCostList, ReceivableCostForm, PayableCostList, PayableCostForm, CostOverview, CostDetail, CostCalculation, ProfitAnalysis, CostReviewCenter,
-  AllocationOverview, AllocationRules, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
+  AllocationOverview, AllocationOverviewDetail, AllocationRules, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
   SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
   Demo, ContainerLoading, Home, Lev1Department,

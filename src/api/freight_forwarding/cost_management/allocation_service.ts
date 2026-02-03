@@ -16,7 +16,7 @@ export interface AllocationItem {
   totalIncome: number;
   salesIncome: number;
   opsIncome: number;
-  status: 'allocated' | 'pending' | 'exception';
+  status: string;
   salesman: string;
   id: string;
 }

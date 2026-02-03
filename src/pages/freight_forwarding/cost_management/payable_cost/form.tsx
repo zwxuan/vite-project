@@ -2,12 +2,14 @@
  * 应付费用录入表单页面
  * 参考应收费用录入页面设计，适配应付费用业务场景
  */
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, Button, Table, InputNumber, Card, Row, Col, message, Space, Divider, Modal } from 'antd';
-import { PlusOutlined, DeleteOutlined, SaveOutlined, CheckOutlined, PrinterOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Form, Input, Select, Button, Table, InputNumber, Card, Row, Col, message, Space, Modal } from 'antd';
+import { PlusOutlined, DeleteOutlined, SaveOutlined, CheckOutlined, PrinterOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { ColumnsType } from 'antd/es/table';
 import CustomIcon from '@/components/custom-icon';
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
 import '@/pages/page_list.less';
 
 const { Option } = Select;
@@ -40,7 +42,7 @@ const PayableCostForm: React.FC = () => {
     // 费用项表格列定义
     const columns: ColumnsType<CostItem> = [
         {
-            title: '费用类型',
+            title: i18n.t(LocaleHelper.getPayableCostDetailCostType()),
             dataIndex: 'costType',
             key: 'costType',
             width: 150,
@@ -50,18 +52,18 @@ const PayableCostForm: React.FC = () => {
                     value={record.costType}
                     onChange={(value) => handleCostItemChange(index, 'costType', value)}
                 >
-                    <Option value="OCEAN_FREIGHT">海运费</Option>
-                    <Option value="PORT_CHARGE">港杂费</Option>
-                    <Option value="CUSTOMS_FEE">报关费</Option>
-                    <Option value="TRUCKING_FEE">拖车费</Option>
-                    <Option value="WAREHOUSE_FEE">仓储费</Option>
-                    <Option value="HANDLING_FEE">装卸费</Option>
-                    <Option value="OTHER">其他</Option>
+                    <Option value="OCEAN_FREIGHT">{i18n.t(LocaleHelper.getPayableCostOptionOceanFreight())}</Option>
+                    <Option value="PORT_CHARGE">{i18n.t(LocaleHelper.getPayableCostOptionPortCharge())}</Option>
+                    <Option value="CUSTOMS_FEE">{i18n.t(LocaleHelper.getPayableCostOptionCustomsFee())}</Option>
+                    <Option value="TRUCKING_FEE">{i18n.t(LocaleHelper.getPayableCostOptionTruckingFee())}</Option>
+                    <Option value="WAREHOUSE_FEE">{i18n.t(LocaleHelper.getPayableCostOptionWarehouseFee())}</Option>
+                    <Option value="HANDLING_FEE">{i18n.t(LocaleHelper.getPayableCostOptionHandlingFee())}</Option>
+                    <Option value="OTHER">{i18n.t(LocaleHelper.getPayableCostOptionOther())}</Option>
                 </Select>
             ),
         },
         {
-            title: '费用名称',
+            title: i18n.t(LocaleHelper.getPayableCostDetailCostName()),
             dataIndex: 'costName',
             key: 'costName',
             width: 150,
@@ -73,7 +75,7 @@ const PayableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '数量',
+            title: i18n.t(LocaleHelper.getPayableCostDetailQuantity()),
             dataIndex: 'quantity',
             key: 'quantity',
             width: 100,
@@ -88,7 +90,7 @@ const PayableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '单价',
+            title: i18n.t(LocaleHelper.getPayableCostDetailUnitPrice()),
             dataIndex: 'unitPrice',
             key: 'unitPrice',
             width: 120,
@@ -103,7 +105,7 @@ const PayableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '金额',
+            title: i18n.t(LocaleHelper.getPayableCostDetailAmount()),
             dataIndex: 'amount',
             key: 'amount',
             width: 120,
@@ -111,7 +113,7 @@ const PayableCostForm: React.FC = () => {
             render: (value) => `¥${value.toLocaleString()}`,
         },
         {
-            title: '税率',
+            title: i18n.t(LocaleHelper.getPayableCostDetailTaxRate()),
             dataIndex: 'taxRate',
             key: 'taxRate',
             width: 100,
@@ -129,7 +131,7 @@ const PayableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '含税金额',
+            title: i18n.t(LocaleHelper.getPayableCostDetailTotalAmount()),
             dataIndex: 'totalAmount',
             key: 'totalAmount',
             width: 120,
@@ -137,7 +139,7 @@ const PayableCostForm: React.FC = () => {
             render: (value) => `¥${value.toLocaleString()}`,
         },
         {
-            title: '操作',
+            title: i18n.t(LocaleHelper.getPayableCostDetailAction()),
             key: 'action',
             width: 80,
             fixed: 'right',
@@ -149,7 +151,7 @@ const PayableCostForm: React.FC = () => {
                     icon={<DeleteOutlined />}
                     onClick={() => handleDeleteCostItem(index)}
                 >
-                    删除
+                    {i18n.t(LocaleHelper.getPayableCostBtnDelete())}
                 </Button>
             ),
         },
@@ -216,13 +218,13 @@ const PayableCostForm: React.FC = () => {
     // 保存草稿
     const handleSaveDraft = async () => {
         try {
-            const values = await form.validateFields();
+            await form.validateFields();
             setLoading(true);
             // TODO: 调用API保存草稿
-            message.success('草稿保存成功');
-            navigate('/freight-forwarding/cost-management/payable-cost');
+            message.success(i18n.t(LocaleHelper.getPayableCostMsgSaveDraftSuccess()));
+            navigate('/cost_management/payable_cost');
         } catch (error) {
-            message.error('保存失败');
+            message.error(i18n.t(LocaleHelper.getPayableCostMsgSaveDraftFail()));
         } finally {
             setLoading(false);
         }
@@ -231,17 +233,17 @@ const PayableCostForm: React.FC = () => {
     // 提交审核
     const handleSubmitReview = async () => {
         try {
-            const values = await form.validateFields();
+            await form.validateFields();
             if (costItems.length === 0) {
-                message.warning('请至少添加一项费用');
+                message.warning(i18n.t(LocaleHelper.getPayableCostMsgNeedCostItems()));
                 return;
             }
             setLoading(true);
             // TODO: 调用API提交审核
-            message.success('提交审核成功');
-            navigate('/freight-forwarding/cost-management/payable-cost');
+            message.success(i18n.t(LocaleHelper.getPayableCostMsgSubmitSuccess()));
+            navigate('/cost_management/payable_cost');
         } catch (error) {
-            message.error('提交失败');
+            message.error(i18n.t(LocaleHelper.getPayableCostMsgSubmitFail()));
         } finally {
             setLoading(false);
         }
@@ -249,7 +251,11 @@ const PayableCostForm: React.FC = () => {
 
     // 从模板导入
     const handleImportFromTemplate = () => {
-        message.info('从模板导入功能开发中...');
+        message.info(i18n.t(LocaleHelper.getPayableCostMsgImportTemplateWip()));
+    };
+
+    const handleBack = () => {
+        navigate('/cost_management/payable_cost');
     };
 
     // 自动生成费用
@@ -257,11 +263,11 @@ const PayableCostForm: React.FC = () => {
         try {
             const waybillNo = form.getFieldValue('waybillNo');
             if (!waybillNo) {
-                message.warning('请先选择运单号');
+                message.warning(i18n.t(LocaleHelper.getPayableCostMsgSelectWaybillFirst()));
                 return;
             }
 
-            message.loading({ content: '正在自动生成费用...', key: 'autoGenerate' });
+            message.loading({ content: i18n.t(LocaleHelper.getPayableCostMsgAutoGenerateLoading()), key: 'autoGenerate' });
 
             // TODO: 调用API自动生成费用
             // 1. 获取运单信息（服务类型、航线、箱型等）
@@ -274,7 +280,7 @@ const PayableCostForm: React.FC = () => {
                     {
                         key: `auto_${Date.now()}_1`,
                         costType: 'OCEAN_FREIGHT',
-                        costName: '海运费',
+                        costName: i18n.t(LocaleHelper.getPayableCostOptionOceanFreight()),
                         quantity: 2,
                         unitPrice: 6000,
                         amount: 12000,
@@ -285,7 +291,7 @@ const PayableCostForm: React.FC = () => {
                     {
                         key: `auto_${Date.now()}_2`,
                         costType: 'PORT_CHARGE',
-                        costName: '港杂费',
+                        costName: i18n.t(LocaleHelper.getPayableCostOptionPortCharge()),
                         quantity: 1,
                         unitPrice: 2000,
                         amount: 2000,
@@ -296,7 +302,7 @@ const PayableCostForm: React.FC = () => {
                     {
                         key: `auto_${Date.now()}_3`,
                         costType: 'HANDLING_FEE',
-                        costName: '装卸费',
+                        costName: i18n.t(LocaleHelper.getPayableCostOptionHandlingFee()),
                         quantity: 1,
                         unitPrice: 1000,
                         amount: 1000,
@@ -308,10 +314,10 @@ const PayableCostForm: React.FC = () => {
 
                 setCostItems(autoGeneratedItems);
                 calculateSummary(autoGeneratedItems);
-                message.success({ content: '费用自动生成成功！已根据供应商协议匹配费率', key: 'autoGenerate' });
+                message.success({ content: i18n.t(LocaleHelper.getPayableCostMsgAutoGenerateSuccess()), key: 'autoGenerate' });
             }, 1000);
         } catch (error) {
-            message.error({ content: '自动生成费用失败', key: 'autoGenerate' });
+            message.error({ content: i18n.t(LocaleHelper.getPayableCostMsgAutoGenerateFail()), key: 'autoGenerate' });
         }
     };
 
@@ -319,8 +325,8 @@ const PayableCostForm: React.FC = () => {
     const handleRegenerateCosts = () => {
         if (costItems.length > 0) {
             Modal.confirm({
-                title: '确认重新生成费用？',
-                content: '重新生成将清空当前所有费用明细，此操作不可恢复',
+                title: i18n.t(LocaleHelper.getPayableCostMsgConfirmRegenerateTitle()),
+                content: i18n.t(LocaleHelper.getPayableCostMsgConfirmRegenerateContent()),
                 onOk: () => {
                     handleAutoGenerateCosts();
                 },
@@ -333,8 +339,8 @@ const PayableCostForm: React.FC = () => {
     // 清空重来
     const handleClearAll = () => {
         Modal.confirm({
-            title: '确认清空所有费用？',
-            content: '清空后需要重新添加费用明细，此操作不可恢复',
+            title: i18n.t(LocaleHelper.getPayableCostMsgConfirmClearTitle()),
+            content: i18n.t(LocaleHelper.getPayableCostMsgConfirmClearContent()),
             onOk: () => {
                 setCostItems([]);
                 setSummary({
@@ -342,7 +348,7 @@ const PayableCostForm: React.FC = () => {
                     taxTotal: 0,
                     grandTotal: 0,
                 });
-                message.success('已清空所有费用');
+                message.success(i18n.t(LocaleHelper.getPayableCostMsgClearSuccess()));
             },
         });
     };
@@ -352,17 +358,26 @@ const PayableCostForm: React.FC = () => {
             {/* 页面头部 */}
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap">
-                        <CustomIcon type="icon-Currency" style={{ fontSize: 24, marginRight: 8 }} />
-                        <span style={{ fontSize: 18, fontWeight: 500 }}>
-                            {id ? '编辑应付费用' : '新建应付费用'}
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
+                            {id ? i18n.t(LocaleHelper.getPayableCostEditTitle()) : i18n.t(LocaleHelper.getPayableCostCreateTitle())}
                         </span>
+                    </div>
+                </div>
+                <div className="header-button-area">
+                    <div className="buttonGroup-component">
+                        <div className="u-button-group">
+                            <Button icon={<ArrowLeftOutlined />} onClick={handleBack}>
+                                {i18n.t(LocaleHelper.getBack())}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* 表单内容 */}
-            <div style={{ padding: '16px 24px' }}>
+            <div style={{ padding: '24px', background: '#f0f2f5' }}>
                 <Form
                     form={form}
                     layout="vertical"
@@ -374,53 +389,53 @@ const PayableCostForm: React.FC = () => {
                     }}
                 >
                     {/* 基本信息 */}
-                    <Card title="基本信息" style={{ marginBottom: 16 }}>
+                    <Card title={i18n.t(LocaleHelper.getPayableCostSectionBasicInfo())} style={{ marginBottom: 16 }}>
                         <Row gutter={16}>
                             <Col span={6}>
                                 <Form.Item
-                                    label="运单号"
+                                    label={i18n.t(LocaleHelper.getPayableCostFormWaybillNo())}
                                     name="waybillNo"
-                                    rules={[{ required: true, message: '请输入运单号' }]}
+                                    rules={[{ required: true, message: i18n.t(LocaleHelper.getPayableCostMsgWaybillNoRequired()) }]}
                                 >
-                                    <Input placeholder="请输入或选择运单号" />
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderWaybillNo())} />
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
                                 <Form.Item
-                                    label="服务类型"
+                                    label={i18n.t(LocaleHelper.getPayableCostFormServiceType())}
                                     name="serviceType"
-                                    rules={[{ required: true, message: '请选择服务类型' }]}
+                                    rules={[{ required: true, message: i18n.t(LocaleHelper.getPayableCostMsgServiceTypeRequired()) }]}
                                 >
-                                    <Select placeholder="请选择服务类型">
-                                        <Option value="SHIPPING">运输</Option>
-                                        <Option value="BOOKING">订舱</Option>
-                                        <Option value="TRUCKING">拖车</Option>
-                                        <Option value="CUSTOMS">报关</Option>
-                                        <Option value="WAREHOUSE">仓储</Option>
+                                    <Select placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderServiceType())}>
+                                        <Option value="SHIPPING">{i18n.t(LocaleHelper.getPayableCostServiceTypeShipping())}</Option>
+                                        <Option value="BOOKING">{i18n.t(LocaleHelper.getPayableCostServiceTypeBooking())}</Option>
+                                        <Option value="TRUCKING">{i18n.t(LocaleHelper.getPayableCostServiceTypeTrucking())}</Option>
+                                        <Option value="CUSTOMS">{i18n.t(LocaleHelper.getPayableCostServiceTypeCustoms())}</Option>
+                                        <Option value="WAREHOUSE">{i18n.t(LocaleHelper.getPayableCostServiceTypeWarehouse())}</Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
                                 <Form.Item
-                                    label="供应商"
+                                    label={i18n.t(LocaleHelper.getPayableCostFormSupplier())}
                                     name="supplierName"
-                                    rules={[{ required: true, message: '请选择供应商' }]}
+                                    rules={[{ required: true, message: i18n.t(LocaleHelper.getPayableCostMsgSupplierRequired()) }]}
                                 >
-                                    <Input placeholder="请选择供应商" />
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderSupplier())} />
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="供应商协议" name="agreementNo">
-                                    <Input placeholder="自动带出协议编号" disabled />
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormAgreement())} name="agreementNo">
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderAgreement())} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row gutter={16}>
                             <Col span={6}>
                                 <Form.Item
-                                    label="币种"
+                                    label={i18n.t(LocaleHelper.getPayableCostFormCurrency())}
                                     name="currency"
-                                    rules={[{ required: true, message: '请选择币种' }]}
+                                    rules={[{ required: true, message: i18n.t(LocaleHelper.getPayableCostMsgCurrencyRequired()) }]}
                                 >
                                     <Select>
                                         <Option value="CNY">CNY</Option>
@@ -430,23 +445,23 @@ const PayableCostForm: React.FC = () => {
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="汇率" name="exchangeRate">
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormExchangeRate())} name="exchangeRate">
                                     <InputNumber
                                         min={0}
                                         precision={4}
                                         style={{ width: '100%' }}
-                                        placeholder="自动获取汇率"
+                                        placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderExchangeRate())}
                                     />
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="操作员" name="operator">
-                                    <Input placeholder="自动带出操作员" disabled />
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormOperator())} name="operator">
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderOperator())} disabled />
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="服务日期" name="serviceDate">
-                                    <Input placeholder="自动生成" disabled />
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormServiceDate())} name="serviceDate">
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderServiceDate())} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -454,19 +469,25 @@ const PayableCostForm: React.FC = () => {
 
                     {/* 费用明细 */}
                     <Card
-                        title="费用明细"
+                        title={i18n.t(LocaleHelper.getPayableCostSectionCostItems())}
                         style={{ marginBottom: 16 }}
                         extra={
                             <Space>
                                 <Button type="primary" icon={<PlusOutlined />} onClick={handleAutoGenerateCosts}>
-                                    🤖 自动生成费用
+                                    {i18n.t(LocaleHelper.getPayableCostBtnAutoGenerate())}
                                 </Button>
                                 <Button icon={<PlusOutlined />} onClick={handleAddCostItem}>
-                                    ✏️ 手动添加
+                                    {i18n.t(LocaleHelper.getPayableCostBtnManualAdd())}
                                 </Button>
-                                <Button onClick={handleImportFromTemplate}>📋 从模板导入</Button>
-                                <Button onClick={handleRegenerateCosts}>重新生成</Button>
-                                <Button danger onClick={handleClearAll}>清空重来</Button>
+                                <Button onClick={handleImportFromTemplate}>
+                                    {i18n.t(LocaleHelper.getPayableCostBtnImportTemplate())}
+                                </Button>
+                                <Button onClick={handleRegenerateCosts}>
+                                    {i18n.t(LocaleHelper.getPayableCostBtnRegenerate())}
+                                </Button>
+                                <Button danger onClick={handleClearAll}>
+                                    {i18n.t(LocaleHelper.getPayableCostBtnClearAll())}
+                                </Button>
                             </Space>
                         }
                     >
@@ -481,11 +502,13 @@ const PayableCostForm: React.FC = () => {
                     </Card>
 
                     {/* 费用汇总 */}
-                    <Card title="费用汇总" style={{ marginBottom: 16 }}>
+                    <Card title={i18n.t(LocaleHelper.getPayableCostSectionSummary())} style={{ marginBottom: 16 }}>
                         <Row gutter={16}>
                             <Col span={8}>
                                 <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>不含税总额：</span>
+                                    <span style={{ color: '#666' }}>
+                                        {i18n.t(LocaleHelper.getPayableCostSummaryTotalAmount())}：
+                                    </span>
                                     <span style={{ fontSize: 16, fontWeight: 500, color: '#1890ff' }}>
                                         ¥{summary.baseTotal.toLocaleString()}
                                     </span>
@@ -493,7 +516,7 @@ const PayableCostForm: React.FC = () => {
                             </Col>
                             <Col span={8}>
                                 <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>税额：</span>
+                                    <span style={{ color: '#666' }}>{i18n.t(LocaleHelper.getPayableCostSummaryTaxAmount())}：</span>
                                     <span style={{ fontSize: 16, fontWeight: 500, color: '#1890ff' }}>
                                         ¥{summary.taxTotal.toLocaleString()}
                                     </span>
@@ -501,7 +524,7 @@ const PayableCostForm: React.FC = () => {
                             </Col>
                             <Col span={8}>
                                 <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>含税总额：</span>
+                                    <span style={{ color: '#666' }}>{i18n.t(LocaleHelper.getPayableCostSummaryGrandTotal())}：</span>
                                     <span style={{ fontSize: 16, fontWeight: 500, color: '#ff4d4f' }}>
                                         ¥{summary.grandTotal.toLocaleString()}
                                     </span>
@@ -511,43 +534,43 @@ const PayableCostForm: React.FC = () => {
                     </Card>
 
                     {/* 审核设置 */}
-                    <Card title="审核设置" style={{ marginBottom: 16 }}>
+                    <Card title={i18n.t(LocaleHelper.getPayableCostSectionAuditSettings())} style={{ marginBottom: 16 }}>
                         <Row gutter={16}>
                             <Col span={6}>
-                                <Form.Item label="审核级别" name="reviewLevel">
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormReviewLevel())} name="reviewLevel">
                                     <Select>
-                                        <Option value="LEVEL_1">一级审核</Option>
-                                        <Option value="LEVEL_2">二级审核</Option>
-                                        <Option value="LEVEL_3">三级审核</Option>
+                                        <Option value="LEVEL_1">{i18n.t(LocaleHelper.getPayableCostReviewLevelOne())}</Option>
+                                        <Option value="LEVEL_2">{i18n.t(LocaleHelper.getPayableCostReviewLevelTwo())}</Option>
+                                        <Option value="LEVEL_3">{i18n.t(LocaleHelper.getPayableCostReviewLevelThree())}</Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="紧急程度" name="urgency">
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormUrgency())} name="urgency">
                                     <Select>
-                                        <Option value="NORMAL">普通</Option>
-                                        <Option value="URGENT">紧急</Option>
-                                        <Option value="VERY_URGENT">非常紧急</Option>
+                                        <Option value="NORMAL">{i18n.t(LocaleHelper.getPayableCostUrgencyNormal())}</Option>
+                                        <Option value="URGENT">{i18n.t(LocaleHelper.getPayableCostUrgencyUrgent())}</Option>
+                                        <Option value="VERY_URGENT">{i18n.t(LocaleHelper.getPayableCostUrgencyVeryUrgent())}</Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="审核人" name="reviewer">
-                                    <Input placeholder="自动分配审核人" />
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormReviewer())} name="reviewer">
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderReviewer())} />
                                 </Form.Item>
                             </Col>
                             <Col span={6}>
-                                <Form.Item label="预计审核时间" name="estimatedReviewTime">
-                                    <Input placeholder="自动计算" disabled />
+                                <Form.Item label={i18n.t(LocaleHelper.getPayableCostFormEstimatedReviewTime())} name="estimatedReviewTime">
+                                    <Input placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderEstimatedReviewTime())} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
                     </Card>
 
                     {/* 备注 */}
-                    <Card title="备注" style={{ marginBottom: 16 }}>
+                    <Card title={i18n.t(LocaleHelper.getPayableCostSectionRemark())} style={{ marginBottom: 16 }}>
                         <Form.Item name="remark">
-                            <Input.TextArea rows={3} placeholder="请输入备注信息" />
+                            <Input.TextArea rows={3} placeholder={i18n.t(LocaleHelper.getPayableCostPlaceholderRemark())} />
                         </Form.Item>
                     </Card>
 
@@ -559,7 +582,7 @@ const PayableCostForm: React.FC = () => {
                                 onClick={handleSaveDraft}
                                 loading={loading}
                             >
-                                保存草稿
+                                {i18n.t(LocaleHelper.getPayableCostBtnSaveDraft())}
                             </Button>
                             <Button
                                 type="primary"
@@ -567,11 +590,13 @@ const PayableCostForm: React.FC = () => {
                                 onClick={handleSubmitReview}
                                 loading={loading}
                             >
-                                提交审核
+                                {i18n.t(LocaleHelper.getPayableCostBtnSubmit())}
                             </Button>
-                            <Button icon={<PrinterOutlined />}>预览打印</Button>
+                            <Button icon={<PrinterOutlined />}>
+                                {i18n.t(LocaleHelper.getPayableCostBtnPreviewPrint())}
+                            </Button>
                             <Button onClick={() => navigate('/cost_management/payable_cost')}>
-                                取消
+                                {i18n.t(LocaleHelper.getPayableCostBtnCancel())}
                             </Button>
                         </Space>
                     </div>

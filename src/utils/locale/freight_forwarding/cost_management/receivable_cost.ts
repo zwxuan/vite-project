@@ -15,6 +15,14 @@ export const ReceivableCostLocale = {
         return 'freight_forwarding.cost_management.receivable_cost.create_title';
     },
 
+    getReceivableCostEditTitle() {
+        return 'freight_forwarding.cost_management.receivable_cost.edit_title';
+    },
+
+    getReceivableCostPaginationTotal() {
+        return 'freight_forwarding.cost_management.receivable_cost.pagination_total';
+    },
+
     // 搜索字段
     getReceivableCostSearchOrderNo() {
         return 'freight_forwarding.cost_management.receivable_cost.search_order_no';
@@ -110,12 +118,52 @@ export const ReceivableCostLocale = {
         return 'freight_forwarding.cost_management.receivable_cost.btn_add_item';
     },
 
+    getReceivableCostBtnAutoGenerate() {
+        return 'freight_forwarding.cost_management.receivable_cost.btn_auto_generate';
+    },
+
+    getReceivableCostBtnManualAdd() {
+        return 'freight_forwarding.cost_management.receivable_cost.btn_manual_add';
+    },
+
     getReceivableCostBtnImportTemplate() {
         return 'freight_forwarding.cost_management.receivable_cost.btn_import_template';
     },
 
+    getReceivableCostBtnRegenerate() {
+        return 'freight_forwarding.cost_management.receivable_cost.btn_regenerate';
+    },
+
+    getReceivableCostBtnClearAll() {
+        return 'freight_forwarding.cost_management.receivable_cost.btn_clear_all';
+    },
+
+    getReceivableCostBtnPreviewPrint() {
+        return 'freight_forwarding.cost_management.receivable_cost.btn_preview_print';
+    },
+
     getReceivableCostBtnMatchRate() {
         return 'freight_forwarding.cost_management.receivable_cost.btn_match_rate';
+    },
+
+    getReceivableCostSectionBasicInfo() {
+        return 'freight_forwarding.cost_management.receivable_cost.section_basic_info';
+    },
+
+    getReceivableCostSectionCostItems() {
+        return 'freight_forwarding.cost_management.receivable_cost.section_cost_items';
+    },
+
+    getReceivableCostSectionSummary() {
+        return 'freight_forwarding.cost_management.receivable_cost.section_summary';
+    },
+
+    getReceivableCostSectionAuditSettings() {
+        return 'freight_forwarding.cost_management.receivable_cost.section_audit_settings';
+    },
+
+    getReceivableCostSectionRemark() {
+        return 'freight_forwarding.cost_management.receivable_cost.section_remark';
     },
 
     // 表单字段
@@ -147,8 +195,72 @@ export const ReceivableCostLocale = {
         return 'freight_forwarding.cost_management.receivable_cost.form_create_time';
     },
 
+    getReceivableCostFormReviewLevel() {
+        return 'freight_forwarding.cost_management.receivable_cost.form_review_level';
+    },
+
+    getReceivableCostFormUrgency() {
+        return 'freight_forwarding.cost_management.receivable_cost.form_urgency';
+    },
+
+    getReceivableCostFormReviewer() {
+        return 'freight_forwarding.cost_management.receivable_cost.form_reviewer';
+    },
+
+    getReceivableCostFormEstimatedReviewTime() {
+        return 'freight_forwarding.cost_management.receivable_cost.form_estimated_review_time';
+    },
+
     getReceivableCostFormRemark() {
         return 'freight_forwarding.cost_management.receivable_cost.form_remark';
+    },
+
+    getReceivableCostPlaceholderOrderNo() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_order_no';
+    },
+
+    getReceivableCostPlaceholderCustomer() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_customer';
+    },
+
+    getReceivableCostPlaceholderContract() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_contract';
+    },
+
+    getReceivableCostPlaceholderExchangeRate() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_exchange_rate';
+    },
+
+    getReceivableCostPlaceholderSalesman() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_salesman';
+    },
+
+    getReceivableCostPlaceholderCreateTime() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_create_time';
+    },
+
+    getReceivableCostPlaceholderReviewer() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_reviewer';
+    },
+
+    getReceivableCostPlaceholderEstimatedReviewTime() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_estimated_review_time';
+    },
+
+    getReceivableCostPlaceholderRemark() {
+        return 'freight_forwarding.cost_management.receivable_cost.placeholder_remark';
+    },
+
+    getReceivableCostMsgOrderNoRequired() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_order_no_required';
+    },
+
+    getReceivableCostMsgCustomerRequired() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_customer_required';
+    },
+
+    getReceivableCostMsgCurrencyRequired() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_currency_required';
     },
 
     // 费用明细
@@ -178,6 +290,66 @@ export const ReceivableCostLocale = {
 
     getReceivableCostDetailTaxAmount() {
         return 'freight_forwarding.cost_management.receivable_cost.detail_tax_amount';
+    },
+
+    getReceivableCostDetailTotalAmount() {
+        return 'freight_forwarding.cost_management.receivable_cost.detail_total_amount';
+    },
+
+    getReceivableCostDetailAction() {
+        return 'freight_forwarding.cost_management.receivable_cost.detail_action';
+    },
+
+    getReceivableCostOptionOceanFreight() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_ocean_freight';
+    },
+
+    getReceivableCostOptionDocFee() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_doc_fee';
+    },
+
+    getReceivableCostOptionPortCharge() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_port_charge';
+    },
+
+    getReceivableCostOptionCustomsFee() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_customs_fee';
+    },
+
+    getReceivableCostOptionTruckingFee() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_trucking_fee';
+    },
+
+    getReceivableCostOptionWarehouseFee() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_warehouse_fee';
+    },
+
+    getReceivableCostOptionOther() {
+        return 'freight_forwarding.cost_management.receivable_cost.option_other';
+    },
+
+    getReceivableCostReviewLevelOne() {
+        return 'freight_forwarding.cost_management.receivable_cost.review_level_one';
+    },
+
+    getReceivableCostReviewLevelTwo() {
+        return 'freight_forwarding.cost_management.receivable_cost.review_level_two';
+    },
+
+    getReceivableCostReviewLevelThree() {
+        return 'freight_forwarding.cost_management.receivable_cost.review_level_three';
+    },
+
+    getReceivableCostUrgencyNormal() {
+        return 'freight_forwarding.cost_management.receivable_cost.urgency_normal';
+    },
+
+    getReceivableCostUrgencyUrgent() {
+        return 'freight_forwarding.cost_management.receivable_cost.urgency_urgent';
+    },
+
+    getReceivableCostUrgencyVeryUrgent() {
+        return 'freight_forwarding.cost_management.receivable_cost.urgency_very_urgent';
     },
 
     // 汇总信息
@@ -233,6 +405,62 @@ export const ReceivableCostLocale = {
 
     getReceivableCostMsgSubmitSuccess() {
         return 'freight_forwarding.cost_management.receivable_cost.msg_submit_success';
+    },
+
+    getReceivableCostMsgSaveDraftSuccess() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_save_draft_success';
+    },
+
+    getReceivableCostMsgSaveDraftFail() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_save_draft_fail';
+    },
+
+    getReceivableCostMsgSubmitFail() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_submit_fail';
+    },
+
+    getReceivableCostMsgNeedCostItems() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_need_cost_items';
+    },
+
+    getReceivableCostMsgSelectOrderFirst() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_select_order_first';
+    },
+
+    getReceivableCostMsgAutoGenerateLoading() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_auto_generate_loading';
+    },
+
+    getReceivableCostMsgAutoGenerateSuccess() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_auto_generate_success';
+    },
+
+    getReceivableCostMsgAutoGenerateFail() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_auto_generate_fail';
+    },
+
+    getReceivableCostMsgImportTemplateWip() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_import_template_wip';
+    },
+
+    getReceivableCostMsgClearSuccess() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_clear_success';
+    },
+
+    getReceivableCostMsgConfirmRegenerateTitle() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_confirm_regenerate_title';
+    },
+
+    getReceivableCostMsgConfirmRegenerateContent() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_confirm_regenerate_content';
+    },
+
+    getReceivableCostMsgConfirmClearTitle() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_confirm_clear_title';
+    },
+
+    getReceivableCostMsgConfirmClearContent() {
+        return 'freight_forwarding.cost_management.receivable_cost.msg_confirm_clear_content';
     },
 
     getReceivableCostMsgConfirmDeleteTitle() {

@@ -76,7 +76,7 @@ import {
   DocumentCreate, DocumentQuery, DocumentDetail, DocumentOverview, DocumentList, DocumentReview, DocumentReviewDetail, DocumentSignature, DocumentTemplate, DocumentVersion,
   DocumentArchive, DocumentCompliance, DocumentComplianceDetail, DocumentBatch, DocumentInterface, DocumentReport, DocumentTemplateDetail, DocumentSignatureEdit, DocumentTemplateEdit, DocumentVersionDetail, DocumentVersionCompare,
   ReceivableCostList, ReceivableCostForm, PayableCostList, PayableCostForm, CostOverview, CostDetail, CostCalculation, ProfitAnalysis, CostReviewCenter,
-  AllocationRules, AllocationOverview, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
+  AllocationRules, AllocationOverview, AllocationOverviewDetail, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
   SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
 } from "./imports";
@@ -273,6 +273,7 @@ const routers = createMemoryRouter([
           { path: "payable_cost/edit/:id", handle: { title: '编辑应付费用' }, element: <RouterGuard><PayableCostForm /></RouterGuard> },
           { path: "cost_review_center", handle: { title: '费用审核中心' }, element: <RouterGuard><CostReviewCenter /></RouterGuard> },
           { path: "allocation_overview", handle: { title: '订单费用分配总览' }, element: <RouterGuard><AllocationOverview /></RouterGuard> },
+          { path: "allocation_overview/detail/:id", handle: { title: '订单费用分配详情' }, element: <RouterGuard><AllocationOverviewDetail /></RouterGuard> },
           { path: "allocation_rules", handle: { title: '分配规则管理' }, element: <RouterGuard><AllocationRules /></RouterGuard> },
           { path: "allocation_rules/detail", handle: { title: '分配规则配置' }, element: <RouterGuard><AllocationRulesDetail /></RouterGuard> },
           { path: "manual_adjustment_approval", handle: { title: '手动调整审核' }, element: <RouterGuard><ManualAdjustmentApproval /></RouterGuard> },

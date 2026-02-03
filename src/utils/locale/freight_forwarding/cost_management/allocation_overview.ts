@@ -86,4 +86,88 @@ export const AllocationOverviewLocale = {
   getAllocationOverviewStatusException() {
     return 'freight_forwarding.cost_management.allocation_overview.status_exception';
   },
+  getAllocationOverviewDetailTitle() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_title';
+  },
+  getAllocationOverviewDetailSectionSummary() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_section_summary';
+  },
+  getAllocationOverviewDetailTabBaseInfo() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_tab_base_info';
+  },
+  getAllocationOverviewDetailTabRecords() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_tab_records';
+  },
+  getAllocationOverviewDetailTabFlow() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_tab_flow';
+  },
+  getAllocationOverviewDetailLabelAllocateTime() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_label_allocate_time';
+  },
+  getAllocationOverviewDetailLabelRule() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_label_rule';
+  },
+  getAllocationOverviewDetailLabelSource() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_label_source';
+  },
+  getAllocationOverviewDetailLabelRemark() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_label_remark';
+  },
+  getAllocationOverviewDetailValueRuleStandard() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_value_rule_standard';
+  },
+  getAllocationOverviewDetailValueSourceSystem() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_value_source_system';
+  },
+  getAllocationOverviewDetailValueRemarkAuto() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_value_remark_auto';
+  },
+  getAllocationOverviewDetailActionBack() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_action_back';
+  },
+  getAllocationOverviewDetailActionReallocate() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_action_reallocate';
+  },
+  getAllocationOverviewDetailFlowTitle() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_title';
+  },
+  getAllocationOverviewDetailFlowStep1Title() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_1_title';
+  },
+  getAllocationOverviewDetailFlowStep1Desc() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_1_desc';
+  },
+  getAllocationOverviewDetailFlowStep2Title() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_2_title';
+  },
+  getAllocationOverviewDetailFlowStep2Desc() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_2_desc';
+  },
+  getAllocationOverviewDetailFlowStep3Title() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_3_title';
+  },
+  getAllocationOverviewDetailFlowStep3Desc() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_3_desc';
+  },
+  getAllocationOverviewDetailFlowStep4Title() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_4_title';
+  },
+  getAllocationOverviewDetailFlowStep4Desc() {
+    return 'freight_forwarding.cost_management.allocation_overview.detail_flow_step_4_desc';
+  },
+  getAllocationOverviewModalTitle() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_title';
+  },
+  getAllocationOverviewModalOptionManual() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_option_manual';
+  },
+  getAllocationOverviewModalSuccess() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_success';
+  },
+  getAllocationOverviewModalWeightSales() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_weight_sales';
+  },
+  getAllocationOverviewModalWeightOps() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_weight_ops';
+  },
 };

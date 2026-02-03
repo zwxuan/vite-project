@@ -1,26 +1,32 @@
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Card, Row, Col, Statistic, Tag } from 'antd';
-import { ColumnsType } from 'antd/es/table';
+import { Table, Button, Card, Row, Col, Statistic, Tooltip, Modal } from 'antd';
 import CustomIcon from "@/components/custom-icon";
 import AdvancedSearchForm from "@/components/search-form";
 import { getSearchFields } from './search_fields';
+import { getColumns } from './columns';
 import { queryAllocationList, queryAllocationStats, AllocationItem, AllocationStats } from '@/api/freight_forwarding/cost_management/allocation_service';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
+import { useNavigate } from 'react-router-dom';
 
 const AllocationOverview: React.FC = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState<AllocationItem[]>([]);
   const [stats, setStats] = useState<AllocationStats | null>(null);
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20, total: 0 });
+  const [filters, setFilters] = useState<Record<string, any>>({});
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectedRows, setSelectedRows] = useState<AllocationItem[]>([]);
+  const [batchModalOpen, setBatchModalOpen] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
     try {
       const [listRes, statsRes] = await Promise.all([
-        queryAllocationList({}),
+        queryAllocationList({ pageNum: pagination.current, pageSize: pagination.pageSize, ...filters }),
         queryAllocationStats()
       ]);
       setData(listRes.data);
@@ -33,102 +39,87 @@ const AllocationOverview: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [pagination.current, pagination.pageSize, filters]);
 
-  const columns: ColumnsType<AllocationItem> = [
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColOrderNo()),
-      dataIndex: 'orderNo',
-      key: 'orderNo',
-      width: 150,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColCustomer()),
-      dataIndex: 'customerName',
-      key: 'customerName',
-      width: 200,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColTotalIncome()),
-      dataIndex: 'totalIncome',
-      key: 'totalIncome',
-      align: 'right',
-      render: (val) => `¥${val.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColSalesIncome()),
-      dataIndex: 'salesIncome',
-      key: 'salesIncome',
-      align: 'right',
-      render: (val) => `¥${val.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColOpsIncome()),
-      dataIndex: 'opsIncome',
-      key: 'opsIncome',
-      align: 'right',
-      render: (val) => `¥${val.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColStatus()),
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => {
-        let color = 'default';
-        let text = status;
-        if (status === 'allocated') {
-          color = 'success';
-          text = i18n.t(LocaleHelper.getAllocationOverviewStatusAllocated());
-        } else if (status === 'pending') {
-          color = 'warning';
-          text = i18n.t(LocaleHelper.getAllocationOverviewStatusPending());
-        } else if (status === 'exception') {
-          color = 'error';
-          text = i18n.t(LocaleHelper.getAllocationOverviewStatusException());
-        }
-        return <Tag color={color}>{text}</Tag>;
-      },
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColSalesman()),
-      dataIndex: 'salesman',
-      key: 'salesman',
-    },
-    {
-      title: i18n.t(LocaleHelper.getOperation()),
-      key: 'action',
-      fixed: 'right',
-      width: 150,
-      render: (_, record) => (
-        <Space size="middle">
-          <a>{i18n.t(LocaleHelper.getAllocationOverviewActionDetail())}</a>
-          {record.status === 'pending' && <a>{i18n.t(LocaleHelper.getAllocationOverviewActionAllocate())}</a>}
-        </Space>
-      ),
-    },
-  ];
+  const handleViewDetail = (record: AllocationItem) => {
+    navigate(`/cost_management/allocation_overview/detail/${record.id}`);
+  };
+
+  const handleAllocate = (record: AllocationItem) => {
+    navigate(`/cost_management/allocation_overview/detail/${record.id}?mode=allocate`);
+  };
+
+  const columns = getColumns(handleViewDetail, handleAllocate);
+  const batchColumns = columns.filter((column) => column.key !== 'action');
 
   const onSearch = (values: any) => {
-    console.log('Search values:', values);
-    fetchData();
+    setFilters(values || {});
+    setPagination((prev) => ({ ...prev, current: 1 }));
+  };
+
+  const handleBatchReallocate = () => {
+    if (!selectedRowKeys.length) {
+      return;
+    }
+    setBatchModalOpen(true);
+  };
+
+  const handleBatchConfirm = () => {
+    setData((prev) =>
+      prev.map((item) =>
+        selectedRowKeys.includes(item.id) ? { ...item, status: 'pending' } : item
+      )
+    );
+    setSelectedRowKeys([]);
+    setSelectedRows([]);
+    setBatchModalOpen(false);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (keys: React.Key[], rows: AllocationItem[]) => {
+      setSelectedRowKeys(keys);
+      setSelectedRows(rows);
+    },
+    type: 'checkbox' as const,
+    columnWidth: '20px',
   };
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
-          <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
-            <span className="bill-info-title">{i18n.t(LocaleHelper.getAllocationOverviewPageTitle())}</span>
+          <div className="BillHeadInfoWrap">
+            <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+              <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
+              {i18n.t(LocaleHelper.getAllocationOverviewPageTitle())}
+              <Tooltip
+                title={
+                  <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                    <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                      <li style={{ marginBottom: '10px' }}>
+                        <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
+                          <b>说明</b>
+                        </span>
+                        本页面用于汇总展示订单费用分配结果，支持按订单、客户、时间段等条件筛选，查看分配状态与收入统计。订单总收入=销售收入+作业收入，销售收入用于体现销售贡献与提成归属，作业收入用于体现执行成本贡献与绩效归属，帮助进行分配校验与利润分析，并可进入明细进行分配或查看。
+                      </li>
+                    </ol>
+                  </div>
+                }
+                color='white'
+              >
+                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+              </Tooltip>
+            </span>
           </div>
         </div>
         <div className="header-button-area">
-          <span className="buttonGroup-component">
+          <div className="buttonGroup-component">
             <div className="u-button-group">
-              <Button type="primary" danger>{i18n.t(LocaleHelper.getAllocationOverviewActionBatchReallocate())}</Button>
+              <Button type="primary" danger onClick={handleBatchReallocate}>{i18n.t(LocaleHelper.getAllocationOverviewActionBatchReallocate())}</Button>
               <Button>{i18n.t(LocaleHelper.getAllocationOverviewActionExportReport())}</Button>
             </div>
-          </span>
+          </div>
         </div>
       </div>
 
@@ -192,16 +183,55 @@ const AllocationOverview: React.FC = () => {
       <div className="nc-bill-table-area">
         <Table
           columns={columns}
+          rowSelection={rowSelection}
           dataSource={data}
           rowKey="id"
           loading={loading}
-          pagination={pagination}
+          pagination={{
+            current: pagination.current,
+            pageSize: pagination.pageSize,
+            total: pagination.total,
+            showTotal: (total) =>
+              `${i18n.t(LocaleHelper.getTotal())}${total}${i18n.t(LocaleHelper.getItems())}`,
+            showQuickJumper: true,
+            showSizeChanger: true,
+          }}
           size="small"
           bordered
           scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}
-          onChange={(p) => setPagination({ ...pagination, current: p.current || 1, pageSize: p.pageSize || 20 })}
+          onChange={(p) =>
+            setPagination((prev) => ({
+              ...prev,
+              current: p.current || 1,
+              pageSize: p.pageSize || 20,
+            }))
+          }
         />
       </div>
+      <Modal
+        open={batchModalOpen}
+        title={i18n.t(LocaleHelper.getAllocationOverviewActionBatchReallocate())}
+        onCancel={() => setBatchModalOpen(false)}
+        footer={[
+          <Button key="back" onClick={() => setBatchModalOpen(false)}>
+            {i18n.t(LocaleHelper.getAllocationOverviewDetailActionBack())}
+          </Button>,
+          <Button key="submit" type="primary" danger onClick={handleBatchConfirm}>
+            {i18n.t(LocaleHelper.getAllocationOverviewDetailActionReallocate())}
+          </Button>,
+        ]}
+        width={900}
+      >
+        <Table
+          columns={batchColumns}
+          dataSource={selectedRows}
+          rowKey="id"
+          pagination={false}
+          size="small"
+          bordered
+          scroll={{ x: 'max-content', y: 360 }}
+        />
+      </Modal>
     </div>
   );
 };

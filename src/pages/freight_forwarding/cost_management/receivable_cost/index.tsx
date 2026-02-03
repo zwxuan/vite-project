@@ -2,8 +2,8 @@
  * 应收费用管理列表页面
  */
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Tag, message, Modal } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, ExportOutlined } from '@ant-design/icons';
+import { Table, Button, Space, message, Modal } from 'antd';
+import { PlusOutlined, ExportOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 import AdvancedSearchForm from '@/components/search-form';
@@ -103,9 +103,9 @@ const ReceivableCostList: React.FC = () => {
             {/* 页面头部 */}
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap">
-                        <CustomIcon type="icon-Currency" style={{ fontSize: 24, marginRight: 8 }} />
-                        <span style={{ fontSize: 18, fontWeight: 500 }}>
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
                             {i18n.t(LocaleHelper.getReceivableCostListTitle())}
                         </span>
                     </div>
@@ -149,7 +149,7 @@ const ReceivableCostList: React.FC = () => {
                         current: searchParams.pageNum,
                         pageSize: searchParams.pageSize,
                         total: total,
-                        showTotal: (total) => `共 ${total} 条`,
+                        showTotal: (total) => i18n.t(LocaleHelper.getReceivableCostPaginationTotal(), { total }),
                         showQuickJumper: true,
                         showSizeChanger: true,
                     }}

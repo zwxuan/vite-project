@@ -3,11 +3,13 @@
  * 对应文档：docs\1.货代操作\1.7 费用管理.md - 应收费用录入页面 (第208-240行)
  */
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, Button, Table, InputNumber, Card, Row, Col, message, Space, Divider, Modal } from 'antd';
-import { PlusOutlined, DeleteOutlined, SaveOutlined, CheckOutlined, PrinterOutlined } from '@ant-design/icons';
+import { Form, Input, Select, Button, Table, InputNumber, Card, Row, Col, message, Space, Modal } from 'antd';
+import { PlusOutlined, DeleteOutlined, SaveOutlined, CheckOutlined, PrinterOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { ColumnsType } from 'antd/es/table';
 import CustomIcon from '@/components/custom-icon';
+import LocaleHelper from '@/utils/locale';
+import i18n from '@/i18n';
 import '@/pages/page_list.less';
 
 const { Option } = Select;
@@ -42,7 +44,7 @@ const ReceivableCostForm: React.FC = () => {
     // 费用项表格列定义
     const columns: ColumnsType<CostItem> = [
         {
-            title: '费用类型',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailCostType()),
             dataIndex: 'costType',
             key: 'costType',
             width: 150,
@@ -52,18 +54,18 @@ const ReceivableCostForm: React.FC = () => {
                     value={record.costType}
                     onChange={(value) => handleCostItemChange(index, 'costType', value)}
                 >
-                    <Option value="OCEAN_FREIGHT">海运费</Option>
-                    <Option value="DOC_FEE">文件费</Option>
-                    <Option value="PORT_CHARGE">港杂费</Option>
-                    <Option value="CUSTOMS_FEE">报关费</Option>
-                    <Option value="TRUCKING_FEE">拖车费</Option>
-                    <Option value="WAREHOUSE_FEE">仓储费</Option>
-                    <Option value="OTHER">其他</Option>
+                    <Option value="OCEAN_FREIGHT">{i18n.t(LocaleHelper.getReceivableCostOptionOceanFreight())}</Option>
+                    <Option value="DOC_FEE">{i18n.t(LocaleHelper.getReceivableCostOptionDocFee())}</Option>
+                    <Option value="PORT_CHARGE">{i18n.t(LocaleHelper.getReceivableCostOptionPortCharge())}</Option>
+                    <Option value="CUSTOMS_FEE">{i18n.t(LocaleHelper.getReceivableCostOptionCustomsFee())}</Option>
+                    <Option value="TRUCKING_FEE">{i18n.t(LocaleHelper.getReceivableCostOptionTruckingFee())}</Option>
+                    <Option value="WAREHOUSE_FEE">{i18n.t(LocaleHelper.getReceivableCostOptionWarehouseFee())}</Option>
+                    <Option value="OTHER">{i18n.t(LocaleHelper.getReceivableCostOptionOther())}</Option>
                 </Select>
             ),
         },
         {
-            title: '费用名称',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailCostName()),
             dataIndex: 'costName',
             key: 'costName',
             width: 150,
@@ -75,7 +77,7 @@ const ReceivableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '数量',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailQuantity()),
             dataIndex: 'quantity',
             key: 'quantity',
             width: 100,
@@ -90,7 +92,7 @@ const ReceivableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '单价',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailUnitPrice()),
             dataIndex: 'unitPrice',
             key: 'unitPrice',
             width: 120,
@@ -105,7 +107,7 @@ const ReceivableCostForm: React.FC = () => {
             ),
         },
         {
-            title: '金额',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailAmount()),
             dataIndex: 'amount',
             key: 'amount',
             width: 120,
@@ -113,7 +115,7 @@ const ReceivableCostForm: React.FC = () => {
             render: (value) => `¥${value.toLocaleString()}`,
         },
         {
-            title: '税率',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailTaxRate()),
             dataIndex: 'taxRate',
             key: 'taxRate',
             width: 100,
@@ -123,15 +125,14 @@ const ReceivableCostForm: React.FC = () => {
                     value={record.taxRate}
                     onChange={(value) => handleCostItemChange(index, 'taxRate', value)}
                 >
-                    <Option value={0.13}>13%</Option>
-                    <Option value={0.09}>9%</Option>
-                    <Option value={0.06}>6%</Option>
-                    <Option value={0}>0%</Option>
+                    {[0.13, 0.09, 0.06, 0].map((rate) => (
+                        <Option key={rate} value={rate}>{`${rate * 100}%`}</Option>
+                    ))}
                 </Select>
             ),
         },
         {
-            title: '含税金额',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailTotalAmount()),
             dataIndex: 'totalAmount',
             key: 'totalAmount',
             width: 120,
@@ -139,7 +140,7 @@ const ReceivableCostForm: React.FC = () => {
             render: (value) => `¥${value.toLocaleString()}`,
         },
         {
-            title: '操作',
+            title: i18n.t(LocaleHelper.getReceivableCostDetailAction()),
             key: 'action',
             width: 80,
             fixed: 'right',
@@ -151,7 +152,7 @@ const ReceivableCostForm: React.FC = () => {
                     icon={<DeleteOutlined />}
                     onClick={() => handleDeleteCostItem(index)}
                 >
-                    删除
+                    {i18n.t(LocaleHelper.getReceivableCostBtnDelete())}
                 </Button>
             ),
         },
@@ -222,11 +223,10 @@ const ReceivableCostForm: React.FC = () => {
         try {
             const values = await form.validateFields();
             setLoading(true);
-            // TODO: 调用API保存草稿
-            message.success('草稿保存成功');
+            message.success(i18n.t(LocaleHelper.getReceivableCostMsgSaveDraftSuccess()));
             navigate('/cost_management/receivable_cost');
         } catch (error) {
-            message.error('保存失败');
+            message.error(i18n.t(LocaleHelper.getReceivableCostMsgSaveDraftFail()));
         } finally {
             setLoading(false);
         }
@@ -237,15 +237,14 @@ const ReceivableCostForm: React.FC = () => {
         try {
             const values = await form.validateFields();
             if (costItems.length === 0) {
-                message.warning('请至少添加一项费用');
+                message.warning(i18n.t(LocaleHelper.getReceivableCostMsgNeedCostItems()));
                 return;
             }
             setLoading(true);
-            // TODO: 调用API提交审核
-            message.success('提交审核成功');
+            message.success(i18n.t(LocaleHelper.getReceivableCostMsgSubmitSuccess()));
             navigate('/cost_management/receivable_cost');
         } catch (error) {
-            message.error('提交失败');
+            message.error(i18n.t(LocaleHelper.getReceivableCostMsgSubmitFail()));
         } finally {
             setLoading(false);
         }
@@ -253,7 +252,11 @@ const ReceivableCostForm: React.FC = () => {
 
     // 从模板导入
     const handleImportFromTemplate = () => {
-        message.info('从模板导入功能开发中...');
+        message.info(i18n.t(LocaleHelper.getReceivableCostMsgImportTemplateWip()));
+    };
+
+    const handleBack = () => {
+        navigate('/cost_management/receivable_cost');
     };
 
     // 智能匹配费率（已重命名为自动生成费用）
@@ -261,11 +264,11 @@ const ReceivableCostForm: React.FC = () => {
         try {
             const orderNo = form.getFieldValue('orderNo');
             if (!orderNo) {
-                message.warning('请先选择订单号');
+                message.warning(i18n.t(LocaleHelper.getReceivableCostMsgSelectOrderFirst()));
                 return;
             }
 
-            message.loading({ content: '正在自动生成费用...', key: 'autoGenerate' });
+            message.loading({ content: i18n.t(LocaleHelper.getReceivableCostMsgAutoGenerateLoading()), key: 'autoGenerate' });
 
             // TODO: 调用API自动生成费用
             // 1. 获取订单信息（航线、箱型、重量等）
@@ -278,7 +281,7 @@ const ReceivableCostForm: React.FC = () => {
                     {
                         key: `auto_${Date.now()}_1`,
                         costType: 'OCEAN_FREIGHT',
-                        costName: '海运费',
+                        costName: i18n.t(LocaleHelper.getReceivableCostOptionOceanFreight()),
                         quantity: 2,
                         unitPrice: 7500,
                         amount: 15000,
@@ -289,7 +292,7 @@ const ReceivableCostForm: React.FC = () => {
                     {
                         key: `auto_${Date.now()}_2`,
                         costType: 'DOC_FEE',
-                        costName: '文件费',
+                        costName: i18n.t(LocaleHelper.getReceivableCostOptionDocFee()),
                         quantity: 1,
                         unitPrice: 300,
                         amount: 300,
@@ -300,7 +303,7 @@ const ReceivableCostForm: React.FC = () => {
                     {
                         key: `auto_${Date.now()}_3`,
                         costType: 'PORT_CHARGE',
-                        costName: '港杂费',
+                        costName: i18n.t(LocaleHelper.getReceivableCostOptionPortCharge()),
                         quantity: 1,
                         unitPrice: 2500,
                         amount: 2500,
@@ -312,10 +315,10 @@ const ReceivableCostForm: React.FC = () => {
 
                 setCostItems(autoGeneratedItems);
                 calculateSummary(autoGeneratedItems);
-                message.success({ content: '费用自动生成成功！已根据客户合同匹配费率', key: 'autoGenerate' });
+                message.success({ content: i18n.t(LocaleHelper.getReceivableCostMsgAutoGenerateSuccess()), key: 'autoGenerate' });
             }, 1000);
         } catch (error) {
-            message.error({ content: '自动生成费用失败', key: 'autoGenerate' });
+            message.error({ content: i18n.t(LocaleHelper.getReceivableCostMsgAutoGenerateFail()), key: 'autoGenerate' });
         }
     };
 
@@ -323,8 +326,8 @@ const ReceivableCostForm: React.FC = () => {
     const handleRegenerateCosts = () => {
         if (costItems.length > 0) {
             Modal.confirm({
-                title: '确认重新生成费用？',
-                content: '重新生成将清空当前所有费用明细，此操作不可恢复',
+                title: i18n.t(LocaleHelper.getReceivableCostMsgConfirmRegenerateTitle()),
+                content: i18n.t(LocaleHelper.getReceivableCostMsgConfirmRegenerateContent()),
                 onOk: () => {
                     handleAutoGenerateCosts();
                 },
@@ -337,8 +340,8 @@ const ReceivableCostForm: React.FC = () => {
     // 清空重来
     const handleClearAll = () => {
         Modal.confirm({
-            title: '确认清空所有费用？',
-            content: '清空后需要重新添加费用明细，此操作不可恢复',
+            title: i18n.t(LocaleHelper.getReceivableCostMsgConfirmClearTitle()),
+            content: i18n.t(LocaleHelper.getReceivableCostMsgConfirmClearContent()),
             onOk: () => {
                 setCostItems([]);
                 setSummary({
@@ -348,27 +351,34 @@ const ReceivableCostForm: React.FC = () => {
                     estimatedProfit: 0,
                     profitRate: 0,
                 });
-                message.success('已清空所有费用');
+                message.success(i18n.t(LocaleHelper.getReceivableCostMsgClearSuccess()));
             },
         });
     };
 
     return (
         <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
-            {/* 页面头部 */}
             <div className="nc-bill-header-area">
                 <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap">
-                        <CustomIcon type="icon-Currency" style={{ fontSize: 24, marginRight: 8 }} />
-                        <span style={{ fontSize: 18, fontWeight: 500 }}>
-                            {id ? '编辑应收费用' : '新建应收费用'}
+                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                        <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
+                            {id ? i18n.t(LocaleHelper.getReceivableCostEditTitle()) : i18n.t(LocaleHelper.getReceivableCostCreateTitle())}
                         </span>
+                    </div>
+                </div>
+                <div className="header-button-area">
+                    <div className="buttonGroup-component">
+                        <div className="u-button-group">
+                            <Button icon={<ArrowLeftOutlined />} onClick={handleBack}>
+                                {i18n.t(LocaleHelper.getBack())}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* 表单内容 */}
-            <div style={{ padding: '16px 24px' }}>
+            <div style={{ padding: '24px', background: '#f0f2f5' }}>
                 <Form
                     form={form}
                     layout="vertical"
@@ -379,178 +389,173 @@ const ReceivableCostForm: React.FC = () => {
                         urgency: 'NORMAL',
                     }}
                 >
-                    {/* 基本信息 */}
-                    <Card title="基本信息" style={{ marginBottom: 16 }}>
-                        <Row gutter={16}>
-                            <Col span={6}>
-                                <Form.Item
-                                    label="订单号"
-                                    name="orderNo"
-                                    rules={[{ required: true, message: '请输入订单号' }]}
-                                >
-                                    <Input placeholder="请输入或选择订单号" />
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item
-                                    label="客户"
-                                    name="customerName"
-                                    rules={[{ required: true, message: '请选择客户' }]}
-                                >
-                                    <Input placeholder="自动带出客户信息" disabled />
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item label="合同编号" name="contractNo">
-                                    <Input placeholder="自动带出合同编号" disabled />
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item
-                                    label="币种"
-                                    name="currency"
-                                    rules={[{ required: true, message: '请选择币种' }]}
-                                >
-                                    <Select>
-                                        <Option value="CNY">CNY</Option>
-                                        <Option value="USD">USD</Option>
-                                        <Option value="EUR">EUR</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={16}>
-                            <Col span={6}>
-                                <Form.Item label="汇率" name="exchangeRate">
-                                    <InputNumber
-                                        min={0}
-                                        precision={4}
-                                        style={{ width: '100%' }}
-                                        placeholder="自动获取汇率"
-                                    />
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item label="业务员" name="salesman">
-                                    <Input placeholder="自动带出业务员" disabled />
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item label="创建时间" name="createTime">
-                                    <Input placeholder="自动生成" disabled />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                    </Card>
+                    <Row gutter={16}>
+                        <Col span={16}>
+                            <Card title={i18n.t(LocaleHelper.getReceivableCostSectionBasicInfo())} style={{ marginBottom: 16 }} bodyStyle={{ textAlign: 'left' }}>
+                                <Row gutter={16}>
+                                    <Col span={8}>
+                                        <Form.Item
+                                            label={i18n.t(LocaleHelper.getReceivableCostFormOrderNo())}
+                                            name="orderNo"
+                                            rules={[{ required: true, message: i18n.t(LocaleHelper.getReceivableCostMsgOrderNoRequired()) }]}
+                                        >
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderOrderNo())} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item
+                                            label={i18n.t(LocaleHelper.getReceivableCostFormCustomer())}
+                                            name="customerName"
+                                            rules={[{ required: true, message: i18n.t(LocaleHelper.getReceivableCostMsgCustomerRequired()) }]}
+                                        >
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderCustomer())} disabled />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormContract())} name="contractNo">
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderContract())} disabled />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item
+                                            label={i18n.t(LocaleHelper.getReceivableCostFormCurrency())}
+                                            name="currency"
+                                            rules={[{ required: true, message: i18n.t(LocaleHelper.getReceivableCostMsgCurrencyRequired()) }]}
+                                        >
+                                            <Select>
+                                                <Option value="CNY">CNY</Option>
+                                                <Option value="USD">USD</Option>
+                                                <Option value="EUR">EUR</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormExchangeRate())} name="exchangeRate">
+                                            <InputNumber
+                                                min={0}
+                                                precision={4}
+                                                style={{ width: '100%' }}
+                                                placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderExchangeRate())}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormSalesman())} name="salesman">
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderSalesman())} disabled />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormCreateTime())} name="createTime">
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderCreateTime())} disabled />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Card>
 
-                    {/* 费用明细 */}
-                    <Card
-                        title="费用明细"
-                        style={{ marginBottom: 16 }}
-                        extra={
-                            <Space>
-                                <Button type="primary" icon={<PlusOutlined />} onClick={handleAutoGenerateCosts}>
-                                    🤖 自动生成费用
-                                </Button>
-                                <Button icon={<PlusOutlined />} onClick={handleAddCostItem}>
-                                    ✏️ 手动添加
-                                </Button>
-                                <Button onClick={handleImportFromTemplate}>📋 从模板导入</Button>
-                                <Button onClick={handleRegenerateCosts}>重新生成</Button>
-                                <Button danger onClick={handleClearAll}>清空重来</Button>
-                            </Space>
-                        }
-                    >
-                        <Table
-                            columns={columns}
-                            dataSource={costItems}
-                            pagination={false}
-                            size="small"
-                            bordered
-                            scroll={{ x: 'max-content' }}
-                        />
-                    </Card>
+                            <Card
+                                title={i18n.t(LocaleHelper.getReceivableCostSectionCostItems())}
+                                style={{ marginBottom: 16 }}
+                                extra={
+                                    <Space>
+                                        <Button type="primary" icon={<PlusOutlined />} onClick={handleAutoGenerateCosts}>
+                                            {i18n.t(LocaleHelper.getReceivableCostBtnAutoGenerate())}
+                                        </Button>
+                                        <Button icon={<PlusOutlined />} onClick={handleAddCostItem}>
+                                            {i18n.t(LocaleHelper.getReceivableCostBtnManualAdd())}
+                                        </Button>
+                                        <Button onClick={handleImportFromTemplate}>
+                                            {i18n.t(LocaleHelper.getReceivableCostBtnImportTemplate())}
+                                        </Button>
+                                        <Button onClick={handleRegenerateCosts}>
+                                            {i18n.t(LocaleHelper.getReceivableCostBtnRegenerate())}
+                                        </Button>
+                                        <Button danger onClick={handleClearAll}>
+                                            {i18n.t(LocaleHelper.getReceivableCostBtnClearAll())}
+                                        </Button>
+                                    </Space>
+                                }
+                            >
+                                <Table
+                                    columns={columns}
+                                    dataSource={costItems}
+                                    pagination={false}
+                                    size="small"
+                                    bordered
+                                    scroll={{ x: 'max-content' }}
+                                />
+                            </Card>
 
-                    {/* 费用汇总 */}
-                    <Card title="费用汇总" style={{ marginBottom: 16 }}>
-                        <Row gutter={16}>
-                            <Col span={6}>
-                                <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>不含税总额：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 500, color: '#1890ff' }}>
-                                        ¥{summary.baseTotal.toLocaleString()}
-                                    </span>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>税额：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 500, color: '#1890ff' }}>
-                                        ¥{summary.taxTotal.toLocaleString()}
-                                    </span>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>含税总额：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 500, color: '#ff4d4f' }}>
-                                        ¥{summary.grandTotal.toLocaleString()}
-                                    </span>
-                                </div>
-                            </Col>
-                            <Col span={6}>
-                                <div style={{ fontSize: 14 }}>
-                                    <span style={{ color: '#666' }}>预计毛利：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 500, color: '#52c41a' }}>
-                                        ¥{summary.estimatedProfit.toLocaleString()} ({summary.profitRate}%)
-                                    </span>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Card>
+                            <Card title={i18n.t(LocaleHelper.getReceivableCostSectionRemark())} style={{ marginBottom: 16 }} bodyStyle={{ textAlign: 'left' }}>
+                                <Form.Item name="remark">
+                                    <Input.TextArea rows={3} placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderRemark())} />
+                                </Form.Item>
+                            </Card>
+                        </Col>
+                        <Col span={8}>
+                            <Card title={i18n.t(LocaleHelper.getReceivableCostSectionSummary())} style={{ marginBottom: 16 }} bodyStyle={{ textAlign: 'left' }}>
+                                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                                    <div style={{ fontSize: 14 }}>
+                                        <span style={{ color: '#666' }}>{i18n.t(LocaleHelper.getReceivableCostSummaryTotalAmount())}：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 500, color: '#1890ff' }}>
+                                            ¥{summary.baseTotal.toLocaleString()}
+                                        </span>
+                                    </div>
+                                    <div style={{ fontSize: 14 }}>
+                                        <span style={{ color: '#666' }}>{i18n.t(LocaleHelper.getReceivableCostSummaryTaxAmount())}：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 500, color: '#1890ff' }}>
+                                            ¥{summary.taxTotal.toLocaleString()}
+                                        </span>
+                                    </div>
+                                    <div style={{ fontSize: 14 }}>
+                                        <span style={{ color: '#666' }}>{i18n.t(LocaleHelper.getReceivableCostSummaryGrandTotal())}：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 500, color: '#ff4d4f' }}>
+                                            ¥{summary.grandTotal.toLocaleString()}
+                                        </span>
+                                    </div>
+                                    <div style={{ fontSize: 14 }}>
+                                        <span style={{ color: '#666' }}>{i18n.t(LocaleHelper.getReceivableCostSummaryEstimatedProfit())}：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 500, color: '#52c41a' }}>
+                                            ¥{summary.estimatedProfit.toLocaleString()} ({summary.profitRate}%)
+                                        </span>
+                                    </div>
+                                </Space>
+                            </Card>
 
-                    {/* 审核设置 */}
-                    <Card title="审核设置" style={{ marginBottom: 16 }}>
-                        <Row gutter={16}>
-                            <Col span={6}>
-                                <Form.Item label="审核级别" name="reviewLevel">
-                                    <Select>
-                                        <Option value="LEVEL_1">一级审核</Option>
-                                        <Option value="LEVEL_2">二级审核</Option>
-                                        <Option value="LEVEL_3">三级审核</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item label="紧急程度" name="urgency">
-                                    <Select>
-                                        <Option value="NORMAL">普通</Option>
-                                        <Option value="URGENT">紧急</Option>
-                                        <Option value="VERY_URGENT">非常紧急</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item label="审核人" name="reviewer">
-                                    <Input placeholder="自动分配审核人" />
-                                </Form.Item>
-                            </Col>
-                            <Col span={6}>
-                                <Form.Item label="预计审核时间" name="estimatedReviewTime">
-                                    <Input placeholder="自动计算" disabled />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                    </Card>
+                            <Card title={i18n.t(LocaleHelper.getReceivableCostSectionAuditSettings())} style={{ marginBottom: 16 }} bodyStyle={{ textAlign: 'left' }}>
+                                <Row gutter={16}>
+                                    <Col span={24}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormReviewLevel())} name="reviewLevel">
+                                            <Select>
+                                                <Option value="LEVEL_1">{i18n.t(LocaleHelper.getReceivableCostReviewLevelOne())}</Option>
+                                                <Option value="LEVEL_2">{i18n.t(LocaleHelper.getReceivableCostReviewLevelTwo())}</Option>
+                                                <Option value="LEVEL_3">{i18n.t(LocaleHelper.getReceivableCostReviewLevelThree())}</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormUrgency())} name="urgency">
+                                            <Select>
+                                                <Option value="NORMAL">{i18n.t(LocaleHelper.getReceivableCostUrgencyNormal())}</Option>
+                                                <Option value="URGENT">{i18n.t(LocaleHelper.getReceivableCostUrgencyUrgent())}</Option>
+                                                <Option value="VERY_URGENT">{i18n.t(LocaleHelper.getReceivableCostUrgencyVeryUrgent())}</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormReviewer())} name="reviewer">
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderReviewer())} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item label={i18n.t(LocaleHelper.getReceivableCostFormEstimatedReviewTime())} name="estimatedReviewTime">
+                                            <Input placeholder={i18n.t(LocaleHelper.getReceivableCostPlaceholderEstimatedReviewTime())} disabled />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Col>
+                    </Row>
 
-                    {/* 备注 */}
-                    <Card title="备注" style={{ marginBottom: 16 }}>
-                        <Form.Item name="remark">
-                            <Input.TextArea rows={3} placeholder="请输入备注信息" />
-                        </Form.Item>
-                    </Card>
-
-                    {/* 操作按钮 */}
                     <div style={{ textAlign: 'center', marginTop: 24 }}>
                         <Space size="middle">
                             <Button
@@ -558,7 +563,7 @@ const ReceivableCostForm: React.FC = () => {
                                 onClick={handleSaveDraft}
                                 loading={loading}
                             >
-                                保存草稿
+                                {i18n.t(LocaleHelper.getReceivableCostBtnSaveDraft())}
                             </Button>
                             <Button
                                 type="primary"
@@ -566,11 +571,13 @@ const ReceivableCostForm: React.FC = () => {
                                 onClick={handleSubmitReview}
                                 loading={loading}
                             >
-                                提交审核
+                                {i18n.t(LocaleHelper.getReceivableCostBtnSubmit())}
                             </Button>
-                            <Button icon={<PrinterOutlined />}>预览打印</Button>
+                            <Button icon={<PrinterOutlined />}>
+                                {i18n.t(LocaleHelper.getReceivableCostBtnPreviewPrint())}
+                            </Button>
                             <Button onClick={() => navigate('/cost_management/receivable_cost')}>
-                                取消
+                                {i18n.t(LocaleHelper.getReceivableCostBtnCancel())}
                             </Button>
                         </Space>
                     </div>
