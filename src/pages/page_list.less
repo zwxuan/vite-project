@@ -1293,6 +1293,12 @@ input.u-form-control {
 .ant-table-wrapper .ant-table-cell-scrollbar:not([rowspan]) {
     box-shadow: 0 1px 0 1px #d9d9d9;
 }
+
+.ant-table-wrapper .ant-table-cell,
+.ant-table-wrapper .ant-table-tbody>tr>td {
+    padding: 2px 2px;
+}
+
 .ant-table-cell-fix-end>a,
 .ant-table-cell-fix-right>a {
     // color: #000;
@@ -1304,6 +1310,7 @@ input.u-form-control {
     margin-left: 2px;
     font-size: 11px;
 }
+
 .ant-table-cell-fix-end>a:hover,
 .ant-table-cell-fix-right>a:hover {
     font-weight: bolder;
@@ -1693,10 +1700,12 @@ input.ant-input {
     border: 1px solid #9ca3af;
     border-radius: 3px;
 }
+
 .ant-select-outlined:not(.ant-select-customize-input) {
     border: 1px solid #9ca3af;
     border-radius: 3px;
 }
+
 .ant-select-single {
     display: inline-flex;
     padding-left: 3px;
@@ -2179,6 +2188,7 @@ input.ant-input {
 .ant-select-multiple .ant-select-selector {
     height: 24px;
 }
+
 /*添加这个会影响台账分页的布局*/
 // .ant-select {
 //     display: flex;
@@ -2292,6 +2302,7 @@ input.ant-input {
     width: calc(20% - 12px);
     text-align: end;
 }
+
 .ant-timeline.ant-timeline-label .ant-timeline-item-left .ant-timeline-item-content {
     inset-inline-start: calc(20% - 4px);
     inset-block-start: 2px;
@@ -2299,20 +2310,21 @@ input.ant-input {
     text-align: start;
     // padding: 3px 3px;
 }
-.ant-timeline.ant-timeline-label .ant-timeline-item-tail
-,.ant-timeline.ant-timeline-label .ant-timeline-item-head{
+
+.ant-timeline.ant-timeline-label .ant-timeline-item-tail,
+.ant-timeline.ant-timeline-label .ant-timeline-item-head {
     inset-inline-start: 20%;
     inset-block-start: 4px;
 }
+
 .ant-timeline .ant-timeline-item-tail {
     height: calc(100%);
 }
+
 .ant-timeline .ant-timeline-item {
     font-size: 12px;
 }
-.ant-timeline-item:hover{
+
+.ant-timeline-item:hover {
     background: #b4b5b6;
 }
-
-
- 

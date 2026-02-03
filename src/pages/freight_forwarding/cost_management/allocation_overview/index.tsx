@@ -101,7 +101,11 @@ const AllocationOverview: React.FC = () => {
                         <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
                           <b>说明</b>
                         </span>
-                        本页面用于汇总展示订单费用分配结果，支持按订单、客户、时间段等条件筛选，查看分配状态与收入统计。订单总收入=销售收入+作业收入，销售收入用于体现销售贡献与提成归属，作业收入用于体现执行成本贡献与绩效归属，帮助进行分配校验与利润分析，并可进入明细进行分配或查看。
+                        <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
+                          <li><b>角色：</b>本页面是<b>“查看结果”</b>的地方，相当于系统的<b>“报表”</b>或<b>“成绩单”</b>。</li>
+                          <li><b>时机：</b>数据产生于<b>“费用确认”</b>步骤之后。</li>
+                          <li><b>逻辑：</b>当应收/应付费用被确认时，系统自动触发计算引擎，根据生效规则生成分配结果并展示。</li>
+                        </ul>
                       </li>
                     </ol>
                   </div>
@@ -171,10 +175,10 @@ const AllocationOverview: React.FC = () => {
           </Row>
           <div style={{ marginTop: 16 }}>
             <Row gutter={16}>
-               <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatPending())} value={stats?.pendingCount} /></Col>
-               <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatException())} value={stats?.exceptionCount} valueStyle={{ color: '#cf1322' }} /></Col>
-               <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatManual())} value={stats?.manualCount} /></Col>
-               <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatNew())} value={stats?.newCount} prefix={<ArrowUpOutlined />} valueStyle={{ color: '#3f8600' }} /></Col>
+              <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatPending())} value={stats?.pendingCount} /></Col>
+              <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatException())} value={stats?.exceptionCount} valueStyle={{ color: '#cf1322' }} /></Col>
+              <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatManual())} value={stats?.manualCount} /></Col>
+              <Col span={6}><Statistic title={i18n.t(LocaleHelper.getAllocationOverviewStatNew())} value={stats?.newCount} prefix={<ArrowUpOutlined />} valueStyle={{ color: '#3f8600' }} /></Col>
             </Row>
           </div>
         </Card>

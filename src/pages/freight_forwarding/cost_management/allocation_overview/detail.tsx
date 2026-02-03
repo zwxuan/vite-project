@@ -1,13 +1,13 @@
 import '@/pages/page_list.less';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Card, Col, Row, Table, Tabs, Tag, Steps, Modal, Radio, message, Space, InputNumber, Descriptions, Statistic, Divider } from 'antd';
+import { Button, Card, Col, Row, Table, Tabs, Tag, Steps, Modal, Radio, message, Space, InputNumber, Descriptions, Statistic, Divider, Select } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { AllocationItem, queryAllocationList } from '@/api/freight_forwarding/cost_management/allocation_service';
+import { AllocationItem, queryAllocationList, queryRuleList, RuleItem } from '@/api/freight_forwarding/cost_management/allocation_service';
 
 const AllocationOverviewDetail: React.FC = () => {
   const navigate = useNavigate();
@@ -19,6 +19,14 @@ const AllocationOverviewDetail: React.FC = () => {
   const [allocationType, setAllocationType] = useState('standard');
   const [salesWeight, setSalesWeight] = useState<number>(50);
   const [opsWeight, setOpsWeight] = useState<number>(50);
+  const [ruleList, setRuleList] = useState<RuleItem[]>([]);
+  const [selectedRule, setSelectedRule] = useState<string | null>(null);
+
+  useEffect(() => {
+    queryRuleList({}).then(res => {
+      setRuleList(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     if (searchParams.get('mode') === 'allocate') {
@@ -33,7 +41,18 @@ const AllocationOverviewDetail: React.FC = () => {
       setIsModalOpen(false);
       message.success(i18n.t(LocaleHelper.getAllocationOverviewModalSuccess()));
       if (detail) {
-        setDetail({ ...detail, status: 'allocated' });
+        let updatedDetail = { ...detail, status: 'allocated' };
+        if (allocationType === 'rule' && selectedRule) {
+          const rule = ruleList.find(r => r.ruleId === selectedRule);
+          if (rule) {
+            updatedDetail.ruleName = rule.ruleName;
+          }
+        } else if (allocationType === 'standard') {
+          updatedDetail.ruleName = i18n.t(LocaleHelper.getAllocationOverviewDetailValueRuleStandard());
+        } else {
+          updatedDetail.ruleName = i18n.t(LocaleHelper.getAllocationOverviewModalOptionManual());
+        }
+        setDetail(updatedDetail);
       }
       navigate(`/cost_management/allocation_overview/detail/${id}`, { replace: true });
     }, 1000);
@@ -150,12 +169,12 @@ const AllocationOverviewDetail: React.FC = () => {
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
-            <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-                <span className="bill-info-title" style={{ marginLeft: '10px' }}>
-                    <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
-                    {i18n.t(LocaleHelper.getAllocationOverviewDetailTitle())}
-                </span>
-            </div>
+          <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+            <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+              <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
+              {i18n.t(LocaleHelper.getAllocationOverviewDetailTitle())}
+            </span>
+          </div>
         </div>
         <div className="header-button-area">
           <div className="buttonGroup-component">
@@ -183,28 +202,28 @@ const AllocationOverviewDetail: React.FC = () => {
             <Divider />
             <Row gutter={24}>
               <Col span={8}>
-                <Statistic 
-                  title={i18n.t(LocaleHelper.getAllocationOverviewColTotalIncome())} 
-                  value={detail?.totalIncome} 
-                  precision={2} 
-                  prefix="¥" 
+                <Statistic
+                  title={i18n.t(LocaleHelper.getAllocationOverviewColTotalIncome())}
+                  value={detail?.totalIncome}
+                  precision={2}
+                  prefix="¥"
                 />
               </Col>
               <Col span={8}>
-                <Statistic 
-                  title={i18n.t(LocaleHelper.getAllocationOverviewColSalesIncome())} 
-                  value={detail?.salesIncome} 
-                  precision={2} 
-                  prefix="¥" 
+                <Statistic
+                  title={i18n.t(LocaleHelper.getAllocationOverviewColSalesIncome())}
+                  value={detail?.salesIncome}
+                  precision={2}
+                  prefix="¥"
                   valueStyle={{ color: '#3f8600' }}
                 />
               </Col>
               <Col span={8}>
-                <Statistic 
-                  title={i18n.t(LocaleHelper.getAllocationOverviewColOpsIncome())} 
-                  value={detail?.opsIncome} 
-                  precision={2} 
-                  prefix="¥" 
+                <Statistic
+                  title={i18n.t(LocaleHelper.getAllocationOverviewColOpsIncome())}
+                  value={detail?.opsIncome}
+                  precision={2}
+                  prefix="¥"
                   valueStyle={{ color: '#cf1322' }}
                 />
               </Col>
@@ -214,62 +233,62 @@ const AllocationOverviewDetail: React.FC = () => {
           <Card bordered={false}>
             <Tabs
               items={[
-              {
-                key: 'base',
-                label: i18n.t(LocaleHelper.getAllocationOverviewDetailTabBaseInfo()),
-                children: (
-                  <Descriptions bordered column={2}>
-                    <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelAllocateTime())}>2024-01-15 10:30:00</Descriptions.Item>
-                    <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelRule())}>{i18n.t(LocaleHelper.getAllocationOverviewDetailValueRuleStandard())}</Descriptions.Item>
-                    <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelSource())}>{i18n.t(LocaleHelper.getAllocationOverviewDetailValueSourceSystem())}</Descriptions.Item>
-                    <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelRemark())}>{i18n.t(LocaleHelper.getAllocationOverviewDetailValueRemarkAuto())}</Descriptions.Item>
-                  </Descriptions>
-                ),
-              },
-              {
-                key: 'records',
-                label: i18n.t(LocaleHelper.getAllocationOverviewDetailTabRecords()),
-                children: (
-                  <Table
-                    columns={recordColumns}
-                    dataSource={detail ? [detail] : []}
-                    rowKey="id"
-                    loading={loading}
-                    pagination={false}
-                    size="small"
-                    bordered
-                  />
-                ),
-              },
-              {
-                key: 'flow',
-                label: i18n.t(LocaleHelper.getAllocationOverviewDetailTabFlow()),
-                children: (
-                  <div style={{ padding: '24px' }}>
-                    <Steps
-                      current={currentStep}
-                      items={[
-                        {
-                          title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep1Title()),
-                          description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep1Desc()),
-                        },
-                        {
-                          title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep2Title()),
-                          description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep2Desc()),
-                        },
-                        {
-                          title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep3Title()),
-                          description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep3Desc()),
-                        },
-                        {
-                          title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep4Title()),
-                          description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep4Desc()),
-                        },
-                      ]}
+                {
+                  key: 'base',
+                  label: i18n.t(LocaleHelper.getAllocationOverviewDetailTabBaseInfo()),
+                  children: (
+                    <Descriptions bordered column={2}>
+                      <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelAllocateTime())}>2024-01-15 10:30:00</Descriptions.Item>
+                      <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelRule())}>{detail?.ruleName || i18n.t(LocaleHelper.getAllocationOverviewDetailValueRuleStandard())}</Descriptions.Item>
+                      <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelSource())}>{i18n.t(LocaleHelper.getAllocationOverviewDetailValueSourceSystem())}</Descriptions.Item>
+                      <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewDetailLabelRemark())}>{i18n.t(LocaleHelper.getAllocationOverviewDetailValueRemarkAuto())}</Descriptions.Item>
+                    </Descriptions>
+                  ),
+                },
+                {
+                  key: 'records',
+                  label: i18n.t(LocaleHelper.getAllocationOverviewDetailTabRecords()),
+                  children: (
+                    <Table
+                      columns={recordColumns}
+                      dataSource={detail ? [detail] : []}
+                      rowKey="id"
+                      loading={loading}
+                      pagination={false}
+                      size="small"
+                      bordered
                     />
-                  </div>
-                ),
-              },
+                  ),
+                },
+                {
+                  key: 'flow',
+                  label: i18n.t(LocaleHelper.getAllocationOverviewDetailTabFlow()),
+                  children: (
+                    <div style={{ padding: '24px' }}>
+                      <Steps
+                        current={currentStep}
+                        items={[
+                          {
+                            title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep1Title()),
+                            description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep1Desc()),
+                          },
+                          {
+                            title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep2Title()),
+                            description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep2Desc()),
+                          },
+                          {
+                            title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep3Title()),
+                            description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep3Desc()),
+                          },
+                          {
+                            title: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep4Title()),
+                            description: i18n.t(LocaleHelper.getAllocationOverviewDetailFlowStep4Desc()),
+                          },
+                        ]}
+                      />
+                    </div>
+                  ),
+                },
               ]}
             />
           </Card>
@@ -288,9 +307,22 @@ const AllocationOverviewDetail: React.FC = () => {
         <Radio.Group onChange={(e) => setAllocationType(e.target.value)} value={allocationType}>
           <Space direction="vertical">
             <Radio value="standard">{i18n.t(LocaleHelper.getAllocationOverviewDetailValueRuleStandard())}</Radio>
+            <Radio value="rule">{i18n.t(LocaleHelper.getAllocationOverviewModalOptionSelectRule())}</Radio>
             <Radio value="manual">{i18n.t(LocaleHelper.getAllocationOverviewModalOptionManual())}</Radio>
           </Space>
         </Radio.Group>
+        {allocationType === 'rule' && (
+          <div style={{ marginTop: 16, marginLeft: 24 }}>
+            <div style={{ marginBottom: 4 }}>{i18n.t(LocaleHelper.getAllocationOverviewModalLabelSelectRule())}</div>
+            <Select
+              style={{ width: '100%' }}
+              placeholder={i18n.t(LocaleHelper.getAllocationOverviewModalRulePlaceholder())}
+              value={selectedRule}
+              onChange={setSelectedRule}
+              options={ruleList.map(r => ({ label: r.ruleName, value: r.ruleId }))}
+            />
+          </div>
+        )}
         {allocationType === 'manual' && (
           <div style={{ marginTop: 16, marginLeft: 24 }}>
             <Space>

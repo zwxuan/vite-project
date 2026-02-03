@@ -1,7 +1,6 @@
 import '@/pages/page_list.less';
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Card, Row, Col, Statistic, Tag } from 'antd';
-import { ColumnsType } from 'antd/es/table';
+import { Table, Button, Card, Row, Col, Statistic } from 'antd';
 import CustomIcon from "@/components/custom-icon";
 import AdvancedSearchForm from "@/components/search-form";
 import { getSearchFields } from './search_fields';
@@ -9,6 +8,7 @@ import { queryRuleList, queryRuleStats, RuleItem, RuleStats } from '@/api/freigh
 import { useNavigate } from 'react-router-dom';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
+import { getColumns } from './columns';
 
 const AllocationRules: React.FC = () => {
   const navigate = useNavigate();
@@ -36,72 +36,7 @@ const AllocationRules: React.FC = () => {
     fetchData();
   }, []);
 
-  const columns: ColumnsType<RuleItem> = [
-    {
-      title: i18n.t(LocaleHelper.getAllocationRulesColRuleId()),
-      dataIndex: 'ruleId',
-      key: 'ruleId',
-      width: 100,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationRulesColRuleName()),
-      dataIndex: 'ruleName',
-      key: 'ruleName',
-      width: 200,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationRulesColRuleType()),
-      dataIndex: 'ruleType',
-      key: 'ruleType',
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationRulesColStatus()),
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => {
-        let color = 'default';
-        let text = status;
-        if (status === 'active') {
-          color = 'success';
-          text = i18n.t(LocaleHelper.getAllocationRulesStatusActive());
-        } else if (status === 'pending') {
-          color = 'processing';
-          text = i18n.t(LocaleHelper.getAllocationRulesStatusPending());
-        } else if (status === 'draft') {
-          color = 'default';
-          text = i18n.t(LocaleHelper.getAllocationRulesStatusDraft());
-        } else if (status === 'disabled') {
-          color = 'error';
-          text = i18n.t(LocaleHelper.getAllocationRulesStatusDisabled());
-        }
-        return <Tag color={color}>{text}</Tag>;
-      },
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationRulesColCreator()),
-      dataIndex: 'creator',
-      key: 'creator',
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationRulesColCreateTime()),
-      dataIndex: 'createTime',
-      key: 'createTime',
-    },
-    {
-      title: i18n.t(LocaleHelper.getOperation()),
-      key: 'action',
-      fixed: 'right',
-      width: 200,
-      render: (_, record) => (
-        <Space size="middle">
-          <a onClick={() => navigate(`/cost_management/allocation_rules/detail?id=${record.id}`)}>{i18n.t(LocaleHelper.getAllocationRulesActionEdit())}</a>
-          {record.status === 'pending' && <a>{i18n.t(LocaleHelper.getAllocationRulesActionApprove())}</a>}
-          {record.status === 'disabled' && <a>{i18n.t(LocaleHelper.getAllocationRulesActionEnable())}</a>}
-        </Space>
-      ),
-    },
-  ];
+  const columns = getColumns(navigate);
 
   const onSearch = (values: any) => {
     console.log('Search values:', values);
@@ -113,8 +48,10 @@ const AllocationRules: React.FC = () => {
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
-            <span className="bill-info-title">{i18n.t(LocaleHelper.getAllocationRulesPageTitle())}</span>
+            <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+              <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />
+              {i18n.t(LocaleHelper.getAllocationRulesPageTitle())}
+            </span>
           </div>
         </div>
         <div className="header-button-area">

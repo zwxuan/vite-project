@@ -161,4 +161,16 @@ export const AllocationRulesLocale = {
   getAllocationRulesFormDescription() {
     return 'freight_forwarding.cost_management.allocation_rules.form_description';
   },
+  getAllocationRulesPreviewTitle() {
+    return 'freight_forwarding.cost_management.allocation_rules.preview_title';
+  },
+  getAllocationRulesPreviewColJobNo() {
+    return 'freight_forwarding.cost_management.allocation_rules.preview_col_job_no';
+  },
+  getAllocationRulesPreviewColProfit() {
+    return 'freight_forwarding.cost_management.allocation_rules.preview_col_profit';
+  },
+  getAllocationRulesPreviewColAllocatedAmount() {
+    return 'freight_forwarding.cost_management.allocation_rules.preview_col_allocated_amount';
+  },
 };

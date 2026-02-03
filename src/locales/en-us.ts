@@ -3276,6 +3276,7 @@ export const en = {
                 col_total_income: "Total Income",
                 col_sales_income: "Sales Income",
                 col_ops_income: "Ops Income",
+                col_rule_name: "Rule Name",
                 col_status: "Status",
                 col_salesman: "Salesman",
                 action_detail: "Detail",
@@ -3309,6 +3310,9 @@ export const en = {
                 detail_value_remark_auto: "Allocation completed by rule. Adjustments can be made on the allocation page.",
                 modal_title: "Allocation Confirmation",
                 modal_option_manual: "Manual Allocation",
+                modal_option_select_rule: "Select Other Rule",
+                modal_label_select_rule: "Select Rule",
+                modal_rule_placeholder: "Please select a rule",
                 modal_success: "Allocation Successful",
                 modal_weight_sales: "Sales Dept Weight (%)",
                 modal_weight_ops: "Ops Dept Weight (%)"
@@ -3367,7 +3371,17 @@ export const en = {
                 form_rule_name: "Rule Name",
                 form_rule_name_placeholder: "Enter rule name",
                 form_rule_type: "Rule Type",
-                form_description: "Description"
+                form_description: "Description",
+                preview_title: "Preview",
+                preview_col_job_no: "Task No.",
+                preview_col_profit: "Profit",
+                preview_col_allocated_amount: "Allocated Amount",
+                preview_col_profit_rate: "Profit Rate",
+                preview_col_weight: "Weight",
+                preview_col_weight_rate: "Weight Rate",
+                preview_col_commission: "Commission",
+                preview_col_commission_rate: "Commission Rate",
+                preview_col_total: "Total",
             },
             manual_adjustment_approval: {
                 page_title: "Manual Adjustment Approval",
@@ -3935,5 +3949,5 @@ export const en = {
                 msg_confirm_batch_reject: "Confirm to batch reject selected costs?"
             }
         }
-    }
+    },
 };

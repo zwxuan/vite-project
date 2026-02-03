@@ -62,6 +62,9 @@ export const AllocationOverviewLocale = {
   getAllocationOverviewColOpsIncome() {
     return 'freight_forwarding.cost_management.allocation_overview.col_ops_income';
   },
+  getAllocationOverviewColRuleName() {
+    return 'freight_forwarding.cost_management.allocation_overview.col_rule_name';
+  },
   getAllocationOverviewColStatus() {
     return 'freight_forwarding.cost_management.allocation_overview.col_status';
   },
@@ -160,6 +163,15 @@ export const AllocationOverviewLocale = {
   },
   getAllocationOverviewModalOptionManual() {
     return 'freight_forwarding.cost_management.allocation_overview.modal_option_manual';
+  },
+  getAllocationOverviewModalOptionSelectRule() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_option_select_rule';
+  },
+  getAllocationOverviewModalLabelSelectRule() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_label_select_rule';
+  },
+  getAllocationOverviewModalRulePlaceholder() {
+    return 'freight_forwarding.cost_management.allocation_overview.modal_rule_placeholder';
   },
   getAllocationOverviewModalSuccess() {
     return 'freight_forwarding.cost_management.allocation_overview.modal_success';
