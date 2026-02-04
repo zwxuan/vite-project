@@ -32,6 +32,7 @@ export const getColumns = (
       dataIndex: 'totalIncome',
       key: 'totalIncome',
       align: 'right',
+      width: 120,
       render: (val) => `¥${val.toLocaleString()}`,
     },
     {
@@ -39,6 +40,7 @@ export const getColumns = (
       dataIndex: 'salesIncome',
       key: 'salesIncome',
       align: 'right',
+      width: 120,
       render: (val) => `¥${val.toLocaleString()}`,
     },
     {
@@ -46,6 +48,7 @@ export const getColumns = (
       dataIndex: 'opsIncome',
       key: 'opsIncome',
       align: 'right',
+      width: 120,
       render: (val) => `¥${val.toLocaleString()}`,
     },
     {
@@ -58,6 +61,7 @@ export const getColumns = (
       title: i18n.t(LocaleHelper.getAllocationOverviewColStatus()),
       dataIndex: 'status',
       key: 'status',
+      width: 100,
       render: (status) => {
         let color = 'default';
         let text = status;
@@ -78,19 +82,20 @@ export const getColumns = (
       title: i18n.t(LocaleHelper.getAllocationOverviewColSalesman()),
       dataIndex: 'salesman',
       key: 'salesman',
+      width: 100,
     },
     {
       title: i18n.t(LocaleHelper.getOperation()),
       key: 'action',
       fixed: 'right',
-      width: 150,
+      width: 120,
       render: (_, record) => (
-        <Space size="middle">
+        <>
           <a onClick={() => handleViewDetail(record)}>{i18n.t(LocaleHelper.getAllocationOverviewActionDetail())}</a>
           {record.status === 'pending' && (
             <a onClick={() => handleAllocate(record)}>{i18n.t(LocaleHelper.getAllocationOverviewActionAllocate())}</a>
           )}
-        </Space>
+        </>
       ),
     },
   ];
@@ -119,6 +124,7 @@ export const getRecordColumns = (): ColumnsType<AllocationItem> => [
     dataIndex: 'totalIncome',
     key: 'totalIncome',
     align: 'right',
+    width: 120,
     render: (val) => `¥${val.toLocaleString()}`,
   },
   {
@@ -126,6 +132,7 @@ export const getRecordColumns = (): ColumnsType<AllocationItem> => [
     dataIndex: 'salesIncome',
     key: 'salesIncome',
     align: 'right',
+    width: 120,
     render: (val) => `¥${val.toLocaleString()}`,
   },
   {
@@ -133,12 +140,14 @@ export const getRecordColumns = (): ColumnsType<AllocationItem> => [
     dataIndex: 'opsIncome',
     key: 'opsIncome',
     align: 'right',
+    width: 120,
     render: (val) => `¥${val.toLocaleString()}`,
   },
   {
     title: i18n.t(LocaleHelper.getAllocationOverviewColStatus()),
     dataIndex: 'status',
     key: 'status',
+    width: 100,
     render: (status) => {
       let color: 'success' | 'warning' | 'error' | 'processing' | undefined;
       let text = status;
@@ -159,5 +168,6 @@ export const getRecordColumns = (): ColumnsType<AllocationItem> => [
     title: i18n.t(LocaleHelper.getAllocationOverviewColSalesman()),
     dataIndex: 'salesman',
     key: 'salesman',
+    width: 100,
   },
 ];

@@ -80,7 +80,6 @@ const MOCK_ALLOCATION_STATS: AllocationStats = {
 const MOCK_ALLOCATION_LIST: AllocationItem[] = [
   { id: '1', orderNo: 'ORD001', allocationNo: 'ALC-20240101-001', customerName: 'Customer A', totalIncome: 50000, salesIncome: 10000, opsIncome: 40000, status: 'allocated', salesman: 'John Doe', ruleName: 'Seafreight Allocation' },
   { id: '2', orderNo: 'ORD002', allocationNo: 'ALC-20240103-002', customerName: 'Customer B', totalIncome: 75000, salesIncome: 15000, opsIncome: 60000, status: 'allocated', salesman: 'Jane Smith', ruleName: 'Sales Commission' },
-  { id: '3', orderNo: 'ORD003', customerName: 'Customer C', totalIncome: 30000, salesIncome: 6000, opsIncome: 24000, status: 'pending', salesman: 'Bob Johnson', ruleName: '-' },
   { id: '4', orderNo: 'ORD004', allocationNo: 'ALC-20240107-003', customerName: 'Customer D', totalIncome: 100000, salesIncome: 20000, opsIncome: 80000, status: 'exception', salesman: 'Alice Williams', ruleName: 'Port Misc' },
   { id: '5', orderNo: 'ORD005', allocationNo: 'ALC-20240109-004', customerName: 'Customer E', totalIncome: 45000, salesIncome: 9000, opsIncome: 36000, status: 'allocated', salesman: 'Charlie Brown', ruleName: 'Seafreight Allocation' },
 ];

@@ -82,7 +82,7 @@ const AllocationOverview: React.FC = () => {
       setSelectedRows(rows);
     },
     type: 'checkbox' as const,
-    columnWidth: '20px',
+    columnWidth: '30px',
   };
 
   return (
@@ -212,30 +212,7 @@ const AllocationOverview: React.FC = () => {
           }
         />
       </div>
-      <Modal
-        open={batchModalOpen}
-        title={i18n.t(LocaleHelper.getAllocationOverviewActionBatchReallocate())}
-        onCancel={() => setBatchModalOpen(false)}
-        footer={[
-          <Button key="back" onClick={() => setBatchModalOpen(false)}>
-            {i18n.t(LocaleHelper.getAllocationOverviewDetailActionBack())}
-          </Button>,
-          <Button key="submit" type="primary" danger onClick={handleBatchConfirm}>
-            {i18n.t(LocaleHelper.getAllocationOverviewDetailActionReallocate())}
-          </Button>,
-        ]}
-        width={900}
-      >
-        <Table
-          columns={batchColumns}
-          dataSource={selectedRows}
-          rowKey="id"
-          pagination={false}
-          size="small"
-          bordered
-          scroll={{ x: 'max-content', y: 360 }}
-        />
-      </Modal>
+      
     </div>
   );
 };
