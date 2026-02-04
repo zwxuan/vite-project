@@ -219,3 +219,47 @@ export const queryManualAdjustmentApprovalStats = async (
         }
     );
 };
+
+export const approveManualAdjustment = async (id: string): Promise<void> => {
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const index = mockManualAdjustmentApprovalList.findIndex((item) => item.id === id);
+    if (index !== -1) {
+        mockManualAdjustmentApprovalList[index].status = ManualAdjustmentApprovalStatus.APPROVED;
+        mockManualAdjustmentApprovalList[index].reviewTime = new Date().toLocaleString();
+        mockManualAdjustmentApprovalList[index].reviewer = 'Current User';
+    }
+};
+
+export const rejectManualAdjustment = async (id: string): Promise<void> => {
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const index = mockManualAdjustmentApprovalList.findIndex((item) => item.id === id);
+    if (index !== -1) {
+        mockManualAdjustmentApprovalList[index].status = ManualAdjustmentApprovalStatus.REJECTED;
+        mockManualAdjustmentApprovalList[index].reviewTime = new Date().toLocaleString();
+        mockManualAdjustmentApprovalList[index].reviewer = 'Current User';
+    }
+};
+
+export const batchApproveManualAdjustments = async (ids: string[]): Promise<void> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    ids.forEach((id) => {
+        const index = mockManualAdjustmentApprovalList.findIndex((item) => item.id === id);
+        if (index !== -1) {
+            mockManualAdjustmentApprovalList[index].status = ManualAdjustmentApprovalStatus.APPROVED;
+            mockManualAdjustmentApprovalList[index].reviewTime = new Date().toLocaleString();
+            mockManualAdjustmentApprovalList[index].reviewer = 'Current User';
+        }
+    });
+};
+
+export const batchRejectManualAdjustments = async (ids: string[]): Promise<void> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    ids.forEach((id) => {
+        const index = mockManualAdjustmentApprovalList.findIndex((item) => item.id === id);
+        if (index !== -1) {
+            mockManualAdjustmentApprovalList[index].status = ManualAdjustmentApprovalStatus.REJECTED;
+            mockManualAdjustmentApprovalList[index].reviewTime = new Date().toLocaleString();
+            mockManualAdjustmentApprovalList[index].reviewer = 'Current User';
+        }
+    });
+};

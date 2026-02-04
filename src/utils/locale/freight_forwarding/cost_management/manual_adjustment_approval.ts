@@ -89,4 +89,16 @@ export const ManualAdjustmentApprovalLocale = {
     getManualAdjustmentApprovalStatusRejected() {
         return 'freight_forwarding.cost_management.manual_adjustment_approval.status_rejected';
     },
+    getConfirmApprove() {
+        return 'freight_forwarding.cost_management.manual_adjustment_approval.confirm_approve';
+    },
+    getConfirmReject() {
+        return 'freight_forwarding.cost_management.manual_adjustment_approval.confirm_reject';
+    },
+    getConfirmBatchApprove() {
+        return 'freight_forwarding.cost_management.manual_adjustment_approval.confirm_batch_approve';
+    },
+    getConfirmBatchReject() {
+        return 'freight_forwarding.cost_management.manual_adjustment_approval.confirm_batch_reject';
+    },
 };

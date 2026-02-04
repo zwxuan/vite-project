@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Card, Col, Row, Space, Statistic, Table, Tag } from 'antd';
-import { ReloadOutlined, ExportOutlined, CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Row, Space, Statistic, Table, Tag, Tooltip, message } from 'antd';
+import { ReloadOutlined, ExportOutlined, CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, ThunderboltOutlined, SyncOutlined, RedoOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import AdvancedSearchForm from '@/components/search-form';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getStatusMonitoringSearchFields } from './search_fields';
+import { getColumns } from './columns';
 import {
   querySyncStatusList,
   querySyncStatusStats,
@@ -14,8 +15,6 @@ import {
 import {
   SyncStatusItem,
   SyncStatusStats,
-  SyncType,
-  SyncStatus,
 } from '@/types/freight_forwarding/cost_management';
 import '@/pages/page_list.less';
 
@@ -25,33 +24,7 @@ const StatusMonitoring: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<Record<string, any>>({});
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
-
-  const syncTypeLabelMap = useMemo(
-    () => ({
-      [SyncType.COST_ALLOCATION]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeCostAllocation()),
-      [SyncType.ORDER_FEE]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeOrderFee()),
-      [SyncType.BILLING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeBilling()),
-      [SyncType.INVOICE]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeInvoice()),
-    }),
-    []
-  );
-
-  const statusLabelMap = useMemo(
-    () => ({
-      [SyncStatus.PENDING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusPending()),
-      [SyncStatus.RUNNING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusRunning()),
-      [SyncStatus.SUCCESS]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusSuccess()),
-      [SyncStatus.FAILED]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusFailed()),
-    }),
-    []
-  );
-
-  const statusColorMap = {
-    [SyncStatus.PENDING]: 'default',
-    [SyncStatus.RUNNING]: 'processing',
-    [SyncStatus.SUCCESS]: 'success',
-    [SyncStatus.FAILED]: 'error',
-  };
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -85,71 +58,66 @@ const StatusMonitoring: React.FC = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const columns: ColumnsType<SyncStatusItem> = [
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColSyncType()),
-      dataIndex: 'syncType',
-      key: 'syncType',
-      render: (value: SyncType) => syncTypeLabelMap[value],
-      width: 160,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColStatus()),
-      dataIndex: 'status',
-      key: 'status',
-      render: (value: SyncStatus) => <Tag color={statusColorMap[value]}>{statusLabelMap[value]}</Tag>,
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColLastSyncTime()),
-      dataIndex: 'lastSyncTime',
-      key: 'lastSyncTime',
-      width: 180,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColNextSyncTime()),
-      dataIndex: 'nextSyncTime',
-      key: 'nextSyncTime',
-      width: 180,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColSuccessRate()),
-      dataIndex: 'successRate',
-      key: 'successRate',
-      align: 'right',
-      width: 120,
-      render: (value: number) => `${value.toFixed(1)}%`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColFailedCount()),
-      dataIndex: 'failedCount',
-      key: 'failedCount',
-      align: 'right',
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringColPendingCount()),
-      dataIndex: 'pendingCount',
-      key: 'pendingCount',
-      align: 'right',
-      width: 120,
-    },
-  ];
+  const columns = useMemo(() => getColumns(), []);
+
+  const handleManualSync = () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning('请先选择需要同步的记录');
+      return;
+    }
+    message.success(`已触发 ${selectedRowKeys.length} 条记录的手动同步`);
+  };
+
+  const handleBatchRetry = () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning('请先选择需要重试的记录');
+      return;
+    }
+    message.success(`已触发 ${selectedRowKeys.length} 条记录的批量重试`);
+  };
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
             <span className="bill-info-title">
+              <CustomIcon type="icon-Currency" style={{ fontSize: 24, color: 'red' }} />
               {i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringPageTitle())}
+              <Tooltip
+                title={
+                  <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                    <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                      <li style={{ marginBottom: '10px' }}>
+                        <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
+                          <b>说明</b>
+                        </span>
+                        <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
+                          <li><b>角色：</b>实时监控财务数据同步状态，确保数据准确传输。</li>
+                          <li><b>数据来源：</b>财务数据同步服务实时状态。</li>
+                          <li><b>同步类型：</b>包括费用分摊、订单费用、账单、发票等数据的同步。</li>
+                          <li><b>操作：</b>支持手动触发同步和失败任务的批量重试。</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </div>
+                }
+                color='white'
+              >
+                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+              </Tooltip>
             </span>
           </div>
         </div>
         <div className="header-button-area">
           <span className="buttonGroup-component">
             <div className="u-button-group">
+              <Button icon={<SyncOutlined />} onClick={handleManualSync}>
+                手动同步
+              </Button>
+              <Button icon={<RedoOutlined />} onClick={handleBatchRetry}>
+                批量重试
+              </Button>
               <Button type="primary" danger icon={<ExportOutlined />}>
                 {i18n.t(LocaleHelper.getFinancialDataSyncStatusMonitoringActionExport())}
               </Button>
@@ -205,6 +173,10 @@ const StatusMonitoring: React.FC = () => {
 
       <div className="nc-bill-table-area">
         <Table
+          rowSelection={{
+            selectedRowKeys,
+            onChange: (newSelectedRowKeys) => setSelectedRowKeys(newSelectedRowKeys),
+          }}
           columns={columns}
           dataSource={data}
           rowKey="id"

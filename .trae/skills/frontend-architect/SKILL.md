@@ -49,6 +49,7 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
     *   **配置化**：搜索字段配置必须抽离为同目录下的 `search_fields.ts` 文件。
 *   **表格区域**:
     *   容器：`<div className='nc-bill-table-area'>` (移除外层 Card)。
+    *   列定义：必须抽离为同目录下的 `columns.tsx` 文件。
     *   属性：`size="small"`, `bordered={true}`。
     *   滚动：`scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}`。
     *   分页：`showTotal`, `showQuickJumper`, `showSizeChanger`。
@@ -72,7 +73,6 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
 请严格参考现有“结算中心-业务管理”模块的代码结构与布局风格：
 
 1. 台账/列表页参考 ：
-   
    - Reference : src/pages/settlement_center/business_manage/index.tsx 
    - Requirements : 严格复用其 Header ( nc-bill-header-area ) 与 Table ( nc-bill-table-area ) 的 DOM 结构和 CSS 类名。 
 2. 明细/详情页参考 ：
@@ -85,6 +85,7 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
    
    - Reference : src/pages/settlement_center/business_manage/ 目录结构。 
    - Rule : 严禁 将所有 Tabs 内容写在一个文件中。详情页的每一个 Tab 内容必须拆分为独立的 React 组件，并存放在 components 或 details 子目录下。 
+   - Rule : 表格的表头定义 (Columns) 必须抽离为同目录下的 `columns.tsx` 文件。
 
 ## 2. 系统配置要求
 

@@ -502,4 +502,45 @@ export const CostOverviewLocale = {
     getCostOverviewUnitCount() {
         return 'freight_forwarding.cost_management.cost_overview.unit_count';
     },
+
+    getCostOverviewBtnApplyAdjustment() {
+        return 'freight_forwarding.cost_management.cost_overview.btn_apply_adjustment';
+    },
+    getCostOverviewModalTitleApplyAdjustment() {
+        return 'freight_forwarding.cost_management.cost_overview.modal_title_apply_adjustment';
+    },
+    getCostOverviewLabelAdjustmentReason() {
+        return 'freight_forwarding.cost_management.cost_overview.label_adjustment_reason';
+    },
+    getCostOverviewLabelAdjustmentAmount() {
+        return 'freight_forwarding.cost_management.cost_overview.label_adjustment_amount';
+    },
+    getCostOverviewMsgApplySuccess() {
+        return 'freight_forwarding.cost_management.cost_overview.msg_apply_success';
+    },
+    getCostOverviewLabelAdjustmentType() {
+        return 'freight_forwarding.cost_management.cost_overview.label_adjustment_type';
+    },
+    getCostOverviewLabelSettlementObject() {
+        return 'freight_forwarding.cost_management.cost_overview.label_settlement_object';
+    },
+    getCostOverviewLabelAttachment() {
+        return 'freight_forwarding.cost_management.cost_overview.label_attachment';
+    },
+    getCostOverviewOptionAdjTypeProfit() {
+        return 'freight_forwarding.cost_management.cost_overview.option_adj_type_profit';
+    },
+    getCostOverviewOptionAdjTypeCost() {
+        return 'freight_forwarding.cost_management.cost_overview.option_adj_type_cost';
+    },
+    getCostOverviewOptionAdjTypeExchange() {
+        return 'freight_forwarding.cost_management.cost_overview.option_adj_type_exchange';
+    },
+    getCostOverviewBtnUpload() {
+        return 'freight_forwarding.cost_management.cost_overview.btn_upload';
+    },
+    getCostOverviewBtnSubmit() {
+        return 'freight_forwarding.cost_management.cost_overview.btn_submit';
+    },
+    
 };

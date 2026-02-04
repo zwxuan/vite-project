@@ -215,6 +215,7 @@ export interface AllocationHistoryItem {
     id: string;
     allocationNo: string;
     orderNo: string;
+    orderId?: string;
     customerName: string;
     allocationType: string;
     allocationBasis: string;
@@ -328,6 +329,7 @@ export enum SyncScheduleType {
     HOURLY = 'HOURLY',
     DAILY = 'DAILY',
     WEEKLY = 'WEEKLY',
+    CRON = 'CRON',
 }
 
 export enum SyncLogLevel {
@@ -365,6 +367,7 @@ export interface SyncTaskItem {
     taskNo: string;
     syncType: SyncType;
     scheduleType: SyncScheduleType;
+    cronExpression?: string;
     status: SyncStatus;
     lastRunTime: string;
     nextRunTime: string;

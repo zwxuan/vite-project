@@ -1,22 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Card, Col, Row, Space, Statistic, Table, Tag } from 'antd';
-import { ReloadOutlined, ExportOutlined, CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, ProfileOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Row, Space, Statistic, Table, Tag, Tooltip } from 'antd';
+import { ReloadOutlined, ExportOutlined, CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, ProfileOutlined, PlusOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import AdvancedSearchForm from '@/components/search-form';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getTaskManagementSearchFields } from './search_fields';
+import { getColumns } from './columns';
+import CreateTaskModal from './create_task_modal';
 import {
   querySyncTaskList,
   querySyncTaskStats,
 } from '@/api/freight_forwarding/cost_management/financial_data_sync_service';
 import {
-  SyncScheduleType,
-  SyncStatus,
   SyncTaskItem,
   SyncTaskStats,
-  SyncType,
 } from '@/types/freight_forwarding/cost_management';
 import '@/pages/page_list.less';
 
@@ -26,43 +25,7 @@ const TaskManagement: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<Record<string, any>>({});
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
-
-  const syncTypeLabelMap = useMemo(
-    () => ({
-      [SyncType.COST_ALLOCATION]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeCostAllocation()),
-      [SyncType.ORDER_FEE]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeOrderFee()),
-      [SyncType.BILLING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeBilling()),
-      [SyncType.INVOICE]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeInvoice()),
-    }),
-    []
-  );
-
-  const scheduleLabelMap = useMemo(
-    () => ({
-      [SyncScheduleType.REAL_TIME]: i18n.t(LocaleHelper.getFinancialDataSyncCommonScheduleRealTime()),
-      [SyncScheduleType.HOURLY]: i18n.t(LocaleHelper.getFinancialDataSyncCommonScheduleHourly()),
-      [SyncScheduleType.DAILY]: i18n.t(LocaleHelper.getFinancialDataSyncCommonScheduleDaily()),
-      [SyncScheduleType.WEEKLY]: i18n.t(LocaleHelper.getFinancialDataSyncCommonScheduleWeekly()),
-    }),
-    []
-  );
-
-  const statusLabelMap = useMemo(
-    () => ({
-      [SyncStatus.PENDING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusPending()),
-      [SyncStatus.RUNNING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusRunning()),
-      [SyncStatus.SUCCESS]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusSuccess()),
-      [SyncStatus.FAILED]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusFailed()),
-    }),
-    []
-  );
-
-  const statusColorMap = {
-    [SyncStatus.PENDING]: 'default',
-    [SyncStatus.RUNNING]: 'processing',
-    [SyncStatus.SUCCESS]: 'success',
-    [SyncStatus.FAILED]: 'error',
-  };
+  const [createModalVisible, setCreateModalVisible] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -96,74 +59,56 @@ const TaskManagement: React.FC = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const columns: ColumnsType<SyncTaskItem> = [
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColTaskNo()),
-      dataIndex: 'taskNo',
-      key: 'taskNo',
-      width: 160,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColSyncType()),
-      dataIndex: 'syncType',
-      key: 'syncType',
-      render: (value: SyncType) => syncTypeLabelMap[value],
-      width: 140,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColScheduleType()),
-      dataIndex: 'scheduleType',
-      key: 'scheduleType',
-      render: (value: SyncScheduleType) => scheduleLabelMap[value],
-      width: 140,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColStatus()),
-      dataIndex: 'status',
-      key: 'status',
-      render: (value: SyncStatus) => <Tag color={statusColorMap[value]}>{statusLabelMap[value]}</Tag>,
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColLastRunTime()),
-      dataIndex: 'lastRunTime',
-      key: 'lastRunTime',
-      width: 180,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColNextRunTime()),
-      dataIndex: 'nextRunTime',
-      key: 'nextRunTime',
-      width: 180,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColOwner()),
-      dataIndex: 'owner',
-      key: 'owner',
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementColCreatedTime()),
-      dataIndex: 'createdTime',
-      key: 'createdTime',
-      width: 180,
-    },
-  ];
+  const columns = useMemo(() => getColumns(), []);
+
+  const handleCreate = () => {
+    setCreateModalVisible(true);
+  };
+
+  const handleCreateSuccess = () => {
+    setCreateModalVisible(false);
+    fetchData();
+  };
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
             <span className="bill-info-title">
+              <CustomIcon type="icon-Currency" style={{ fontSize: 24, color: 'red' }} />
               {i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementPageTitle())}
+              <Tooltip
+                title={
+                  <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                    <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                      <li style={{ marginBottom: '10px' }}>
+                        <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
+                          <b>说明</b>
+                        </span>
+                        <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
+                          <li><b>角色：</b>管理数据同步任务的创建和调度。</li>
+                          <li><b>数据来源：</b>同步任务配置表。</li>
+                          <li><b>调度类型：</b>支持实时、按小时、按日、按周等多种调度方式。</li>
+                          <li><b>操作：</b>支持新建同步任务，配置同步规则和频率。</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </div>
+                }
+                color='white'
+              >
+                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+              </Tooltip>
             </span>
           </div>
         </div>
         <div className="header-button-area">
           <span className="buttonGroup-component">
             <div className="u-button-group">
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
+                新建任务
+              </Button>
               <Button type="primary" danger icon={<ExportOutlined />}>
                 {i18n.t(LocaleHelper.getFinancialDataSyncTaskManagementActionExport())}
               </Button>
@@ -244,6 +189,11 @@ const TaskManagement: React.FC = () => {
           }
         />
       </div>
+      <CreateTaskModal
+        visible={createModalVisible}
+        onCancel={() => setCreateModalVisible(false)}
+        onSuccess={handleCreateSuccess}
+      />
     </div>
   );
 };

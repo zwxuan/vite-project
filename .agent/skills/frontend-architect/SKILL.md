@@ -49,6 +49,7 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
     *   **配置化**：搜索字段配置必须抽离为同目录下的 `search_fields.ts` 文件。
 *   **表格区域**:
     *   容器：`<div className='nc-bill-table-area'>` (移除外层 Card)。
+    *   列定义：必须抽离为同目录下的 `columns.tsx` 文件。
     *   属性：`size="small"`, `bordered={true}`。
     *   滚动：`scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}`。
     *   分页：`showTotal`, `showQuickJumper`, `showSizeChanger`。

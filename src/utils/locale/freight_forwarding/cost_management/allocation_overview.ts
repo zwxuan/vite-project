@@ -50,6 +50,9 @@ export const AllocationOverviewLocale = {
   getAllocationOverviewColOrderNo() {
     return 'freight_forwarding.cost_management.allocation_overview.col_order_no';
   },
+  getAllocationOverviewColAllocationNo() {
+    return 'freight_forwarding.cost_management.allocation_overview.col_allocation_no';
+  },
   getAllocationOverviewColCustomer() {
     return 'freight_forwarding.cost_management.allocation_overview.col_customer';
   },

@@ -3810,7 +3810,19 @@ export const cn = {
                 col_total_revenue: "总收入",
                 col_total_cost: "总成本",
                 msg_analysis_complete: "分析完成！",
-                msg_complete_analysis_condition: "请完善分析条件"
+                msg_complete_analysis_condition: "请完善分析条件",
+                btn_apply_adjustment: "申请调整",
+                modal_title_apply_adjustment: "申请调整",
+                label_adjustment_reason: "调整原因",
+                label_adjustment_amount: "调整金额",
+                msg_apply_success: "申请调整成功",
+                label_adjustment_type: "调整类型",
+                label_settlement_object: "结算对象",
+                label_attachment: "附件",
+                option_adj_type_profit: "利润调整",
+                option_adj_type_cost: "成本调整",
+                option_adj_type_exchange: "汇率损益",
+                btn_upload: "点击上传"
             },
             receivable_cost: {
                 list_title: "应收费用管理",
@@ -4121,6 +4133,7 @@ export const cn = {
                 stat_exception: "异常分配",
                 stat_manual: "手动调整",
                 stat_new: "本月新增",
+                col_allocation_no: "分配单号",
                 col_order_no: "订单号",
                 col_customer: "客户",
                 col_total_income: "总收入",
@@ -4263,7 +4276,12 @@ export const cn = {
                 status_all: "全部",
                 status_pending: "待审核",
                 status_approved: "已通过",
-                status_rejected: "已驳回"
+                status_rejected: "已驳回",
+                confirm_approve: "确认通过？",
+                confirm_reject: "确认驳回？",
+                confirm_batch_approve: "确认批量通过？",
+                confirm_batch_reject: "确认批量驳回？",
+
             },
             allocation_history: {
                 page_title: "分配历史记录",

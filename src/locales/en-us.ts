@@ -3252,7 +3252,19 @@ export const en = {
                 col_total_revenue: "Total Revenue",
                 col_total_cost: "Total Cost",
                 msg_analysis_complete: "Analysis complete!",
-                msg_complete_analysis_condition: "Please complete the analysis condition"
+                msg_complete_analysis_condition: "Please complete the analysis condition",
+                btn_apply_adjustment: "Apply Adjustment",
+                modal_title_apply_adjustment: "Apply Adjustment",
+                label_adjustment_reason: "Adjustment Reason",
+                label_adjustment_amount: "Adjustment Amount",
+                msg_apply_success: "Adjustment Applied Successfully",
+                label_adjustment_type: "Adjustment Type",
+                label_settlement_object: "Settlement Object",
+                label_attachment: "Attachment",
+                option_adj_type_profit: "Profit Adjustment",
+                option_adj_type_cost: "Cost Adjustment",
+                option_adj_type_exchange: "Exchange Rate Gain/Loss",
+                btn_upload: "Click to Upload"
             },
             allocation_overview: {
                 page_title: "Order Cost Allocation Overview",
@@ -3271,6 +3283,7 @@ export const en = {
                 stat_exception: "Allocation Exceptions",
                 stat_manual: "Manual Adjustments",
                 stat_new: "New This Month",
+                col_allocation_no: "Allocation No.",
                 col_order_no: "Order No.",
                 col_customer: "Customer",
                 col_total_income: "Total Income",
@@ -3413,7 +3426,11 @@ export const en = {
                 status_all: "All",
                 status_pending: "Pending",
                 status_approved: "Approved",
-                status_rejected: "Rejected"
+                status_rejected: "Rejected",
+                confirm_approve: "Are you sure to approve this adjustment?",
+                confirm_reject: "Are you sure to reject this adjustment?",
+                confirm_batch_approve: "Are you sure to approve these adjustments?",
+                confirm_batch_reject: "Are you sure to reject these adjustments?",
             },
             allocation_history: {
                 page_title: "Allocation History",

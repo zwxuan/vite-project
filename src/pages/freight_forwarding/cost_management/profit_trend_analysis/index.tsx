@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Statistic, Table } from 'antd';
-import { DollarOutlined, BarChartOutlined, LineChartOutlined } from '@ant-design/icons';
-import type { ColumnsType } from 'antd/es/table';
+import { DollarOutlined, BarChartOutlined } from '@ant-design/icons';
 import AdvancedSearchForm from '@/components/search-form';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getProfitTrendAnalysisSearchFields } from './search_fields';
+import { getColumns } from './columns';
 import {
   queryProfitTrendAnalysisList,
   queryProfitTrendAnalysisStats,
@@ -53,82 +53,15 @@ const ProfitTrendAnalysis: React.FC = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const columns: ColumnsType<ProfitTrendAnalysisItem> = [
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColMonth()),
-      dataIndex: 'period',
-      key: 'period',
-      width: 120,
-      align: 'center',
-    },
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColRevenue()),
-      dataIndex: 'revenue',
-      key: 'revenue',
-      width: 150,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColCost()),
-      dataIndex: 'cost',
-      key: 'cost',
-      width: 150,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColTotalProfit()),
-      dataIndex: 'totalProfit',
-      key: 'totalProfit',
-      width: 150,
-      align: 'right',
-      render: (value) => (
-        <span style={{ color: '#1890ff', fontWeight: 'bold' }}>¥{value.toLocaleString()}</span>
-      ),
-    },
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColProfitMargin()),
-      dataIndex: 'profitMargin',
-      key: 'profitMargin',
-      width: 120,
-      align: 'right',
-      render: (value) => (
-        <span
-          style={{
-            color: value >= 20 ? '#52c41a' : value >= 15 ? '#faad14' : '#ff4d4f',
-            fontWeight: 'bold',
-          }}
-        >
-          {value.toFixed(1)}%
-        </span>
-      ),
-    },
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColSalesProfit()),
-      dataIndex: 'salesProfit',
-      key: 'salesProfit',
-      width: 140,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getProfitTrendAnalysisColOpsProfit()),
-      dataIndex: 'opsProfit',
-      key: 'opsProfit',
-      width: 140,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-  ];
+  const columns = getColumns();
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
             <span className="bill-info-title">
+              <CustomIcon type="icon-Currency" style={{ fontSize: 24, color: 'red' }} />
               {i18n.t(LocaleHelper.getProfitTrendAnalysisPageTitle())}
             </span>
           </div>

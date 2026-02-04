@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Statistic, Table } from 'antd';
 import { DollarOutlined, BarChartOutlined, TrophyOutlined } from '@ant-design/icons';
-import type { ColumnsType } from 'antd/es/table';
 import AdvancedSearchForm from '@/components/search-form';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getDepartmentPerformanceComparisonSearchFields } from './search_fields';
+import { getDepartmentPerformanceComparisonColumns } from './columns';
 import {
   queryDepartmentPerformanceComparisonList,
   queryDepartmentPerformanceComparisonStats,
@@ -56,94 +56,15 @@ const DepartmentPerformanceComparison: React.FC = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const columns: ColumnsType<DepartmentPerformanceComparisonItem> = [
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColRank()),
-      dataIndex: 'rank',
-      key: 'rank',
-      width: 90,
-      align: 'center',
-      render: (value, _, index) => {
-        const rank = value ?? index + 1;
-        let color = '#666';
-        if (rank === 1) color = '#FFD700';
-        else if (rank === 2) color = '#C0C0C0';
-        else if (rank === 3) color = '#CD7F32';
-        return <span style={{ fontWeight: 'bold', color }}>{rank}</span>;
-      },
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColDepartment()),
-      dataIndex: 'department',
-      key: 'department',
-      width: 160,
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColOrderCount()),
-      dataIndex: 'orderCount',
-      key: 'orderCount',
-      width: 110,
-      align: 'right',
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColRevenue()),
-      dataIndex: 'revenue',
-      key: 'revenue',
-      width: 150,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColCost()),
-      dataIndex: 'cost',
-      key: 'cost',
-      width: 150,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColGrossProfit()),
-      dataIndex: 'grossProfit',
-      key: 'grossProfit',
-      width: 150,
-      align: 'right',
-      render: (value) => (
-        <span style={{ color: '#1890ff', fontWeight: 'bold' }}>¥{value.toLocaleString()}</span>
-      ),
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColProfitMargin()),
-      dataIndex: 'profitMargin',
-      key: 'profitMargin',
-      width: 120,
-      align: 'right',
-      render: (value) => (
-        <span
-          style={{
-            color: value >= 20 ? '#52c41a' : value >= 15 ? '#faad14' : '#ff4d4f',
-            fontWeight: 'bold',
-          }}
-        >
-          {value.toFixed(1)}%
-        </span>
-      ),
-    },
-    {
-      title: i18n.t(LocaleHelper.getDepartmentPerformanceComparisonColKpiScore()),
-      dataIndex: 'kpiScore',
-      key: 'kpiScore',
-      width: 120,
-      align: 'right',
-    },
-  ];
+  const columns = getDepartmentPerformanceComparisonColumns();
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
             <span className="bill-info-title">
+              <CustomIcon type="icon-Currency" style={{ fontSize: 24, color: 'red' }} />
               {i18n.t(LocaleHelper.getDepartmentPerformanceComparisonPageTitle())}
             </span>
           </div>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Row, Space, Statistic, Table } from 'antd';
 import { DollarOutlined, BarChartOutlined, ReloadOutlined, ExportOutlined } from '@ant-design/icons';
-import type { ColumnsType } from 'antd/es/table';
 import AdvancedSearchForm from '@/components/search-form';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getSalesDepartmentPerformanceSearchFields } from './search_fields';
+import { getColumns } from './columns';
 import {
   querySalesDepartmentPerformanceList,
   querySalesDepartmentPerformanceStats,
@@ -56,93 +56,15 @@ const SalesDepartmentPerformance: React.FC = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const columns: ColumnsType<SalesDepartmentPerformanceItem> = [
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColDepartment()),
-      dataIndex: 'department',
-      key: 'department',
-      width: 160,
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColManager()),
-      dataIndex: 'manager',
-      key: 'manager',
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColOrderCount()),
-      dataIndex: 'orderCount',
-      key: 'orderCount',
-      width: 110,
-      align: 'right',
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColTotalRevenue()),
-      dataIndex: 'totalRevenue',
-      key: 'totalRevenue',
-      width: 150,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColTotalCost()),
-      dataIndex: 'totalCost',
-      key: 'totalCost',
-      width: 150,
-      align: 'right',
-      render: (value) => `¥${value.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColGrossProfit()),
-      dataIndex: 'grossProfit',
-      key: 'grossProfit',
-      width: 150,
-      align: 'right',
-      render: (value) => (
-        <span style={{ color: '#1890ff', fontWeight: 'bold' }}>¥{value.toLocaleString()}</span>
-      ),
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColProfitMargin()),
-      dataIndex: 'profitMargin',
-      key: 'profitMargin',
-      width: 120,
-      align: 'right',
-      render: (value) => (
-        <span
-          style={{
-            color: value >= 20 ? '#52c41a' : value >= 15 ? '#faad14' : '#ff4d4f',
-            fontWeight: 'bold',
-          }}
-        >
-          {value.toFixed(1)}%
-        </span>
-      ),
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColCompletionRate()),
-      dataIndex: 'completionRate',
-      key: 'completionRate',
-      width: 120,
-      align: 'right',
-      render: (value) => `${value.toFixed(1)}%`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getSalesDepartmentPerformanceColPeriod()),
-      dataIndex: 'period',
-      key: 'period',
-      width: 120,
-      align: 'center',
-    },
-  ];
+  const columns = getColumns();
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
             <span className="bill-info-title">
+              <CustomIcon type="icon-Currency" style={{ fontSize: 24, color: 'red' }} />
               {i18n.t(LocaleHelper.getSalesDepartmentPerformancePageTitle())}
             </span>
           </div>

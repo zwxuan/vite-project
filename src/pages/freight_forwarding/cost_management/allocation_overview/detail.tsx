@@ -1,13 +1,13 @@
 import '@/pages/page_list.less';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Button, Card, Col, Row, Table, Tabs, Tag, Steps, Modal, Radio, message, Space, InputNumber, Descriptions, Statistic, Divider, Select } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { AllocationItem, queryAllocationList, queryRuleList, RuleItem } from '@/api/freight_forwarding/cost_management/allocation_service';
+import { getRecordColumns } from './columns';
 
 const AllocationOverviewDetail: React.FC = () => {
   const navigate = useNavigate();
@@ -91,66 +91,7 @@ const AllocationOverviewDetail: React.FC = () => {
     return <Tag color={color}>{text}</Tag>;
   }, [detail]);
 
-  const recordColumns: ColumnsType<AllocationItem> = [
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColOrderNo()),
-      dataIndex: 'orderNo',
-      key: 'orderNo',
-      width: 150,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColCustomer()),
-      dataIndex: 'customerName',
-      key: 'customerName',
-      width: 200,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColTotalIncome()),
-      dataIndex: 'totalIncome',
-      key: 'totalIncome',
-      align: 'right',
-      render: (val) => `¥${val.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColSalesIncome()),
-      dataIndex: 'salesIncome',
-      key: 'salesIncome',
-      align: 'right',
-      render: (val) => `¥${val.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColOpsIncome()),
-      dataIndex: 'opsIncome',
-      key: 'opsIncome',
-      align: 'right',
-      render: (val) => `¥${val.toLocaleString()}`,
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColStatus()),
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => {
-        let color: 'success' | 'warning' | 'error' | 'processing' | undefined;
-        let text = status;
-        if (status === 'allocated') {
-          color = 'success';
-          text = i18n.t(LocaleHelper.getAllocationOverviewStatusAllocated());
-        } else if (status === 'pending') {
-          color = 'warning';
-          text = i18n.t(LocaleHelper.getAllocationOverviewStatusPending());
-        } else if (status === 'exception') {
-          color = 'error';
-          text = i18n.t(LocaleHelper.getAllocationOverviewStatusException());
-        }
-        return <Tag color={color}>{text}</Tag>;
-      },
-    },
-    {
-      title: i18n.t(LocaleHelper.getAllocationOverviewColSalesman()),
-      dataIndex: 'salesman',
-      key: 'salesman',
-    },
-  ];
+  const recordColumns = getRecordColumns();
 
   const currentStep = useMemo(() => {
     if (!detail) {
@@ -192,7 +133,7 @@ const AllocationOverviewDetail: React.FC = () => {
 
       <div className="nc-bill-table-area">
         <div style={{ padding: '24px', background: '#f0f2f5' }}>
-          <Card bordered={false} style={{ marginBottom: 24 }}>
+          <Card variant="outlined" style={{ marginBottom: 24 }}>
             <Descriptions title={i18n.t(LocaleHelper.getAllocationOverviewDetailSectionSummary())} bordered>
               <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewColOrderNo())}>{detail?.orderNo || '-'}</Descriptions.Item>
               <Descriptions.Item label={i18n.t(LocaleHelper.getAllocationOverviewColCustomer())}>{detail?.customerName || '-'}</Descriptions.Item>
@@ -215,7 +156,7 @@ const AllocationOverviewDetail: React.FC = () => {
                   value={detail?.salesIncome}
                   precision={2}
                   prefix="¥"
-                  valueStyle={{ color: '#3f8600' }}
+                  style={{ color: '#3f8600' }}
                 />
               </Col>
               <Col span={8}>
@@ -224,13 +165,13 @@ const AllocationOverviewDetail: React.FC = () => {
                   value={detail?.opsIncome}
                   precision={2}
                   prefix="¥"
-                  valueStyle={{ color: '#cf1322' }}
+                  style={{ color: '#cf1322' }}
                 />
               </Col>
             </Row>
           </Card>
 
-          <Card bordered={false}>
+          <Card variant="outlined">
             <Tabs
               items={[
                 {
@@ -305,7 +246,7 @@ const AllocationOverviewDetail: React.FC = () => {
         confirmLoading={loading}
       >
         <Radio.Group onChange={(e) => setAllocationType(e.target.value)} value={allocationType}>
-          <Space direction="vertical">
+          <Space orientation="vertical">
             <Radio value="standard">{i18n.t(LocaleHelper.getAllocationOverviewDetailValueRuleStandard())}</Radio>
             <Radio value="rule">{i18n.t(LocaleHelper.getAllocationOverviewModalOptionSelectRule())}</Radio>
             <Radio value="manual">{i18n.t(LocaleHelper.getAllocationOverviewModalOptionManual())}</Radio>

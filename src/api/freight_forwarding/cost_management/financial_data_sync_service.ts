@@ -229,6 +229,18 @@ const mockSyncTaskList: SyncTaskItem[] = [
         owner: '周锐',
         createdTime: '2023-11-28 15:55:00',
     },
+    {
+        id: 'ST-011',
+        taskNo: 'TASK-202401-011',
+        syncType: SyncType.COST_ALLOCATION,
+        scheduleType: SyncScheduleType.CRON,
+        cronExpression: '0 0 12 * * ?',
+        status: SyncStatus.PENDING,
+        lastRunTime: '2024-01-21 12:00:00',
+        nextRunTime: '2024-01-22 12:00:00',
+        owner: '测试员',
+        createdTime: '2024-01-22 10:00:00',
+    },
 ];
 
 const mockSyncLogList: SyncLogItem[] = [
@@ -717,4 +729,14 @@ export const querySyncExceptionStats = async (params: any): Promise<SyncExceptio
             resolvedCount: 0,
         }
     );
+};
+
+export const retrySyncException = async (ids: string[]): Promise<boolean> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return true;
+};
+
+export const resolveSyncException = async (ids: string[]): Promise<boolean> => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return true;
 };

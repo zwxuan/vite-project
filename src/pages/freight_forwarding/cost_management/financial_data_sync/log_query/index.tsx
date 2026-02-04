@@ -1,22 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, Card, Col, Row, Statistic, Table, Tag } from 'antd';
+import { Button, Card, Col, Row, Statistic, Table, Tooltip } from 'antd';
 import { ReloadOutlined, ExportOutlined, CheckCircleOutlined, CloseCircleOutlined, FieldTimeOutlined, FileTextOutlined } from '@ant-design/icons';
-import type { ColumnsType } from 'antd/es/table';
 import AdvancedSearchForm from '@/components/search-form';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getLogQuerySearchFields } from './search_fields';
+import { getColumns } from './columns';
 import {
   querySyncLogList,
   querySyncLogStats,
 } from '@/api/freight_forwarding/cost_management/financial_data_sync_service';
 import {
   SyncLogItem,
-  SyncLogLevel,
   SyncLogStats,
-  SyncStatus,
-  SyncType,
 } from '@/types/freight_forwarding/cost_management';
 import '@/pages/page_list.less';
 
@@ -26,48 +23,6 @@ const LogQuery: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<Record<string, any>>({});
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
-
-  const syncTypeLabelMap = useMemo(
-    () => ({
-      [SyncType.COST_ALLOCATION]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeCostAllocation()),
-      [SyncType.ORDER_FEE]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeOrderFee()),
-      [SyncType.BILLING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeBilling()),
-      [SyncType.INVOICE]: i18n.t(LocaleHelper.getFinancialDataSyncCommonTypeInvoice()),
-    }),
-    []
-  );
-
-  const statusLabelMap = useMemo(
-    () => ({
-      [SyncStatus.PENDING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusPending()),
-      [SyncStatus.RUNNING]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusRunning()),
-      [SyncStatus.SUCCESS]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusSuccess()),
-      [SyncStatus.FAILED]: i18n.t(LocaleHelper.getFinancialDataSyncCommonStatusFailed()),
-    }),
-    []
-  );
-
-  const levelLabelMap = useMemo(
-    () => ({
-      [SyncLogLevel.INFO]: i18n.t(LocaleHelper.getFinancialDataSyncCommonLogLevelInfo()),
-      [SyncLogLevel.WARN]: i18n.t(LocaleHelper.getFinancialDataSyncCommonLogLevelWarn()),
-      [SyncLogLevel.ERROR]: i18n.t(LocaleHelper.getFinancialDataSyncCommonLogLevelError()),
-    }),
-    []
-  );
-
-  const statusColorMap = {
-    [SyncStatus.PENDING]: 'default',
-    [SyncStatus.RUNNING]: 'processing',
-    [SyncStatus.SUCCESS]: 'success',
-    [SyncStatus.FAILED]: 'error',
-  };
-
-  const levelColorMap = {
-    [SyncLogLevel.INFO]: 'processing',
-    [SyncLogLevel.WARN]: 'warning',
-    [SyncLogLevel.ERROR]: 'error',
-  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -101,75 +56,38 @@ const LogQuery: React.FC = () => {
     setPagination((prev) => ({ ...prev, current: 1 }));
   };
 
-  const columns: ColumnsType<SyncLogItem> = [
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColLogNo()),
-      dataIndex: 'logNo',
-      key: 'logNo',
-      width: 160,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColSyncId()),
-      dataIndex: 'syncId',
-      key: 'syncId',
-      width: 160,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColSyncType()),
-      dataIndex: 'syncType',
-      key: 'syncType',
-      render: (value: SyncType) => syncTypeLabelMap[value],
-      width: 140,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColLevel()),
-      dataIndex: 'level',
-      key: 'level',
-      render: (value: SyncLogLevel) => <Tag color={levelColorMap[value]}>{levelLabelMap[value]}</Tag>,
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColStatus()),
-      dataIndex: 'status',
-      key: 'status',
-      render: (value: SyncStatus) => <Tag color={statusColorMap[value]}>{statusLabelMap[value]}</Tag>,
-      width: 120,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColMessage()),
-      dataIndex: 'message',
-      key: 'message',
-      width: 240,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColStartTime()),
-      dataIndex: 'startTime',
-      key: 'startTime',
-      width: 180,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColEndTime()),
-      dataIndex: 'endTime',
-      key: 'endTime',
-      width: 180,
-    },
-    {
-      title: i18n.t(LocaleHelper.getFinancialDataSyncLogQueryColDuration()),
-      dataIndex: 'duration',
-      key: 'duration',
-      align: 'right',
-      width: 120,
-    },
-  ];
+  const columns = getColumns();
 
   return (
     <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
       <div className="nc-bill-header-area">
         <div className="header-title-search-area">
           <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-            <CustomIcon type="icon-Currency" className="page-title-Icon" />
             <span className="bill-info-title">
+              <CustomIcon type="icon-Currency" style={{ fontSize: 24, color: 'red' }} />
               {i18n.t(LocaleHelper.getFinancialDataSyncLogQueryPageTitle())}
+              <Tooltip
+                title={
+                  <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                    <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                      <li style={{ marginBottom: '10px' }}>
+                        <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
+                          <b>说明</b>
+                        </span>
+                        <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
+                          <li><b>角色：</b>查询财务数据同步的历史记录，用于问题排查和审计。</li>
+                          <li><b>数据来源：</b>系统自动生成的同步日志。</li>
+                          <li><b>日志级别：</b>包括信息、警告、错误。</li>
+                          <li><b>操作：</b>支持按时间、状态、类型筛选日志，以及导出日志数据。</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </div>
+                }
+                color='white'
+              >
+                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+              </Tooltip>
             </span>
           </div>
         </div>

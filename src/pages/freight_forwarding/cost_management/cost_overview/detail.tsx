@@ -2,7 +2,7 @@
  * 费用详情页面
  */
 import React, { useState, useEffect } from 'react';
-import { Card, Descriptions, Table, Tag, Button, Space, Divider, Timeline, message } from 'antd';
+import { Card, Descriptions, Table, Tag, Button, Space, Divider, Timeline, message, Modal, Form, Input, InputNumber, Select, Upload } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
     ArrowLeftOutlined,
@@ -10,14 +10,16 @@ import {
     DeleteOutlined,
     PrinterOutlined,
     CheckCircleOutlined,
-    CloseCircleOutlined
+    CloseCircleOutlined,
+    FormOutlined,
+    UploadOutlined
 } from '@ant-design/icons';
 import CustomIcon from '@/components/custom-icon';
-import type { ColumnsType } from 'antd/es/table';
 import { CostStatus } from '@/types/freight_forwarding/cost_management';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import '@/pages/page_list.less';
+import { CostItem, getItemColumns } from './columns';
 
 interface CostDetailInfo {
     id: string;
@@ -33,18 +35,6 @@ interface CostDetailInfo {
     createTime: string;
     updateTime: string;
     creator: string;
-    remark?: string;
-}
-
-interface CostItem {
-    id: string;
-    itemName: string;
-    quantity: number;
-    unitPrice: number;
-    amount: number;
-    taxRate: number;
-    taxAmount: number;
-    totalAmount: number;
     remark?: string;
 }
 
@@ -64,69 +54,30 @@ const CostDetail: React.FC = () => {
     const [costInfo, setCostInfo] = useState<CostDetailInfo | null>(null);
     const [costItems, setCostItems] = useState<CostItem[]>([]);
     const [auditHistory, setAuditHistory] = useState<AuditHistory[]>([]);
+    const [isAdjustmentModalOpen, setIsAdjustmentModalOpen] = useState(false);
+    const [adjustmentForm] = Form.useForm();
+
+    const handleApplyAdjustment = () => {
+        setIsAdjustmentModalOpen(true);
+    };
+
+    const handleAdjustmentOk = () => {
+        adjustmentForm.validateFields().then(values => {
+            console.log('Adjustment values:', values);
+            setIsAdjustmentModalOpen(false);
+            message.success(i18n.t(LocaleHelper.getCostOverviewMsgApplySuccess()));
+            adjustmentForm.resetFields();
+            // In a real app, this would submit to the API and then refresh data
+        });
+    };
+
+    const handleAdjustmentCancel = () => {
+        setIsAdjustmentModalOpen(false);
+        adjustmentForm.resetFields();
+    };
 
     // 费用项列定义
-    const itemColumns: ColumnsType<CostItem> = [
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColItemName()),
-            dataIndex: 'itemName',
-            key: 'itemName',
-            width: 150,
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColQuantity()),
-            dataIndex: 'quantity',
-            key: 'quantity',
-            width: 100,
-            align: 'right',
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColUnitPrice()),
-            dataIndex: 'unitPrice',
-            key: 'unitPrice',
-            width: 120,
-            align: 'right',
-            render: (value) => `¥${value.toLocaleString()}`,
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColAmount()),
-            dataIndex: 'amount',
-            key: 'amount',
-            width: 120,
-            align: 'right',
-            render: (value) => `¥${value.toLocaleString()}`,
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColTaxRate()),
-            dataIndex: 'taxRate',
-            key: 'taxRate',
-            width: 100,
-            align: 'right',
-            render: (value) => `${value}%`,
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColTaxAmount()),
-            dataIndex: 'taxAmount',
-            key: 'taxAmount',
-            width: 120,
-            align: 'right',
-            render: (value) => `¥${value.toLocaleString()}`,
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewColTotalAmount()),
-            dataIndex: 'totalAmount',
-            key: 'totalAmount',
-            width: 120,
-            align: 'right',
-            render: (value) => `¥${value.toLocaleString()}`,
-        },
-        {
-            title: i18n.t(LocaleHelper.getCostOverviewLabelRemark()),
-            dataIndex: 'remark',
-            key: 'remark',
-            ellipsis: true,
-        },
-    ];
+    const itemColumns = getItemColumns();
 
     // 获取状态标签
     const getStatusTag = (status: CostStatus) => {
@@ -259,9 +210,7 @@ const CostDetail: React.FC = () => {
                 <div className="header-button-area">
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
-                            <Button icon={<ArrowLeftOutlined />} onClick={handleBack}>
-                                {i18n.t(LocaleHelper.getCostOverviewBtnBack())}
-                            </Button>
+                            
                             <Button icon={<EditOutlined />} onClick={handleEdit}>
                                 {i18n.t(LocaleHelper.getCostOverviewBtnEdit())}
                             </Button>
@@ -270,6 +219,12 @@ const CostDetail: React.FC = () => {
                             </Button>
                             <Button icon={<PrinterOutlined />} onClick={handlePrint}>
                                 {i18n.t(LocaleHelper.getCostOverviewBtnPrint())}
+                            </Button>
+                            <Button type="primary" icon={<FormOutlined />} onClick={handleApplyAdjustment}>
+                                {i18n.t(LocaleHelper.getCostOverviewBtnApplyAdjustment())}
+                            </Button>
+                            <Button onClick={handleBack}>
+                                {i18n.t(LocaleHelper.getCostOverviewBtnBack())}
                             </Button>
                         </div>
                     </div>
@@ -381,6 +336,68 @@ const CostDetail: React.FC = () => {
                     />
                 </Card>
             </div>
+
+            <Modal
+                title={i18n.t(LocaleHelper.getCostOverviewModalTitleApplyAdjustment())}
+                open={isAdjustmentModalOpen}
+                onOk={handleAdjustmentOk}
+                onCancel={handleAdjustmentCancel}
+                width={600}
+            >
+                <Form form={adjustmentForm} layout="vertical">
+                    <Form.Item
+                        name="adjustmentType"
+                        label={i18n.t(LocaleHelper.getCostOverviewLabelAdjustmentType())}
+                        rules={[{ required: true }]}
+                    >
+                        <Select>
+                            <Select.Option value="PROFIT">{i18n.t(LocaleHelper.getCostOverviewOptionAdjTypeProfit())}</Select.Option>
+                            <Select.Option value="COST">{i18n.t(LocaleHelper.getCostOverviewOptionAdjTypeCost())}</Select.Option>
+                            <Select.Option value="EXCHANGE">{i18n.t(LocaleHelper.getCostOverviewOptionAdjTypeExchange())}</Select.Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name="settlementObject"
+                        label={i18n.t(LocaleHelper.getCostOverviewLabelSettlementObject())}
+                        initialValue={costInfo?.customer || costInfo?.supplier}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name="amount"
+                        label={i18n.t(LocaleHelper.getCostOverviewLabelAdjustmentAmount())}
+                        rules={[{ required: true }]}
+                    >
+                        <InputNumber
+                            style={{ width: '100%' }}
+                            addonBefore={
+                                <Form.Item name="currency" noStyle initialValue={costInfo?.currency || 'CNY'}>
+                                    <Select style={{ width: 80 }}>
+                                        <Select.Option value="CNY">CNY</Select.Option>
+                                        <Select.Option value="USD">USD</Select.Option>
+                                        <Select.Option value="EUR">EUR</Select.Option>
+                                    </Select>
+                                </Form.Item>
+                            }
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="reason"
+                        label={i18n.t(LocaleHelper.getCostOverviewLabelAdjustmentReason())}
+                        rules={[{ required: true }]}
+                    >
+                        <Input.TextArea rows={4} />
+                    </Form.Item>
+                    <Form.Item
+                        name="attachment"
+                        label={i18n.t(LocaleHelper.getCostOverviewLabelAttachment())}
+                    >
+                        <Upload>
+                            <Button icon={<UploadOutlined />}>{i18n.t(LocaleHelper.getCostOverviewBtnUpload())}</Button>
+                        </Upload>
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     );
 };
