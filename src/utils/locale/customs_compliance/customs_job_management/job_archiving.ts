@@ -1,0 +1,15 @@
+export const JobArchivingLocale = {
+    getPageTitle() { return "customs_compliance.customs_job_management.job_archiving.pageTitle"; },
+    getArchiveDate() { return "customs_compliance.customs_job_management.job_archiving.archiveDate"; },
+    getArchiveReason() { return "customs_compliance.customs_job_management.job_archiving.archiveReason"; },
+    getArchivedBy() { return "customs_compliance.customs_job_management.job_archiving.archivedBy"; },
+    getRestore() { return "customs_compliance.customs_job_management.job_archiving.restore"; },
+    getBatchRestore() { return "customs_compliance.customs_job_management.job_archiving.batchRestore"; },
+    getHelpLabel() { return "customs_compliance.customs_job_management.job_archiving.help.label"; },
+    getHelpRole() { return "customs_compliance.customs_job_management.job_archiving.help.role"; },
+    getHelpRoleDesc() { return "customs_compliance.customs_job_management.job_archiving.help.roleDesc"; },
+    getHelpOrigin() { return "customs_compliance.customs_job_management.job_archiving.help.origin"; },
+    getHelpOriginDesc() { return "customs_compliance.customs_job_management.job_archiving.help.originDesc"; },
+    getHelpFunctionality() { return "customs_compliance.customs_job_management.job_archiving.help.functionality"; },
+    getHelpFunctionalityDesc() { return "customs_compliance.customs_job_management.job_archiving.help.functionalityDesc"; },
+};

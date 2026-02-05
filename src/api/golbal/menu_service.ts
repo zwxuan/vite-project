@@ -86,6 +86,16 @@ const menuData: MenuGroup[] = [
         ]
     },
 
+    {
+        title: "关务与合规",
+        key: "customs_compliance",
+        apps: [
+            {
+                name: "关务作业管理", key: "customs_job_management",
+            },
+        ]
+    },
+
 ];
 const childrenMenuData: MenuGroup[] = [{
     title: "财务基础数据",
@@ -894,6 +904,20 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "异常处理中心", key: "financial_data_sync_exception_center", path: "/cost_management/financial_data_sync/exception_center" },
     ]
 },
+    {
+        title: "关务作业管理",
+        key: "customs_job_management",
+        parentkey: "customs_job_management",
+        apps: [
+            { name: "作业单中心", key: "job_center", path: "/customs_job_management/job_center" },
+            { name: "作业看板", key: "dashboard", path: "/customs_job_management/dashboard" },
+            { name: "新建作业单", key: "create_job", path: "/customs_job_management/create_job" },
+            { name: "SLA监控", key: "sla_monitor", path: "/customs_job_management/sla_monitor" },
+            { name: "批量操作", key: "batch_operation", path: "/customs_job_management/batch_operation" },
+            { name: "作业效能分析", key: "job_statistics", path: "/customs_job_management/job_statistics" },
+            { name: "作业归档", key: "job_archiving", path: "/customs_job_management/job_archiving" },
+        ]
+    },
 ]
 
 // 获取当前用户信息

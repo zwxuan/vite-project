@@ -22,13 +22,14 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
 ### A. 国际化 (I18n) - 零硬编码
 *   **严禁**出现中文/英文硬编码字符串。
 *   **实现步骤**:
-    1.  **定义 Key**: 在`src/utils/locale/freight_forwarding/[模块]/[页面].ts` 中添加静态 Getter 方法。
-    2.  **引入**: 在`src\utils\locale\index.ts`中引入生成的`src/utils/locale/freight_forwarding/[模块]/[页面].ts` 文件。
-    3.  **添加资源**: 在 `src/locales/zh-cn.ts` 和 `en-us.ts` 中添加翻译。
+    1.  **定义 Key**: 在`src/utils/locale/[模块]/[子模块]/[页面].ts` 中添加静态 Getter 方法。
+        *   **Key 结构**: 必须严格对应目录层级，如 `customs_compliance.customs_job_management.job_center.pageTitle`。
+    2.  **引入**: 在`src\utils\locale\index.ts`中引入生成的 Locale 文件。
+    3.  **添加资源**: 在 `src/locales/zh-cn.ts` 和 `en-us.ts` 中添加翻译，保持 key 结构一致。
     4.  **调用代码**：
             *   ✅ 正确：`import LocaleHelper from '@/utils/locale';` 然后使用 `LocaleHelper.getSomeKey()`。
-            *   ❌ 错误：`import { SomeLocale } from '@/utils/locale/path/to/file';`。
-    5.  **命名规范**：`LocaleHelper` 中的方法名必须**全局唯一**，避免合并冲突（推荐前缀命名法，如 `getWaybillListTitle`, `getWaybillCreateSave`）
+            *   ❌ 错误：`import { SomeLocale } from '@/utils/locale/path/to/file';` 或深层路径引用。
+    5.  **命名规范**：`LocaleHelper` 中的方法名必须**全局唯一**，避免合并冲突（推荐前缀命名法，如 `getWaybillListTitle`, `getJobCenterPageTitle`）。
     6.  **Check**: 提交前全文件扫描，确保无残留中文字符串。
 
 ### B. UI/UX 设计与样式规范 【重点增强】
@@ -40,6 +41,9 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
     *   标题左侧必须包含图标：`<CustomIcon type="icon-Currency" ... />`。
     *   按钮组：`header-button-area` -> `buttonGroup-component` -> `u-button-group`。
     *   主操作按钮：统一使用 `type="primary" danger`。
+*   **批量操作交互**:
+    *   对于“手动同步”、“批量重试”等操作，**必须**基于 `selectedRowKeys` 进行操作。
+    *   **交互逻辑**：如果用户未勾选任何行，点击按钮时应立即弹出 Warning 提示，而不是默认操作所有数据或报错。
 
 ### C. 页面类型开发模式 (Page Patterns)
 
@@ -49,7 +53,7 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
     *   **配置化**：搜索字段配置必须抽离为同目录下的 `search_fields.ts` 文件。
 *   **表格区域**:
     *   容器：`<div className='nc-bill-table-area'>` (移除外层 Card)。
-    *   列定义：必须抽离为同目录下的 `columns.tsx` 文件。
+    *   列定义：必须抽离为同目录下的 `columns.tsx` 文件，并使用 `getColumns` 函数返回。
     *   属性：`size="small"`, `bordered={true}`。
     *   滚动：`scroll={{ x: 'max-content', y: 'calc(100vh - 380px)' }}`。
     *   分页：`showTotal`, `showQuickJumper`, `showSizeChanger`。
@@ -92,23 +96,27 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
 ### A. 菜单与路由
 *   **映射规则**: Level 1 (文件夹) -> Level 2 (文件名) -> Level 3 (模块) -> Level 4 (页面)。
 *   **Path 一致性 (CRITICAL)**: `src/api/golbal/menu_service.ts` 中的 `path` 属性值，必须与 `src/router/index.tsx` 中定义的路由 `path` **完全字符串匹配**，否则面包屑无法显示。
+*   **组件命名 (防冲突)**: 在 `src/router/imports.tsx` 中引入组件时，组件名 **必须** 包含系统或模块名称缩写前缀（如 `CustomsJobCenter`, `CcjmDashboard`），严禁使用通用名称（如 `JobCenter`, `Dashboard`）以防止全局命名冲突。
 *   **路由引入**: 使用 `React.lazy` 在 `src/router/imports.tsx` 中引入。
 
 ## 3. 功能实现细节
 *   **代码结构**:
-    *   页面: `src/pages/freight_forwarding/[模块]/[页面]/index.tsx`
-    *   类型: `src/types/freight_forwarding/[模块]/index.d.ts`
-    *   服务: `src/api/freight_forwarding/[模块]/[模块]_service.ts` (需包含 10+ 条测试数据)。
+    *   页面: `src/pages/[系统]/[模块]/[页面]/index.tsx`
+    *   类型: `src/types/[系统]/[模块]/index.d.ts`
+    *   服务: `src/api/[系统]/[模块]/[业务]_service.ts` (需包含 10+ 条测试数据)。
 *   **图标使用**: 充分使用 `@ant-design/icons` (如 `ArrowUpOutlined`) 增强视觉体验。
+*   **文件操作**: 创建新文件前先检查是否存在，避免意外覆盖；Windows环境下创建目录使用 `New-Item` 兼容语法。
 
 # Execution Steps
 1.  **Analyze**: 分析文档原型，确定菜单层级和路由规划。
-2.  **I18n Foundation**: 更新 `LocaleHelper` 和资源文件。
-3.  **System Config**: 修改 `menu_service.ts` 和 `router` 配置，确保 path 一致性。
+2.  **I18n Foundation**: 更新 `LocaleHelper` 和资源文件，确保 Key 结构匹配目录层级。
+3.  **System Config**: 修改 `menu_service.ts` 和 `router` 配置，确保 path 一致性，且组件名带前缀。
 4.  **Development**:
     *   定义 TypeScript 接口。
     *   **Code Generation**: 根据页面类型（列表/详情/统计），严格套用上述对应的 **Pattern** 生成代码。
 5.  **Self-Check**:
+    *   [ ] 路由组件名是否已添加模块前缀？
+    *   [ ] Locale Key 是否与目录结构一致？
     *   [ ] 列表页是否使用了 `search_fields.ts` 和 `AdvancedSearchForm`？
     *   [ ] 详情页 Checkbox 是否单行显示且左对齐？
     *   [ ] 统计页 KPI 是否包含图标和颜色？

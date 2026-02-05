@@ -162,6 +162,12 @@ import { ManualAdjustmentApprovalLocale } from '@/utils/locale/freight_forwardin
 import { AllocationHistoryLocale } from '@/utils/locale/freight_forwarding/cost_management/allocation_history';
 import { DepartmentProfitAnalysisLocale } from '@/utils/locale/freight_forwarding/cost_management/department_profit_analysis';
 import { FinancialDataSyncLocale } from '@/utils/locale/freight_forwarding/cost_management/financial_data_sync';
+import { JobCenterLocale } from './customs_compliance/customs_job_management/job_center';
+import { DashboardLocale } from './customs_compliance/customs_job_management/dashboard';
+import { CreateJobLocale } from './customs_compliance/customs_job_management/create_job';
+import { BatchOperationLocale } from './customs_compliance/customs_job_management/batch_operation';
+import { JobStatisticsLocale } from './customs_compliance/customs_job_management/job_statistics';
+import { JobArchivingLocale } from '@/utils/locale/customs_compliance/customs_job_management/job_archiving';
 
 export {
   OrdersLocale, OrderFeeLocale, FeeReconciliationLocale, OrderBillLocale,
@@ -187,7 +193,7 @@ export {
   DocumentOverviewLocale, DocumentListLocale, DocumentCreateLocale, DocumentQueryLocale, DocumentReviewLocale, DocumentTemplateLocale, DocumentSignatureLocale, DocumentVersionLocale, DocumentDetailLocale,
   DocumentArchiveLocale, DocumentComplianceLocale, DocumentBatchLocale, DocumentInterfaceLocale, DocumentReportLocale,
   CostOverviewLocale, ReceivableCostLocale, PayableCostLocale, CostReviewCenterLocale,
-  AllocationOverviewLocale, AllocationRulesLocale, ManualAdjustmentApprovalLocale, AllocationHistoryLocale, DepartmentProfitAnalysisLocale, FinancialDataSyncLocale,
+  AllocationOverviewLocale, AllocationRulesLocale, ManualAdjustmentApprovalLocale, AllocationHistoryLocale, DepartmentProfitAnalysisLocale, FinancialDataSyncLocale, JobCenterLocale, DashboardLocale, CreateJobLocale, BatchOperationLocale, JobStatisticsLocale, JobArchivingLocale,
 };
 
 export default {
@@ -215,5 +221,5 @@ export default {
   ...DocumentOverviewLocale, ...DocumentListLocale, ...DocumentCreateLocale, ...DocumentQueryLocale, ...DocumentReviewLocale, ...DocumentTemplateLocale, ...DocumentSignatureLocale, ...DocumentVersionLocale, ...DocumentDetailLocale,
   ...DocumentArchiveLocale, ...DocumentComplianceLocale, ...DocumentBatchLocale, ...DocumentInterfaceLocale, ...DocumentReportLocale,
   ...CostOverviewLocale, ...ReceivableCostLocale, ...PayableCostLocale, ...CostReviewCenterLocale,
-  ...AllocationOverviewLocale, ...AllocationRulesLocale, ...ManualAdjustmentApprovalLocale, ...AllocationHistoryLocale, ...DepartmentProfitAnalysisLocale, ...FinancialDataSyncLocale,
+  ...AllocationOverviewLocale, ...AllocationRulesLocale, ...ManualAdjustmentApprovalLocale, ...AllocationHistoryLocale, ...DepartmentProfitAnalysisLocale, ...FinancialDataSyncLocale, ...JobCenterLocale, ...DashboardLocale, ...CreateJobLocale, ...BatchOperationLocale, ...JobArchivingLocale,
 };

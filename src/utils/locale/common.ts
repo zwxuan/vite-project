@@ -91,4 +91,10 @@ export const CommonLocale = {
   getSelectPlaceholder() {
     return "common.select_placeholder";
   },
+  getConfirm() {
+    return "common.confirm";
+  },
+  getSelectOne() {
+    return "common.select_one";
+  },
 };

@@ -125,6 +125,14 @@ const TaskCalendarView = React.lazy(() => import("@/pages/dynamic_configuration_
 
 const ChainMap = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/china_map"));
 const Lev1Department = React.lazy(() => import("@/pages/settlement_center/report/3d_large_screen/lev1_department"));
+const CustomsJobCenter = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/job_center"));
+const CustomsJobDetail = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/job_detail"));
+const CustomsJobDashboard = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/dashboard"));
+const CustomsSlaMonitor = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/sla_monitor"));
+const CustomsCreateJob = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/create_job"));
+const CustomsBatchOperation = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/batch_operation"));
+const CustomsJobStatistics = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/job_statistics"));
+const CustomsJobArchiving = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/job_archiving"));
 const Home = React.lazy(() => import("@/layout/home"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
 const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
@@ -243,7 +251,12 @@ export {
   AllocationOverview, AllocationOverviewDetail, AllocationRules, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
   SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
-  Demo, ContainerLoading, Home, Lev1Department,
+  Demo, ContainerLoading, Lev1Department, CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor,
+    CustomsCreateJob,
+    CustomsBatchOperation,
+    CustomsJobStatistics,
+    CustomsJobArchiving,
+    Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,
   SetFeeSchedule, ChargingStandard, NotOffSetting, HasOffSetting, AccountingBook, VoucherGroupingRule, EntryGroupingRule, SummaryRule, VoucherType, VoucherCodeMapping, AccountMapping,

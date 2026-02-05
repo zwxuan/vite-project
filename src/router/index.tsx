@@ -79,6 +79,7 @@ import {
   AllocationRules, AllocationOverview, AllocationOverviewDetail, AllocationRulesDetail, ManualAdjustmentApproval, AllocationHistory,
   SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
+  CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor, CustomsCreateJob, CustomsBatchOperation, CustomsJobStatistics, CustomsJobArchiving,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -97,6 +98,57 @@ const routers = createMemoryRouter([
             <Home />
           </RouterGuard>
         )
+      },
+      {
+        path: "/customs_job_management",
+        handle: { title: '关务作业管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "job_center",
+            handle: { title: '作业中心' },
+            element: <RouterGuard><CustomsJobCenter /></RouterGuard>
+          },
+          {
+            path: "detail/:id",
+            handle: { title: '作业详情' },
+            element: <RouterGuard><CustomsJobDetail /></RouterGuard>
+          },
+          {
+            path: "dashboard",
+            handle: { title: '作业看板' },
+            element: <RouterGuard><CustomsJobDashboard /></RouterGuard>
+          },
+          {
+            path: "sla_monitor",
+            handle: { title: 'SLA监控' },
+            element: <RouterGuard><CustomsSlaMonitor /></RouterGuard>
+          },
+          {
+            path: "create_job",
+            handle: { title: '新建作业' },
+            element: <RouterGuard><CustomsCreateJob /></RouterGuard>
+          },
+          {
+            path: "batch_operation",
+            handle: { title: '批量操作' },
+            element: <RouterGuard><CustomsBatchOperation /></RouterGuard>
+          },
+          {
+            path: "job_statistics",
+            handle: { title: '作业效能分析' },
+            element: <RouterGuard><CustomsJobStatistics /></RouterGuard>
+          },
+          {
+            path: "job_archiving",
+            handle: { title: '作业归档' },
+            element: <RouterGuard><CustomsJobArchiving /></RouterGuard>
+          }
+        ]
       },
       {
         path: "/demo",
