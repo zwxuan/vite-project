@@ -133,6 +133,14 @@ const CustomsCreateJob = React.lazy(() => import("@/pages/customs_compliance/cus
 const CustomsBatchOperation = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/batch_operation"));
 const CustomsJobStatistics = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/job_statistics"));
 const CustomsJobArchiving = React.lazy(() => import("@/pages/customs_compliance/customs_job_management/job_archiving"));
+const CcsmScreeningTaskCenter = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/screening_task_center"));
+const CcsmInitiateScreening = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/initiate_screening"));
+const CcsmScreeningResultQuery = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/screening_result_query"));
+const CcsmHitProcessing = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/hit_processing"));
+const CcsmExemptionRequestManagement = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/exemption_request_management"));
+const CcsmScreeningRuleConfig = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/screening_rule_config"));
+const CcsmDatabaseManagement = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/database_management"));
+const CcsmScreeningStatisticsReport = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/screening_statistics_report"));
 const Home = React.lazy(() => import("@/layout/home"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
 const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
@@ -256,6 +264,8 @@ export {
     CustomsBatchOperation,
     CustomsJobStatistics,
     CustomsJobArchiving,
+    CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,
+    CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
     Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

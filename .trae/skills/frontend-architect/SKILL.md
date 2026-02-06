@@ -26,10 +26,13 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
         *   **Key 结构**: 必须严格对应目录层级，如 `customs_compliance.customs_job_management.job_center.pageTitle`。
     2.  **引入**: 在`src\utils\locale\index.ts`中引入生成的 Locale 文件。
     3.  **添加资源**: 在 `src/locales/zh-cn.ts` 和 `en-us.ts` 中添加翻译，保持 key 结构一致。
-    4.  **调用代码**：
-            *   ✅ 正确：`import LocaleHelper from '@/utils/locale';` 然后使用 `LocaleHelper.getSomeKey()`。
-            *   ❌ 错误：`import { SomeLocale } from '@/utils/locale/path/to/file';` 或深层路径引用。
-    5.  **命名规范**：`LocaleHelper` 中的方法名必须**全局唯一**，避免合并冲突（推荐前缀命名法，如 `getWaybillListTitle`, `getJobCenterPageTitle`）。
+    4.  **调用代码** (CRITICAL Update):
+        *   **必须引入 i18n**: `import i18n from '@/i18n';`
+        *   **必须引入 LocaleHelper**: `import LocaleHelper from '@/utils/locale';`
+        *   **UI 中使用**: `i18n.t(LocaleHelper.getSomeKey())`
+        *   ❌ 错误：`import { SomeLocale } from '@/utils/locale'` (禁止单独引入)。
+        *   ❌ 错误：硬编码中文。
+    5.  **命名规范**：Locale 类中的方法名必须**全局唯一**，避免合并冲突（推荐前缀命名法，如 `getWaybillListTitle`, `getJobCenterPageTitle`）。
     6.  **Check**: 提交前全文件扫描，确保无残留中文字符串。
 
 ### B. UI/UX 设计与样式规范 【重点增强】
@@ -37,9 +40,16 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
     *   页面根容器：`<div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>`。
     *   必须引入样式文件：`import '@/pages/page_list.less';`。
 *   **统一头部 (Header)**:
-    *   结构：`nc-bill-header-area` -> `header-title-search-area` -> `BillHeadInfoWrap`。
-    *   标题左侧必须包含图标：`<CustomIcon type="icon-Currency" ... />`。
-    *   按钮组：`header-button-area` -> `buttonGroup-component` -> `u-button-group`。
+    *   结构：`nc-bill-header-area` -> `header-title-search-area` -> `BillHeadInfoWrap BillHeadInfoWrap-showBackBtn`。
+    *   标题左侧必须包含图标：`<CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px' }} />`。
+    *   **页面帮助说明 (Page Help)**:
+        *   **工具推荐**: 使用 `page-help-generator` 技能自动生成标准代码。
+        *   在标题旁必须添加 `<Tooltip>` 说明。
+        *   **Tooltip 图标**: 必须使用 `<i className='iconfont icon-bangzhutishi'>`。
+        *   **Tooltip 容器**: 必须设置 `color='white'` 并在内容 div 中使用 `style={{ backgroundColor: '#fff', color: '#000' }}`。
+        *   **内容结构**: 使用标准 HTML 结构 (`div.rul_title_tooltip` > `ol` > `li` > `span` Label + `ul` Content)。
+        *   **文案标准**: 必须包含 **Role (角色)**, **Origin (数据来源)**, **Functionality (功能)** 三个维度，并完全国际化。
+    *   按钮组：`header-button-area` -> Flex 容器 (`display: flex`) -> `button-app-wrapper` 占位符 + `buttonGroup-component` -> `u-button-group`。
     *   主操作按钮：统一使用 `type="primary" danger`。
 *   **批量操作交互**:
     *   对于“手动同步”、“批量重试”等操作，**必须**基于 `selectedRowKeys` 进行操作。
@@ -90,6 +100,15 @@ description: 资深前端架构师，精通 React/AntD Pro。当需要根据需�
    - Reference : src/pages/settlement_center/business_manage/ 目录结构。 
    - Rule : 严禁 将所有 Tabs 内容写在一个文件中。详情页的每一个 Tab 内容必须拆分为独立的 React 组件，并存放在 components 或 details 子目录下。 
    - Rule : 表格的表头定义 (Columns) 必须抽离为同目录下的 `columns.tsx` 文件。
+4. 标准化列表页参考 (New Standard) ：
+   
+   - Reference 1: src/pages/customs_compliance/customs_job_management/job_archiving/index.tsx 
+   - Reference 2: src/pages/customs_compliance/compliance_screening_management/screening_task_center/index.tsx (Best Practice for I18n)
+   - Features : 
+     - 架构分离：完整的 `columns.tsx` (列定义) 和 `search_fields.ts` (搜索字段) 分离。 
+     - 布局标准：标准的 `nc-bill-header-area` 布局，包含 `CustomIcon` 和 标准化 `Tooltip` 帮助说明。 
+     - 搜索集成：集成 `AdvancedSearchForm` 高级搜索组件，支持多维度筛选。 
+     - **国际化**：严格使用 `i18n.t()` 包裹 Locale Key。 
 
 ## 2. 系统配置要求
 

@@ -80,6 +80,7 @@ import {
   SalesDepartmentPerformance, OperationDepartmentProfit, ProfitTrendAnalysis, DepartmentPerformanceComparison,
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
   CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor, CustomsCreateJob, CustomsBatchOperation, CustomsJobStatistics, CustomsJobArchiving,
+  CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -148,6 +149,57 @@ const routers = createMemoryRouter([
             handle: { title: '作业归档' },
             element: <RouterGuard><CustomsJobArchiving /></RouterGuard>
           }
+        ]
+      },
+      {
+        path: "/compliance_screening_management",
+        handle: { title: '合规筛查管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "screening_task_center",
+            handle: { title: '筛查任务中心' },
+            element: <RouterGuard><CcsmScreeningTaskCenter /></RouterGuard>
+          },
+          {
+            path: "initiate_screening",
+            handle: { title: '发起筛查' },
+            element: <RouterGuard><CcsmInitiateScreening /></RouterGuard>
+          },
+          {
+            path: "screening_result_query",
+            handle: { title: '筛查结果查询' },
+            element: <RouterGuard><CcsmScreeningResultQuery /></RouterGuard>
+          },
+          {
+            path: "hit_processing",
+            handle: { title: '命中项处理' },
+            element: <RouterGuard><CcsmHitProcessing /></RouterGuard>
+          },
+          {
+            path: "exemption_request_management",
+            handle: { title: '豁免申请管理' },
+            element: <RouterGuard><CcsmExemptionRequestManagement /></RouterGuard>
+          },
+          {
+            path: "screening_rule_config",
+            handle: { title: '筛查规则配置' },
+            element: <RouterGuard><CcsmScreeningRuleConfig /></RouterGuard>
+          },
+          {
+            path: "database_management",
+            handle: { title: '数据库管理' },
+            element: <RouterGuard><CcsmDatabaseManagement /></RouterGuard>
+          },
+          {
+            path: "screening_statistics_report",
+            handle: { title: '筛查统计报表' },
+            element: <RouterGuard><CcsmScreeningStatisticsReport /></RouterGuard>
+          },
         ]
       },
       {

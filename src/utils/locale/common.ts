@@ -91,6 +91,9 @@ export const CommonLocale = {
   getSelectPlaceholder() {
     return "common.select_placeholder";
   },
+  getInputPlaceholder() {
+    return "common.input_placeholder";
+  },
   getConfirm() {
     return "common.confirm";
   },

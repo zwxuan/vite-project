@@ -93,6 +93,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "关务作业管理", key: "customs_job_management",
             },
+            {
+                name: "合规筛查管理", key: "compliance_screening_management",
+            },
         ]
     },
 
@@ -916,6 +919,21 @@ const childrenMenuData: MenuGroup[] = [{
             { name: "批量操作", key: "batch_operation", path: "/customs_job_management/batch_operation" },
             { name: "作业效能分析", key: "job_statistics", path: "/customs_job_management/job_statistics" },
             { name: "作业归档", key: "job_archiving", path: "/customs_job_management/job_archiving" },
+        ]
+    },
+    {
+        title: "合规筛查管理",
+        key: "compliance_screening_management",
+        parentkey: "compliance_screening_management",
+        apps: [
+            { name: "筛查任务中心", key: "screening_task_center", path: "/compliance_screening_management/screening_task_center" },
+            { name: "发起筛查", key: "initiate_screening", path: "/compliance_screening_management/initiate_screening" },
+            { name: "筛查结果查询", key: "screening_result_query", path: "/compliance_screening_management/screening_result_query" },
+            { name: "命中项处理", key: "hit_processing", path: "/compliance_screening_management/hit_processing" },
+            { name: "豁免申请管理", key: "exemption_request_management", path: "/compliance_screening_management/exemption_request_management" },
+            { name: "筛查规则配置", key: "screening_rule_config", path: "/compliance_screening_management/screening_rule_config" },
+            { name: "数据库管理", key: "database_management", path: "/compliance_screening_management/database_management" },
+            { name: "筛查统计报表", key: "screening_statistics_report", path: "/compliance_screening_management/screening_statistics_report" },
         ]
     },
 ]
