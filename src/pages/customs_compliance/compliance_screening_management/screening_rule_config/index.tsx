@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Table, Button, Tooltip, message, Modal, Form, Input, Select, Radio, Tabs, Checkbox, Slider, Row, Col } from 'antd';
 import CustomIcon from '@/components/custom-icon';
+import AdvancedSearchForm from '@/components/search-form';
+import { getSearchFields } from './search_fields';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getColumns } from './columns';
@@ -58,6 +60,17 @@ const ScreeningRuleConfig: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [form] = Form.useForm();
+  const [searchParams, setSearchParams] = useState<any>({});
+
+  const handleSearch = (values: any) => {
+    setSearchParams(values);
+  };
+
+  const filteredData = data.filter(item => {
+    const matchName = !searchParams.name || item.name.toLowerCase().includes(searchParams.name.toLowerCase());
+    const matchStatus = !searchParams.status || item.status === searchParams.status;
+    return matchName && matchStatus;
+  });
 
   const handleEdit = (record: RuleData) => {
     setEditingKey(record.key);
@@ -246,6 +259,14 @@ const ScreeningRuleConfig: React.FC = () => {
                             <li><b>{i18n.t(LocaleHelper.getScreeningRuleConfigPageHelpRole())}</b>{i18n.t(LocaleHelper.getScreeningRuleConfigPageHelpRoleDesc())}</li>
                             <li><b>{i18n.t(LocaleHelper.getScreeningRuleConfigPageHelpOrigin())}</b>{i18n.t(LocaleHelper.getScreeningRuleConfigPageHelpOriginDesc())}</li>
                             <li><b>{i18n.t(LocaleHelper.getScreeningRuleConfigPageHelpFunc())}</b>{i18n.t(LocaleHelper.getScreeningRuleConfigPageHelpFuncDesc())}</li>
+                            <li>
+                                <b>匹配算法示例：</b>
+                                <ul style={{ listStyleType: 'disc', paddingLeft: '15px', marginTop: '5px' }}>
+                                    <li><b>模糊匹配 (Fuzzy)：</b>阈值设为 85% 时，"International Trade Co." 可匹配 "Intl Trade Company" (相似度约 90%)；适用于拼写差异或缩写场景。</li>
+                                    <li><b>精确匹配 (Exact)：</b>要求字符完全一致。"ABC Logistics" 仅匹配 "ABC Logistics"，不匹配 "ABC Logistics Inc."。</li>
+                                    <li><b>语音匹配 (Soundex)：</b>基于发音相似性。"Smith" 可匹配 "Smyth" 或 "Smythe"；适用于人名拼写变体。</li>
+                                </ul>
+                            </li>
                           </ul>
                         </li>
                       </ol>
@@ -271,10 +292,12 @@ const ScreeningRuleConfig: React.FC = () => {
         </div>
       </div>
 
+      <AdvancedSearchForm fields={getSearchFields() as any} onSearch={handleSearch} />
+
       <div className="nc-bill-table-area">
         <Table 
             columns={columns} 
-            dataSource={data} 
+            dataSource={filteredData} 
             loading={loading}
             bordered 
             size="small"

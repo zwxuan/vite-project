@@ -174,6 +174,8 @@ import { ScreeningResultQueryLocale } from '@/utils/locale/customs_compliance/co
 import { HitProcessingLocale } from '@/utils/locale/customs_compliance/compliance_screening_management/hit_processing';
 import { ExemptionRequestManagementLocale } from '@/utils/locale/customs_compliance/compliance_screening_management/exemption_request_management';
 import ScreeningRuleConfigLocale from '@/utils/locale/customs_compliance/compliance_screening_management/screening_rule_config';
+import { DatabaseManagementLocale } from '@/utils/locale/customs_compliance/compliance_screening_management/database_management';
+import { ScreeningStatisticsReportLocale } from '@/utils/locale/customs_compliance/compliance_screening_management/screening_statistics_report';
 
 export {
   OrdersLocale, OrderFeeLocale, FeeReconciliationLocale, OrderBillLocale,
@@ -200,7 +202,7 @@ export {
   DocumentArchiveLocale, DocumentComplianceLocale, DocumentBatchLocale, DocumentInterfaceLocale, DocumentReportLocale,
   CostOverviewLocale, ReceivableCostLocale, PayableCostLocale, CostReviewCenterLocale,
   AllocationOverviewLocale, AllocationRulesLocale, ManualAdjustmentApprovalLocale, AllocationHistoryLocale, DepartmentProfitAnalysisLocale, FinancialDataSyncLocale, JobCenterLocale, DashboardLocale, CreateJobLocale, BatchOperationLocale, JobStatisticsLocale, JobArchivingLocale,
-  ScreeningTaskCenterLocale, InitiateScreeningLocale, ScreeningResultQueryLocale, HitProcessingLocale, ExemptionRequestManagementLocale, ScreeningRuleConfigLocale,
+  ScreeningTaskCenterLocale, InitiateScreeningLocale, ScreeningResultQueryLocale, HitProcessingLocale, ExemptionRequestManagementLocale, ScreeningRuleConfigLocale, DatabaseManagementLocale, ScreeningStatisticsReportLocale,
 };
 
 export default {
@@ -229,5 +231,5 @@ export default {
   ...DocumentArchiveLocale, ...DocumentComplianceLocale, ...DocumentBatchLocale, ...DocumentInterfaceLocale, ...DocumentReportLocale,
   ...CostOverviewLocale, ...ReceivableCostLocale, ...PayableCostLocale, ...CostReviewCenterLocale,
   ...AllocationOverviewLocale, ...AllocationRulesLocale, ...ManualAdjustmentApprovalLocale, ...AllocationHistoryLocale, ...DepartmentProfitAnalysisLocale, ...FinancialDataSyncLocale, ...JobCenterLocale, ...DashboardLocale, ...CreateJobLocale, ...BatchOperationLocale, ...JobArchivingLocale,
-  ...ScreeningTaskCenterLocale, ...InitiateScreeningLocale, ...ScreeningResultQueryLocale, ...HitProcessingLocale, ...ExemptionRequestManagementLocale, ...ScreeningRuleConfigLocale,
+  ...ScreeningTaskCenterLocale, ...InitiateScreeningLocale, ...ScreeningResultQueryLocale, ...HitProcessingLocale, ...ExemptionRequestManagementLocale, ...ScreeningRuleConfigLocale, ...DatabaseManagementLocale, ...ScreeningStatisticsReportLocale,
 };
