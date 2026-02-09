@@ -81,6 +81,7 @@ import {
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
   CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor, CustomsCreateJob, CustomsBatchOperation, CustomsJobStatistics, CustomsJobArchiving,
   CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
+  CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement, CcsdmReviewCenter,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -199,6 +200,62 @@ const routers = createMemoryRouter([
             path: "screening_statistics_report",
             handle: { title: '筛查统计报表' },
             element: <RouterGuard><CcsmScreeningStatisticsReport /></RouterGuard>
+          },
+        ]
+      },
+      {
+        path: "/supporting_documents_management",
+        handle: { title: '随附单证管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "document_workbench",
+            handle: { title: '单证工作台' },
+            element: <RouterGuard><CcsdmDocumentWorkbench /></RouterGuard>
+          },
+          {
+            path: "checklist_generation",
+            handle: { title: '单证清单生成' },
+            element: <RouterGuard><CcsdmChecklistGeneration /></RouterGuard>
+          },
+          {
+            path: "collection_management",
+            handle: { title: '单证收集管理' },
+            element: <RouterGuard><CcsdmCollectionManagement /></RouterGuard>
+          },
+          {
+            path: "review_center",
+            handle: { title: '单证审核中心' },
+            element: <RouterGuard><CcsdmReviewCenter /></RouterGuard>
+          },
+          {
+            path: "document_search",
+            handle: { title: '单证查询检索' },
+            element: <RouterGuard><CcsdmDocumentSearch /></RouterGuard>
+          },
+          {
+            path: "template_management",
+            handle: { title: '单证模板管理' },
+            element: <RouterGuard><CcsdmTemplateManagement /></RouterGuard>
+          },
+          {
+            path: "archive_management",
+            handle: { title: '单证归档管理' },
+            element: <RouterGuard><CcsdmArchiveManagement /></RouterGuard>
+          },
+          {
+            path: "reminder_settings",
+            handle: { title: '单证提醒设置' },
+            element: <RouterGuard><CcsdmReminderSettings /></RouterGuard>
+          },
+          {
+            path: "statistics_report",
+            handle: { title: '单证统计报表' },
+            element: <RouterGuard><CcsdmStatisticsReport /></RouterGuard>
           },
         ]
       },

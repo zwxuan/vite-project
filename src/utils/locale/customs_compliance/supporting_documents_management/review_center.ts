@@ -1,0 +1,16 @@
+export const ReviewCenterLocale = {
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterPageTitle: () => 'customs_compliance.supporting_documents_management.review_center.pageTitle',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterSearchPreEntryNo: () => 'customs_compliance.supporting_documents_management.review_center.searchPreEntryNo',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterSearchStatus: () => 'customs_compliance.supporting_documents_management.review_center.searchStatus',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterSearchReviewer: () => 'customs_compliance.supporting_documents_management.review_center.searchReviewer',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterSearchDate: () => 'customs_compliance.supporting_documents_management.review_center.searchDate',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTablePreEntryNo: () => 'customs_compliance.supporting_documents_management.review_center.tablePreEntryNo',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTableBusinessType: () => 'customs_compliance.supporting_documents_management.review_center.tableBusinessType',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTableDocCount: () => 'customs_compliance.supporting_documents_management.review_center.tableDocCount',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTableSubmitTime: () => 'customs_compliance.supporting_documents_management.review_center.tableSubmitTime',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTableReviewer: () => 'customs_compliance.supporting_documents_management.review_center.tableReviewer',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTableStatus: () => 'customs_compliance.supporting_documents_management.review_center.tableStatus',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterTableAction: () => 'customs_compliance.supporting_documents_management.review_center.tableAction',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterBtnBatchReview: () => 'customs_compliance.supporting_documents_management.review_center.btnBatchReview',
+  getCustomsComplianceSupportingDocumentsManagementReviewCenterBtnExportReport: () => 'customs_compliance.supporting_documents_management.review_center.btnExportReport',
+};

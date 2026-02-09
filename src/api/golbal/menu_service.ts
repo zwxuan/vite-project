@@ -96,6 +96,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "合规筛查管理", key: "compliance_screening_management",
             },
+            {
+                name: "随附单证管理", key: "supporting_documents_management",
+            },
         ]
     },
 
@@ -934,6 +937,22 @@ const childrenMenuData: MenuGroup[] = [{
             { name: "筛查规则配置", key: "screening_rule_config", path: "/compliance_screening_management/screening_rule_config" },
             { name: "数据库管理", key: "database_management", path: "/compliance_screening_management/database_management" },
             { name: "筛查统计报表", key: "screening_statistics_report", path: "/compliance_screening_management/screening_statistics_report" },
+        ]
+    },
+    {
+        title: "随附单证管理",
+        key: "supporting_documents_management",
+        parentkey: "supporting_documents_management",
+        apps: [
+            { name: "单证工作台", key: "document_workbench", path: "/supporting_documents_management/document_workbench" },
+            { name: "单证清单生成", key: "checklist_generation", path: "/supporting_documents_management/checklist_generation" },
+            { name: "单证收集管理", key: "collection_management", path: "/supporting_documents_management/collection_management" },
+            { name: "单证审核中心", key: "review_center", path: "/supporting_documents_management/review_center" },
+            { name: "单证查询检索", key: "document_search", path: "/supporting_documents_management/document_search" },
+            { name: "单证模板管理", key: "template_management", path: "/supporting_documents_management/template_management" },
+            { name: "单证归档管理", key: "archive_management", path: "/supporting_documents_management/archive_management" },
+            { name: "单证提醒设置", key: "reminder_settings", path: "/supporting_documents_management/reminder_settings" },
+            { name: "单证统计报表", key: "statistics_report", path: "/supporting_documents_management/statistics_report" },
         ]
     },
 ]

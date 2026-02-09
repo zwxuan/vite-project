@@ -141,6 +141,15 @@ const CcsmExemptionRequestManagement = React.lazy(() => import("@/pages/customs_
 const CcsmScreeningRuleConfig = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/screening_rule_config"));
 const CcsmDatabaseManagement = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/database_management"));
 const CcsmScreeningStatisticsReport = React.lazy(() => import("@/pages/customs_compliance/compliance_screening_management/screening_statistics_report"));
+const CcsdmDocumentWorkbench = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/document_workbench/index"));
+const CcsdmChecklistGeneration = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/checklist_generation/index"));
+const CcsdmCollectionManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/collection_management/index"));
+const CcsdmReviewCenter = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/review_center/index"));
+const CcsdmDocumentSearch = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/document_search/index"));
+const CcsdmTemplateManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/template_management/index"));
+const CcsdmArchiveManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/archive_management/index"));
+const CcsdmReminderSettings = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/reminder_settings/index"));
+const CcsdmStatisticsReport = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/statistics_report/index"));
 const Home = React.lazy(() => import("@/layout/home"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
 const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
@@ -266,6 +275,8 @@ export {
     CustomsJobArchiving,
     CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,
     CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
+    CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement, CcsdmReviewCenter,
+    CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
     Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

@@ -1,0 +1,12 @@
+export const CollectionManagementLocale = {
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementPageTitle: () => 'customs_compliance.supporting_documents_management.collection_management.pageTitle',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementSectionPreEntry: () => 'customs_compliance.supporting_documents_management.collection_management.sectionPreEntry',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementSectionProgress: () => 'customs_compliance.supporting_documents_management.collection_management.sectionProgress',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementTableDocType: () => 'customs_compliance.supporting_documents_management.collection_management.tableDocType',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementTableStatus: () => 'customs_compliance.supporting_documents_management.collection_management.tableStatus',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementTableFileName: () => 'customs_compliance.supporting_documents_management.collection_management.tableFileName',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementTableUploadTime: () => 'customs_compliance.supporting_documents_management.collection_management.tableUploadTime',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementTableAction: () => 'customs_compliance.supporting_documents_management.collection_management.tableAction',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementBtnBatchUpload: () => 'customs_compliance.supporting_documents_management.collection_management.btnBatchUpload',
+  getCustomsComplianceSupportingDocumentsManagementCollectionManagementBtnRemind: () => 'customs_compliance.supporting_documents_management.collection_management.btnRemind',
+};
