@@ -81,7 +81,7 @@ import {
   FinancialDataSyncStatusMonitoring, FinancialDataSyncTaskManagement, FinancialDataSyncLogQuery, FinancialDataSyncExceptionCenter,
   CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor, CustomsCreateJob, CustomsBatchOperation, CustomsJobStatistics, CustomsJobArchiving,
   CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
-  CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement, CcsdmReviewCenter,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
+  CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -226,11 +226,6 @@ const routers = createMemoryRouter([
             path: "collection_management",
             handle: { title: '单证收集管理' },
             element: <RouterGuard><CcsdmCollectionManagement /></RouterGuard>
-          },
-          {
-            path: "review_center",
-            handle: { title: '单证审核中心' },
-            element: <RouterGuard><CcsdmReviewCenter /></RouterGuard>
           },
           {
             path: "document_search",

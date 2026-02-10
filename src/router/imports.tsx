@@ -144,7 +144,6 @@ const CcsmScreeningStatisticsReport = React.lazy(() => import("@/pages/customs_c
 const CcsdmDocumentWorkbench = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/document_workbench/index"));
 const CcsdmChecklistGeneration = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/checklist_generation/index"));
 const CcsdmCollectionManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/collection_management/index"));
-const CcsdmReviewCenter = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/review_center/index"));
 const CcsdmDocumentSearch = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/document_search/index"));
 const CcsdmTemplateManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/template_management/index"));
 const CcsdmArchiveManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/archive_management/index"));
@@ -275,7 +274,7 @@ export {
     CustomsJobArchiving,
     CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,
     CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
-    CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement, CcsdmReviewCenter,
+    CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,
     CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
     Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
