@@ -179,7 +179,6 @@ import { ScreeningStatisticsReportLocale } from '@/utils/locale/customs_complian
 import { DocumentWorkbenchLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/document_workbench';
 import { ChecklistGenerationLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/checklist_generation';
 import { CollectionManagementLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/collection_management';
-import { ReviewCenterLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/review_center';
 import { DocumentSearchLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/document_search';
 import { TemplateManagementLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/template_management';
 import { ArchiveManagementLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/archive_management';
@@ -212,7 +211,7 @@ export {
   CostOverviewLocale, ReceivableCostLocale, PayableCostLocale, CostReviewCenterLocale,
   AllocationOverviewLocale, AllocationRulesLocale, ManualAdjustmentApprovalLocale, AllocationHistoryLocale, DepartmentProfitAnalysisLocale, FinancialDataSyncLocale, JobCenterLocale, DashboardLocale, CreateJobLocale, BatchOperationLocale, JobStatisticsLocale, JobArchivingLocale,
   ScreeningTaskCenterLocale, InitiateScreeningLocale, ScreeningResultQueryLocale, HitProcessingLocale, ExemptionRequestManagementLocale, ScreeningRuleConfigLocale, DatabaseManagementLocale, ScreeningStatisticsReportLocale,
-  DocumentWorkbenchLocale, ChecklistGenerationLocale, CollectionManagementLocale, ReviewCenterLocale,
+  DocumentWorkbenchLocale, ChecklistGenerationLocale, CollectionManagementLocale,
   DocumentSearchLocale, TemplateManagementLocale, ArchiveManagementLocale, ReminderSettingsLocale, StatisticsReportLocale,
 };
 
@@ -243,6 +242,6 @@ export default {
   ...CostOverviewLocale, ...ReceivableCostLocale, ...PayableCostLocale, ...CostReviewCenterLocale,
   ...AllocationOverviewLocale, ...AllocationRulesLocale, ...ManualAdjustmentApprovalLocale, ...AllocationHistoryLocale, ...DepartmentProfitAnalysisLocale, ...FinancialDataSyncLocale, ...JobCenterLocale, ...DashboardLocale, ...CreateJobLocale, ...BatchOperationLocale, ...JobArchivingLocale,
   ...ScreeningTaskCenterLocale, ...InitiateScreeningLocale, ...ScreeningResultQueryLocale, ...HitProcessingLocale, ...ExemptionRequestManagementLocale, ...ScreeningRuleConfigLocale, ...DatabaseManagementLocale, ...ScreeningStatisticsReportLocale,
-  ...DocumentWorkbenchLocale, ...ChecklistGenerationLocale, ...CollectionManagementLocale, ...ReviewCenterLocale,
+  ...DocumentWorkbenchLocale, ...ChecklistGenerationLocale, ...CollectionManagementLocale,
   ...DocumentSearchLocale, ...TemplateManagementLocale, ...ArchiveManagementLocale, ...ReminderSettingsLocale, ...StatisticsReportLocale,
 };

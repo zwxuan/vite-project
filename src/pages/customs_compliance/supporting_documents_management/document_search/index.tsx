@@ -5,7 +5,7 @@ import i18n from '@/i18n';
 
 const DocumentSearch: React.FC = () => {
     return (
-        <Card title={i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentSearchPageTitle())}>
+        <Card title={i18n.t(LocaleHelper.getCcsdmDocumentSearchPageTitle())}>
             Document Search Page (Placeholder)
         </Card>
     );

@@ -946,9 +946,6 @@ const childrenMenuData: MenuGroup[] = [{
         apps: [
             { name: "单证工作台", key: "document_workbench", path: "/supporting_documents_management/document_workbench" },
             { name: "单证清单生成", key: "checklist_generation", path: "/supporting_documents_management/checklist_generation" },
-            { name: "单证收集管理", key: "collection_management", path: "/supporting_documents_management/collection_management" },
-            { name: "单证审核中心", key: "review_center", path: "/supporting_documents_management/review_center" },
-            { name: "单证查询检索", key: "document_search", path: "/supporting_documents_management/document_search" },
             { name: "单证模板管理", key: "template_management", path: "/supporting_documents_management/template_management" },
             { name: "单证归档管理", key: "archive_management", path: "/supporting_documents_management/archive_management" },
             { name: "单证提醒设置", key: "reminder_settings", path: "/supporting_documents_management/reminder_settings" },

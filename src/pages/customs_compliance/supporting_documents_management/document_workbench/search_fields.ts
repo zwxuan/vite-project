@@ -5,12 +5,12 @@ import LocaleHelper from '@/utils/locale';
 export const getFields = (): AdvancedSearchFormProps['fields'] => [
   {
     type: 'input',
-    label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchPreEntryNo()),
+    label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchPreEntryNo()),
     key: 'preEntryNo',
   },
   {
     type: 'select',
-    label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchDocType()),
+    label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchDocType()),
     key: 'docType',
     selectOptions: [
       { label: '全部', value: 'all' },
@@ -22,7 +22,7 @@ export const getFields = (): AdvancedSearchFormProps['fields'] => [
   },
   {
     type: 'select',
-    label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchStatus()),
+    label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchStatus()),
     key: 'status',
     selectOptions: [
         { label: '待收集', value: 'pending_collection' },
@@ -36,7 +36,7 @@ export const getFields = (): AdvancedSearchFormProps['fields'] => [
   },
   {
     type: 'select',
-    label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchBusinessType()),
+    label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchBusinessType()),
     key: 'businessType',
     selectOptions: [
         { label: '进口', value: 'import' },
@@ -45,7 +45,7 @@ export const getFields = (): AdvancedSearchFormProps['fields'] => [
   },
   {
       type: 'select',
-      label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchUrgency()),
+      label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchUrgency()),
       key: 'urgency',
       selectOptions: [
           { label: '全部', value: 'all' },
@@ -56,12 +56,12 @@ export const getFields = (): AdvancedSearchFormProps['fields'] => [
   },
   {
       type: 'input',
-      label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchOwner()),
+      label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchOwner()),
       key: 'owner',
   },
   {
       type: 'dateRange',
-      label: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchSearchDate()),
+      label: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchSearchDate()),
       key: 'dateRange',
   }
 ];

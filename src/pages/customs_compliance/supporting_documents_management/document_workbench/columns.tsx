@@ -12,38 +12,64 @@ export const getColumns = (
   onView: (record: DocumentWorkbenchItem) => void,
 ): ColumnsType<DocumentWorkbenchItem> => [
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTablePreEntryNo()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTablePreEntryNo()),
     dataIndex: 'preEntryNo',
     key: 'preEntryNo',
     width: 150,
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTableBusinessType()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableBusinessType()),
     dataIndex: 'businessType',
     key: 'businessType',
     width: 100,
     render: (text) => text === 'import' ? '进口' : '出口',
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTableTotalDocs()),
+      title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableClient()),
+      dataIndex: 'clientName',
+      key: 'clientName',
+      width: 150,
+  },
+  {
+      title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableUrgency()),
+      dataIndex: 'urgency',
+      key: 'urgency',
+      width: 100,
+      render: (urgency) => {
+          let color = 'default';
+          let text = urgency;
+          if (urgency === 'high') { color = 'red'; text = '高'; }
+          else if (urgency === 'medium') { color = 'orange'; text = '中'; }
+          else if (urgency === 'low') { color = 'blue'; text = '低'; }
+          return <Tag color={color}>{text}</Tag>;
+      }
+  },
+  {
+      title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableDeadline()),
+      dataIndex: 'deadline',
+      key: 'deadline',
+      width: 120,
+  },
+  {
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableTotalDocs()),
     dataIndex: 'totalDocs',
     key: 'totalDocs',
     width: 100,
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTableCollected()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableCollected()),
     dataIndex: 'collectedDocs',
     key: 'collectedDocs',
     width: 100,
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTablePendingReview()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTablePendingReview()),
     dataIndex: 'pendingReviewDocs',
     key: 'pendingReviewDocs',
     width: 100,
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTableStatus()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableStatus()),
     dataIndex: 'status',
     key: 'status',
     width: 120,
@@ -61,13 +87,13 @@ export const getColumns = (
     }
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTableOwner()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableOwner()),
     dataIndex: 'owner',
     key: 'owner',
     width: 100,
   },
   {
-    title: i18n.t(LocaleHelper.getCustomsComplianceSupportingDocumentsManagementDocumentWorkbenchTableAction()),
+    title: i18n.t(LocaleHelper.getCcsdmDocumentWorkbenchTableAction()),
     key: 'action',
     fixed: 'right',
     width: 200,
