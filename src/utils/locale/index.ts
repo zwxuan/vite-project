@@ -184,6 +184,16 @@ import { TemplateManagementLocale } from '@/utils/locale/customs_compliance/supp
 import { ArchiveManagementLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/archive_management';
 import { ReminderSettingsLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/reminder_settings';
 import { StatisticsReportLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/statistics_report';
+import { PreEntryWorkbenchLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/pre_entry_workbench';
+import { ClassificationCenterLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/classification_center';
+import { ClassificationKnowledgeBaseLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/knowledge_base';
+import { PreEntrySearchLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/pre_entry_search';
+import { ClassificationSuggestionLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/classification_suggestion';
+import { TariffDataLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/tariff_data';
+import { ClassificationReviewLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/classification_review';
+import { HistoricalClassificationLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/history_search';
+import { PreEntryStatsLocale } from './customs_compliance/pre_entry_classification/pre_entry_stats';
+import { NewPreEntryLocale } from './customs_compliance/pre_entry_classification/new_pre_entry';
 
 export {
   OrdersLocale, OrderFeeLocale, FeeReconciliationLocale, OrderBillLocale,
@@ -213,6 +223,8 @@ export {
   ScreeningTaskCenterLocale, InitiateScreeningLocale, ScreeningResultQueryLocale, HitProcessingLocale, ExemptionRequestManagementLocale, ScreeningRuleConfigLocale, DatabaseManagementLocale, ScreeningStatisticsReportLocale,
   DocumentWorkbenchLocale, ChecklistGenerationLocale, CollectionManagementLocale,
   DocumentSearchLocale, TemplateManagementLocale, ArchiveManagementLocale, ReminderSettingsLocale, StatisticsReportLocale,
+  PreEntryWorkbenchLocale, ClassificationCenterLocale, ClassificationKnowledgeBaseLocale,
+  PreEntrySearchLocale, ClassificationSuggestionLocale, TariffDataLocale, ClassificationReviewLocale, HistoricalClassificationLocale, PreEntryStatsLocale,
 };
 
 export default {
@@ -244,4 +256,7 @@ export default {
   ...ScreeningTaskCenterLocale, ...InitiateScreeningLocale, ...ScreeningResultQueryLocale, ...HitProcessingLocale, ...ExemptionRequestManagementLocale, ...ScreeningRuleConfigLocale, ...DatabaseManagementLocale, ...ScreeningStatisticsReportLocale,
   ...DocumentWorkbenchLocale, ...ChecklistGenerationLocale, ...CollectionManagementLocale,
   ...DocumentSearchLocale, ...TemplateManagementLocale, ...ArchiveManagementLocale, ...ReminderSettingsLocale, ...StatisticsReportLocale,
+  ...PreEntryWorkbenchLocale, ...ClassificationCenterLocale, ...ClassificationKnowledgeBaseLocale,
+  ...PreEntrySearchLocale, ...ClassificationSuggestionLocale, ...TariffDataLocale, ...ClassificationReviewLocale, ...HistoricalClassificationLocale, ...PreEntryStatsLocale,
+  ...NewPreEntryLocale,
 };

@@ -149,6 +149,12 @@ const CcsdmTemplateManagement = React.lazy(() => import("@/pages/customs_complia
 const CcsdmArchiveManagement = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/archive_management/index"));
 const CcsdmReminderSettings = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/reminder_settings/index"));
 const CcsdmStatisticsReport = React.lazy(() => import("@/pages/customs_compliance/supporting_documents_management/statistics_report/index"));
+const CpecPreEntryWorkbench = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/pre_entry_workbench/index"));
+const CpecClassificationCenter = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_center/index"));
+const CpecKnowledgeBase = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/knowledge_base/index"));
+const CpecNewPreEntry = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/new_pre_entry/index"));
+const CpecPreEntryStatistics = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/pre_entry_stats/index"));
+const CpecClassificationTools = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/index"));
 const Home = React.lazy(() => import("@/layout/home"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
 const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
@@ -276,6 +282,8 @@ export {
     CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
     CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,
     CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
+    CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry,
+    CpecPreEntryStatistics, CpecClassificationTools,
     Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

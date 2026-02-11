@@ -82,6 +82,7 @@ import {
   CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor, CustomsCreateJob, CustomsBatchOperation, CustomsJobStatistics, CustomsJobArchiving,
   CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
   CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
+  CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry, CpecClassificationTools, CpecPreEntryStatistics,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -251,6 +252,47 @@ const routers = createMemoryRouter([
             path: "statistics_report",
             handle: { title: '单证统计报表' },
             element: <RouterGuard><CcsdmStatisticsReport /></RouterGuard>
+          },
+        ]
+      },
+      {
+        path: "/pre_entry_classification",
+        handle: { title: '预录入与归类' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "pre_entry_workbench",
+            handle: { title: '预录入工作台' },
+            element: <RouterGuard><CpecPreEntryWorkbench /></RouterGuard>
+          },
+          {
+            path: "classification_center",
+            handle: { title: '商品归类中心' },
+            element: <RouterGuard><CpecClassificationCenter /></RouterGuard>
+          },
+          {
+            path: "knowledge_base",
+            handle: { title: '归类知识库' },
+            element: <RouterGuard><CpecKnowledgeBase /></RouterGuard>
+          },
+          {
+            path: "new_pre_entry",
+            handle: { title: '新建预录入' },
+            element: <RouterGuard><CpecNewPreEntry /></RouterGuard>
+          },
+          {
+            path: "pre_entry_stats",
+            handle: { title: '预录入统计报表' },
+            element: <RouterGuard><CpecPreEntryStatistics /></RouterGuard>
+          },
+          {
+            path: "classification_tools",
+            handle: { title: '归类查询工具' },
+            element: <RouterGuard><CpecClassificationTools /></RouterGuard>
           },
         ]
       },

@@ -19,7 +19,8 @@ The tooltip should be placed inside the page header, typically within the `bill-
 
 ### Code Template
 
-Use the following React/Ant Design code structure:
+Use the following React/Ant Design code structure. 
+**CRITICAL**: You MUST use the exact Chinese labels "角色：", "数据来源：", "功能说明：" as shown below.
 
 ```tsx
 <Tooltip
@@ -32,12 +33,23 @@ Use the following React/Ant Design code structure:
                     </span>
                     <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
                         {/* 
-                           Replace the following list items with the actual content required for the page.
-                           Format: <li><b>Key:</b> Value/Description</li>
+                           Mandatory Items:
+                           1. Role (角色)
+                           2. Origin (数据来源)
+                           3. Functionality (功能说明)
                         */}
-                        <li><b>角色：</b>Description of the page's role...</li>
-                        <li><b>数据来源：</b>Where the data comes from...</li>
-                        <li><b>Field Name：</b>Description...</li>
+                        <li>
+                            <b>{i18n.t(LocaleHelper.getPageHelpRoleLabel()) || '角色：'}</b>
+                            {i18n.t(LocaleHelper.getPageHelpRoleDesc())}
+                        </li>
+                        <li>
+                            <b>{i18n.t(LocaleHelper.getPageHelpOriginLabel()) || '数据来源：'}</b>
+                            {i18n.t(LocaleHelper.getPageHelpOriginDesc())}
+                        </li>
+                        <li>
+                            <b>{i18n.t(LocaleHelper.getPageHelpFuncLabel()) || '功能说明：'}</b>
+                            {i18n.t(LocaleHelper.getPageHelpFuncDesc())}
+                        </li>
                     </ul>
                 </li>
             </ol>
@@ -56,3 +68,7 @@ Use the following React/Ant Design code structure:
 - **Badge Style**: "说明" label with gray background (`#f1f1f1`) and bold text.
 - **List Style**: Circle bullets (`listStyleType: 'circle'`) with `1.8` line height.
 - **Icon**: `iconfont icon-bangzhutishi`.
+
+### Internationalization (I18n)
+- Whenever possible, use `i18n.t()` for both the labels and the descriptions.
+- If i18n keys are not yet available, default to the **Chinese labels**: `角色：`, `数据来源：`, `功能说明：`.

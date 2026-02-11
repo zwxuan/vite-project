@@ -97,8 +97,12 @@ const menuData: MenuGroup[] = [
                 name: "合规筛查管理", key: "compliance_screening_management",
             },
             {
+                name: "预录入与归类", key: "pre_entry_classification",
+            },
+            {
                 name: "随附单证管理", key: "supporting_documents_management",
             },
+            
         ]
     },
 
@@ -950,6 +954,18 @@ const childrenMenuData: MenuGroup[] = [{
             { name: "单证归档管理", key: "archive_management", path: "/supporting_documents_management/archive_management" },
             { name: "单证提醒设置", key: "reminder_settings", path: "/supporting_documents_management/reminder_settings" },
             { name: "单证统计报表", key: "statistics_report", path: "/supporting_documents_management/statistics_report" },
+        ]
+    },
+    {
+        title: "预录入与归类",
+        key: "pre_entry_classification",
+        parentkey: "pre_entry_classification",
+        apps: [
+            { name: "预录入工作台", key: "pre_entry_workbench", path: "/pre_entry_classification/pre_entry_workbench" },
+            { name: "预录入统计", key: "pre_entry_stats", path: "/pre_entry_classification/pre_entry_stats" },
+            { name: "商品归类中心", key: "classification_center", path: "/pre_entry_classification/classification_center" },
+            { name: "归类查询工具", key: "classification_tools", path: "/pre_entry_classification/classification_tools" },
+            { name: "归类知识库", key: "knowledge_base", path: "/pre_entry_classification/knowledge_base" },
         ]
     },
 ]
