@@ -44,6 +44,10 @@ export const CommonLocale = {
   getDetail() {
     return "common.detail";
   },
+  /** 查看详情 */
+  getViewDetail() {
+    return "common.view_detail";
+  },
   /** 保存 */
   getSave() {
     return "common.save";

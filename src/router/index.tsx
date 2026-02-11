@@ -82,7 +82,8 @@ import {
   CustomsJobCenter, CustomsJobDetail, CustomsJobDashboard, CustomsSlaMonitor, CustomsCreateJob, CustomsBatchOperation, CustomsJobStatistics, CustomsJobArchiving,
   CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
   CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
-  CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry, CpecClassificationTools, CpecPreEntryStatistics,
+  CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry, CpecClassificationTools, CpecPreEntryStatistics,CpecClassificationDetail,
+  CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -293,6 +294,26 @@ const routers = createMemoryRouter([
             path: "classification_tools",
             handle: { title: '归类查询工具' },
             element: <RouterGuard><CpecClassificationTools /></RouterGuard>
+          },
+          {
+            path: "classification_tools/history/detail/:id",
+            handle: { title: '历史归类详情' },
+            element: <RouterGuard><CpecHistoryDetail /></RouterGuard>
+          },
+          {
+            path: "classification_tools/suggestion/detail/:id",
+            handle: { title: '归类建议详情' },
+            element: <RouterGuard><CpecSuggestionDetail /></RouterGuard>
+          },
+          {
+            path: "classification_tools/tariff/detail/:id",
+            handle: { title: '税则详情' },
+            element: <RouterGuard><CpecTariffDetail /></RouterGuard>
+          },
+          {
+            path: "classification_detail",
+            handle: { title: '商品归类详情' },
+            element: <RouterGuard><CpecClassificationDetail /></RouterGuard>
           },
         ]
       },

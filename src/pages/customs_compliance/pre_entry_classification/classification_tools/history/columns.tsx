@@ -1,9 +1,10 @@
 import { ProColumns } from '@ant-design/pro-components';
 import { HistoryItem } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
 import LocaleHelper from '@/utils/locale';
+import { CommonLocale } from '@/utils/locale/common';
 import i18n from '@/i18n';
 
-export const getColumns = (): ProColumns<HistoryItem>[] => [
+export const getColumns = (onViewDetail?: (record: HistoryItem) => void): ProColumns<HistoryItem>[] => [
   {
     title: i18n.t(LocaleHelper.getHistoricalClassificationInvoiceNo()),
     dataIndex: 'invoice_no',
@@ -44,7 +45,7 @@ export const getColumns = (): ProColumns<HistoryItem>[] => [
       width: 100,
       fixed: 'right',
       render: (text, record, _, action) => [
-          <a key="view">{i18n.t(LocaleHelper.getViewDetail())}</a>,
+          <a key="view" onClick={() => onViewDetail?.(record)}>{i18n.t(CommonLocale.getViewDetail())}</a>,
       ],
   }
 ];

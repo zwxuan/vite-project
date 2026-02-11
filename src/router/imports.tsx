@@ -155,6 +155,10 @@ const CpecKnowledgeBase = React.lazy(() => import("@/pages/customs_compliance/pr
 const CpecNewPreEntry = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/new_pre_entry/index"));
 const CpecPreEntryStatistics = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/pre_entry_stats/index"));
 const CpecClassificationTools = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/index"));
+const CpecClassificationDetail = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_detail/index"));
+const CpecHistoryDetail = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/history/detail"));
+const CpecSuggestionDetail = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/suggestion/detail"));
+const CpecTariffDetail = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/tariff/detail"));
 const Home = React.lazy(() => import("@/layout/home"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
 const JobDetail = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_detail"));
@@ -283,7 +287,8 @@ export {
     CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,
     CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
     CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry,
-    CpecPreEntryStatistics, CpecClassificationTools,
+    CpecPreEntryStatistics, CpecClassificationTools, CpecClassificationDetail,
+    CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail,
     Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

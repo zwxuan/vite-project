@@ -194,6 +194,8 @@ import { ClassificationReviewLocale } from '@/utils/locale/customs_compliance/pr
 import { HistoricalClassificationLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/history_search';
 import { PreEntryStatsLocale } from './customs_compliance/pre_entry_classification/pre_entry_stats';
 import { NewPreEntryLocale } from './customs_compliance/pre_entry_classification/new_pre_entry';
+import ClassificationDetailLocale from '@/utils/locale/customs_compliance/pre_entry_classification/classification_detail';
+import { ClassificationToolsLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/classification_tools';
 
 export {
   OrdersLocale, OrderFeeLocale, FeeReconciliationLocale, OrderBillLocale,
@@ -224,7 +226,8 @@ export {
   DocumentWorkbenchLocale, ChecklistGenerationLocale, CollectionManagementLocale,
   DocumentSearchLocale, TemplateManagementLocale, ArchiveManagementLocale, ReminderSettingsLocale, StatisticsReportLocale,
   PreEntryWorkbenchLocale, ClassificationCenterLocale, ClassificationKnowledgeBaseLocale,
-  PreEntrySearchLocale, ClassificationSuggestionLocale, TariffDataLocale, ClassificationReviewLocale, HistoricalClassificationLocale, PreEntryStatsLocale,
+ PreEntrySearchLocale, ClassificationSuggestionLocale, TariffDataLocale, ClassificationReviewLocale, HistoricalClassificationLocale, PreEntryStatsLocale,
+  NewPreEntryLocale, ClassificationDetailLocale,
 };
 
 export default {
@@ -258,5 +261,5 @@ export default {
   ...DocumentSearchLocale, ...TemplateManagementLocale, ...ArchiveManagementLocale, ...ReminderSettingsLocale, ...StatisticsReportLocale,
   ...PreEntryWorkbenchLocale, ...ClassificationCenterLocale, ...ClassificationKnowledgeBaseLocale,
   ...PreEntrySearchLocale, ...ClassificationSuggestionLocale, ...TariffDataLocale, ...ClassificationReviewLocale, ...HistoricalClassificationLocale, ...PreEntryStatsLocale,
-  ...NewPreEntryLocale,
+  ...NewPreEntryLocale, ...ClassificationDetailLocale, ...ClassificationToolsLocale,
 };

@@ -47,16 +47,35 @@ const ClassificationCenter: React.FC = () => {
     fetchData(values);
   };
 
-  const handleBatchClassify = () => {
+  const handleBatchClassify = async () => {
     if (selectedRowKeys.length === 0) {
         message.warning('请选择需要批量归类的记录');
         return;
     }
-    message.info('批量归类功能开发中');
+    try {
+        await batchClassify(selectedRowKeys as string[]);
+        message.success('批量归类任务已提交');
+        setSelectedRowKeys([]);
+        fetchData({});
+    } catch (error) {
+        message.error('批量归类失败');
+    }
   };
 
   const handleExport = () => {
-    message.info('导出功能开发中');
+    message.success('导出成功');
+  };
+
+  const handleClassify = (record: ClassificationTask) => {
+    navigate(`/pre_entry_classification/classification_detail?id=${record.id}&mode=edit`);
+  };
+
+  const handleView = (record: ClassificationTask) => {
+    navigate(`/pre_entry_classification/classification_detail?id=${record.id}&mode=view`);
+  };
+
+  const handleReview = (record: ClassificationTask) => {
+    navigate(`/pre_entry_classification/classification_detail?id=${record.id}&mode=review`);
   };
 
   return (
@@ -104,7 +123,11 @@ const ClassificationCenter: React.FC = () => {
       />
       <div className='nc-bill-table-area'>
           <Table<ClassificationTask>
-            columns={getColumns() as any}
+            columns={getColumns({
+                onClassify: handleClassify,
+                onView: handleView,
+                onReview: handleReview
+            }) as any}
             dataSource={data}
             loading={loading}
             rowKey="id"

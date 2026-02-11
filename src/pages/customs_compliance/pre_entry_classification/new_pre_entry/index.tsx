@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Form, Input, Select, Button, Space, message, Row, Col, Divider, Table } from 'antd';
+import { Card, Form, Input, Select, Button, Space, message, Row, Col, Table, InputNumber, Tooltip } from 'antd';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { createPreEntry, getPreEntryDetail, updatePreEntry } from '@/api/customs_compliance/pre_entry_classification/new_pre_entry_service';
+import { createPreEntry, getPreEntryDetail, updatePreEntry, PreEntryGoods } from '@/api/customs_compliance/pre_entry_classification/new_pre_entry_service';
 
 const { Option } = Select;
 
@@ -17,7 +17,7 @@ const NewPreEntry: React.FC = () => {
   const isView = mode === 'view';
 
   const [loading, setLoading] = useState(false);
-  const [goodsList, setGoodsList] = useState<any[]>([]);
+  const [goodsList, setGoodsList] = useState<PreEntryGoods[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -65,29 +65,102 @@ const NewPreEntry: React.FC = () => {
 
   const handleAddGoods = () => {
       // Mock add goods
-      const newGoods = {
+      const newGoods: PreEntryGoods = {
           key: Date.now(),
           seq: goodsList.length + 1,
           name: 'New Goods',
           spec: 'Spec...',
           qty: 100,
-          unit: 'PCS'
+          unit: 'PCS',
+          unit_price: 100,
+          total_price: 10000,
+          hs_code: '待归类'
       };
       setGoodsList([...goodsList, newGoods]);
   };
 
+  const handleGoodsChange = (key: string | number, field: keyof PreEntryGoods, value: any) => {
+      const newGoodsList = goodsList.map(item => {
+          if (item.key === key) {
+              const updatedItem = { ...item, [field]: value };
+              if (field === 'qty' || field === 'unit_price') {
+                  updatedItem.total_price = (updatedItem.qty || 0) * (updatedItem.unit_price || 0);
+              }
+              return updatedItem;
+          }
+          return item;
+      });
+      setGoodsList(newGoodsList);
+  };
+
   const goodsColumns = [
-      { title: i18n.t(LocaleHelper.getNewPreEntrySeq()), dataIndex: 'seq' },
-      { title: i18n.t(LocaleHelper.getNewPreEntryGoodsName()), dataIndex: 'name' },
-      { title: i18n.t(LocaleHelper.getNewPreEntrySpec()), dataIndex: 'spec' },
-      { title: i18n.t(LocaleHelper.getNewPreEntryQty()), dataIndex: 'qty' },
-      { title: i18n.t(LocaleHelper.getNewPreEntryUnit()), dataIndex: 'unit' },
+      { title: i18n.t(LocaleHelper.getNewPreEntrySeq()), dataIndex: 'seq', width: 60 },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntryGoodsName()), 
+          dataIndex: 'name',
+          render: (text: string, record: PreEntryGoods) => {
+              if (isView) return text;
+              return <Input value={text} onChange={e => handleGoodsChange(record.key, 'name', e.target.value)} />;
+          }
+      },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntrySpec()), 
+          dataIndex: 'spec',
+          render: (text: string, record: PreEntryGoods) => {
+              if (isView) return text;
+              return <Input value={text} onChange={e => handleGoodsChange(record.key, 'spec', e.target.value)} />;
+          }
+      },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntryQty()), 
+          dataIndex: 'qty',
+          render: (text: number, record: PreEntryGoods) => {
+              if (isView) return text;
+              return <InputNumber value={text} onChange={val => handleGoodsChange(record.key, 'qty', val)} style={{ width: '100%' }} />;
+          }
+      },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntryUnit()), 
+          dataIndex: 'unit',
+          render: (text: string, record: PreEntryGoods) => {
+              if (isView) return text;
+              return <Input value={text} onChange={e => handleGoodsChange(record.key, 'unit', e.target.value)} />;
+          }
+      },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntryUnitPrice()), 
+          dataIndex: 'unit_price', 
+          render: (text: number, record: PreEntryGoods) => {
+              if (isView) return text?.toFixed(2);
+              return <InputNumber value={text} onChange={val => handleGoodsChange(record.key, 'unit_price', val)} style={{ width: '100%' }} />;
+          }
+      },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntryTotalPrice()), 
+          dataIndex: 'total_price', 
+          render: (text: number, record: PreEntryGoods) => {
+              if (isView) return text?.toFixed(2);
+              return <InputNumber value={text} onChange={val => handleGoodsChange(record.key, 'total_price', val)} style={{ width: '100%' }} />;
+          }
+      },
+      { 
+          title: i18n.t(LocaleHelper.getNewPreEntryHsCode()), 
+          dataIndex: 'hs_code',
+          render: (text: string, record: PreEntryGoods) => {
+              if (isView) return text;
+              return <Input value={text} onChange={e => handleGoodsChange(record.key, 'hs_code', e.target.value)} />;
+          }
+      },
       {
           title: i18n.t(LocaleHelper.getNewPreEntryAction()),
+          width: 150,
           render: (_: any, record: any) => (
-              <a onClick={() => {
-                  setGoodsList(goodsList.filter(item => item.key !== record.key));
-              }}>{i18n.t(LocaleHelper.getNewPreEntryDelete())}</a>
+              <Space>
+                  <a onClick={() => { message.info('跳转归类页面...') }}>{i18n.t(LocaleHelper.getNewPreEntryClassify())}</a>
+                  <a onClick={() => {
+                      setGoodsList(goodsList.filter(item => item.key !== record.key));
+                  }} style={{ color: 'red' }}>{i18n.t(LocaleHelper.getNewPreEntryDelete())}</a>
+              </Space>
           )
       }
   ];
@@ -100,6 +173,36 @@ const NewPreEntry: React.FC = () => {
             <span className="bill-info-title">
               <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px', marginRight: '8px' }} />
               {i18n.t(LocaleHelper.getNewPreEntryPageTitle())}
+              <Tooltip
+                  title={
+                      <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
+                          <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
+                              <li style={{ marginBottom: '10px' }}>
+                                  <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
+                                      <b>{i18n.t(LocaleHelper.getNewPreEntryHelpLabel())}</b>
+                                  </span>
+                                  <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
+                                      <li>
+                                          <b>{i18n.t(LocaleHelper.getNewPreEntryHelpRoleLabel())}</b>
+                                          {i18n.t(LocaleHelper.getNewPreEntryHelpRoleDesc())}
+                                      </li>
+                                      <li>
+                                          <b>{i18n.t(LocaleHelper.getNewPreEntryHelpOriginLabel())}</b>
+                                          {i18n.t(LocaleHelper.getNewPreEntryHelpOriginDesc())}
+                                      </li>
+                                      <li>
+                                          <b>{i18n.t(LocaleHelper.getNewPreEntryHelpFuncLabel())}</b>
+                                          {i18n.t(LocaleHelper.getNewPreEntryHelpFuncSaveDraft())}；{i18n.t(LocaleHelper.getNewPreEntryHelpFuncSubmitClassify())}
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ol>
+                      </div>
+                  }
+                  color='white'
+              >
+                  <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
+              </Tooltip>
             </span>
           </div>
         </div>
@@ -108,9 +211,12 @@ const NewPreEntry: React.FC = () => {
              <div className="buttonGroup-component">
                 <div className="u-button-group">
                     {!isView && (
-                        <Button type="primary" onClick={() => form.submit()} loading={loading}>
-                            {i18n.t(LocaleHelper.getNewPreEntrySubmit())}
-                        </Button>
+                        <>
+                            <Button onClick={() => message.success('Draft saved')}>{i18n.t(LocaleHelper.getNewPreEntrySaveDraft())}</Button>
+                            <Button type="primary" onClick={() => form.submit()} loading={loading}>
+                                {i18n.t(LocaleHelper.getNewPreEntrySubmitClassify())}
+                            </Button>
+                        </>
                     )}
                     <Button onClick={() => navigate(-1)}>{i18n.t(LocaleHelper.getNewPreEntryCancel())}</Button>
                 </div>
@@ -120,11 +226,13 @@ const NewPreEntry: React.FC = () => {
 
       <div style={{ padding: '16px' }}>
         <Form form={form} layout="vertical" onFinish={onFinish} disabled={isView}>
+          
+          {/* 基本信息 */}
           <Card title={i18n.t(LocaleHelper.getNewPreEntryBasicInfo())} bordered={false} style={{ marginBottom: 16 }}>
             <Row gutter={24}>
               <Col span={8}>
                 <Form.Item name="job_id" label={i18n.t(LocaleHelper.getNewPreEntryRelatedJob())} rules={[{ required: true }]}>
-                  <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryRelatedJob())} />
+                  <Input placeholder={i18n.t(LocaleHelper.getNewPreEntrySelectJob())} addonAfter={<a onClick={() => message.info('选择作业')}>{i18n.t(LocaleHelper.getNewPreEntrySelectJob())}</a>} />
                 </Form.Item>
               </Col>
               <Col span={8}>
@@ -143,20 +251,30 @@ const NewPreEntry: React.FC = () => {
             </Row>
             <Row gutter={24}>
               <Col span={8}>
+                <Form.Item name="exemption_nature" label={i18n.t(LocaleHelper.getNewPreEntryExemptionNature())}>
+                   <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryExemptionNature())} />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
                 <Form.Item name="transport_mode" label={i18n.t(LocaleHelper.getNewPreEntryTransportMode())} rules={[{ required: true }]}>
                    <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryTransportMode())} />
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item name="consignee" label={i18n.t(LocaleHelper.getNewPreEntryConsignee())} rules={[{ required: true }]}>
-                   <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryConsignee())} />
-                </Form.Item>
+                 {/* Empty col for alignment or additional field */}
               </Col>
-              <Col span={8}>
-                <Form.Item name="shipper" label={i18n.t(LocaleHelper.getNewPreEntryShipper())} rules={[{ required: true }]}>
-                   <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryShipper())} />
-                </Form.Item>
-              </Col>
+            </Row>
+            <Row gutter={24}>
+               <Col span={8}>
+                  <Form.Item name="port_of_shipment" label={i18n.t(LocaleHelper.getNewPreEntryPortOfShipment())}>
+                      <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryPortOfShipment())} />
+                  </Form.Item>
+               </Col>
+               <Col span={8}>
+                  <Form.Item name="port_of_destination" label={i18n.t(LocaleHelper.getNewPreEntryPortOfDestination())}>
+                      <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryPortOfDestination())} />
+                  </Form.Item>
+               </Col>
             </Row>
             <Row gutter={24}>
                <Col span={24}>
@@ -167,8 +285,102 @@ const NewPreEntry: React.FC = () => {
             </Row>
           </Card>
 
-          <Card title={i18n.t(LocaleHelper.getNewPreEntryGoodsInfo())} bordered={false} extra={!isView && <Button onClick={handleAddGoods}>{i18n.t(LocaleHelper.getNewPreEntryAddGoods())}</Button>}>
-              <Table dataSource={goodsList} columns={isView ? goodsColumns.filter(c => c.dataIndex !== undefined) : goodsColumns} pagination={false} />
+          {/* 收发货人信息 */}
+          <Card title={i18n.t(LocaleHelper.getNewPreEntryConsignorConsigneeInfo())} bordered={false} style={{ marginBottom: 16 }}>
+            <Row gutter={24}>
+               <Col span={12}>
+                  <Form.Item name="consignee_name" label={i18n.t(LocaleHelper.getNewPreEntryConsignee())} rules={[{ required: true }]}>
+                      <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryConsignee())} addonAfter={<a onClick={() => message.info('Select Customer')}>{i18n.t(LocaleHelper.getNewPreEntrySelectCustomer())}</a>} />
+                  </Form.Item>
+               </Col>
+               <Col span={12}>
+                  <Form.Item name="consignee_address" label={i18n.t(LocaleHelper.getNewPreEntryConsigneeAddress())}>
+                      <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryConsigneeAddress())} />
+                  </Form.Item>
+               </Col>
+            </Row>
+            <Row gutter={24}>
+               <Col span={12}>
+                  <Form.Item name="shipper_name" label={i18n.t(LocaleHelper.getNewPreEntryConsignor())} rules={[{ required: true }]}>
+                      <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryConsignor())} addonAfter={<a onClick={() => message.info('Select Customer')}>{i18n.t(LocaleHelper.getNewPreEntrySelectCustomer())}</a>} />
+                  </Form.Item>
+               </Col>
+               <Col span={12}>
+                  <Form.Item name="shipper_address" label={i18n.t(LocaleHelper.getNewPreEntryConsignorAddress())}>
+                      <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryConsignorAddress())} />
+                  </Form.Item>
+               </Col>
+            </Row>
+          </Card>
+
+          {/* 承运信息 */}
+          <Card title={i18n.t(LocaleHelper.getNewPreEntryTransportInfo())} bordered={false} style={{ marginBottom: 16 }}>
+             <Row gutter={24}>
+                <Col span={8}>
+                   <Form.Item name="carrier_name" label={i18n.t(LocaleHelper.getNewPreEntryCarrier())}>
+                       <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryCarrier())} />
+                   </Form.Item>
+                </Col>
+                <Col span={8}>
+                   <Form.Item label={i18n.t(LocaleHelper.getNewPreEntryVesselVoyage())} style={{ marginBottom: 24 }}>
+                       <Row gutter={8}>
+                          <Col span={12}>
+                            <Form.Item name="vessel_name" noStyle>
+                                <Input placeholder="船名" />
+                            </Form.Item>
+                          </Col>
+                          <Col span={12}>
+                            <Form.Item name="voyage_no" noStyle>
+                                <Input placeholder="航次" />
+                            </Form.Item>
+                          </Col>
+                       </Row>
+                   </Form.Item>
+                </Col>
+             </Row>
+             <Row gutter={24}>
+                <Col span={8}>
+                   <Form.Item name="bill_no" label={i18n.t(LocaleHelper.getNewPreEntryBillOfLadingNo())}>
+                       <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryBillOfLadingNo())} />
+                   </Form.Item>
+                </Col>
+                <Col span={8}>
+                   <Form.Item name="container_no" label={i18n.t(LocaleHelper.getNewPreEntryContainerNo())}>
+                       <Input placeholder={i18n.t(LocaleHelper.getNewPreEntryContainerNo())} />
+                   </Form.Item>
+                </Col>
+             </Row>
+          </Card>
+
+          {/* 商品信息 */}
+          <Card 
+            title={i18n.t(LocaleHelper.getNewPreEntryGoodsInfo())} 
+            bordered={false} 
+            extra={
+                !isView && (
+                    <Space>
+                        <Button>{i18n.t(LocaleHelper.getNewPreEntrySelectFromTemplate())}</Button>
+                        <Button>{i18n.t(LocaleHelper.getNewPreEntryBatchImport())}</Button>
+                        <Button type="primary" onClick={handleAddGoods}>{i18n.t(LocaleHelper.getNewPreEntryAddGoods())}</Button>
+                    </Space>
+                )
+            }
+          >
+              <Table 
+                dataSource={goodsList} 
+                columns={isView ? goodsColumns.filter(c => c.dataIndex !== undefined && c.title !== i18n.t(LocaleHelper.getNewPreEntryAction())) : goodsColumns} 
+                pagination={false} 
+                footer={() => (
+                    <Row gutter={24} justify="end" style={{ textAlign: 'right', fontSize: '14px' }}>
+                        <Col>
+                            {i18n.t(LocaleHelper.getNewPreEntryTotalAmount())}: <span style={{ fontWeight: 'bold', marginLeft: 8 }}>USD 55,000.00</span>
+                        </Col>
+                        <Col>
+                            {i18n.t(LocaleHelper.getNewPreEntryEstimatedTax())}: <span style={{ fontWeight: 'bold', marginLeft: 8 }}>CNY 8,250.00</span>
+                        </Col>
+                    </Row>
+                )}
+              />
           </Card>
         </Form>
       </div>

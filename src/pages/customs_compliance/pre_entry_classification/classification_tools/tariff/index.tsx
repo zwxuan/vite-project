@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Table, message } from 'antd';
 import AdvancedSearchForm from '@/components/search-form';
 import { getColumns } from './columns';
@@ -7,6 +8,7 @@ import { searchTariffData, TariffData } from '@/api/customs_compliance/pre_entry
 import '@/pages/page_list.less';
 
 const TariffPanel: React.FC = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<TariffData[]>([]);
   const [total, setTotal] = useState(0);
@@ -35,6 +37,10 @@ const TariffPanel: React.FC = () => {
     fetchData(values);
   };
 
+  const handleViewDetail = (record: TariffData) => {
+    navigate(`tariff/detail/${record.id}`);
+  };
+
   return (
     <div style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 200px)'}}>
       <AdvancedSearchForm
@@ -43,7 +49,7 @@ const TariffPanel: React.FC = () => {
       />
       <div className="nc-bill-table-area">
         <Table
-            columns={getColumns() as any}
+            columns={getColumns(handleViewDetail) as any}
             dataSource={data}
             rowKey="id"
             loading={loading}

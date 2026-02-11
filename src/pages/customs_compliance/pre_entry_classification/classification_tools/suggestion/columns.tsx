@@ -1,9 +1,10 @@
 import { ProColumns } from '@ant-design/pro-components';
 import { ClassificationSuggestion } from '@/api/customs_compliance/pre_entry_classification/classification_suggestion_service';
 import LocaleHelper from '@/utils/locale';
+import { CommonLocale } from '@/utils/locale/common';
 import i18n from '@/i18n';
 
-export const getColumns = (): ProColumns<ClassificationSuggestion>[] => [
+export const getColumns = (onViewDetail?: (record: ClassificationSuggestion) => void): ProColumns<ClassificationSuggestion>[] => [
   {
     title: i18n.t(LocaleHelper.getClassificationSuggestionProductName()),
     dataIndex: 'product_name',
@@ -37,7 +38,7 @@ export const getColumns = (): ProColumns<ClassificationSuggestion>[] => [
       width: 100,
       fixed: 'right',
       render: (text, record, _, action) => [
-          <a key="view">{i18n.t(LocaleHelper.getViewDetail())}</a>,
+          <a key="view" onClick={() => onViewDetail?.(record)}>{i18n.t(CommonLocale.getViewDetail())}</a>,
       ],
   }
 ];

@@ -3,7 +3,13 @@ import { ClassificationTask } from '@/api/customs_compliance/pre_entry_classific
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 
-export const getColumns = (): ProColumns<ClassificationTask>[] => [
+export interface ColumnActions {
+  onClassify: (record: ClassificationTask) => void;
+  onView: (record: ClassificationTask) => void;
+  onReview: (record: ClassificationTask) => void;
+}
+
+export const getColumns = (actions: ColumnActions): ProColumns<ClassificationTask>[] => [
   {
     title: i18n.t(LocaleHelper.getClassificationCenterPreEntryNo()),
     dataIndex: 'pre_entry_no',
@@ -64,11 +70,11 @@ export const getColumns = (): ProColumns<ClassificationTask>[] => [
       render: (text, record, _, action) => {
           const ops = [];
           if (record.classification_status === 'pending' || record.classification_status === 'revision') {
-              ops.push(<a key="classify">{i18n.t(LocaleHelper.getClassificationCenterClassify())}</a>);
+              ops.push(<a key="classify" onClick={() => actions.onClassify(record)}>{i18n.t(LocaleHelper.getClassificationCenterClassify())}</a>);
           } else if (record.classification_status === 'pending_review') {
-              ops.push(<a key="review">{i18n.t(LocaleHelper.getClassificationCenterReview())}</a>);
+              ops.push(<a key="review" onClick={() => actions.onReview(record)}>{i18n.t(LocaleHelper.getClassificationCenterReview())}</a>);
           } else {
-              ops.push(<a key="view">{i18n.t(LocaleHelper.getClassificationCenterView())}</a>);
+              ops.push(<a key="view" onClick={() => actions.onView(record)}>{i18n.t(LocaleHelper.getClassificationCenterView())}</a>);
           }
           return ops;
       },

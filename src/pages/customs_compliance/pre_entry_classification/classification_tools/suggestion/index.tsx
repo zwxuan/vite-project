@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Table, message } from 'antd';
 import AdvancedSearchForm from '@/components/search-form';
 import { getFields } from './search_fields';
@@ -7,6 +8,7 @@ import { searchClassificationSuggestions, ClassificationSuggestion } from '@/api
 import '@/pages/page_list.less';
 
 const SuggestionPanel: React.FC = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ClassificationSuggestion[]>([]);
   const [total, setTotal] = useState(0);
@@ -35,6 +37,10 @@ const SuggestionPanel: React.FC = () => {
     fetchData(values);
   };
 
+  const handleViewDetail = (record: ClassificationSuggestion) => {
+    navigate(`suggestion/detail/${record.id}`);
+  };
+
   return (
     <div style={{overflowY: 'auto',overflowX:'hidden', height: 'calc(100vh - 200px)'}}>
       <AdvancedSearchForm
@@ -43,7 +49,7 @@ const SuggestionPanel: React.FC = () => {
       />
       <div className="nc-bill-table-area">
         <Table
-            columns={getColumns() as any}
+            columns={getColumns(handleViewDetail) as any}
             dataSource={data}
             rowKey="id"
             loading={loading}

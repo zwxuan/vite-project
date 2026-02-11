@@ -22,6 +22,39 @@ export const PreEntryStatsLocale = {
   getPreEntryStatsClassificationAccuracy() {
     return `${NAMESPACE}.classificationAccuracy`;
   },
+  getPreEntryStatsPendingClassification() {
+    return `${NAMESPACE}.pendingClassification`;
+  },
+  getPreEntryStatsCompletedToday() {
+    return `${NAMESPACE}.completedToday`;
+  },
+  getPreEntryStatsErrorRate() {
+    return `${NAMESPACE}.errorRate`;
+  },
+  getPreEntryStatsAvgTurnaroundTime() {
+    return `${NAMESPACE}.avgTurnaroundTime`;
+  },
+  getPreEntryStatsWorkloadTrend() {
+    return `${NAMESPACE}.workloadTrend`;
+  },
+  getPreEntryStatsStatusDistribution() {
+    return `${NAMESPACE}.statusDistribution`;
+  },
+  getPreEntryStatsErrorAnalysis() {
+    return `${NAMESPACE}.errorAnalysis`;
+  },
+  getPreEntryStatsTopHsCodes() {
+    return `${NAMESPACE}.topHsCodes`;
+  },
+  getPreEntryStatsSearchDateRange() {
+    return `${NAMESPACE}.searchDateRange`;
+  },
+  getPreEntryStatsSearchDept() {
+    return `${NAMESPACE}.searchDept`;
+  },
+  getPreEntryStatsSearchBusinessType() {
+    return `${NAMESPACE}.searchBusinessType`;
+  },
   getPreEntryStatsHelpLabel() {
     return `${NAMESPACE}.help.label`;
   },

@@ -49,6 +49,78 @@ export const NewPreEntryLocale = {
   getNewPreEntryUnit() {
     return `${NAMESPACE}.unit`;
   },
+  getNewPreEntryExemptionNature() {
+    return `${NAMESPACE}.exemptionNature`;
+  },
+  getNewPreEntryPortOfShipment() {
+    return `${NAMESPACE}.portOfShipment`;
+  },
+  getNewPreEntryPortOfDestination() {
+    return `${NAMESPACE}.portOfDestination`;
+  },
+  getNewPreEntryConsignorConsigneeInfo() {
+    return `${NAMESPACE}.consignorConsigneeInfo`;
+  },
+  getNewPreEntryConsigneeAddress() {
+    return `${NAMESPACE}.consigneeAddress`;
+  },
+  getNewPreEntryConsignor() {
+    return `${NAMESPACE}.consignor`;
+  },
+  getNewPreEntryConsignorAddress() {
+    return `${NAMESPACE}.consignorAddress`;
+  },
+  getNewPreEntryTransportInfo() {
+    return `${NAMESPACE}.transportInfo`;
+  },
+  getNewPreEntryCarrier() {
+    return `${NAMESPACE}.carrier`;
+  },
+  getNewPreEntryVesselVoyage() {
+    return `${NAMESPACE}.vesselVoyage`;
+  },
+  getNewPreEntryBillOfLadingNo() {
+    return `${NAMESPACE}.billOfLadingNo`;
+  },
+  getNewPreEntryContainerNo() {
+    return `${NAMESPACE}.containerNo`;
+  },
+  getNewPreEntryUnitPrice() {
+    return `${NAMESPACE}.unitPrice`;
+  },
+  getNewPreEntryTotalPrice() {
+    return `${NAMESPACE}.totalPrice`;
+  },
+  getNewPreEntryHsCode() {
+    return `${NAMESPACE}.hsCode`;
+  },
+  getNewPreEntryClassify() {
+    return `${NAMESPACE}.classify`;
+  },
+  getNewPreEntryTotalAmount() {
+    return `${NAMESPACE}.totalAmount`;
+  },
+  getNewPreEntryEstimatedTax() {
+    return `${NAMESPACE}.estimatedTax`;
+  },
+  getNewPreEntrySaveDraft() {
+    return `${NAMESPACE}.saveDraft`;
+  },
+  getNewPreEntrySubmitClassify() {
+    return `${NAMESPACE}.submitClassify`;
+  },
+  getNewPreEntryBatchImport() {
+    return `${NAMESPACE}.batchImport`;
+  },
+  getNewPreEntrySelectFromTemplate() {
+    return `${NAMESPACE}.selectFromTemplate`;
+  },
+  getNewPreEntrySelectJob() {
+    return `${NAMESPACE}.selectJob`;
+  },
+  getNewPreEntrySelectCustomer() {
+    return `${NAMESPACE}.selectCustomer`;
+  },
   getNewPreEntryAction() {
     return `${NAMESPACE}.action`;
   },
@@ -72,5 +144,29 @@ export const NewPreEntryLocale = {
   },
   getNewPreEntryCancel() {
     return `${NAMESPACE}.cancel`;
+  },
+  getNewPreEntryHelpLabel() {
+    return `${NAMESPACE}.help_label`;
+  },
+  getNewPreEntryHelpRoleLabel() {
+    return `${NAMESPACE}.help_role_label`;
+  },
+  getNewPreEntryHelpRoleDesc() {
+    return `${NAMESPACE}.help_role_desc`;
+  },
+  getNewPreEntryHelpOriginLabel() {
+    return `${NAMESPACE}.help_origin_label`;
+  },
+  getNewPreEntryHelpOriginDesc() {
+    return `${NAMESPACE}.help_origin_desc`;
+  },
+  getNewPreEntryHelpFuncLabel() {
+    return `${NAMESPACE}.help_func_label`;
+  },
+  getNewPreEntryHelpFuncSaveDraft() {
+    return `${NAMESPACE}.help_func_save_draft`;
+  },
+  getNewPreEntryHelpFuncSubmitClassify() {
+    return `${NAMESPACE}.help_func_submit_classify`;
   },
 };
