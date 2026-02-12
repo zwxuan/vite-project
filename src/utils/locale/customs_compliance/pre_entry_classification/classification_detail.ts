@@ -151,6 +151,15 @@ const LocaleHelper = {
   getClassificationDetailLogisticsInfo() {
     return `${NAMESPACE}.logisticsInfo`;
   },
+  getClassificationDetailCodeVerify() {
+    return `${NAMESPACE}.codeVerify`;
+  },
+  getClassificationDetailRationale() {
+    return `${NAMESPACE}.rationale`;
+  },
+  getClassificationDetailReviewOpinion() {
+    return `${NAMESPACE}.reviewOpinion`;
+  },
   getClassificationDetailStatus() {
     return `${NAMESPACE}.status`;
   },
