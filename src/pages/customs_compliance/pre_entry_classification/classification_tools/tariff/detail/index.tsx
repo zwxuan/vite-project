@@ -5,6 +5,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getTariffDetail, TariffData } from '@/api/customs_compliance/pre_entry_classification/tariff_data_service';
+import '@/pages/page_list.less';
 
 const TariffDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,56 +44,62 @@ const TariffDetail: React.FC = () => {
   }
 
   return (
-    <div style={{ padding: '24px' }}>
-      <Card
-        title={
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Button 
-                type="link" 
-                icon={<ArrowLeftOutlined />} 
-                onClick={handleBack} 
-                style={{ marginRight: 8, color: 'inherit' }}
-            />
-            <span>{i18n.t(LocaleHelper.getTariffDataPageTitle())} - {i18n.t(LocaleHelper.getDetail())}</span>
+    <div style={{ height: 'calc(100vh - 80px)', overflowY: 'auto', background: '#f0f2f5' }}>
+      <div className="nc-bill-header-area">
+          <div className="header-title-search-area">
+              <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
+                  <span className="bill-info-title" style={{ marginLeft: '10px' }}>
+                    {i18n.t(LocaleHelper.getTariffDataPageTitle())} - {i18n.t(LocaleHelper.getDetail())}
+                  </span>
+              </div>
           </div>
-        }
-        bordered={false}
-      >
-        {data ? (
-          <Descriptions bordered column={2}>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataHsCode())}>
-              {data.hs_code}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataName())} span={2}>
-              <div>{data.name}</div>
-              <div style={{ color: '#999' }}>{data.name_en}</div>
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataMFNRate())}>
-              {data.mfn_rate}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataGeneralRate())}>
-              {data.general_rate}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataVATRate())}>
-              {data.vat_rate}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataConsumptionTaxRate())}>
-              {data.consumption_tax_rate}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataExportRebateRate())}>
-              {data.export_rebate_rate}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataRegulatoryConditions())}>
-              {data.regulatory_conditions}
-            </Descriptions.Item>
-            <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataInspectionQuarantine())}>
-              {data.inspection_quarantine}
-            </Descriptions.Item>
-          </Descriptions>
-        ) : (
-          <div>No Data</div>
-        )}
-      </Card>
+          <div className="header-button-area">
+              <div className="buttonGroup-component">
+                  <div className="u-button-group">
+                      <Button icon={<ArrowLeftOutlined />} onClick={handleBack}>返回</Button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div style={{ padding: '24px' }}>
+        <Card bordered={false}>
+            {data ? (
+              <Descriptions bordered column={2}>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataHsCode())}>
+                  {data.hs_code}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataName())} span={2}>
+                  <div>{data.name}</div>
+                  <div style={{ color: '#999' }}>{data.name_en}</div>
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataMFNRate())}>
+                  {data.mfn_rate}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataGeneralRate())}>
+                  {data.general_rate}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataVATRate())}>
+                  {data.vat_rate}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataConsumptionTaxRate())}>
+                  {data.consumption_tax_rate}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataExportRebateRate())}>
+                  {data.export_rebate_rate}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataRegulatoryConditions())}>
+                  {data.regulatory_conditions}
+                </Descriptions.Item>
+                <Descriptions.Item label={i18n.t(LocaleHelper.getTariffDataInspectionQuarantine())}>
+                  {data.inspection_quarantine}
+                </Descriptions.Item>
+              </Descriptions>
+            ) : (
+              <div>No Data</div>
+            )}
+        </Card>
+      </div>
     </div>
   );
 };
