@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Spin, message, Button } from 'antd';
+import { Spin, message, Button, Descriptions } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { ProDescriptions } from '@ant-design/pro-components';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 import { getHistoryDetail, HistoryItem } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
@@ -64,39 +63,39 @@ const HistoryDetail: React.FC = () => {
       </div>
 
       <div style={{ padding: '0 24px 24px' }}>
-        <ProDescriptions
+        <Descriptions
             title={i18n.t(ClassificationDetailLocale.getClassificationDetailBasicInfo())}
-            dataSource={data || ({} as HistoryItem)}
-            columns={[
-                { title: i18n.t(LocaleHelper.getHistoricalClassificationInvoiceNo()), dataIndex: 'invoice_no' },
-                { title: i18n.t(LocaleHelper.getHistoricalClassificationProductName()), dataIndex: 'product_name' },
-                { title: i18n.t(LocaleHelper.getHistoricalClassificationHsCode()), dataIndex: 'hs_code' },
-                { title: i18n.t(LocaleHelper.getHistoricalClassificationDeclaredPrice()), render: (_, r) => `${r.currency} ${r.declared_price}` },
+            bordered
+            items={[
+                { label: i18n.t(LocaleHelper.getHistoricalClassificationInvoiceNo()), children: data?.invoice_no || '-' },
+                { label: i18n.t(LocaleHelper.getHistoricalClassificationProductName()), children: data?.product_name || '-' },
+                { label: i18n.t(LocaleHelper.getHistoricalClassificationHsCode()), children: data?.hs_code || '-' },
+                { label: i18n.t(LocaleHelper.getHistoricalClassificationDeclaredPrice()), children: `${data?.currency || '-'} ${data?.declared_price || '-'}` },
             ]}
             column={2}
             style={{ background: '#fff', padding: '24px', marginBottom: '16px', borderRadius: '4px' }}
         />
         
-        <ProDescriptions
+        <Descriptions
             title={i18n.t(ClassificationDetailLocale.getClassificationDetailDeclarationInfo())}
-            dataSource={data || {}}
-            columns={[
-                { title: i18n.t(LocaleHelper.getHistoricalClassificationEntryId()), dataIndex: 'entry_id' },
-                { title: i18n.t(LocaleHelper.getHistoricalClassificationEntryDate()), dataIndex: 'entry_date' },
-                { title: i18n.t(ClassificationDetailLocale.getClassificationDetailTradeMode()), dataIndex: 'trade_mode' },
+            bordered
+            items={[
+                { label: i18n.t(LocaleHelper.getHistoricalClassificationEntryId()), children: data?.entry_id || '-' },
+                { label: i18n.t(LocaleHelper.getHistoricalClassificationEntryDate()), children: data?.entry_date || '-' },
+                { label: i18n.t(ClassificationDetailLocale.getClassificationDetailTradeMode()), children: data?.trade_mode || '-' },
             ]}
             column={2}
             style={{ background: '#fff', padding: '24px', marginBottom: '16px', borderRadius: '4px' }}
         />
 
-        <ProDescriptions
+        <Descriptions
             title={i18n.t(ClassificationDetailLocale.getClassificationDetailLogisticsInfo())}
-            dataSource={data || ({} as HistoryItem)}
-            columns={[
-                { title: i18n.t(ClassificationDetailLocale.getClassificationDetailOriginCountry()), dataIndex: 'origin_country' },
-                { title: i18n.t(ClassificationDetailLocale.getClassificationDetailDestinationCountry()), dataIndex: 'destination_country' },
-                { title: i18n.t(ClassificationDetailLocale.getClassificationDetailGrossWeight()), dataIndex: 'gross_weight' },
-                { title: i18n.t(ClassificationDetailLocale.getClassificationDetailNetWeight()), dataIndex: 'net_weight' },
+            bordered
+            items={[
+                { label: i18n.t(ClassificationDetailLocale.getClassificationDetailOriginCountry()), children: data?.origin_country || '-' },
+                { label: i18n.t(ClassificationDetailLocale.getClassificationDetailDestinationCountry()), children: data?.destination_country || '-' },
+                { label: i18n.t(ClassificationDetailLocale.getClassificationDetailGrossWeight()), children: `${data?.gross_weight || '-'}` },
+                { label: i18n.t(ClassificationDetailLocale.getClassificationDetailNetWeight()), children: `${data?.net_weight || '-'}` },
             ]}
             column={2}
             style={{ background: '#fff', padding: '24px', borderRadius: '4px' }}
