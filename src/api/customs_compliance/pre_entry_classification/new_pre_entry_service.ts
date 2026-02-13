@@ -1,5 +1,5 @@
 
-import { PreEntryTask } from './pre_entry_workbench_service';
+import { PreEntryTask } from '@/types/customs_compliance/pre_entry_classification/pre_entry_task';
 
 import { PreEntryGoods, PreEntryForm } from '@/types/customs_compliance/pre_entry_classification/new_pre_entry';
 
