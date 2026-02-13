@@ -3,7 +3,8 @@ import { Card, Descriptions, Progress, Table, Button, Space, message, Tooltip } 
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getCollectionDetail, CollectionDetail } from '@/api/customs_compliance/supporting_documents_management/collection_service';
+import { getCollectionDetail } from '@/api/customs_compliance/supporting_documents_management/collection_service';
+import { CollectionDetail } from '@/types/customs_compliance/supporting_documents_management/collection';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '@/pages/page_list.less';
 import { getColumns } from './columns';

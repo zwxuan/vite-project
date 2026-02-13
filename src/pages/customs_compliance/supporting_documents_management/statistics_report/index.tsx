@@ -7,7 +7,8 @@ import { getFields } from './search_fields';
 import { getColumns } from './columns';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getStatisticsData, StatisticsKPI, TrendItem, ReasonItem, DetailItem } from '@/api/customs_compliance/supporting_documents_management/statistics_service';
+import { getStatisticsData } from '@/api/customs_compliance/supporting_documents_management/statistics_service';
+import { StatisticsKPI, TrendItem, ReasonItem, DetailItem } from '@/types/customs_compliance/supporting_documents_management/statistics';
 import { TrendChart, ReasonChart } from './charts';
 
 const StatisticsReport: React.FC = () => {

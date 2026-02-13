@@ -4,7 +4,8 @@ import { Table, message } from 'antd';
 import AdvancedSearchForm from '@/components/search-form';
 import { getFields } from './search_fields';
 import { getColumns } from './columns';
-import { searchClassificationSuggestions, ClassificationSuggestion } from '@/api/customs_compliance/pre_entry_classification/classification_suggestion_service';
+import { searchClassificationSuggestions } from '@/api/customs_compliance/pre_entry_classification/classification_suggestion_service';
+import { ClassificationSuggestion } from '@/types/customs_compliance/pre_entry_classification/classification_suggestion';
 import '@/pages/page_list.less';
 
 const SuggestionPanel: React.FC = () => {
@@ -53,6 +54,7 @@ const SuggestionPanel: React.FC = () => {
             dataSource={data}
             rowKey="id"
             loading={loading}
+            bordered={true}
             pagination={{
                 total: total,
                 showSizeChanger: true,

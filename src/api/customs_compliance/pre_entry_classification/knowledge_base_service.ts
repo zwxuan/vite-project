@@ -1,13 +1,5 @@
-export interface KnowledgeItem {
-  id: string;
-  title: string;
-  type: string; // case, rule, guide
-  category: string;
-  applicable_goods: string;
-  hs_code: string;
-  creator: string;
-  create_time: string;
-}
+import { KnowledgeItem } from '@/types/customs_compliance/pre_entry_classification/knowledge_base';
+
 
 export async function getKnowledgeList(params: any) {
   // Mock data
@@ -49,6 +41,18 @@ export async function getKnowledgeList(params: any) {
     success: true,
     total: data.length,
   };
+}
+
+export async function createKnowledge(data: KnowledgeItem) {
+    return new Promise<{ success: boolean }>((resolve) => {
+        setTimeout(() => resolve({ success: true }), 500);
+    });
+}
+
+export async function updateKnowledge(data: KnowledgeItem) {
+    return new Promise<{ success: boolean }>((resolve) => {
+        setTimeout(() => resolve({ success: true }), 500);
+    });
 }
 
 export async function importKnowledge(file: any) {

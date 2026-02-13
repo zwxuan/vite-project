@@ -1,5 +1,5 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { HistoryItem } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
+import { HistoryItem } from '@/types/customs_compliance/pre_entry_classification/historical_classification';
 import LocaleHelper from '@/utils/locale';
 import { CommonLocale } from '@/utils/locale/common';
 import i18n from '@/i18n';

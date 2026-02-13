@@ -1,17 +1,21 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { KnowledgeItem } from '@/api/customs_compliance/pre_entry_classification/knowledge_base_service';
-import LocaleHelper from '@/utils/locale';
+import { KnowledgeItem } from '@/types/customs_compliance/pre_entry_classification/knowledge_base';
+import { ClassificationKnowledgeBaseLocale } from '@/utils/locale/customs_compliance/pre_entry_classification/knowledge_base';
 import i18n from '@/i18n';
+import { Space } from 'antd';
 
-export const getColumns = (): ProColumns<KnowledgeItem>[] => [
+export const getColumns = (
+  handleView: (record: KnowledgeItem) => void,
+  handleEdit: (record: KnowledgeItem) => void,
+): ProColumns<KnowledgeItem>[] => [
   {
-    title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseTitle()),
+    title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseTitle()),
     dataIndex: 'title',
     width: 250,
     fixed: 'left',
   },
   {
-    title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseType()),
+    title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseType()),
     dataIndex: 'type',
     valueEnum: {
       case: { text: '案例', status: 'Success' },
@@ -21,34 +25,36 @@ export const getColumns = (): ProColumns<KnowledgeItem>[] => [
     width: 100,
   },
   {
-    title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseApplicableGoods()),
+    title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseApplicableGoods()),
     dataIndex: 'applicable_goods',
     width: 150,
   },
   {
-    title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseHSCode()),
+    title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseHSCode()),
     dataIndex: 'hs_code',
     width: 120,
   },
   {
-    title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseCreator()),
+    title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseCreator()),
     dataIndex: 'creator',
     width: 120,
   },
   {
-    title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseCreateTime()),
+    title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseCreateTime()),
     dataIndex: 'create_time',
     valueType: 'date',
     width: 120,
   },
   {
-      title: i18n.t(LocaleHelper.getClassificationKnowledgeBaseOperation()),
+      title: i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseOperation()),
       valueType: 'option',
       width: 150,
       fixed: 'right',
-      render: (text, record, _, action) => [
-          <a key="view">{i18n.t(LocaleHelper.getClassificationKnowledgeBaseView())}</a>,
-          <a key="edit">{i18n.t(LocaleHelper.getClassificationKnowledgeBaseEdit())}</a>,
-      ],
+      render: (_, record) => (
+        <Space>
+          <a key="view" onClick={() => handleView(record)}>{i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseView())}</a>
+          <a key="edit" onClick={() => handleEdit(record)}>{i18n.t(ClassificationKnowledgeBaseLocale.getClassificationKnowledgeBaseEdit())}</a>
+        </Space>
+      ),
   }
 ];

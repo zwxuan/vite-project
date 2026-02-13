@@ -3,7 +3,7 @@ import { ColumnsType } from 'antd/es/table';
 import { Tag } from 'antd';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-import { DetailItem } from '@/api/customs_compliance/supporting_documents_management/statistics_service';
+import { DetailItem } from '@/types/customs_compliance/supporting_documents_management/statistics';
 
 export const getColumns = (): ColumnsType<DetailItem> => [
   {

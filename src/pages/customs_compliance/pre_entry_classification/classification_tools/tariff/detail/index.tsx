@@ -4,7 +4,8 @@ import { Descriptions, Button, Card, Spin, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getTariffDetail, TariffData } from '@/api/customs_compliance/pre_entry_classification/tariff_data_service';
+import { getTariffDetail } from '@/api/customs_compliance/pre_entry_classification/tariff_data_service';
+import { TariffData } from '@/types/customs_compliance/pre_entry_classification/tariff_data';
 import '@/pages/page_list.less';
 
 const TariffDetail: React.FC = () => {

@@ -4,7 +4,8 @@ import { Spin, message, Button, Descriptions, Card } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getHistoryDetail, HistoryItem } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
+import { getHistoryDetail } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
+import { HistoryItem } from '@/types/customs_compliance/pre_entry_classification/historical_classification';
 import ClassificationDetailLocale from '@/utils/locale/customs_compliance/pre_entry_classification/classification_detail';
 import '@/pages/page_list.less';
 

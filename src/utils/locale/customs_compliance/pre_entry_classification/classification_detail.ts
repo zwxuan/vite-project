@@ -10,6 +10,12 @@ const LocaleHelper = {
   getClassificationDetailSubmitReview() {
     return `${NAMESPACE}.submitReview`;
   },
+  getClassificationDetailApprove() {
+    return `${NAMESPACE}.approve`;
+  },
+  getClassificationDetailReject() {
+    return `${NAMESPACE}.reject`;
+  },
   getClassificationDetailBasicInfo() {
     return `${NAMESPACE}.basicInfo`;
   },

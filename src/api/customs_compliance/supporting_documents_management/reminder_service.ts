@@ -1,15 +1,7 @@
 import React from 'react';
 
-export interface ReminderRuleItem {
-    id: React.Key;
-    ruleName: string;
-    reminderType: 'email' | 'system' | 'sms';
-    triggerCondition: string;
-    recipients: string[];
-    status: 'active' | 'inactive';
-    lastModified: string;
-    description?: string;
-}
+import { ReminderRuleItem } from '@/types/customs_compliance/supporting_documents_management/reminder';
+
 
 const mockData: ReminderRuleItem[] = Array.from({ length: 10 }).map((_, i) => ({
     id: `RULE_${i + 1}`,

@@ -4,7 +4,8 @@ import { Table, message } from 'antd';
 import AdvancedSearchForm from '@/components/search-form';
 import { getColumns } from './columns';
 import { getFields } from './search_fields';
-import { searchHistory, HistoryItem } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
+import { searchHistory } from '@/api/customs_compliance/pre_entry_classification/historical_classification_service';
+import { HistoryItem } from '@/types/customs_compliance/pre_entry_classification/historical_classification';
 import '@/pages/page_list.less';
 
 const HistoryPanel: React.FC = () => {
@@ -53,6 +54,7 @@ const HistoryPanel: React.FC = () => {
             dataSource={data}
             rowKey="id"
             loading={loading}
+            bordered={true}
             pagination={{
                 total: total,
                 showSizeChanger: true,

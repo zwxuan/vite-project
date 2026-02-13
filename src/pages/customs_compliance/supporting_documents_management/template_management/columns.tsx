@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space, Tag, Popconfirm } from 'antd';
-import { TemplateItem } from '@/api/customs_compliance/supporting_documents_management/template_service';
+import { TemplateItem } from '@/types/customs_compliance/supporting_documents_management/template';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 

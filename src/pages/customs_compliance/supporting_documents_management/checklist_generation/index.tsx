@@ -3,7 +3,8 @@ import { Form, Input, Select, Button, Row, Col, message, Divider, Radio, Tooltip
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { generateChecklist, getPreEntryList, PreEntryItem } from '@/api/customs_compliance/supporting_documents_management/checklist_service';
+import { generateChecklist, getPreEntryList } from '@/api/customs_compliance/supporting_documents_management/checklist_service';
+import { PreEntryItem } from '@/types/customs_compliance/supporting_documents_management/checklist';
 import { useNavigate } from 'react-router-dom';
 import { getColumns, DocOption } from './columns';
 import '@/pages/page_list.less';

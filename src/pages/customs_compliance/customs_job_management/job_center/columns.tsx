@@ -1,6 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
 import { Button, Space, Tag } from 'antd';
-import { CustomsJob } from '@/api/customs_compliance/customs_job_management/job_center_service';
+import { CustomsJob } from '@/types/customs_compliance/customs_job_management/job_center';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 

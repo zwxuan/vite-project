@@ -83,7 +83,7 @@ import {
   CcsmScreeningTaskCenter, CcsmInitiateScreening, CcsmScreeningResultQuery, CcsmHitProcessing,CcsmExemptionRequestManagement, CcsmScreeningRuleConfig, CcsmDatabaseManagement, CcsmScreeningStatisticsReport,
   CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
   CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry, CpecClassificationTools, CpecPreEntryStatistics,CpecClassificationDetail,
-  CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail,
+  CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail,CpecClassificationReview,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -274,6 +274,11 @@ const routers = createMemoryRouter([
             path: "classification_center",
             handle: { title: '商品归类中心' },
             element: <RouterGuard><CpecClassificationCenter /></RouterGuard>
+          },
+          {
+            path: "classification_review",
+            handle: { title: '归类审核' },
+            element: <RouterGuard><CpecClassificationReview /></RouterGuard>
           },
           {
             path: "knowledge_base",

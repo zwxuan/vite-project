@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, Select, Checkbox, Radio, message } from 'antd';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-import { ReminderRuleItem } from '@/api/customs_compliance/supporting_documents_management/reminder_service';
+import { ReminderRuleItem } from '@/types/customs_compliance/supporting_documents_management/reminder';
 
 interface ReminderModalProps {
     visible: boolean;

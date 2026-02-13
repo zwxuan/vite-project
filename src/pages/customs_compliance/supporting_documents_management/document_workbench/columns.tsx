@@ -2,7 +2,7 @@ import React from 'react';
 import { ColumnsType } from 'antd/es/table';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-import { DocumentWorkbenchItem } from '@/api/customs_compliance/supporting_documents_management/workbench_service';
+import { DocumentWorkbenchItem } from '@/types/customs_compliance/supporting_documents_management/workbench';
 import { Space, Tag } from 'antd';
 
 export const getColumns = (

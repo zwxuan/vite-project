@@ -4,7 +4,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import CustomIcon from '@/components/custom-icon';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { createPreEntry, getPreEntryDetail, updatePreEntry, PreEntryGoods } from '@/api/customs_compliance/pre_entry_classification/new_pre_entry_service';
+import { createPreEntry, getPreEntryDetail, updatePreEntry } from '@/api/customs_compliance/pre_entry_classification/new_pre_entry_service';
+import { PreEntryGoods } from '@/types/customs_compliance/pre_entry_classification/new_pre_entry';
 
 const { Option } = Select;
 

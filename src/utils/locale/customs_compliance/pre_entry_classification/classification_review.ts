@@ -28,6 +28,12 @@ export const ClassificationReviewLocale = {
   getClassificationReviewReviewTime() {
     return `${NAMESPACE}.reviewTime`;
   },
+  getClassificationReviewBatchApprove() {
+    return `${NAMESPACE}.batchApprove`;
+  },
+  getClassificationReviewBatchReject() {
+    return `${NAMESPACE}.batchReject`;
+  },
   getClassificationReviewHelpLabel() {
     return `${NAMESPACE}.help.label`;
   },

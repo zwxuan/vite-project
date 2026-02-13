@@ -6,7 +6,8 @@ import { getFields } from './search_fields';
 import { getColumns } from './columns';
 import { ArchiveManagementLocale } from '@/utils/locale/customs_compliance/supporting_documents_management/archive_management';
 import i18n from '@/i18n';
-import { getArchiveList, batchRestore, batchDelete, ArchiveItem } from '@/api/customs_compliance/supporting_documents_management/archive_service';
+import { getArchiveList, batchRestore, batchDelete } from '@/api/customs_compliance/supporting_documents_management/archive_service';
+import { ArchiveItem } from '@/types/customs_compliance/supporting_documents_management/archive';
 import '@/pages/page_list.less';
 
 const ArchiveManagement: React.FC = () => {

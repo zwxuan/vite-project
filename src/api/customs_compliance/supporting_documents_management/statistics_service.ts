@@ -1,32 +1,7 @@
 import { Random } from 'mockjs';
 
-export interface StatisticsKPI {
-    totalJobs: number;
-    docsCollected: number;
-    missingDocs: number;
-    complianceRate: number;
-}
+import { StatisticsKPI, TrendItem, ReasonItem, DetailItem } from '@/types/customs_compliance/supporting_documents_management/statistics';
 
-export interface TrendItem {
-    date: string;
-    complianceRate: number;
-    missingCount: number;
-}
-
-export interface ReasonItem {
-    type: string;
-    value: number;
-}
-
-export interface DetailItem {
-    id: string;
-    jobNo: string;
-    customer: string;
-    docType: string;
-    status: 'completed' | 'missing' | 'overdue';
-    dueDate: string;
-    collectedDate: string;
-}
 
 const mockKPI: StatisticsKPI = {
     totalJobs: 1250,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Drawer, Descriptions, Tag, Button, Space, Divider } from 'antd';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { ExemptionRequest } from '@/api/customs_compliance/compliance_screening_management/exemption_service';
+import { ExemptionRequest } from '@/types/customs_compliance/compliance_screening_management/exemption';
 
 interface ExemptionDetailDrawerProps {
   visible: boolean;

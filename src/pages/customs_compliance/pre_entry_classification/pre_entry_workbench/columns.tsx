@@ -1,6 +1,6 @@
 import { Badge, Space } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { PreEntryTask } from '@/api/customs_compliance/pre_entry_classification/pre_entry_workbench_service';
+import { PreEntryTask } from '@/types/customs_compliance/pre_entry_classification/pre_entry_task';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 

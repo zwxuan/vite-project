@@ -1,16 +1,5 @@
-export interface TariffData {
-  id: string;
-  hs_code: string;
-  name: string;
-  name_en: string;
-  mfn_rate: string;
-  general_rate: string;
-  vat_rate: string;
-  consumption_tax_rate: string;
-  export_rebate_rate: string;
-  regulatory_conditions: string;
-  inspection_quarantine: string;
-}
+import { TariffData } from '@/types/customs_compliance/pre_entry_classification/tariff_data';
+
 
 export async function searchTariffData(params: any) {
   // Mock data

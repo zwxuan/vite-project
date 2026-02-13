@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, Select, Radio, Checkbox, Row, Col, Divider, Space } from 'antd';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { TemplateItem } from '@/api/customs_compliance/supporting_documents_management/template_service';
+import { TemplateItem } from '@/types/customs_compliance/supporting_documents_management/template';
 
 interface TemplateModalProps {
   visible: boolean;

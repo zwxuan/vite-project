@@ -4,7 +4,8 @@ import { Card, Descriptions, Button, Tag, Spin, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-import { getCustomsJobDetail, CustomsJob } from '@/api/customs_compliance/customs_job_management/job_center_service';
+import { getCustomsJobDetail } from '@/api/customs_compliance/customs_job_management/job_center_service';
+import { CustomsJob } from '@/types/customs_compliance/customs_job_management/job_center';
 import CustomIcon from "@/components/custom-icon";
 import '@/pages/page_list.less';
 

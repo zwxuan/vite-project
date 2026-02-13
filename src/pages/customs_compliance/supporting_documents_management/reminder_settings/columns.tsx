@@ -2,7 +2,7 @@ import React from 'react';
 import { ColumnsType } from 'antd/es/table';
 import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
-import { ReminderRuleItem } from '@/api/customs_compliance/supporting_documents_management/reminder_service';
+import { ReminderRuleItem } from '@/types/customs_compliance/supporting_documents_management/reminder';
 import { Space, Tag } from 'antd';
 
 export const getColumns = (

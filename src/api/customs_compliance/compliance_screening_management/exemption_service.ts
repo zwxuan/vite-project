@@ -1,16 +1,6 @@
 import { message } from 'antd';
+import { ExemptionRequest } from '@/types/customs_compliance/compliance_screening_management/exemption';
 
-export interface ExemptionRequest {
-  id: string;
-  screeningId: string;
-  entity: string;
-  risk: string;
-  applicant: string;
-  status: 'Pending' | 'Approved' | 'Rejected';
-  createTime: string;
-  reason?: string;
-  comments?: string;
-}
 
 // Mock Data
 let dataSource: ExemptionRequest[] = [

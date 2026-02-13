@@ -6,7 +6,8 @@ import { getFields } from './search_fields';
 import { getColumns } from './columns';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getClassificationList, ClassificationTask, batchClassify, getClassificationStats, ClassificationStats } from '@/api/customs_compliance/pre_entry_classification/classification_center_service';
+import { getClassificationList, batchClassify, getClassificationStats } from '@/api/customs_compliance/pre_entry_classification/classification_center_service';
+import { ClassificationTask, ClassificationStats } from '@/types/customs_compliance/pre_entry_classification/classification_center';
 import { useNavigate } from 'react-router-dom';
 import '@/pages/page_list.less';
 

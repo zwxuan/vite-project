@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tag, Space, Upload, message } from 'antd';
-import { DocumentItem } from '@/api/customs_compliance/supporting_documents_management/collection_service';
+import { DocumentItem } from '@/types/customs_compliance/supporting_documents_management/collection';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 

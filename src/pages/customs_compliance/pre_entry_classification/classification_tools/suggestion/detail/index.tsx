@@ -4,7 +4,8 @@ import { Descriptions, Button, Card, Spin, message, Progress } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getSuggestionDetail, ClassificationSuggestion } from '@/api/customs_compliance/pre_entry_classification/classification_suggestion_service';
+import { getSuggestionDetail } from '@/api/customs_compliance/pre_entry_classification/classification_suggestion_service';
+import { ClassificationSuggestion } from '@/types/customs_compliance/pre_entry_classification/classification_suggestion';
 import '@/pages/page_list.less';
 
 const SuggestionDetail: React.FC = () => {

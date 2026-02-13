@@ -1,7 +1,7 @@
 import React from 'react';
 import { ColumnsType } from 'antd/es/table';
 import { Tag, Space } from 'antd';
-import { ScreeningTask } from '@/api/customs_compliance/compliance_screening_management/screening_service';
+import { ScreeningTask } from '@/types/customs_compliance/compliance_screening_management/screening';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 

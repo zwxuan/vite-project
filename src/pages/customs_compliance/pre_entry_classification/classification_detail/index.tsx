@@ -9,9 +9,10 @@ import {
   getHistoryReference,
   saveClassification,
   submitReview,
-  ClassificationDetail as ClassificationDetailType,
-  HistoryReference
+  approveReview,
+  rejectReview,
 } from '@/api/customs_compliance/pre_entry_classification/classification_detail_service';
+import { ClassificationDetail as ClassificationDetailType, HistoryReference } from '@/types/customs_compliance/pre_entry_classification/classification_detail';
 import '@/pages/page_list.less';
 
 const { TextArea } = Input;
@@ -25,6 +26,10 @@ const ClassificationDetail: React.FC = () => {
   const [detail, setDetail] = useState<ClassificationDetailType | null>(null);
   const [historyData, setHistoryData] = useState<HistoryReference[]>([]);
   const [form] = Form.useForm();
+
+  const isView = mode === 'view';
+  const isReview = mode === 'review';
+  const isEdit = mode === 'edit';
 
   useEffect(() => {
     if (id) {
@@ -71,7 +76,31 @@ const ClassificationDetail: React.FC = () => {
      }
   };
 
-  const isView = mode === 'view';
+  const handleApprove = async () => {
+      try {
+          const values = await form.validateFields(['review_opinion']);
+          await approveReview(id!, values.review_opinion);
+          message.success('Review approved');
+          navigate(-1);
+      } catch (error) {
+          message.error('Failed to approve');
+      }
+  };
+
+  const handleReject = async () => {
+      try {
+          const values = await form.validateFields(['review_opinion']);
+          if (!values.review_opinion) {
+              message.error('Please provide review opinion for rejection');
+              return;
+          }
+          await rejectReview(id!, values.review_opinion);
+          message.success('Review rejected');
+          navigate(-1);
+      } catch (error) {
+          message.error('Failed to reject');
+      }
+  };
 
   const historyColumns = [
     { title: i18n.t(LocaleHelper.getClassificationDetailSimilarProduct()), dataIndex: 'similar_product', ellipsis: true },
@@ -151,9 +180,9 @@ const ClassificationDetail: React.FC = () => {
         title={i18n.t(LocaleHelper.getClassificationDetailExpertClassification())}
         bordered={false}
         className="mb-4"
-        extra={<Badge status={isView ? "default" : "processing"} text={isView ? "查看模式" : "归类中"} />}
+        extra={<Badge status={isView ? "default" : "processing"} text={isView ? "查看模式" : (isReview ? "审核模式" : "归类中")} />}
       >
-        <Form form={form} layout="vertical" disabled={isView}>
+        <Form form={form} layout="vertical" disabled={isView && !isReview}>
             <Form.Item
                 label={i18n.t(LocaleHelper.getClassificationDetailConfirmHsCode())}
                 name="hs_code"
@@ -168,6 +197,12 @@ const ClassificationDetail: React.FC = () => {
                             <a>{i18n.t(LocaleHelper.getClassificationDetailCodeVerify())}</a>
                             </>
                         }
+                        disabled={isReview} // Reviewer cannot change HS code directly? Or maybe they can? Let's assume they can't, they just approve/reject. Or usually they can correct it. Let's make it disabled for now to force rejection if wrong. Or maybe better to allow correction. The user asked "how to operate". Usually "Review" means verify. If wrong, reject.
+                        // Actually, if I disable it, I should verify the "disabled" prop on Form.
+                        // Line 156: <Form ... disabled={isView}>. I changed it to disabled={isView && !isReview}.
+                        // So if isReview is true, form is NOT disabled.
+                        // But I want HS code to be read-only for reviewer?
+                        // Let's make HS code and Rationale disabled for Reviewer, but Review Opinion enabled.
                 />
             </Form.Item>
             <Form.Item
@@ -175,11 +210,11 @@ const ClassificationDetail: React.FC = () => {
                 name="rationale"
                 rules={[{ required: true }]}
             >
-                <TextArea rows={6} placeholder="请输入归类依据..." showCount maxLength={500} />
+                <TextArea rows={6} placeholder="请输入归类依据..." showCount maxLength={500} disabled={isReview} />
             </Form.Item>
-            {isView && (
+            {(isView || isReview) && (
                     <Form.Item label={i18n.t(LocaleHelper.getClassificationDetailReviewOpinion())} name="review_opinion">
-                        <TextArea rows={2} readOnly style={{ backgroundColor: '#fffbe6', borderColor: '#ffe58f' }} />
+                        <TextArea rows={2} readOnly={isView} placeholder={isReview ? "请输入审核意见" : ""} style={isView ? { backgroundColor: '#fffbe6', borderColor: '#ffe58f' } : {}} />
                     </Form.Item>
             )}
         </Form>
@@ -233,10 +268,16 @@ const ClassificationDetail: React.FC = () => {
              <span className="button-app-wrapper"></span>
              <div className="buttonGroup-component">
                 <div className="u-button-group">
-                    {!isView && (
+                    {isEdit && (
                         <>
                             <Button type="primary" onClick={handleSave}>{i18n.t(LocaleHelper.getClassificationDetailSave())}</Button>
-                            <Button onClick={handleSubmitReview}>{i18n.t(LocaleHelper.getClassificationDetailSubmitReview())}</Button>
+                            <Button  onClick={handleSubmitReview}>{i18n.t(LocaleHelper.getClassificationDetailSubmitReview())}</Button>
+                        </>
+                    )}
+                    {isReview && (
+                        <>
+                            <Button type="primary" onClick={handleApprove}>{i18n.t(LocaleHelper.getClassificationDetailApprove())}</Button>
+                            <Button  type="primary"  danger onClick={handleReject}>{i18n.t(LocaleHelper.getClassificationDetailReject())}</Button>
                         </>
                     )}
                      <Button onClick={() => navigate(-1)}>返回</Button>

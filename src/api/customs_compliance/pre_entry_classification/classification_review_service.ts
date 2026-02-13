@@ -1,14 +1,5 @@
-export interface ReviewTask {
-  id: string;
-  invoice_no: string;
-  product_name: string;
-  hs_code: string;
-  declared_price: number;
-  currency: string;
-  status: string;
-  reviewer: string;
-  review_time: string;
-}
+import { ReviewTask } from '@/types/customs_compliance/pre_entry_classification/classification_review';
+
 
 export async function searchReviewTasks(params: any) {
   // Mock data
@@ -53,4 +44,20 @@ export async function searchReviewTasks(params: any) {
     data: data,
     total: data.length,
   };
+}
+
+export async function batchApproveReview(ids: React.Key[]) {
+  return new Promise<{ success: boolean }>((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 500);
+  });
+}
+
+export async function batchRejectReview(ids: React.Key[]) {
+  return new Promise<{ success: boolean }>((resolve) => {
+    setTimeout(() => {
+      resolve({ success: true });
+    }, 500);
+  });
 }

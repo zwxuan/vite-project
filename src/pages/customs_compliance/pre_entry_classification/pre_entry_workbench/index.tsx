@@ -6,7 +6,8 @@ import { getFields } from './search_fields';
 import { getColumns } from './columns';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
-import { getPreEntryList, PreEntryTask, batchDeletePreEntry, batchSubmitPreEntry } from '@/api/customs_compliance/pre_entry_classification/pre_entry_workbench_service';
+import { getPreEntryList, batchDeletePreEntry, batchSubmitPreEntry } from '@/api/customs_compliance/pre_entry_classification/pre_entry_workbench_service';
+import { PreEntryTask } from '@/types/customs_compliance/pre_entry_classification/pre_entry_task';
 import { useNavigate } from 'react-router-dom';
 import '@/pages/page_list.less';
 

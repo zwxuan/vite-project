@@ -14,8 +14,8 @@ import {
   batchApproveExemptions, 
   batchRejectExemptions,
   getExemptionDetail,
-  ExemptionRequest
 } from '@/api/customs_compliance/compliance_screening_management/exemption_service';
+import { ExemptionRequest } from '@/types/customs_compliance/compliance_screening_management/exemption';
 import CreateExemptionModal from './CreateExemptionModal';
 import ExemptionDetailDrawer from './ExemptionDetailDrawer';
 

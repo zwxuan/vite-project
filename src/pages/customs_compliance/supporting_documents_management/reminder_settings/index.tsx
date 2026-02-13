@@ -11,9 +11,9 @@ import {
     batchDeleteReminderRules, 
     deleteReminderRule, 
     createReminderRule, 
-    updateReminderRule,
-    ReminderRuleItem 
+    updateReminderRule
 } from '@/api/customs_compliance/supporting_documents_management/reminder_service';
+import { ReminderRuleItem } from '@/types/customs_compliance/supporting_documents_management/reminder';
 import ReminderModal from './components/ReminderModal';
 import '@/pages/page_list.less';
 

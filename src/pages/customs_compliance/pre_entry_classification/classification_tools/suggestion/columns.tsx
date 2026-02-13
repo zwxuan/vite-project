@@ -1,5 +1,5 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { ClassificationSuggestion } from '@/api/customs_compliance/pre_entry_classification/classification_suggestion_service';
+import { ClassificationSuggestion } from '@/types/customs_compliance/pre_entry_classification/classification_suggestion';
 import LocaleHelper from '@/utils/locale';
 import { CommonLocale } from '@/utils/locale/common';
 import i18n from '@/i18n';

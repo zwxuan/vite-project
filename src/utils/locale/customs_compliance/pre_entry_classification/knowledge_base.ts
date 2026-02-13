@@ -25,6 +25,9 @@ export const ClassificationKnowledgeBaseLocale = {
   getClassificationKnowledgeBaseHSCode() {
     return `${NAMESPACE}.hsCode`;
   },
+  getClassificationKnowledgeBaseContent() {
+    return `${NAMESPACE}.content`;
+  },
   getClassificationKnowledgeBaseCreateTime() {
     return `${NAMESPACE}.createTime`;
   },

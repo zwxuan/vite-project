@@ -1,25 +1,7 @@
 
 
-export interface DocumentItem {
-    id: string;
-    type: string;
-    status: string;
-    fileName?: string;
-    uploadTime?: string;
-    required: boolean;
-}
+import { DocumentItem, CollectionDetail } from '@/types/customs_compliance/supporting_documents_management/collection';
 
-export interface CollectionDetail {
-    id: string;
-    preEntryNo: string;
-    businessType: string;
-    consignee: string;
-    consignor: string;
-    goodsName: string;
-    totalValue: string;
-    progress: number;
-    documents: DocumentItem[];
-}
 
 export const getCollectionDetail = async (id: string) => {
     // Mock

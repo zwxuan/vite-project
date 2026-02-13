@@ -1,16 +1,5 @@
 import React from 'react';
-
-export interface TemplateItem {
-  id: string;
-  templateName: string;
-  description: string;
-  businessType: 'import' | 'export';
-  tradeMode: string;
-  status: 'active' | 'inactive';
-  docCount: number;
-  updateUser: string;
-  updateTime: string;
-}
+import { TemplateItem } from '@/types/customs_compliance/supporting_documents_management/template';
 
 export const getTemplateList = async (params: any) => {
   // Mock data

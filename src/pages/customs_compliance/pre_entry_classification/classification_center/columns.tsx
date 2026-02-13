@@ -1,5 +1,5 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { ClassificationTask } from '@/api/customs_compliance/pre_entry_classification/classification_center_service';
+import { ClassificationTask } from '@/types/customs_compliance/pre_entry_classification/classification_center';
 import LocaleHelper from '@/utils/locale';
 import i18n from '@/i18n';
 

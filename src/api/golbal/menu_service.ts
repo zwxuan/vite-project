@@ -964,6 +964,7 @@ const childrenMenuData: MenuGroup[] = [{
             { name: "预录入工作台", key: "pre_entry_workbench", path: "/pre_entry_classification/pre_entry_workbench" },
             { name: "预录入统计", key: "pre_entry_stats", path: "/pre_entry_classification/pre_entry_stats" },
             { name: "商品归类中心", key: "classification_center", path: "/pre_entry_classification/classification_center" },
+            { name: "归类审核", key: "classification_review", path: "/pre_entry_classification/classification_review" },
             { name: "归类查询工具", key: "classification_tools", path: "/pre_entry_classification/classification_tools" },
             { name: "归类知识库", key: "knowledge_base", path: "/pre_entry_classification/knowledge_base" },
         ]

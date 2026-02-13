@@ -4,7 +4,8 @@ import { Table, message } from 'antd';
 import AdvancedSearchForm from '@/components/search-form';
 import { getColumns } from './columns';
 import { getFields } from './search_fields';
-import { searchTariffData, TariffData } from '@/api/customs_compliance/pre_entry_classification/tariff_data_service';
+import { searchTariffData } from '@/api/customs_compliance/pre_entry_classification/tariff_data_service';
+import { TariffData } from '@/types/customs_compliance/pre_entry_classification/tariff_data';
 import '@/pages/page_list.less';
 
 const TariffPanel: React.FC = () => {
@@ -53,6 +54,7 @@ const TariffPanel: React.FC = () => {
             dataSource={data}
             rowKey="id"
             loading={loading}
+            bordered={true}
             pagination={{
                 total: total,
                 showSizeChanger: true,
