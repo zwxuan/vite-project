@@ -199,7 +199,6 @@ import { ClassificationToolsLocale } from '@/utils/locale/customs_compliance/pre
 import { SecurityFilingManagementLocale } from '@/utils/locale/customs_compliance/manifest_security/security_filing_management';
 import { ManifestDeclarationListLocale } from '@/utils/locale/customs_compliance/manifest_security/manifest_declaration_list';
 import { NewManifestDeclarationLocale } from '@/utils/locale/customs_compliance/manifest_security/new_manifest_declaration';
-import { DeclarationStatusQueryLocale } from '@/utils/locale/customs_compliance/manifest_security/declaration_status_query';
 import { ErrorCorrectionHandlingLocale } from '@/utils/locale/customs_compliance/manifest_security/error_correction_handling';
 import { ReceiptManagementLocale } from '@/utils/locale/customs_compliance/manifest_security/receipt_management';
 import { DeclarationRuleConfigLocale } from '@/utils/locale/customs_compliance/manifest_security/declaration_rule_config';
@@ -237,7 +236,7 @@ export {
  PreEntrySearchLocale, ClassificationSuggestionLocale, TariffDataLocale, ClassificationReviewLocale, HistoricalClassificationLocale, PreEntryStatsLocale,
   NewPreEntryLocale, ClassificationDetailLocale, ClassificationToolsLocale,
   SecurityFilingManagementLocale, ManifestDeclarationListLocale, NewManifestDeclarationLocale,
-  DeclarationStatusQueryLocale, ErrorCorrectionHandlingLocale, ReceiptManagementLocale, DeclarationRuleConfigLocale, DeclarationStatisticsReportLocale,
+  ErrorCorrectionHandlingLocale, ReceiptManagementLocale, DeclarationRuleConfigLocale, DeclarationStatisticsReportLocale,
 };
 
 export default {
@@ -273,5 +272,5 @@ export default {
   ...PreEntrySearchLocale, ...ClassificationSuggestionLocale, ...TariffDataLocale, ...ClassificationReviewLocale, ...HistoricalClassificationLocale, ...PreEntryStatsLocale,
   ...NewPreEntryLocale, ...ClassificationDetailLocale, ...ClassificationToolsLocale,
   ...SecurityFilingManagementLocale, ...ManifestDeclarationListLocale, ...NewManifestDeclarationLocale,
-  ...DeclarationStatusQueryLocale, ...ErrorCorrectionHandlingLocale, ...ReceiptManagementLocale, ...DeclarationRuleConfigLocale, ...DeclarationStatisticsReportLocale,
+  ...ErrorCorrectionHandlingLocale, ...ReceiptManagementLocale, ...DeclarationRuleConfigLocale, ...DeclarationStatisticsReportLocale,
 };

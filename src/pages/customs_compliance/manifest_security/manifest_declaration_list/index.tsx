@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, message, Tooltip, Space } from 'antd';
-import { PlusOutlined, ExportOutlined } from '@ant-design/icons';
+import { PlusOutlined, ExportOutlined, ImportOutlined, FileTextOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import AdvancedSearchForm from '@/components/search-form';
 import { fields } from './search_fields';
@@ -9,9 +9,11 @@ import i18n from '@/i18n';
 import LocaleHelper from '@/utils/locale';
 import '@/pages/page_list.less';
 import CustomIcon from '@/components/custom-icon';
-import { getManifestDeclarationList } from '@/api/customs_compliance/manifest_security/manifest_declaration_service';
+import { getManifestDeclarationList, getManifestStatusHistory, updateManifestStatus } from '@/api/customs_compliance/manifest_security/manifest_declaration_service';
 import { ManifestDeclaration } from '@/types/customs_compliance/manifest_security/manifest_declaration';
 import GenerateManifestModal from './GenerateManifestModal';
+import StatusHistoryModal from '../components/StatusHistoryModal';
+import OperationLogModal from '../components/OperationLogModal';
 
 const ManifestDeclarationList: React.FC = () => {
     const navigate = useNavigate();
@@ -19,6 +21,10 @@ const ManifestDeclarationList: React.FC = () => {
     const [dataSource, setDataSource] = useState<ManifestDeclaration[]>([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [isGenerateModalVisible, setIsGenerateModalVisible] = useState(false);
+    const [statusHistoryVisible, setStatusHistoryVisible] = useState(false);
+    const [statusHistoryData, setStatusHistoryData] = useState<any[]>([]);
+    const [statusHistoryLoading, setStatusHistoryLoading] = useState(false);
+    const [logModalVisible, setLogModalVisible] = useState(false);
 
     const fetchData = async (params: any = {}) => {
         setLoading(true);
@@ -38,17 +44,51 @@ const ManifestDeclarationList: React.FC = () => {
         fetchData(values);
     };
 
-    const handleAction = (key: string, record: any) => {
+    const handleAction = async (key: string, record: any) => {
         if (key === 'view') {
             navigate(`/manifest_security/new_manifest_declaration?id=${record.key}&mode=view`);
         } else if (key === 'edit') {
             navigate(`/manifest_security/new_manifest_declaration?id=${record.key}&mode=edit`);
         } else if (key === 'query') {
-            // Assuming query goes to status query page or same detail page
-            navigate(`/manifest_security/declaration_status_query?declaration_no=${record.declaration_no}`);
+            setStatusHistoryVisible(true);
+            setStatusHistoryLoading(true);
+            try {
+                const history = await getManifestStatusHistory(record.key);
+                setStatusHistoryData(history);
+            } finally {
+                setStatusHistoryLoading(false);
+            }
+        } else if (key === 'submit') {
+            setLoading(true);
+            try {
+                await updateManifestStatus(record.key, '处理中');
+                message.success('申报提交成功');
+                fetchData();
+            } finally {
+                setLoading(false);
+            }
         } else if (key === 'delete') {
              message.success('删除成功');
              fetchData();
+        }
+    };
+
+    const handleBatchSubmit = async () => {
+        if (selectedRowKeys.length === 0) {
+            message.warning('请选择需要提交的记录');
+            return;
+        }
+        setLoading(true);
+        try {
+            // Mock batch submit
+            for (const key of selectedRowKeys) {
+                await updateManifestStatus(key as string, '处理中');
+            }
+            message.success('批量申报提交成功');
+            setSelectedRowKeys([]);
+            fetchData();
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -60,12 +100,28 @@ const ManifestDeclarationList: React.FC = () => {
         message.success(`成功导出 ${selectedRowKeys.length} 条记录`);
     }
 
+    const handleImport = () => {
+        message.success('导入成功');
+        fetchData();
+    };
+
+    const handleLog = () => {
+        setLogModalVisible(true);
+    };
+
     const handleCreate = () => {
         navigate('/manifest_security/new_manifest_declaration?mode=create');
     }
 
     const handleGenerateFromBooking = () => {
         setIsGenerateModalVisible(true);
+    };
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: (newSelectedRowKeys: React.Key[]) => {
+            setSelectedRowKeys(newSelectedRowKeys);
+        },
     };
 
     return (
@@ -114,9 +170,14 @@ const ManifestDeclarationList: React.FC = () => {
                     <span className="button-app-wrapper"></span>
                     <div className="buttonGroup-component">
                         <div className="u-button-group">
-                            <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>新建申报</Button>
-                            <Button icon={<ExportOutlined />} onClick={handleGenerateFromBooking}>{i18n.t(LocaleHelper.getManifestDeclarationListBtnGenerateFromBooking()) || '从订舱生成'}</Button>
-                            <Button icon={<ExportOutlined />} onClick={handleBatchExport}>导出</Button>
+                            <Space>
+                                <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>新建申报</Button>
+                                <Button icon={<ExportOutlined />} onClick={handleGenerateFromBooking}>{i18n.t(LocaleHelper.getManifestDeclarationListBtnGenerateFromBooking()) || '从订舱生成'}</Button>
+                                <Button type="primary" onClick={handleBatchSubmit} disabled={selectedRowKeys.length === 0}>申报</Button>
+                                <Button icon={<ImportOutlined />} onClick={handleImport}>导入</Button>
+                                <Button icon={<ExportOutlined />} onClick={handleBatchExport}>导出</Button>
+                                <Button icon={<FileTextOutlined />} onClick={handleLog}>日志</Button>
+                            </Space>
                         </div>
                     </div>
                 </div>
@@ -128,10 +189,7 @@ const ManifestDeclarationList: React.FC = () => {
                     dataSource={dataSource}
                     loading={loading}
                     bordered={true}
-                    rowSelection={{
-                        selectedRowKeys,
-                        onChange: setSelectedRowKeys,
-                    }}
+                    rowSelection={rowSelection}
                     pagination={{
                         size: 'small',
                         showTotal: (total) => `总共 ${total} 条`,
@@ -153,6 +211,17 @@ const ManifestDeclarationList: React.FC = () => {
                     setIsGenerateModalVisible(false);
                     fetchData();
                 }}
+            />
+            <StatusHistoryModal
+                visible={statusHistoryVisible}
+                onCancel={() => setStatusHistoryVisible(false)}
+                data={statusHistoryData}
+                loading={statusHistoryLoading}
+                title="申报状态历史"
+            />
+            <OperationLogModal
+                visible={logModalVisible}
+                onCancel={() => setLogModalVisible(false)}
             />
         </div>
     );

@@ -833,9 +833,6 @@ const childrenMenuData: MenuGroup[] = [{
             name: "安全申报管理", key: "security_filing_management", path: "/manifest_security/security_filing_management",
         },
         {
-            name: "申报状态查询", key: "declaration_status_query", path: "/manifest_security/declaration_status_query",
-        },
-        {
             name: "差错更正处理", key: "error_correction_handling", path: "/manifest_security/error_correction_handling",
         },
         {

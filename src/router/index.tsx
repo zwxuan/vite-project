@@ -84,8 +84,8 @@ import {
   CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
   CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry, CpecClassificationTools, CpecPreEntryStatistics,CpecClassificationDetail,
   CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail,CpecClassificationReview,
-  SecurityFilingManagement, ManifestDeclarationList,
-  NewManifestDeclaration, DeclarationStatusQuery, ErrorCorrectionHandling, ReceiptManagement, DeclarationRuleConfig, DeclarationStatisticsReport,
+  SecurityFilingManagement, ManifestDeclarationList,NewSecurityFiling,
+  NewManifestDeclaration, ErrorCorrectionHandling, ReceiptManagement, DeclarationRuleConfig, DeclarationStatisticsReport,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -349,9 +349,9 @@ const routers = createMemoryRouter([
             element: <RouterGuard><SecurityFilingManagement /></RouterGuard>
           },
           {
-            path: "declaration_status_query",
-            handle: { title: '申报状态查询' },
-            element: <RouterGuard><DeclarationStatusQuery /></RouterGuard>
+            path: "new_security_filing",
+            handle: { title: '新建安全申报' },
+            element: <RouterGuard><NewSecurityFiling /></RouterGuard>
           },
           {
             path: "error_correction_handling",

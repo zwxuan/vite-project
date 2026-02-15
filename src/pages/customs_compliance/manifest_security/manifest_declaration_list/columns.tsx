@@ -91,8 +91,13 @@ export const getColumns = (onAction: (key: string, record: any) => void): Column
     render: (_, record) => (
       <Space size="middle">
         <a onClick={() => onAction('view', record)}>{i18n.t(LocaleHelper.getViewDetail()) || '详情'}</a>
+        {(record.status === '待申报' || record.status === '草稿') && (
+            <Popconfirm title="确认申报?" onConfirm={() => onAction('submit', record)}>
+                <a>申报</a>
+            </Popconfirm>
+        )}
         <a onClick={() => onAction('edit', record)}>{i18n.t(LocaleHelper.getEdit()) || '更正'}</a>
-        <a onClick={() => onAction('query', record)}>查询</a>
+        <a onClick={() => onAction('query', record)}>{i18n.t(LocaleHelper.getStatus()) || '状态'}</a>
         <Popconfirm title="确认删除?" onConfirm={() => onAction('delete', record)}>
             <a style={{ color: 'red' }}>{i18n.t(LocaleHelper.getDelete()) || '删除'}</a>
         </Popconfirm>

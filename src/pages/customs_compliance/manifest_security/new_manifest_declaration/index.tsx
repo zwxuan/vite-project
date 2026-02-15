@@ -7,6 +7,7 @@ import '@/pages/page_list.less';
 import CustomIcon from '@/components/custom-icon';
 import { getManifestDeclarationDetail, saveManifestDeclaration } from '@/api/customs_compliance/manifest_security/manifest_declaration_service';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 
 const NewManifestDeclaration: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -22,7 +23,7 @@ const NewManifestDeclaration: React.FC = () => {
             getManifestDeclarationDetail(id).then(data => {
                 form.setFieldsValue({
                     ...data,
-                    // Ensure dates are parsed if they are strings
+                    eta: data.eta ? dayjs(data.eta) : undefined,
                 });
                 setLoading(false);
             });
@@ -30,11 +31,20 @@ const NewManifestDeclaration: React.FC = () => {
     }, [id, form]);
 
     const onFinish = async (values: any) => {
+        await handleSubmit(values, false);
+    };
+
+    const handleSubmit = async (values: any, isSubmit: boolean) => {
         setLoading(true);
         try {
-            await saveManifestDeclaration(values);
-            message.success(i18n.t(LocaleHelper.getSuccess()) || '保存成功');
-            navigate('/customs_compliance/manifest_security/manifest_declaration_list');
+            const submitData = {
+                ...values,
+                eta: values.eta ? values.eta.format('YYYY-MM-DD') : undefined,
+                status: isSubmit ? 'Submitted' : undefined,
+            };
+            await saveManifestDeclaration(submitData);
+            message.success(isSubmit ? '申报成功' : (i18n.t(LocaleHelper.getSuccess()) || '保存成功'));
+            navigate('/manifest_security/manifest_declaration_list');
         } finally {
             setLoading(false);
         }
@@ -305,58 +315,29 @@ const NewManifestDeclaration: React.FC = () => {
         },
     ];
 
+    const footerButtons = (
+        <div style={{ textAlign: 'right' }}>
+            <Button onClick={() => navigate('/manifest_security/manifest_declaration_list')} style={{ marginRight: 8 }}>
+                {i18n.t(LocaleHelper.getCancel()) || '取消'}
+            </Button>
+            {!isView && (
+                <>
+                    <Button type="primary" htmlType="submit" loading={loading} style={{ marginRight: 8 }}>
+                        {i18n.t(LocaleHelper.getSave()) || '保存'}
+                    </Button>
+                    <Button type="primary" style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }} onClick={() => {
+                        form.validateFields().then(values => handleSubmit(values, true));
+                    }} loading={loading}>
+                        申报
+                    </Button>
+                </>
+            )}
+        </div>
+    );
+
     return (
-        <div style={{ overflowY: 'auto', overflowX: 'hidden', height: 'calc(100vh - 80px)' }}>
-            <div className="nc-bill-header-area">
-                <div className="header-title-search-area">
-                    <div className="BillHeadInfoWrap BillHeadInfoWrap-showBackBtn">
-                        <span className="bill-info-title" style={{ display: 'flex', alignItems: 'center' }}>
-                            <CustomIcon type="icon-Currency" style={{ color: 'red', fontSize: '24px', marginRight: '8px' }} />
-                            {i18n.t(LocaleHelper.getNewManifestDeclarationTitle())}
-                            <Tooltip
-                                title={
-                                    <div className='rul_title_tooltip' style={{ backgroundColor: '#fff', color: '#000' }}>
-                                        <ol style={{ color: '#666666', fontSize: '12px', paddingLeft: '2px' }}>
-                                            <li style={{ marginBottom: '10px' }}>
-                                                <span style={{ marginRight: '10px', backgroundColor: '#f1f1f1', padding: '2px 10px' }}>
-                                                    <b>说明</b>
-                                                </span>
-                                                <ul style={{ listStyleType: 'circle', paddingLeft: '20px', marginTop: '10px', lineHeight: '1.8' }}>
-                                                    <li>
-                                                        <b>角色：</b>
-                                                        {i18n.t(LocaleHelper.getNewManifestDeclarationPageHelpRoleDesc())}
-                                                    </li>
-                                                    <li>
-                                                        <b>数据来源：</b>
-                                                        {i18n.t(LocaleHelper.getNewManifestDeclarationPageHelpOriginDesc())}
-                                                    </li>
-                                                    <li>
-                                                        <b>功能说明：</b>
-                                                        {i18n.t(LocaleHelper.getNewManifestDeclarationPageHelpFuncDesc())}
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                }
-                                color='white'
-                            >
-                                <i className='iconfont icon-bangzhutishi' style={{ cursor: 'pointer', marginLeft: '10px' }}></i>
-                            </Tooltip>
-                        </span>
-                    </div>
-                </div>
-                <div className="header-button-area">
-                    <span className="button-app-wrapper"></span>
-                    <div className="buttonGroup-component">
-                        <div className="u-button-group">
-                            <Button onClick={() => navigate(-1)}>取消</Button>
-                            {!isView && <Button type="primary" onClick={() => form.submit()} loading={loading}>提交</Button>}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style={{ padding: '20px' }}>
+        <div className="page-content">
+            <Card title={mode === 'create' ? '新建舱单申报' : (mode === 'edit' ? '编辑舱单申报' : '舱单申报详情')} bordered={false}>
                 <Form
                     form={form}
                     layout="vertical"
@@ -369,39 +350,43 @@ const NewManifestDeclaration: React.FC = () => {
                         goods: []
                     }}
                 >
-                    <Card className="card-box" bordered={false}>
-                        <Row gutter={24}>
-                            <Col span={8}>
-                                <Form.Item name="declaration_no" label="申报单号">
-                                    <Input disabled placeholder="自动生成" />
-                                </Form.Item>
-                            </Col>
-                            <Col span={8}>
-                                <Form.Item name="declaration_type" label="申报类型" rules={[{ required: true }]}>
-                                    <Select>
-                                        <Select.Option value="import">进口舱单</Select.Option>
-                                        <Select.Option value="export">出口舱单</Select.Option>
-                                        <Select.Option value="ens">ENS</Select.Option>
-                                        <Select.Option value="ams">AMS</Select.Option>
-                                        <Select.Option value="isf">ISF</Select.Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                            <Col span={8}>
-                                <Form.Item name="source_type" label={i18n.t(LocaleHelper.getNewManifestDeclarationSourceType())}>
-                                    <Select>
-                                        <Select.Option value="booking">订舱</Select.Option>
-                                        <Select.Option value="bill_of_lading">提单</Select.Option>
-                                        <Select.Option value="manual">手工</Select.Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                        </Row>
+                    <Row gutter={24}>
+                        <Col span={8}>
+                            <Form.Item name="declaration_no" label="申报单号">
+                                <Input disabled placeholder="自动生成" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item name="declaration_type" label="申报类型" rules={[{ required: true }]}>
+                                <Select>
+                                    <Select.Option value="import">进口舱单</Select.Option>
+                                    <Select.Option value="export">出口舱单</Select.Option>
+                                    <Select.Option value="ens">ENS</Select.Option>
+                                    <Select.Option value="ams">AMS</Select.Option>
+                                    <Select.Option value="isf">ISF</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item name="source_type" label={i18n.t(LocaleHelper.getNewManifestDeclarationSourceType())}>
+                                <Select>
+                                    <Select.Option value="booking">订舱</Select.Option>
+                                    <Select.Option value="bill_of_lading">提单</Select.Option>
+                                    <Select.Option value="manual">手工</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
 
-                        <Tabs defaultActiveKey="1" items={items} style={{ marginTop: '20px' }} />
-                    </Card>
+                    <Tabs defaultActiveKey="1" items={items} style={{ marginTop: '20px' }} />
+                    
+                    <Row style={{ marginTop: 24 }}>
+                        <Col span={24}>
+                            {footerButtons}
+                        </Col>
+                    </Row>
                 </Form>
-            </div>
+            </Card>
         </div>
     );
 };

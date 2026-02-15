@@ -47,6 +47,18 @@ const mockData: ManifestDeclaration[] = [
     },
 ];
 
+export const getManifestStatusHistory = async (id: string) => {
+    return new Promise<{ time: string; status: string; operator: string; description: string }[]>((resolve) => {
+        setTimeout(() => {
+            resolve([
+                { time: '2024-01-15 10:30', status: '已接受', operator: 'System', description: '海关接收申报' },
+                { time: '2024-01-15 10:00', status: '申报中', operator: 'User A', description: '提交申报数据' },
+                { time: '2024-01-15 09:30', status: '草稿', operator: 'User A', description: '创建申报单' },
+            ]);
+        }, 500);
+    });
+};
+
 export const getManifestDeclarationList = async (params: ManifestDeclarationSearchParams) => {
     // Mock API call
     return new Promise<{ list: ManifestDeclaration[], total: number }>((resolve) => {
@@ -128,5 +140,17 @@ export const saveManifestDeclaration = async (data: any) => {
         setTimeout(() => {
             resolve();
         }, 1000);
+    });
+};
+
+export const updateManifestStatus = async (id: string, status: string) => {
+    return new Promise<void>((resolve) => {
+        setTimeout(() => {
+            const item = mockData.find(item => item.key === id);
+            if (item) {
+                item.status = status;
+            }
+            resolve();
+        }, 500);
     });
 };
