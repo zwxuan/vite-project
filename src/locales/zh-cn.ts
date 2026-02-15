@@ -37,6 +37,122 @@ export const cn = {
         templateManagement: "模板管理",
     },
     customs_compliance: {
+        manifest_security: {
+            manifest_declaration_list: {
+                title: "舱单申报列表",
+                search_form: {
+                    declaration_no: "申报号",
+                    bl_number: "提单号",
+                    vessel_name: "船名",
+                    status: "状态",
+                    declaration_type: "申报类型",
+                    date_range: "日期范围",
+                    destination_port: "目的港",
+                },
+                columns: {
+                    declaration_no: "申报号",
+                    vessel_voyage: "船名/航次",
+                    declaration_type: "申报类型",
+                    destination_port: "目的港",
+                    bl_number: "提单号",
+                    container_count: "箱量",
+                    gross_weight: "毛重",
+                    status: "状态",
+                    declaration_time: "申报时间",
+                    operation: "操作",
+                    source_type: "来源类型",
+                    source_no: "来源单号",
+                },
+                btn: {
+                    generate_from_booking: "从订舱生成",
+                },
+                modal: {
+                    title: "选择待申报订舱单",
+                },
+                page_help: {
+                     role_desc: "负责舱单申报的操作员",
+                     origin_desc: "预录入系统、订舱系统",
+                     func_desc: "显示所有舱单申报的汇总信息，提供查询、导出、新建申报入口，支持查看申报详情和状态。",
+                 },
+             },
+             new_manifest_declaration: {
+                 title: "新建舱单申报",
+                 basic_info: "基本信息",
+                 cargo_info: "货物信息",
+                shipper_info: "收发货人信息",
+                notify_party_info: "通知人信息",
+                transport_info: "运输信息",
+                container_list: "集装箱列表",
+                goods_list: "货物列表",
+                source_type: "来源类型",
+                source_no: "来源单号",
+                page_help: {
+                    role_desc: "负责创建和编辑舱单数据的操作员",
+                     origin_desc: "手工录入、订单系统导入",
+                     func_desc: "提供舱单数据的录入、编辑和提交功能，支持草稿保存。",
+                 },
+             },
+             security_filing_management: {
+                title: "安全申报管理",
+                search_form: {
+                    filing_no: "申报号",
+                    type: "申报类型",
+                    status: "状态",
+                },
+                columns: {
+                    filing_no: "申报号",
+                    type: "申报类型",
+                    status: "状态",
+                    submission_time: "提交时间",
+                    operation: "操作",
+                },
+                page_help: {
+                    role_desc: "关务操作员",
+                    origin_desc: "舱单数据",
+                    func_desc: "管理ENS/AMS/ISF等安全申报，支持状态跟踪和异常处理。",
+                },
+            },
+            declaration_status_query: {
+                title: "申报状态查询",
+                page_help: {
+                    role_desc: "关务操作员",
+                    origin_desc: "海关回执、申报系统",
+                    func_desc: "查询所有申报记录的当前状态和历史轨迹。",
+                },
+            },
+            error_correction_handling: {
+                title: "差错更正处理",
+                page_help: {
+                    role_desc: "关务操作员",
+                    origin_desc: "海关退单、人工发现",
+                    func_desc: "处理申报过程中的差错，发起更正或撤销申请。",
+                },
+            },
+            receipt_management: {
+                title: "回执管理",
+                page_help: {
+                    role_desc: "关务操作员",
+                    origin_desc: "海关EDI",
+                    func_desc: "统一管理和查看所有海关回执信息。",
+                },
+            },
+            declaration_rule_config: {
+                title: "申报规则配置",
+                page_help: {
+                    role_desc: "系统管理员",
+                    origin_desc: "业务需求",
+                    func_desc: "配置申报业务的校验规则和默认参数。",
+                },
+            },
+            declaration_statistics_report: {
+                title: "申报统计报表",
+                page_help: {
+                    role_desc: "管理人员",
+                    origin_desc: "系统数据",
+                    func_desc: "统计申报量、成功率、差错率等关键指标。",
+                },
+            },
+        },
         pre_entry_classification: {
             pre_entry_workbench: {
                 pageTitle: '预录入工作台',

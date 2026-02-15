@@ -1,0 +1,15 @@
+export const NewManifestDeclarationLocale = {
+    getNewManifestDeclarationTitle() { return 'customs_compliance.manifest_security.new_manifest_declaration.title'; },
+    getNewManifestDeclarationBasicInfo() { return 'customs_compliance.manifest_security.new_manifest_declaration.basic_info'; },
+    getNewManifestDeclarationCargoInfo() { return 'customs_compliance.manifest_security.new_manifest_declaration.cargo_info'; },
+    getNewManifestDeclarationShipperInfo() { return 'customs_compliance.manifest_security.new_manifest_declaration.shipper_info'; },
+    getNewManifestDeclarationNotifyPartyInfo() { return 'customs_compliance.manifest_security.new_manifest_declaration.notify_party_info'; },
+    getNewManifestDeclarationTransportInfo() { return 'customs_compliance.manifest_security.new_manifest_declaration.transport_info'; },
+    getNewManifestDeclarationContainerList() { return 'customs_compliance.manifest_security.new_manifest_declaration.container_list'; },
+    getNewManifestDeclarationGoodsList() { return 'customs_compliance.manifest_security.new_manifest_declaration.goods_list'; },
+    getNewManifestDeclarationSourceType() { return 'customs_compliance.manifest_security.new_manifest_declaration.source_type'; },
+    getNewManifestDeclarationSourceNo() { return 'customs_compliance.manifest_security.new_manifest_declaration.source_no'; },
+    getNewManifestDeclarationPageHelpRoleDesc() { return 'customs_compliance.manifest_security.new_manifest_declaration.page_help.role_desc'; },
+    getNewManifestDeclarationPageHelpOriginDesc() { return 'customs_compliance.manifest_security.new_manifest_declaration.page_help.origin_desc'; },
+    getNewManifestDeclarationPageHelpFuncDesc() { return 'customs_compliance.manifest_security.new_manifest_declaration.page_help.func_desc'; },
+};

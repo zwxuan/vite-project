@@ -160,6 +160,14 @@ const CpecHistoryDetail = React.lazy(() => import("@/pages/customs_compliance/pr
 const CpecSuggestionDetail = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/suggestion/detail"));
 const CpecTariffDetail = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_tools/tariff/detail"));
 const CpecClassificationReview = React.lazy(() => import("@/pages/customs_compliance/pre_entry_classification/classification_review"));
+const SecurityFilingManagement = React.lazy(() => import("@/pages/customs_compliance/manifest_security/security_filing_management/index"));
+const ManifestDeclarationList = React.lazy(() => import("@/pages/customs_compliance/manifest_security/manifest_declaration_list/index"));
+const NewManifestDeclaration = React.lazy(() => import("@/pages/customs_compliance/manifest_security/new_manifest_declaration/index"));
+const DeclarationStatusQuery = React.lazy(() => import("@/pages/customs_compliance/manifest_security/declaration_status_query/index"));
+const ErrorCorrectionHandling = React.lazy(() => import("@/pages/customs_compliance/manifest_security/error_correction_handling/index"));
+const ReceiptManagement = React.lazy(() => import("@/pages/customs_compliance/manifest_security/receipt_management/index"));
+const DeclarationRuleConfig = React.lazy(() => import("@/pages/customs_compliance/manifest_security/declaration_rule_config/index"));
+const DeclarationStatisticsReport = React.lazy(() => import("@/pages/customs_compliance/manifest_security/declaration_statistics_report/index"));
 
 const Home = React.lazy(() => import("@/layout/home"));
 const JobList = React.lazy(() => import("@/pages/freight_forwarding/job_management/job_list"));
@@ -291,6 +299,8 @@ export {
     CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry,
     CpecPreEntryStatistics, CpecClassificationTools, CpecClassificationDetail,
     CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail, CpecClassificationReview,
+    SecurityFilingManagement, ManifestDeclarationList,
+    NewManifestDeclaration, DeclarationStatusQuery, ErrorCorrectionHandling, ReceiptManagement, DeclarationRuleConfig, DeclarationStatisticsReport,
     Home,
   Currency, Orders, FeeReconciliation, FeeReconciliationCompare, BillManage, StatementOfAccount, OrderFeeRelation, OrderDetail,
   OrderFeeSplit, LCLFeeShare, InvoiceDetail, Invoice, InvoiceIssuanceReceipt, PhysicalInvoice, ReconciliationRuleEngine, PermissionManagementUser, ExportLog, ImportLog, Login,

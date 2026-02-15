@@ -84,6 +84,8 @@ import {
   CcsdmDocumentWorkbench, CcsdmChecklistGeneration, CcsdmCollectionManagement,CcsdmDocumentSearch, CcsdmTemplateManagement, CcsdmArchiveManagement, CcsdmReminderSettings, CcsdmStatisticsReport,
   CpecPreEntryWorkbench, CpecClassificationCenter, CpecKnowledgeBase, CpecNewPreEntry, CpecClassificationTools, CpecPreEntryStatistics,CpecClassificationDetail,
   CpecHistoryDetail, CpecSuggestionDetail, CpecTariffDetail,CpecClassificationReview,
+  SecurityFilingManagement, ManifestDeclarationList,
+  NewManifestDeclaration, DeclarationStatusQuery, ErrorCorrectionHandling, ReceiptManagement, DeclarationRuleConfig, DeclarationStatisticsReport,
 } from "./imports";
 import RouterGuard from "@/components/router_guard";
 
@@ -319,6 +321,57 @@ const routers = createMemoryRouter([
             path: "classification_detail",
             handle: { title: '商品归类详情' },
             element: <RouterGuard><CpecClassificationDetail /></RouterGuard>
+          },
+        ]
+      },
+      {
+        path: "/manifest_security",
+        handle: { title: '舱单与安全申报管理' },
+        element: (
+          <RouterGuard>
+            <Outlet />
+          </RouterGuard>
+        ),
+        children: [
+          {
+            path: "manifest_declaration_list",
+            handle: { title: '舱单申报列表' },
+            element: <RouterGuard><ManifestDeclarationList /></RouterGuard>
+          },
+          {
+            path: "new_manifest_declaration",
+            handle: { title: '新建舱单申报' },
+            element: <RouterGuard><NewManifestDeclaration /></RouterGuard>
+          },
+          {
+            path: "security_filing_management",
+            handle: { title: '安全申报管理' },
+            element: <RouterGuard><SecurityFilingManagement /></RouterGuard>
+          },
+          {
+            path: "declaration_status_query",
+            handle: { title: '申报状态查询' },
+            element: <RouterGuard><DeclarationStatusQuery /></RouterGuard>
+          },
+          {
+            path: "error_correction_handling",
+            handle: { title: '差错更正处理' },
+            element: <RouterGuard><ErrorCorrectionHandling /></RouterGuard>
+          },
+          {
+            path: "receipt_management",
+            handle: { title: '回执管理' },
+            element: <RouterGuard><ReceiptManagement /></RouterGuard>
+          },
+          {
+            path: "declaration_rule_config",
+            handle: { title: '申报规则配置' },
+            element: <RouterGuard><DeclarationRuleConfig /></RouterGuard>
+          },
+          {
+            path: "declaration_statistics_report",
+            handle: { title: '申报统计报表' },
+            element: <RouterGuard><DeclarationStatisticsReport /></RouterGuard>
           },
         ]
       },

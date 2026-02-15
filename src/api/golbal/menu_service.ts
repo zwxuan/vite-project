@@ -102,6 +102,9 @@ const menuData: MenuGroup[] = [
             {
                 name: "随附单证管理", key: "supporting_documents_management",
             },
+            {
+                name: "舱单与安全申报", key: "manifest_security",
+            },
             
         ]
     },
@@ -813,6 +816,37 @@ const childrenMenuData: MenuGroup[] = [{
         { name: "服务配置", key: "service_config", path: "/order_management/service_config" },
         { name: "服务组合模板", key: "service_template", path: "/order_management/service_template" },
         { name: "服务绩效分析", key: "service_performance", path: "/order_management/service_performance" },
+    ]
+},
+{
+    title: "舱单与安全申报管理",
+    key: "manifest_security",
+    parentkey: "manifest_security",
+    apps: [
+        {
+            name: "舱单申报列表", key: "manifest_declaration_list", path: "/manifest_security/manifest_declaration_list",
+        },
+        {
+            name: "新建舱单申报", key: "new_manifest_declaration", path: "/manifest_security/new_manifest_declaration",
+        },
+        {
+            name: "安全申报管理", key: "security_filing_management", path: "/manifest_security/security_filing_management",
+        },
+        {
+            name: "申报状态查询", key: "declaration_status_query", path: "/manifest_security/declaration_status_query",
+        },
+        {
+            name: "差错更正处理", key: "error_correction_handling", path: "/manifest_security/error_correction_handling",
+        },
+        {
+            name: "回执管理", key: "receipt_management", path: "/manifest_security/receipt_management",
+        },
+        {
+            name: "申报规则配置", key: "declaration_rule_config", path: "/manifest_security/declaration_rule_config",
+        },
+        {
+            name: "申报统计报表", key: "declaration_statistics_report", path: "/manifest_security/declaration_statistics_report",
+        },
     ]
 },
 {
